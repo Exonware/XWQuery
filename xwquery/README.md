@@ -3,7 +3,7 @@
 **Company:** eXonware.com  
 **Author:** Eng. Muhammad AlShehri  
 **Email:** connect@exonware.com  
-**Version:** 0.0.1.2
+**Version:** 0.0.1.3
 
 ## 🎯 **What is xwquery?**
 

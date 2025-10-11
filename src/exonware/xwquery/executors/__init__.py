@@ -8,7 +8,7 @@ This package implements the execution layer for 50+ XWQuery Script operations.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.3
+Version: 0.0.1.4
 Generation Date: 11-Oct-2025
 """
 

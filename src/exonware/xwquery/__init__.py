@@ -8,7 +8,7 @@ implementing a universal query language that works across all data structures.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.3
+Version: 0.0.1.4
 Generation Date: October 11, 2025
 """
 

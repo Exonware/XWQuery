@@ -7,7 +7,7 @@ Instead of the full path: `from exonware.xwquery import *`
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.1
+Version: 0.0.1.2
 Generation Date: October 11, 2025
 """
 

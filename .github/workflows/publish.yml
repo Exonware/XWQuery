@@ -1,0 +1,78 @@
+name: Dual PyPI Publish - exonware-xwquery & xwquery
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags like v0.0.1, v1.0.0, etc.
+  workflow_dispatch:  # Allows manual trigger of the workflow
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+    
+    - name: Build exonware-xwquery package
+      run: |
+        echo "Building exonware-xwquery package..."
+        python -m build
+        
+    - name: Build xwquery wrapper package
+      run: |
+        echo "Building xwquery wrapper package..."
+        cp pyproject.toml pyproject.backup.toml
+        cp pyproject.xwquery.toml pyproject.toml
+        python -m build --wheel
+        mv pyproject.backup.toml pyproject.toml
+    
+    - name: List built packages
+      run: |
+        echo "Built packages:"
+        find dist -name "*.whl" -o -name "*.tar.gz" | sort
+    
+    - name: Publish exonware-xwquery to PyPI
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: |
+        echo "Publishing exonware-xwquery to PyPI..."
+        ls -la dist/
+        twine upload dist/exonware_xwquery-*.whl dist/exonware_xwquery-*.tar.gz
+    
+    - name: Publish xwquery wrapper to PyPI
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: |
+        echo "Publishing xwquery wrapper to PyPI..."
+        twine upload dist/xwquery-*.whl
+        
+    - name: Success notification
+      run: |
+        echo "✅ Successfully published both packages:"
+        echo "   📦 exonware-xwquery v${{ github.ref_name }} (full package)"
+        echo "   📦 xwquery v${{ github.ref_name }} (wrapper)"
+        echo ""
+        echo "PyPI URLs:"
+        echo "   https://pypi.org/project/exonware-xwquery/"
+        echo "   https://pypi.org/project/xwquery/"
+        echo ""
+        echo "Install with either:"
+        echo "   pip install xwquery  # Recommended (wrapper)"
+        echo "   pip install exonware-xwquery  # Direct"
+        echo ""
+        echo "Both import paths work:"
+        echo "   import xwquery"
+        echo "   import exonware.xwquery"
+

@@ -2,7 +2,7 @@
 # Company: eXonware.com
 # Author: Eng. Muhammad AlShehri
 # Email: connect@exonware.com
-# Version: 0.1.0.10
+# Version: 0.1.0.11
 # Generation Date: 14-Nov-2025
 #
 # xwlazy is a zero-footprint marker package that enables lazy-install mode

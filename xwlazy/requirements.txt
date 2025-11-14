@@ -1,0 +1,47 @@
+# xWLazy Requirements - Marker Package & Wrapper
+# Company: eXonware.com
+# Author: Eng. Muhammad AlShehri
+# Email: connect@exonware.com
+# Version: 0.1.0.10
+# Generation Date: 14-Nov-2025
+#
+# xwlazy is a zero-footprint marker package that enables lazy-install mode
+# across the eXonware suite. It intentionally stays dependency-free so it can
+# be installed instantly on any environment (Python 3.8+).
+#
+# Usage:
+#   pip install -r requirements.txt
+#
+# This file mirrors xwsystem/requirements.txt formatting for consistency, even
+# though the list is empty for now.
+
+# =============================================================================
+# RUNTIME DEPENDENCIES
+# =============================================================================
+
+# (None) - xwlazy has no required runtime dependencies.
+
+# =============================================================================
+# OPTIONAL / DEVELOPMENT DEPENDENCIES
+# =============================================================================
+
+# Build & packaging helpers (install only if you plan to build distributions)
+build>=1.2.1                   # PEP 517 frontend used in CI
+twine>=4.0.2                   # Upload artifacts to PyPI
+
+# Testing / linting helpers (optional)
+pytest>=7.4.0                  # Minimal test harness for wrapper sanity checks
+black>=23.9.0                  # Code formatting
+isort>=5.12.0                  # Import sorting
+flake8>=6.1.0                  # Linting
+
+# =============================================================================
+# NOTES
+# =============================================================================
+#
+# - Keep this file lightweight; xwlazy must stay near-zero install size.
+# - When adding optional tooling, prefer extras/lazy loading rather than
+#   hard dependencies.
+# - The GitHub Actions workflow (publish.yml) installs build & twine directly,
+#   but listing them here helps local contributors mirror the environment.
+

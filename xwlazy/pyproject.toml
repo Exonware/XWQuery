@@ -37,6 +37,7 @@ text = "MIT"
 Homepage = "https://exonware.com"
 Repository = "https://github.com/exonware/xwlazy"
 Documentation = "https://github.com/exonware/xwlazy#readme"
+Subtree = "https://github.com/Exonware/XWLazy.git"
 
 [tool.hatch.version]
 path = "src/xwlazy/version.py"

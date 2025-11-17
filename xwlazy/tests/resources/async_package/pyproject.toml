@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xwlazy-async-sample"
+version = "0.0.1"
+description = "Tiny package used for async install benchmarks."
+authors = [
+  {name = "eXonware Bench Team", email = "connect@exonware.com"}
+]
+requires-python = ">=3.8"
+readme = "README.md"
+
+[project.urls]
+Homepage = "https://exonware.com"
+

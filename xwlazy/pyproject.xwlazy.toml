@@ -46,7 +46,7 @@ Repository = "https://github.com/exonware/xwlazy"
 Documentation = "https://github.com/exonware/xwlazy#readme"
 
 [tool.hatch.version]
-path = "src/exonware/xwlazy/version.py"
+path = "src/xwlazy/version.py"
 
 [tool.hatch.build.targets.wheel]
 only-include = [

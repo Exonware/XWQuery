@@ -24,6 +24,9 @@ import shutil
 import tempfile
 import argparse
 import warnings
+import threading
+import queue
+import gc
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, asdict
@@ -185,6 +188,7 @@ class BenchmarkResult:
     timestamp: str = None
     relative_time: float = 1.0  # Relative to baseline (1.0 = same speed, >1.0 = slower, <1.0 = faster)
     test_mode: str = "lazy_import_only"  # Which test mode was used
+    test_category: str = "standard"  # Category: "standard", "stress", "edge_case"
 
     def __post_init__(self):
         if self.features_supported is None:
@@ -272,6 +276,34 @@ class BenchmarkRunner:
         except Exception as e:
             print(f"  Error installing: {e}")
             return False, None
+
+    def _get_library_version(self, library_name: str) -> Optional[str]:
+        """Get installed library version without reinstalling.
+        
+        Why: Allows verification of pre-installed libraries without reinstalling.
+        
+        Args:
+            library_name: Name of the library to check
+            
+        Returns:
+            Version string if installed, None otherwise
+        """
+        lib_info = LIBRARIES.get(library_name)
+        if not lib_info:
+            return None
+
+        pypi_name = lib_info["pypi"]
+        try:
+            if _USE_IMPORTLIB:
+                dist = distribution(pypi_name)
+                return dist.version
+            elif _USE_IMPORTLIB is False:
+                dist = pkg_resources.get_distribution(pypi_name)
+                return dist.version
+            else:
+                return None
+        except (PackageNotFoundError, Exception):
+            return None
 
     def get_package_size(self, library_name: str) -> float:
         """Get installed package size in MB.
@@ -920,7 +952,10 @@ class BenchmarkRunner:
 
         return features
 
-    def run_benchmark(self, library_name: str, test_name: str = None, baseline_time: float = None, skip_uninstall: bool = False, test_mode: str = "lazy_import_only") -> List[BenchmarkResult]:
+    def run_benchmark(self, library_name: str, test_name: str = None, baseline_time: float = None, 
+                     skip_uninstall: bool = False, test_mode: str = "lazy_import_only",
+                     pre_installed: bool = False, run_stress: bool = False, 
+                     run_edge_cases: bool = False) -> List[BenchmarkResult]:
         """Run benchmarks for a library.
         
         Why: Ensures fair comparison by using same baseline for all libraries.
@@ -931,26 +966,50 @@ class BenchmarkRunner:
             baseline_time: Pre-calculated baseline time
             skip_uninstall: Skip uninstall step
             test_mode: Test mode to use (lazy_import_only, lazy_import_install, etc.)
+            pre_installed: If True, skip uninstall/install and use already installed library
+            run_stress: If True, run stress tests
+            run_edge_cases: If True, run edge case tests
         """
         print(f"\n{'='*80}")
         print(f"Testing: {library_name}")
         if test_mode in TEST_MODES:
             print(f"Mode: {TEST_MODES[test_mode]['category']}")
+        if pre_installed:
+            print("Scenario: Pre-Installed (Warm Performance)")
+        if run_stress:
+            print("Scenario: Stress Tests")
+        if run_edge_cases:
+            print("Scenario: Edge Cases")
         print(f"{'='*80}")
 
         results = []
 
-        # Uninstall first (unless skipped)
-        if not skip_uninstall:
-            self.uninstall_library(library_name)
+        # Handle pre-installed mode
+        if pre_installed:
+            # Verify library is installed (check version)
+            version = self._get_library_version(library_name)
+            if version:
+                print(f"  ✅ Using pre-installed version: {version}")
+            else:
+                # Install if not found
+                print(f"  ⚠️  Library not found, installing...")
+                success, version = self.install_library(library_name)
+                if not success:
+                    print(f"  ❌ Failed to install {library_name}")
+                    return results
+                print(f"  ✅ Installed version: {version}")
+        else:
+            # Standard flow: uninstall, install
+            if not skip_uninstall:
+                self.uninstall_library(library_name)
 
-        # Install
-        success, version = self.install_library(library_name)
-        if not success:
-            print(f"  ❌ Failed to install {library_name}")
-            return results
+            # Install
+            success, version = self.install_library(library_name)
+            if not success:
+                print(f"  ❌ Failed to install {library_name}")
+                return results
 
-        print(f"  ✅ Installed version: {version}")
+            print(f"  ✅ Installed version: {version}")
 
         # Get baseline if not provided
         if baseline_time is None:
@@ -988,22 +1047,56 @@ class BenchmarkRunner:
             else:
                 print(f"    ❌ Failed: {result.error}")
 
-        # Uninstall after testing (unless skipped)
-        if not skip_uninstall:
+        # Run stress tests if requested
+        if run_stress:
+            print(f"\n  Running stress tests...")
+            stress_results = self._run_stress_tests(library_name, baseline_time, test_mode)
+            results.extend(stress_results)
+
+        # Run edge case tests if requested
+        if run_edge_cases:
+            print(f"\n  Running edge case tests...")
+            edge_results = self._run_edge_case_tests(library_name, baseline_time, test_mode)
+            results.extend(edge_results)
+
+        # Uninstall after testing (unless skipped or pre-installed)
+        if not pre_installed and not skip_uninstall:
             self.uninstall_library(library_name)
 
         return results
 
-    def _generate_benchmark_filename(self, description: str = "COMPETITION") -> str:
-        """Generate benchmark filename following GUIDE_DOCS.md naming convention.
+    def _generate_benchmark_filename(self, description: str = "COMPETITION", 
+                                     pre_installed: bool = False,
+                                     stress: bool = False,
+                                     edge_cases: bool = False) -> str:
+        """Generate benchmark filename following GUIDE_BENCH.md naming convention.
         
-        Format: BENCH_YYYYMMDD_HHMM_DESCRIPTION
+        Format: BENCH_YYYYMMDD_HHMM_DESCRIPTION_SUFFIXES
         Why: Follows eXonware documentation standards for benchmark logs.
+        
+        Args:
+            description: Base description for the benchmark
+            pre_installed: Whether pre-installed scenario was used
+            stress: Whether stress tests were run
+            edge_cases: Whether edge case tests were run
         """
         now = datetime.now()
         date_str = now.strftime("%Y%m%d")
         time_str = now.strftime("%H%M")
-        return f"BENCH_{date_str}_{time_str}_{description}"
+        base_name = f"BENCH_{date_str}_{time_str}_{description}"
+        
+        suffixes = []
+        if pre_installed:
+            suffixes.append("PREINSTALLED")
+        if stress:
+            suffixes.append("STRESS")
+        if edge_cases:
+            suffixes.append("EDGECASES")
+        
+        if suffixes:
+            base_name += "_" + "_".join(suffixes)
+        
+        return base_name
 
     def save_results(self, results: List[BenchmarkResult], description: str = "COMPETITION"):
         """Save results to JSON following BENCH_* naming convention."""
@@ -1193,6 +1286,26 @@ def main():
         choices=list(TEST_MODES.keys()) + ["all"],
         default="all",
         help="Test mode to run (default: all). Modes: lazy_import_only (fair comparison), lazy_import_install, lazy_import_discovery, lazy_import_monitoring, full_features",
+    )
+    parser.add_argument(
+        "--pre-installed",
+        action="store_true",
+        help="Run benchmarks with libraries already installed (warm performance, no installation overhead)",
+    )
+    parser.add_argument(
+        "--stress",
+        action="store_true",
+        help="Run stress tests (concurrent imports, rapid sequential, memory pressure, circular imports)",
+    )
+    parser.add_argument(
+        "--edge-cases",
+        action="store_true",
+        help="Run edge case tests (missing dependencies, invalid names, circular imports, thread safety)",
+    )
+    parser.add_argument(
+        "--all-scenarios",
+        action="store_true",
+        help="Run all scenarios: standard + pre-installed + stress + edge cases",
     )
 
     args = parser.parse_args()

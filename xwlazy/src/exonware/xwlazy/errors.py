@@ -1,16 +1,16 @@
 """
-#exonware/xwsystem/src/exonware/xwsystem/utils/lazy_package/lazy_errors.py
+#exonware/xwlazy/src/exonware/xwlazy/errors.py
 
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.16
+Version: 0.1.0.17
 Generation Date: 10-Oct-2025
 
 Errors for Lazy Loading System
 
 This module defines all exception classes for the lazy loading system
-following DEV_GUIDELINES.md structure.
+following GUIDE_ARCH.md structure.
 """
 
 from typing import Optional, Any
@@ -135,7 +135,7 @@ class DeferredImportError(Exception):
     - Caches successful imports to avoid repeated installs
     
     Note: This is both an error class and a proxy object. It stays in
-    lazy_errors.py because it represents an error state, but acts as
+    errors.py because it represents an error state, but acts as
     a proxy until resolved.
     """
     
@@ -181,11 +181,11 @@ class DeferredImportError(Exception):
         Raises:
             Original ImportError if installation fails or is disabled
         """
-        # Import here to avoid circular imports
-        from .lazy_core import lazy_import_with_install, is_lazy_install_enabled
-        from .logging_utils import get_logger
+        # Import from facade and new structure
+        from .facade import lazy_import_with_install, is_lazy_install_enabled
+        from .common.utils.logging import get_logger
         
-        logger = get_logger("xwlazy.lazy")
+        logger = get_logger("xwlazy")
         logger.info(f"[STAGE 2] _try_install_and_import called for '{self._import_name}'")
         
         # Return cached module if already installed
@@ -203,6 +203,19 @@ class DeferredImportError(Exception):
         if self._async_handle is not None:
             logger.info(f"[STAGE 2] Waiting for async install of '{self._import_name}' to finish")
             self._async_handle.wait()
+            
+            # After async install, try simple import first (cache invalidation needed)
+            try:
+                import importlib
+                import sys
+                importlib.invalidate_caches()
+                sys.path_importer_cache.clear()
+                module = importlib.import_module(self._import_name)
+                self._real_module = module
+                logger.info(f"✅ [STAGE 2] Successfully loaded '{self._import_name}' after async install")
+                return module
+            except ImportError:
+                pass  # Fall through to lazy_import_with_install
         
         if not is_lazy_install_enabled(self._installer_package):
             logger.warning(f"[STAGE 2] Lazy install disabled for {self._installer_package}, cannot load {self._import_name}")

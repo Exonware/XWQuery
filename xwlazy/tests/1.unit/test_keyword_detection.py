@@ -7,6 +7,11 @@ a keyword to their pyproject.toml metadata.
 
 from __future__ import annotations
 
+import pytest
+
+# Mark all tests in this file as unit tests
+pytestmark = pytest.mark.xwlazy_unit
+
 import sys
 from unittest.mock import MagicMock, patch
 
@@ -22,7 +27,7 @@ if str(__file__).endswith("test_keyword_detection.py"):
     if str(src_root) not in sys.path:
         sys.path.insert(0, str(src_root))
 
-from xwlazy.lazy.lazy_core import (
+from exonware.xwlazy import (
     _check_package_keywords,
     check_package_keywords,
     enable_keyword_detection,
@@ -159,7 +164,7 @@ class TestKeywordDetection:
         enable_keyword_detection(enabled=True)
         
         # Should work the same as private function
-        with patch('xwlazy.lazy.lazy_core._check_package_keywords', return_value=True) as mock_check:
+        with patch('exonware.xwlazy.facade._check_package_keywords', return_value=True) as mock_check:
             result = check_package_keywords()
             assert result is True
             mock_check.assert_called_once_with(None, None)

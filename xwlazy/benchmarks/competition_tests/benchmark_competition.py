@@ -113,62 +113,73 @@ LIBRARIES = {
 }
 
 
-# Test mode definitions - split by feature categories
+# Test mode definitions - using new two-dimensional mode system
 TEST_MODES = {
     "lazy_import_only": {
-        "description": "Basic lazy import (fair comparison - all libraries)",
+        "description": "Basic lazy import (fair comparison - all libraries) - LITE mode",
         "xwlazy_config": {
-            "lazy_import": True,
-            "lazy_install": False,
-            "lazy_discovery": False,
-            "lazy_monitoring": False,
-            "keyword_detection": False,
+            "mode": "lite",  # AUTO load + NONE install
         },
         "category": "Basic Lazy Import",
     },
     "lazy_import_install": {
-        "description": "Lazy import + auto-install",
+        "description": "Lazy import + auto-install - SMART mode (on-demand)",
         "xwlazy_config": {
-            "lazy_import": True,
-            "lazy_install": True,
-            "lazy_discovery": False,
-            "lazy_monitoring": False,
-            "keyword_detection": False,
+            "mode": "smart",  # AUTO load + SMART install
         },
         "category": "Lazy Import + Install",
     },
-    "lazy_import_discovery": {
-        "description": "Lazy import + dependency discovery",
+    "lazy_import_preload": {
+        "description": "Preload all modules on start - PRELOAD mode",
         "xwlazy_config": {
-            "lazy_import": True,
-            "lazy_install": False,
-            "lazy_discovery": True,
-            "lazy_monitoring": False,
-            "keyword_detection": False,
+            "load_mode": "preload",
+            "install_mode": "none",
         },
-        "category": "Lazy Import + Discovery",
+        "category": "Preload Mode",
     },
-    "lazy_import_monitoring": {
-        "description": "Lazy import + performance monitoring",
+    "lazy_import_background": {
+        "description": "Background loading - BACKGROUND mode",
         "xwlazy_config": {
-            "lazy_import": True,
-            "lazy_install": False,
-            "lazy_discovery": False,
-            "lazy_monitoring": True,
-            "keyword_detection": False,
+            "load_mode": "background",
+            "install_mode": "none",
         },
-        "category": "Lazy Import + Monitoring",
+        "category": "Background Loading",
+    },
+    "full_install_mode": {
+        "description": "Install all dependencies on start - FULL mode",
+        "xwlazy_config": {
+            "mode": "full",  # AUTO load + FULL install
+        },
+        "category": "Full Install Mode",
+    },
+    "clean_mode": {
+        "description": "Install on usage + uninstall after - CLEAN mode",
+        "xwlazy_config": {
+            "mode": "clean",  # AUTO load + CLEAN install
+        },
+        "category": "Clean Mode",
+    },
+    "auto_mode": {
+        "description": "Smart install + auto-uninstall large - AUTO mode",
+        "xwlazy_config": {
+            "mode": "auto",  # AUTO load + SMART install + auto-uninstall large
+        },
+        "category": "Auto Mode",
     },
     "full_features": {
-        "description": "All features enabled (xwlazy showcase)",
+        "description": "All features enabled (xwlazy showcase) - AUTO mode with optimizations",
         "xwlazy_config": {
-            "lazy_import": True,
-            "lazy_install": True,
-            "lazy_discovery": True,
-            "lazy_monitoring": True,
-            "keyword_detection": True,
+            "mode": "auto",  # Best performance mode
         },
         "category": "Full Features",
+    },
+    "intelligent_mode": {
+        "description": "INTELLIGENT mode - Automatically selects optimal mode based on load level (benchmark-optimized)",
+        "xwlazy_config": {
+            "load_mode": "intelligent",  # Automatically switches to fastest mode per load level
+            "install_mode": "none",  # Will be overridden by intelligent mode
+        },
+        "category": "Intelligent Mode",
     },
 }
 
@@ -443,9 +454,14 @@ class BenchmarkRunner:
                     module = importlib.import_module(import_name)
                 except SyntaxError as e:
                     # Handle Python 2 compatibility issues (e.g., pipimport)
-                    if "print" in str(e).lower() and "parentheses" in str(e).lower():
+                    # For pipimport, try to continue anyway as it might work with install()
+                    if library_name == "pipimport":
+                        # pipimport requires install() to be called, so we'll handle it in the adapter
+                        module = None  # Will be set by adapter if it works
+                    elif "print" in str(e).lower() and "parentheses" in str(e).lower():
                         raise ImportError(f"Library {library_name} is not compatible with Python 3 (Python 2 syntax detected)")
-                    raise
+                    else:
+                        raise
                 elapsed = (time.perf_counter() - start_time) * 1000
                 times.append(elapsed)
             
@@ -536,9 +552,14 @@ class BenchmarkRunner:
                 module = importlib.import_module(import_name)
             except SyntaxError as e:
                 # Handle Python 2 compatibility issues (e.g., pipimport)
-                if "print" in str(e).lower() and "parentheses" in str(e).lower():
+                # For pipimport, try to continue anyway as it might work with install()
+                if library_name == "pipimport":
+                    # pipimport requires install() to be called, so we'll handle it in the adapter
+                    module = None  # Will be set by adapter if it works
+                elif "print" in str(e).lower() and "parentheses" in str(e).lower():
                     raise ImportError(f"Library {library_name} is not compatible with Python 3 (Python 2 syntax detected)")
-                raise
+                else:
+                    raise
             
             # Try to enable lazy mode using adapter with test_mode config
             try:
@@ -606,6 +627,7 @@ class BenchmarkRunner:
                 features_supported=features,
                 relative_time=relative_time,
                 test_mode=test_mode,
+                test_category="standard",
             )
         except Exception as e:
             return BenchmarkResult(
@@ -618,6 +640,7 @@ class BenchmarkRunner:
                 success=False,
                 error=str(e),
                 test_mode=test_mode,
+                test_category="standard",
             )
 
     def test_heavy_load(self, library_name: str, baseline_time: float = None, test_mode: str = "lazy_import_only") -> BenchmarkResult:
@@ -662,9 +685,14 @@ class BenchmarkRunner:
                 module = importlib.import_module(import_name)
             except SyntaxError as e:
                 # Handle Python 2 compatibility issues (e.g., pipimport)
-                if "print" in str(e).lower() and "parentheses" in str(e).lower():
+                # For pipimport, try to continue anyway as it might work with install()
+                if library_name == "pipimport":
+                    # pipimport requires install() to be called, so we'll handle it in the adapter
+                    module = None  # Will be set by adapter if it works
+                elif "print" in str(e).lower() and "parentheses" in str(e).lower():
                     raise ImportError(f"Library {library_name} is not compatible with Python 3 (Python 2 syntax detected)")
-                raise
+                else:
+                    raise
             
             # Try to enable lazy mode using adapter with test_mode config
             try:
@@ -737,6 +765,7 @@ class BenchmarkRunner:
                 features_supported=features,
                 relative_time=relative_time,
                 test_mode=test_mode,
+                test_category="standard",
             )
         except Exception as e:
             return BenchmarkResult(
@@ -749,6 +778,7 @@ class BenchmarkRunner:
                 success=False,
                 error=str(e),
                 test_mode=test_mode,
+                test_category="standard",
             )
 
     def test_enterprise_load(self, library_name: str, baseline_time: float = None, test_mode: str = "lazy_import_only") -> BenchmarkResult:
@@ -799,9 +829,14 @@ class BenchmarkRunner:
                 module = importlib.import_module(import_name)
             except SyntaxError as e:
                 # Handle Python 2 compatibility issues (e.g., pipimport)
-                if "print" in str(e).lower() and "parentheses" in str(e).lower():
+                # For pipimport, try to continue anyway as it might work with install()
+                if library_name == "pipimport":
+                    # pipimport requires install() to be called, so we'll handle it in the adapter
+                    module = None  # Will be set by adapter if it works
+                elif "print" in str(e).lower() and "parentheses" in str(e).lower():
                     raise ImportError(f"Library {library_name} is not compatible with Python 3 (Python 2 syntax detected)")
-                raise
+                else:
+                    raise
             
             # Try to enable lazy mode using adapter with test_mode config
             try:
@@ -909,6 +944,7 @@ class BenchmarkRunner:
                 features_supported=features,
                 relative_time=relative_time,
                 test_mode=test_mode,
+                test_category="standard",
             )
         except Exception as e:
             return BenchmarkResult(
@@ -921,6 +957,7 @@ class BenchmarkRunner:
                 success=False,
                 error=str(e),
                 test_mode=test_mode,
+                test_category="standard",
             )
 
     def detect_features(self, module: Any, library_name: str, test_mode: str = "lazy_import_only") -> List[str]:
@@ -1205,20 +1242,31 @@ class BenchmarkRunner:
             times = []
             start_time = time.perf_counter()
             
+            # Protect critical modules that shouldn't be deleted
+            protected_modules = {"sys", "os", "builtins", "__builtin__", "importlib", "importlib.util", "collections"}
+            
             for mod in test_modules:
                 try:
-                    # Clear from cache to test fresh import
-                    if mod in sys.modules:
+                    # Clear from cache to test fresh import (but protect critical modules)
+                    if mod in sys.modules and mod not in protected_modules:
                         del sys.modules[mod]
                 except:
                     pass
                 
                 mod_start = time.perf_counter()
                 try:
+                    # Ensure parent module is loaded for submodules
+                    if "." in mod:
+                        parent_mod = mod.split(".")[0]
+                        if parent_mod not in sys.modules:
+                            try:
+                                importlib.import_module(parent_mod)
+                            except:
+                                pass
                     importlib.import_module(mod)
                     mod_elapsed = (time.perf_counter() - mod_start) * 1000
                     times.append(mod_elapsed)
-                except (ImportError, SyntaxError):
+                except (ImportError, SyntaxError, AttributeError):
                     pass  # Skip modules that can't be imported
             
             total_time = (time.perf_counter() - start_time) * 1000
@@ -1568,19 +1616,30 @@ class BenchmarkRunner:
             
             start_time = time.perf_counter()
             
+            # Protect critical modules that shouldn't be deleted
+            protected_modules = {"sys", "os", "builtins", "__builtin__", "importlib", "importlib.util", "collections"}
+            
             for mod in large_modules:
                 try:
-                    if mod in sys.modules:
+                    if mod in sys.modules and mod not in protected_modules:
                         del sys.modules[mod]
                 except:
                     pass
                 
                 try:
+                    # Ensure parent module is loaded for submodules
+                    if "." in mod:
+                        parent_mod = mod.split(".")[0]
+                        if parent_mod not in sys.modules:
+                            try:
+                                importlib.import_module(parent_mod)
+                            except:
+                                pass
                     importlib.import_module(mod)
                     # Check memory after each import
                     current_memory = self.process.memory_info().rss / (1024 * 1024)
                     peak_memory = max(peak_memory, current_memory)
-                except (ImportError, SyntaxError):
+                except (ImportError, SyntaxError, AttributeError):
                     pass
             
             elapsed = (time.perf_counter() - start_time) * 1000
@@ -1648,10 +1707,13 @@ class BenchmarkRunner:
             memory_before = self.process.memory_info().rss / (1024 * 1024)
             start_time = time.perf_counter()
             
+            # Protect critical modules that shouldn't be deleted
+            protected_modules = {"sys", "os", "builtins", "__builtin__", "importlib", "importlib.util", "collections"}
+            
             # Mix lazy and standard imports
             for i, mod in enumerate(test_modules):
                 try:
-                    if mod in sys.modules:
+                    if mod in sys.modules and mod not in protected_modules:
                         del sys.modules[mod]
                 except:
                     pass
@@ -2599,7 +2661,7 @@ class BenchmarkRunner:
                             f.write("|------|---------|-----------|----------|\n")
                             for rank, result in enumerate(sorted_results[:3], start=1):
                                 if rank == 1:
-                                    medal = " 👑"
+                                    medal = " 🥇"
                                 elif rank == 2:
                                     medal = " 🥈"
                                 elif rank == 3:
@@ -2627,7 +2689,7 @@ class BenchmarkRunner:
                             # Add medal emoji based on ranking
                             rank = rankings.get((result.library, result.test_name, result.test_mode))
                             if rank == 1:
-                                medal = " 👑"
+                                medal = " 🥇"
                             elif rank == 2:
                                 medal = " 🥈"
                             elif rank == 3:
@@ -2652,7 +2714,7 @@ class BenchmarkRunner:
                             # Get the best ranking for this library
                             best_rank = min((rankings.get((library, r.test_name, r.test_mode)) or 999 for r in lib_results), default=999)
                             if best_rank == 1:
-                                medal = " 👑"
+                                medal = " 🥇"
                             elif best_rank == 2:
                                 medal = " 🥈"
                             elif best_rank == 3:
@@ -2667,7 +2729,7 @@ class BenchmarkRunner:
                             # Add medal emoji to test name based on ranking
                             rank = rankings.get((result.library, result.test_name, result.test_mode))
                             if rank == 1:
-                                medal = " 👑"
+                                medal = " 🥇"
                             elif rank == 2:
                                 medal = " 🥈"
                             elif rank == 3:
@@ -2689,6 +2751,42 @@ class BenchmarkRunner:
                             f.write("\n")
                     
                     f.write("\n")  # Add spacing between modes
+            
+            # Calculate overall winner across all categories
+            # Collect all rankings from all categories
+            all_rankings = {}
+            for category_results in by_category.values():
+                for mode_results in category_results.values():
+                    for result in mode_results:
+                        if result.success:
+                            key = (result.test_name, result.test_mode)
+                            if key not in all_rankings:
+                                all_rankings[key] = []
+                            all_rankings[key].append(result)
+            
+            # Calculate rankings for overall winner
+            library_wins = {}
+            for key, test_results in all_rankings.items():
+                if test_results:
+                    sorted_results = sorted(test_results, key=lambda r: r.import_time_ms)
+                    for rank, result in enumerate(sorted_results[:1], start=1):  # Only count first place
+                        if rank == 1:
+                            library_wins[result.library] = library_wins.get(result.library, 0) + 1
+            
+            # Determine overall winner (library with most first place wins)
+            if library_wins:
+                overall_winner = max(library_wins.items(), key=lambda x: x[1])
+                winner_name, winner_count = overall_winner
+                
+                f.write("## Overall Winner 👑\n\n")
+                f.write(f"**{winner_name} 👑** wins with **{winner_count} first place victory(ies)** across all test categories!\n\n")
+                f.write("### Winner Summary\n\n")
+                f.write("| Library | First Place Wins |\n")
+                f.write("|---------|------------------|\n")
+                for library, wins in sorted(library_wins.items(), key=lambda x: x[1], reverse=True):
+                    crown = " 👑" if library == winner_name else ""
+                    f.write(f"| {library}{crown} | {wins} |\n")
+                f.write("\n")
 
         print(f"📊 Report saved to: {report_path}")
 
@@ -2789,10 +2887,8 @@ def main():
             print(f"{'='*80}\n")
 
         for library_name in libraries_to_test:
-            # For non-xwlazy libraries, only run in lazy_import_only mode
-            # (other modes are xwlazy-specific)
-            if library_name != "xwlazy" and test_mode != "lazy_import_only":
-                continue
+            # Test all libraries in all modes
+            # (non-xwlazy libraries will use their default behavior in xwlazy-specific modes)
             
             results = runner.run_benchmark(
                 library_name, 

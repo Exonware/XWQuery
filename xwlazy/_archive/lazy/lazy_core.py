@@ -50,16 +50,26 @@ import sysconfig
 import tempfile
 import zipfile
 import inspect
+# Import collections.abc explicitly to ensure it's available before asyncio imports it
+import collections.abc  # noqa: F401
+import asyncio
 from collections import Counter, OrderedDict, defaultdict
 from contextlib import suppress
 from functools import lru_cache
 from concurrent.futures import Future, ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Set, Tuple, Any, Callable
+from typing import Dict, Iterable, List, Optional, Set, Tuple, Any, Callable, Coroutine
 from types import ModuleType
 
-from .lazy_contracts import DependencyInfo, LazyInstallMode
+from .lazy_contracts import (
+    DependencyInfo, 
+    LazyInstallMode, 
+    LazyLoadMode, 
+    LazyModeConfig,
+    get_preset_mode,
+    PRESET_MODES,
+)
 from .lazy_errors import (
     LazySystemError,
     LazyInstallError,
@@ -398,6 +408,7 @@ class LazyDiscovery(APackageDiscovery):
         self._discover_from_requirements_txt()
         self._discover_from_setup_py()
         self._discover_from_custom_config()
+        self._add_common_mappings()  # Add well-known mappings (bson->pymongo, cv2->opencv-python, etc.)
     
     def _is_cache_valid(self) -> bool:
         """Check if cached dependencies are still valid."""
@@ -822,6 +833,15 @@ _SPEC_CACHE_TTL = float(os.environ.get("XWLAZY_SPEC_CACHE_TTL", "60") or 60.0)
 _spec_cache_lock = threading.RLock()
 _spec_cache: "OrderedDict[str, Tuple[importlib.machinery.ModuleSpec, float]]" = OrderedDict()
 
+# Multi-level cache: L1 (in-memory) + L2 (disk)
+_CACHE_L2_DIR = Path(
+    os.environ.get(
+        "XWLAZY_CACHE_DIR",
+        os.path.join(os.path.expanduser("~"), ".xwlazy", "cache"),
+    )
+)
+_CACHE_L2_DIR.mkdir(parents=True, exist_ok=True)
+
 _DEFAULT_ASYNC_CACHE_DIR = Path(
     os.environ.get(
         "XWLAZY_ASYNC_CACHE_DIR",
@@ -845,10 +865,11 @@ class LazyInstaller(APackageInstaller):
         '_auto_approve_all',
         '_async_enabled',
         '_async_workers',
-        '_async_executor',
-        '_async_pending',
+        '_async_loop',
+        '_async_tasks',
         '_known_missing',
         '_async_cache_dir',
+        '_loop_thread',
     )
     
     def __init__(self, package_name: str = 'default'):
@@ -858,10 +879,11 @@ class LazyInstaller(APackageInstaller):
         self._auto_approve_all = False
         self._async_enabled = False
         self._async_workers = 1
-        self._async_executor: Optional[ThreadPoolExecutor] = None
-        self._async_pending: Dict[str, Future] = {}
+        self._async_loop: Optional[asyncio.AbstractEventLoop] = None
+        self._async_tasks: Dict[str, asyncio.Task] = {}
         self._known_missing: "OrderedDict[str, float]" = OrderedDict()
         self._async_cache_dir = _DEFAULT_ASYNC_CACHE_DIR
+        self._loop_thread: Optional[threading.Thread] = None
     
     def _ask_user_permission(self, package_name: str, module_name: str) -> bool:
         """Ask user for permission to install a package."""
@@ -904,6 +926,10 @@ class LazyInstaller(APackageInstaller):
     
     def install_package(self, package_name: str, module_name: str = None) -> bool:
         """Install a package using pip."""
+        # Prevent re-entrant installation from same thread (pip imports trigger our hook)
+        if getattr(_installing, 'active', False):
+            return False
+        
         with self._lock:
             if package_name in self._installed_packages:
                 return True
@@ -911,7 +937,7 @@ class LazyInstaller(APackageInstaller):
             if package_name in self._failed_packages:
                 return False
             
-            if self._mode == LazyInstallMode.DISABLED:
+            if self._mode == LazyInstallMode.DISABLED or self._mode == LazyInstallMode.NONE:
                 _log("install", f"Lazy installation disabled for {self._package_name}, skipping {package_name}")
                 return False
             
@@ -929,6 +955,51 @@ class LazyInstaller(APackageInstaller):
                     _log("install", f"User declined installation of {package_name}")
                     self._failed_packages.add(package_name)
                     return False
+            
+            # SMART mode: Use SYNCHRONOUS installation (async causes race conditions)
+            # Code needs the module immediately after import, so installation must complete first
+            if self._mode == LazyInstallMode.SMART:
+                # SMART mode uses synchronous install - no async here
+                pass  # Fall through to synchronous installation below
+            
+            # CLEAN mode: Install on usage + schedule uninstall after completion
+            if self._mode == LazyInstallMode.CLEAN:
+                # Enable async if not already enabled
+                if not self._async_enabled:
+                    self._async_enabled = True
+                    self._ensure_async_loop()
+                # Schedule async install (uninstall will be scheduled in _async_install_package)
+                if module_name:
+                    handle = self.schedule_async_install(module_name)
+                    if handle:
+                        return True  # Installation scheduled, will complete async and then uninstall
+                # Fall through to sync install if async scheduling failed
+            
+            # TEMPORARY mode: Always uninstall after use (more aggressive than CLEAN)
+            if self._mode == LazyInstallMode.TEMPORARY:
+                # Enable async if not already enabled
+                if not self._async_enabled:
+                    self._async_enabled = True
+                    self._ensure_async_loop()
+                # Schedule async install (uninstall will happen immediately after in _async_install_package)
+                if module_name:
+                    handle = self.schedule_async_install(module_name)
+                    if handle:
+                        return True  # Installation scheduled, will complete async and then uninstall immediately
+                # Fall through to sync install if async scheduling failed
+            
+            # SIZE_AWARE mode: Install small packages, skip large ones
+            if self._mode == LazyInstallMode.SIZE_AWARE:
+                # Enable async if not already enabled
+                if not self._async_enabled:
+                    self._async_enabled = True
+                    self._ensure_async_loop()
+                # Schedule async install (size check happens in _async_install_package)
+                if module_name:
+                    handle = self.schedule_async_install(module_name)
+                    if handle:
+                        return True  # Installation scheduled, size will be checked async
+                # Fall through to sync install if async scheduling failed
             
             # Security checks
             if _is_externally_managed():
@@ -965,6 +1036,9 @@ class LazyInstaller(APackageInstaller):
             
             # Proceed with installation
             try:
+                # Set flag to prevent recursion during pip install
+                _installing.active = True
+                
                 print_formatted("INFO", f"Installing package: {package_name}", same_line=True)
                 policy_args = LazyInstallPolicy.get_pip_args(self._package_name) or []
 
@@ -1043,6 +1117,9 @@ class LazyInstaller(APackageInstaller):
                 print(f"[ERROR] Unexpected error: {e}\n")
                 self._failed_packages.add(package_name)
                 return False
+            finally:
+                # Always clear the installing flag
+                _installing.active = False
 
     def _finalize_install_success(self, package_name: str, source: str) -> None:
         self._installed_packages.add(package_name)
@@ -1050,6 +1127,11 @@ class LazyInstaller(APackageInstaller):
         print_formatted("SUCCESS", f"Successfully installed via {source}: {package_name}", same_line=True)
         # Add newline after final message so cursor moves to next line
         print()
+        
+        # CRITICAL: Invalidate import caches so Python can see newly installed modules
+        importlib.invalidate_caches()
+        sys.path_importer_cache.clear()  # Also clear path importer cache
+        
         if _check_pip_audit_available():
             self._run_vulnerability_audit(package_name)
         self._update_lockfile(package_name)
@@ -1137,6 +1219,38 @@ class LazyInstaller(APackageInstaller):
             logger.debug(f"Could not get version for {package_name}: {e}")
         return None
     
+    def _ensure_async_loop(self) -> asyncio.AbstractEventLoop:
+        """Ensure async event loop is running in background thread."""
+        if self._async_loop is not None and self._async_loop.is_running():
+            return self._async_loop
+        
+        with self._lock:
+            if self._async_loop is None or not self._async_loop.is_running():
+                # Create new event loop in background thread
+                loop_ready = threading.Event()
+                loop_ref = [None]  # Use list for mutable reference
+                
+                def _run_loop():
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
+                    loop_ref[0] = loop
+                    self._async_loop = loop
+                    loop_ready.set()
+                    loop.run_forever()
+                
+                self._loop_thread = threading.Thread(
+                    target=_run_loop,
+                    daemon=True,
+                    name=f"xwlazy-{self._package_name}-async"
+                )
+                self._loop_thread.start()
+                
+                # Wait for loop to be ready (with timeout)
+                if not loop_ready.wait(timeout=5.0):
+                    raise RuntimeError(f"Failed to start async loop for {self._package_name}")
+        
+        return self._async_loop
+    
     def apply_manifest(self, manifest: Optional[PackageManifest]) -> None:
         """Apply manifest-driven configuration such as async installs."""
         env_override = _ENV_ASYNC_INSTALL
@@ -1145,15 +1259,17 @@ class LazyInstaller(APackageInstaller):
         desired_workers = max(1, desired_workers)
         
         with self._lock:
-            if desired_workers != self._async_workers and self._async_executor:
-                self._async_executor.shutdown(wait=False)
-                self._async_executor = None
             self._async_workers = desired_workers
             
-            if not desired_async and self._async_executor:
-                self._async_executor.shutdown(wait=False)
-                self._async_executor = None
-                self._async_pending.clear()
+            if desired_async:
+                self._ensure_async_loop()
+            else:
+                # Cancel all pending tasks
+                if self._async_loop is not None:
+                    for task in list(self._async_tasks.values()):
+                        if not task.done():
+                            task.cancel()
+                    self._async_tasks.clear()
             
             self._async_enabled = desired_async
     
@@ -1348,8 +1464,206 @@ class LazyInstaller(APackageInstaller):
             return None
         return self.schedule_async_install(module_name)
     
+    async def _get_package_size_mb(self, package_name: str) -> Optional[float]:
+        """
+        Get package size in MB by checking pip show or download size.
+        Returns None if size cannot be determined.
+        """
+        try:
+            # Try to get size from pip show (if installed)
+            process = await asyncio.create_subprocess_exec(
+                sys.executable, '-m', 'pip', 'show', package_name,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            stdout, _ = await process.communicate()
+            
+            if process.returncode == 0:
+                # Parse pip show output for location
+                output = stdout.decode()
+                for line in output.split('\n'):
+                    if line.startswith('Location:'):
+                        location = line.split(':', 1)[1].strip()
+                        # Calculate size of package directory
+                        try:
+                            import os
+                            total_size = 0
+                            for dirpath, dirnames, filenames in os.walk(location):
+                                for filename in filenames:
+                                    filepath = os.path.join(dirpath, filename)
+                                    if os.path.exists(filepath):
+                                        total_size += os.path.getsize(filepath)
+                            return total_size / (1024 * 1024)  # Convert to MB
+                        except Exception:
+                            pass
+        except Exception:
+            pass
+        
+        # Fallback: Try to get download size from PyPI
+        try:
+            import urllib.request
+            import json
+            url = f"https://pypi.org/pypi/{package_name}/json"
+            with urllib.request.urlopen(url, timeout=5) as response:
+                data = json.loads(response.read())
+                # Get size of latest release wheel
+                if 'urls' in data and data['urls']:
+                    latest = data['urls'][0]
+                    if 'size' in latest:
+                        return latest['size'] / (1024 * 1024)  # Convert to MB
+        except Exception:
+            pass
+        
+        return None
+    
+    async def _async_install_package(self, package_name: str, module_name: str) -> bool:
+        """Async version of install_package using asyncio subprocess."""
+        # SIZE_AWARE mode: Check package size before installing
+        if self._mode == LazyInstallMode.SIZE_AWARE:
+            mode_config = LazyInstallConfig.get_mode_config(self._package_name)
+            threshold_mb = mode_config.large_package_threshold_mb if mode_config else 50.0
+            
+            size_mb = await self._get_package_size_mb(package_name)
+            if size_mb is not None and size_mb >= threshold_mb:
+                logger.warning(f"Package '{package_name}' is {size_mb:.1f}MB (>= {threshold_mb}MB threshold), skipping installation in SIZE_AWARE mode")
+                print(f"[SIZE_AWARE] Skipping large package '{package_name}' ({size_mb:.1f}MB >= {threshold_mb}MB)")
+                self._failed_packages.add(package_name)
+                return False
+        
+        # Check cache first (synchronous but fast)
+        if self._install_from_cached_tree(package_name):
+            self._finalize_install_success(package_name, "cache-tree")
+            return True
+        
+        # Use asyncio subprocess for pip install
+        try:
+            policy_args = LazyInstallPolicy.get_pip_args(self._package_name) or []
+            pip_args = [sys.executable, '-m', 'pip', 'install'] + policy_args + [package_name]
+            
+            process = await asyncio.create_subprocess_exec(
+                *pip_args,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            
+            stdout, stderr = await process.communicate()
+            
+            if process.returncode == 0:
+                self._finalize_install_success(package_name, "pip-async")
+                
+                # For CLEAN mode, schedule async uninstall after completion
+                if self._mode == LazyInstallMode.CLEAN:
+                    # Schedule uninstall to happen after a delay (allows module to be used)
+                    asyncio.create_task(self._schedule_clean_uninstall(package_name))
+                
+                # For TEMPORARY mode, uninstall immediately after installation
+                if self._mode == LazyInstallMode.TEMPORARY:
+                    # Uninstall immediately (more aggressive than CLEAN)
+                    asyncio.create_task(self.uninstall_package_async(package_name, quiet=True))
+                
+                return True
+            else:
+                logger.error(f"Failed to install {package_name}: {stderr.decode()}")
+                self._failed_packages.add(package_name)
+                return False
+        except Exception as e:
+            logger.error(f"Error in async install of {package_name}: {e}")
+            self._failed_packages.add(package_name)
+            return False
+    
+    async def _schedule_clean_uninstall(self, package_name: str) -> None:
+        """Schedule uninstall for CLEAN mode after a delay."""
+        # Wait a bit to allow module to be used
+        await asyncio.sleep(1.0)
+        await self.uninstall_package_async(package_name, quiet=True)
+    
+    async def uninstall_package_async(self, package_name: str, quiet: bool = True) -> bool:
+        """
+        Uninstall a package asynchronously in quiet mode.
+        
+        Args:
+            package_name: Name of package to uninstall
+            quiet: If True, suppress output
+            
+        Returns:
+            True if uninstallation successful, False otherwise
+        """
+        with self._lock:
+            if package_name not in self._installed_packages:
+                return True  # Already uninstalled
+        
+        try:
+            pip_args = [sys.executable, '-m', 'pip', 'uninstall', '-y', package_name]
+            
+            process = await asyncio.create_subprocess_exec(
+                *pip_args,
+                stdout=asyncio.subprocess.PIPE if quiet else None,
+                stderr=asyncio.subprocess.PIPE if quiet else None
+            )
+            
+            await process.communicate()
+            
+            if process.returncode == 0:
+                with self._lock:
+                    self._installed_packages.discard(package_name)
+                if not quiet:
+                    logger.info(f"Uninstalled {package_name}")
+                return True
+            return False
+        except Exception as e:
+            logger.debug(f"Failed to uninstall {package_name}: {e}")
+            return False
+    
+    def uninstall_package(self, package_name: str, quiet: bool = True) -> bool:
+        """
+        Uninstall a package asynchronously in quiet mode (synchronous wrapper).
+        
+        Args:
+            package_name: Name of package to uninstall
+            quiet: If True, suppress output
+            
+        Returns:
+            True if uninstallation scheduled successfully
+        """
+        if self._async_loop and self._async_loop.is_running():
+            # Schedule async uninstall
+            asyncio.run_coroutine_threadsafe(
+                self.uninstall_package_async(package_name, quiet=quiet),
+                self._async_loop
+            )
+            return True
+        else:
+            # Fallback to sync uninstall
+            try:
+                import subprocess
+                result = subprocess.run(
+                    [sys.executable, '-m', 'pip', 'uninstall', '-y', package_name],
+                    capture_output=quiet,
+                    check=False
+                )
+                if result.returncode == 0:
+                    with self._lock:
+                        self._installed_packages.discard(package_name)
+                    return True
+                return False
+            except Exception as e:
+                logger.debug(f"Failed to uninstall {package_name}: {e}")
+                return False
+    
+    def uninstall_all_packages(self, quiet: bool = True) -> None:
+        """
+        Uninstall all packages installed by this installer.
+        
+        Args:
+            quiet: If True, suppress output
+        """
+        with self._lock:
+            packages_to_uninstall = list(self._installed_packages)
+            for package_name in packages_to_uninstall:
+                self.uninstall_package(package_name, quiet=quiet)
+    
     def schedule_async_install(self, module_name: str) -> Optional["AsyncInstallHandle"]:
-        """Schedule installation of a dependency in the background."""
+        """Schedule installation of a dependency in the background using asyncio."""
         if not self._async_enabled:
             return None
         
@@ -1358,40 +1672,84 @@ class LazyInstaller(APackageInstaller):
             return None
         
         with self._lock:
-            future = self._async_pending.get(module_name)
-            if future is None:
+            task = self._async_tasks.get(module_name)
+            if task is None or task.done():
                 self._mark_module_missing(module_name)
-                if self._async_executor is None:
-                    self._async_executor = ThreadPoolExecutor(
-                        max_workers=self._async_workers,
-                        thread_name_prefix=f"xwlazy-{self._package_name}-install",
-                    )
-                def _run_install():
-                    if self._install_from_cached_tree(package_name):
-                        self._finalize_install_success(package_name, "cache-tree")
-                        return True
-                    return self.install_package(package_name, module_name)
-
-                future = self._async_executor.submit(_run_install)
-                self._async_pending[module_name] = future
+                loop = self._ensure_async_loop()
                 
-                def _cleanup(_future: Future, name: str = module_name, pkg: str = package_name) -> None:
-                    with self._lock:
-                        self._async_pending.pop(name, None)
-                        try:
-                            result = bool(_future.result())
-                        except Exception:
-                            result = False
+                async def _install_and_cleanup():
+                    try:
+                        result = await self._async_install_package(package_name, module_name)
                         if result:
-                            self._clear_module_missing(name)
+                            self._clear_module_missing(module_name)
                             try:
-                                importlib.import_module(name)
+                                imported_module = importlib.import_module(module_name)
+                                
+                                # For TEMPORARY mode, uninstall immediately after successful import
+                                if self._mode == LazyInstallMode.TEMPORARY:
+                                    # Uninstall in background (don't block)
+                                    asyncio.create_task(self.uninstall_package_async(package_name, quiet=True))
                             except Exception:
                                 pass
+                        return result
+                    finally:
+                        with self._lock:
+                            self._async_tasks.pop(module_name, None)
                 
-                future.add_done_callback(_cleanup)
+                task = asyncio.run_coroutine_threadsafe(_install_and_cleanup(), loop)
+                self._async_tasks[module_name] = task
         
-        return AsyncInstallHandle(future, module_name, package_name, self._package_name)
+        return AsyncInstallHandle(task, module_name, package_name, self._package_name)
+    
+    async def install_all_dependencies(self) -> None:
+        """
+        Install all dependencies from discovered requirements (FULL mode).
+        Uses asyncio for parallel batch installation.
+        """
+        if self._mode != LazyInstallMode.FULL:
+            return
+        
+        try:
+            from .lazy_discovery import get_lazy_discovery
+            discovery = get_lazy_discovery(self._package_name)
+            if discovery:
+                all_deps = discovery.discover_all_dependencies()
+                if not all_deps:
+                    return
+                
+                # Filter out already installed packages
+                packages_to_install = [
+                    (import_name, package_name)
+                    for import_name, package_name in all_deps.items()
+                    if package_name not in self._installed_packages
+                ]
+                
+                if not packages_to_install:
+                    _log("install", f"All dependencies already installed for {self._package_name}")
+                    return
+                
+                _log("install", f"Installing {len(packages_to_install)} dependencies for {self._package_name} (FULL mode)")
+                
+                # Install in parallel batches
+                batch_size = min(self._async_workers * 2, 10)  # Reasonable batch size
+                for i in range(0, len(packages_to_install), batch_size):
+                    batch = packages_to_install[i:i + batch_size]
+                    tasks = [
+                        self._async_install_package(package_name, import_name)
+                        for import_name, package_name in batch
+                    ]
+                    results = await asyncio.gather(*tasks, return_exceptions=True)
+                    
+                    # Log results
+                    for (import_name, package_name), result in zip(batch, results):
+                        if isinstance(result, Exception):
+                            logger.error(f"Failed to install {package_name}: {result}")
+                        elif result:
+                            _log("install", f"✓ Installed {package_name}")
+                
+                _log("install", f"Completed installing all dependencies for {self._package_name}")
+        except Exception as e:
+            logger.warning(f"Failed to install all dependencies for {self._package_name}: {e}")
     
     def generate_sbom(self) -> Dict:
         """Generate Software Bill of Materials (SBOM) for installed packages."""
@@ -1463,14 +1821,24 @@ class LazyInstaller(APackageInstaller):
                 return None, False
     
         if self.install_package(package_name, module_name):
-            try:
-                module = importlib.import_module(module_name)
-                self._clear_module_missing(module_name)
-                _spec_cache_put(module_name, importlib.util.find_spec(module_name))
-                return module, True
-            except ImportError as e:
-                logger.error(f"Still cannot import {module_name} after installing {package_name}: {e}")
-                return None, False
+            # Try importing with retries (pip install may need moment to complete file writes)
+            import time
+            for attempt in range(3):
+                try:
+                    # Clear caches before each attempt
+                    importlib.invalidate_caches()
+                    sys.path_importer_cache.clear()
+                    
+                    module = importlib.import_module(module_name)
+                    self._clear_module_missing(module_name)
+                    _spec_cache_put(module_name, importlib.util.find_spec(module_name))
+                    return module, True
+                except ImportError as e:
+                    if attempt < 2:  # Retry with delay
+                        time.sleep(0.1 * (attempt + 1))  # Increasing delay: 0.1s, 0.2s
+                    else:
+                        logger.error(f"Still cannot import {module_name} after installing {package_name}: {e}")
+                        return None, False
         
         self._mark_module_missing(module_name)
         return None, False
@@ -1509,26 +1877,59 @@ class LazyInstaller(APackageInstaller):
 class AsyncInstallHandle:
     """Lightweight handle for background installation jobs."""
     
-    __slots__ = ("future", "module_name", "package_name", "installer_package")
+    __slots__ = ("_task_or_future", "module_name", "package_name", "installer_package")
     
     def __init__(
         self,
-        future: Future,
+        task_or_future: Any,  # Can be Future or asyncio.Task
         module_name: str,
         package_name: str,
         installer_package: str,
     ) -> None:
-        self.future = future
+        self._task_or_future = task_or_future
         self.module_name = module_name
         self.package_name = package_name
         self.installer_package = installer_package
     
     def wait(self, timeout: Optional[float] = None) -> bool:
+        """Wait for installation to complete."""
         try:
-            result = self.future.result(timeout=timeout)
-            return bool(result)
+            # Handle concurrent.futures.Future (from asyncio.run_coroutine_threadsafe)
+            if hasattr(self._task_or_future, 'result'):
+                result = self._task_or_future.result(timeout=timeout)
+                return bool(result)
+            # Handle asyncio.Task
+            elif hasattr(self._task_or_future, 'done'):
+                if timeout is None:
+                    # Use asyncio.wait_for if we have a loop
+                    try:
+                        loop = asyncio.get_event_loop()
+                        if loop.is_running():
+                            # Can't wait in running loop, return False
+                            return False
+                    except RuntimeError:
+                        pass
+                    # Create new event loop to wait
+                    return asyncio.run(self._wait_task())
+                else:
+                    return asyncio.run(asyncio.wait_for(self._wait_task(), timeout=timeout))
+            return False
         except Exception:
             return False
+    
+    async def _wait_task(self) -> bool:
+        """Async helper to wait for task."""
+        if hasattr(self._task_or_future, 'done'):
+            await self._task_or_future
+            return bool(self._task_or_future.result() if hasattr(self._task_or_future, 'result') else True)
+        return False
+    
+    @property
+    def done(self) -> bool:
+        """Check if installation is complete."""
+        if hasattr(self._task_or_future, 'done'):
+            return self._task_or_future.done()
+        return False
 
 
 class LazyInstallerRegistry:
@@ -1618,23 +2019,57 @@ def _spec_cache_prune_locked(now: Optional[float] = None) -> None:
 
 
 def _spec_cache_get(fullname: str) -> Optional[importlib.machinery.ModuleSpec]:
+    """Get spec from multi-level cache (L1: memory, L2: disk)."""
     with _spec_cache_lock:
         _spec_cache_prune_locked()
         entry = _spec_cache.get(fullname)
-        if entry is None:
-            return None
-        spec, _ = entry
-        _spec_cache.move_to_end(fullname)
-        return spec
+        if entry is not None:
+            spec, _ = entry
+            _spec_cache.move_to_end(fullname)
+            return spec
+        
+        # L2 cache: Check disk cache
+        try:
+            cache_file = _CACHE_L2_DIR / f"{fullname.replace('.', '_')}.spec"
+            if cache_file.exists():
+                mtime = cache_file.stat().st_mtime
+                age = time.time() - mtime
+                if age < _SPEC_CACHE_TTL:
+                    try:
+                        import pickle
+                        with open(cache_file, 'rb') as f:
+                            spec = pickle.load(f)
+                        # Promote to L1 cache
+                        _spec_cache[fullname] = (spec, time.monotonic())
+                        _spec_cache.move_to_end(fullname)
+                        return spec
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+        
+        return None
 
 
 def _spec_cache_put(fullname: str, spec: Optional[importlib.machinery.ModuleSpec]) -> None:
+    """Put spec in multi-level cache (L1: memory, L2: disk)."""
     if spec is None:
         return
     with _spec_cache_lock:
+        # L1 cache: In-memory
         _spec_cache[fullname] = (spec, time.monotonic())
         _spec_cache.move_to_end(fullname)
         _spec_cache_prune_locked()
+        
+        # L2 cache: Disk (async, non-blocking)
+        try:
+            cache_file = _CACHE_L2_DIR / f"{fullname.replace('.', '_')}.spec"
+            import pickle
+            # Use protocol 5 for better performance
+            with open(cache_file, 'wb') as f:
+                pickle.dump(spec, f, protocol=5)
+        except Exception:
+            pass  # Fail silently for disk cache
 
 
 def _spec_cache_clear(fullname: Optional[str] = None) -> None:
@@ -2006,13 +2441,21 @@ class LazyMetaPathFinder:
             module.__spec__ = getattr(real_module, "__spec__", None)
             module.__path__ = getattr(real_module, "__path__", getattr(module, "__path__", []))
             module.__class__ = real_module.__class__
-            spec_obj = getattr(real_module, "__spec__", None) or importlib.util.find_spec(fullname)
-            if spec_obj is not None:
-                _spec_cache_put(fullname, spec_obj)
+            # Try to get spec, but don't fail if unavailable
+            try:
+                spec_obj = getattr(real_module, "__spec__", None) or importlib.util.find_spec(fullname)
+                if spec_obj is not None:
+                    _spec_cache_put(fullname, spec_obj)
+            except (ValueError, AttributeError, ImportError):
+                pass  # Spec not available, continue anyway
             return real_module
 
         def _module_getattr(name):
             real = _resolve_real_module()
+            # After resolution, the module dict has been updated, try from there first
+            if name in module.__dict__:
+                return module.__dict__[name]
+            # Otherwise get from real module
             return getattr(real, name)
 
         def _module_dir():
@@ -2097,13 +2540,21 @@ class LazyMetaPathFinder:
             module.__spec__ = getattr(real_module, "__spec__", None)
             module.__path__ = getattr(real_module, "__path__", getattr(module, "__path__", []))
             module.__class__ = real_module.__class__
-            spec_obj = getattr(real_module, "__spec__", None) or importlib.util.find_spec(fullname)
-            if spec_obj is not None:
-                _spec_cache_put(fullname, spec_obj)
+            # Try to get spec, but don't fail if unavailable
+            try:
+                spec_obj = getattr(real_module, "__spec__", None) or importlib.util.find_spec(fullname)
+                if spec_obj is not None:
+                    _spec_cache_put(fullname, spec_obj)
+            except (ValueError, AttributeError, ImportError):
+                pass  # Spec not available, continue anyway
             return real_module
 
         def _module_getattr(name):
             real = _resolve_real_module()
+            # After resolution, the module dict has been updated, try from there first
+            if name in module.__dict__:
+                return module.__dict__[name]
+            # Otherwise get from real module
             return getattr(real, name)
 
         def _module_dir():
@@ -2132,10 +2583,36 @@ class LazyMetaPathFinder:
         return None
     
     def find_spec(self, fullname: str, path: Optional[str] = None, target=None):
-        """Find module spec - intercepts imports to enable two-stage lazy loading."""
+        """
+        Find module spec - intercepts imports to enable two-stage lazy loading.
+        
+        PERFORMANCE: Optimized for zero overhead on successful imports.
+        Fast path checks (in order):
+        1. Hook disabled - return immediately
+        2. Module already loaded - return None (let importlib handle it)
+        3. Cached spec - return immediately
+        4. Stdlib/builtin - return None immediately
+        5. Import in progress - return None (avoid recursion)
+        6. LITE mode optimization - skip all install logic
+        """
+        # Fast path 0: Skip if we're currently installing (prevents recursion during pip install)
+        if getattr(_installing, 'active', False):
+            return None
+        
+        # Fast path 1: Hook disabled
         if not self._enabled:
             return None
         
+        # Fast path 2: Module already loaded (zero overhead for successful imports)
+        if fullname in sys.modules:
+            return None
+        
+        # Fast path 3: Cached spec (check before any other operations)
+        cached_spec = _spec_cache_get(fullname)
+        if cached_spec is not None:
+            return cached_spec
+        
+        # Fast path 4: Stdlib/builtin check (before any expensive operations)
         # CRITICAL: Bail out immediately for stdlib/builtin and importlib internals
         # to avoid interfering with importlib.resources (Microsoft Store Python bug)
         if fullname.startswith('importlib') or fullname.startswith('_frozen_importlib'):
@@ -2147,17 +2624,18 @@ class LazyMetaPathFinder:
             if fullname in DependencyMapper.DENY_LIST:
                 return None
         
+        # Fast path 5: Import in progress (avoid recursion)
         if _is_import_in_progress(fullname):
-            logger.debug(f"[RECURSION GUARD] Import '{fullname}' already in progress, skipping hook")
             return None
         
         if getattr(_importing, 'active', False):
-            logger.debug(f"[RECURSION GUARD] Lazy wrapping suspended while importing '{fullname}'")
             return None
         
-        cached_spec = _spec_cache_get(fullname)
-        if cached_spec is not None:
-            return cached_spec
+        # Fast path 6: LITE mode optimization - skip all install logic (load only)
+        install_mode = LazyInstallConfig.get_install_mode(self._package_name)
+        if install_mode == LazyInstallMode.NONE:
+            # LITE mode: Only lazy loading, no installation - fastest path
+            return None
         
         lazy_enabled = is_lazy_install_enabled(self._package_name)
         if not lazy_enabled and _watched_registry.is_empty():
@@ -2714,23 +3192,60 @@ class LazyLoader(ALazyLoader):
 class LazyImporter:
     """
     Lazy importer that defers heavy module imports until first access.
+    Supports multiple load modes: NONE, AUTO, PRELOAD, BACKGROUND, CACHED.
     """
     
-    __slots__ = ('_enabled', '_lazy_modules', '_loaded_modules', '_lock', '_access_counts')
+    __slots__ = ('_enabled', '_load_mode', '_lazy_modules', '_loaded_modules', '_lock', '_access_counts', '_background_tasks', '_async_loop')
     
     def __init__(self):
         """Initialize lazy importer."""
         self._enabled = False
+        self._load_mode = LazyLoadMode.NONE
         self._lazy_modules: Dict[str, str] = {}
         self._loaded_modules: Dict[str, ModuleType] = {}
         self._access_counts: Dict[str, int] = {}
+        self._background_tasks: Dict[str, asyncio.Task] = {}
+        self._async_loop: Optional[asyncio.AbstractEventLoop] = None
         self._lock = threading.RLock()
     
-    def enable(self) -> None:
-        """Enable lazy imports."""
+    def _ensure_async_loop(self) -> asyncio.AbstractEventLoop:
+        """Ensure async event loop is running for background loading."""
+        if self._async_loop is not None and self._async_loop.is_running():
+            return self._async_loop
+        
+        with self._lock:
+            if self._async_loop is None or not self._async_loop.is_running():
+                loop_ready = threading.Event()
+                
+                def _run_loop():
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
+                    self._async_loop = loop
+                    loop_ready.set()
+                    loop.run_forever()
+                
+                thread = threading.Thread(target=_run_loop, daemon=True, name="xwlazy-loader-async")
+                thread.start()
+                
+                if not loop_ready.wait(timeout=5.0):
+                    raise RuntimeError("Failed to start async loop for lazy loader")
+        
+        return self._async_loop
+    
+    def enable(self, load_mode: LazyLoadMode = LazyLoadMode.AUTO) -> None:
+        """Enable lazy imports with specified load mode."""
         with self._lock:
             self._enabled = True
-            _log("config", "Lazy imports enabled")
+            self._load_mode = load_mode
+            
+            # For PRELOAD mode, load all modules immediately
+            if load_mode == LazyLoadMode.PRELOAD:
+                self._preload_all_modules()
+            # For BACKGROUND mode, ensure async loop is ready
+            elif load_mode == LazyLoadMode.BACKGROUND:
+                self._ensure_async_loop()
+            
+            _log("config", f"Lazy imports enabled (mode: {load_mode.value})")
     
     def disable(self) -> None:
         """Disable lazy imports."""
@@ -2752,10 +3267,42 @@ class LazyImporter:
             self._access_counts[module_name] = 0
             logger.debug(f"Registered lazy module: {module_name} -> {module_path}")
     
+    async def _background_load_module(self, module_name: str, module_path: str) -> ModuleType:
+        """Load module in background thread."""
+        try:
+            actual_module = importlib.import_module(module_path)
+            with self._lock:
+                self._loaded_modules[module_name] = actual_module
+                self._access_counts[module_name] += 1
+            logger.debug(f"Background loaded module: {module_name}")
+            return actual_module
+        except ImportError as e:
+            logger.error(f"Failed to background load {module_name}: {e}")
+            raise
+    
+    def _preload_all_modules(self) -> None:
+        """Preload all registered modules in parallel using asyncio."""
+        if not self._lazy_modules:
+            return
+        
+        loop = self._ensure_async_loop()
+        
+        async def _preload_all():
+            tasks = [
+                self._background_load_module(name, path)
+                for name, path in self._lazy_modules.items()
+                if name not in self._loaded_modules
+            ]
+            if tasks:
+                await asyncio.gather(*tasks, return_exceptions=True)
+                _log("hook", f"Preloaded {len(tasks)} modules")
+        
+        asyncio.run_coroutine_threadsafe(_preload_all(), loop)
+    
     def import_module(self, module_name: str, package_name: str = None) -> Any:
         """Import a module with lazy loading."""
         with self._lock:
-            if not self._enabled:
+            if not self._enabled or self._load_mode == LazyLoadMode.NONE:
                 return importlib.import_module(module_name)
             
             if module_name in self._loaded_modules:
@@ -2765,6 +3312,34 @@ class LazyImporter:
             if module_name in self._lazy_modules:
                 module_path = self._lazy_modules[module_name]
                 
+                # BACKGROUND mode: Load in background, return placeholder
+                if self._load_mode == LazyLoadMode.BACKGROUND:
+                    if module_name not in self._background_tasks or self._background_tasks[module_name].done():
+                        loop = self._ensure_async_loop()
+                        task = asyncio.run_coroutine_threadsafe(
+                            self._background_load_module(module_name, module_path),
+                            loop
+                        )
+                        self._background_tasks[module_name] = task
+                    
+                    # Return placeholder module that will be replaced when loaded
+                    placeholder = ModuleType(module_name)
+                    placeholder.__path__ = []
+                    placeholder.__package__ = module_name
+                    
+                    def _getattr(name):
+                        # Wait for background load to complete
+                        task = self._background_tasks.get(module_name)
+                        if task and not task.done():
+                            task.result(timeout=10.0)  # Wait up to 10 seconds
+                        if module_name in self._loaded_modules:
+                            return getattr(self._loaded_modules[module_name], name)
+                        raise AttributeError(f"module '{module_name}' has no attribute '{name}'")
+                    
+                    placeholder.__getattr__ = _getattr  # type: ignore[attr-defined]
+                    return placeholder
+                
+                # AUTO/CACHED mode: Load immediately
                 try:
                     actual_module = importlib.import_module(module_path)
                     self._loaded_modules[module_name] = actual_module
@@ -2912,14 +3487,79 @@ _lazy_importer = LazyImporter()
 _global_registry = LazyModuleRegistry()
 
 
-def enable_lazy_imports() -> None:
-    """Enable lazy imports (loader only)."""
-    _lazy_importer.enable()
+# Store original import_module for patching
+_original_import_module = importlib.import_module
+
+# Thread-local storage to prevent re-entrant installation
+import threading
+_installing = threading.local()
+
+def _lazy_aware_import_module(name, package=None):
+    """Lazy-aware wrapper for importlib.import_module."""
+    try:
+        # Try normal import first
+        return _original_import_module(name, package)
+    except (ImportError, ModuleNotFoundError, FileNotFoundError) as e:
+        # Prevent re-entrant calls during installation (pip imports modules during install)
+        if getattr(_installing, 'active', False):
+            raise  # Already installing, don't recurse
+        
+        # Check if lazy mode is enabled and this is an external package
+        if _lazy_importer.is_enabled():
+            # Try to find which package this belongs to and install it
+            all_instances = LazyInstallerRegistry.get_all_instances()
+            for package_name, installer in all_instances.items():
+                if installer.is_enabled():
+                    # Try to install the package using module name for correct mapping (e.g., bson->pymongo)
+                    try:
+                        # Mark that we're installing to prevent recursion
+                        _installing.active = True
+                        try:
+                            # Call install_and_import with module_name to trigger dependency mapping
+                            module, success = installer.install_and_import(name)
+                            if success:
+                                return module
+                        finally:
+                            _installing.active = False
+                    except Exception:
+                        pass
+        
+        # If lazy install didn't work, raise the original error
+        raise
+
+# Track if import_module is patched
+_import_module_patched = False
+
+def _patch_import_module():
+    """Patch importlib.import_module to be lazy-aware."""
+    global _import_module_patched
+    if not _import_module_patched:
+        importlib.import_module = _lazy_aware_import_module
+        _import_module_patched = True
+
+def _unpatch_import_module():
+    """Restore original importlib.import_module."""
+    global _import_module_patched
+    if _import_module_patched:
+        importlib.import_module = _original_import_module
+        _import_module_patched = False
+
+def enable_lazy_imports(load_mode: Optional[LazyLoadMode] = None) -> None:
+    """Enable lazy imports (loader only).
+    
+    Args:
+        load_mode: Optional LazyLoadMode to use. Defaults to LazyLoadMode.AUTO.
+    """
+    if load_mode is None:
+        load_mode = LazyLoadMode.AUTO
+    _lazy_importer.enable(load_mode)
+    _patch_import_module()
 
 
 def disable_lazy_imports() -> None:
     """Disable lazy imports (loader only)."""
     _lazy_importer.disable()
+    _unpatch_import_module()
 
 
 def is_lazy_import_enabled() -> bool:
@@ -2977,11 +3617,29 @@ _KEYWORD_TO_CHECK: str = "xwlazy-enabled"
 
 # Performance optimization: Module-level constant for mode enum conversion
 _MODE_ENUM_MAP = {
-    "auto": LazyInstallMode.AUTO,
+    # Core v1.0 modes
+    "none": LazyInstallMode.NONE,
+    "smart": LazyInstallMode.SMART,
+    "full": LazyInstallMode.FULL,
+    "clean": LazyInstallMode.CLEAN,
+    "temporary": LazyInstallMode.TEMPORARY,
+    "size_aware": LazyInstallMode.SIZE_AWARE,
+    # Special purpose modes
     "interactive": LazyInstallMode.INTERACTIVE,
     "warn": LazyInstallMode.WARN,
     "disabled": LazyInstallMode.DISABLED,
     "dry_run": LazyInstallMode.DRY_RUN,
+    # Backward compatibility: map "auto" to SMART
+    "auto": LazyInstallMode.SMART,
+}
+
+# Load mode enum map
+_LOAD_MODE_ENUM_MAP = {
+    "none": LazyLoadMode.NONE,
+    "auto": LazyLoadMode.AUTO,
+    "preload": LazyLoadMode.PRELOAD,
+    "background": LazyLoadMode.BACKGROUND,
+    "cached": LazyLoadMode.CACHED,
 }
 
 
@@ -3145,6 +3803,9 @@ class LazyInstallConfig:
     """Global configuration for lazy installation per package."""
     _configs: Dict[str, bool] = {}
     _modes: Dict[str, str] = {}
+    _load_modes: Dict[str, LazyLoadMode] = {}
+    _install_modes: Dict[str, LazyInstallMode] = {}
+    _mode_configs: Dict[str, LazyModeConfig] = {}
     _initialized: Dict[str, bool] = {}
     _manual_overrides: Dict[str, bool] = {}
     
@@ -3156,6 +3817,9 @@ class LazyInstallConfig:
         mode: str = "auto",
         install_hook: bool = True,
         manual: bool = False,
+        load_mode: Optional[LazyLoadMode] = None,
+        install_mode: Optional[LazyInstallMode] = None,
+        mode_config: Optional[LazyModeConfig] = None,
     ) -> None:
         """Enable or disable lazy installation for a specific package."""
         package_key = package_name.lower()
@@ -3175,6 +3839,40 @@ class LazyInstallConfig:
         cls._configs[package_key] = enabled
         cls._modes[package_key] = mode
         
+        # Handle two-dimensional mode configuration
+        if mode_config:
+            cls._mode_configs[package_key] = mode_config
+            cls._load_modes[package_key] = mode_config.load_mode
+            cls._install_modes[package_key] = mode_config.install_mode
+        elif load_mode is not None or install_mode is not None:
+            # Explicit mode specification
+            if load_mode is None:
+                load_mode = LazyLoadMode.AUTO  # Default
+            if install_mode is None:
+                install_mode = _MODE_ENUM_MAP.get(mode.lower(), LazyInstallMode.SMART)
+            cls._load_modes[package_key] = load_mode
+            cls._install_modes[package_key] = install_mode
+            cls._mode_configs[package_key] = LazyModeConfig(
+                load_mode=load_mode,
+                install_mode=install_mode
+            )
+        else:
+            # Legacy mode string - try to resolve to preset or default
+            preset = get_preset_mode(mode)
+            if preset:
+                cls._mode_configs[package_key] = preset
+                cls._load_modes[package_key] = preset.load_mode
+                cls._install_modes[package_key] = preset.install_mode
+            else:
+                # Fallback to legacy behavior
+                install_mode_enum = _MODE_ENUM_MAP.get(mode.lower(), LazyInstallMode.SMART)
+                cls._load_modes[package_key] = LazyLoadMode.AUTO
+                cls._install_modes[package_key] = install_mode_enum
+                cls._mode_configs[package_key] = LazyModeConfig(
+                    load_mode=LazyLoadMode.AUTO,
+                    install_mode=install_mode_enum
+                )
+        
         cls._initialize_package(package_key, enabled, mode, install_hook=install_hook)
     
     @classmethod
@@ -3184,16 +3882,35 @@ class LazyInstallConfig:
             try:
                 enable_lazy_install(package_key)
                 
-                mode_enum = _MODE_ENUM_MAP.get(mode.lower(), LazyInstallMode.AUTO)
+                mode_enum = _MODE_ENUM_MAP.get(mode.lower(), LazyInstallMode.SMART)
                 set_lazy_install_mode(package_key, mode_enum)
+                
+                # Get load mode from config
+                load_mode = cls.get_load_mode(package_key)
+                
+                # Enable lazy imports with appropriate load mode
+                enable_lazy_imports(load_mode)
+                
+                # Enable async ONLY for modes where it makes sense
+                # SMART mode uses synchronous install to avoid race conditions
+                installer = LazyInstallerRegistry.get_instance(package_key)
+                if mode_enum in (LazyInstallMode.FULL, LazyInstallMode.CLEAN, LazyInstallMode.TEMPORARY):
+                    installer._async_enabled = True
+                    installer._ensure_async_loop()
+                    
+                    # For FULL mode, install all dependencies on start
+                    if mode_enum == LazyInstallMode.FULL:
+                        loop = installer._async_loop
+                        if loop:
+                            asyncio.run_coroutine_threadsafe(installer.install_all_dependencies(), loop)
                 
                 if install_hook:
                     if not is_import_hook_installed(package_key):
                         install_import_hook(package_key)
-                    _log("config", f"✅ Lazy installation initialized for {package_key} (mode: {mode}, hook: installed)")
+                    _log("config", f"✅ Lazy installation initialized for {package_key} (install_mode: {mode}, load_mode: {load_mode.value}, hook: installed)")
                 else:
                     uninstall_import_hook(package_key)
-                    _log("config", f"✅ Lazy installation initialized for {package_key} (mode: {mode}, hook: disabled)")
+                    _log("config", f"✅ Lazy installation initialized for {package_key} (install_mode: {mode}, load_mode: {load_mode.value}, hook: disabled)")
                 
                 cls._initialized[package_key] = True
                 sync_manifest_configuration(package_key)
@@ -3218,13 +3935,71 @@ class LazyInstallConfig:
     def get_mode(cls, package_name: str) -> str:
         """Get the lazy installation mode for a package."""
         return cls._modes.get(package_name.lower(), "auto")
+    
+    @classmethod
+    def get_mode_config(cls, package_name: str) -> Optional[LazyModeConfig]:
+        """Get the full mode configuration for a package."""
+        return cls._mode_configs.get(package_name.lower())
+    
+    @classmethod
+    def get_load_mode(cls, package_name: str) -> LazyLoadMode:
+        """Get the load mode for a package."""
+        return cls._load_modes.get(package_name.lower(), LazyLoadMode.NONE)
+    
+    @classmethod
+    def get_install_mode(cls, package_name: str) -> LazyInstallMode:
+        """Get the install mode for a package."""
+        return cls._install_modes.get(package_name.lower(), LazyInstallMode.NONE)
+
+
+def _detect_meta_info_mode(package_name: str) -> Optional[str]:
+    """
+    Detect lazy mode from package metadata keywords.
+    
+    Checks for keywords like:
+    - xwlazy-load-install-uninstall (clean mode)
+    - xwlazy-lite (lite mode)
+    - xwlazy-smart (smart mode)
+    - xwlazy-full (full mode)
+    - xwlazy-auto (auto mode)
+    
+    Returns:
+        Mode string or None if not found
+    """
+    try:
+        import importlib.metadata
+        try:
+            dist = importlib.metadata.distribution(package_name)
+            keywords = dist.metadata.get_all("Keywords", [])
+            if not keywords:
+                return None
+            
+            keyword_str = " ".join(keywords).lower()
+            
+            if "xwlazy-load-install-uninstall" in keyword_str:
+                return "clean"
+            if "xwlazy-lite" in keyword_str:
+                return "lite"
+            if "xwlazy-smart" in keyword_str:
+                return "smart"
+            if "xwlazy-full" in keyword_str:
+                return "full"
+            if "xwlazy-auto" in keyword_str:
+                return "auto"
+        except importlib.metadata.PackageNotFoundError:
+            return None
+    except Exception:
+        return None
+    return None
 
 
 def config_package_lazy_install_enabled(
     package_name: str, 
     enabled: bool = None,
     mode: str = "auto",
-    install_hook: bool = True
+    install_hook: bool = True,
+    load_mode: Optional[LazyLoadMode] = None,
+    install_mode: Optional[LazyInstallMode] = None,
 ) -> None:
     """
     Simple one-line configuration for package lazy installation.
@@ -3232,15 +4007,26 @@ def config_package_lazy_install_enabled(
     Args:
         package_name: Package name (e.g., "xwsystem", "xwnode", "xwdata")
         enabled: True to enable, False to disable, None to auto-detect from pip installation
-        mode: Installation mode - "auto", "interactive", "disabled", "dry_run"
+        mode: Preset mode name or legacy mode - "auto", "smart", "full", "clean", "lite", etc.
+              Can also be preset: "none", "lite", "smart", "full", "clean", "temporary", "size_aware", "auto"
         install_hook: Whether to install the import hook (default: True)
+        load_mode: Explicit load mode (overrides preset)
+        install_mode: Explicit install mode (overrides preset)
     
     Examples:
         # Auto-detect from installation
         config_package_lazy_install_enabled("your_package_name")
         
-        # Force enable
-        config_package_lazy_install_enabled("xwnode", True, "interactive")
+        # Use preset mode
+        config_package_lazy_install_enabled("xwnode", True, "smart")
+        
+        # Explicit two-dimensional mode
+        config_package_lazy_install_enabled(
+            "xwdata", 
+            True, 
+            load_mode=LazyLoadMode.AUTO,
+            install_mode=LazyInstallMode.SMART
+        )
         
         # Force disable
         config_package_lazy_install_enabled("xwdata", False)
@@ -3249,12 +4035,28 @@ def config_package_lazy_install_enabled(
     if enabled is None:
         enabled = _detect_lazy_installation(package_name)
     
+    # Check meta info for mode override
+    if mode == "auto" and enabled:
+        meta_mode = _detect_meta_info_mode(package_name)
+        if meta_mode:
+            mode = meta_mode
+    
+    # Resolve preset mode if provided
+    mode_config = None
+    if load_mode is None and install_mode is None:
+        preset = get_preset_mode(mode)
+        if preset:
+            mode_config = preset
+    
     LazyInstallConfig.set(
         package_name,
         enabled,
         mode,
         install_hook=install_hook,
         manual=manual_override,
+        load_mode=load_mode,
+        install_mode=install_mode,
+        mode_config=mode_config,
     )
 
 

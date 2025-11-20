@@ -4,6 +4,14 @@ Pytest-benchmark harness for xwlazy lazy-loading scenarios.
 
 from __future__ import annotations
 
+import pytest
+
+# Mark all tests in this file as core and performance tests
+pytestmark = [
+    pytest.mark.xwlazy_core,
+    pytest.mark.xwlazy_performance,
+]
+
 import importlib
 import os
 import subprocess
@@ -22,13 +30,13 @@ SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from xwlazy.lazy.lazy_core import (  # noqa: E402
+from exonware.xwlazy import (  # noqa: E402
     DependencyMapper,
     LazyInstaller,
     LazyLoader,
     LazyMetaPathFinder,
+    PackageManifest,
 )
-from xwlazy.lazy.manifest import PackageManifest  # noqa: E402
 
 ASYNC_SAMPLE_NAME = "xwlazy-async-sample"
 ASYNC_SAMPLE_PATH = Path(__file__).resolve().parents[3] / "tests" / "resources" / "async_package"

@@ -49,14 +49,40 @@ Built-in tracking of module load times, access counts, memory usage, and cache h
 
 **Why it matters:** Visibility into lazy loading performance helps identify bottlenecks and optimize import strategies.
 
-### 🎨 **5 Installation Modes**
-- **AUTO:** Install automatically without asking
-- **INTERACTIVE:** Prompt user before each installation
-- **WARN:** Log warnings but don't install (monitoring mode)
-- **DISABLED:** Don't install anything
+### 🎨 **Two-Dimensional Mode System**
+
+xwlazy uses a powerful two-dimensional mode system that separates **loading behavior** from **installation behavior**, giving you precise control over how modules are loaded and when packages are installed.
+
+#### **Lazy Load Modes** (When modules load)
+- **NONE:** Standard imports (no lazy loading)
+- **AUTO:** Lazy loading enabled (deferred module loading)
+- **PRELOAD:** Preload all modules on start (parallel loading)
+- **BACKGROUND:** Load modules in background threads (non-blocking)
+- **CACHED:** Cache loaded modules but allow unloading
+
+#### **Lazy Install Modes** (When packages install)
+- **NONE:** No auto-installation
+- **SMART:** Install on first usage (on-demand)
+- **FULL:** Install all dependencies on start (parallel batch)
+- **CLEAN:** Install on usage + uninstall after completion
+- **TEMPORARY:** Always uninstall after use (aggressive cleanup)
+- **SIZE_AWARE:** Install small packages, skip large ones
+- **INTERACTIVE:** Ask user before installing
+- **WARN:** Log warning but don't install (monitoring mode)
+- **DISABLED:** Don't install anything (explicit)
 - **DRY_RUN:** Show what would be installed
 
-**Why it matters:** Different environments need different policies. Development might use AUTO, production might use WARN or DISABLED.
+#### **Preset Modes** (Quick combinations)
+- **none:** NONE load + NONE install (standard imports)
+- **lite:** AUTO load + NONE install (lazy loading only)
+- **smart:** AUTO load + SMART install (on-demand installation)
+- **full:** AUTO load + FULL install (install all on start)
+- **clean:** AUTO load + CLEAN install (install + cleanup)
+- **temporary:** AUTO load + TEMPORARY install (aggressive cleanup)
+- **size_aware:** AUTO load + SIZE_AWARE install (smart sizing)
+- **auto:** AUTO load + SMART install + auto-uninstall large packages
+
+**Why it matters:** Different environments need different policies. Development might use `smart`, production might use `lite` or `warn`, CI/CD might use `clean` or `temporary`.
 
 ## 🏆 Performance Benchmarks
 
@@ -188,26 +214,76 @@ import suspicious_package  # ❌ Blocked by security policy
 
 ## 🔧 Advanced Configuration
 
-### Installation Modes
+### Two-Dimensional Mode Configuration
+
+#### Using Preset Modes (Recommended)
+
+```python
+from xwlazy.lazy import config_package_lazy_install_enabled
+
+# Quick preset modes
+config_package_lazy_install_enabled("xwsystem", enabled=True, mode="smart")   # On-demand install
+config_package_lazy_install_enabled("xwsystem", enabled=True, mode="full")   # Install all on start
+config_package_lazy_install_enabled("xwsystem", enabled=True, mode="clean") # Install + cleanup
+config_package_lazy_install_enabled("xwsystem", enabled=True, mode="lite")   # Lazy load only
+```
+
+#### Using Explicit Mode Configuration
 
 ```python
 from xwlazy.lazy import (
     config_package_lazy_install_enabled,
+    LazyLoadMode,
     LazyInstallMode,
+    LazyModeConfig,
 )
 
+# Explicit two-dimensional configuration
+config_package_lazy_install_enabled(
+    "xwsystem",
+    enabled=True,
+    load_mode=LazyLoadMode.PRELOAD,      # Preload all modules
+    install_mode=LazyInstallMode.SMART   # Install on-demand
+)
+
+# Or use LazyModeConfig for full control
+config = LazyModeConfig(
+    load_mode=LazyLoadMode.BACKGROUND,
+    install_mode=LazyInstallMode.SIZE_AWARE,
+    large_package_threshold_mb=100.0,  # Skip packages > 100MB
+    background_workers=4              # 4 background workers
+)
+config_package_lazy_install_enabled(
+    "xwsystem",
+    enabled=True,
+    mode_config=config
+)
+```
+
+#### Using exonware.conf (Global Configuration)
+
+```python
+import exonware.conf as conf
+
+# Set global lazy mode for all packages
+conf.lazy = "smart"   # or "lite", "full", "clean", "auto", etc.
+```
+
+#### Special Purpose Modes
+
+```python
 # Interactive mode: Ask user before installing
 config_package_lazy_install_enabled(
     "xwsystem",
     enabled=True,
-    mode=LazyInstallMode.INTERACTIVE
+    mode="interactive"  # or LazyInstallMode.INTERACTIVE
 )
 
 # Warn mode: Log but don't install (monitoring)
 config_package_lazy_install_enabled(
     "xwsystem",
     enabled=True,
-    mode=LazyInstallMode.WARN
+    mode="warn"  # or LazyInstallMode.WARN
 )
 ```
 

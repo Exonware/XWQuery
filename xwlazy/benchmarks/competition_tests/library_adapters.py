@@ -39,62 +39,119 @@ class LibraryAdapter:
 
 
 class XWLazyAdapter(LibraryAdapter):
-    """Adapter for xwlazy."""
+    """Adapter for xwlazy with two-dimensional mode system."""
 
-    def __init__(self, library_name: str, module: Any, config: Dict[str, bool] = None):
-        """Initialize xwlazy adapter with feature configuration.
+    def __init__(self, library_name: str, module: Any, config: Dict[str, Any] = None):
+        """Initialize xwlazy adapter with mode configuration.
         
         Args:
             library_name: Name of the library
             module: The imported module
-            config: Feature configuration dict with keys:
-                - lazy_import: Enable basic lazy import (default: True)
-                - lazy_install: Enable auto-install (default: False)
-                - lazy_discovery: Enable dependency discovery (default: False)
-                - lazy_monitoring: Enable performance monitoring (default: False)
-                - keyword_detection: Enable keyword detection (default: False)
+            config: Configuration dict with keys:
+                - mode: Preset mode string ("lite", "smart", "full", "clean", "auto", etc.)
+                - load_mode: LazyLoadMode enum or string (optional, overrides preset)
+                - install_mode: LazyInstallMode enum or string (optional, overrides preset)
+                - mode_config: LazyModeConfig instance (optional, full control)
+                - Legacy keys (for backward compatibility):
+                  \
+                  - lazy_import: Enable basic lazy import (default: True)
+                  - lazy_install: Enable auto-install (default: False)
         """
         super().__init__(library_name, module)
-        self.config = config or {
-            "lazy_import": True,
-            "lazy_install": False,
-            "lazy_discovery": False,
-            "lazy_monitoring": False,
-            "keyword_detection": False,
-        }
+        self.config = config or {"mode": "lite"}
 
     def enable(self) -> bool:
-        """Enable xwlazy lazy loading based on configuration."""
+        """Enable xwlazy lazy loading based on configuration using new mode system."""
         try:
-            from xwlazy.lazy.lazy_core import enable_lazy_mode
-            from xwlazy import (
-                enable_lazy_install, disable_lazy_install,
-                is_lazy_install_enabled,
-            )
+            # Clear import cache to avoid stale imports after install/uninstall
+            # This fixes "source code string cannot contain null bytes" errors from corrupted cache
+            import sys
+            import importlib
+            modules_to_clear = [k for k in list(sys.modules.keys()) 
+                              if k.startswith('exonware.xwlazy') or k.startswith('xwlazy')]
+            for mod in modules_to_clear:
+                del sys.modules[mod]
             
-            # Configure lazy install
-            if self.config.get("lazy_install", False):
-                try:
-                    enable_lazy_install()
-                except:
-                    pass
+            # Clear importlib cache
+            if hasattr(importlib, 'invalidate_caches'):
+                importlib.invalidate_caches()
+            
+            # Try exonware.xwlazy first (development), then xwlazy (installed)
+            try:
+                from exonware.xwlazy import (
+                    config_package_lazy_install_enabled,
+                    LazyLoadMode,
+                    LazyInstallMode,
+                    LazyModeConfig,
+                )
+            except (ImportError, SyntaxError) as e:
+                # Clear cache again before trying installed package
+                # Handle SyntaxError from corrupted bytecode cache
+                modules_to_clear = [k for k in list(sys.modules.keys()) 
+                                  if k.startswith('xwlazy') or k.startswith('exonware.xwlazy')]
+                for mod in modules_to_clear:
+                    del sys.modules[mod]
+                
+                # Clear importlib cache again
+                if hasattr(importlib, 'invalidate_caches'):
+                    importlib.invalidate_caches()
+                
+                from xwlazy import (
+                    config_package_lazy_install_enabled,
+                    LazyLoadMode,
+                    LazyInstallMode,
+                    LazyModeConfig,
+                )
+            
+            # Use new two-dimensional mode system
+            mode = self.config.get("mode")
+            load_mode = self.config.get("load_mode")
+            install_mode = self.config.get("install_mode")
+            mode_config = self.config.get("mode_config")
+            
+            # Legacy config support (backward compatibility)
+            if not mode and not mode_config:
+                lazy_import = self.config.get("lazy_import", True)
+                lazy_install = self.config.get("lazy_install", False)
+                
+                if lazy_import and lazy_install:
+                    mode = "smart"
+                elif lazy_import:
+                    mode = "lite"
+                else:
+                    mode = "none"
+            
+            # Configure package (using a test package name)
+            package_name = "xwlazy_test"
+            
+            if mode_config:
+                # Full control via LazyModeConfig
+                config_package_lazy_install_enabled(
+                    package_name,
+                    enabled=True,
+                    mode_config=mode_config
+                )
+            elif load_mode is not None or install_mode is not None:
+                # Explicit two-dimensional configuration
+                config_package_lazy_install_enabled(
+                    package_name,
+                    enabled=True,
+                    load_mode=load_mode if isinstance(load_mode, LazyLoadMode) else LazyLoadMode(load_mode) if load_mode else None,
+                    install_mode=install_mode if isinstance(install_mode, LazyInstallMode) else LazyInstallMode(install_mode) if install_mode else None,
+                )
             else:
-                try:
-                    disable_lazy_install()
-                except:
-                    pass
-            
-            # Enable basic lazy import (always enabled if lazy_import is True)
-            if self.config.get("lazy_import", True):
-                enable_lazy_mode()
-            
-            # Note: lazy_discovery, lazy_monitoring, and keyword_detection
-            # are typically enabled by default when lazy_mode is enabled
-            # They can be configured separately if needed
+                # Preset mode
+                config_package_lazy_install_enabled(
+                    package_name,
+                    enabled=True,
+                    mode=mode or "lite"
+                )
             
             return True
         except Exception as e:
             print(f"    Warning: Failed to configure xwlazy: {e}")
+            import traceback
+            traceback.print_exc()
             return False
 
     def import_module(self, module_name: str) -> Any:
@@ -105,19 +162,103 @@ class XWLazyAdapter(LibraryAdapter):
     def get_features(self) -> List[str]:
         """Get xwlazy features based on configuration."""
         features = []
-        if self.config.get("lazy_import", True):
+        mode = self.config.get("mode", "lite")
+        load_mode = self.config.get("load_mode")
+        install_mode = self.config.get("install_mode")
+        mode_config = self.config.get("mode_config")
+        
+        # Determine load and install modes
+        # Try exonware.xwlazy first (development), then xwlazy (installed)
+        try:
+            from exonware.xwlazy import LazyLoadMode, LazyInstallMode
+        except (ImportError, SyntaxError):
+            # Clear cache before trying installed package
+            # Handle SyntaxError from corrupted bytecode cache
+            import sys
+            import importlib
+            modules_to_clear = [k for k in list(sys.modules.keys()) 
+                              if k.startswith('xwlazy') or k.startswith('exonware.xwlazy')]
+            for mod in modules_to_clear:
+                del sys.modules[mod]
+            
+            # Clear importlib cache
+            if hasattr(importlib, 'invalidate_caches'):
+                importlib.invalidate_caches()
+            
+            from xwlazy import LazyLoadMode, LazyInstallMode
+        
+        if mode_config:
+            load_mode_val = mode_config.load_mode
+            install_mode_val = mode_config.install_mode
+        elif load_mode or install_mode:
+            load_mode_val = load_mode
+            install_mode_val = install_mode
+        else:
+            # Map preset modes
+            mode_map = {
+                "none": (LazyLoadMode.NONE, LazyInstallMode.NONE),
+                "lite": (LazyLoadMode.AUTO, LazyInstallMode.NONE),
+                "smart": (LazyLoadMode.AUTO, LazyInstallMode.SMART),
+                "full": (LazyLoadMode.AUTO, LazyInstallMode.FULL),
+                "clean": (LazyLoadMode.AUTO, LazyInstallMode.CLEAN),
+                "temporary": (LazyLoadMode.AUTO, LazyInstallMode.TEMPORARY),
+                "size_aware": (LazyLoadMode.AUTO, LazyInstallMode.SIZE_AWARE),
+                "auto": (LazyLoadMode.AUTO, LazyInstallMode.SMART),
+            }
+            load_mode_val, install_mode_val = mode_map.get(mode, (LazyLoadMode.AUTO, LazyInstallMode.NONE))
+        
+        # Normalize to enum values
+        if isinstance(load_mode_val, str):
+            load_mode_val = LazyLoadMode(load_mode_val.lower())
+        if isinstance(install_mode_val, str):
+            install_mode_val = LazyInstallMode(install_mode_val.lower())
+        
+        # Add features based on modes
+        if load_mode_val and load_mode_val != LazyLoadMode.NONE:
             features.append("lazy_import")
-        if self.config.get("lazy_install", False):
+            if load_mode_val == LazyLoadMode.PRELOAD:
+                features.append("preload_mode")
+            elif load_mode_val == LazyLoadMode.BACKGROUND:
+                features.append("background_loading")
+            elif load_mode_val == LazyLoadMode.CACHED:
+                features.append("cached_loading")
+            elif load_mode_val == LazyLoadMode.TURBO:
+                features.append("turbo_mode")
+                features.append("multi_tier_cache")
+                features.append("bytecode_cache")
+            elif load_mode_val == LazyLoadMode.ADAPTIVE:
+                features.append("adaptive_mode")
+                features.append("pattern_learning")
+            elif load_mode_val == LazyLoadMode.HYPERPARALLEL:
+                features.append("hyperparallel_mode")
+                features.append("max_parallelism")
+            elif load_mode_val == LazyLoadMode.STREAMING:
+                features.append("streaming_mode")
+                features.append("async_streaming")
+            elif load_mode_val == LazyLoadMode.ULTRA:
+                features.append("ultra_mode")
+                features.append("all_optimizations")
+            elif load_mode_val == LazyLoadMode.INTELLIGENT:
+                features.append("intelligent_mode")
+                features.append("auto_switching")
+                features.append("adaptive_selection")
+        
+        if install_mode_val and install_mode_val != LazyInstallMode.NONE:
             features.append("auto_install")
-        if self.config.get("lazy_discovery", False):
-            features.append("dependency_discovery")
-        if self.config.get("lazy_monitoring", False):
-            features.append("performance_monitoring")
-        if self.config.get("keyword_detection", False):
-            features.append("keyword_detection")
-        # These are always available when lazy_import is enabled
-        if self.config.get("lazy_import", True):
-            features.extend(["per_package_isolation", "caching"])
+            if install_mode_val == LazyInstallMode.SMART:
+                features.append("on_demand_install")
+            elif install_mode_val == LazyInstallMode.FULL:
+                features.append("batch_install")
+            elif install_mode_val == LazyInstallMode.CLEAN:
+                features.append("auto_uninstall")
+            elif install_mode_val == LazyInstallMode.TEMPORARY:
+                features.append("temporary_install")
+            elif install_mode_val == LazyInstallMode.SIZE_AWARE:
+                features.append("size_aware_install")
+        
+        # Always available features
+        features.extend(["per_package_isolation", "caching", "async_operations"])
+        
         return features
 
 
@@ -125,12 +266,21 @@ class PipImportAdapter(LibraryAdapter):
     """Adapter for pipimport."""
 
     def enable(self) -> bool:
-        """Enable pipimport."""
+        """Enable pipimport by calling install()."""
         try:
-            import pipimport
-            pipimport.install()  # If available
+            # Try to import pipimport if not already imported
+            if self.module is None:
+                import pipimport
+                self.module = pipimport
+            # pipimport requires install() to be called explicitly
+            self.module.install()
             return True
-        except:
+        except (SyntaxError, ImportError) as e:
+            # pipimport has Python 2 syntax and won't work in Python 3
+            print(f"    Warning: pipimport is not compatible with Python 3: {e}")
+            return False
+        except Exception as e:
+            print(f"    Warning: Failed to enable pipimport: {e}")
             return False
 
     def get_features(self) -> List[str]:
@@ -291,7 +441,14 @@ def create_adapter(library_name: str, config: Dict[str, bool] = None) -> Optiona
             module = importlib.import_module("xwlazy")
             return XWLazyAdapter(library_name, module, config)
         elif library_name == "pipimport":
-            module = importlib.import_module("pipimport")
+            # pipimport may have Python 2 syntax, but we still try to import it
+            # The adapter will call install() which might work
+            try:
+                module = importlib.import_module("pipimport")
+            except (SyntaxError, ImportError):
+                # If import fails due to Python 2 syntax, create adapter with None module
+                # The adapter will try to import and call install() in enable()
+                module = None
             return PipImportAdapter(library_name, module)
         elif library_name == "deferred-import":
             module = importlib.import_module("deferred_import")

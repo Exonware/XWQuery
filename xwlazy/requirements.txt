@@ -2,7 +2,7 @@
 # Company: eXonware.com
 # Author: Eng. Muhammad AlShehri
 # Email: connect@exonware.com
-# Version: 0.1.0.16
+# Version: 0.1.0.17
 # Generation Date: 14-Nov-2025
 #
 # xwlazy is a zero-footprint marker package that enables lazy-install mode
@@ -20,7 +20,20 @@
 # =============================================================================
 
 # TOML parsing support for Python 3.8-3.10 (std tomllib shipped in 3.11+)
+# Note: Python 3.11+ includes tomllib in standard library, no external dependency needed
+# Required for: Reading pyproject.toml and manifest files
 tomli>=2.0.1 ; python_version < "3.11"
+
+# =============================================================================
+# OPTIONAL RUNTIME DEPENDENCIES
+# =============================================================================
+
+# Performance monitoring for INTELLIGENT mode (OPTIONAL)
+# Used for: Memory usage detection and load level optimization
+# Note: xwlazy works without psutil, but INTELLIGENT mode benefits from it
+#       If not installed, INTELLIGENT mode will use default memory values
+# Install separately: pip install psutil>=5.9.0
+# psutil>=5.9.0
 
 # =============================================================================
 # OPTIONAL / DEVELOPMENT DEPENDENCIES
@@ -45,4 +58,27 @@ flake8>=6.1.0                  # Linting
 #   hard dependencies.
 # - The GitHub Actions workflow (publish.yml) installs build & twine directly,
 #   but listing them here helps local contributors mirror the environment.
+# - All imports are defensive (try/except) for optional dependencies like psutil
+#
+# =============================================================================
+# DEPENDENCY SUMMARY
+# =============================================================================
+#
+# BUILT-IN MODULES (Standard Library - No Installation Required):
+#   - json: JSON parsing (used in cache_utils, installer, discovery, manifest)
+#   - pickle: Object serialization (used in cache_utils, spec_cache)
+#   - threading: Thread-safe operations (used throughout)
+#   - asyncio: Async operations (used in importer, installer)
+#   - importlib: Module importing (used throughout)
+#   - subprocess: Package installation (used in installer)
+#   - concurrent.futures: Parallel execution (used in parallel_utils)
+#   - tomllib: TOML parsing (Python 3.11+ only, built-in)
+#
+# EXTERNAL DEPENDENCIES:
+#   - tomli>=2.0.1: TOML parsing for Python < 3.11 (REQUIRED for older Python)
+#   - psutil>=5.9.0: Performance monitoring (OPTIONAL, for INTELLIGENT mode)
+#
+# NOT REQUIRED BY xwlazy (but may be needed by packages using xwlazy):
+#   - PyYAML: Not used by xwlazy (only referenced in dependency mappings)
+#   - Other serialization libraries: Handled via lazy installation
 

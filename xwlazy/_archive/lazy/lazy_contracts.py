@@ -15,7 +15,7 @@ system following DEV_GUIDELINES.md structure.
 
 from enum import Enum
 from typing import Protocol, Dict, List, Optional, Any, Tuple
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from types import ModuleType
 
 
@@ -23,12 +23,29 @@ from types import ModuleType
 # ENUMS
 # =============================================================================
 
+class LazyLoadMode(Enum):
+    """Controls lazy module loading behavior."""
+    NONE = "none"           # Standard imports (no lazy loading)
+    AUTO = "auto"           # Lazy loading enabled (deferred module loading)
+    PRELOAD = "preload"     # Preload all modules on start
+    BACKGROUND = "background"  # Load modules in background threads
+    CACHED = "cached"       # Cache loaded modules but allow unloading
+
+
 class LazyInstallMode(Enum):
     """Lazy installation modes."""
-    AUTO = "auto"           # Automatically install without asking
+    # Core modes
+    NONE = "none"           # No auto-installation
+    SMART = "smart"         # Install on first usage (on-demand) - replaces AUTO
+    FULL = "full"           # Install all dependencies on start
+    CLEAN = "clean"         # Install on usage + uninstall after completion
+    TEMPORARY = "temporary"  # Always uninstall after use (more aggressive than CLEAN)
+    SIZE_AWARE = "size_aware"  # Install small packages, skip large ones
+    
+    # Special purpose modes (kept for specific use cases)
     INTERACTIVE = "interactive"  # Ask user before installing
     WARN = "warn"           # Log warning but don't install (for monitoring)
-    DISABLED = "disabled"   # Don't install anything
+    DISABLED = "disabled"   # Don't install anything (alias for NONE, more explicit)
     DRY_RUN = "dry_run"    # Show what would be installed but don't install
 
 
@@ -51,6 +68,26 @@ class DependencyInfo:
     version: Optional[str] = None
     source: str = "unknown"
     category: str = "general"
+
+
+@dataclass
+class LazyModeConfig:
+    """Two-dimensional lazy mode configuration combining load and install modes."""
+    load_mode: LazyLoadMode = LazyLoadMode.NONE
+    install_mode: LazyInstallMode = LazyInstallMode.NONE
+    
+    # Additional configuration options
+    auto_uninstall_large: bool = False  # For AUTO_MODE behavior
+    large_package_threshold_mb: float = 50.0  # Size threshold for SIZE_AWARE mode
+    preload_priority: List[str] = field(default_factory=list)  # Priority modules for PRELOAD
+    background_workers: int = 2  # Workers for BACKGROUND mode
+    
+    def __post_init__(self):
+        """Normalize enum values."""
+        if isinstance(self.load_mode, str):
+            self.load_mode = LazyLoadMode(self.load_mode)
+        if isinstance(self.install_mode, str):
+            self.install_mode = LazyInstallMode(self.install_mode)
 
 
 # =============================================================================
@@ -274,12 +311,68 @@ class ILazyLoader(Protocol):
 # EXPORT ALL
 # =============================================================================
 
+# =============================================================================
+# PRESET MODE MAPPINGS
+# =============================================================================
+
+# Preset mode combinations for convenience
+PRESET_MODES: Dict[str, LazyModeConfig] = {
+    "none": LazyModeConfig(
+        load_mode=LazyLoadMode.NONE,
+        install_mode=LazyInstallMode.NONE
+    ),
+    "lite": LazyModeConfig(
+        load_mode=LazyLoadMode.AUTO,
+        install_mode=LazyInstallMode.NONE
+    ),
+    "smart": LazyModeConfig(
+        load_mode=LazyLoadMode.AUTO,
+        install_mode=LazyInstallMode.SMART
+    ),
+    "full": LazyModeConfig(
+        load_mode=LazyLoadMode.AUTO,
+        install_mode=LazyInstallMode.FULL
+    ),
+    "clean": LazyModeConfig(
+        load_mode=LazyLoadMode.AUTO,
+        install_mode=LazyInstallMode.CLEAN
+    ),
+    "temporary": LazyModeConfig(
+        load_mode=LazyLoadMode.AUTO,
+        install_mode=LazyInstallMode.TEMPORARY
+    ),
+    "size_aware": LazyModeConfig(
+        load_mode=LazyLoadMode.AUTO,
+        install_mode=LazyInstallMode.SIZE_AWARE
+    ),
+    "auto": LazyModeConfig(
+        load_mode=LazyLoadMode.AUTO,
+        install_mode=LazyInstallMode.SMART,
+        auto_uninstall_large=True
+    ),
+}
+
+
+def get_preset_mode(preset_name: str) -> Optional[LazyModeConfig]:
+    """Get preset mode configuration by name."""
+    return PRESET_MODES.get(preset_name.lower())
+
+
+# =============================================================================
+# EXPORT ALL
+# =============================================================================
+
 __all__ = [
     # Enums
+    'LazyLoadMode',
     'LazyInstallMode',
     'PathType',
     # Dataclasses
     'DependencyInfo',
+    'LazyModeConfig',
+    # Presets
+    'PRESET_MODES',
+    'get_preset_mode',
     # Interfaces/Protocols
     'IPackageDiscovery',
     'IPackageInstaller',

@@ -4,6 +4,12 @@ Unit tests for manifest loader integration, async queue, and hook short-circuiti
 
 from __future__ import annotations
 
+import pytest
+
+# Mark all tests in this file as unit tests
+pytestmark = pytest.mark.xwlazy_unit
+
+import asyncio
 import json
 import sys
 import time
@@ -18,16 +24,20 @@ SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from xwlazy.lazy import manifest as manifest_module  # noqa: E402
-import xwlazy.lazy.lazy_core as lazy_core_module  # noqa: E402
-from xwlazy.lazy.lazy_core import (  # noqa: E402
+from exonware.xwlazy import (  # noqa: E402
+    manifest,
     AsyncInstallHandle,
     DependencyMapper,
     LazyInstaller,
     WatchedPrefixRegistry,
     sync_manifest_configuration,
+    LazyManifestLoader,
+    PackageManifest,
 )
-from xwlazy.lazy.manifest import LazyManifestLoader, PackageManifest  # noqa: E402
+from exonware.xwlazy.common.utils import manifest as manifest_utils  # noqa: E402
+from exonware.xwlazy.discovery import mapper as mapper_module  # noqa: E402
+import exonware.xwlazy as lazy_core_module  # noqa: E402
+manifest_module = manifest  # Alias for compatibility with test code
 
 
 def test_manifest_loader_reads_pyproject_and_json(tmp_path, monkeypatch):
@@ -78,8 +88,9 @@ def test_dependency_mapper_prefers_manifest(tmp_path, monkeypatch):
     )
 
     loader = LazyManifestLoader(package_roots={"demo": project_root})
-    monkeypatch.setattr(manifest_module, "get_manifest_loader", lambda: loader)
-    monkeypatch.setattr(lazy_core_module, "get_manifest_loader", lambda: loader)
+    # Patch at the source module and where it's used (root cause fix)
+    monkeypatch.setattr(manifest_utils, "get_manifest_loader", lambda: loader)
+    monkeypatch.setattr(mapper_module, "get_manifest_loader", lambda: loader)
 
     mapper = DependencyMapper("demo")
     assert mapper.get_package_name("special") == "mapped"
@@ -132,15 +143,16 @@ def test_class_wrap_prefixes_register_hints(tmp_path, monkeypatch):
     )
 
     loader = LazyManifestLoader(package_roots={"wrapdemo": project_root})
-    monkeypatch.setattr(manifest_module, "get_manifest_loader", lambda: loader)
-    monkeypatch.setattr(lazy_core_module, "get_manifest_loader", lambda: loader)
+    # Patch at the source module and where it's used (root cause fix)
+    monkeypatch.setattr(manifest_utils, "get_manifest_loader", lambda: loader)
+    monkeypatch.setattr(mapper_module, "get_manifest_loader", lambda: loader)
 
     lazy_core_module.sync_manifest_configuration("wrapdemo")
     try:
         hints = lazy_core_module._get_package_class_hints("wrapdemo")  # noqa: SLF001
         assert hints == ("serializer", "encoder")
     finally:
-        lazy_core_module.refresh_lazy_manifests("wrapdemo")
+        lazy_core_module.refresh_lazy_manifests()  # Clear all manifest caches
         with lazy_core_module.LazyInstallerRegistry._lock:  # noqa: SLF001
             lazy_core_module.LazyInstallerRegistry._instances.pop("wrapdemo", None)  # noqa: SLF001
 
@@ -159,12 +171,15 @@ def test_async_install_queue(monkeypatch):
 
     events = {"install_called": 0}
 
-    def fake_install(package_name, module_name=None):
+    async def fake_async_install(package_name, module_name):
+        """Fake async install that simulates successful installation."""
         events["install_called"] += 1
-        time.sleep(0.001)
+        # Small delay to simulate async work
+        await asyncio.sleep(0.001)
         return True
 
-    monkeypatch.setattr(installer, "install_package", fake_install)
+    # Patch the async install method that's actually used by schedule_async_install
+    monkeypatch.setattr(installer, "_async_install_package", fake_async_install)
     installer._dependency_mapper = types.SimpleNamespace(get_package_name=lambda name: name)  # noqa: SLF001
 
     handle = installer.schedule_async_install("missing")

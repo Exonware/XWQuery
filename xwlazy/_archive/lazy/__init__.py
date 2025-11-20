@@ -41,16 +41,20 @@ Usage:
 # Import all from submodules
 from .lazy_contracts import (
     # Enums
+    LazyLoadMode,
     LazyInstallMode,
     PathType,
     # Dataclasses
     DependencyInfo,
+    LazyModeConfig,
     # Interfaces
     IPackageDiscovery,
     IPackageInstaller,
     IImportHook,
     IPackageCache,
     ILazyLoader,
+    # Preset modes
+    get_preset_mode,
 )
 
 from .lazy_errors import (
@@ -176,11 +180,16 @@ __company__ = "eXonware.com"
 # Export all
 __all__ = [
     # Enums
+    'LazyLoadMode',
     'LazyInstallMode',
     'PathType',
     
     # Dataclasses
     'DependencyInfo',
+    'LazyModeConfig',
+    
+    # Preset modes
+    'get_preset_mode',
     
     # Interfaces
     'IPackageDiscovery',

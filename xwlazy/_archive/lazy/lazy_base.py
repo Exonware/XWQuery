@@ -180,7 +180,7 @@ class APackageInstaller(IPackageInstaller, ABC):
         """
         self._package_name = package_name
         self._enabled = False
-        self._mode = LazyInstallMode.AUTO
+        self._mode = LazyInstallMode.SMART
         self._installed_packages: Set[str] = set()
         self._failed_packages: Set[str] = set()
         self._lock = threading.RLock()

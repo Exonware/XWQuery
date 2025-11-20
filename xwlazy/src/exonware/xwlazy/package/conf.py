@@ -1,9 +1,18 @@
-"""Host-facing configuration helpers for enabling lazy mode via `exonware.conf`.
+"""
+#exonware/xwlazy/src/exonware/xwlazy/package/conf.py
+
+Host-facing configuration helpers for enabling lazy mode via `exonware.conf`.
 
 This module centralizes the legacy configuration surface so host packages no
 longer need to ship their own lazy bootstrap logic.  Consumers import
 ``exonware.conf`` as before, while the real implementation now lives in
-``xwlazy.lazy.host_conf`` to keep lazy concerns within the xwlazy project.
+``xwlazy.package.conf`` to keep lazy concerns within the xwlazy project.
+
+Company: eXonware.com
+Author: Eng. Muhammad AlShehri
+Email: connect@exonware.com
+Version: 0.1.0.17
+Generation Date: 10-Oct-2025
 """
 
 from __future__ import annotations
@@ -16,14 +25,19 @@ import types
 import warnings
 from typing import Any, Dict, Optional
 
+# Import from new structure
 from .host_packages import refresh_host_package
-from .lazy_core import (
+from ..facade import (
     config_package_lazy_install_enabled,
     install_import_hook,
     uninstall_import_hook,
     is_import_hook_installed,
     is_lazy_install_enabled,
 )
+from ..defs import get_preset_mode
+from ..package.config_manager import LazyInstallConfig
+
+__all__ = ['get_conf_module', '_PackageConfig', '_FilteredStderr', '_LazyConfModule', '_setup_global_warning_filter']
 
 
 class _PackageConfig:
@@ -42,7 +56,8 @@ class _PackageConfig:
     def lazy_install(self, value: bool) -> None:
         """Enable/disable lazy mode for this package."""
         if value:
-            config_package_lazy_install_enabled(self._package_name, True, install_hook=False)
+            # Default to "smart" mode when enabling lazy install
+            config_package_lazy_install_enabled(self._package_name, True, mode="smart", install_hook=False)
             install_import_hook(self._package_name)
             refresh_host_package(self._package_name)
         else:
@@ -120,7 +135,7 @@ class _LazyConfModule(types.ModuleType):
                 return False
         except Exception:
             try:
-                import xwlazy  # noqa: F401
+                import exonware.xwlazy  # noqa: F401
                 return True
             except ImportError:
                 return False
@@ -205,6 +220,21 @@ class _LazyConfModule(types.ModuleType):
 
         if name == "lazy_install":
             return self._is_xwlazy_installed()
+        if name == "lazy":
+            # Return current lazy mode setting
+            # Check if any package has lazy enabled and return its mode
+            for pkg_name in package_names:
+                if is_lazy_install_enabled(pkg_name):
+                    mode_config = LazyInstallConfig.get_mode_config(pkg_name)
+                    if mode_config:
+                        # Return preset name if matches, otherwise return mode string
+                        from ..defs import PRESET_MODES
+                        for preset_name, preset_config in PRESET_MODES.items():
+                            if (preset_config.load_mode == mode_config.load_mode and 
+                                preset_config.install_mode == mode_config.install_mode):
+                                return preset_name
+                    return LazyInstallConfig.get_mode(pkg_name)
+            return "none"
         if name == "lazy_install_status":
             return self._get_global_lazy_status
         if name == "is_lazy_active":
@@ -221,10 +251,34 @@ class _LazyConfModule(types.ModuleType):
         if name == "lazy_install":
             if value:
                 self._ensure_xwlazy_installed()
-                self.__getattr__("xwsystem").lazy_install = True
+                # Enable with "smart" mode by default
+                package_names = ("xwsystem", "xwnode", "xwdata", "xwschema", "xwaction", "xwentity")
+                for pkg_name in package_names:
+                    config_package_lazy_install_enabled(pkg_name, True, mode="smart", install_hook=True)
             else:
-                self.__getattr__("xwsystem").lazy_install = False
+                package_names = ("xwsystem", "xwnode", "xwdata", "xwschema", "xwaction", "xwentity")
+                for pkg_name in package_names:
+                    config_package_lazy_install_enabled(pkg_name, False, install_hook=False)
+                    uninstall_import_hook(pkg_name)
                 self._uninstall_xwlazy()
+            return
+        if name == "lazy":
+            # Support exonware.conf.lazy = "lite"/"smart"/"full"/"clean"/"auto"
+            mode_map = {
+                "lite": "lite",
+                "smart": "smart", 
+                "full": "full",
+                "clean": "clean",
+                "auto": "auto",
+                "temporary": "temporary",
+                "size_aware": "size_aware",
+                "none": "none",
+            }
+            mode = mode_map.get(str(value).lower(), "smart")  # Default to "smart" instead of "auto"
+            # Apply to all known packages
+            package_names = ("xwsystem", "xwnode", "xwdata", "xwschema", "xwaction", "xwentity")
+            for pkg_name in package_names:
+                config_package_lazy_install_enabled(pkg_name, True, mode, install_hook=True)
             return
         if name == "suppress_warnings":
             self._suppress_warnings = bool(value)
@@ -275,5 +329,3 @@ def get_conf_module(name: str = "exonware.conf", doc: Optional[str] = None) -> t
     if _CONF_INSTANCE is None:
         _CONF_INSTANCE = _LazyConfModule(name, doc)
     return _CONF_INSTANCE
-
-

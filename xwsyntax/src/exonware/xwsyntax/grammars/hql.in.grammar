@@ -1,0 +1,208 @@
+// HQL Grammar for Lark
+// Hibernate Query Language
+// Object-oriented query language for Java Hibernate ORM
+
+start: statement
+
+statement: select_stmt
+         | update_stmt
+         | delete_stmt
+         | insert_stmt
+
+// SELECT with HQL object references
+select_stmt: SELECT [DISTINCT] select_list from_clause where_clause? group_by_clause? having_clause? order_by_clause?
+
+select_list: select_item ("," select_item)*
+           | OBJECT "(" IDENTIFIER ")"  // Return entire object
+
+select_item: expression [AS? IDENTIFIER]
+
+// FROM with entity names and joins
+from_clause: FROM from_source ("," from_source | join_clause)*
+
+from_source: entity_name [AS? IDENTIFIER]
+
+entity_name: IDENTIFIER
+
+join_clause: join_type? JOIN fetch? path [AS? IDENTIFIER] [WITH expression]
+
+join_type: INNER | LEFT OUTER? | RIGHT OUTER? | FULL
+
+fetch: FETCH  // Eager loading
+
+path: IDENTIFIER ("." IDENTIFIER)*
+
+// WHERE
+where_clause: WHERE expression
+
+// GROUP BY
+group_by_clause: GROUP BY expression ("," expression)*
+
+having_clause: HAVING expression
+
+// ORDER BY
+order_by_clause: ORDER BY order_item ("," order_item)*
+
+order_item: expression (ASC | DESC)?
+
+// UPDATE
+update_stmt: UPDATE [VERSIONED] entity_name [[AS] IDENTIFIER] SET assignment ("," assignment)* where_clause?
+
+assignment: path "=" expression
+
+// DELETE
+delete_stmt: DELETE FROM? entity_name [[AS] IDENTIFIER] where_clause?
+
+// INSERT (HQL 3.0+)
+insert_stmt: INSERT INTO entity_name select_stmt
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr (OR and_expr)*
+
+and_expr: not_expr (AND not_expr)*
+
+not_expr: NOT? comparison
+
+comparison: additive [compare_op additive]
+          | additive LIKE STRING [ESCAPE STRING]
+          | additive IN value_list
+          | additive IN "(" select_stmt ")"
+          | additive BETWEEN additive AND additive
+          | additive IS NULL
+          | additive IS NOT NULL
+          | additive IS EMPTY
+          | additive IS NOT EMPTY
+          | additive MEMBER OF path
+          | expression INSTANCEOF type_name
+
+compare_op: "=" | "!=" | "<>" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-" | "||") multiplicative)*
+
+multiplicative: unary (("*" | "/" | "%") unary)*
+
+unary: ("+" | "-")? primary
+
+primary: literal
+       | path
+       | parameter
+       | function_call
+       | aggregate_func
+       | "(" expression ")"
+       | "(" select_stmt ")"
+       | collection_expr
+
+// HQL functions
+function_call: function_name "(" [arg_list] ")"
+
+function_name: UPPER | LOWER | LENGTH | TRIM | CONCAT | SUBSTRING | LOCATE
+             | ABS | MOD | SQRT | SIZE | INDEX | CURRENT_DATE | CURRENT_TIME | CURRENT_TIMESTAMP
+             | ELEMENTS | INDICES | MIN_ELEMENT | MAX_ELEMENT | MIN_INDEX | MAX_INDEX
+
+aggregate_func: COUNT "(" ("*" | DISTINCT? expression) ")"
+              | SUM "(" DISTINCT? expression ")"
+              | AVG "(" DISTINCT? expression ")"
+              | MIN "(" expression ")"
+              | MAX "(" expression ")"
+
+arg_list: expression ("," expression)*
+
+// Parameters
+parameter: ":" IDENTIFIER
+         | "?" [NUMBER]
+
+// Collection expressions
+collection_expr: ELEMENTS "(" path ")"
+               | INDICES "(" path ")"
+
+value_list: "(" expression ("," expression)* ")"
+
+type_name: IDENTIFIER
+
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+// Keywords
+SELECT: "SELECT"i
+FROM: "FROM"i
+WHERE: "WHERE"i
+UPDATE: "UPDATE"i
+DELETE: "DELETE"i
+INSERT: "INSERT"i
+INTO: "INTO"i
+SET: "SET"i
+AS: "AS"i
+AND: "AND"i
+OR: "OR"i
+NOT: "NOT"i
+IN: "IN"i
+LIKE: "LIKE"i
+ESCAPE: "ESCAPE"i
+BETWEEN: "BETWEEN"i
+IS: "IS"i
+EMPTY: "EMPTY"i
+MEMBER: "MEMBER"i
+OF: "OF"i
+INSTANCEOF: "INSTANCEOF"i
+JOIN: "JOIN"i
+INNER: "INNER"i
+LEFT: "LEFT"i
+RIGHT: "RIGHT"i
+FULL: "FULL"i
+OUTER: "OUTER"i
+FETCH: "FETCH"i
+WITH: "WITH"i
+GROUP: "GROUP"i
+BY: "BY"i
+HAVING: "HAVING"i
+ORDER: "ORDER"i
+ASC: "ASC"i
+DESC: "DESC"i
+DISTINCT: "DISTINCT"i
+VERSIONED: "VERSIONED"i
+OBJECT: "OBJECT"i
+NULL: "NULL"i
+
+// Functions
+UPPER: "upper"i
+LOWER: "lower"i
+LENGTH: "length"i
+TRIM: "trim"i
+CONCAT: "concat"i
+SUBSTRING: "substring"i
+LOCATE: "locate"i
+ABS: "abs"i
+MOD: "mod"i
+SQRT: "sqrt"i
+SIZE: "size"i
+INDEX: "index"i
+CURRENT_DATE: "current_date"i
+CURRENT_TIME: "current_time"i
+CURRENT_TIMESTAMP: "current_timestamp"i
+ELEMENTS: "elements"i
+INDICES: "indices"i
+MIN_ELEMENT: "minelement"i
+MAX_ELEMENT: "maxelement"i
+MIN_INDEX: "minindex"i
+MAX_INDEX: "maxindex"i
+COUNT: "count"i
+SUM: "sum"i
+AVG: "avg"i
+MIN: "min"i
+MAX: "max"i
+
+BOOLEAN_LITERAL: "TRUE"i | "FALSE"i
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+%ignore CPP_COMMENT
+%ignore C_COMMENT
+

@@ -1,0 +1,208 @@
+// sql.grammar
+// SQL Grammar - Microsoft/VS Code compatible
+// Supports: SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, DROP
+// Compatible with ANSI SQL and T-SQL patterns
+
+?start: statement
+
+?statement: select_statement
+          | insert_statement
+          | update_statement
+          | delete_statement
+          | create_statement
+          | alter_statement
+          | drop_statement
+
+// SELECT Statement
+select_statement: SELECT [select_modifier] select_list from_clause? where_clause? group_by_clause? having_clause? order_by_clause? limit_clause?
+
+select_modifier: "DISTINCT" | "ALL" | "TOP" NUMBER
+
+select_list: "*" 
+           | select_item ("," select_item)*
+
+select_item: expression [AS? alias]
+
+from_clause: FROM table_reference_list
+
+table_reference_list: table_reference join_clause*
+                    | table_reference ("," table_reference)*
+
+table_reference: table_name [AS? alias]
+
+join_clause: join_type? JOIN table_name [AS? alias] ON expression
+
+join_type: "INNER" | "LEFT" | "RIGHT" | "FULL" | "CROSS"
+
+where_clause: WHERE expression
+
+group_by_clause: GROUP BY expression ("," expression)*
+
+having_clause: HAVING expression
+
+order_by_clause: ORDER BY order_item ("," order_item)*
+
+order_item: expression (ASC | DESC)?
+
+limit_clause: LIMIT NUMBER [OFFSET NUMBER]
+
+// INSERT Statement
+insert_statement: INSERT INTO table_name ["(" column_list ")"] values_clause
+
+values_clause: VALUES "(" expression_list ")" ("," "(" expression_list ")")*
+
+column_list: column_name ("," column_name)*
+
+// UPDATE Statement
+update_statement: UPDATE table_name SET assignment_list where_clause?
+
+assignment_list: assignment ("," assignment)*
+
+assignment: column_name "=" expression
+
+// DELETE Statement
+delete_statement: DELETE FROM table_name where_clause?
+
+// CREATE Statement
+create_statement: CREATE (TABLE | INDEX | VIEW | DATABASE) identifier "(" column_def_list? ")"
+
+column_def_list: column_def ("," column_def)*
+
+column_def: column_name data_type [constraint*]
+
+data_type: type_name ["(" NUMBER ["," NUMBER] ")"]
+
+type_name: "INT" | "INTEGER" | "VARCHAR" | "CHAR" | "TEXT" | "DECIMAL" | "NUMERIC" | "FLOAT" | "DOUBLE" | "DATE" | "TIME" | "DATETIME" | "TIMESTAMP" | "BOOLEAN" | "BOOL" | "BLOB"
+
+constraint: NOT_NULL | PRIMARY_KEY | FOREIGN_KEY | UNIQUE | CHECK
+
+// ALTER Statement
+alter_statement: ALTER TABLE table_name alter_action
+
+alter_action: ADD column_def
+            | DROP COLUMN column_name
+            | MODIFY column_def
+
+// DROP Statement
+drop_statement: DROP (TABLE | INDEX | VIEW | DATABASE) identifier
+
+// Expressions
+?expression: logical_or
+
+?logical_or: logical_and
+           | logical_or OR logical_and
+
+?logical_and: comparison
+            | logical_and AND comparison
+
+?comparison: addition
+           | comparison compare_op addition
+
+compare_op: "=" | "!=" | "<>" | "<" | ">" | "<=" | ">=" | LIKE | IN | IS | BETWEEN
+
+?addition: multiplication
+         | addition "+" multiplication
+         | addition "-" multiplication
+
+?multiplication: unary
+               | multiplication "*" unary
+               | multiplication "/" unary
+               | multiplication "%" unary
+
+?unary: atom
+      | NOT unary
+      | "+" unary
+      | "-" unary
+
+?atom: literal
+     | column_reference
+     | function_call
+     | "(" expression ")"
+     | subquery
+
+column_reference: [table_name "."] column_name
+
+function_call: function_name "(" [expression_list] ")"
+
+subquery: "(" select_statement ")"
+
+expression_list: expression ("," expression)*
+
+// Names and literals
+table_name: identifier
+column_name: identifier
+alias: identifier
+function_name: identifier
+
+identifier: CNAME | QUOTED_IDENTIFIER
+
+?literal: string
+        | number
+        | BOOLEAN
+        | NULL
+
+string: STRING
+number: NUMBER
+
+STRING: ESCAPED_STRING | /'[^']*'/
+
+// Keywords (case-insensitive)
+SELECT: "SELECT"i
+FROM: "FROM"i
+WHERE: "WHERE"i
+INSERT: "INSERT"i
+INTO: "INTO"i
+VALUES: "VALUES"i
+UPDATE: "UPDATE"i
+DELETE: "DELETE"i
+CREATE: "CREATE"i
+ALTER: "ALTER"i
+DROP: "DROP"i
+SET: "SET"i
+TABLE: "TABLE"i
+INDEX: "INDEX"i
+VIEW: "VIEW"i
+DATABASE: "DATABASE"i
+AND: "AND"i
+OR: "OR"i
+NOT: "NOT"i
+IN: "IN"i
+IS: "IS"i
+LIKE: "LIKE"i
+BETWEEN: "BETWEEN"i
+AS: "AS"i
+JOIN: "JOIN"i
+ON: "ON"i
+GROUP: "GROUP"i
+BY: "BY"i
+HAVING: "HAVING"i
+ORDER: "ORDER"i
+ASC: "ASC"i
+DESC: "DESC"i
+LIMIT: "LIMIT"i
+OFFSET: "OFFSET"i
+ADD: "ADD"i
+COLUMN: "COLUMN"i
+MODIFY: "MODIFY"i
+PRIMARY_KEY: "PRIMARY"i "KEY"i
+FOREIGN_KEY: "FOREIGN"i "KEY"i
+UNIQUE: "UNIQUE"i
+CHECK: "CHECK"i
+NOT_NULL: "NOT"i "NULL"i
+NULL: "NULL"i
+BOOLEAN: "TRUE"i | "FALSE"i
+
+// Terminals
+QUOTED_IDENTIFIER: /`[^`]+`/ | /\[[^\]]+\]/ | /"[^"]+"/
+
+%import common.CNAME
+%import common.ESCAPED_STRING
+%import common.SIGNED_NUMBER -> NUMBER
+%import common.WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+
+%ignore WS
+%ignore CPP_COMMENT
+%ignore C_COMMENT
+

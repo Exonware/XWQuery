@@ -1,0 +1,96 @@
+[build-system]
+requires = [
+    "hatchling",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "xwsyntax"
+version = "0.0.1"
+description = "Convenience wrapper for exonware-xwsyntax - provides 'import xwsyntax' alias"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = [
+    "parser",
+    "grammar",
+    "lark",
+    "ast",
+    "syntax",
+    "bidirectional",
+    "code-generation",
+    "format-conversion",
+    "ide",
+    "lsp",
+    "monaco",
+    "tree-sitter",
+    "json",
+    "sql",
+    "python",
+    "graphql",
+    "cypher",
+    "exonware",
+]
+authors = [
+    { name = "Eng. Muhammad AlShehri", email = "connect@exonware.com" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Software Development :: Interpreters",
+    "Topic :: Text Processing :: Linguistic",
+]
+dependencies = [
+    "exonware-xwsyntax",
+]
+
+[project.license]
+text = "MIT"
+
+[project.optional-dependencies]
+optimization = [
+    "exonware-xwsyntax[optimization]",
+]
+binary = [
+    "exonware-xwsyntax[binary]",
+]
+ide = [
+    "exonware-xwsyntax[ide]",
+]
+dev = [
+    "exonware-xwsyntax[dev]",
+]
+full = [
+    "exonware-xwsyntax[full]",
+]
+
+[project.urls]
+Homepage = "https://exonware.com"
+Repository = "https://github.com/exonware/xwsyntax"
+Documentation = "https://github.com/exonware/xwsyntax#readme"
+
+[tool.hatch.version]
+path = "src/exonware/xwsyntax/version.py"
+
+[tool.hatch.build.targets.wheel]
+only-include = [
+    "README.md",
+    "src/xwsyntax_wrapper.py",
+]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+]

@@ -1,0 +1,57 @@
+// Datalog Grammar for Lark
+// Logic programming query language
+
+start: program
+
+program: (rule | fact | query)*
+
+rule: head ":-" body "."
+
+fact: atom "."
+
+query: "?-" body "."
+
+head: atom
+
+body: literal ("," literal)*
+
+literal: atom
+       | NOT atom
+
+atom: predicate_name ["(" term_list ")"]
+
+predicate_name: IDENTIFIER
+
+term_list: term ("," term)*
+
+term: variable
+    | constant
+    | compound_term
+    | list_term
+
+variable: IDENTIFIER  // Uppercase first letter
+
+constant: STRING
+        | NUMBER
+        | IDENTIFIER  // lowercase first letter
+
+compound_term: functor "(" term_list ")"
+
+functor: IDENTIFIER
+
+list_term: "[" term ("," term)* ["|" term] "]"
+         | "[" "]"
+
+// Keywords
+NOT: "not" | "\\+"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /-?\d+(\.\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%ignore CPP_COMMENT
+

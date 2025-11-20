@@ -1,0 +1,24 @@
+#exonware/xwsyntax/requirements.txt
+
+# Core dependencies
+exonware-xwnode>=0.0.1
+exonware-xwsystem>=0.0.1
+lark>=1.1.0
+
+# Optional - Binary formats
+msgpack>=1.0.0
+cbor2>=5.0.0
+
+# Optional - IDE features
+pygls>=1.0.0
+tree-sitter>=0.20.0
+
+# Development dependencies
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.0.0
+pytest-benchmark>=4.0.0
+black>=23.0.0
+isort>=5.12.0
+mypy>=1.0.0
+

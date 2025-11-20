@@ -1,0 +1,74 @@
+# python.out.grammar
+# Python Output Grammar - Template for generating Python from AST
+# Based on Python 3.x syntax
+# Company: eXonware.com
+# Version: 1.0
+
+# Note: Python generation is complex due to indentation requirements
+# This is a simplified version for basic structures
+
+@module = {{#each statements}}{{value}}
+{{/each}}
+
+@statement = {{child_0}}
+
+@expr_stmt = {{value}}
+
+@assignment = {{target}} = {{value}}
+
+@function_def = def {{name}}({{params}}):
+{{indent}}{{body}}
+
+@class_def = class {{name}}{{bases?}}:
+{{indent}}{{body}}
+
+@if_stmt = if {{condition}}:
+{{indent}}{{then_body}}{{else_body?}}
+
+@for_stmt = for {{target}} in {{iter}}:
+{{indent}}{{body}}
+
+@while_stmt = while {{condition}}:
+{{indent}}{{body}}
+
+@return_stmt = return {{value?}}
+
+@import_stmt = import {{modules}}
+
+@from_import = from {{module}} import {{names}}
+
+@expression = {{value}}
+
+@binop = {{left}} {{op}} {{right}}
+
+@unaryop = {{op}}{{operand}}
+
+@call = {{func}}({{args}})
+
+@attribute = {{value}}.{{attr}}
+
+@subscript = {{value}}[{{slice}}]
+
+@list = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@tuple = ({{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@dict = {{{#each pairs}}{{key}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@set = {{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@string = {{value}}
+
+@number = {{value}}
+
+@name = {{value}}
+
+@true = True
+
+@false = False
+
+@none = None
+
+@indent = 4
+@pretty = true
+

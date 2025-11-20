@@ -1,0 +1,83 @@
+// JMESPath Grammar for Lark
+// JSON query expression language
+
+start: expression
+
+expression: or_expr
+
+or_expr: and_expr ("||" and_expr)*
+
+and_expr: comparison ("&&" comparison)*
+
+comparison: pipe_expr [compare_op pipe_expr]
+
+compare_op: "==" | "!=" | "<" | ">" | "<=" | ">="
+
+pipe_expr: projection ("|" projection)*
+
+projection: identifier_projection
+          | index_projection
+          | slice_projection
+          | flatten_projection
+          | filter_projection
+          | multi_select_list
+          | multi_select_hash
+          | function_expr
+          | current_node
+          | wildcard
+
+identifier_projection: IDENTIFIER [subexpr]
+
+index_projection: "[" NUMBER "]" [subexpr]
+
+slice_projection: "[" [NUMBER] ":" [NUMBER] [":" [NUMBER]] "]" [subexpr]
+
+flatten_projection: "[]" [subexpr]
+
+filter_projection: "[" "?" expression "]" [subexpr]
+
+multi_select_list: "[" expression ("," expression)* "]"
+
+multi_select_hash: "{" keyval_expr ("," keyval_expr)* "}"
+
+keyval_expr: IDENTIFIER ":" expression
+
+function_expr: function_name "(" [arg_list] ")"
+
+function_name: "length" | "keys" | "values" | "type" | "sort" | "sort_by"
+             | "max" | "min" | "avg" | "sum" | "join" | "reverse"
+             | "contains" | "starts_with" | "ends_with" | "to_string" | "to_number"
+             | "not_null" | "merge" | "max_by" | "min_by" | "map" | "group_by"
+
+arg_list: expression ("," expression)*
+
+current_node: "@"
+
+wildcard: "*"
+
+subexpr: "." projection
+       | "[" projection_component "]"
+
+projection_component: NUMBER | "*" | expression
+
+// Literals
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL | raw_string | array_literal | object_literal
+
+array_literal: "[" [expression ("," expression)*] "]"
+
+object_literal: "{" [keyval_expr ("," keyval_expr)*] "}"
+
+raw_string: "'" /[^']*/ "'"
+
+BOOLEAN_LITERAL: "`true`" | "`false`"
+
+NULL: "`null`"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /`"[^"]*"`/ | /"[^"]*"/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+

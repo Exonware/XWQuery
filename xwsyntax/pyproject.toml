@@ -1,0 +1,94 @@
+#exonware/xwsyntax/pyproject.toml
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "exonware-xwsyntax"
+version = "0.0.1.1"
+description = "Universal grammar engine with bidirectional parsing and generation for 31+ formats"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+keywords = [
+    "parser", "grammar", "lark", "ast", "syntax",
+    "bidirectional", "code-generation", "format-conversion",
+    "ide", "lsp", "monaco", "tree-sitter",
+    "json", "sql", "python", "graphql", "cypher",
+    "exonware"
+]
+authors = [
+    {name = "Eng. Muhammad AlShehri", email = "connect@exonware.com"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Software Development :: Interpreters",
+    "Topic :: Text Processing :: Linguistic",
+]
+
+dependencies = [
+    "exonware-xwnode>=0.0.1",
+    "exonware-xwsystem>=0.0.1",
+    "lark>=1.1.0",
+]
+
+[project.optional-dependencies]
+optimization = [
+    "exonware-xwnode[full]>=0.0.1",  # All 57 node strategies
+]
+
+binary = [
+    "msgpack>=1.0.0",      # MessagePack binary format
+    "cbor2>=5.0.0",        # CBOR binary format
+]
+
+ide = [
+    "pygls>=1.0.0",        # Language Server Protocol
+    "tree-sitter>=0.20.0", # High-performance parsing
+]
+
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "pytest-benchmark>=4.0.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.0.0",
+]
+
+full = [
+    "exonware-xwsyntax[optimization,binary,ide]",
+]
+
+[project.urls]
+Homepage = "https://exonware.com"
+Repository = "https://github.com/exonware/xwsyntax"
+Documentation = "https://github.com/exonware/xwsyntax#readme"
+
+[tool.hatch.version]
+path = "src/exonware/xwsyntax/version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/exonware"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+]
+

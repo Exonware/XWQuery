@@ -1,0 +1,98 @@
+// GraphQL Grammar for Lark
+// GraphQL query language for APIs
+
+start: document
+
+document: definition+
+
+definition: operation_definition
+          | fragment_definition
+
+operation_definition: operation_type [operation_name] [variable_definitions] directives? selection_set
+
+operation_type: QUERY | MUTATION | SUBSCRIPTION
+
+operation_name: IDENTIFIER
+
+variable_definitions: "(" variable_definition ("," variable_definition)* ")"
+
+variable_definition: "$" IDENTIFIER ":" type [default_value]
+
+type: named_type
+    | list_type
+    | non_null_type
+
+named_type: IDENTIFIER
+
+list_type: "[" type "]"
+
+non_null_type: (named_type | list_type) "!"
+
+default_value: "=" value
+
+selection_set: "{" selection+ "}"
+
+selection: field
+         | fragment_spread
+         | inline_fragment
+
+field: [alias] IDENTIFIER [arguments] [directives] [selection_set]
+
+alias: IDENTIFIER ":"
+
+arguments: "(" argument ("," argument)* ")"
+
+argument: IDENTIFIER ":" value
+
+fragment_spread: "..." IDENTIFIER [directives]
+
+inline_fragment: "..." [ON type_condition] [directives] selection_set
+
+type_condition: IDENTIFIER
+
+fragment_definition: FRAGMENT IDENTIFIER ON type_condition [directives] selection_set
+
+directives: directive+
+
+directive: "@" IDENTIFIER [arguments]
+
+// Values
+value: STRING
+     | NUMBER
+     | BOOLEAN_LITERAL
+     | NULL
+     | ENUM_VALUE
+     | list_value
+     | object_value
+     | "$" IDENTIFIER  // Variable
+
+list_value: "[" [value ("," value)*] "]"
+
+object_value: "{" [object_field ("," object_field)*] "}"
+
+object_field: IDENTIFIER ":" value
+
+ENUM_VALUE: /[A-Z_][A-Z0-9_]*/
+
+// Keywords
+QUERY: "query"
+MUTATION: "mutation"
+SUBSCRIPTION: "subscription"
+FRAGMENT: "fragment"
+ON: "on"
+NULL: "null"
+
+BOOLEAN_LITERAL: "true" | "false"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+%ignore CPP_COMMENT
+%ignore C_COMMENT
+

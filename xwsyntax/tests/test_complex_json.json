@@ -1,0 +1,65 @@
+{
+ "company": "eXonware.com",
+ "product": "XWSystem",
+ "version": "0.0.1.387",
+ "features": {
+ "serialization": {
+ "formats": 30,
+ "async": true,
+ "streaming": true,
+ "batch_operations": true,
+ "supported_formats": [
+ "JSON",
+ "YAML",
+ "XML",
+ "TOML",
+ "CSV",
+ "BSON",
+ "MessagePack",
+ "CBOR"
+ ]
+ },
+ "syntax": {
+ "grammars": 3,
+ "bidirectional": true,
+ "formats": ["json", "python", "sql"],
+ "capabilities": {
+ "parsing": true,
+ "generation": true,
+ "roundtrip": true,
+ "monaco_export": true
+ }
+ }
+ },
+ "team": [
+ {
+ "name": "Eng. Muhammad AlShehri",
+ "role": "Chief Architect",
+ "email": "connect@exonware.com",
+ "active": true,
+ "projects": ["xwsystem", "xwdata", "xwnode", "xwquery"]
+ }
+ ],
+ "metrics": {
+ "total_files": 1000,
+ "lines_of_code": 50000,
+ "test_coverage": 85.5,
+ "performance_score": 9.8,
+ "active": true,
+ "tags": ["production", "enterprise", "high-performance"],
+ "nested_data": {
+ "level1": {
+ "level2": {
+ "level3": {
+ "deep_value": "Success!",
+ "deep_number": 42,
+ "deep_bool": true,
+ "deep_null": null,
+ "deep_array": [1, 2, 3, 4, 5]
+ }
+ }
+ }
+ }
+ }
+}
+

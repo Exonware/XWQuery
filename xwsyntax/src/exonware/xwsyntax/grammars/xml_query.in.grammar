@@ -1,0 +1,94 @@
+// XML Query Grammar for Lark
+// Simplified XML query language
+
+start: query_expr
+
+query_expr: for_expr
+          | path_expr
+          | expression
+
+expression: or_expr
+
+// Path expressions
+path_expr: "/" step ("/" step)*
+         | "//" step ("/" step)*
+
+step: axis_specifier node_test predicate*
+    | node_test predicate*
+    | ".."
+    | "."
+
+axis_specifier: axis_name "::"
+              | "@"
+
+axis_name: "child" | "descendant" | "parent" | "ancestor"
+         | "following" | "preceding" | "attribute" | "self"
+
+node_test: "*"
+         | IDENTIFIER
+         | node_type "(" ")"
+
+node_type: "node" | "text" | "comment" | "processing-instruction"
+
+predicate: "[" predicate_expr "]"
+
+predicate_expr: expression
+              | NUMBER
+
+// FLWOR-like expressions
+for_expr: FOR variable IN expression RETURN expression
+
+where_expr: WHERE expression
+
+return_expr: RETURN expression
+
+variable: DOLLAR IDENTIFIER
+
+// Operators
+or_expr: and_expr (OR and_expr)*
+
+and_expr: comparison (AND comparison)*
+
+comparison: additive [compare_op additive]
+
+compare_op: "=" | "!=" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | DIV | MOD) unary)*
+
+unary: ("+" | "-")? primary
+
+primary: literal
+       | variable
+       | function_call
+       | path_expr
+       | "(" expression ")"
+
+function_call: IDENTIFIER "(" [arg_list] ")"
+
+arg_list: expression ("," expression)*
+
+literal: STRING | NUMBER | BOOLEAN_LITERAL
+
+// Keywords
+FOR: "for"
+IN: "in"
+WHERE: "where"
+RETURN: "return"
+AND: "and"
+OR: "or"
+DIV: "div"
+MOD: "mod"
+
+BOOLEAN_LITERAL: "true" "(" ")" | "false" "(" ")"
+
+// Terminals
+DOLLAR: "$"
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_\-]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /-?\d+(\.\d+)?/
+
+%import common.WS
+%ignore WS
+

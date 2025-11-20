@@ -1,0 +1,292 @@
+// XWQueryScript Grammar for Lark
+// Universal Query Language - Core Operations
+// Simplified for LALR parsing
+
+start: statement
+
+// Main statement types
+statement: select_stmt
+         | insert_stmt
+         | update_stmt
+         | delete_stmt
+         | create_stmt
+         | drop_stmt
+         | describe_stmt
+         | load_stmt
+         | store_stmt
+         | merge_stmt
+         | alter_stmt
+         | with_stmt
+         | match_stmt
+
+// SELECT statement
+select_stmt: SELECT select_list from_clause? where_clause? group_by_clause? having_clause? order_by_clause? limit_clause? window_clause?
+
+select_list: "*"
+           | select_item ("," select_item)*
+
+select_item: expression [AS IDENTIFIER]
+
+// FROM with joins
+from_clause: FROM table_ref (join_clause)*
+
+table_ref: IDENTIFIER [AS? IDENTIFIER]
+
+join_clause: join_type? JOIN IDENTIFIER [AS? IDENTIFIER] ON expression
+
+join_type: INNER | LEFT | RIGHT | FULL | CROSS
+
+// WHERE and FILTER
+where_clause: WHERE expression
+
+// Aggregation
+aggregate_function: COUNT "(" ("*" | DISTINCT? expression) ")"
+                  | SUM "(" DISTINCT? expression ")"
+                  | AVG "(" DISTINCT? expression ")"
+                  | MIN "(" expression ")"
+                  | MAX "(" expression ")"
+
+group_by_clause: GROUP BY expression ("," expression)*
+
+having_clause: HAVING expression
+
+// Ordering
+order_by_clause: ORDER BY order_item ("," order_item)*
+
+order_item: expression (ASC | DESC)?
+
+limit_clause: LIMIT NUMBER [OFFSET NUMBER]
+
+// Window
+window_clause: WINDOW OVER "(" (PARTITION BY expression ("," expression)*)? (ORDER BY order_item ("," order_item)*)? ")"
+
+// INSERT
+insert_stmt: INSERT INTO IDENTIFIER VALUES object_literal
+           | INSERT INTO IDENTIFIER "(" id_list ")" VALUES value_tuple_list
+
+id_list: IDENTIFIER ("," IDENTIFIER)*
+
+value_tuple_list: value_tuple ("," value_tuple)*
+
+value_tuple: "(" expression ("," expression)* ")"
+
+// UPDATE
+update_stmt: UPDATE IDENTIFIER SET assignment ("," assignment)* where_clause?
+
+assignment: IDENTIFIER "=" expression
+
+// DELETE
+delete_stmt: DELETE FROM IDENTIFIER where_clause?
+
+// CREATE
+create_stmt: CREATE object_type IDENTIFIER
+
+object_type: COLLECTION | TABLE | INDEX | VIEW | DATABASE
+
+// DROP
+drop_stmt: DROP object_type [IF EXISTS] IDENTIFIER
+
+// DESCRIBE
+describe_stmt: DESCRIBE IDENTIFIER
+
+// LOAD/STORE
+load_stmt: LOAD FROM STRING [INTO IDENTIFIER]
+
+store_stmt: STORE IDENTIFIER TO STRING
+
+// MERGE
+merge_stmt: MERGE IDENTIFIER WITH IDENTIFIER ON expression
+          | MERGE IDENTIFIER USING IDENTIFIER ON expression
+
+// ALTER
+alter_stmt: ALTER object_type IDENTIFIER alter_action
+
+alter_action: ADD column_def
+            | ADD COLUMN column_def
+            | DROP COLUMN IDENTIFIER
+            | MODIFY column_def
+
+column_def: IDENTIFIER data_type
+
+data_type: INT | VARCHAR | TEXT | FLOAT | DOUBLE | DECIMAL | DATE | DATETIME | TIMESTAMP | BOOLEAN | JSON
+
+// WITH (CTE)
+with_stmt: WITH cte ("," cte)* statement
+
+cte: IDENTIFIER AS "(" select_stmt ")"
+
+// MATCH (graph)
+match_stmt: MATCH pattern where_clause? RETURN return_list
+
+pattern: node_pattern (relationship node_pattern)*
+
+node_pattern: "(" [IDENTIFIER] [label] [props] ")"
+
+relationship: "-" "[" [IDENTIFIER] [rel_type] [props] "]" "->"
+            | "<-" "[" [IDENTIFIER] [rel_type] [props] "]" "-"
+
+label: ":" IDENTIFIER
+
+rel_type: ":" IDENTIFIER
+
+props: "{" prop_list "}"
+
+prop_list: prop_pair ("," prop_pair)*
+
+prop_pair: IDENTIFIER ":" expression
+
+return_list: return_item ("," return_item)*
+
+return_item: expression [AS IDENTIFIER]
+           | "*"
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr (OR and_expr)*
+
+and_expr: not_expr (AND not_expr)*
+
+not_expr: NOT? comparison
+
+comparison: additive [compare_op additive]
+          | additive LIKE STRING
+          | additive IN value_list
+          | additive BETWEEN additive AND additive
+          | additive HAS IDENTIFIER
+
+compare_op: "=" | "!=" | "<>" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | "/" | "%") unary)*
+
+unary: ("+" | "-")? primary
+
+primary: literal
+       | column_ref
+       | function_call
+       | aggregate_function
+       | "(" expression ")"
+       | subquery
+       | array_literal
+       | object_literal
+
+// Column references
+column_ref: IDENTIFIER ("." IDENTIFIER)?
+
+// Function calls
+function_call: IDENTIFIER "(" [arg_list] ")"
+
+arg_list: expression ("," expression)*
+
+// Subquery
+subquery: "(" select_stmt ")"
+
+// Lists
+value_list: "(" expression ("," expression)* ")"
+          | "[" expression ("," expression)* "]"
+
+// Literals
+literal: STRING
+       | NUMBER
+       | BOOLEAN_LITERAL
+       | NULL
+
+array_literal: "[" [expression ("," expression)*] "]"
+
+object_literal: "{" [prop_pair ("," prop_pair)*] "}"
+
+// Keywords (case-insensitive)
+SELECT: "SELECT"i
+FROM: "FROM"i
+WHERE: "WHERE"i
+INSERT: "INSERT"i
+INTO: "INTO"i
+VALUES: "VALUES"i
+UPDATE: "UPDATE"i
+SET: "SET"i
+DELETE: "DELETE"i
+CREATE: "CREATE"i
+DROP: "DROP"i
+ALTER: "ALTER"i
+DESCRIBE: "DESCRIBE"i
+LOAD: "LOAD"i
+STORE: "STORE"i
+MERGE: "MERGE"i
+WITH: "WITH"i
+MATCH: "MATCH"i
+RETURN: "RETURN"i
+AS: "AS"i
+AND: "AND"i
+OR: "OR"i
+NOT: "NOT"i
+IN: "IN"i
+LIKE: "LIKE"i
+BETWEEN: "BETWEEN"i
+HAS: "HAS"i
+JOIN: "JOIN"i
+ON: "ON"i
+USING: "USING"i
+INNER: "INNER"i
+LEFT: "LEFT"i
+RIGHT: "RIGHT"i
+FULL: "FULL"i
+CROSS: "CROSS"i
+GROUP: "GROUP"i
+BY: "BY"i
+HAVING: "HAVING"i
+ORDER: "ORDER"i
+ASC: "ASC"i
+DESC: "DESC"i
+LIMIT: "LIMIT"i
+OFFSET: "OFFSET"i
+WINDOW: "WINDOW"i
+OVER: "OVER"i
+PARTITION: "PARTITION"i
+COUNT: "COUNT"i
+SUM: "SUM"i
+AVG: "AVG"i
+MIN: "MIN"i
+MAX: "MAX"i
+DISTINCT: "DISTINCT"i
+COLLECTION: "COLLECTION"i
+TABLE: "TABLE"i
+INDEX: "INDEX"i
+VIEW: "VIEW"i
+DATABASE: "DATABASE"i
+IF: "IF"i
+EXISTS: "EXISTS"i
+ADD: "ADD"i
+COLUMN: "COLUMN"i
+MODIFY: "MODIFY"i
+NULL: "NULL"i
+TO: "TO"i
+
+// Data types
+INT: "INT"i | "INTEGER"i
+VARCHAR: "VARCHAR"i
+TEXT: "TEXT"i
+FLOAT: "FLOAT"i
+DOUBLE: "DOUBLE"i
+DECIMAL: "DECIMAL"i
+DATE: "DATE"i
+DATETIME: "DATETIME"i
+TIMESTAMP: "TIMESTAMP"i
+BOOLEAN: "BOOLEAN"i | "BOOL"i
+JSON: "JSON"i
+
+// Boolean literals
+BOOLEAN_LITERAL: "TRUE"i | "FALSE"i
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+%ignore CPP_COMMENT
+%ignore C_COMMENT

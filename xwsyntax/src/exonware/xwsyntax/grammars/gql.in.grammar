@@ -1,0 +1,136 @@
+// GQL Grammar for Lark
+// ISO Graph Query Language (GQL)
+// Standard graph query language
+
+start: query
+
+query: graph_pattern_query
+     | insert_query
+     | update_query
+     | delete_query
+
+// Graph pattern matching
+graph_pattern_query: MATCH graph_pattern where_clause? RETURN return_list
+
+graph_pattern: path_pattern ("," path_pattern)*
+
+path_pattern: node_pattern (edge_pattern node_pattern)*
+
+node_pattern: "(" [variable] [label_expr] [where_inline] ")"
+
+edge_pattern: directed_edge
+            | undirected_edge
+
+directed_edge: "-" "[" [variable] [type_expr] [where_inline] "]" "->"
+             | "<-" "[" [variable] [type_expr] [where_inline] "]" "-"
+
+undirected_edge: "-" "[" [variable] [type_expr] [where_inline] "]" "-"
+
+variable: IDENTIFIER
+
+label_expr: ":" label_name (":" label_name)*
+
+type_expr: ":" type_name ("|" type_name)*
+
+label_name: IDENTIFIER
+
+type_name: IDENTIFIER
+
+where_inline: "{" expression "}"
+
+// WHERE clause
+where_clause: WHERE expression
+
+// RETURN clause
+return_list: return_item ("," return_item)*
+
+return_item: expression [AS variable]
+           | "*"
+
+// INSERT
+insert_query: INSERT graph_pattern
+
+// UPDATE
+update_query: MATCH graph_pattern SET set_list where_clause?
+
+set_list: set_item ("," set_item)*
+
+set_item: variable "." property_name "=" expression
+        | variable label_expr  // Add label
+
+property_name: IDENTIFIER
+
+// DELETE
+delete_query: MATCH graph_pattern [where_clause] DELETE variable_list
+            | MATCH graph_pattern [where_clause] DETACH DELETE variable_list
+
+variable_list: variable ("," variable)*
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr (OR and_expr)*
+
+and_expr: not_expr (AND not_expr)*
+
+not_expr: NOT? comparison
+
+comparison: additive [compare_op additive]
+          | additive IN value_list
+          | additive IS NULL
+          | additive IS NOT NULL
+
+compare_op: "=" | "!=" | "<>" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | "/" | "%") unary)*
+
+unary: ("+" | "-")? primary
+
+primary: literal
+       | variable ["." property_name]
+       | function_call
+       | "(" expression ")"
+
+function_call: function_name "(" [arg_list] ")"
+
+function_name: IDENTIFIER
+
+arg_list: expression ("," expression)*
+
+value_list: "(" expression ("," expression)* ")"
+
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+// Keywords
+MATCH: "MATCH"i
+INSERT: "INSERT"i
+UPDATE: "UPDATE"i
+DELETE: "DELETE"i
+DETACH: "DETACH"i
+WHERE: "WHERE"i
+RETURN: "RETURN"i
+SET: "SET"i
+AS: "AS"i
+AND: "AND"i
+OR: "OR"i
+NOT: "NOT"i
+IN: "IN"i
+IS: "IS"i
+NULL: "NULL"i
+
+BOOLEAN_LITERAL: "TRUE"i | "FALSE"i
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+%ignore CPP_COMMENT
+%ignore C_COMMENT
+

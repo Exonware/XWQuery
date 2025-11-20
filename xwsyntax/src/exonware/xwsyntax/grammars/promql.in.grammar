@@ -1,0 +1,147 @@
+// PromQL Grammar for Lark
+// Prometheus Query Language
+// Time-series metrics query language
+
+start: expression
+
+expression: or_expr
+
+or_expr: and_expr (OR and_expr)*
+
+and_expr: unless_expr (AND unless_expr)*
+
+unless_expr: comparison (UNLESS comparison)*
+
+comparison: additive [compare_op additive]
+
+compare_op: "==" | "!=" | ">" | ">=" | "<" | "<="
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | "/" | "%" | "^") unary)*
+
+unary: ("+" | "-")? primary
+
+primary: instant_vector_selector
+       | range_vector_selector
+       | aggregation
+       | function_call
+       | NUMBER
+       | STRING
+       | "(" expression ")"
+
+// Instant vector selector
+instant_vector_selector: metric_name [label_matchers]
+                       | label_matchers
+
+metric_name: IDENTIFIER ("_" IDENTIFIER | IDENTIFIER)*
+
+label_matchers: "{" [label_matcher ("," label_matcher)*] "}"
+
+label_matcher: label_name match_op label_value
+
+label_name: IDENTIFIER
+
+match_op: "=" | "!=" | "=~" | "!~"
+
+label_value: STRING
+
+// Range vector selector
+range_vector_selector: instant_vector_selector "[" duration "]" [offset_modifier]
+
+offset_modifier: OFFSET duration
+               | "@" NUMBER
+
+duration: NUMBER time_unit
+
+time_unit: "ms" | "s" | "m" | "h" | "d" | "w" | "y"
+
+// Aggregation operators
+aggregation: agg_op "(" expression ")" [BY label_list | WITHOUT label_list]
+
+agg_op: SUM | MIN | MAX | AVG | STDDEV | STDVAR
+      | COUNT | COUNT_VALUES | BOTTOMK | TOPK
+      | QUANTILE | GROUP
+
+label_list: "(" label_name ("," label_name)* ")"
+
+// Functions
+function_call: function_name "(" [arg_list] ")"
+
+function_name: RATE | IRATE | INCREASE | DELTA | IDELTA
+             | DERIV | PREDICT_LINEAR | HISTOGRAM_QUANTILE
+             | LABEL_REPLACE | LABEL_JOIN
+             | ABS | CEIL | FLOOR | ROUND | SQRT | EXP | LN | LOG2 | LOG10
+             | SORT | SORT_DESC | CLAMP_MAX | CLAMP_MIN
+             | TIME | TIMESTAMP | VECTOR | SCALAR
+             | DAY_OF_MONTH | DAY_OF_WEEK | DAYS_IN_MONTH
+             | HOUR | MINUTE | MONTH | YEAR
+
+arg_list: expression ("," expression)*
+
+// Keywords
+AND: "and"i
+OR: "or"i
+UNLESS: "unless"i
+BY: "by"i
+WITHOUT: "without"i
+OFFSET: "offset"i
+
+// Aggregation operators
+SUM: "sum"i
+MIN: "min"i
+MAX: "max"i
+AVG: "avg"i
+STDDEV: "stddev"i
+STDVAR: "stdvar"i
+COUNT: "count"i
+COUNT_VALUES: "count_values"i
+BOTTOMK: "bottomk"i
+TOPK: "topk"i
+QUANTILE: "quantile"i
+GROUP: "group"i
+
+// Functions
+RATE: "rate"i
+IRATE: "irate"i
+INCREASE: "increase"i
+DELTA: "delta"i
+IDELTA: "idelta"i
+DERIV: "deriv"i
+PREDICT_LINEAR: "predict_linear"i
+HISTOGRAM_QUANTILE: "histogram_quantile"i
+LABEL_REPLACE: "label_replace"i
+LABEL_JOIN: "label_join"i
+ABS: "abs"i
+CEIL: "ceil"i
+FLOOR: "floor"i
+ROUND: "round"i
+SQRT: "sqrt"i
+EXP: "exp"i
+LN: "ln"i
+LOG2: "log2"i
+LOG10: "log10"i
+SORT: "sort"i
+SORT_DESC: "sort_desc"i
+CLAMP_MAX: "clamp_max"i
+CLAMP_MIN: "clamp_min"i
+TIME: "time"i
+TIMESTAMP: "timestamp"i
+VECTOR: "vector"i
+SCALAR: "scalar"i
+DAY_OF_MONTH: "day_of_month"i
+DAY_OF_WEEK: "day_of_week"i
+DAYS_IN_MONTH: "days_in_month"i
+HOUR: "hour"i
+MINUTE: "minute"i
+MONTH: "month"i
+YEAR: "year"i
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_:][a-zA-Z0-9_:]*/
+STRING: /"[^"]*"/ | /'[^']*'/ | /`[^`]*`/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+

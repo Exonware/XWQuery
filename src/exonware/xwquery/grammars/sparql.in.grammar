@@ -1,0 +1,196 @@
+// SPARQL Grammar for Lark
+// SPARQL Protocol and RDF Query Language
+
+start: query
+
+query: prologue (select_query | construct_query | describe_query | ask_query)
+
+prologue: base_decl* prefix_decl*
+
+base_decl: BASE IRI_REF
+
+prefix_decl: PREFIX PNAME_NS IRI_REF
+
+// SELECT query
+select_query: SELECT [DISTINCT | REDUCED] select_vars where_clause solution_modifier
+
+select_vars: "*"
+           | var ("," var)*
+
+var: "?" IDENTIFIER
+   | "$" IDENTIFIER
+
+where_clause: WHERE? "{" group_graph_pattern "}"
+
+group_graph_pattern: triples_block? (graph_pattern_separator triples_block?)*
+
+triples_block: triple_pattern ("." triple_pattern)* "."?
+
+triple_pattern: subject predicate object
+
+subject: var | iri | blank_node
+
+predicate: var | iri | "a"  // "a" is rdf:type
+
+object: var | iri | literal | blank_node
+
+iri: IRI_REF | prefixed_name
+
+prefixed_name: PNAME_NS IDENTIFIER?
+
+blank_node: BLANK_NODE_LABEL
+
+graph_pattern_separator: filter_clause
+                       | optional_clause
+                       | union_clause
+                       | graph_clause
+
+filter_clause: FILTER constraint
+
+constraint: bracketed_expr
+          | built_in_call
+          | function_call
+
+bracketed_expr: "(" expression ")"
+
+built_in_call: STR "(" expression ")"
+             | LANG "(" expression ")"
+             | DATATYPE "(" expression ")"
+             | BOUND "(" var ")"
+             | SAMETERM "(" expression "," expression ")"
+             | IS_IRI "(" expression ")"
+             | IS_BLANK "(" expression ")"
+             | IS_LITERAL "(" expression ")"
+             | REGEX "(" expression "," expression ["," expression] ")"
+
+optional_clause: OPTIONAL "{" group_graph_pattern "}"
+
+union_clause: "{" group_graph_pattern "}" UNION "{" group_graph_pattern "}"
+
+graph_clause: GRAPH var_or_iri "{" group_graph_pattern "}"
+
+var_or_iri: var | iri
+
+solution_modifier: group_clause? having_clause? order_clause? limit_offset_clauses?
+
+group_clause: GROUP BY group_condition+
+
+group_condition: built_in_call
+               | function_call
+               | "(" expression [AS var] ")"
+               | var
+
+having_clause: HAVING constraint+
+
+order_clause: ORDER BY order_condition+
+
+order_condition: (ASC | DESC)? bracketed_expr
+               | (ASC | DESC)? var
+               | constraint
+
+limit_offset_clauses: limit_clause offset_clause?
+                    | offset_clause limit_clause?
+
+limit_clause: LIMIT NUMBER
+
+offset_clause: OFFSET NUMBER
+
+// CONSTRUCT query
+construct_query: CONSTRUCT construct_template where_clause solution_modifier
+
+construct_template: "{" triples_block "}"
+
+// DESCRIBE query
+describe_query: DESCRIBE (var_or_iri+ | "*") where_clause? solution_modifier
+
+// ASK query
+ask_query: ASK where_clause
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr ("||" and_expr)*
+
+and_expr: compare_expr ("&&" compare_expr)*
+
+compare_expr: additive [compare_op additive]
+
+compare_op: "=" | "!=" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | "/") unary)*
+
+unary: ("+" | "-" | "!")? primary
+
+primary: bracketed_expr
+       | built_in_call
+       | function_call
+       | iri
+       | var
+       | literal
+
+function_call: iri arg_list
+
+arg_list: "(" [expression ("," expression)*] ")"
+
+// Literals
+literal: rdf_literal
+       | numeric_literal
+       | BOOLEAN_LITERAL
+
+rdf_literal: STRING [LANGTAG | ("^^" iri)]
+
+numeric_literal: NUMBER
+
+// Keywords
+SELECT: "SELECT"i
+CONSTRUCT: "CONSTRUCT"i
+DESCRIBE: "DESCRIBE"i
+ASK: "ASK"i
+WHERE: "WHERE"i
+BASE: "BASE"i
+PREFIX: "PREFIX"i
+DISTINCT: "DISTINCT"i
+REDUCED: "REDUCED"i
+FILTER: "FILTER"i
+OPTIONAL: "OPTIONAL"i
+UNION: "UNION"i
+GRAPH: "GRAPH"i
+GROUP: "GROUP"i
+BY: "BY"i
+HAVING: "HAVING"i
+ORDER: "ORDER"i
+ASC: "ASC"i
+DESC: "DESC"i
+LIMIT: "LIMIT"i
+OFFSET: "OFFSET"i
+AS: "AS"i
+STR: "STR"i
+LANG: "LANG"i
+DATATYPE: "DATATYPE"i
+BOUND: "BOUND"i
+SAMETERM: "SAMETERM"i
+IS_IRI: "isIRI"i | "isURI"i
+IS_BLANK: "isBlank"i
+IS_LITERAL: "isLiteral"i
+REGEX: "REGEX"i
+
+BOOLEAN_LITERAL: "true"i | "false"i
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+PNAME_NS: /[a-zA-Z][a-zA-Z0-9]*:/
+IRI_REF: /<[^>]*>/
+BLANK_NODE_LABEL: /_:[a-zA-Z0-9_]+/
+STRING: /"[^"]*"/ | /'[^']*'/ | /"""[^"]*"""/ | /'''[^']*'''/
+LANGTAG: /@[a-zA-Z]+(-[a-zA-Z0-9]+)*/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+%ignore CPP_COMMENT
+%ignore C_COMMENT
+

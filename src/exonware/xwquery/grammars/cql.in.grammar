@@ -1,0 +1,234 @@
+// CQL Grammar for Lark
+// Cassandra Query Language
+
+start: statement
+
+statement: select_stmt
+         | insert_stmt
+         | update_stmt
+         | delete_stmt
+         | create_stmt
+         | alter_stmt
+         | drop_stmt
+         | truncate_stmt
+         | use_stmt
+
+// SELECT
+select_stmt: SELECT [JSON | DISTINCT] select_list from_clause where_clause? order_clause? limit_clause? [ALLOW FILTERING]
+
+select_list: "*"
+           | COUNT "(" "*" ")"
+           | select_item ("," select_item)*
+
+select_item: expression [AS? IDENTIFIER]
+
+from_clause: FROM table_name
+
+where_clause: WHERE relation (AND relation)*
+
+relation: column_name compare_op term
+        | column_name IN value_list
+        | TOKEN "(" column_name ")" compare_op term
+
+compare_op: "=" | "!=" | "<" | ">" | "<=" | ">="
+
+order_clause: ORDER BY column_name (ASC | DESC)
+
+limit_clause: LIMIT NUMBER
+
+// INSERT
+insert_stmt: INSERT INTO table_name "(" column_list ")" VALUES value_tuple [IF NOT EXISTS] [USING using_clause]
+           | INSERT INTO table_name JSON STRING
+
+column_list: column_name ("," column_name)*
+
+value_tuple: "(" term ("," term)* ")"
+
+using_clause: TIMESTAMP NUMBER | TTL NUMBER
+
+// UPDATE
+update_stmt: UPDATE table_name [USING using_clause] SET assignment ("," assignment)* where_clause [IF condition_list]
+
+assignment: column_name "=" term
+          | column_name "=" column_name "+" term  // Counter
+          | column_name "=" column_name "-" term
+          | column_name "[" term "]" "=" term     // Map/List update
+
+condition_list: column_name compare_op term (AND column_name compare_op term)*
+
+// DELETE  
+delete_stmt: DELETE [column_list] FROM table_name [USING using_clause] where_clause [IF EXISTS | IF condition_list]
+
+// CREATE
+create_stmt: CREATE TABLE [IF NOT EXISTS] table_name "(" table_definition ")" [WITH table_options]
+
+table_definition: column_def ("," column_def)* ["," PRIMARY KEY primary_key_def]
+
+column_def: column_name data_type [STATIC] [PRIMARY KEY]
+
+primary_key_def: "(" partition_key ["," clustering_columns] ")"
+               | partition_key
+
+partition_key: column_name
+             | "(" column_name ("," column_name)* ")"
+
+clustering_columns: column_name ("," column_name)*
+
+table_options: table_option (AND table_option)*
+
+table_option: CLUSTERING ORDER BY "(" column_name (ASC | DESC) ("," column_name (ASC | DESC))* ")"
+            | COMPACTION "=" "{" STRING ":" STRING ("," STRING ":" STRING)* "}"
+            | COMPRESSION "=" "{" STRING ":" STRING "}"
+
+// ALTER
+alter_stmt: ALTER TABLE table_name alter_action
+
+alter_action: ADD column_def
+            | DROP column_name
+            | WITH table_options
+
+// DROP
+drop_stmt: DROP TABLE [IF EXISTS] table_name
+
+// TRUNCATE
+truncate_stmt: TRUNCATE [TABLE] table_name
+
+// USE
+use_stmt: USE keyspace_name
+
+// Terms and expressions
+expression: additive
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | "/") unary)*
+
+unary: ("+" | "-")? term
+
+term: literal
+    | column_name
+    | function_call
+    | collection_literal
+    | uuid_literal
+
+function_call: IDENTIFIER "(" [arg_list] ")"
+
+arg_list: term ("," term)*
+
+collection_literal: "{" [term ("," term)*] "}"  // Set
+                  | "[" [term ("," term)*] "]"  // List
+                  | "{" [map_entry ("," map_entry)*] "}"  // Map
+
+map_entry: term ":" term
+
+uuid_literal: UUID "(" ")"
+            | "now" "(" ")"
+            | NUMBER  // UUID as number
+
+value_list: "(" term ("," term)* ")"
+
+table_name: [keyspace_name "."] IDENTIFIER
+
+keyspace_name: IDENTIFIER
+
+column_name: IDENTIFIER
+
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+// Data types
+data_type: ASCII | BIGINT | BLOB | BOOLEAN | COUNTER | DECIMAL | DOUBLE | FLOAT
+         | INET | INT | TEXT | TIMESTAMP | TIMEUUID | UUID | VARCHAR | VARINT
+         | collection_type
+
+collection_type: SET "<" data_type ">"
+               | LIST "<" data_type ">"
+               | MAP "<" data_type "," data_type ">"
+
+// Keywords
+SELECT: "SELECT"i
+INSERT: "INSERT"i
+UPDATE: "UPDATE"i
+DELETE: "DELETE"i
+FROM: "FROM"i
+WHERE: "WHERE"i
+ORDER: "ORDER"i
+BY: "BY"i
+ASC: "ASC"i
+DESC: "DESC"i
+LIMIT: "LIMIT"i
+CREATE: "CREATE"i
+ALTER: "ALTER"i
+DROP: "DROP"i
+TRUNCATE: "TRUNCATE"i
+TABLE: "TABLE"i
+INTO: "INTO"i
+VALUES: "VALUES"i
+SET: "SET"i
+USING: "USING"i
+AND: "AND"i
+OR: "OR"i
+IN: "IN"i
+IF: "IF"i
+EXISTS: "EXISTS"i
+NOT: "NOT"i
+JSON: "JSON"i
+DISTINCT: "DISTINCT"i
+AS: "AS"i
+WITH: "WITH"i
+PRIMARY: "PRIMARY"i
+KEY: "KEY"i
+STATIC: "STATIC"i
+CLUSTERING: "CLUSTERING"i
+COMPACTION: "COMPACTION"i
+COMPRESSION: "COMPRESSION"i
+TOKEN: "TOKEN"i
+TTL: "TTL"i
+TIMESTAMP: "TIMESTAMP"i
+ALLOW: "ALLOW"i
+FILTERING: "FILTERING"i
+USE: "USE"i
+COUNT: "COUNT"i
+LOAD: "LOAD"i
+STORE: "STORE"i
+FOREACH: "FOREACH"i
+GENERATE: "GENERATE"i
+FILTER: "FILTER"i
+GROUP: "GROUP"i
+ALL: "ALL"i
+JOIN: "JOIN"i
+FLATTEN: "FLATTEN"i
+NULL: "NULL"i
+
+// Data type keywords
+ASCII: "ASCII"i
+BIGINT: "BIGINT"i
+BLOB: "BLOB"i
+BOOLEAN: "BOOLEAN"i
+COUNTER: "COUNTER"i
+DECIMAL: "DECIMAL"i
+DOUBLE: "DOUBLE"i
+FLOAT: "FLOAT"i
+INET: "INET"i
+INT: "INT"i
+TEXT: "TEXT"i
+TIMEUUID: "TIMEUUID"i
+UUID: "UUID"i
+VARCHAR: "VARCHAR"i
+VARINT: "VARINT"i
+LIST: "LIST"i
+MAP: "MAP"i
+
+BOOLEAN_LITERAL: "TRUE"i | "FALSE"i
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /'[^']*'/ | /"[^"]*"/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+%ignore CPP_COMMENT
+%ignore C_COMMENT
+

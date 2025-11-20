@@ -2,38 +2,104 @@
 """
 xwquery - Universal Query Language for Python
 
-This module provides the main public API for the xwquery library,
-implementing a universal query language that works across all data structures.
+Enhanced with xwnode-aligned architecture.
 
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.4
-Generation Date: October 11, 2025
+Version: 0.0.1.7
+Generation Date: October 26, 2025
 """
+
+from xwlazy.lazy import config_package_lazy_install_enabled
+
+config_package_lazy_install_enabled("xwquery")
+
+from typing import Optional
+from exonware.xwsystem import get_logger
 
 from .version import __version__, get_version, get_version_info
 
-# Core query components
-from .strategies.xwquery import XWQueryScriptStrategy
-from .executors.engine import ExecutionEngine
-from .executors.contracts import (
-    Action,
-    ExecutionContext,
-    ExecutionResult,
-    IOperationExecutor
+logger = get_logger(__name__)
+
+# Configuration
+from .config import XWQueryConfig, get_config, set_config, reset_config
+
+# Type definitions
+from .defs import (
+    QueryMode, QueryOptimization, ParserMode, FormatType,
+    OperationType, ExecutionStatus, OperationCapability,
+    ALL_OPERATIONS, OPERATION_CATEGORIES
 )
-from .executors.registry import get_operation_registry, register_operation
-from .executors.capability_checker import check_operation_compatibility
+
+# Errors
+from .errors import (
+    XWQueryError, XWQueryValueError, XWQueryTypeError,
+    XWQueryParseError, XWQueryExecutionError, XWQueryTimeoutError,
+    XWQuerySecurityError, XWQueryLimitError, XWQueryFormatError,
+    UnsupportedOperationError, UnsupportedFormatError,
+    XWQueryOptimizationError
+)
+
+# Base classes (from root)
+from .contracts import QueryAction, ExecutionContext, ExecutionResult, IOperationExecutor
+from .base import AOperationExecutor, AParamExtractor, AQueryStrategy
+
+# Enhanced facade
+from .facade import (
+    XWQueryFacade,
+    quick_select, quick_filter, quick_aggregate,
+    build_select, build_insert, build_update, build_delete,
+    explain, benchmark
+)
+
+# Query Optimization
+from .query.optimization import (
+    QueryPlanner,
+    SimpleCostModel,
+    InMemoryStatisticsManager,
+    QueryOptimizer,
+    QueryCache,
+    get_global_cache,
+    set_global_cache,
+    OptimizationLevel,
+    PlanNodeType,
+    JoinType,
+    ScanType,
+)
+
+# Common utilities
+from .common.monitoring.metrics import get_metrics, reset_metrics
+
+# Core query components
+from .query.strategies.xwquery import XWQueryScriptStrategy
+from .query.executors.engine import ExecutionEngine
+from .query.executors.registry import get_operation_registry, register_operation
+from .query.executors.capability_checker import check_operation_compatibility
 
 # Query strategies (format converters)
-from .strategies.sql import SQLStrategy
-from .strategies.graphql import GraphQLStrategy
-from .strategies.cypher import CypherStrategy
-from .strategies.sparql import SPARQLStrategy
+from .query.strategies.sql import SQLStrategy
+from .query.strategies.graphql import GraphQLStrategy
+from .query.strategies.cypher import CypherStrategy
+from .query.strategies.sparql import SPARQLStrategy
 
 # Parsers
-from .parsers.sql_param_extractor import SQLParamExtractor
+from .query.parsers.sql_param_extractor import SQLParamExtractor
+from .query.parsers.format_detector import QueryFormatDetector, detect_query_format
+from .query.parsers.sql_parser import parse_sql
+from .query.parsers.xpath_parser import parse_xpath
+
+# Generators
+from .query.generators.sql_generator import generate_sql
+from .query.generators.xpath_generator import generate_xpath
+
+# Universal Converter (Phase 3)
+from .query.converters import (
+    UniversalQueryConverter,
+    sql_to_xpath,
+    xpath_to_sql,
+    convert_query
+)
 
 
 class XWQuery:
@@ -50,24 +116,46 @@ class XWQuery:
         self._parser = XWQueryScriptStrategy()
     
     @staticmethod
-    def execute(query: str, data: any, **kwargs) -> ExecutionResult:
+    def execute(query: str, data: any, format: Optional[str] = None, auto_detect: bool = True, **kwargs) -> ExecutionResult:
         """
-        Execute a query on data.
+        Execute a query on data with auto-format detection.
         
         Args:
-            query: XWQuery script string
+            query: Query string (any supported format)
             data: Target data to query (can be node, dict, list, etc.)
+            format: Explicit format (overrides auto-detection)
+            auto_detect: Enable auto-detection if format not specified (default: True)
             **kwargs: Additional execution options
             
         Returns:
             ExecutionResult with query results
             
         Example:
-            >>> data = {'users': [{'name': 'Alice', 'age': 30}]}
+            >>> # Auto-detect format (SQL)
             >>> result = XWQuery.execute("SELECT * FROM users WHERE age > 25", data)
-            >>> print(result.data)
+            >>> # Auto-detect format (Cypher)
+            >>> result = XWQuery.execute("MATCH (u:User) WHERE u.age > 25 RETURN u", data)
+            >>> # Explicit format
+            >>> result = XWQuery.execute("users[?age > `25`].name", data, format='jmespath')
         """
         from exonware.xwnode import XWNode
+        from .query.parsers.format_detector import detect_query_format
+        
+        # Auto-detect format if not specified
+        if not format and auto_detect:
+            detected_format, confidence = detect_query_format(query)
+            format = detected_format.lower()
+            logger.debug(f"Auto-detected query format: {format} (confidence: {confidence:.0%})")
+            
+            # Warn if low confidence
+            if confidence < 0.8:
+                logger.warning(
+                    f"Low confidence format detection ({confidence:.0%}). "
+                    f"Consider specifying format explicitly with format='{format}' parameter."
+                )
+        elif not format:
+            # No auto-detect, default to SQL
+            format = 'sql'
         
         # Convert data to node if needed
         if not hasattr(data, '_strategy'):
@@ -80,27 +168,31 @@ class XWQuery:
         return engine.execute(query, node, **kwargs)
     
     @staticmethod
-    def parse(query: str, source_format: str = 'xwquery') -> XWQueryScriptStrategy:
+    def parse(query: str, source_format: str = 'xwquery') -> 'QueryAction':
         """
-        Parse a query string into actions tree.
+        Parse a query string into QueryAction tree.
         
         Args:
             query: Query string
             source_format: Query format ('xwquery', 'sql', 'graphql', etc.)
             
         Returns:
-            XWQueryScriptStrategy with parsed actions tree
+            QueryAction tree (which extends ANode)
             
         Example:
-            >>> parsed = XWQuery.parse("SELECT * FROM users")
-            >>> actions_tree = parsed.get_actions_tree()
+            >>> actions_tree = XWQuery.parse("SELECT * FROM users")
+            >>> print(actions_tree.to_native())
         """
         parser = XWQueryScriptStrategy()
         
         if source_format.lower() == 'xwquery':
-            return parser.parse_script(query)
+            # parse_script returns the strategy, get the tree from it
+            parsed_strategy = parser.parse_script(query)
+            return parsed_strategy._actions_tree
         else:
-            return parser.from_format(query, source_format)
+            # from_format returns the strategy, get the tree from it
+            parsed_strategy = parser.from_format(query, source_format)
+            return parsed_strategy._actions_tree
     
     @staticmethod
     def convert(query: str, from_format: str = 'sql', to_format: str = 'xwquery') -> str:
@@ -170,12 +262,7 @@ class XWQuery:
             >>> print(formats)
             ['xwquery', 'sql', 'graphql', 'cypher', 'sparql', ...]
         """
-        return [
-            'xwquery', 'sql', 'graphql', 'cypher', 'sparql', 'gremlin',
-            'mongodb', 'cql', 'n1ql', 'elasticsearch', 'promql', 'flux',
-            'logql', 'kql', 'jq', 'jmespath', 'jsoniq', 'xpath', 'xquery',
-            'datalog', 'linq', 'hiveql', 'pig', 'partiql', 'gql'
-        ]
+        return [f.value for f in FormatType]
     
     @staticmethod
     def get_supported_operations() -> list:
@@ -190,13 +277,22 @@ class XWQuery:
             >>> print(operations)
             ['SELECT', 'INSERT', 'UPDATE', 'DELETE', ...]
         """
-        parser = XWQueryScriptStrategy()
-        return parser.get_supported_operations()
+        return ALL_OPERATIONS
     
     @staticmethod
     def get_operation_registry():
         """Get the global operation registry."""
         return get_operation_registry()
+    
+    @staticmethod
+    def get_config():
+        """Get global XWQuery configuration."""
+        return get_config()
+    
+    @staticmethod
+    def get_metrics():
+        """Get query execution metrics."""
+        return get_metrics()
 
 
 # Convenience functions
@@ -205,8 +301,8 @@ def execute(query: str, data: any, **kwargs) -> ExecutionResult:
     return XWQuery.execute(query, data, **kwargs)
 
 
-def parse(query: str, source_format: str = 'xwquery') -> XWQueryScriptStrategy:
-    """Parse query string - convenience function."""
+def parse(query: str, source_format: str = 'xwquery') -> 'QueryAction':
+    """Parse query into QueryAction tree - convenience function."""
     return XWQuery.parse(query, source_format)
 
 
@@ -220,25 +316,108 @@ def validate(query: str, format: str = 'xwquery') -> bool:
     return XWQuery.validate(query, format)
 
 
+# ============================================================================
+# AUTO-REGISTRATION WITH UNIVERSALCODECREGISTRY
+# ============================================================================
+
+def _auto_register_codecs():
+    """
+    Auto-register all xwquery parsers with UniversalCodecRegistry on import.
+    
+    Registers:
+    - SQL parser → codec_types: ["query", "syntax"] ✅
+    - XPath parser → codec_types: ["query", "syntax"] ✅
+    
+    TODO: Add when parsers are implemented:
+    - GraphQL parser → codec_types: ["query", "syntax"]
+    - Cypher parser → codec_types: ["query", "syntax"]
+    - SPARQL parser → codec_types: ["query", "syntax"]
+    """
+    # Per DEV_GUIDELINES.md: xwsystem is required dependency, import directly
+    from .codec_adapter import auto_register_all_parsers
+    
+    try:
+        count = auto_register_all_parsers()
+        # Uncomment for debugging:
+        # print(f"xwquery: Auto-registered {count} query parsers as codecs")
+    except Exception as e:
+        # Log error but don't fail import (codec registration is non-critical)
+        import warnings
+        warnings.warn(f"xwquery: Codec auto-registration failed: {e}")
+
+# Run auto-registration
+_auto_register_codecs()
+
+
 __all__ = [
     # Version
     '__version__',
     'get_version',
     'get_version_info',
     
+    # Configuration
+    'XWQueryConfig',
+    'get_config',
+    'set_config',
+    'reset_config',
+    
+    # Type definitions
+    'QueryMode',
+    'QueryOptimization',
+    'ParserMode',
+    'FormatType',
+    'OperationType',
+    'ExecutionStatus',
+    'OperationCapability',
+    'ALL_OPERATIONS',
+    'OPERATION_CATEGORIES',
+    
+    # Errors
+    'XWQueryError',
+    'XWQueryValueError',
+    'XWQueryTypeError',
+    'XWQueryParseError',
+    'XWQueryExecutionError',
+    'XWQueryTimeoutError',
+    'XWQuerySecurityError',
+    'XWQueryLimitError',
+    'XWQueryFormatError',
+    'UnsupportedOperationError',
+    'UnsupportedFormatError',
+    'XWQueryOptimizationError',
+    
+    # Base classes
+    'AOperationExecutor',
+    'AParamExtractor',
+    'AQueryStrategy',
+    
     # Main facade
     'XWQuery',
+    'XWQueryFacade',
+    
+    # Format detection
+    'QueryFormatDetector',
+    'detect_query_format',
     
     # Convenience functions
     'execute',
     'parse',
     'convert',
     'validate',
+    'quick_select',
+    'quick_filter',
+    'quick_aggregate',
+    'build_select',
+    'build_insert',
+    'build_update',
+    'build_delete',
+    'explain',
+    'benchmark',
     
     # Core components
     'XWQueryScriptStrategy',
     'ExecutionEngine',
-    'Action',
+    'QueryAction',
     'ExecutionContext',
     'ExecutionResult',
     'IOperationExecutor',
@@ -248,6 +427,10 @@ __all__ = [
     'register_operation',
     'check_operation_compatibility',
     
+    # Monitoring
+    'get_metrics',
+    'reset_metrics',
+    
     # Query strategies
     'SQLStrategy',
     'GraphQLStrategy',
@@ -256,5 +439,18 @@ __all__ = [
     
     # Parsers
     'SQLParamExtractor',
+    
+    # Query Optimization
+    'QueryPlanner',
+    'SimpleCostModel',
+    'InMemoryStatisticsManager',
+    'QueryOptimizer',
+    'QueryCache',
+    'get_global_cache',
+    'set_global_cache',
+    'OptimizationLevel',
+    'PlanNodeType',
+    'JoinType',
+    'ScanType',
 ]
 

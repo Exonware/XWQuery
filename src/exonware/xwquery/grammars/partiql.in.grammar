@@ -1,0 +1,190 @@
+// PartiQL Grammar for Lark
+// AWS PartiQL - SQL for nested/semi-structured data
+// Based on PartiQL specification
+
+start: statement
+
+statement: select_stmt
+         | insert_stmt
+         | update_stmt
+         | delete_stmt
+
+// SELECT with PartiQL path expressions
+select_stmt: SELECT select_list from_clause? where_clause? group_by_clause? having_clause? order_by_clause? limit_clause? offset_clause?
+
+select_list: VALUE expression  // Return single value
+           | "*"
+           | select_item ("," select_item)*
+
+select_item: expression [AS? IDENTIFIER]
+
+// FROM with PartiQL-specific features
+from_clause: FROM from_source ("," from_source)*
+
+from_source: expression [AS? IDENTIFIER] [AT? IDENTIFIER]  // AT for position and BY for index
+           | UNPIVOT expression [AS? IDENTIFIER] [AT? IDENTIFIER]
+
+// WHERE
+where_clause: WHERE expression
+
+// GROUP BY
+group_by_clause: GROUP BY expression ("," expression)* [GROUP AS IDENTIFIER]
+
+having_clause: HAVING expression
+
+// ORDER BY
+order_by_clause: ORDER BY order_item ("," order_item)*
+
+order_item: expression (ASC | DESC)? [NULLS (FIRST | LAST)]?
+
+limit_clause: LIMIT NUMBER
+
+offset_clause: OFFSET NUMBER
+
+// INSERT with PartiQL paths
+insert_stmt: INSERT INTO path_expr VALUE expression
+           | INSERT INTO path_expr select_stmt
+
+// UPDATE with nested paths
+update_stmt: UPDATE path_expr SET assignment ("," assignment)* where_clause?
+
+assignment: path_expr "=" expression
+          | REMOVE path_expr
+
+// DELETE with paths
+delete_stmt: DELETE FROM path_expr where_clause?
+
+// Path expressions (PartiQL-specific)
+path_expr: IDENTIFIER path_component*
+
+path_component: "." IDENTIFIER                    // Dot notation
+              | "[" expression "]"                // Array/map index
+              | "[" "*" "]"                       // Wildcard
+              | "." "*"                           // Wildcard
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr (OR and_expr)*
+
+and_expr: not_expr (AND not_expr)*
+
+not_expr: NOT? comparison
+
+comparison: additive [compare_op additive]
+          | additive LIKE STRING [ESCAPE STRING]
+          | additive IN value_list
+          | additive BETWEEN additive AND additive
+          | additive IS NULL
+          | additive IS NOT NULL
+          | additive IS MISSING
+          | additive IS NOT MISSING
+
+compare_op: "=" | "!=" | "<>" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | "/" | "%") unary)*
+
+unary: ("+" | "-")? primary
+
+primary: literal
+       | path_expr
+       | function_call
+       | aggregate_func
+       | "(" expression ")"
+       | "(" select_stmt ")"
+       | array_constructor
+       | bag_constructor
+       | tuple_constructor
+
+// Function calls
+function_call: IDENTIFIER "(" [arg_list] ")"
+
+aggregate_func: COUNT "(" ("*" | DISTINCT? expression) ")"
+              | SUM "(" DISTINCT? expression ")"
+              | AVG "(" DISTINCT? expression ")"
+              | MIN "(" expression ")"
+              | MAX "(" expression ")"
+
+arg_list: expression ("," expression)*
+
+// PartiQL collection constructors
+array_constructor: "[" [expression ("," expression)*] "]"
+
+bag_constructor: "<<" [expression ("," expression)*] ">>"
+
+tuple_constructor: "{" [tuple_field ("," tuple_field)*] "}"
+
+tuple_field: (STRING | IDENTIFIER) ":" expression
+
+value_list: "(" expression ("," expression)* ")"
+
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+// Keywords
+SELECT: "SELECT"i
+VALUE: "VALUE"i
+FROM: "FROM"i
+WHERE: "WHERE"i
+INSERT: "INSERT"i
+INTO: "INTO"i
+UPDATE: "UPDATE"i
+DELETE: "DELETE"i
+CREATE: "CREATE"i
+ALTER: "ALTER"i
+SET: "SET"i
+REMOVE: "REMOVE"i
+AS: "AS"i
+AT: "AT"i
+BY: "BY"i
+AND: "AND"i
+OR: "OR"i
+NOT: "NOT"i
+IN: "IN"i
+LIKE: "LIKE"i
+ESCAPE: "ESCAPE"i
+BETWEEN: "BETWEEN"i
+IS: "IS"i
+MISSING: "MISSING"i
+JOIN: "JOIN"i
+ON: "ON"i
+INNER: "INNER"i
+LEFT: "LEFT"i
+RIGHT: "RIGHT"i
+FULL: "FULL"i
+CROSS: "CROSS"i
+OUTER: "OUTER"i
+GROUP: "GROUP"i
+HAVING: "HAVING"i
+ORDER: "ORDER"i
+ASC: "ASC"i
+DESC: "DESC"i
+NULLS: "NULLS"i
+FIRST: "FIRST"i
+LAST: "LAST"i
+LIMIT: "LIMIT"i
+OFFSET: "OFFSET"i
+DISTINCT: "DISTINCT"i
+COUNT: "COUNT"i
+SUM: "SUM"i
+AVG: "AVG"i
+MIN: "MIN"i
+MAX: "MAX"i
+UNPIVOT: "UNPIVOT"i
+NULL: "NULL"i
+
+BOOLEAN_LITERAL: "TRUE"i | "FALSE"i
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+%ignore CPP_COMMENT
+%ignore C_COMMENT
+

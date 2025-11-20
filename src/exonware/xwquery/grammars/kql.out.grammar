@@ -1,0 +1,22 @@
+﻿# kql Output Grammar
+# Company: eXonware.com
+# Generated: 2025-10-29
+#
+# This is a basic template for kql generation
+# TODO: Implement proper templates for each rule
+#
+# Template syntax:
+#   {{child_N}} - Access child node by index
+#   {{value}} - Access node value
+#   {{#each children}}...{{/each}} - Loop over children
+#   {{#if condition}}...{{/if}} - Conditional rendering
+
+# Root rule (update with actual root from .in.grammar)
+@
+start = {{value}}
+
+# Add templates for each rule in the input grammar
+# Example:
+# @
+rule_name = {{child_0}} {{value}} {{child_1}}
+

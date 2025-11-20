@@ -3,7 +3,7 @@
 **Company:** eXonware.com  
 **Author:** Eng. Muhammad AlShehri  
 **Email:** connect@exonware.com  
-**Version:** 0.0.1.4
+**Version:** 0.0.1.7
 
 ## 🎯 **What is xwquery?**
 
@@ -57,13 +57,22 @@ print(result)
 ✅ **Graph Operations**: MATCH, PATH, OUT, IN_TRAVERSE, RETURN  
 ✅ **Advanced**: JOIN, UNION, WITH, MERGE, WINDOW, PIPE  
 
-### **35+ Format Converters**
-✅ **SQL Dialects**: Standard SQL, PostgreSQL, MySQL, SQLite  
-✅ **Graph Queries**: Cypher, Gremlin, SPARQL, GraphQL  
-✅ **Document Queries**: MongoDB (MQL), CouchDB, Elasticsearch (DSL)  
+### **30+ Grammar-Based Formats (Powered by xwsyntax)**
+✅ **SQL**: Full SQL parsing and generation with bidirectional support  
+✅ **Graph Queries**: Cypher, Gremlin, SPARQL, GraphQL, GQL  
+✅ **Document Queries**: MongoDB (MQL), Elasticsearch, CQL  
 ✅ **Time Series**: PromQL, Flux, LogQL  
-✅ **Data Queries**: JQ, JMESPath, JSONiq, XPath, XQuery  
-✅ **And many more...**
+✅ **Data Queries**: JQ, JMESPath, JSONiq, XPath, XQuery, JSON  
+✅ **Others**: Datalog, LINQ, N1QL, PartiQL, HiveQL, HQL, Pig, KQL  
+✅ **All with parse + generate + validation support!**
+
+### **🆕 Database-Grade Query Optimization**
+✅ **Query Planning**: Logical and physical execution plans  
+✅ **Cost Estimation**: Smart cost-based optimization decisions  
+✅ **Statistics Management**: Table/column statistics for better plans  
+✅ **Optimization Rules**: Predicate pushdown, index selection, join reordering  
+✅ **Query Caching**: LRU cache with TTL and memory management  
+✅ **Multiple Optimization Levels**: From BASIC to AGGRESSIVE  
 
 ### **Type-Aware Execution**
 ```python
@@ -290,6 +299,7 @@ Each query operation automatically adapts to the node type for optimal performan
 ## 📖 **Documentation**
 
 - **[Complete Query Syntax](docs/XWQUERY_SCRIPT.md)** - All 50 operations detailed
+- **[Query Optimization Guide](docs/QUERY_OPTIMIZATION.md)** - 🆕 Database-grade optimization
 - **[Format Converters](docs/CONVERTERS.md)** - 35+ format conversion guide
 - **[API Reference](docs/API.md)** - Complete API documentation
 - **[Examples](examples/)** - Practical usage examples

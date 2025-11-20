@@ -1,0 +1,284 @@
+// HiveQL Grammar for Lark
+// Hadoop Hive Query Language
+// Based on Apache Hive SQL dialect
+
+start: statement
+
+statement: select_stmt
+         | insert_stmt
+         | create_stmt
+         | load_stmt
+         | alter_stmt
+
+// SELECT with Hive-specific features
+select_stmt: SELECT select_list from_clause? where_clause? group_by_clause? having_clause? order_by_clause? limit_clause? distribute_by? sort_by? cluster_by?
+
+select_list: "*"
+           | select_item ("," select_item)*
+
+select_item: expression [AS? IDENTIFIER]
+
+// FROM with Hive joins and sampling
+from_clause: FROM table_ref (join_clause)* (tablesample)?
+
+table_ref: IDENTIFIER [AS? IDENTIFIER]
+
+join_clause: join_type? JOIN IDENTIFIER [AS? IDENTIFIER] ON expression
+
+join_type: INNER | LEFT OUTER? | RIGHT OUTER? | FULL OUTER? | CROSS
+
+tablesample: TABLESAMPLE "(" BUCKET NUMBER OUT OF NUMBER ON IDENTIFIER ")"
+
+// WHERE
+where_clause: WHERE expression
+
+// Aggregation  
+group_by_clause: GROUP BY expression ("," expression)*
+
+having_clause: HAVING expression
+
+// Hive-specific ordering
+order_by_clause: ORDER BY order_item ("," order_item)*
+
+order_item: expression (ASC | DESC)?
+
+distribute_by: DISTRIBUTE BY expression ("," expression)*
+
+sort_by: SORT BY order_item ("," order_item)*
+
+cluster_by: CLUSTER BY expression ("," expression)*
+
+limit_clause: LIMIT NUMBER
+
+// INSERT with Hive syntax
+insert_stmt: INSERT (OVERWRITE | INTO) TABLE IDENTIFIER [PARTITION partition_spec] select_stmt
+           | INSERT INTO TABLE IDENTIFIER VALUES row_value ("," row_value)*
+
+partition_spec: "(" partition_col ("," partition_col)* ")"
+
+partition_col: IDENTIFIER "=" value
+
+row_value: "(" expression ("," expression)* ")"
+
+// CREATE with Hive features
+create_stmt: CREATE TABLE [IF NOT EXISTS] IDENTIFIER "(" column_def ("," column_def)* ")" [partitioned_by] [row_format] [stored_as] [location]
+
+column_def: IDENTIFIER data_type [COMMENT STRING]
+
+partitioned_by: PARTITIONED BY "(" column_def ("," column_def)* ")"
+
+row_format: ROW FORMAT DELIMITED [FIELDS TERMINATED BY STRING] [LINES TERMINATED BY STRING]
+
+stored_as: STORED AS file_format
+
+file_format: TEXTFILE | SEQUENCEFILE | RCFILE | ORC | PARQUET | AVRO
+
+location: LOCATION STRING
+
+// LOAD DATA
+load_stmt: LOAD DATA [LOCAL] INPATH STRING [OVERWRITE] INTO TABLE IDENTIFIER [PARTITION partition_spec]
+
+// ALTER
+alter_stmt: ALTER TABLE IDENTIFIER alter_action
+
+alter_action: ADD COLUMNS "(" column_def ("," column_def)* ")"
+            | ADD PARTITION partition_spec
+            | DROP PARTITION partition_spec
+            | RENAME TO IDENTIFIER
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr (OR and_expr)*
+
+and_expr: not_expr (AND not_expr)*
+
+not_expr: NOT? comparison
+
+comparison: additive [compare_op additive]
+          | additive LIKE STRING
+          | additive RLIKE STRING
+          | additive IN value_list
+          | additive BETWEEN additive AND additive
+
+compare_op: "=" | "!=" | "<>" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | "/" | "%") unary)*
+
+unary: ("+" | "-")? primary
+
+primary: literal
+       | column_ref
+       | function_call
+       | aggregate_func
+       | "(" expression ")"
+       | "(" select_stmt ")"
+       | array_literal
+       | map_literal
+       | struct_literal
+
+column_ref: IDENTIFIER ("." IDENTIFIER)*
+
+function_call: IDENTIFIER "(" [arg_list] ")"
+
+aggregate_func: COUNT "(" ("*" | DISTINCT? expression) ")"
+              | SUM "(" DISTINCT? expression ")"
+              | AVG "(" DISTINCT? expression ")"
+              | MIN "(" expression ")"
+              | MAX "(" expression ")"
+
+arg_list: expression ("," expression)*
+
+// Hive complex types
+array_literal: "array" "(" [expression ("," expression)*] ")"
+             | "[" [expression ("," expression)*] "]"
+
+map_literal: "map" "(" key_value ("," key_value)* ")"
+           | "{" [key_value ("," key_value)*] "}"
+
+key_value: expression ":" expression
+
+struct_literal: "struct" "(" [expression ("," expression)*] ")"
+              | "named_struct" "(" name_value ("," name_value)* ")"
+
+name_value: STRING "," expression
+
+value_list: "(" expression ("," expression)* ")"
+
+value: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+// Data types
+data_type: TINYINT | SMALLINT | INT | BIGINT
+         | FLOAT | DOUBLE | DECIMAL
+         | STRING_TYPE | VARCHAR | CHAR
+         | BOOLEAN
+         | TIMESTAMP | DATE
+         | BINARY
+         | array_type
+         | map_type
+         | struct_type
+
+array_type: ARRAY "<" data_type ">"
+
+map_type: MAP "<" data_type "," data_type ">"
+
+struct_type: STRUCT "<" struct_field ("," struct_field)* ">"
+
+struct_field: IDENTIFIER ":" data_type
+
+// Keywords
+SELECT: "SELECT"i
+FROM: "FROM"i
+WHERE: "WHERE"i
+INSERT: "INSERT"i
+INTO: "INTO"i
+OVERWRITE: "OVERWRITE"i
+TABLE: "TABLE"i
+VALUES: "VALUES"i
+CREATE: "CREATE"i
+ALTER: "ALTER"i
+DROP: "DROP"i
+LOAD: "LOAD"i
+DATA: "DATA"i
+LOCAL: "LOCAL"i
+INPATH: "INPATH"i
+AS: "AS"i
+AND: "AND"i
+OR: "OR"i
+NOT: "NOT"i
+IN: "IN"i
+LIKE: "LIKE"i
+RLIKE: "RLIKE"i
+BETWEEN: "BETWEEN"i
+JOIN: "JOIN"i
+ON: "ON"i
+INNER: "INNER"i
+LEFT: "LEFT"i
+RIGHT: "RIGHT"i
+FULL: "FULL"i
+CROSS: "CROSS"i
+OUTER: "OUTER"i
+GROUP: "GROUP"i
+BY: "BY"i
+HAVING: "HAVING"i
+ORDER: "ORDER"i
+ASC: "ASC"i
+DESC: "DESC"i
+DISTRIBUTE: "DISTRIBUTE"i
+SORT: "SORT"i
+CLUSTER: "CLUSTER"i
+LIMIT: "LIMIT"i
+PARTITION: "PARTITION"i
+PARTITIONED: "PARTITIONED"i
+TABLESAMPLE: "TABLESAMPLE"i
+BUCKET: "BUCKET"i
+OUT: "OUT"i
+OF: "OF"i
+IF: "IF"i
+EXISTS: "EXISTS"i
+ADD: "ADD"i
+COLUMNS: "COLUMNS"i
+RENAME: "RENAME"i
+TO: "TO"i
+ROW: "ROW"i
+FORMAT: "FORMAT"i
+DELIMITED: "DELIMITED"i
+FIELDS: "FIELDS"i
+TERMINATED: "TERMINATED"i
+LINES: "LINES"i
+STORED: "STORED"i
+LOCATION: "LOCATION"i
+COMMENT: "COMMENT"i
+DISTINCT: "DISTINCT"i
+COUNT: "COUNT"i
+SUM: "SUM"i
+AVG: "AVG"i
+MIN: "MIN"i
+MAX: "MAX"i
+NULL: "NULL"i
+
+// Data type keywords
+TINYINT: "TINYINT"i
+SMALLINT: "SMALLINT"i
+INT: "INT"i | "INTEGER"i
+BIGINT: "BIGINT"i
+FLOAT: "FLOAT"i
+DOUBLE: "DOUBLE"i | "DOUBLE PRECISION"i
+DECIMAL: "DECIMAL"i
+STRING_TYPE: "STRING"i
+VARCHAR: "VARCHAR"i
+CHAR: "CHAR"i
+BOOLEAN: "BOOLEAN"i | "BOOL"i
+TIMESTAMP: "TIMESTAMP"i
+DATE: "DATE"i
+BINARY: "BINARY"i
+ARRAY: "ARRAY"i
+MAP: "MAP"i
+STRUCT: "STRUCT"i
+
+// File format keywords
+TEXTFILE: "TEXTFILE"i
+SEQUENCEFILE: "SEQUENCEFILE"i
+RCFILE: "RCFILE"i
+ORC: "ORC"i
+PARQUET: "PARQUET"i
+AVRO: "AVRO"i
+
+BOOLEAN_LITERAL: "TRUE"i | "FALSE"i
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+%ignore CPP_COMMENT
+%ignore C_COMMENT
+

@@ -24,8 +24,9 @@ classifiers = [
     "Topic :: Database :: Database Engines/Servers",
 ]
 dependencies = [
-    "exonware-xwsystem",
-    "exonware-xwnode",
+    "exonware-xwsystem>=0.0.1",
+    "exonware-xwnode>=0.0.1.28",
+    "exonware-xwsyntax>=0.0.1",
 ]
 
 [[project.authors]]
@@ -65,7 +66,7 @@ profile = "black"
 line_length = 88
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "0.0.1.7"
 strict = true
 warn_return_any = true
 warn_unused_configs = true

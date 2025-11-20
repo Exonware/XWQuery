@@ -1,0 +1,125 @@
+// Flux Grammar for Lark
+// InfluxDB Flux Query Language
+// Functional data scripting language
+
+start: file
+
+file: package_clause? import_list? statement_list
+
+package_clause: PACKAGE IDENTIFIER
+
+import_list: import_declaration+
+
+import_declaration: IMPORT STRING [AS IDENTIFIER]
+
+statement_list: statement+
+
+statement: option_stmt
+         | builtin_stmt
+         | variable_assignment
+         | expression_stmt
+         | return_stmt
+
+option_stmt: OPTION IDENTIFIER "=" expression
+
+builtin_stmt: BUILTIN IDENTIFIER
+
+variable_assignment: IDENTIFIER "=" expression
+
+expression_stmt: expression
+
+return_stmt: RETURN expression
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr (OR and_expr)*
+
+and_expr: comparison (AND comparison)*
+
+comparison: pipe_expr [compare_op pipe_expr]
+
+compare_op: "==" | "!=" | "<" | ">" | "<=" | ">=" | "=~" | "!~"
+
+// Pipe expressions (Flux's main feature)
+pipe_expr: unary ("|>" pipe_forward)*
+
+pipe_forward: call_expr
+
+unary: ("+" | "-" | NOT | EXISTS)? postfix_expr
+
+postfix_expr: primary_expr postfix*
+
+postfix: member_expr
+       | index_expr
+       | call_expr
+
+member_expr: "." IDENTIFIER
+
+index_expr: "[" expression "]"
+
+call_expr: "(" [arg_list] ")"
+
+primary_expr: IDENTIFIER
+            | literal
+            | array_literal
+            | object_literal
+            | function_literal
+            | "(" expression ")"
+
+// Function literal
+function_literal: "(" [param_list] ")" "=>" (expression | block)
+
+param_list: param ("," param)*
+
+param: IDENTIFIER ["=" expression]
+
+block: "{" statement_list "}"
+
+// Literals
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL | duration_literal | datetime_literal | regexp_literal
+
+duration_literal: NUMBER time_unit
+
+time_unit: "ns" | "us" | "ms" | "s" | "m" | "h" | "d" | "w" | "mo" | "y"
+
+datetime_literal: NUMBER "-" NUMBER "-" NUMBER ("T" NUMBER ":" NUMBER ":" NUMBER ("." NUMBER)? "Z")?
+
+regexp_literal: "/" /[^\/]+/ "/"
+
+array_literal: "[" [expression ("," expression)*] "]"
+
+object_literal: "{" [object_pair ("," object_pair)*] "}"
+
+object_pair: (IDENTIFIER | STRING) ":" expression
+
+arg_list: expression ("," expression)*
+        | IDENTIFIER ":" expression ("," IDENTIFIER ":" expression)*  // Named args
+
+// Keywords
+PACKAGE: "package"
+IMPORT: "import"
+OPTION: "option"
+BUILTIN: "builtin"
+RETURN: "return"
+AS: "as"
+AND: "and"
+OR: "or"
+NOT: "not"
+EXISTS: "exists"
+NULL: "null"
+
+BOOLEAN_LITERAL: "true" | "false"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+%ignore CPP_COMMENT
+%ignore C_COMMENT
+

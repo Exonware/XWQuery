@@ -2,7 +2,7 @@
 # Company: eXonware.com
 # Author: Eng. Muhammad AlShehri
 # Email: connect@exonware.com
-# Version: 0.0.1.4
+# Version: 0.0.1.7
 # Generation Date: October 11, 2025
 #
 # This file contains all dependencies needed for xwquery
@@ -15,8 +15,9 @@
 # CORE DEPENDENCIES
 # =============================================================================
 
-exonware-xwsystem          # Core system utilities
-exonware-xwnode            # Node-based data structures (query execution target)
+exonware-xwsystem>=0.0.1          # Core system utilities
+exonware-xwnode>=0.0.1.28          # Node-based data structures with query optimization strategies
+exonware-xwsyntax>=0.0.1           # Universal grammar engine with bidirectional parsing
 
 # =============================================================================
 # DEVELOPMENT AND TESTING DEPENDENCIES

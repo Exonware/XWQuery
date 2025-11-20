@@ -151,3 +151,9 @@ Thumbs.db
 fix_imports.py
 fix_imports_simple.py
 
+# Test runner output files (auto-generated)
+**/runner_out.md
+tests/runner_out.md
+tests/*/runner_out.md
+tests/*/*/runner_out.md
+

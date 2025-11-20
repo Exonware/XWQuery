@@ -1,0 +1,173 @@
+// Pig Latin Grammar for Lark
+// Apache Pig data flow language
+
+start: statement_list
+
+statement_list: statement+
+
+statement: load_stmt
+         | store_stmt
+         | foreach_stmt
+         | filter_stmt
+         | group_stmt
+         | join_stmt
+         | order_stmt
+         | limit_stmt
+         | distinct_stmt
+         | assignment_stmt
+
+assignment_stmt: IDENTIFIER "=" expression ";"
+
+load_stmt: IDENTIFIER "=" LOAD STRING [USING function_call] [AS schema] ";"
+
+store_stmt: STORE IDENTIFIER INTO STRING [USING function_call] ";"
+
+foreach_stmt: IDENTIFIER "=" FOREACH IDENTIFIER GENERATE generate_list ";"
+
+generate_list: generate_item ("," generate_item)*
+
+generate_item: expression [AS? IDENTIFIER]
+             | FLATTEN "(" expression ")" [AS? IDENTIFIER]
+
+filter_stmt: IDENTIFIER "=" FILTER IDENTIFIER BY expression ";"
+
+group_stmt: IDENTIFIER "=" GROUP IDENTIFIER (BY expression | ALL) [USING partitioner] ";"
+
+partitioner: "\"COLLECTED\"" | "\"MERGE\""
+
+join_stmt: IDENTIFIER "=" JOIN join_source ("," join_source)+ [USING join_type] ";"
+
+join_source: IDENTIFIER BY expression
+
+join_type: "\"replicated\"" | "\"skewed\"" | "\"merge\""
+
+order_stmt: IDENTIFIER "=" ORDER IDENTIFIER BY order_list [PARALLEL NUMBER] ";"
+
+order_list: order_item ("," order_item)*
+
+order_item: "*" [ASC | DESC]
+          | field_ref (ASC | DESC)?
+
+field_ref: IDENTIFIER
+         | "$" NUMBER
+
+limit_stmt: IDENTIFIER "=" LIMIT IDENTIFIER NUMBER ";"
+
+distinct_stmt: IDENTIFIER "=" DISTINCT IDENTIFIER [PARTITION BY partitioner] ";"
+
+// Schema
+schema: "(" schema_field ("," schema_field)* ")"
+
+schema_field: IDENTIFIER ":" data_type
+
+data_type: INT | LONG | FLOAT | DOUBLE | CHARARRAY | BYTEARRAY
+         | BOOLEAN | DATETIME | BIGINTEGER | BIGDECIMAL
+         | tuple_schema
+         | bag_schema
+         | map_schema
+
+tuple_schema: TUPLE "(" schema_field ("," schema_field)* ")"
+
+bag_schema: BAG "{" tuple_schema "}"
+
+map_schema: MAP "[" [data_type] "]"
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr (OR and_expr)*
+
+and_expr: not_expr (AND not_expr)*
+
+not_expr: NOT? comparison
+
+comparison: additive [compare_op additive]
+          | additive MATCHES STRING
+          | additive IS NULL
+          | additive IS NOT NULL
+
+compare_op: "==" | "!=" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | "/" | "%") unary)*
+
+unary: ("+" | "-")? primary
+
+primary: literal
+       | field_ref
+       | function_call
+       | IDENTIFIER
+       | "(" expression ")"
+       | tuple_literal
+       | bag_literal
+       | map_literal
+
+function_call: IDENTIFIER "(" [arg_list] ")"
+
+arg_list: expression ("," expression)*
+
+tuple_literal: "(" expression ("," expression)* ")"
+
+bag_literal: "{" [tuple_literal ("," tuple_literal)*] "}"
+
+map_literal: "[" [map_entry ("," map_entry)*] "]"
+
+map_entry: STRING "#" expression
+
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+// Keywords
+LOAD: "LOAD"
+STORE: "STORE"
+INTO: "INTO"
+FOREACH: "FOREACH"
+GENERATE: "GENERATE"
+FILTER: "FILTER"
+GROUP: "GROUP"
+BY: "BY"
+ALL: "ALL"
+JOIN: "JOIN"
+ORDER: "ORDER"
+LIMIT: "LIMIT"
+DISTINCT: "DISTINCT"
+USING: "USING"
+AS: "AS"
+FLATTEN: "FLATTEN"
+PARALLEL: "PARALLEL"
+PARTITION: "PARTITION"
+AND: "AND"
+OR: "OR"
+NOT: "NOT"
+MATCHES: "MATCHES"
+IS: "IS"
+NULL: "NULL"
+ASC: "ASC"
+DESC: "DESC"
+RETURN: "return"
+
+// Data types
+INT: "int"
+LONG: "long"
+FLOAT: "float"
+DOUBLE: "double"
+CHARARRAY: "chararray"
+BYTEARRAY: "bytearray"
+BOOLEAN: "boolean"
+DATETIME: "datetime"
+BIGINTEGER: "biginteger"
+BIGDECIMAL: "bigdecimal"
+TUPLE: "tuple"
+BAG: "bag"
+MAP: "map"
+
+BOOLEAN_LITERAL: "true" | "false"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /'[^']*'/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+

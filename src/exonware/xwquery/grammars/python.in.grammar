@@ -1,0 +1,98 @@
+// python.grammar
+// Simplified Python Grammar - Microsoft/VS Code compatible
+// Focuses on expressions, single-line statements, and Monaco highlighting
+// Perfect for syntax highlighting and expression parsing
+
+?start: statements
+
+statements: statement+
+
+?statement: simple_stmt | expr
+
+simple_stmt: (assignment | import_stmt | pass_stmt | return_stmt | break_stmt | continue_stmt) NEWLINE?
+
+// Assignment
+assignment: NAME "=" expr
+
+// Import statements
+import_stmt: "import" dotted_name ("as" NAME)?
+           | "from" dotted_name "import" (NAME | "*")
+
+dotted_name: NAME ("." NAME)*
+
+// Simple statements
+pass_stmt: "pass"
+return_stmt: "return" expr?
+break_stmt: "break"
+continue_stmt: "continue"
+
+// Expressions (the core of Python)
+?expr: or_expr
+
+?or_expr: and_expr ("or" and_expr)*
+
+?and_expr: not_expr ("and" not_expr)*
+
+?not_expr: "not" not_expr | comparison
+
+?comparison: arith_expr (comp_op arith_expr)*
+
+comp_op: "<" | ">" | "==" | ">=" | "<=" | "!=" | "in" | "is"
+
+?arith_expr: term (("+"|"-") term)*
+
+?term: factor (("*"|"/"|"//"|"%") factor)*
+
+?factor: ("+"|"-") factor | power
+
+?power: atom trailer* ["**" factor]
+
+?atom: "(" expr ")" -> paren_expr
+     | "[" [expr_list] "]" -> list
+     | "{" [dict_items | expr_list] "}" -> dict_or_set
+     | NAME -> var
+     | number
+     | string
+     | "None" -> none
+     | "True" -> true
+     | "False" -> false
+
+// Trailers (function calls, attribute access, subscripts)
+trailer: "(" [arg_list] ")" -> call
+       | "[" expr "]" -> subscript
+       | "." NAME -> getattr
+
+// Lists and arguments
+expr_list: expr ("," expr)* [","]
+
+arg_list: expr ("," expr)* [","]
+
+dict_items: dict_item ("," dict_item)* [","]
+
+dict_item: expr ":" expr
+
+// Literals
+?number: INT | FLOAT | HEX | OCT | BIN
+
+string: STRING+
+
+// Terminals
+NAME: /[a-zA-Z_]\w*/
+
+// String literals (simplified)
+STRING: /[bfru]?('([^'\\]|\\.)*'|"([^"\\]|\\.)*")/i
+
+// Number literals
+INT: /\d+/
+FLOAT: /\d+\.\d*/ | /\.\d+/ | /\d+[eE][+-]?\d+/
+HEX: /0[xX][0-9a-fA-F]+/
+OCT: /0[oO][0-7]+/
+BIN: /0[bB][01]+/
+
+// Comments and whitespace
+COMMENT: /#[^\n]*/
+NEWLINE: /\r?\n/
+
+%import common.WS
+%ignore WS
+%ignore COMMENT

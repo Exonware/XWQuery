@@ -1,0 +1,78 @@
+// Cypher Grammar for Lark
+// Neo4j Cypher - Simplified for LALR
+
+start: query
+
+query: match_clause return_clause?
+     | create_clause
+
+match_clause: MATCH pattern [where_clause]
+
+create_clause: CREATE pattern
+
+return_clause: RETURN return_items
+
+where_clause: WHERE expression
+
+pattern: node_pattern (relationship node_pattern)*
+
+node_pattern: "(" [IDENTIFIER] [label] [props] ")"
+
+relationship: "-" "[" [IDENTIFIER] [label] [props] "]" "->"
+            | "<-" "[" [IDENTIFIER] [label] [props] "]" "-"
+
+label: ":" IDENTIFIER
+
+props: "{" prop_list "}"
+
+prop_list: prop_pair ("," prop_pair)*
+
+prop_pair: IDENTIFIER ":" value
+
+return_items: return_item ("," return_item)*
+
+return_item: property_ref | "*"
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr (OR and_expr)*
+
+and_expr: comparison (AND comparison)*
+
+comparison: additive [compare_op additive]
+
+compare_op: "=" | "!=" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | "/") unary)*
+
+unary: ("+" | "-")? primary
+
+primary: value
+       | property_ref
+       | "(" expression ")"
+
+property_ref: IDENTIFIER ("." IDENTIFIER)?
+
+value: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+// Keywords
+MATCH: "MATCH"i
+CREATE: "CREATE"i
+RETURN: "RETURN"i
+WHERE: "WHERE"i
+AND: "AND"i
+OR: "OR"i
+
+BOOLEAN_LITERAL: "TRUE"i | "FALSE"i
+NULL: "NULL"i
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /-?\d+(\.\d+)?/
+
+%import common.WS
+%ignore WS

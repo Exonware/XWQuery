@@ -6,7 +6,7 @@ Installation Engine - Unified async execution engine for install operations.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.17
+Version: 0.1.0.18
 Generation Date: 15-Nov-2025
 
 This module provides InstallerEngine for unified async installation operations.

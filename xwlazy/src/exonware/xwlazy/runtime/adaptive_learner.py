@@ -6,7 +6,7 @@ Adaptive learning utilities for pattern-based optimization.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.17
+Version: 0.1.0.18
 Generation Date: 19-Nov-2025
 
 This module provides adaptive learning for ADAPTIVE mode.

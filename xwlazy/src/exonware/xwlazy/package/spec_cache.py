@@ -6,7 +6,7 @@ Spec cache utilities for module specification caching.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.17
+Version: 0.1.0.18
 Generation Date: 10-Oct-2025
 
 This module provides multi-level caching (L1: memory, L2: disk) for module specs

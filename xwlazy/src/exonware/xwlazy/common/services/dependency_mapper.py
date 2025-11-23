@@ -37,7 +37,6 @@ def get_lazy_discovery():
     from ...package.services.discovery import get_lazy_discovery as _get_lazy_discovery
     return _get_lazy_discovery()
 
-
 class DependencyMapper:
     """
     Maps import names to package names using dynamic discovery.
@@ -228,7 +227,6 @@ class DependencyMapper:
         """Get complete import to package name mapping."""
         self._ensure_mappings_cached()
         return self._import_package_mapping.copy()
-
 
 __all__ = ['DependencyMapper']
 

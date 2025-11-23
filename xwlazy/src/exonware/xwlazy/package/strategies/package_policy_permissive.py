@@ -4,7 +4,7 @@ Permissive Policy Strategy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Permissive policy - allows all packages (default).
@@ -12,7 +12,6 @@ Permissive policy - allows all packages (default).
 
 from typing import Tuple, List
 from ...package.base import APolicyStrategy
-
 
 class PermissivePolicy(APolicyStrategy):
     """

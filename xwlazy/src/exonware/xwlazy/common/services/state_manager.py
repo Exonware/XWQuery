@@ -5,7 +5,6 @@ import os
 from pathlib import Path
 from typing import Dict, Optional
 
-
 def _get_base_config_dir() -> Path:
     """Determine a cross-platform directory for storing lazy configuration."""
     if os.name == "nt":
@@ -19,7 +18,6 @@ def _get_base_config_dir() -> Path:
     if xdg_config:
         return Path(xdg_config) / "exonware" / "lazy"
     return Path.home() / ".config" / "exonware" / "lazy"
-
 
 class LazyStateManager:
     """Persist and retrieve lazy installation state."""

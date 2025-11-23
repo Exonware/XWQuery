@@ -6,7 +6,7 @@ Real-world scenario tests for missing package auto-install and json_run.py scena
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -24,7 +24,6 @@ project_root = tests_dir.parent
 src_path = project_root / "src"
 if str(src_path) not in sys.path:
     sys.path.insert(0, str(src_path))
-
 
 @pytest.mark.xwlazy_integration
 class TestMissingPackageAutoInstall:
@@ -122,7 +121,6 @@ class TestMissingPackageAutoInstall:
                 cache_file.unlink()
             if os.path.exists(temp_dir):
                 shutil.rmtree(temp_dir, ignore_errors=True)
-
 
 @pytest.mark.xwlazy_integration
 class TestJsonRunIntegration:

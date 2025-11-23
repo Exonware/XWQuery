@@ -8,7 +8,7 @@ Cross-module scenario tests that verify real-world usage patterns.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1
+
 Generation Date: 15-Nov-2025
 
 Usage:

@@ -6,7 +6,7 @@ Tests all package execution strategy implementations in detail.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -29,7 +29,6 @@ from exonware.xwlazy.package.strategies import (
     AsyncExecution,
 )
 from exonware.xwlazy.package.services.install_result import InstallResult, InstallStatus
-
 
 @pytest.mark.xwlazy_unit
 class TestPipExecution:
@@ -67,7 +66,6 @@ class TestPipExecution:
         result = strategy.execute_uninstall("test_pkg")
         assert result == True
 
-
 @pytest.mark.xwlazy_unit
 class TestWheelExecution:
     """Test WheelExecution strategy."""
@@ -90,7 +88,6 @@ class TestWheelExecution:
         # Just verify it doesn't raise and returns something
         assert result is not None
 
-
 @pytest.mark.xwlazy_unit
 class TestCachedExecution:
     """Test CachedExecution strategy."""
@@ -111,7 +108,6 @@ class TestCachedExecution:
         # Just verify it returns a result
         assert result is not None
         assert isinstance(result, InstallResult)
-
 
 @pytest.mark.xwlazy_unit
 class TestAsyncExecution:

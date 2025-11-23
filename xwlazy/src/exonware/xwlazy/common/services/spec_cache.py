@@ -6,7 +6,7 @@ Spec cache utilities for module specification caching.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 10-Oct-2025
 
 This module provides multi-level caching (L1: memory, L2: disk) for module specs
@@ -49,7 +49,6 @@ except AttributeError:
     _STDLIB_MODULE_SET = set()
 _STDLIB_MODULE_SET.update(sys.builtin_module_names)
 
-
 @lru_cache(maxsize=1024)
 def _cached_stdlib_check(module_name: str) -> bool:
     """Check if module is part of stdlib or built-in modules."""
@@ -68,7 +67,6 @@ def _cached_stdlib_check(module_name: str) -> bool:
     except Exception:
         return False
 
-
 def _spec_cache_prune_locked(now: Optional[float] = None) -> None:
     """Prune expired entries from spec cache (must be called with lock held)."""
     if not _spec_cache:
@@ -79,7 +77,6 @@ def _spec_cache_prune_locked(now: Optional[float] = None) -> None:
         if current - ts <= _SPEC_CACHE_TTL and len(_spec_cache) <= _SPEC_CACHE_MAX:
             break
         _spec_cache.popitem(last=False)
-
 
 def _spec_cache_get(fullname: str) -> Optional[importlib.machinery.ModuleSpec]:
     """Get spec from multi-level cache (L1: memory, L2: disk)."""
@@ -113,7 +110,6 @@ def _spec_cache_get(fullname: str) -> Optional[importlib.machinery.ModuleSpec]:
         
         return None
 
-
 def _spec_cache_put(fullname: str, spec: Optional[importlib.machinery.ModuleSpec]) -> None:
     """Put spec in multi-level cache (L1: memory, L2: disk)."""
     if spec is None:
@@ -134,7 +130,6 @@ def _spec_cache_put(fullname: str, spec: Optional[importlib.machinery.ModuleSpec
         except Exception:
             pass  # Fail silently for disk cache
 
-
 def _spec_cache_clear(fullname: Optional[str] = None) -> None:
     """Clear spec cache entries."""
     with _spec_cache_lock:
@@ -142,7 +137,6 @@ def _spec_cache_clear(fullname: Optional[str] = None) -> None:
             _spec_cache.clear()
         else:
             _spec_cache.pop(fullname, None)
-
 
 def _cache_spec_if_missing(fullname: str) -> None:
     """Ensure a ModuleSpec is cached for a known-good module."""
@@ -155,11 +149,9 @@ def _cache_spec_if_missing(fullname: str) -> None:
     if spec is not None:
         _spec_cache_put(fullname, spec)
 
-
 def get_stdlib_module_set() -> set[str]:
     """Get the set of stdlib module names."""
     return _STDLIB_MODULE_SET.copy()
-
 
 __all__ = [
     '_cached_stdlib_check',

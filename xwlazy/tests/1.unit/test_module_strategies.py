@@ -6,7 +6,7 @@ Tests all module strategy implementations in detail.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -29,7 +29,6 @@ from exonware.xwlazy.module.strategies import (
     AdvancedManager,
 )
 from exonware.xwlazy.common.strategies import LRUCache
-
 
 @pytest.mark.xwlazy_unit
 class TestSimpleHelper:
@@ -65,7 +64,6 @@ class TestSimpleHelper:
         result = strategy.check_importability("test.module")
         assert result == True
 
-
 @pytest.mark.xwlazy_unit
 class TestLazyHelper:
     """Test LazyHelper strategy."""
@@ -84,7 +82,6 @@ class TestLazyHelper:
         strategy = LazyHelper()
         result = strategy.load("test.module", None)
         assert result is mock_module
-
 
 @pytest.mark.xwlazy_unit
 class TestSimpleManager:
@@ -141,7 +138,6 @@ class TestSimpleManager:
         result = strategy.handle_import_error("test.module")
         assert result is None
 
-
 @pytest.mark.xwlazy_unit
 class TestAdvancedManager:
     """Test AdvancedManager strategy."""
@@ -164,7 +160,6 @@ class TestAdvancedManager:
         strategy = AdvancedManager("test_pkg", package_helper, caching, helper)
         # Should not raise
         strategy.install_hook()
-
 
 @pytest.mark.xwlazy_unit
 class TestLRUCache:

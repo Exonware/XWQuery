@@ -6,7 +6,7 @@ Logging utilities for xwlazy - shared across package, module, and runtime.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 This module provides unified logging functionality for all xwlazy components.
@@ -62,7 +62,6 @@ def _normalize_category(name: str) -> str:
     """Normalize category name to lowercase."""
     return name.strip().lower()
 
-
 def _load_env_overrides() -> None:
     """Load log category overrides from environment variables."""
     for category in _CATEGORY_DEFAULTS:
@@ -72,7 +71,6 @@ def _load_env_overrides() -> None:
             continue
         enabled = env_val.strip().lower() not in {"0", "false", "off", "no"}
         _category_overrides[_normalize_category(category)] = enabled
-
 
 # =============================================================================
 # FORMATTER
@@ -96,7 +94,6 @@ class XWLazyFormatter(logging.Formatter):
         time_str = datetime.now().strftime("%H:%M:%S")
         message = record.getMessage()
         return f"{emoji} exonware.xwlazy [{time_str}]: [{flag}] {message}"
-
 
 # =============================================================================
 # CONFIGURATION
@@ -146,7 +143,6 @@ def _ensure_basic_config() -> None:
     
     _configured = True
 
-
 # =============================================================================
 # PUBLIC API
 # =============================================================================
@@ -164,7 +160,6 @@ def get_logger(name: Optional[str] = None) -> logging.Logger:
     _ensure_basic_config()
     return logging.getLogger(name or "xwlazy.lazy")
 
-
 def is_log_category_enabled(category: str) -> bool:
     """
     Return True if the provided log category is enabled.
@@ -181,7 +176,6 @@ def is_log_category_enabled(category: str) -> bool:
         return _category_overrides[normalized]
     return _CATEGORY_DEFAULTS.get(normalized, True)
 
-
 def set_log_category(category: str, enabled: bool) -> None:
     """
     Enable/disable an individual log category at runtime.
@@ -192,7 +186,6 @@ def set_log_category(category: str, enabled: bool) -> None:
     """
     _category_overrides[_normalize_category(category)] = bool(enabled)
 
-
 def set_log_categories(overrides: Dict[str, bool]) -> None:
     """
     Bulk update multiple log categories.
@@ -202,7 +195,6 @@ def set_log_categories(overrides: Dict[str, bool]) -> None:
     """
     for category, enabled in overrides.items():
         set_log_category(category, enabled)
-
 
 def get_log_categories() -> Dict[str, bool]:
     """
@@ -218,7 +210,6 @@ def get_log_categories() -> Dict[str, bool]:
         result[category] = _category_overrides.get(normalized, default_enabled)
     return result
 
-
 def log_event(category: str, level_fn, msg: str, *args, **kwargs) -> None:
     """
     Emit a log for the given category if it is enabled.
@@ -232,7 +223,6 @@ def log_event(category: str, level_fn, msg: str, *args, **kwargs) -> None:
     """
     if is_log_category_enabled(category):
         level_fn(msg, *args, **kwargs)
-
 
 def format_message(flag: str, message: str) -> str:
     """
@@ -248,7 +238,6 @@ def format_message(flag: str, message: str) -> str:
     emoji = _EMOJI_MAP.get(flag, "ℹ️")
     time_str = datetime.now().strftime("%H:%M:%S")
     return f"{emoji} exonware.xwlazy [{time_str}]: [{flag}] {message}"
-
 
 def print_formatted(flag: str, message: str, same_line: bool = False) -> None:
     """

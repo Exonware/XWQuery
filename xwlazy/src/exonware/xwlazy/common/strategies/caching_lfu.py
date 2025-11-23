@@ -4,7 +4,7 @@ LFU Cache Strategy - Least Frequently Used eviction.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 LFU cache implementation with size limit.
@@ -14,7 +14,6 @@ Works with ANY data type (modules, packages, etc.).
 from typing import Dict, Optional, Any
 from collections import Counter
 from ...common.base import ACachingStrategy
-
 
 class LFUCache(ACachingStrategy):
     """

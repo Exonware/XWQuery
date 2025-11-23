@@ -4,7 +4,7 @@ Lazy Installer
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Lazy installer that automatically installs missing packages on import failure.
@@ -114,7 +114,6 @@ def _ensure_logging_initialized():
         _spec_cache_put = _get_spec_cache_put()
     if _spec_cache_clear is None:
         _spec_cache_clear = _get_spec_cache_clear()
-
 
 class LazyInstaller(
     APackageHelper,
@@ -714,7 +713,6 @@ class LazyInstaller(
     def is_cache_valid(self, key: str) -> bool:
         """Check if cache entry is still valid."""
         return self._is_cache_valid()
-
 
 __all__ = ['LazyInstaller']
 

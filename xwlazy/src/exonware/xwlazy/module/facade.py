@@ -29,7 +29,6 @@ from ..common.strategies import LRUCache
 from .strategies import LazyHelper, AdvancedManager
 from ..package.services.strategy_registry import StrategyRegistry
 
-
 class XWModuleHelper(AModuleHelper):
     """
     Concrete implementation of AModuleHelper.

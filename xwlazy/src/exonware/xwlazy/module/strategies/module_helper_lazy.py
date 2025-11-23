@@ -4,7 +4,7 @@ Lazy Module Helper Strategy - Deferred loading.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Lazy loading - loads module on first access with caching.
@@ -17,7 +17,6 @@ from types import ModuleType
 from typing import Any, Optional, Dict
 from ...module.base import AModuleHelperStrategy
 from ..data import ModuleData
-
 
 class LazyHelper(AModuleHelperStrategy):
     """

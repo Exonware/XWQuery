@@ -6,7 +6,7 @@ Tests for InstallationCache class - persistent file-based cache for tracking ins
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -28,7 +28,6 @@ if str(src_path) not in sys.path:
     sys.path.insert(0, str(src_path))
 
 from exonware.xwlazy.common.cache import InstallationCache
-
 
 @pytest.mark.xwlazy_unit
 class TestInstallationCache:

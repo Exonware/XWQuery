@@ -4,7 +4,6 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
 Generation Date: 10-Oct-2025
 
 Type Definitions and Constants for Lazy Loading System
@@ -17,7 +16,6 @@ from enum import Enum
 from typing import TypedDict, Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
 from types import ModuleType
-
 
 # =============================================================================
 # ENUMS
@@ -38,7 +36,6 @@ class LazyLoadMode(Enum):
     ULTRA = "ultra"         # Aggressive optimizations (pre-compiled bytecode, mmap, etc.)
     INTELLIGENT = "intelligent"  # Automatically switches to fastest mode based on load level
 
-
 class LazyInstallMode(Enum):
     """Lazy installation modes."""
     # Core modes
@@ -55,13 +52,11 @@ class LazyInstallMode(Enum):
     DISABLED = "disabled"   # Don't install anything (alias for NONE, more explicit)
     DRY_RUN = "dry_run"    # Show what would be installed but don't install
 
-
 class PathType(Enum):
     """Path types for validation."""
     FILE = "file"
     DIRECTORY = "directory"
     UNKNOWN = "unknown"
-
 
 class InstallStatus(Enum):
     """Installation status."""
@@ -71,14 +66,12 @@ class InstallStatus(Enum):
     FAILED = "failed"
     SKIPPED = "skipped"
 
-
 class LoadLevel(Enum):
     """Load level categories."""
     LIGHT = "light_load"
     MEDIUM = "medium_load"
     HEAVY = "heavy_load"
     ENTERPRISE = "enterprise_load"
-
 
 # =============================================================================
 # DATACLASSES
@@ -92,7 +85,6 @@ class DependencyInfo:
     version: Optional[str] = None
     source: str = "unknown"
     category: str = "general"
-
 
 @dataclass
 class LazyModeConfig:
@@ -113,7 +105,6 @@ class LazyModeConfig:
         if isinstance(self.install_mode, str):
             self.install_mode = LazyInstallMode(self.install_mode)
 
-
 @dataclass
 class InstallResult:
     """Result of an installation operation."""
@@ -124,7 +115,6 @@ class InstallResult:
     version: Optional[str] = None
     source: Optional[str] = None  # "cache", "pip", "wheel", etc.
 
-
 @dataclass
 class LazyConfig:
     """Bridge configuration settings with the lazy package implementation."""
@@ -134,7 +124,6 @@ class LazyConfig:
     
     def __post_init__(self) -> None:
         self.packages = tuple(package.lower() for package in self.packages)
-
 
 @dataclass(frozen=True)
 class PackageManifest:
@@ -157,7 +146,6 @@ class PackageManifest:
         # Case-insensitive fallback for convenience
         return self.dependencies.get(import_name.lower())
 
-
 @dataclass(frozen=True)
 class PackageData:
     """
@@ -174,7 +162,6 @@ class PackageData:
     error: Optional[Exception] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-
 @dataclass(frozen=True)
 class ModuleData:
     """
@@ -190,7 +177,6 @@ class ModuleData:
     error: Optional[Exception] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-
 # =============================================================================
 # TYPE DEFINITIONS
 # =============================================================================
@@ -203,7 +189,6 @@ class DependencyMapping(TypedDict, total=False):
     source: str
     category: str
 
-
 class PackageStats(TypedDict, total=False):
     """Type definition for package statistics."""
     enabled: bool
@@ -214,7 +199,6 @@ class PackageStats(TypedDict, total=False):
     total_installed: int
     total_failed: int
 
-
 class LazyStatus(TypedDict, total=False):
     """Type definition for lazy mode status."""
     enabled: bool
@@ -222,7 +206,6 @@ class LazyStatus(TypedDict, total=False):
     lazy_install_enabled: bool
     active: bool
     error: Optional[str]
-
 
 # =============================================================================
 # CONSTANTS
@@ -340,11 +323,9 @@ PRESET_MODES: Dict[str, LazyModeConfig] = {
     ),
 }
 
-
 def get_preset_mode(preset_name: str) -> Optional[LazyModeConfig]:
     """Get preset mode configuration by name."""
     return PRESET_MODES.get(preset_name.lower())
-
 
 # =============================================================================
 # EXPORT ALL

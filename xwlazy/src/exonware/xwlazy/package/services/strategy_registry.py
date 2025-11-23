@@ -4,7 +4,7 @@ Strategy Registry
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Registry to store custom strategies per package for both package and module operations.
@@ -24,7 +24,6 @@ if TYPE_CHECKING:
         IModuleManagerStrategy,
         ICachingStrategy,
     )
-
 
 class StrategyRegistry:
     """Registry to store custom strategies per package."""
@@ -182,7 +181,6 @@ class StrategyRegistry:
         """Clear all strategies (package and module) for a package."""
         cls.clear_package_strategies(package_name)
         cls.clear_module_strategies(package_name)
-
 
 __all__ = ['StrategyRegistry']
 

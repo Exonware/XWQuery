@@ -6,7 +6,7 @@ Package discovery implementation.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 10-Oct-2025
 
 This module provides LazyDiscovery class that discovers dependencies from
@@ -26,7 +26,6 @@ from ...defs import DependencyInfo
 from ...common.logger import get_logger, log_event as _log
 
 logger = get_logger("xwlazy.discovery")
-
 
 class LazyDiscovery(APackageHelper):
     """
@@ -355,11 +354,9 @@ class LazyDiscovery(APackageHelper):
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
-
 # Global discovery instance
 _discovery: Optional[LazyDiscovery] = None
 _discovery_lock = threading.RLock()
-
 
 def get_lazy_discovery(project_root: Optional[str] = None) -> LazyDiscovery:
     """Get or create global discovery instance."""
@@ -368,7 +365,6 @@ def get_lazy_discovery(project_root: Optional[str] = None) -> LazyDiscovery:
         if _discovery is None:
             _discovery = LazyDiscovery(project_root)
         return _discovery
-
 
 __all__ = ['LazyDiscovery', 'get_lazy_discovery']
 

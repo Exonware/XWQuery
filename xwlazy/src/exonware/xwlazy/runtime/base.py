@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 10-Oct-2025
 
 Abstract Base Class for Runtime Services
@@ -19,7 +19,6 @@ from typing import Dict, List, Optional, Any, Tuple
 from ..contracts import (
     IRuntime,
 )
-
 
 # =============================================================================
 # ABSTRACT RUNTIME (Unified - Merges all runtime services)
@@ -264,7 +263,6 @@ class ARuntimeHelper(IRuntime, ABC):
         """Check if key is registered (from IRegistry)."""
         with self._lock:
             return key in self._registry
-
 
 # =============================================================================
 # EXPORT ALL

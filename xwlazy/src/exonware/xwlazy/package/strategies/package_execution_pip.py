@@ -4,7 +4,7 @@ Pip Execution Strategy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Pip execution strategy - direct pip install.
@@ -15,7 +15,6 @@ import subprocess
 from typing import List, Any
 from ...package.base import AInstallExecutionStrategy
 from ...package.services.install_result import InstallResult, InstallStatus
-
 
 class PipExecution(AInstallExecutionStrategy):
     """

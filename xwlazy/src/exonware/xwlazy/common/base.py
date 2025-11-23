@@ -4,7 +4,7 @@ Common Abstract Base Classes
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Abstract base classes for shared/common strategies.
@@ -13,7 +13,6 @@ Abstract base classes for shared/common strategies.
 from abc import ABC, abstractmethod
 from typing import Optional, Any
 from ..contracts import ICachingStrategy
-
 
 # =============================================================================
 # ABSTRACT CACHING STRATEGY
@@ -46,7 +45,6 @@ class ACachingStrategy(ICachingStrategy, ABC):
     def clear(self) -> None:
         """Clear all cached values."""
         ...
-
 
 # =============================================================================
 # EXPORT ALL

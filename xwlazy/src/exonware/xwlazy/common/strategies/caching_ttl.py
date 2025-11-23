@@ -4,7 +4,7 @@ TTL Cache Strategy - Time-To-Live expiration.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 TTL cache implementation with expiration.
@@ -14,7 +14,6 @@ Works with ANY data type (modules, packages, etc.).
 import time
 from typing import Dict, Optional, Any, Tuple
 from ...common.base import ACachingStrategy
-
 
 class TTLCache(ACachingStrategy):
     """

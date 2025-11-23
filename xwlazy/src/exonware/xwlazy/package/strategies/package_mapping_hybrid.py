@@ -4,7 +4,7 @@ Hybrid Mapping Strategy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Hybrid mapping strategy - tries both manifest and discovery, uses best match.
@@ -13,7 +13,6 @@ Hybrid mapping strategy - tries both manifest and discovery, uses best match.
 from typing import Optional, List
 from ...package.base import AMappingStrategy
 from ...package.services.manifest import get_manifest_loader
-
 
 class HybridMapping(AMappingStrategy):
     """

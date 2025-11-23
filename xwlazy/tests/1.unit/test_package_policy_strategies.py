@@ -6,7 +6,7 @@ Tests all package policy strategy implementations in detail.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -26,7 +26,6 @@ from exonware.xwlazy.package.strategies import (
     AllowListPolicy,
     DenyListPolicy,
 )
-
 
 @pytest.mark.xwlazy_unit
 class TestPermissivePolicy:
@@ -49,7 +48,6 @@ class TestPermissivePolicy:
         strategy = PermissivePolicy()
         args = strategy.get_pip_args("any_package")
         assert args == []
-
 
 @pytest.mark.xwlazy_unit
 class TestAllowListPolicy:
@@ -87,7 +85,6 @@ class TestAllowListPolicy:
         strategy = AllowListPolicy(allowed_packages={"pkg1"})
         args = strategy.get_pip_args("pkg1")
         assert args == []
-
 
 @pytest.mark.xwlazy_unit
 class TestDenyListPolicy:

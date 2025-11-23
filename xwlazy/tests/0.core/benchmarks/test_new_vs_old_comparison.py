@@ -6,7 +6,7 @@ Comprehensive benchmark comparison: xwlazy_new (modular) vs xwlazy_old (monolith
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1
+
 Generation Date: 18-Nov-2025
 
 Scenarios tested:
@@ -41,7 +41,6 @@ SRC_ROOT = PROJECT_ROOT / "src"
 ARCHIVE_ROOT = PROJECT_ROOT / "_archive" / "lazy"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
-
 
 class BenchmarkResults:
     """Store benchmark results for comparison."""
@@ -79,12 +78,10 @@ class BenchmarkResults:
         lines.append("\n" + "=" * 80)
         return "\n".join(lines)
 
-
 @pytest.fixture(scope="session")
 def benchmark_results():
     """Session-scoped fixture to collect all benchmark results."""
     return BenchmarkResults()
-
 
 def count_code_metrics(path: Path, pattern: str = "*.py") -> Dict[str, int]:
     """Count code metrics for a directory."""
@@ -108,7 +105,6 @@ def count_code_metrics(path: Path, pattern: str = "*.py") -> Dict[str, int]:
                 pass
     
     return metrics
-
 
 def test_code_structure_comparison(benchmark_results):
     """
@@ -142,7 +138,6 @@ def test_code_structure_comparison(benchmark_results):
     if line_reduction > 0:
         print(f"  ✅ Improvement: {line_reduction:.1f}% reduction in total lines")
 
-
 def test_import_time_new(benchmark, benchmark_results):
     """
     Measure import time for new modular structure.
@@ -168,7 +163,6 @@ def test_import_time_new(benchmark, benchmark_results):
     benchmark_results.add_result("import_time", "new_modular_seconds", result)
     
     assert result is not None
-
 
 def test_memory_footprint_new(benchmark_results):
     """
@@ -201,7 +195,6 @@ def test_memory_footprint_new(benchmark_results):
     
     assert memory_mb > 0
 
-
 def test_component_creation_performance(benchmark, benchmark_results):
     """
     Measure component creation performance.
@@ -224,7 +217,6 @@ def test_component_creation_performance(benchmark, benchmark_results):
     benchmark_results.add_result("runtime", "component_creation_seconds", result)
     
     assert result is not None
-
 
 def test_operation_performance(benchmark, benchmark_results):
     """
@@ -253,7 +245,6 @@ def test_operation_performance(benchmark, benchmark_results):
     
     assert result is not None
 
-
 def test_configuration_performance(benchmark, benchmark_results):
     """
     Measure configuration performance.
@@ -275,7 +266,6 @@ def test_configuration_performance(benchmark, benchmark_results):
     benchmark_results.add_result("runtime", "configuration_seconds", result)
     
     assert result is not None
-
 
 def test_module_loading_efficiency(benchmark, benchmark_results):
     """
@@ -299,7 +289,6 @@ def test_module_loading_efficiency(benchmark, benchmark_results):
     benchmark_results.add_result("import_efficiency", "selective_import_seconds", result)
     
     assert result is not None
-
 
 @pytest.fixture(scope="session", autouse=True)
 def print_final_summary(benchmark_results):

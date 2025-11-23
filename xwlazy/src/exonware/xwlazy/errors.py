@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 10-Oct-2025
 
 Errors for Lazy Loading System
@@ -14,7 +14,6 @@ following GUIDE_ARCH.md structure.
 """
 
 from typing import Optional, Any
-
 
 # =============================================================================
 # BASE EXCEPTION
@@ -40,7 +39,6 @@ class LazySystemError(Exception):
             message = f"[{package_name}] {message}"
         super().__init__(message)
 
-
 # =============================================================================
 # SPECIFIC EXCEPTIONS
 # =============================================================================
@@ -56,7 +54,6 @@ class LazyInstallError(LazySystemError):
     """
     pass
 
-
 class LazyDiscoveryError(LazySystemError):
     """
     Raised when dependency discovery fails.
@@ -67,7 +64,6 @@ class LazyDiscoveryError(LazySystemError):
         - Missing dependency configuration
     """
     pass
-
 
 class LazyHookError(LazySystemError):
     """
@@ -80,7 +76,6 @@ class LazyHookError(LazySystemError):
     """
     pass
 
-
 class LazySecurityError(LazySystemError):
     """
     Raised when security policy is violated.
@@ -91,7 +86,6 @@ class LazySecurityError(LazySystemError):
         - Untrusted package source
     """
     pass
-
 
 class ExternallyManagedError(LazyInstallError):
     """
@@ -119,7 +113,6 @@ class ExternallyManagedError(LazyInstallError):
             f"Please use a virtual environment or pipx."
         )
         super().__init__(message, package_name=None)
-
 
 class DeferredImportError(Exception):
     """
@@ -263,7 +256,6 @@ class DeferredImportError(Exception):
         if self._real_module is not None:
             return f"<DeferredImport: {self._import_name} (loaded)>"
         return f"<DeferredImport: {self._import_name} (will install on first use)>"
-
 
 # =============================================================================
 # EXPORT ALL

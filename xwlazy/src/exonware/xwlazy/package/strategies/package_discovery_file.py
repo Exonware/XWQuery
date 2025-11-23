@@ -4,7 +4,7 @@ File-Based Discovery Strategy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 File-based discovery - discovers dependencies from project files.
@@ -13,7 +13,6 @@ File-based discovery - discovers dependencies from project files.
 from pathlib import Path
 from typing import Dict, Optional, Any
 from ...package.base import ADiscoveryStrategy
-
 
 class FileBasedDiscovery(ADiscoveryStrategy):
     """

@@ -3,8 +3,9 @@
 **Company:** eXonware.com  
 **Author:** Eng. Muhammad AlShehri  
 **Email:** connect@exonware.com  
-**Version:** 0.1.0.18  
 **Last Updated:** 15-Nov-2025
+
+> **Note:** For the current version, use `from exonware.xwlazy import __version__` or `import exonware.xwlazy; print(exonware.xwlazy.__version__)`
 
 ## 🎯 AI-Friendly Document
 

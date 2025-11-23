@@ -39,7 +39,6 @@ from exonware.xwlazy import (
     _lazy_importer,
 )
 
-
 class TestLazyLoadModes:
     """Test suite for LazyLoadMode enum and functionality."""
 
@@ -110,7 +109,6 @@ class TestLazyLoadModes:
         load_mode = LazyInstallConfig.get_load_mode("test_pkg_cached")
         assert load_mode == LazyLoadMode.CACHED
         assert _lazy_importer.is_enabled()
-
 
 class TestLazyInstallModes:
     """Test suite for LazyInstallMode enum and functionality."""
@@ -192,7 +190,6 @@ class TestLazyInstallModes:
         
         install_mode = LazyInstallConfig.get_install_mode("test_pkg_install_size_aware")
         assert install_mode == LazyInstallMode.SIZE_AWARE
-
 
 class TestPresetModes:
     """Test suite for preset mode combinations."""
@@ -278,7 +275,6 @@ class TestPresetModes:
         assert mode_config is not None
         assert mode_config.auto_uninstall_large is True
 
-
 class TestLazyModeConfig:
     """Test suite for LazyModeConfig dataclass."""
 
@@ -324,7 +320,6 @@ class TestLazyModeConfig:
         install_mode = LazyInstallConfig.get_install_mode("test_pkg_mode_config")
         assert load_mode == LazyLoadMode.BACKGROUND
         assert install_mode == LazyInstallMode.SIZE_AWARE
-
 
 class TestModeCombinations:
     """Test suite for various mode combinations."""
@@ -385,7 +380,6 @@ class TestModeCombinations:
         assert load_mode == LazyLoadMode.CACHED
         assert install_mode == LazyInstallMode.SIZE_AWARE
 
-
 class TestGetPresetMode:
     """Test suite for get_preset_mode function."""
 
@@ -425,7 +419,6 @@ class TestGetPresetMode:
         preset = get_preset_mode("invalid_mode")
         assert preset is None
 
-
 class TestEnableLazyImports:
     """Test suite for enable_lazy_imports function."""
 
@@ -449,7 +442,6 @@ class TestEnableLazyImports:
         enable_lazy_imports(LazyLoadMode.BACKGROUND)
         assert _lazy_importer.is_enabled()
         assert _lazy_importer._load_mode == LazyLoadMode.BACKGROUND
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

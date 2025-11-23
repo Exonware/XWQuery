@@ -7,7 +7,7 @@ Fast, high-value tests covering critical functionality.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -32,7 +32,6 @@ from exonware.xwlazy.package.services.config_manager import LazyInstallConfig
 from exonware.xwlazy.package.services.strategy_registry import StrategyRegistry
 from exonware.xwlazy.package.strategies import PipExecution, SmartTiming
 from exonware.xwlazy.module.strategies import LazyHelper
-
 
 @pytest.mark.xwlazy_core
 class TestConfigurationAPI:
@@ -94,7 +93,6 @@ class TestConfigurationAPI:
         
         config_package_lazy_install_enabled("test_pkg", enabled=False, install_hook=False)
         assert is_lazy_install_enabled("test_pkg") == False
-
 
 @pytest.mark.xwlazy_core
 class TestStrategySelection:

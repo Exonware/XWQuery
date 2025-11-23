@@ -7,7 +7,7 @@ Fast, high-value tests covering 80% of functionality.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -74,7 +74,6 @@ from exonware.xwlazy.common.strategies import LRUCache
 from exonware.xwlazy.package.services.install_result import InstallResult, InstallStatus
 from exonware.xwlazy.defs import LazyInstallMode
 
-
 @pytest.mark.xwlazy_core
 class TestPackageExecutionStrategies:
     """Test all package execution strategies."""
@@ -102,7 +101,6 @@ class TestPackageExecutionStrategies:
         strategy = AsyncExecution()
         assert isinstance(strategy, AInstallExecutionStrategy)
         assert isinstance(strategy, IInstallExecutionStrategy)
-
 
 @pytest.mark.xwlazy_core
 class TestPackageTimingStrategies:
@@ -157,7 +155,6 @@ class TestPackageTimingStrategies:
         # Temporary mode: always uninstall after
         assert strategy.should_uninstall_after("test_pkg", None) == True
 
-
 @pytest.mark.xwlazy_core
 class TestPackageDiscoveryStrategies:
     """Test all package discovery strategies."""
@@ -179,7 +176,6 @@ class TestPackageDiscoveryStrategies:
         strategy = HybridDiscovery("test_pkg")
         assert isinstance(strategy, ADiscoveryStrategy)
         assert isinstance(strategy, IDiscoveryStrategy)
-
 
 @pytest.mark.xwlazy_core
 class TestPackagePolicyStrategies:
@@ -236,7 +232,6 @@ class TestPackagePolicyStrategies:
         allowed, reason = strategy.is_allowed("good_pkg")
         assert allowed == True
 
-
 @pytest.mark.xwlazy_core
 class TestPackageMappingStrategies:
     """Test all package mapping strategies."""
@@ -258,7 +253,6 @@ class TestPackageMappingStrategies:
         strategy = HybridMapping("test_pkg")
         assert isinstance(strategy, AMappingStrategy)
         assert isinstance(strategy, IMappingStrategy)
-
 
 @pytest.mark.xwlazy_core
 class TestModuleStrategies:
@@ -297,7 +291,6 @@ class TestModuleStrategies:
         """Test LRUCache can be instantiated."""
         strategy = LRUCache(max_size=100)
         assert isinstance(strategy, ICachingStrategy)
-
 
 @pytest.mark.xwlazy_core
 class TestStrategyRegistry:
@@ -347,7 +340,6 @@ class TestStrategyRegistry:
         assert StrategyRegistry.get_package_strategy("test_pkg", "execution") is None
         assert StrategyRegistry.get_module_strategy("test_pkg", "helper") is None
 
-
 @pytest.mark.xwlazy_core
 class TestXWPackageHelperWithStrategies:
     """Test XWPackageHelper with custom strategies."""
@@ -391,7 +383,6 @@ class TestXWPackageHelperWithStrategies:
         
         # Cleanup
         StrategyRegistry.clear_all_strategies("test_pkg")
-
 
 @pytest.mark.xwlazy_core
 class TestXWModuleHelperWithStrategies:

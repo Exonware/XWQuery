@@ -4,7 +4,7 @@ Deny List Policy Strategy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Deny list policy - blocks packages in the deny list.
@@ -12,7 +12,6 @@ Deny list policy - blocks packages in the deny list.
 
 from typing import Tuple, List, Set
 from ...package.base import APolicyStrategy
-
 
 class DenyListPolicy(APolicyStrategy):
     """

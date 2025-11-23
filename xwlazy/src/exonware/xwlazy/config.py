@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 10-Oct-2025
 
 Configuration for Lazy Loading System
@@ -19,7 +19,6 @@ from typing import Optional, Any, Dict
 
 # Import LazyConfig dataclass from defs.py
 from .defs import LazyConfig as _LazyConfigBase
-
 
 # Extend LazyConfig with methods (dataclass is in defs.py)
 class LazyConfig(_LazyConfigBase):
@@ -189,7 +188,6 @@ class LazyConfig(_LazyConfigBase):
         except Exception:
             # Fail silently - hook installation failure shouldn't break package
             pass
-
 
 DEFAULT_LAZY_CONFIG = LazyConfig()
 

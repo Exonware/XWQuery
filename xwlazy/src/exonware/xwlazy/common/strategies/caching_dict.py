@@ -4,7 +4,7 @@ Dict Cache Strategy - Simple dictionary-based caching.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Simple dict-based cache implementation.
@@ -13,7 +13,6 @@ Works with ANY data type (modules, packages, etc.).
 
 from typing import Dict, Optional, Any
 from ...common.base import ACachingStrategy
-
 
 class DictCache(ACachingStrategy):
     """

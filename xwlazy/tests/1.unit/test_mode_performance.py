@@ -39,7 +39,6 @@ from exonware.xwlazy import (
     LazyInstallerRegistry,
 )
 
-
 class TestModePerformance:
     """Performance tests for different mode combinations."""
 
@@ -200,7 +199,6 @@ class TestModePerformance:
         # Allow some variance due to system load
         assert time2 <= time1 * 2, f"Cache hit {time2*1000:.3f}ms not faster than miss {time1*1000:.3f}ms"
 
-
 class TestHotPathOptimization:
     """Tests for hot path optimizations."""
 
@@ -273,7 +271,6 @@ class TestHotPathOptimization:
             # Just verify both initializations complete successfully
             assert time1 >= 0, "First initialization should complete"
             assert time2 >= 0, "Second initialization should complete"
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

@@ -4,7 +4,7 @@ Installation Utilities
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Utility functions for installation operations.
@@ -16,7 +16,6 @@ import inspect
 import subprocess
 from pathlib import Path
 from typing import Optional
-
 
 def get_trigger_file() -> Optional[str]:
     """
@@ -48,7 +47,6 @@ def get_trigger_file() -> Optional[str]:
         pass
     return None
 
-
 def is_externally_managed() -> bool:
     """
     Check if Python environment is externally managed (PEP 668).
@@ -58,7 +56,6 @@ def is_externally_managed() -> bool:
     """
     marker_file = Path(sys.prefix) / "EXTERNALLY-MANAGED"
     return marker_file.exists()
-
 
 def check_pip_audit_available() -> bool:
     """
@@ -77,7 +74,6 @@ def check_pip_audit_available() -> bool:
         return 'pip-audit' in result.stdout
     except Exception:
         return False
-
 
 __all__ = ['get_trigger_file', 'is_externally_managed', 'check_pip_audit_available']
 

@@ -425,5 +425,7 @@ xwlazy is built with inspiration from the Python lazy import ecosystem, particul
 
 **Part of the eXonware ecosystem** - Enterprise-grade Python libraries for modern software development.
 
-*Version: 0.1.0.12 | Last Updated: 17-Nov-2025*
+*Last Updated: 17-Nov-2025*
+
+> **Note:** For the current version, use `from exonware.xwlazy import __version__` or `import exonware.xwlazy; print(exonware.xwlazy.__version__)`
 

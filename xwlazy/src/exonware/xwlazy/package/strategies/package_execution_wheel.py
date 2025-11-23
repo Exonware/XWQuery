@@ -4,7 +4,7 @@ Wheel Execution Strategy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Wheel execution strategy - install from wheel files.
@@ -22,7 +22,6 @@ from ...common.services.install_cache_utils import (
     ensure_cached_wheel,
     pip_install_from_path,
 )
-
 
 class WheelExecution(AInstallExecutionStrategy):
     """

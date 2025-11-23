@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 10-Oct-2025
 
 Contracts for Lazy Loading System
@@ -24,7 +24,6 @@ from .defs import (
     DependencyInfo,
     LazyModeConfig,
 )
-
 
 # =============================================================================
 # PROTOCOLS / INTERFACES (Following GUIDE_DEV.md - Use IClass naming)
@@ -380,7 +379,6 @@ class IPackageHelper(Protocol):
             True if stdlib/builtin, False otherwise
         """
         ...
-
 
 class IModuleHelper(Protocol):
     """
@@ -875,7 +873,6 @@ class IModuleHelper(Protocol):
         """Clear bytecode cache (from IBytecodeCache)."""
         ...
 
-
 class IRuntime(Protocol):
     """
     Unified interface for runtime services.
@@ -1172,7 +1169,6 @@ class IRuntime(Protocol):
         """
         ...
 
-
 # =============================================================================
 # STRATEGY INTERFACES (New Strategy Pattern)
 # =============================================================================
@@ -1200,7 +1196,6 @@ class ICachingStrategy(Protocol):
         """Clear all cached values."""
         ...
 
-
 @runtime_checkable
 class IModuleHelperStrategy(Protocol):
     """
@@ -1219,7 +1214,6 @@ class IModuleHelperStrategy(Protocol):
     def check_importability(self, path: str) -> bool:
         """Check if module is importable."""
         ...
-
 
 @runtime_checkable
 class IPackageHelperStrategy(Protocol):
@@ -1243,7 +1237,6 @@ class IPackageHelperStrategy(Protocol):
     def get_version(self, name: str) -> Optional[str]:
         """Get installed version."""
         ...
-
 
 @runtime_checkable
 class IModuleManagerStrategy(Protocol):
@@ -1272,7 +1265,6 @@ class IModuleManagerStrategy(Protocol):
         """Handle import error."""
         ...
 
-
 @runtime_checkable
 class IPackageManagerStrategy(Protocol):
     """
@@ -1296,7 +1288,6 @@ class IPackageManagerStrategy(Protocol):
         """Check security policy."""
         ...
 
-
 # =============================================================================
 # NEW PACKAGE STRATEGY TYPES (Redesigned Architecture)
 # =============================================================================
@@ -1315,7 +1306,6 @@ class IInstallExecutionStrategy(Protocol):
     def execute_uninstall(self, package_name: str) -> bool:
         """Execute uninstallation of a package."""
         ...
-
 
 @runtime_checkable
 class IInstallTimingStrategy(Protocol):
@@ -1336,7 +1326,6 @@ class IInstallTimingStrategy(Protocol):
         """Get priority order for installing packages."""
         ...
 
-
 @runtime_checkable
 class IDiscoveryStrategy(Protocol):
     """
@@ -1351,7 +1340,6 @@ class IDiscoveryStrategy(Protocol):
     def get_source(self, import_name: str) -> Optional[str]:
         """Get the source of a discovered dependency."""
         ...
-
 
 @runtime_checkable
 class IPolicyStrategy(Protocol):
@@ -1368,7 +1356,6 @@ class IPolicyStrategy(Protocol):
         """Get pip arguments based on policy."""
         ...
 
-
 @runtime_checkable
 class IMappingStrategy(Protocol):
     """
@@ -1383,7 +1370,6 @@ class IMappingStrategy(Protocol):
     def map_package_to_imports(self, package_name: str) -> List[str]:
         """Map package name to possible import names."""
         ...
-
 
 # =============================================================================
 # EXPORT ALL

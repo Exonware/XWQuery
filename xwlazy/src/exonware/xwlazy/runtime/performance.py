@@ -6,7 +6,6 @@ This module contains LazyPerformanceMonitor extracted from lazy_core.py Section 
 
 from typing import Dict, Any
 
-
 class LazyPerformanceMonitor:
     """Performance monitor for lazy loading operations."""
     
@@ -33,7 +32,6 @@ class LazyPerformanceMonitor:
             'access_counts': self._access_counts.copy(),
             'memory_usage': self._memory_usage.copy()
         }
-
 
 __all__ = ['LazyPerformanceMonitor']
 

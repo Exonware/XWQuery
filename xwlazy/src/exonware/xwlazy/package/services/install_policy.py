@@ -4,7 +4,7 @@ Install Policy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Security and policy configuration for lazy installation.
@@ -20,7 +20,6 @@ def _get_log_event():
     return log_event
 
 _log = None  # Will be initialized on first use
-
 
 class LazyInstallPolicy:
     """
@@ -152,7 +151,6 @@ class LazyInstallPolicy:
         """Get lockfile path for a package."""
         with cls._lock:
             return cls._lockfile_paths.get(package_name)
-
 
 __all__ = ['LazyInstallPolicy']
 

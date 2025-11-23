@@ -4,7 +4,7 @@ Installation Async Utilities
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Shared utilities for async installation operations.
@@ -31,7 +31,6 @@ def _ensure_logging_initialized():
     global logger
     if logger is None:
         logger = _get_logger()
-
 
 async def get_package_size_mb(package_name: str) -> Optional[float]:
     """
@@ -84,7 +83,6 @@ async def get_package_size_mb(package_name: str) -> Optional[float]:
     
     return None
 
-
 async def async_install_package(
     package_name: str,
     policy_args: Optional[list] = None
@@ -124,7 +122,6 @@ async def async_install_package(
         logger.error(f"Error in async install of {package_name}: {e}")
         return False, str(e)
 
-
 async def async_uninstall_package(
     package_name: str,
     quiet: bool = True
@@ -159,7 +156,6 @@ async def async_uninstall_package(
     except Exception as e:
         logger.debug(f"Failed to uninstall {package_name}: {e}")
         return False
-
 
 __all__ = [
     'get_package_size_mb',

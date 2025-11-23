@@ -6,7 +6,7 @@ Benchmark comparison between xwlazy_new (modular) and xwlazy_old (monolithic).
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1
+
 Generation Date: 18-Nov-2025
 
 This benchmark compares:
@@ -38,7 +38,6 @@ PROJECT_ROOT = Path(__file__).resolve().parents[4]
 SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
-
 
 class VersionComparison:
     """Compare new modular vs old monolithic implementation."""
@@ -85,12 +84,10 @@ class VersionComparison:
         except Exception:
             return 0
 
-
 @pytest.fixture
 def version_comparison():
     """Fixture for version comparison."""
     return VersionComparison()
-
 
 def test_import_time_comparison(benchmark, version_comparison):
     """
@@ -129,7 +126,6 @@ def test_import_time_comparison(benchmark, version_comparison):
     
     assert new_time is not None
 
-
 def test_memory_footprint_comparison(version_comparison):
     """
     Compare memory footprint: new modular vs old monolithic.
@@ -153,7 +149,6 @@ def test_memory_footprint_comparison(version_comparison):
     }
     
     assert new_memory > 0
-
 
 def test_code_complexity_comparison(version_comparison):
     """
@@ -188,7 +183,6 @@ def test_code_complexity_comparison(version_comparison):
     if old_lines > 0:
         print(f"  Reduction: {version_comparison.results['complexity']['reduction_percent']}% fewer lines")
 
-
 def test_runtime_performance_comparison(benchmark, version_comparison):
     """
     Compare runtime performance for common operations.
@@ -215,7 +209,6 @@ def test_runtime_performance_comparison(benchmark, version_comparison):
     
     assert result is not None
 
-
 def test_import_path_efficiency(benchmark, version_comparison):
     """
     Compare import path efficiency.
@@ -239,7 +232,6 @@ def test_import_path_efficiency(benchmark, version_comparison):
     }
     
     assert import_time is not None
-
 
 def test_module_loading_efficiency(benchmark, version_comparison):
     """
@@ -267,7 +259,6 @@ def test_module_loading_efficiency(benchmark, version_comparison):
     }
     
     assert result is not None
-
 
 @pytest.fixture(scope="session", autouse=True)
 def print_comparison_summary(version_comparison):

@@ -4,7 +4,7 @@ Simple Module Manager Strategy - Basic operations.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Simple manager - basic module loading/unloading only.
@@ -14,7 +14,6 @@ from types import ModuleType
 from typing import Optional
 from ...module.base import AModuleManagerStrategy
 from ...contracts import ICachingStrategy, IModuleHelperStrategy
-
 
 class SimpleManager(AModuleManagerStrategy):
     """

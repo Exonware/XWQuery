@@ -4,7 +4,7 @@ Advanced Module Manager Strategy - Full features.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Advanced manager - with hooks, error handling, and full features.
@@ -17,7 +17,6 @@ from ...module.base import AModuleManagerStrategy
 from ...contracts import ICachingStrategy, IModuleHelperStrategy
 from ...package.base import APackageHelper
 from ...module import importer_engine
-
 
 class AdvancedManager(AModuleManagerStrategy):
     """

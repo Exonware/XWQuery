@@ -46,14 +46,12 @@ class LazyMetaPathFinder:
 _TRUTHY = {"1", "true", "yes", "on"}
 _REGISTERED: dict[str, dict[str, Tuple[str, ...]]] = {}
 
-
 def _normalized(items: Iterable[str]) -> Tuple[str, ...]:
     seen = []
     for item in items:
         if item not in seen:
             seen.append(item)
     return tuple(seen)
-
 
 def register_host_package(
     package_name: str,
@@ -114,7 +112,6 @@ def register_host_package(
             # Best-effort: package import must continue even if hook installation fails
             pass
 
-
 def refresh_host_package(package_name: str) -> None:
     """Re-apply wrappers for a registered package."""
     data = _REGISTERED.get(package_name.lower())
@@ -125,7 +122,6 @@ def refresh_host_package(package_name: str) -> None:
         data["module_prefixes"],
         data["method_prefixes"],
     )
-
 
 def _apply_wrappers_for_loaded_modules(
     package_name: str,

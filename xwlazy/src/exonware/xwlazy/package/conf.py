@@ -11,7 +11,7 @@ longer need to ship their own lazy bootstrap logic.  Consumers import
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 10-Oct-2025
 """
 
@@ -38,7 +38,6 @@ from ..defs import get_preset_mode
 from .services.config_manager import LazyInstallConfig
 
 __all__ = ['get_conf_module', '_PackageConfig', '_FilteredStderr', '_LazyConfModule', '_setup_global_warning_filter']
-
 
 class _PackageConfig:
     """Per-package configuration wrapper."""
@@ -78,7 +77,6 @@ class _PackageConfig:
         """Return True if lazy install + hook are active."""
         return self.lazy_install_status()["active"]
 
-
 class _FilteredStderr:
     """Stderr wrapper that filters out specific warning messages."""
     
@@ -108,7 +106,6 @@ class _FilteredStderr:
     def __getattr__(self, name: str):
         """Delegate all other attributes to original stderr."""
         return getattr(self._original, name)
-
 
 class _LazyConfModule(types.ModuleType):
     """Configuration module for all exonware packages."""
@@ -286,11 +283,9 @@ class _LazyConfModule(types.ModuleType):
             return
         super().__setattr__(name, value)
 
-
 _CONF_INSTANCE: Optional[_LazyConfModule] = None
 _ORIGINAL_STDERR: Optional[Any] = None
 _FILTERED_STDERR: Optional[_FilteredStderr] = None
-
 
 def _setup_global_warning_filter() -> None:
     """Set up global stderr filter for decimal module warnings (called at module import)."""
@@ -317,11 +312,9 @@ def _setup_global_warning_filter() -> None:
     if sys.stderr is not _FILTERED_STDERR:
         sys.stderr = _FILTERED_STDERR  # type: ignore[assignment]
 
-
 # Set up warning filter immediately when module is imported (default: suppress warnings)
 # Note: conf.py may have already set up a filter, which is fine
 _setup_global_warning_filter()
-
 
 def get_conf_module(name: str = "exonware.conf", doc: Optional[str] = None) -> types.ModuleType:
     """Return (and memoize) the shared conf module instance."""

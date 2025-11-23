@@ -6,7 +6,7 @@ Import Engine - Unified engine for all import-related operations.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 This module provides unified import engine for all import-related functionality.
@@ -86,13 +86,11 @@ from ..common.cache import MultiTierCache, BytecodeCache
 from ..runtime.adaptive_learner import AdaptiveLearner
 from ..runtime.intelligent_selector import IntelligentModeSelector, LoadLevel
 
-
 # =============================================================================
 # LOGGER (from common.logger)
 # =============================================================================
 
 logger = get_logger("xwlazy.importer_engine")
-
 
 # =============================================================================
 # IMPORT TRACKING (from import_tracking.py)
@@ -105,38 +103,31 @@ _installing = threading.local()
 _installation_depth = 0
 _installation_depth_lock = threading.Lock()
 
-
 def _get_thread_imports() -> Set[str]:
     """Get thread-local import set (creates if needed)."""
     if not hasattr(_thread_local, 'imports'):
         _thread_local.imports = set()
     return _thread_local.imports
 
-
 def _is_import_in_progress(module_name: str) -> bool:
     """Check if a module import is currently in progress for this thread."""
     return module_name in _get_thread_imports()
-
 
 def _mark_import_started(module_name: str) -> None:
     """Mark a module import as started for this thread."""
     _get_thread_imports().add(module_name)
 
-
 def _mark_import_finished(module_name: str) -> None:
     """Mark a module import as finished for this thread."""
     _get_thread_imports().discard(module_name)
-
 
 def get_importing_state() -> threading.local:
     """Get thread-local importing state."""
     return _importing
 
-
 def get_installing_state() -> threading.local:
     """Get thread-local installing state."""
     return _installing
-
 
 # Thread-local storage for installation state
 _installing_state = get_installing_state()
@@ -145,7 +136,6 @@ _importing_state = get_importing_state()
 # Global recursion depth counter to prevent infinite recursion
 _installation_depth = 0
 _installation_depth_lock = threading.Lock()
-
 
 # =============================================================================
 # PREFIX TRIE (from prefix_trie.py)
@@ -182,7 +172,6 @@ class _PrefixTrie:
             if end_value:
                 matches.append(end_value)
         return tuple(matches)
-
 
 # =============================================================================
 # WATCHED REGISTRY (from watched_registry.py)
@@ -315,7 +304,6 @@ class WatchedPrefixRegistry:
                 self._root_snapshot_dirty = False
             return root_name in self._root_snapshot
 
-
 # Global registry instance
 _DEFAULT_WATCHED_PREFIXES = tuple(
     filter(
@@ -328,11 +316,9 @@ _DEFAULT_WATCHED_PREFIXES = tuple(
 )
 _watched_registry = WatchedPrefixRegistry(list(_DEFAULT_WATCHED_PREFIXES))
 
-
 def get_watched_registry() -> WatchedPrefixRegistry:
     """Get the global watched prefix registry."""
     return _watched_registry
-
 
 # =============================================================================
 # DEFERRED LOADER (from deferred_loader.py)
@@ -349,7 +335,6 @@ class _DeferredModuleLoader(importlib.abc.Loader):
 
     def exec_module(self, module):  # noqa: D401 - nothing to execute
         return None
-
 
 # =============================================================================
 # CACHE (from common.cache)
@@ -419,7 +404,6 @@ class ParallelLoader:
                 self._executor.shutdown(wait=wait)
                 self._executor = None
 
-
 class DependencyGraph:
     """Manages module dependencies for optimal parallel loading."""
     
@@ -470,13 +454,11 @@ class DependencyGraph:
             
             return levels
 
-
 # =============================================================================
 # MODULE PATCHING (from module_patching.py)
 # =============================================================================
 
 _original_import_module = importlib.import_module
-
 
 def _lazy_aware_import_module(name: str, package: Optional[str] = None) -> ModuleType:
     """Lazy-aware version of importlib.import_module."""
@@ -489,18 +471,15 @@ def _lazy_aware_import_module(name: str, package: Optional[str] = None) -> Modul
     finally:
         _mark_import_finished(name)
 
-
 def _patch_import_module() -> None:
     """Patch importlib.import_module to be lazy-aware."""
     importlib.import_module = _lazy_aware_import_module
     logger.debug("Patched importlib.import_module to be lazy-aware")
 
-
 def _unpatch_import_module() -> None:
     """Restore original importlib.import_module."""
     importlib.import_module = _original_import_module
     logger.debug("Restored original importlib.import_module")
-
 
 # =============================================================================
 # ARCHIVE IMPORTS (from archive_imports.py)
@@ -509,7 +488,6 @@ def _unpatch_import_module() -> None:
 _archive_path = None
 _archive_added = False
 
-
 def get_archive_path() -> Path:
     """Get the path to the _archive folder."""
     global _archive_path
@@ -517,7 +495,6 @@ def get_archive_path() -> Path:
         current_file = Path(__file__)
         _archive_path = current_file.parent.parent.parent.parent.parent.parent / "_archive"
     return _archive_path
-
 
 def ensure_archive_in_path() -> None:
     """Ensure the archive folder is in sys.path for imports."""
@@ -529,12 +506,10 @@ def ensure_archive_in_path() -> None:
             sys.path.insert(0, archive_str)
         _archive_added = True
 
-
 def import_from_archive(module_name: str):
     """Import a module from the archived lazy code."""
     ensure_archive_in_path()
     return __import__(module_name, fromlist=[''])
-
 
 # =============================================================================
 # BOOTSTRAP (from bootstrap.py)
@@ -549,7 +524,6 @@ def _env_enabled(env_value: Optional[str]) -> Optional[bool]:
     if normalized in ('false', '0', 'no', 'off'):
         return False
     return None
-
 
 def bootstrap_lazy_mode(package_name: str) -> None:
     """Detect whether lazy mode should be enabled for ``package_name`` and bootstrap hooks."""
@@ -572,7 +546,6 @@ def bootstrap_lazy_mode(package_name: str) -> None:
         enabled=True,
         install_hook=True,
     )
-
 
 def bootstrap_lazy_mode_deferred(package_name: str) -> None:
     """Schedule lazy mode bootstrap to run AFTER the calling package finishes importing."""
@@ -604,7 +577,6 @@ def bootstrap_lazy_mode_deferred(package_name: str) -> None:
     else:
         import builtins
         builtins.__import__ = _import_hook
-
 
 # =============================================================================
 # LAZY LOADER (from loader.py)
@@ -667,7 +639,6 @@ class LazyLoader(AModuleHelper):
         """Return available attributes from loaded module."""
         module = self.load_module()
         return dir(module)
-
 
 # =============================================================================
 # LAZY MODULE REGISTRY (from registry.py)
@@ -738,7 +709,6 @@ class LazyModuleRegistry:
             for name, loader in self._modules.items():
                 loader.unload_module(loader._module_path)
             log_event("config", logger.info, "Cleared all cached modules")
-
 
 # =============================================================================
 # LAZY IMPORTER (from importer.py)
@@ -1306,7 +1276,6 @@ class LazyImporter:
                 'total_loaded': len(self._loaded_modules)
             }
 
-
 # =============================================================================
 # IMPORT HOOK (from import_hook.py)
 # =============================================================================
@@ -1347,7 +1316,6 @@ class LazyImportHook(AModuleHelper):
         """Check if hook is installed."""
         return is_import_hook_installed(self._package_name)
 
-
 # =============================================================================
 # META PATH FINDER (from meta_path_finder.py)
 # =============================================================================
@@ -1371,7 +1339,6 @@ _lazy_prefix_method_registry: Dict[str, Tuple[str, ...]] = {}
 _package_class_hints: Dict[str, Tuple[str, ...]] = {}
 _class_hint_lock = threading.RLock()
 
-
 def _set_package_class_hints(package_name: str, hints: Iterable[str]) -> None:
     """Set class hints for a package."""
     normalized: Tuple[str, ...] = tuple(
@@ -1383,18 +1350,15 @@ def _set_package_class_hints(package_name: str, hints: Iterable[str]) -> None:
         else:
             _package_class_hints.pop(package_name, None)
 
-
 def _get_package_class_hints(package_name: str) -> Tuple[str, ...]:
     """Get class hints for a package."""
     with _class_hint_lock:
         return _package_class_hints.get(package_name, ())
 
-
 def _clear_all_package_class_hints() -> None:
     """Clear all package class hints."""
     with _class_hint_lock:
         _package_class_hints.clear()
-
 
 def register_lazy_module_methods(prefix: str, methods: Tuple[str, ...]) -> None:
     """Register method names to enhance for all classes under a module prefix."""
@@ -1407,7 +1371,6 @@ def register_lazy_module_methods(prefix: str, methods: Tuple[str, ...]) -> None:
     
     _lazy_prefix_method_registry[prefix] = methods
     log_event("config", logger.info, f"Registered lazy module methods for prefix {prefix}: {methods}")
-
 
 def _spec_for_existing_module(
     fullname: str,
@@ -1425,7 +1388,6 @@ def _spec_for_existing_module(
     module.__loader__ = loader
     module.__spec__ = spec
     return spec
-
 
 class LazyMetaPathFinder:
     """
@@ -2037,11 +1999,9 @@ class LazyMetaPathFinder:
         
         return LazyClassWrapper
 
-
 # Registry of installed hooks per package
 _installed_hooks: Dict[str, LazyMetaPathFinder] = {}
 _hook_lock = threading.RLock()
-
 
 def install_import_hook(package_name: str = 'default') -> None:
     """Install performant import hook for automatic lazy installation."""
@@ -2063,7 +2023,6 @@ def install_import_hook(package_name: str = 'default') -> None:
         
         log_event("hook", logger.info, f"✅ [HOOK INSTALL] Lazy import hook installed for {package_name} (now {len(sys.meta_path)} meta_path entries)")
 
-
 def uninstall_import_hook(package_name: str = 'default') -> None:
     """Uninstall import hook for a package."""
     global _installed_hooks
@@ -2078,11 +2037,9 @@ def uninstall_import_hook(package_name: str = 'default') -> None:
             del _installed_hooks[package_name]
             log_event("hook", logger.info, f"Lazy import hook uninstalled for {package_name}")
 
-
 def is_import_hook_installed(package_name: str = 'default') -> bool:
     """Check if import hook is installed for a package."""
     return package_name in _installed_hooks
-
 
 def register_lazy_module_prefix(prefix: str) -> None:
     """Register an import prefix for lazy wrapping."""
@@ -2091,7 +2048,6 @@ def register_lazy_module_prefix(prefix: str) -> None:
     normalized = _normalize_prefix(prefix)
     if normalized:
         log_event("config", logger.info, "Registered lazy module prefix: %s", normalized)
-
 
 # =============================================================================
 # EXPORTS

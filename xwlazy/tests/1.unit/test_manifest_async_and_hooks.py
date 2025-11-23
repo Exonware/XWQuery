@@ -37,7 +37,6 @@ from exonware.xwlazy.package.services.manifest import get_manifest_loader  # noq
 from exonware.xwlazy.common.services.dependency_mapper import DependencyMapper as DM  # noqa: E402
 import exonware.xwlazy as lazy_core_module  # noqa: E402
 
-
 def test_manifest_loader_reads_pyproject_and_json(tmp_path, monkeypatch):
     project_root = tmp_path
     manifest_path = project_root / "xwlazy.manifest.json"
@@ -77,7 +76,6 @@ def test_manifest_loader_reads_pyproject_and_json(tmp_path, monkeypatch):
     assert manifest is not None
     assert manifest.dependencies["later"] == "new"
 
-
 def test_dependency_mapper_prefers_manifest(tmp_path, monkeypatch):
     project_root = tmp_path
     (project_root / "xwlazy.manifest.json").write_text(
@@ -92,7 +90,6 @@ def test_dependency_mapper_prefers_manifest(tmp_path, monkeypatch):
 
     mapper = DependencyMapper("demo")
     assert mapper.get_package_name("special") == "mapped"
-
 
 def test_manifest_shared_dependencies_isolated_per_package(tmp_path):
     project_root = tmp_path
@@ -122,7 +119,6 @@ def test_manifest_shared_dependencies_isolated_per_package(tmp_path):
 
     assert shared_alpha == {"only_alpha": "pkg-alpha"}
     assert shared_beta == {"only_beta": "pkg-beta"}
-
 
 def test_class_wrap_prefixes_register_hints(tmp_path, monkeypatch):
     project_root = tmp_path
@@ -154,7 +150,6 @@ def test_class_wrap_prefixes_register_hints(tmp_path, monkeypatch):
         with lazy_core_module.LazyInstallerRegistry._lock:  # noqa: SLF001
             lazy_core_module.LazyInstallerRegistry._instances.pop("wrapdemo", None)  # noqa: SLF001
 
-
 def test_async_install_queue(monkeypatch):
     installer = LazyInstaller("queuepkg")
     installer.enable()
@@ -185,13 +180,11 @@ def test_async_install_queue(monkeypatch):
     assert handle.wait(timeout=1.0) is True
     assert events["install_called"] == 1
 
-
 def test_watched_prefix_registry_short_circuit():
     registry = WatchedPrefixRegistry(["alpha.beta."])
     assert registry.get_matching_prefixes("random.module") == ()
     matches = registry.get_matching_prefixes("alpha.beta.serializer")
     assert matches == ("alpha.beta.",)
-
 
 def test_lazy_installer_cached_tree_roundtrip(tmp_path, monkeypatch):
     installer = LazyInstaller("cachetest")

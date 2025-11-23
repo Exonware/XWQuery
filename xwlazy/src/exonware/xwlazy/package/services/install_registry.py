@@ -4,7 +4,7 @@ Installer Registry
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Registry to manage separate lazy installer instances per package.
@@ -15,7 +15,6 @@ from typing import Dict, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .lazy_installer import LazyInstaller
-
 
 class LazyInstallerRegistry:
     """Registry to manage separate lazy installer instances per package."""
@@ -50,7 +49,6 @@ class LazyInstallerRegistry:
         """
         with cls._lock:
             return cls._instances.copy()
-
 
 __all__ = ['LazyInstallerRegistry']
 

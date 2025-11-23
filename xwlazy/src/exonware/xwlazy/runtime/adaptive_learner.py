@@ -6,7 +6,7 @@ Adaptive learning utilities for pattern-based optimization.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 19-Nov-2025
 
 This module provides adaptive learning for ADAPTIVE mode.
@@ -18,7 +18,6 @@ from typing import Dict, List, Tuple, Optional
 from collections import defaultdict, deque
 
 # Logger not used in this module, removed to avoid circular dependency
-
 
 class AdaptiveLearner:
     """Learns import patterns and optimizes loading strategy."""
@@ -125,7 +124,6 @@ class AdaptiveLearner:
                 'chains_tracked': sum(len(chains) for chains in self._import_chains.values()),
                 'top_modules': self.get_priority_modules(5),
             }
-
 
 __all__ = ['AdaptiveLearner']
 

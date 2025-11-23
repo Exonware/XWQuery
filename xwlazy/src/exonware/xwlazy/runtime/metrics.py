@@ -8,7 +8,6 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime
 from collections import defaultdict
 
-
 class MetricsCollector:
     """Collects and aggregates performance metrics."""
     
@@ -50,15 +49,12 @@ class MetricsCollector:
         self._counts.clear()
         self._timestamps.clear()
 
-
 # Global metrics collector instance
 _global_metrics = MetricsCollector()
-
 
 def get_metrics_collector() -> MetricsCollector:
     """Get the global metrics collector instance."""
     return _global_metrics
-
 
 __all__ = ['MetricsCollector', 'get_metrics_collector']
 

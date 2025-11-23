@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 10-Oct-2025
 
 Facade for Lazy Loading System
@@ -120,7 +120,6 @@ class LazyModeFacade:
             "configs": self._configs.copy(),
         }
 
-
 # Global facade instance
 _lazy_facade = LazyModeFacade()
 
@@ -132,27 +131,22 @@ def enable_lazy_mode(strategy: str = "on_demand", **kwargs) -> None:
     """Enable lazy mode with specified strategy."""
     _lazy_facade.enable(strategy, **kwargs)
 
-
 def disable_lazy_mode() -> None:
     """Disable lazy mode and cleanup resources."""
     _lazy_facade.disable()
-
 
 def is_lazy_mode_enabled() -> bool:
     """Check if lazy mode is currently enabled."""
     return _lazy_facade.is_enabled()
 
-
 def get_lazy_mode_stats() -> Dict[str, Any]:
     """Get lazy mode performance statistics."""
     return _lazy_facade.get_stats()
-
 
 def configure_lazy_mode(package_name: str, config: LazyModeConfig) -> None:
     """Configure lazy mode for a specific package."""
     LazyInstallConfig.set_mode_config(package_name, config)
     logger.info(f"Configured lazy mode for {package_name}")
-
 
 def preload_modules(package_name: str, modules: List[str]) -> None:
     """Preload specified modules for a package."""
@@ -160,12 +154,10 @@ def preload_modules(package_name: str, modules: List[str]) -> None:
         _lazy_importer.preload_module(module_name)
     logger.info(f"Preloaded {len(modules)} modules for {package_name}")
 
-
 def optimize_lazy_mode(package_name: str) -> None:
     """Optimize lazy mode configuration for a package."""
     _lazy_module_registry.preload_frequently_used()
     logger.info(f"Optimization completed for {package_name}")
-
 
 # =============================================================================
 # PUBLIC API FUNCTIONS - Installation
@@ -175,26 +167,21 @@ def enable_lazy_install(package_name: str) -> None:
     """Enable lazy installation for a package."""
     LazyInstallConfig.set(package_name, True)
 
-
 def disable_lazy_install(package_name: str) -> None:
     """Disable lazy installation for a package."""
     LazyInstallConfig.set(package_name, False)
-
 
 def is_lazy_install_enabled(package_name: str) -> bool:
     """Check if lazy installation is enabled for a package."""
     return LazyInstallConfig.is_enabled(package_name)
 
-
 def set_lazy_install_mode(package_name: str, mode: LazyInstallMode) -> None:
     """Set lazy installation mode for a package."""
     LazyInstallConfig.set_install_mode(package_name, mode)
 
-
 def get_lazy_install_mode(package_name: str) -> LazyInstallMode:
     """Get lazy installation mode for a package."""
     return LazyInstallConfig.get_install_mode(package_name)
-
 
 def install_missing_package(package_name: str, module_name: str, installer_package: str = 'default') -> bool:
     """Install a missing package for a module."""
@@ -208,7 +195,6 @@ def install_missing_package(package_name: str, module_name: str, installer_packa
         logger.error(f"Failed to install package {package_name} for {installer_package}: {e}")
         return False
 
-
 def install_and_import(module_name: str, package_name: str = None, installer_package: str = 'default') -> Tuple[Optional[ModuleType], bool]:
     """Install package and import module."""
     try:
@@ -220,7 +206,6 @@ def install_and_import(module_name: str, package_name: str = None, installer_pac
     except Exception as e:
         logger.error(f"Failed to install and import {module_name} for {installer_package}: {e}")
         return None, False
-
 
 def get_lazy_install_stats(package_name: str) -> Dict[str, Any]:
     """Get installation statistics for a package."""
@@ -239,7 +224,6 @@ def get_lazy_install_stats(package_name: str) -> Dict[str, Any]:
             'total_failed': 0,
         }
 
-
 def get_all_lazy_install_stats() -> Dict[str, Dict[str, Any]]:
     """Get installation statistics for all packages."""
     try:
@@ -248,7 +232,6 @@ def get_all_lazy_install_stats() -> Dict[str, Dict[str, Any]]:
     except Exception as e:
         logger.error(f"Failed to get all stats: {e}")
         return {}
-
 
 def lazy_import_with_install(module_name: str, package_name: str = None, installer_package: str = 'default') -> Tuple[Optional[ModuleType], bool]:
     """Lazy import with automatic installation."""
@@ -262,14 +245,12 @@ def lazy_import_with_install(module_name: str, package_name: str = None, install
         logger.error(f"Failed to lazy import with install {module_name} for {installer_package}: {e}")
         return None, False
 
-
 def xwimport(module_name: str, package_name: str = None, installer_package: str = 'default') -> Any:
     """Simple lazy import with automatic installation."""
     module, available = lazy_import_with_install(module_name, package_name, installer_package)
     if not available:
         raise ImportError(f"Module {module_name} is not available and could not be installed")
     return module
-
 
 # =============================================================================
 # HOOK FUNCTIONS
@@ -284,7 +265,6 @@ def install_import_hook(package_name: str = 'default') -> None:
         logger.error(f"Failed to install import hook for {package_name}: {e}")
         raise
 
-
 def uninstall_import_hook(package_name: str = 'default') -> None:
     """Uninstall import hook for a package."""
     try:
@@ -294,14 +274,12 @@ def uninstall_import_hook(package_name: str = 'default') -> None:
         logger.error(f"Failed to uninstall import hook for {package_name}: {e}")
         raise
 
-
 def is_import_hook_installed(package_name: str = 'default') -> bool:
     """Check if import hook is installed for a package."""
     try:
         return _is_import_hook_installed(package_name)
     except Exception:
         return False
-
 
 # =============================================================================
 # LAZY LOADING FUNCTIONS
@@ -334,7 +312,6 @@ def enable_lazy_imports(mode: LazyLoadMode = LazyLoadMode.AUTO, package_name: Op
             logger.error(f"Failed to enable lazy imports: {e}")
         raise
 
-
 def disable_lazy_imports(package_name: Optional[str] = None) -> None:
     """
     Disable lazy imports.
@@ -361,7 +338,6 @@ def disable_lazy_imports(package_name: Optional[str] = None) -> None:
             logger.error(f"Failed to disable lazy imports: {e}")
         raise
 
-
 def is_lazy_import_enabled(package_name: Optional[str] = None) -> bool:
     """
     Check if lazy imports are enabled.
@@ -385,7 +361,6 @@ def is_lazy_import_enabled(package_name: Optional[str] = None) -> bool:
         logger.warning(f"Unexpected error checking lazy import status: {e}")
         return False
 
-
 def lazy_import(module_name: str, package_name: str = None) -> Optional[ModuleType]:
     """Lazy import a module."""
     try:
@@ -393,7 +368,6 @@ def lazy_import(module_name: str, package_name: str = None) -> Optional[ModuleTy
     except Exception as e:
         logger.error(f"Failed to lazy import {module_name}: {e}")
         return None
-
 
 def register_lazy_module(module_name: str, package_name: str = None, module_path: str = None) -> None:
     """Register a lazy module loader."""
@@ -408,7 +382,6 @@ def register_lazy_module(module_name: str, package_name: str = None, module_path
         logger.error(f"Failed to register lazy module {module_name}: {e}")
         raise
 
-
 def preload_module(module_name: str, package_name: str = None) -> None:
     """Preload a lazy module."""
     try:
@@ -420,7 +393,6 @@ def preload_module(module_name: str, package_name: str = None) -> None:
     except Exception as e:
         logger.error(f"Failed to preload module {module_name}: {e}")
         raise
-
 
 def get_lazy_module(module_name: str, package_name: str = None) -> Optional[ModuleType]:
     """Get a lazy module if loaded."""
@@ -446,7 +418,6 @@ def get_lazy_module(module_name: str, package_name: str = None) -> Optional[Modu
     import sys
     return sys.modules.get(module_name)
 
-
 def get_loading_stats(package_name: str) -> Dict[str, Any]:
     """Get loading statistics for a package."""
     try:
@@ -461,7 +432,6 @@ def get_loading_stats(package_name: str) -> Dict[str, Any]:
             'load_times': {},
         }
 
-
 def preload_frequently_used(package_name: str) -> None:
     """Preload frequently used modules for a package."""
     try:
@@ -469,7 +439,6 @@ def preload_frequently_used(package_name: str) -> None:
         logger.info(f"Preload frequently used completed for {package_name}")
     except Exception as e:
         logger.error(f"Failed to preload frequently used for {package_name}: {e}")
-
 
 def get_lazy_import_stats(package_name: str) -> Dict[str, Any]:
     """Get lazy import statistics for a package."""
@@ -485,7 +454,6 @@ def get_lazy_import_stats(package_name: str) -> Dict[str, Any]:
             'total_registered': 0,
             'total_loaded': 0,
         }
-
 
 # =============================================================================
 # CONFIGURATION FUNCTIONS
@@ -581,7 +549,6 @@ def config_package_lazy_install_enabled(
         logger.error(f"Failed to configure lazy installation for {package_name}: {e}")
         raise
 
-
 def config_module_lazy_load_enabled(
     package_name: str,
     enabled: bool = True,
@@ -629,7 +596,6 @@ def config_module_lazy_load_enabled(
         logger.error(f"Failed to configure lazy loading for {package_name}: {e}")
         raise
 
-
 def sync_manifest_configuration(package_name: str) -> None:
     """
     Sync configuration from manifest for a specific package.
@@ -665,7 +631,6 @@ def sync_manifest_configuration(package_name: str) -> None:
         logger.error(f"Failed to sync manifest configuration for {package_name}: {e}")
         raise
 
-
 def refresh_lazy_manifests() -> None:
     """Refresh all lazy manifest caches."""
     try:
@@ -674,7 +639,6 @@ def refresh_lazy_manifests() -> None:
     except Exception as e:
         logger.error(f"Failed to refresh lazy manifest caches: {e}")
         raise
-
 
 # =============================================================================
 # SECURITY & POLICY FUNCTIONS
@@ -689,7 +653,6 @@ def set_package_allow_list(package_name: str, allowed_packages: List[str]) -> No
         logger.error(f"Failed to set allow list for {package_name}: {e}")
         raise
 
-
 def set_package_deny_list(package_name: str, denied_packages: List[str]) -> None:
     """Set deny list for a package."""
     try:
@@ -698,7 +661,6 @@ def set_package_deny_list(package_name: str, denied_packages: List[str]) -> None
     except Exception as e:
         logger.error(f"Failed to set deny list for {package_name}: {e}")
         raise
-
 
 def add_to_package_allow_list(package_name: str, allowed_package: str) -> None:
     """Add single package to allow list."""
@@ -709,7 +671,6 @@ def add_to_package_allow_list(package_name: str, allowed_package: str) -> None:
         logger.error(f"Failed to add {allowed_package} to allow list for {package_name}: {e}")
         raise
 
-
 def add_to_package_deny_list(package_name: str, denied_package: str) -> None:
     """Add single package to deny list."""
     try:
@@ -718,7 +679,6 @@ def add_to_package_deny_list(package_name: str, denied_package: str) -> None:
     except Exception as e:
         logger.error(f"Failed to add {denied_package} to deny list for {package_name}: {e}")
         raise
-
 
 def set_package_index_url(package_name: str, index_url: str) -> None:
     """Set package index URL for a package."""
@@ -729,7 +689,6 @@ def set_package_index_url(package_name: str, index_url: str) -> None:
         logger.error(f"Failed to set index URL for {package_name}: {e}")
         raise
 
-
 def set_package_extra_index_urls(package_name: str, extra_index_urls: List[str]) -> None:
     """Set extra index URLs for a package."""
     try:
@@ -738,7 +697,6 @@ def set_package_extra_index_urls(package_name: str, extra_index_urls: List[str])
     except Exception as e:
         logger.error(f"Failed to set extra index URLs for {package_name}: {e}")
         raise
-
 
 def add_package_trusted_host(package_name: str, host: str) -> None:
     """Add trusted host for a package."""
@@ -749,7 +707,6 @@ def add_package_trusted_host(package_name: str, host: str) -> None:
         logger.error(f"Failed to add trusted host {host} for {package_name}: {e}")
         raise
 
-
 def set_package_lockfile(package_name: str, lockfile_path: str) -> None:
     """Set lockfile path for a package."""
     try:
@@ -758,7 +715,6 @@ def set_package_lockfile(package_name: str, lockfile_path: str) -> None:
     except Exception as e:
         logger.error(f"Failed to set lockfile path for {package_name}: {e}")
         raise
-
 
 def generate_package_sbom(package_name: str, output_path: Optional[str] = None) -> Dict[str, Any]:
     """Generate SBOM for a package."""
@@ -779,7 +735,6 @@ def generate_package_sbom(package_name: str, output_path: Optional[str] = None) 
             "packages": []
         }
 
-
 def check_externally_managed_environment(package_name: str = 'default') -> bool:
     """Check if environment is externally managed."""
     try:
@@ -787,7 +742,6 @@ def check_externally_managed_environment(package_name: str = 'default') -> bool:
     except Exception as e:
         logger.error(f"Failed to check externally managed environment: {e}")
         return False
-
 
 def register_lazy_module_prefix(prefix: str) -> None:
     """Register a module prefix mapping."""
@@ -798,7 +752,6 @@ def register_lazy_module_prefix(prefix: str) -> None:
         logger.error(f"Failed to register lazy module prefix {prefix}: {e}")
         raise
 
-
 def register_lazy_module_methods(prefix: str, methods: Tuple[str, ...]) -> None:
     """Register methods for a lazy module."""
     try:
@@ -808,14 +761,12 @@ def register_lazy_module_methods(prefix: str, methods: Tuple[str, ...]) -> None:
         logger.error(f"Failed to register lazy module methods for {prefix}: {e}")
         raise
 
-
 # =============================================================================
 # MODULE REGISTRATION DOMAIN - Internal Utilities
 # =============================================================================
 
 # Note: Internal utility functions are available from hooks.finder module
 # They are used internally by the lazy loading system and don't need facade wrappers
-
 
 # =============================================================================
 # KEYWORD-BASED DETECTION FUNCTIONS
@@ -846,7 +797,6 @@ def enable_keyword_detection(enabled: bool = True, keyword: Optional[str] = None
             logger.error(f"Failed to enable keyword detection: {e}")
         raise
 
-
 def is_keyword_detection_enabled(package_name: Optional[str] = None) -> bool:
     """
     Check if keyword detection is enabled.
@@ -870,7 +820,6 @@ def is_keyword_detection_enabled(package_name: Optional[str] = None) -> bool:
         logger.warning(f"Unexpected error checking keyword detection status: {e}")
         return False
 
-
 def get_keyword_detection_keyword(package_name: Optional[str] = None) -> Optional[str]:
     """
     Get keyword used for detection.
@@ -889,7 +838,6 @@ def get_keyword_detection_keyword(package_name: Optional[str] = None) -> Optiona
     except Exception as e:
         logger.error(f"Failed to get keyword detection keyword: {e}")
         return None
-
 
 def check_package_keywords(package_name: Optional[str] = None, keywords: Optional[List[str]] = None) -> bool:
     """
@@ -912,7 +860,6 @@ def check_package_keywords(package_name: Optional[str] = None, keywords: Optiona
             logger.error(f"Failed to check package keywords: {e}")
         return False
 
-
 # =============================================================================
 # DISCOVERY FUNCTIONS
 # =============================================================================
@@ -925,7 +872,6 @@ def get_lazy_discovery(package_name: str = 'default') -> Optional[APackageHelper
         logger.error(f"Failed to get discovery instance for {package_name}: {e}")
         return None
 
-
 def discover_dependencies(package_name: str = 'default') -> Dict[str, str]:
     """Discover dependencies for a package."""
     try:
@@ -935,7 +881,6 @@ def discover_dependencies(package_name: str = 'default') -> Dict[str, str]:
     except Exception as e:
         logger.error(f"Failed to discover dependencies for {package_name}: {e}")
     return {}
-
 
 def export_dependency_mappings(package_name: str = 'default', output_path: Optional[str] = None) -> None:
     """Export dependency mappings to file."""
@@ -955,7 +900,6 @@ def export_dependency_mappings(package_name: str = 'default', output_path: Optio
     except Exception as e:
         logger.error(f"Failed to export dependency mappings for {package_name}: {e}")
         raise
-
 
 # =============================================================================
 # PUBLIC API EXPORTS
@@ -1031,7 +975,6 @@ __all__ = [
     'XWModuleHelper',
 ]
 
-
 # =============================================================================
 # CONCRETE HELPER IMPLEMENTATIONS (Simple API Pattern)
 # =============================================================================
@@ -1042,7 +985,6 @@ __all__ = [
 # XWModuleHelper moved to module/facade.py
 # This is now just an alias (defined above)
 # Removed duplicate class definition - use the one from module/facade.py
-
 
 # Global helper instances
 _package_helper = XWPackageHelper()

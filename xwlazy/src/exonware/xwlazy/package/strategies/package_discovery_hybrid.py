@@ -4,7 +4,7 @@ Hybrid Discovery Strategy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Hybrid discovery - combines file-based and manifest-based discovery.
@@ -15,7 +15,6 @@ from typing import Dict, Optional, Any
 from ...package.base import ADiscoveryStrategy
 from .package_discovery_file import FileBasedDiscovery
 from .package_discovery_manifest import ManifestBasedDiscovery
-
 
 class HybridDiscovery(ADiscoveryStrategy):
     """

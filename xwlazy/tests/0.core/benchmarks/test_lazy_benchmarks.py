@@ -41,7 +41,6 @@ from exonware.xwlazy import (  # noqa: E402
 ASYNC_SAMPLE_NAME = "xwlazy-async-sample"
 ASYNC_SAMPLE_PATH = Path(__file__).resolve().parents[3] / "tests" / "resources" / "async_package"
 
-
 def _pip_uninstall(package: str) -> None:
     with suppress(Exception):
         subprocess.run(
@@ -50,7 +49,6 @@ def _pip_uninstall(package: str) -> None:
             stderr=subprocess.DEVNULL,
             check=False,
         )
-
 
 def _pip_install_from_path(package_path: Path) -> bool:
     result = subprocess.run(
@@ -61,7 +59,6 @@ def _pip_install_from_path(package_path: Path) -> bool:
         check=False,
     )
     return result.returncode == 0
-
 
 def _parse_lazy_package_env() -> tuple[str, ...]:
     """
@@ -83,7 +80,6 @@ def _parse_lazy_package_env() -> tuple[str, ...]:
             return packages
     return ("xw_missing_module",)
 
-
 def _purge_module_state(module_name: str) -> None:
     """
     Remove a module and its namespace children from sys.modules.
@@ -95,7 +91,6 @@ def _purge_module_state(module_name: str) -> None:
     for name in list(sys.modules):
         if name == module_name or name.startswith(f"{module_name}."):
             sys.modules.pop(name, None)
-
 
 def _force_uninstall(packages: tuple[str, ...]) -> None:
     """
@@ -114,7 +109,6 @@ def _force_uninstall(packages: tuple[str, ...]) -> None:
 
     importlib.invalidate_caches()
 
-
 @pytest.fixture(scope="session")
 def lazy_benchmark_packages() -> tuple[str, ...]:
     """
@@ -125,7 +119,6 @@ def lazy_benchmark_packages() -> tuple[str, ...]:
     """
 
     return _parse_lazy_package_env()
-
 
 @pytest.fixture(autouse=True)
 def uninstall_lazy_benchmark_packages(lazy_benchmark_packages):
@@ -140,7 +133,6 @@ def uninstall_lazy_benchmark_packages(lazy_benchmark_packages):
     yield
     _force_uninstall(lazy_benchmark_packages)
 
-
 @pytest.fixture(scope="session")
 def sample_payload():
     return {
@@ -149,7 +141,6 @@ def sample_payload():
         "values": list(range(50)),
         "meta": {"enabled": True, "tags": ["lazy", "benchmark"]},
     }
-
 
 def test_import_hook_noop_latency(benchmark):
     """
@@ -162,7 +153,6 @@ def test_import_hook_noop_latency(benchmark):
         return finder.find_spec("collections")
 
     benchmark(run)
-
 
 def test_serialization_lazy_loader(benchmark, sample_payload):
     """
@@ -177,7 +167,6 @@ def test_serialization_lazy_loader(benchmark, sample_payload):
         module.loads(encoded)
 
     benchmark(run)
-
 
 @pytest.fixture
 def prepared_installer(monkeypatch):
@@ -213,7 +202,6 @@ def prepared_installer(monkeypatch):
 
     monkeypatch.setattr(importlib, "import_module", real_import_module)
 
-
 def test_forced_install_flow(benchmark, prepared_installer):
     """
     Measure the cost of a forced install flow (simulated).
@@ -223,7 +211,6 @@ def test_forced_install_flow(benchmark, prepared_installer):
         prepared_installer.install_and_import("xw_missing_module")
 
     benchmark(run)
-
 
 def test_dependency_mapper_warmup(benchmark):
     """
@@ -237,7 +224,6 @@ def test_dependency_mapper_warmup(benchmark):
             mapper.get_package_name(name)
 
     benchmark(run)
-
 
 def test_async_install_real_pip(benchmark):
     """

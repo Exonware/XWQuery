@@ -4,7 +4,7 @@ Installation Cache Mixin
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Mixin for cache management (wheels, install trees, known missing modules).
@@ -48,7 +48,6 @@ def _ensure_spec_cache_initialized():
     global _spec_cache_clear
     if _spec_cache_clear is None:
         _spec_cache_clear = _get_spec_cache_clear()
-
 
 class InstallCacheMixin:
     """Mixin for cache management (wheels, install trees, known missing modules)."""

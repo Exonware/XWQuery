@@ -4,7 +4,7 @@ Interactive Installation Mixin
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Mixin for interactive user prompts during installation.
@@ -14,7 +14,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .lazy_installer import LazyInstaller
-
 
 class InteractiveInstallMixin:
     """Mixin for interactive user prompts during installation."""

@@ -42,10 +42,8 @@ DEFAULT_MANIFEST_FILENAMES: Tuple[str, ...] = (
 
 ENV_MANIFEST_PATH = "XWLAZY_MANIFEST_PATH"
 
-
 def _normalize_package_name(package_name: Optional[str]) -> str:
     return (package_name or "global").strip().lower()
-
 
 def _normalize_prefix(prefix: str) -> str:
     prefix = prefix.strip()
@@ -54,7 +52,6 @@ def _normalize_prefix(prefix: str) -> str:
     if not prefix.endswith("."):
         prefix = f"{prefix}."
     return prefix
-
 
 def _normalize_wrap_hints(values: Iterable[Any]) -> List[str]:
     hints: List[str] = []
@@ -66,10 +63,8 @@ def _normalize_wrap_hints(values: Iterable[Any]) -> List[str]:
             hints.append(hint)
     return hints
 
-
 # PackageManifest moved to defs.py - import it from there
 from ...defs import PackageManifest
-
 
 class LazyManifestLoader:
     """
@@ -456,10 +451,8 @@ class LazyManifestLoader:
             "wrap_class_prefixes": ordered_wrap_hints,
         }
 
-
 _manifest_loader: Optional[LazyManifestLoader] = None
 _manifest_loader_lock = RLock()
-
 
 def get_manifest_loader() -> LazyManifestLoader:
     """
@@ -475,12 +468,10 @@ def get_manifest_loader() -> LazyManifestLoader:
             _manifest_loader = LazyManifestLoader()
         return _manifest_loader
 
-
 def refresh_manifest_cache() -> None:
     """Forcefully clear the shared manifest loader cache."""
     loader = get_manifest_loader()
     loader.clear_cache()
-
 
 def sync_manifest_configuration(package_name: str) -> None:
     """
@@ -494,7 +485,6 @@ def sync_manifest_configuration(package_name: str) -> None:
     """
     loader = get_manifest_loader()
     loader.sync_manifest_configuration(package_name)
-
 
 __all__ = [
     "PackageManifest",

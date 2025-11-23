@@ -4,7 +4,7 @@ Async Installation Mixin
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Mixin for async installation operations.
@@ -47,7 +47,6 @@ def _ensure_logging_initialized():
         logger = _get_logger()
     if _log is None:
         _log = _get_log_event()
-
 
 class AsyncInstallMixin:
     """Mixin for async installation operations."""

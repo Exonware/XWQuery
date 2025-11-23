@@ -45,7 +45,6 @@ _MODE_ENUM_MAP = {
     "lazy": LazyInstallMode.SMART,
 }
 
-
 class LazyInstallConfig:
     """Global configuration for lazy installation per package."""
     _configs: Dict[str, bool] = {}

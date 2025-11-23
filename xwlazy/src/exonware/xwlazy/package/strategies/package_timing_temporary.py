@@ -4,7 +4,7 @@ Temporary Timing Strategy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Temporary timing - always uninstall after use (more aggressive than CLEAN).
@@ -12,7 +12,6 @@ Temporary timing - always uninstall after use (more aggressive than CLEAN).
 
 from typing import List, Any
 from ...package.base import AInstallTimingStrategy
-
 
 class TemporaryTiming(AInstallTimingStrategy):
     """

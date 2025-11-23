@@ -4,7 +4,7 @@ Allow List Policy Strategy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Allow list policy - only allows packages in the allow list.
@@ -12,7 +12,6 @@ Allow list policy - only allows packages in the allow list.
 
 from typing import Tuple, List, Set
 from ...package.base import APolicyStrategy
-
 
 class AllowListPolicy(APolicyStrategy):
     """

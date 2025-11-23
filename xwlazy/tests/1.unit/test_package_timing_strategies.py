@@ -6,7 +6,7 @@ Tests all package timing strategy implementations in detail.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -27,7 +27,6 @@ from exonware.xwlazy.package.strategies import (
     CleanTiming,
     TemporaryTiming,
 )
-
 
 @pytest.mark.xwlazy_unit
 class TestSmartTiming:
@@ -66,7 +65,6 @@ class TestSmartTiming:
         assert len(priority) == len(packages)
         assert set(priority) == set(packages)
 
-
 @pytest.mark.xwlazy_unit
 class TestFullTiming:
     """Test FullTiming strategy."""
@@ -88,7 +86,6 @@ class TestFullTiming:
         # Full mode: keep installed
         assert strategy.should_uninstall_after("test_pkg", None) == False
 
-
 @pytest.mark.xwlazy_unit
 class TestCleanTiming:
     """Test CleanTiming strategy."""
@@ -109,7 +106,6 @@ class TestCleanTiming:
         strategy = CleanTiming()
         # Clean mode: uninstall after use
         assert strategy.should_uninstall_after("test_pkg", None) == True
-
 
 @pytest.mark.xwlazy_unit
 class TestTemporaryTiming:

@@ -6,7 +6,7 @@ Tests all package mapping strategy implementations in detail.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -27,7 +27,6 @@ from exonware.xwlazy.package.strategies import (
     DiscoveryFirstMapping,
     HybridMapping,
 )
-
 
 @pytest.mark.xwlazy_unit
 class TestManifestFirstMapping:
@@ -66,7 +65,6 @@ class TestManifestFirstMapping:
         # Should return a list (may be empty if no manifest)
         assert isinstance(result, list)
 
-
 @pytest.mark.xwlazy_unit
 class TestDiscoveryFirstMapping:
     """Test DiscoveryFirstMapping strategy."""
@@ -101,7 +99,6 @@ class TestDiscoveryFirstMapping:
         strategy = DiscoveryFirstMapping("test_pkg")
         result = strategy.map_package_to_imports("test_package")
         assert isinstance(result, list)
-
 
 @pytest.mark.xwlazy_unit
 class TestHybridMapping:

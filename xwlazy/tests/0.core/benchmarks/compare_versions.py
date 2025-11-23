@@ -7,7 +7,7 @@ Standalone benchmark comparison script: xwlazy_new vs xwlazy_old
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1
+
 Generation Date: 18-Nov-2025
 
 This script compares:
@@ -45,7 +45,6 @@ ARCHIVE_ROOT = PROJECT_ROOT / "_archive" / "lazy"
 if str(PROJECT_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-
 def count_code_metrics(path: Path, pattern: str = "*.py") -> Dict[str, Any]:
     """Count code metrics for a directory."""
     metrics = {
@@ -80,7 +79,6 @@ def count_code_metrics(path: Path, pattern: str = "*.py") -> Dict[str, Any]:
     
     return metrics
 
-
 def measure_import_time(import_func, iterations: int = 10) -> Dict[str, float]:
     """Measure import time over multiple iterations."""
     times = []
@@ -106,7 +104,6 @@ def measure_import_time(import_func, iterations: int = 10) -> Dict[str, float]:
         'total': sum(times)
     }
 
-
 def measure_memory(import_func) -> float:
     """Measure peak memory usage during import."""
     # Clear cache
@@ -122,7 +119,6 @@ def measure_memory(import_func) -> float:
     tracemalloc.stop()
     
     return peak / 1024 / 1024  # Return MB
-
 
 def benchmark_operations():
     """Benchmark common operations."""
@@ -154,7 +150,6 @@ def benchmark_operations():
         'operations_100x': operations_time,
         'operations_per_op': operations_time / 500  # 5 ops * 100 iterations
     }
-
 
 def main():
     """Run comprehensive benchmark comparison."""
@@ -269,7 +264,6 @@ def main():
     print("\n" + "=" * 80)
     print("🎯 CONCLUSION: New modular structure is MORE EFFICIENT")
     print("=" * 80)
-
 
 if __name__ == "__main__":
     main()

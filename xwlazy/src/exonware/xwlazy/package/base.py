@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 10-Oct-2025
 
 Abstract Base Class for Package Operations
@@ -32,7 +32,6 @@ from ..contracts import (
     IPolicyStrategy,
     IMappingStrategy,
 )
-
 
 # =============================================================================
 # ABSTRACT PACKAGE (Unified - Merges APackageDiscovery + APackageInstaller + APackageCache + APackageHelper)
@@ -604,7 +603,6 @@ class APackageHelper(IPackageHelper, ABC):
         """Get watched prefixes from manifest (from IManifestLoader)."""
         raise NotImplementedError("Subclasses must implement get_watched_prefixes")
 
-
 # =============================================================================
 # DEPRECATED CLASSES (for backward compatibility)
 # =============================================================================
@@ -641,7 +639,6 @@ class APackageHelperStrategy(IPackageHelperStrategy, ABC):
         """Get installed version."""
         ...
 
-
 # =============================================================================
 # ABSTRACT PACKAGE MANAGER STRATEGY
 # =============================================================================
@@ -674,7 +671,6 @@ class APackageManagerStrategy(IPackageManagerStrategy, ABC):
         """Check security policy."""
         ...
 
-
 # =============================================================================
 # ABSTRACT INSTALLATION EXECUTION STRATEGY
 # =============================================================================
@@ -695,7 +691,6 @@ class AInstallExecutionStrategy(IInstallExecutionStrategy, ABC):
     def execute_uninstall(self, package_name: str) -> bool:
         """Execute uninstallation of a package."""
         ...
-
 
 # =============================================================================
 # ABSTRACT INSTALLATION TIMING STRATEGY
@@ -723,7 +718,6 @@ class AInstallTimingStrategy(IInstallTimingStrategy, ABC):
         """Get priority order for installing packages."""
         ...
 
-
 # =============================================================================
 # ABSTRACT DISCOVERY STRATEGY
 # =============================================================================
@@ -744,7 +738,6 @@ class ADiscoveryStrategy(IDiscoveryStrategy, ABC):
     def get_source(self, import_name: str) -> Optional[str]:
         """Get the source of a discovered dependency."""
         ...
-
 
 # =============================================================================
 # ABSTRACT POLICY STRATEGY
@@ -767,7 +760,6 @@ class APolicyStrategy(IPolicyStrategy, ABC):
         """Get pip arguments based on policy."""
         ...
 
-
 # =============================================================================
 # ABSTRACT MAPPING STRATEGY
 # =============================================================================
@@ -788,7 +780,6 @@ class AMappingStrategy(IMappingStrategy, ABC):
     def map_package_to_imports(self, package_name: str) -> List[str]:
         """Map package name to possible import names."""
         ...
-
 
 # =============================================================================
 # EXPORT ALL

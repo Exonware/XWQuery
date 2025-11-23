@@ -4,7 +4,7 @@ Installer Engine
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Unified async execution engine for install operations.
@@ -30,7 +30,6 @@ def _get_logger():
     return get_logger("xwlazy.installer_engine")
 
 logger = None  # Will be initialized on first use
-
 
 class InstallerEngine:
     """
@@ -402,7 +401,6 @@ class InstallerEngine:
     def get_mode(self) -> LazyInstallMode:
         """Get current installation mode."""
         return self._mode
-
 
 __all__ = ['InstallerEngine']
 

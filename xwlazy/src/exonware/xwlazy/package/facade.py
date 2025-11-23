@@ -47,7 +47,6 @@ from .strategies import (
     ManifestFirstMapping,
 )
 
-
 class XWPackageHelper(APackageHelper):
     """
     Concrete implementation of APackageHelper.

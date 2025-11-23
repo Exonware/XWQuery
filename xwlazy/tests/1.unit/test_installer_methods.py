@@ -6,7 +6,7 @@ Tests for installer methods: _is_module_importable() and install_and_import().
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -24,7 +24,6 @@ if str(src_path) not in sys.path:
     sys.path.insert(0, str(src_path))
 
 from exonware.xwlazy.package.services import LazyInstaller
-
 
 @pytest.mark.xwlazy_unit
 class TestInstallerMethods:

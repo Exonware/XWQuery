@@ -6,7 +6,7 @@ Integration tests for installer cache integration - verifies installer and cache
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -27,7 +27,6 @@ if str(src_path) not in sys.path:
 
 from exonware.xwlazy.package.services import LazyInstaller
 from exonware.xwlazy.common.cache import InstallationCache
-
 
 @pytest.mark.xwlazy_integration
 class TestInstallerCacheIntegration:

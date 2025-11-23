@@ -4,7 +4,7 @@ Async Install Handle
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Lightweight handle for background installation jobs.
@@ -12,7 +12,6 @@ Lightweight handle for background installation jobs.
 
 import asyncio
 from typing import Optional, Any
-
 
 class AsyncInstallHandle:
     """Lightweight handle for background installation jobs."""
@@ -83,7 +82,6 @@ class AsyncInstallHandle:
         if hasattr(self._task_or_future, 'done'):
             return self._task_or_future.done()
         return False
-
 
 __all__ = ['AsyncInstallHandle']
 

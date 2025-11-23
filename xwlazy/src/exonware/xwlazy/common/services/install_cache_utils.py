@@ -4,7 +4,7 @@ Installation Cache Utilities
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Shared utilities for cache management (wheels, install trees).
@@ -44,11 +44,9 @@ def _ensure_logging_initialized():
     if logger is None:
         logger = _get_logger()
 
-
 def get_default_cache_dir() -> Path:
     """Get the default cache directory."""
     return _DEFAULT_ASYNC_CACHE_DIR
-
 
 def get_cache_dir(cache_dir: Optional[Path] = None) -> Path:
     """Get cache directory, creating it if necessary."""
@@ -58,20 +56,17 @@ def get_cache_dir(cache_dir: Optional[Path] = None) -> Path:
     path.mkdir(parents=True, exist_ok=True)
     return path
 
-
 def get_wheel_path(package_name: str, cache_dir: Optional[Path] = None) -> Path:
     """Get the cached wheel file path for a package."""
     cache = get_cache_dir(cache_dir)
     safe = package_name.replace("/", "_").replace("\\", "_").replace(":", "_")
     return cache / f"{safe}.whl"
 
-
 def get_install_tree_dir(package_name: str, cache_dir: Optional[Path] = None) -> Path:
     """Get the cached install directory for a package."""
     cache = get_cache_dir(cache_dir)
     safe = package_name.replace("/", "_").replace("\\", "_").replace(":", "_")
     return cache / "installs" / safe
-
 
 def get_site_packages_dir() -> Path:
     """Get the site-packages directory."""
@@ -81,7 +76,6 @@ def get_site_packages_dir() -> Path:
     path = Path(purelib)
     path.mkdir(parents=True, exist_ok=True)
     return path
-
 
 def pip_install_from_path(wheel_path: Path, policy_args: Optional[List[str]] = None) -> bool:
     """Install a wheel file using pip."""
@@ -107,7 +101,6 @@ def pip_install_from_path(wheel_path: Path, policy_args: Optional[List[str]] = N
         return result.returncode == 0
     except subprocess.CalledProcessError:
         return False
-
 
 def ensure_cached_wheel(
     package_name: str,
@@ -155,7 +148,6 @@ def ensure_cached_wheel(
     except subprocess.CalledProcessError:
         return None
 
-
 def install_from_cached_tree(
     package_name: str,
     cache_dir: Optional[Path] = None
@@ -184,7 +176,6 @@ def install_from_cached_tree(
     except Exception as exc:
         logger.debug("Cached tree install failed for %s: %s", package_name, exc)
         return False
-
 
 def materialize_cached_tree(
     package_name: str,
@@ -219,7 +210,6 @@ def materialize_cached_tree(
         if temp_dir.exists():
             shutil.rmtree(temp_dir, ignore_errors=True)
 
-
 def has_cached_install_tree(
     package_name: str,
     cache_dir: Optional[Path] = None
@@ -227,7 +217,6 @@ def has_cached_install_tree(
     """Check if a cached install tree exists."""
     target = get_install_tree_dir(package_name, cache_dir)
     return target.exists() and any(target.iterdir())
-
 
 def install_from_cached_wheel(
     package_name: str,
@@ -239,7 +228,6 @@ def install_from_cached_wheel(
     if not wheel_path.exists():
         return False
     return pip_install_from_path(wheel_path, policy_args)
-
 
 __all__ = [
     'get_default_cache_dir',

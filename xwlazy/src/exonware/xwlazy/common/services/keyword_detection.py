@@ -23,7 +23,6 @@ _keyword_config_lock = threading.RLock()
 _lazy_detection_cache: dict[str, bool] = {}
 _lazy_detection_lock = threading.RLock()
 
-
 def _check_package_keywords(package_name: Optional[str] = None, keyword: Optional[str] = None) -> bool:
     """
     Check if any installed package has the specified keyword in its metadata.
@@ -102,7 +101,6 @@ def _check_package_keywords(package_name: Optional[str] = None, keyword: Optiona
     
     return False
 
-
 def _lazy_marker_installed() -> bool:
     """Check if the exonware-xwlazy marker package is installed."""
     if sys.version_info < (3, 8):
@@ -122,7 +120,6 @@ def _lazy_marker_installed() -> bool:
         logger.debug("❌ exonware-xwlazy marker package not installed")
         return False
 
-
 def _lazy_env_override(package_name: str) -> Optional[bool]:
     """Check environment variable override for lazy installation."""
     env_var = f"{package_name.upper()}_LAZY_INSTALL"
@@ -136,7 +133,6 @@ def _lazy_env_override(package_name: str) -> Optional[bool]:
     if normalized in ("false", "0", "no", "off"):
         return False
     return None
-
 
 def _detect_meta_info_mode(package_name: str) -> Optional[str]:
     """
@@ -178,7 +174,6 @@ def _detect_meta_info_mode(package_name: str) -> Optional[str]:
         pass
     return None
 
-
 def enable_keyword_detection(enabled: bool = True, keyword: Optional[str] = None) -> None:
     """
     Enable/disable keyword-based auto-detection of lazy loading.
@@ -203,18 +198,15 @@ def enable_keyword_detection(enabled: bool = True, keyword: Optional[str] = None
         with _lazy_detection_lock:
             _lazy_detection_cache.clear()
 
-
 def is_keyword_detection_enabled() -> bool:
     """Return whether keyword-based detection is enabled."""
     with _keyword_config_lock:
         return _KEYWORD_DETECTION_ENABLED
 
-
 def get_keyword_detection_keyword() -> str:
     """Get the keyword currently being checked for auto-detection."""
     with _keyword_config_lock:
         return _KEYWORD_TO_CHECK
-
 
 def check_package_keywords(package_name: Optional[str] = None, keyword: Optional[str] = None) -> bool:
     """
@@ -230,7 +222,6 @@ def check_package_keywords(package_name: Optional[str] = None, keyword: Optional
         True if the keyword is found in the package's metadata
     """
     return _check_package_keywords(package_name, keyword)
-
 
 def _detect_lazy_installation(package_name: str) -> bool:
     """

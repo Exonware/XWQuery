@@ -8,7 +8,7 @@ across package and module boundaries.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+
 Generation Date: 15-Nov-2025
 """
 
@@ -67,7 +67,6 @@ from exonware.xwlazy.common.strategies.caching_lru import LRUCache
 from exonware.xwlazy.common.strategies.caching_lfu import LFUCache
 from exonware.xwlazy.common.strategies.caching_ttl import TTLCache
 from exonware.xwlazy.common.strategies.caching_dict import DictCache
-
 
 @pytest.mark.xwlazy_integration
 class TestAllStrategyCombinations:
@@ -246,7 +245,6 @@ class TestAllStrategyCombinations:
             self.package_name, "helper"
         ) is not None
 
-
 @pytest.mark.xwlazy_integration
 class TestStrategyInteroperability:
     """Test that strategies work together in real scenarios."""
@@ -332,7 +330,6 @@ class TestStrategyInteroperability:
         caching.set("test_key", "test_value")
         assert caching.get("test_key") == "test_value"
 
-
 @pytest.mark.xwlazy_integration
 class TestStrategyEdgeCases:
     """Test edge cases and boundary conditions for strategy combinations."""
@@ -405,7 +402,6 @@ class TestStrategyEdgeCases:
                 cache.set("key2", "value2")
                 # First key should be evicted
                 assert cache.get("key1") is None or cache.get("key1") != "value1"
-
 
 @pytest.mark.xwlazy_integration
 @pytest.mark.xwlazy_performance

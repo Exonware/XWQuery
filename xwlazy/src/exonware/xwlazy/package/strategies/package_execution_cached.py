@@ -4,7 +4,7 @@ Cached Execution Strategy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Cached execution strategy - install from cached tree.
@@ -21,7 +21,6 @@ from ...common.services.install_cache_utils import (
     get_cache_dir,
     install_from_cached_tree,
 )
-
 
 class CachedExecution(AInstallExecutionStrategy):
     """

@@ -4,7 +4,7 @@ Multi-Tier Cache Strategy - Wrapper for existing MultiTierCache.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 15-Nov-2025
 
 Wraps existing MultiTierCache to implement ICaching interface.
@@ -15,7 +15,6 @@ from typing import Optional, Any
 from pathlib import Path
 from ...common.cache import MultiTierCache
 from ...common.base import ACachingStrategy
-
 
 class MultiTierCacheStrategy(ACachingStrategy):
     """

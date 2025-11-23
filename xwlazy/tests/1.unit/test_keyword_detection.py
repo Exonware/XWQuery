@@ -34,7 +34,6 @@ if str(__file__).endswith("test_keyword_detection.py"):
         is_keyword_detection_enabled,
     )
 
-
 class TestKeywordDetection:
     """Test keyword-based detection functionality."""
     

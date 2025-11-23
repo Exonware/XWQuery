@@ -6,7 +6,7 @@ Intelligent mode utilities for automatic mode switching.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.19
+
 Generation Date: 19-Nov-2025
 
 This module provides intelligent mode switching based on load level.
@@ -27,7 +27,6 @@ def _get_logger():
         logger = get_logger("xwlazy.loading.intelligent")
     return logger
 
-
 # Optimal mode mappings based on benchmark results (updated from consistency test)
 # Format: {LoadLevel: (LazyLoadMode, LazyInstallMode)}
 # Updated: 2025-11-19 - Based on 20-iteration consistency test averages
@@ -39,7 +38,6 @@ INTELLIGENT_MODE_MAP: Dict[LoadLevel, Tuple[LazyLoadMode, LazyInstallMode]] = {
     LoadLevel.HEAVY: (LazyLoadMode.PRELOAD, LazyInstallMode.SIZE_AWARE),  # Winner: 18.475ms avg (±10.2% CV)
     LoadLevel.ENTERPRISE: (LazyLoadMode.PRELOAD, LazyInstallMode.FULL),  # Winner: 44.742ms avg (±1.5% CV)
 }
-
 
 class IntelligentModeSelector:
     """Selects optimal mode based on current load characteristics."""
@@ -167,7 +165,6 @@ class IntelligentModeSelector:
                 for level, mode in self._mode_map.items()
             }
         }
-
 
 __all__ = ['LoadLevel', 'INTELLIGENT_MODE_MAP', 'IntelligentModeSelector']
 

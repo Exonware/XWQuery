@@ -14,11 +14,8 @@ to coexist (xwsystem, xwnode, xwdata, xwlazy, etc.)
 # This allows both exonware.xwsystem and exonware.xwlazy to coexist
 __path__ = __import__('pkgutil').extend_path(__path__, __name__)
 
-# Import version from xwlazy if available, otherwise use default
-try:
-    from exonware.xwlazy.version import __version__
-except ImportError:
-    __version__ = '0.0.1'  # Fallback for namespace package when xwlazy not installed
+# Import version from xwlazy - required, no fallback
+from exonware.xwlazy.version import __version__
 
 __author__ = 'Eng. Muhammad AlShehri'
 __email__ = 'connect@exonware.com'

@@ -16,7 +16,7 @@ All version information comes from a single file:
 from exonware.xwlazy.version import __version__
 
 # ❌ WRONG: Don't hardcode
-__version__ = "0.1.0.19"
+__version__ = "X.Y.Z"  # Never use actual version numbers
 ```
 
 ### In Docstrings
@@ -35,7 +35,7 @@ Generation Date: 10-Oct-2025
 # ❌ WRONG: Don't hardcode version
 """
 Module description.
-Version: 0.1.0.19  # <-- REMOVE THIS
+Version: X.Y.Z  # <-- REMOVE THIS (never include version in docstrings)
 """
 ```
 
@@ -46,7 +46,7 @@ Version: 0.1.0.19  # <-- REMOVE THIS
 > **Note:** For the current version, use `from exonware.xwlazy import __version__`
 
 # ❌ WRONG: Don't hardcode
-**Version:** 0.1.0.19
+**Version:** X.Y.Z  # Never use actual version numbers
 ```
 
 ## Updating Versions

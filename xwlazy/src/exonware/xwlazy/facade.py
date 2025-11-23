@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 10-Oct-2025
 
 Facade for Lazy Loading System
@@ -23,10 +23,6 @@ import sys
 import subprocess
 import importlib
 import importlib.util
-import sys
-import subprocess
-import importlib
-import importlib.util
 from typing import Dict, List, Optional, Tuple, Any
 from types import ModuleType
 
@@ -35,12 +31,12 @@ from .defs import LazyInstallMode, LazyLoadMode, LazyModeConfig
 from .defs import PRESET_MODES, get_preset_mode
 
 # Import from new structure modules
-from .package.config_manager import LazyInstallConfig
-from .package.state_manager import LazyStateManager
+from .package.services.config_manager import LazyInstallConfig
+from .common.services import LazyStateManager
 from .runtime.metrics import MetricsCollector, get_metrics_collector
 from .runtime.performance import LazyPerformanceMonitor
-from .package.manifest import get_manifest_loader, refresh_manifest_cache
-from .module.importer_engine import get_logger, log_event as _log
+from .package.services.manifest import get_manifest_loader, refresh_manifest_cache
+from .common.logger import get_logger, log_event as _log
 # Import directly from submodule bases
 from .package.base import APackageHelper
 from .module.base import AModuleHelper
@@ -51,9 +47,9 @@ from .module import XWModuleHelper
 from .runtime import XWRuntimeHelper
 
 # Import from domain modules
-from .package.discovery import get_lazy_discovery as _get_lazy_discovery
-from .package.dependency_mapper import DependencyMapper
-from .package.keyword_detection import (
+from .package.services.discovery import get_lazy_discovery as _get_lazy_discovery
+from .common.services.dependency_mapper import DependencyMapper
+from .common.services import (
     enable_keyword_detection as _enable_keyword_detection,
     is_keyword_detection_enabled as _is_keyword_detection_enabled,
     get_keyword_detection_keyword as _get_keyword_detection_keyword,
@@ -61,7 +57,13 @@ from .package.keyword_detection import (
     _detect_lazy_installation,
     _detect_meta_info_mode,
 )
-from .package.installer_engine import LazyInstallerRegistry, LazyInstaller, LazyInstallPolicy, InstallationCache, _is_externally_managed
+from .package.services import (
+    LazyInstallerRegistry,
+    LazyInstaller,
+    LazyInstallPolicy,
+    is_externally_managed as _is_externally_managed,
+)
+from .common.cache import InstallationCache
 from .module.importer_engine import (
     install_import_hook as _install_import_hook,
     uninstall_import_hook as _uninstall_import_hook,
@@ -375,7 +377,12 @@ def is_lazy_import_enabled(package_name: Optional[str] = None) -> bool:
     """
     try:
         return _lazy_importer.is_enabled()
-    except Exception:
+    except (AttributeError, RuntimeError) as e:
+        logger.debug(f"Error checking lazy import status: {e}")
+        return False
+    except Exception as e:
+        # Unexpected errors - log but return False for safety
+        logger.warning(f"Unexpected error checking lazy import status: {e}")
         return False
 
 
@@ -492,9 +499,47 @@ def config_package_lazy_install_enabled(
     load_mode: Optional[LazyLoadMode] = None,
     install_mode: Optional[LazyInstallMode] = None,
     mode_config: Optional[LazyModeConfig] = None,
+    # Strategy parameters
+    execution_strategy: Optional[Any] = None,
+    timing_strategy: Optional[Any] = None,
+    discovery_strategy: Optional[Any] = None,
+    policy_strategy: Optional[Any] = None,
+    mapping_strategy: Optional[Any] = None,
 ) -> bool:
-    """Configure lazy installation for a package."""
+    """
+    Configure lazy installation for a package.
+    
+    Args:
+        package_name: Package name to configure
+        enabled: Whether lazy installation is enabled (None = auto-detect)
+        mode: Installation mode string (e.g., "smart", "full", "clean")
+        install_hook: Whether to install the import hook
+        load_mode: Optional explicit load mode
+        install_mode: Optional explicit install mode
+        mode_config: Optional full mode configuration
+        execution_strategy: Optional custom execution strategy instance
+        timing_strategy: Optional custom timing strategy instance
+        discovery_strategy: Optional custom discovery strategy instance
+        policy_strategy: Optional custom policy strategy instance
+        mapping_strategy: Optional custom mapping strategy instance
+        
+    Returns:
+        True if enabled, False otherwise
+    """
     try:
+        # Store strategies if provided
+        from .package.services.strategy_registry import StrategyRegistry
+        if execution_strategy is not None:
+            StrategyRegistry.set_package_strategy(package_name, 'execution', execution_strategy)
+        if timing_strategy is not None:
+            StrategyRegistry.set_package_strategy(package_name, 'timing', timing_strategy)
+        if discovery_strategy is not None:
+            StrategyRegistry.set_package_strategy(package_name, 'discovery', discovery_strategy)
+        if policy_strategy is not None:
+            StrategyRegistry.set_package_strategy(package_name, 'policy', policy_strategy)
+        if mapping_strategy is not None:
+            StrategyRegistry.set_package_strategy(package_name, 'mapping', mapping_strategy)
+        
         manual_override = enabled is not None
         if enabled is None:
             enabled = _detect_lazy_installation(package_name)
@@ -537,6 +582,54 @@ def config_package_lazy_install_enabled(
         raise
 
 
+def config_module_lazy_load_enabled(
+    package_name: str,
+    enabled: bool = True,
+    load_mode: Optional[LazyLoadMode] = None,
+    # Strategy parameters
+    helper_strategy: Optional[Any] = None,
+    manager_strategy: Optional[Any] = None,
+    caching_strategy: Optional[Any] = None,
+) -> bool:
+    """
+    Configure lazy loading for modules in a package.
+    
+    Args:
+        package_name: Package name to configure
+        enabled: Whether lazy loading is enabled (default: True)
+        load_mode: Optional explicit load mode
+        helper_strategy: Optional custom helper strategy instance
+        manager_strategy: Optional custom manager strategy instance
+        caching_strategy: Optional custom caching strategy instance
+        
+    Returns:
+        True if enabled, False otherwise
+    """
+    try:
+        # Store strategies if provided
+        from .package.services.strategy_registry import StrategyRegistry
+        if helper_strategy is not None:
+            StrategyRegistry.set_module_strategy(package_name, 'helper', helper_strategy)
+        if manager_strategy is not None:
+            StrategyRegistry.set_module_strategy(package_name, 'manager', manager_strategy)
+        if caching_strategy is not None:
+            StrategyRegistry.set_module_strategy(package_name, 'caching', caching_strategy)
+        
+        # Enable lazy imports if requested
+        if enabled:
+            if load_mode is None:
+                load_mode = LazyLoadMode.AUTO
+            enable_lazy_imports(load_mode, package_name=package_name)
+        else:
+            disable_lazy_imports(package_name=package_name)
+        
+        logger.info(f"Configured lazy loading for {package_name}: enabled={enabled}, load_mode={load_mode}")
+        return enabled
+    except Exception as e:
+        logger.error(f"Failed to configure lazy loading for {package_name}: {e}")
+        raise
+
+
 def sync_manifest_configuration(package_name: str) -> None:
     """
     Sync configuration from manifest for a specific package.
@@ -550,7 +643,7 @@ def sync_manifest_configuration(package_name: str) -> None:
     try:
         from .module.importer_engine import _set_package_class_hints
         
-        from .package.manifest import _normalize_package_name, get_manifest_loader as _get_manifest_loader
+        from .package.services.manifest import _normalize_package_name, get_manifest_loader as _get_manifest_loader
         package_key = _normalize_package_name(package_name)
         
         # Get the loader instance - this ensures we use the same instance throughout
@@ -769,7 +862,12 @@ def is_keyword_detection_enabled(package_name: Optional[str] = None) -> bool:
     """
     try:
         return _is_keyword_detection_enabled()
-    except Exception:
+    except (AttributeError, RuntimeError) as e:
+        logger.debug(f"Error checking keyword detection status: {e}")
+        return False
+    except Exception as e:
+        # Unexpected errors - log but return False for safety
+        logger.warning(f"Unexpected error checking keyword detection status: {e}")
         return False
 
 
@@ -903,6 +1001,7 @@ __all__ = [
     'get_lazy_import_stats',
     # Configuration
     'config_package_lazy_install_enabled',
+    'config_module_lazy_load_enabled',
     'sync_manifest_configuration',
     'refresh_lazy_manifests',
     # Security & Policy

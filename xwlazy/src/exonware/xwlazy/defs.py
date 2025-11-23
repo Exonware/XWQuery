@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 10-Oct-2025
 
 Type Definitions and Constants for Lazy Loading System
@@ -14,8 +14,9 @@ for the lazy loading system following GUIDE_ARCH.md structure.
 """
 
 from enum import Enum
-from typing import TypedDict, Dict, List, Optional, Any
+from typing import TypedDict, Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
+from types import ModuleType
 
 
 # =============================================================================
@@ -62,6 +63,23 @@ class PathType(Enum):
     UNKNOWN = "unknown"
 
 
+class InstallStatus(Enum):
+    """Installation status."""
+    PENDING = "pending"
+    RUNNING = "running"
+    SUCCESS = "success"
+    FAILED = "failed"
+    SKIPPED = "skipped"
+
+
+class LoadLevel(Enum):
+    """Load level categories."""
+    LIGHT = "light_load"
+    MEDIUM = "medium_load"
+    HEAVY = "heavy_load"
+    ENTERPRISE = "enterprise_load"
+
+
 # =============================================================================
 # DATACLASSES
 # =============================================================================
@@ -94,6 +112,83 @@ class LazyModeConfig:
             self.load_mode = LazyLoadMode(self.load_mode)
         if isinstance(self.install_mode, str):
             self.install_mode = LazyInstallMode(self.install_mode)
+
+
+@dataclass
+class InstallResult:
+    """Result of an installation operation."""
+    package_name: str
+    success: bool
+    status: InstallStatus
+    error: Optional[str] = None
+    version: Optional[str] = None
+    source: Optional[str] = None  # "cache", "pip", "wheel", etc.
+
+
+@dataclass
+class LazyConfig:
+    """Bridge configuration settings with the lazy package implementation."""
+    packages: Tuple[str, ...] = field(
+        default_factory=lambda: ("default",)
+    )
+    
+    def __post_init__(self) -> None:
+        self.packages = tuple(package.lower() for package in self.packages)
+
+
+@dataclass(frozen=True)
+class PackageManifest:
+    """Resolved manifest data for a single package."""
+    package: str
+    dependencies: Dict[str, str] = field(default_factory=dict)
+    watched_prefixes: Tuple[str, ...] = ()
+    async_installs: bool = False
+    async_workers: int = 1
+    class_wrap_prefixes: Tuple[str, ...] = ()
+    metadata: Dict[str, Any] = field(default_factory=dict)
+    
+    def get_dependency(self, import_name: str) -> Optional[str]:
+        """Return the declared package for the given import name."""
+        if not import_name:
+            return None
+        direct = self.dependencies.get(import_name)
+        if direct is not None:
+            return direct
+        # Case-insensitive fallback for convenience
+        return self.dependencies.get(import_name.lower())
+
+
+@dataclass(frozen=True)
+class PackageData:
+    """
+    Immutable package data - same across all strategies.
+    
+    This data structure is used by all package caching, helper, and manager strategies.
+    """
+    name: str
+    version: Optional[str] = None
+    installed: bool = False
+    install_time: Optional[float] = None
+    access_count: int = 0
+    install_mode: Optional['LazyInstallMode'] = None
+    error: Optional[Exception] = None
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class ModuleData:
+    """
+    Immutable module data - same across all strategies.
+    
+    This data structure is used by all module caching, helper, and manager strategies.
+    """
+    path: str
+    loaded_module: Optional['ModuleType'] = None
+    loading: bool = False
+    load_time: Optional[float] = None
+    access_count: int = 0
+    error: Optional[Exception] = None
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 # =============================================================================
@@ -260,9 +355,16 @@ __all__ = [
     'LazyLoadMode',
     'LazyInstallMode',
     'PathType',
+    'InstallStatus',
+    'LoadLevel',
     # Dataclasses
     'DependencyInfo',
     'LazyModeConfig',
+    'InstallResult',
+    'LazyConfig',
+    'PackageManifest',
+    'PackageData',
+    'ModuleData',
     # Type definitions
     'DependencyMapping',
     'PackageStats',

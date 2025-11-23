@@ -6,7 +6,7 @@ Import Engine - Unified engine for all import-related operations.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 15-Nov-2025
 
 This module provides unified import engine for all import-related functionality.
@@ -70,13 +70,17 @@ from datetime import datetime
 from enum import Enum
 
 from ..defs import LazyLoadMode, LazyInstallMode
-from ..package.dependency_mapper import DependencyMapper
-from ..package.spec_cache import _spec_cache_get, _spec_cache_put
-from ..package.installer_engine import LazyInstallerRegistry, LazyInstaller
-from ..package.config_manager import LazyInstallConfig
-from ..package.manifest import _normalize_prefix
+from ..common.services.dependency_mapper import DependencyMapper
+from ..common.services.spec_cache import _spec_cache_get, _spec_cache_put
+from ..package.services import LazyInstallerRegistry, LazyInstaller
+from ..package.services.config_manager import LazyInstallConfig
+from ..package.services.manifest import _normalize_prefix
 from ..errors import DeferredImportError
 from .base import AModuleHelper
+
+# Import from common (logger and cache)
+from ..common.logger import get_logger, log_event
+from ..common.cache import MultiTierCache, BytecodeCache
 
 # Import from runtime folder (moved from module folder)
 from ..runtime.adaptive_learner import AdaptiveLearner
@@ -84,155 +88,8 @@ from ..runtime.intelligent_selector import IntelligentModeSelector, LoadLevel
 
 
 # =============================================================================
-# LOGGING UTILITIES (from logging_utils.py)
+# LOGGER (from common.logger)
 # =============================================================================
-
-_configured = False
-
-_CATEGORY_DEFAULTS: Dict[str, bool] = {
-    "install": True,
-    "hook": False,
-    "enhance": False,
-    "audit": False,
-    "sbom": False,
-    "config": False,
-    "discovery": False,
-}
-_category_overrides: Dict[str, bool] = {}
-
-
-def _normalize_category(name: str) -> str:
-    return name.strip().lower()
-
-
-def _load_env_overrides() -> None:
-    for category in _CATEGORY_DEFAULTS:
-        env_key = f"XWLAZY_LOG_{category.upper()}"
-        env_val = os.getenv(env_key)
-        if env_val is None:
-            continue
-        enabled = env_val.strip().lower() not in {"0", "false", "off", "no"}
-        _category_overrides[_normalize_category(category)] = enabled
-
-
-class XWLazyFormatter(logging.Formatter):
-    """Custom formatter for xwlazy that uses exonware.xwlazy [HH:MM:SS]: [FLAG] format."""
-    
-    LEVEL_FLAGS = {
-        logging.DEBUG: "DEBUG",
-        logging.INFO: "INFO",
-        logging.WARNING: "WARN",
-        logging.ERROR: "ERROR",
-        logging.CRITICAL: "CRITICAL",
-    }
-    
-    EMOJI_MAP = {
-        "WARN": "⚠️",
-        "INFO": "ℹ️",
-        "ACTION": "⚙️",
-        "SUCCESS": "✅",
-        "ERROR": "❌",
-        "FAIL": "⛔",
-        "DEBUG": "🔍",
-        "CRITICAL": "🚨",
-    }
-    
-    def format(self, record: logging.LogRecord) -> str:
-        flag = self.LEVEL_FLAGS.get(record.levelno, "INFO")
-        emoji = self.EMOJI_MAP.get(flag, "ℹ️")
-        time_str = datetime.now().strftime("%H:%M:%S")
-        message = record.getMessage()
-        return f"{emoji} exonware.xwlazy [{time_str}]: [{flag}] {message}"
-
-
-def _ensure_basic_config() -> None:
-    global _configured
-    if _configured:
-        return
-    
-    root_logger = logging.getLogger()
-    root_logger.setLevel(logging.INFO)
-    
-    for handler in root_logger.handlers[:]:
-        root_logger.removeHandler(handler)
-    
-    console_handler = logging.StreamHandler(sys.stdout)
-    console_handler.setLevel(logging.INFO)
-    console_handler.setFormatter(XWLazyFormatter())
-    root_logger.addHandler(console_handler)
-    
-    _load_env_overrides()
-    _configured = True
-
-
-def get_logger(name: Optional[str] = None) -> logging.Logger:
-    """Return a logger configured for the lazy subsystem."""
-    _ensure_basic_config()
-    return logging.getLogger(name or "xwlazy.lazy")
-
-
-def is_log_category_enabled(category: str) -> bool:
-    """Return True if the provided log category is enabled."""
-    _ensure_basic_config()
-    normalized = _normalize_category(category)
-    if normalized in _category_overrides:
-        return _category_overrides[normalized]
-    return _CATEGORY_DEFAULTS.get(normalized, True)
-
-
-def set_log_category(category: str, enabled: bool) -> None:
-    """Enable/disable an individual log category at runtime."""
-    _category_overrides[_normalize_category(category)] = bool(enabled)
-
-
-def set_log_categories(overrides: Dict[str, bool]) -> None:
-    """Bulk update multiple categories."""
-    for category, enabled in overrides.items():
-        set_log_category(category, enabled)
-
-
-def get_log_categories() -> Dict[str, bool]:
-    """Return the effective state for each built-in log category."""
-    _ensure_basic_config()
-    result = {}
-    for category, default_enabled in _CATEGORY_DEFAULTS.items():
-        normalized = _normalize_category(category)
-        result[category] = _category_overrides.get(normalized, default_enabled)
-    return result
-
-
-def log_event(category: str, level_fn, msg: str, *args, **kwargs) -> None:
-    """Emit a log for the given category if it is enabled."""
-    if is_log_category_enabled(category):
-        level_fn(msg, *args, **kwargs)
-
-
-def format_message(flag: str, message: str) -> str:
-    """Format a message with exonware.xwlazy [HH:MM:SS]: [FLAG] format."""
-    emoji_map = {
-        "WARN": "⚠️",
-        "INFO": "ℹ️",
-        "ACTION": "⚙️",
-        "SUCCESS": "✅",
-        "ERROR": "❌",
-        "FAIL": "⛔",
-        "DEBUG": "🔍",
-        "CRITICAL": "🚨",
-    }
-    emoji = emoji_map.get(flag, "ℹ️")
-    time_str = datetime.now().strftime("%H:%M:%S")
-    return f"{emoji} exonware.xwlazy [{time_str}]: [{flag}] {message}"
-
-
-def print_formatted(flag: str, message: str, same_line: bool = False) -> None:
-    """Print a formatted message with optional same-line support."""
-    formatted = format_message(flag, message)
-    if same_line:
-        sys.stdout.write(f"\r{formatted}")
-        sys.stdout.flush()
-    else:
-        print(formatted)
-
 
 logger = get_logger("xwlazy.importer_engine")
 
@@ -495,202 +352,10 @@ class _DeferredModuleLoader(importlib.abc.Loader):
 
 
 # =============================================================================
-# CACHE UTILITIES (from cache_utils.py)
+# CACHE (from common.cache)
 # =============================================================================
 
-class MultiTierCache:
-    """Multi-tier cache with L1 (memory), L2 (disk), L3 (predictive)."""
-    
-    def __init__(self, l1_size: int = 1000, l2_dir: Optional[Path] = None, enable_l3: bool = True):
-        self._l1_cache: OrderedDict[str, Any] = OrderedDict()
-        self._l1_max_size = l1_size
-        self._l2_dir = l2_dir or Path.home() / ".xwlazy_cache"
-        self._l2_dir.mkdir(parents=True, exist_ok=True)
-        self._enable_l3 = enable_l3
-        self._l3_patterns: Dict[str, Tuple[int, float]] = {}
-        self._lock = threading.RLock()
-        
-        self._l2_write_queue: Queue = Queue()
-        self._l2_write_thread: Optional[threading.Thread] = None
-        self._l2_write_stop = threading.Event()
-        self._start_l2_writer()
-        
-    def get(self, key: str) -> Optional[Any]:
-        """Get value from cache (L1 -> L2 -> L3)."""
-        if key in self._l1_cache:
-            with self._lock:
-                if key in self._l1_cache:
-                    value = self._l1_cache.pop(key)
-                    self._l1_cache[key] = value
-                    self._update_l3_pattern(key)
-                    return value
-        
-        l2_path = self._l2_dir / f"{hash(key) % (2**31)}.cache"
-        if l2_path.exists():
-            try:
-                with open(l2_path, 'rb') as f:
-                    value = pickle.load(f)
-                with self._lock:
-                    self._set_l1(key, value)
-                    self._update_l3_pattern(key)
-                return value
-            except Exception as e:
-                logger.debug(f"Failed to load L2 cache for {key}: {e}")
-        
-        if self._enable_l3 and key in self._l3_patterns:
-            freq, _ = self._l3_patterns[key]
-            if freq > 5:
-                logger.debug(f"L3 pattern detected for {key} (freq: {freq})")
-        
-        return None
-    
-    def set(self, key: str, value: Any) -> None:
-        """Set value in cache (L1 + L2 batched)."""
-        with self._lock:
-            self._set_l1(key, value)
-            self._update_l3_pattern(key)
-        
-        self._l2_write_queue.put((key, value))
-    
-    def _set_l1(self, key: str, value: Any) -> None:
-        """Set value in L1 cache."""
-        if key in self._l1_cache:
-            self._l1_cache.move_to_end(key)
-        else:
-            self._l1_cache[key] = value
-            if len(self._l1_cache) > self._l1_max_size:
-                self._l1_cache.popitem(last=False)
-    
-    def _set_l2(self, key: str, value: Any) -> None:
-        """Set value in L2 cache (internal, called by writer thread)."""
-        try:
-            l2_path = self._l2_dir / f"{hash(key) % (2**31)}.cache"
-            with open(l2_path, 'wb') as f:
-                pickle.dump(value, f)
-        except Exception as e:
-            logger.debug(f"Failed to save L2 cache for {key}: {e}")
-    
-    def _start_l2_writer(self) -> None:
-        """Start background thread for batched L2 writes."""
-        def _l2_writer():
-            batch = []
-            batch_size = 10
-            batch_timeout = 0.1
-            
-            while not self._l2_write_stop.is_set():
-                try:
-                    try:
-                        key, value = self._l2_write_queue.get(timeout=batch_timeout)
-                        batch.append((key, value))
-                        
-                        for _ in range(batch_size - 1):
-                            try:
-                                key, value = self._l2_write_queue.get_nowait()
-                                batch.append((key, value))
-                            except:
-                                break
-                    except:
-                        pass
-                    
-                    if batch:
-                        for key, value in batch:
-                            self._set_l2(key, value)
-                        batch.clear()
-                except Exception as e:
-                    logger.debug(f"L2 writer error: {e}")
-        
-        self._l2_write_thread = threading.Thread(target=_l2_writer, daemon=True, name="xwlazy-l2-writer")
-        self._l2_write_thread.start()
-    
-    def shutdown(self) -> None:
-        """Shutdown L2 writer thread."""
-        self._l2_write_stop.set()
-        if self._l2_write_thread:
-            self._l2_write_thread.join(timeout=1.0)
-    
-    def _update_l3_pattern(self, key: str) -> None:
-        """Update L3 access patterns (called with lock held)."""
-        if self._enable_l3:
-            freq, _ = self._l3_patterns.get(key, (0, 0.0))
-            self._l3_patterns[key] = (freq + 1, time.time())
-            
-            if len(self._l3_patterns) > 10000:
-                sorted_patterns = sorted(self._l3_patterns.items(), key=lambda x: x[1][1])
-                for old_key, _ in sorted_patterns[:1000]:
-                    del self._l3_patterns[old_key]
-    
-    def get_predictive_keys(self, limit: int = 10) -> list:
-        """Get keys likely to be accessed soon (for preloading)."""
-        with self._lock:
-            if not self._enable_l3:
-                return []
-            
-            scored = [
-                (key, freq * (1.0 / (time.time() - last + 1.0)))
-                for key, (freq, last) in self._l3_patterns.items()
-            ]
-            scored.sort(key=lambda x: x[1], reverse=True)
-            return [key for key, _ in scored[:limit]]
-
-
-class BytecodeCache:
-    """Bytecode caching for faster module loading."""
-    
-    def __init__(self, cache_dir: Optional[Path] = None):
-        self._cache_dir = cache_dir or Path.home() / ".xwlazy_bytecode"
-        self._cache_dir.mkdir(parents=True, exist_ok=True)
-        self._lock = threading.RLock()
-    
-    def get_bytecode_path(self, module_path: str) -> Path:
-        """Get bytecode cache path for module."""
-        cache_name = f"{hash(module_path) % (2**31)}.pyc"
-        return self._cache_dir / cache_name
-    
-    def get_cached_bytecode(self, module_path: str) -> Optional[bytes]:
-        """Get cached bytecode if available and valid."""
-        with self._lock:
-            cache_path = self.get_bytecode_path(module_path)
-            if not cache_path.exists():
-                return None
-            
-            try:
-                source_path = self._find_source_path(module_path)
-                if source_path and source_path.exists():
-                    source_mtime = source_path.stat().st_mtime
-                    cache_mtime = cache_path.stat().st_mtime
-                    if source_mtime > cache_mtime:
-                        return None
-                
-                with open(cache_path, 'rb') as f:
-                    f.seek(16)
-                    return f.read()
-            except Exception as e:
-                logger.debug(f"Failed to load bytecode cache for {module_path}: {e}")
-                return None
-    
-    def cache_bytecode(self, module_path: str, bytecode: bytes) -> None:
-        """Cache compiled bytecode."""
-        with self._lock:
-            try:
-                cache_path = self.get_bytecode_path(module_path)
-                with open(cache_path, 'wb') as f:
-                    f.write(importlib.util.MAGIC_NUMBER)
-                    f.write(struct.pack('<I', int(time.time())))
-                    f.write(struct.pack('<I', 0))
-                    f.write(bytecode)
-            except Exception as e:
-                logger.debug(f"Failed to cache bytecode for {module_path}: {e}")
-    
-    def _find_source_path(self, module_path: str) -> Optional[Path]:
-        """Find source file path for module."""
-        try:
-            spec = importlib.util.find_spec(module_path)
-            if spec and spec.origin:
-                return Path(spec.origin)
-        except Exception:
-            pass
-        return None
-
+# MultiTierCache and BytecodeCache are now imported from ..common.cache
 
 # =============================================================================
 # PARALLEL UTILITIES (from parallel_utils.py)
@@ -894,7 +559,7 @@ def bootstrap_lazy_mode(package_name: str) -> None:
     enabled = env_enabled
 
     if enabled is None:
-        from ..package.keyword_detection import _detect_lazy_installation
+        from ...common.services import _detect_lazy_installation
         enabled = _detect_lazy_installation(package_name)
 
     if not enabled:
@@ -2459,8 +2124,6 @@ __all__ = [
     # Deferred loader
     '_DeferredModuleLoader',
     # Cache utilities
-    'MultiTierCache',
-    'BytecodeCache',
     # Parallel utilities
     'ParallelLoader',
     'DependencyGraph',

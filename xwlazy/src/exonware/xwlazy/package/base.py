@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 10-Oct-2025
 
 Abstract Base Class for Package Operations
@@ -24,6 +24,13 @@ from ..defs import (
 )
 from ..contracts import (
     IPackageHelper,
+    IPackageHelperStrategy,
+    IPackageManagerStrategy,
+    IInstallExecutionStrategy,
+    IInstallTimingStrategy,
+    IDiscoveryStrategy,
+    IPolicyStrategy,
+    IMappingStrategy,
 )
 
 
@@ -566,9 +573,8 @@ class APackageHelper(IPackageHelper, ABC):
         """Check if import name is stdlib or builtin (from IDependencyMapper)."""
         raise NotImplementedError("Subclasses must implement is_stdlib_or_builtin")
     
-    def is_enabled(self, package_name: str) -> bool:
-        """Check if lazy install is enabled for a package (from IConfigManager)."""
-        raise NotImplementedError("Subclasses must implement is_enabled")
+    # Note: is_enabled(package_name) from IConfigManager is removed to avoid conflict
+    # with is_enabled() instance method. Use LazyInstallConfig.is_enabled(package_name) instead.
     
     def get_mode(self, package_name: str) -> str:
         """Get installation mode for a package (from IConfigManager)."""
@@ -604,10 +610,198 @@ class APackageHelper(IPackageHelper, ABC):
 # =============================================================================
 
 # =============================================================================
+# ABSTRACT PACKAGE HELPER STRATEGY
+# =============================================================================
+
+class APackageHelperStrategy(IPackageHelperStrategy, ABC):
+    """
+    Abstract base class for package helper strategies.
+    
+    Operations on a single package (installing, uninstalling, checking).
+    All package helper strategies must extend this class.
+    """
+    
+    @abstractmethod
+    def install(self, package_name: str) -> bool:
+        """Install the package."""
+        ...
+    
+    @abstractmethod
+    def uninstall(self, package_name: str) -> None:
+        """Uninstall the package."""
+        ...
+    
+    @abstractmethod
+    def check_installed(self, name: str) -> bool:
+        """Check if package is installed."""
+        ...
+    
+    @abstractmethod
+    def get_version(self, name: str) -> Optional[str]:
+        """Get installed version."""
+        ...
+
+
+# =============================================================================
+# ABSTRACT PACKAGE MANAGER STRATEGY
+# =============================================================================
+
+class APackageManagerStrategy(IPackageManagerStrategy, ABC):
+    """
+    Abstract base class for package manager strategies.
+    
+    Orchestrates multiple packages (installation, discovery, policy).
+    All package manager strategies must extend this class.
+    """
+    
+    @abstractmethod
+    def install_package(self, package_name: str, module_name: Optional[str] = None) -> bool:
+        """Install a package."""
+        ...
+    
+    @abstractmethod
+    def uninstall_package(self, package_name: str) -> None:
+        """Uninstall a package."""
+        ...
+    
+    @abstractmethod
+    def discover_dependencies(self) -> Dict[str, str]:
+        """Discover dependencies."""
+        ...
+    
+    @abstractmethod
+    def check_security_policy(self, package_name: str) -> Tuple[bool, str]:
+        """Check security policy."""
+        ...
+
+
+# =============================================================================
+# ABSTRACT INSTALLATION EXECUTION STRATEGY
+# =============================================================================
+
+class AInstallExecutionStrategy(IInstallExecutionStrategy, ABC):
+    """
+    Abstract base class for installation execution strategies.
+    
+    HOW to execute installation (pip, wheel, cached, async).
+    """
+    
+    @abstractmethod
+    def execute_install(self, package_name: str, policy_args: List[str]) -> Any:
+        """Execute installation of a package."""
+        ...
+    
+    @abstractmethod
+    def execute_uninstall(self, package_name: str) -> bool:
+        """Execute uninstallation of a package."""
+        ...
+
+
+# =============================================================================
+# ABSTRACT INSTALLATION TIMING STRATEGY
+# =============================================================================
+
+class AInstallTimingStrategy(IInstallTimingStrategy, ABC):
+    """
+    Abstract base class for installation timing strategies.
+    
+    WHEN to install packages (on-demand, upfront, temporary, etc.).
+    """
+    
+    @abstractmethod
+    def should_install_now(self, package_name: str, context: Any) -> bool:
+        """Determine if package should be installed now."""
+        ...
+    
+    @abstractmethod
+    def should_uninstall_after(self, package_name: str, context: Any) -> bool:
+        """Determine if package should be uninstalled after use."""
+        ...
+    
+    @abstractmethod
+    def get_install_priority(self, packages: List[str]) -> List[str]:
+        """Get priority order for installing packages."""
+        ...
+
+
+# =============================================================================
+# ABSTRACT DISCOVERY STRATEGY
+# =============================================================================
+
+class ADiscoveryStrategy(IDiscoveryStrategy, ABC):
+    """
+    Abstract base class for discovery strategies.
+    
+    HOW to discover dependencies (from files, manifest, auto-detect).
+    """
+    
+    @abstractmethod
+    def discover(self, project_root: Any) -> Dict[str, str]:
+        """Discover dependencies from sources."""
+        ...
+    
+    @abstractmethod
+    def get_source(self, import_name: str) -> Optional[str]:
+        """Get the source of a discovered dependency."""
+        ...
+
+
+# =============================================================================
+# ABSTRACT POLICY STRATEGY
+# =============================================================================
+
+class APolicyStrategy(IPolicyStrategy, ABC):
+    """
+    Abstract base class for policy strategies.
+    
+    WHAT can be installed (security/policy enforcement).
+    """
+    
+    @abstractmethod
+    def is_allowed(self, package_name: str) -> Tuple[bool, str]:
+        """Check if package is allowed to be installed."""
+        ...
+    
+    @abstractmethod
+    def get_pip_args(self, package_name: str) -> List[str]:
+        """Get pip arguments based on policy."""
+        ...
+
+
+# =============================================================================
+# ABSTRACT MAPPING STRATEGY
+# =============================================================================
+
+class AMappingStrategy(IMappingStrategy, ABC):
+    """
+    Abstract base class for mapping strategies.
+    
+    HOW to map import names to package names.
+    """
+    
+    @abstractmethod
+    def map_import_to_package(self, import_name: str) -> Optional[str]:
+        """Map import name to package name."""
+        ...
+    
+    @abstractmethod
+    def map_package_to_imports(self, package_name: str) -> List[str]:
+        """Map package name to possible import names."""
+        ...
+
+
+# =============================================================================
 # EXPORT ALL
 # =============================================================================
 
 __all__ = [
     'APackageHelper',
+    'APackageHelperStrategy',
+    'APackageManagerStrategy',
+    'AInstallExecutionStrategy',
+    'AInstallTimingStrategy',
+    'ADiscoveryStrategy',
+    'APolicyStrategy',
+    'AMappingStrategy',
 ]
 

@@ -15,6 +15,7 @@ Usage:
     python tests/runner.py # Run all tests
     python tests/runner.py --core # Run only core tests
     python tests/runner.py --unit # Run only unit tests
+    python tests/runner.py --integration # Run only integration tests
 """
 
 import sys
@@ -77,6 +78,7 @@ def main():
     # Define sub-runners
     core_runner = test_dir / "0.core" / "runner.py"
     unit_runner = test_dir / "1.unit" / "runner.py"
+    integration_runner = test_dir / "2.integration" / "runner.py"
     
     exit_codes = []
     
@@ -93,10 +95,16 @@ def main():
         else:
             print("⚠️  Unit runner not found")
     
+    elif "--integration" in args:
+        if integration_runner.exists():
+            exit_codes.append(run_sub_runner(integration_runner, "Layer 2: Integration Tests"))
+        else:
+            print("⚠️  Integration runner not found")
+    
     else:
         # Run all tests in sequence
         print("\n🚀 Running: ALL Tests")
-        print("Layers: 0.core → 1.unit\n")
+        print("Layers: 0.core → 1.unit → 2.integration\n")
         
         # Core tests
         if core_runner.exists():
@@ -105,6 +113,10 @@ def main():
         # Unit tests
         if unit_runner.exists():
             exit_codes.append(run_sub_runner(unit_runner, "Layer 1: Unit Tests"))
+        
+        # Integration tests
+        if integration_runner.exists():
+            exit_codes.append(run_sub_runner(integration_runner, "Layer 2: Integration Tests"))
     
     # Print summary
     print("\n" + "=" * 80)

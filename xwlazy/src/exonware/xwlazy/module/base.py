@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 10-Oct-2025
 
 Abstract Base Class for Module Operations
@@ -20,6 +20,8 @@ from types import ModuleType
 
 from ..contracts import (
     IModuleHelper,
+    IModuleHelperStrategy,
+    IModuleManagerStrategy,
 )
 from ..package.base import APackageHelper
 
@@ -172,7 +174,7 @@ class AModuleHelper(IModuleHelper, ABC):
     def _get_dependency_mapper(self):
         """Get dependency mapper instance (lazy init)."""
         if self._dependency_mapper is None:
-            from ..package.dependency_mapper import DependencyMapper
+            from ...common.services.dependency_mapper import DependencyMapper
             self._dependency_mapper = DependencyMapper()
         return self._dependency_mapper
     
@@ -490,10 +492,78 @@ class AModuleHelper(IModuleHelper, ABC):
 
 
 # =============================================================================
+# ABSTRACT MODULE HELPER STRATEGY
+# =============================================================================
+
+class AModuleHelperStrategy(IModuleHelperStrategy, ABC):
+    """
+    Abstract base class for module helper strategies.
+    
+    Operations on a single module (loading, unloading, checking).
+    All module helper strategies must extend this class.
+    """
+    
+    @abstractmethod
+    def load(self, module_path: str, package_helper: Any) -> ModuleType:
+        """Load the module."""
+        ...
+    
+    @abstractmethod
+    def unload(self, module_path: str) -> None:
+        """Unload the module."""
+        ...
+    
+    @abstractmethod
+    def check_importability(self, path: str) -> bool:
+        """Check if module is importable."""
+        ...
+
+
+# =============================================================================
+# ABSTRACT MODULE MANAGER STRATEGY
+# =============================================================================
+
+class AModuleManagerStrategy(IModuleManagerStrategy, ABC):
+    """
+    Abstract base class for module manager strategies.
+    
+    Orchestrates multiple modules (loading, hooks, error handling).
+    All module manager strategies must extend this class.
+    """
+    
+    @abstractmethod
+    def load_module(self, module_path: str) -> ModuleType:
+        """Load a module."""
+        ...
+    
+    @abstractmethod
+    def unload_module(self, module_path: str) -> None:
+        """Unload a module."""
+        ...
+    
+    @abstractmethod
+    def install_hook(self) -> None:
+        """Install import hook."""
+        ...
+    
+    @abstractmethod
+    def uninstall_hook(self) -> None:
+        """Uninstall import hook."""
+        ...
+    
+    @abstractmethod
+    def handle_import_error(self, module_name: str) -> Optional[ModuleType]:
+        """Handle import error."""
+        ...
+
+
+# =============================================================================
 # EXPORT ALL
 # =============================================================================
 
 __all__ = [
     'AModuleHelper',
+    'AModuleHelperStrategy',
+    'AModuleManagerStrategy',
 ]
 

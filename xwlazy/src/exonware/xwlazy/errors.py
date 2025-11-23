@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 10-Oct-2025
 
 Errors for Lazy Loading System
@@ -183,7 +183,7 @@ class DeferredImportError(Exception):
         """
         # Import from facade and new structure
         from .facade import lazy_import_with_install, is_lazy_install_enabled
-        from .common.utils.logging import get_logger
+        from .common.logger import get_logger
         
         logger = get_logger("xwlazy")
         logger.info(f"[STAGE 2] _try_install_and_import called for '{self._import_name}'")

@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 10-Oct-2025
 
 Configuration for Lazy Loading System
@@ -15,20 +15,19 @@ following GUIDE_ARCH.md structure.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Tuple, Optional, Any, Dict
+from typing import Optional, Any, Dict
+
+# Import LazyConfig dataclass from defs.py
+from .defs import LazyConfig as _LazyConfigBase
 
 
-@dataclass
-class LazyConfig:
+# Extend LazyConfig with methods (dataclass is in defs.py)
+class LazyConfig(_LazyConfigBase):
     """Bridge configuration settings with the lazy package implementation."""
-
-    packages: Tuple[str, ...] = field(
-        default_factory=lambda: ("default",)
-    )
-
+    
     def __post_init__(self) -> None:
-        self.packages = tuple(package.lower() for package in self.packages)
+        """Normalize package names."""
+        super().__post_init__()
 
     # High-level API -----------------------------------------------------
     @property

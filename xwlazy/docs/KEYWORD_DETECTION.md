@@ -1,11 +1,28 @@
 # Keyword-Based Auto-Detection
 
-**Version:** 0.1.0.11  
-**Feature:** Keyword-based automatic lazy loading detection
+**Company:** eXonware.com  
+**Author:** Eng. Muhammad AlShehri  
+**Email:** connect@exonware.com  
+**Version:** 0.1.0.18  
+**Last Updated:** 15-Nov-2025
 
-## Overview
+## 🎯 AI-Friendly Document
 
-xwlazy now supports keyword-based auto-detection, similar to `lazy-imports-lite`. This allows packages to opt-in to lazy loading by simply adding a keyword to their `pyproject.toml` file, without requiring code changes.
+**This document is designed for both human developers and AI assistants.**  
+Describes the keyword-based automatic detection feature that allows packages to opt-in to lazy loading without code changes.
+
+**Related Documents:**
+- [REF_ARCH.md](REF_ARCH.md) - System architecture
+- [HOOKING_GUIDE.md](HOOKING_GUIDE.md) - Extension and customization guide
+- [docs/guides/GUIDE_DOCS.md](guides/GUIDE_DOCS.md) - Documentation standards
+
+---
+
+## 🎯 Overview
+
+xwlazy supports keyword-based auto-detection, similar to `lazy-imports-lite`. This allows packages to opt-in to lazy loading by simply adding a keyword to their `pyproject.toml` file, without requiring code changes.
+
+**Why this feature exists:** Zero-code integration for package maintainers. Instead of modifying code or configuration, packages can simply add a keyword to their metadata, making lazy loading adoption trivial. This improves usability (Priority #2) by reducing integration complexity.
 
 ## How It Works
 

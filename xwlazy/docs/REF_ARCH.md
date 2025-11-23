@@ -1,14 +1,28 @@
-# Lazy Package Architecture
+# xwlazy Architecture Reference
 
 **Company:** eXonware.com  
 **Author:** Eng. Muhammad AlShehri  
 **Email:** connect@exonware.com  
-**Version:** 0.0.1.382  
-**Date:** 10-Oct-2025
+**Version:** 0.1.0.18  
+**Last Updated:** 15-Nov-2025
 
-## Overview
+## 🎯 AI-Friendly Document
+
+**This document is designed for both human developers and AI assistants.**  
+Describes the system architecture, design patterns, and structure of xwlazy.
+
+**Related Documents:**
+- [HOOKING_GUIDE.md](HOOKING_GUIDE.md) - How to extend and customize xwlazy
+- [docs/guides/GUIDE_DOCS.md](guides/GUIDE_DOCS.md) - Documentation standards
+- [docs/guides/GUIDE_DEV.md](guides/GUIDE_DEV.md) - Development standards
+
+---
+
+## 🎯 Overview
 
 The Lazy Package provides per-package lazy loading with automatic installation of missing dependencies when they are actually used. This system enables each eXonware package (xwsystem, xwnode, xwdata, etc.) to independently enable lazy mode, providing maximum flexibility and zero interference between packages.
+
+**Why this architecture:** Per-package isolation prevents conflicts between packages, allows flexible deployment strategies, and enables truly optional dependencies. The Strategy Pattern allows complete customization of installation behavior without modifying core code.
 
 ## Core Goal: Per-Package Scoping
 

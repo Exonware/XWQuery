@@ -4,7 +4,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 10-Oct-2025
 
 Contracts for Lazy Loading System
@@ -13,7 +13,7 @@ This module defines all interfaces, enums, and protocols for the lazy loading
 system following GUIDE_ARCH.md structure.
 """
 
-from typing import Protocol, Dict, List, Optional, Any, Tuple
+from typing import Protocol, Dict, List, Optional, Any, Tuple, runtime_checkable
 from types import ModuleType
 
 # Import enums and dataclasses from defs.py
@@ -1174,6 +1174,218 @@ class IRuntime(Protocol):
 
 
 # =============================================================================
+# STRATEGY INTERFACES (New Strategy Pattern)
+# =============================================================================
+
+@runtime_checkable
+class ICachingStrategy(Protocol):
+    """
+    Generic caching strategy interface - works with ANY data type.
+    
+    Used by both modules and packages for caching strategies.
+    """
+    def get(self, key: str) -> Optional[Any]:
+        """Get value from cache."""
+        ...
+    
+    def set(self, key: str, value: Any) -> None:
+        """Set value in cache."""
+        ...
+    
+    def invalidate(self, key: str) -> None:
+        """Invalidate cached value."""
+        ...
+    
+    def clear(self) -> None:
+        """Clear all cached values."""
+        ...
+
+
+@runtime_checkable
+class IModuleHelperStrategy(Protocol):
+    """
+    Module helper strategy interface.
+    
+    Operations on a single module (loading, unloading, checking).
+    """
+    def load(self, module_path: str, package_helper: Any) -> ModuleType:
+        """Load the module."""
+        ...
+    
+    def unload(self, module_path: str) -> None:
+        """Unload the module."""
+        ...
+    
+    def check_importability(self, path: str) -> bool:
+        """Check if module is importable."""
+        ...
+
+
+@runtime_checkable
+class IPackageHelperStrategy(Protocol):
+    """
+    Package helper strategy interface.
+    
+    Operations on a single package (installing, uninstalling, checking).
+    """
+    def install(self, package_name: str) -> bool:
+        """Install the package."""
+        ...
+    
+    def uninstall(self, package_name: str) -> None:
+        """Uninstall the package."""
+        ...
+    
+    def check_installed(self, name: str) -> bool:
+        """Check if package is installed."""
+        ...
+    
+    def get_version(self, name: str) -> Optional[str]:
+        """Get installed version."""
+        ...
+
+
+@runtime_checkable
+class IModuleManagerStrategy(Protocol):
+    """
+    Module manager strategy interface.
+    
+    Orchestrates multiple modules (loading, hooks, error handling).
+    """
+    def load_module(self, module_path: str) -> ModuleType:
+        """Load a module."""
+        ...
+    
+    def unload_module(self, module_path: str) -> None:
+        """Unload a module."""
+        ...
+    
+    def install_hook(self) -> None:
+        """Install import hook."""
+        ...
+    
+    def uninstall_hook(self) -> None:
+        """Uninstall import hook."""
+        ...
+    
+    def handle_import_error(self, module_name: str) -> Optional[ModuleType]:
+        """Handle import error."""
+        ...
+
+
+@runtime_checkable
+class IPackageManagerStrategy(Protocol):
+    """
+    Package manager strategy interface.
+    
+    Orchestrates multiple packages (installation, discovery, policy).
+    """
+    def install_package(self, package_name: str, module_name: Optional[str] = None) -> bool:
+        """Install a package."""
+        ...
+    
+    def uninstall_package(self, package_name: str) -> None:
+        """Uninstall a package."""
+        ...
+    
+    def discover_dependencies(self) -> Dict[str, str]:
+        """Discover dependencies."""
+        ...
+    
+    def check_security_policy(self, package_name: str) -> Tuple[bool, str]:
+        """Check security policy."""
+        ...
+
+
+# =============================================================================
+# NEW PACKAGE STRATEGY TYPES (Redesigned Architecture)
+# =============================================================================
+
+@runtime_checkable
+class IInstallExecutionStrategy(Protocol):
+    """
+    Installation execution strategy - HOW to execute installation.
+    
+    Defines the mechanism for actually installing packages (pip, wheel, cached, async).
+    """
+    def execute_install(self, package_name: str, policy_args: List[str]) -> Any:
+        """Execute installation of a package."""
+        ...
+    
+    def execute_uninstall(self, package_name: str) -> bool:
+        """Execute uninstallation of a package."""
+        ...
+
+
+@runtime_checkable
+class IInstallTimingStrategy(Protocol):
+    """
+    Installation timing strategy - WHEN to install packages.
+    
+    Defines when packages should be installed (on-demand, upfront, temporary, etc.).
+    """
+    def should_install_now(self, package_name: str, context: Any) -> bool:
+        """Determine if package should be installed now."""
+        ...
+    
+    def should_uninstall_after(self, package_name: str, context: Any) -> bool:
+        """Determine if package should be uninstalled after use."""
+        ...
+    
+    def get_install_priority(self, packages: List[str]) -> List[str]:
+        """Get priority order for installing packages."""
+        ...
+
+
+@runtime_checkable
+class IDiscoveryStrategy(Protocol):
+    """
+    Discovery strategy - HOW to discover dependencies.
+    
+    Defines how to find dependencies (from files, manifest, auto-detect).
+    """
+    def discover(self, project_root: Any) -> Dict[str, str]:
+        """Discover dependencies from sources."""
+        ...
+    
+    def get_source(self, import_name: str) -> Optional[str]:
+        """Get the source of a discovered dependency."""
+        ...
+
+
+@runtime_checkable
+class IPolicyStrategy(Protocol):
+    """
+    Policy strategy - WHAT can be installed (security/policy).
+    
+    Defines security policies and what packages are allowed/denied.
+    """
+    def is_allowed(self, package_name: str) -> Tuple[bool, str]:
+        """Check if package is allowed to be installed."""
+        ...
+    
+    def get_pip_args(self, package_name: str) -> List[str]:
+        """Get pip arguments based on policy."""
+        ...
+
+
+@runtime_checkable
+class IMappingStrategy(Protocol):
+    """
+    Mapping strategy - HOW to map import names to package names.
+    
+    Defines how to map import names (e.g., 'cv2') to package names (e.g., 'opencv-python').
+    """
+    def map_import_to_package(self, import_name: str) -> Optional[str]:
+        """Map import name to package name."""
+        ...
+    
+    def map_package_to_imports(self, package_name: str) -> List[str]:
+        """Map package name to possible import names."""
+        ...
+
+
+# =============================================================================
 # EXPORT ALL
 # =============================================================================
 
@@ -1182,5 +1394,17 @@ __all__ = [
     'IPackageHelper',  # Merges: IPackageDiscovery, IPackageInstaller, IPackageCache, IConfigManager, IManifestLoader, IDependencyMapper
     'IModuleHelper',  # Merges: IModuleInstaller, IImportHook, IMetaPathFinder, IImportInterceptor, ILazyLoader, ILazyImporter, IWatchedRegistry, IBytecodeCache
     'IRuntime',  # Merges: IStateManager, IAdaptiveLearner, IIntelligentSelector, IMetricsCollector, IPerformanceMonitor, IMultiTierCache, IRegistry
+    # Strategy Interfaces (New)
+    'ICachingStrategy',
+    'IModuleHelperStrategy',
+    'IModuleManagerStrategy',
+    'IPackageHelperStrategy',
+    'IPackageManagerStrategy',
+    # New Package Strategy Types
+    'IInstallExecutionStrategy',
+    'IInstallTimingStrategy',
+    'IDiscoveryStrategy',
+    'IPolicyStrategy',
+    'IMappingStrategy',
 ]
 

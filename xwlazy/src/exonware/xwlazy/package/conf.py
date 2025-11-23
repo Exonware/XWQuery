@@ -11,7 +11,7 @@ longer need to ship their own lazy bootstrap logic.  Consumers import
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 10-Oct-2025
 """
 
@@ -26,7 +26,7 @@ import warnings
 from typing import Any, Dict, Optional
 
 # Import from new structure
-from .host_packages import refresh_host_package
+from .services.host_packages import refresh_host_package
 from ..facade import (
     config_package_lazy_install_enabled,
     install_import_hook,
@@ -35,7 +35,7 @@ from ..facade import (
     is_lazy_install_enabled,
 )
 from ..defs import get_preset_mode
-from ..package.config_manager import LazyInstallConfig
+from .services.config_manager import LazyInstallConfig
 
 __all__ = ['get_conf_module', '_PackageConfig', '_FilteredStderr', '_LazyConfModule', '_setup_global_warning_filter']
 

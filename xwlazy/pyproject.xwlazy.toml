@@ -47,7 +47,7 @@ Documentation = "https://github.com/exonware/xwlazy#readme"
 Subtree = "https://github.com/Exonware/XWLazy.git"
 
 [tool.hatch.version]
-path = "src/xwlazy/version.py"
+path = "src/exonware/xwlazy/version.py"
 
 [tool.hatch.build.targets.wheel]
 only-include = [

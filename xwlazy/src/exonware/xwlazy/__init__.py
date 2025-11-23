@@ -10,7 +10,7 @@ installed only when needed.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 10-Oct-2025
 
 Main Features:
@@ -93,6 +93,7 @@ from .facade import (
     get_lazy_import_stats,
     # Configuration
     config_package_lazy_install_enabled,
+    config_module_lazy_load_enabled,
     sync_manifest_configuration,
     refresh_lazy_manifests,
     # Security & Policy
@@ -170,21 +171,20 @@ def __getattr__(name: str) -> Any:
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 # Import core classes for advanced usage
-from .package.config_manager import LazyInstallConfig
-from .package.installer_engine import LazyInstallerRegistry, AsyncInstallHandle, LazyInstaller
-from .package.dependency_mapper import DependencyMapper
+from .package.services.config_manager import LazyInstallConfig
+from .package.services import LazyInstallerRegistry, AsyncInstallHandle, LazyInstaller
+from .common.services.dependency_mapper import DependencyMapper
 from .module.importer_engine import (
     LazyMetaPathFinder,
     WatchedPrefixRegistry,
     LazyLoader,
 )
-from .package.manifest import LazyManifestLoader, PackageManifest
-from .package import manifest
+from .package.services.manifest import LazyManifestLoader, PackageManifest
 from .facade import _lazy_importer
 
 # Import internal utilities (for advanced usage)
-from .package.keyword_detection import (
-    _check_package_keywords,
+from .common.services import (
+    check_package_keywords,
     _detect_lazy_installation,
     _detect_meta_info_mode,
 )
@@ -194,7 +194,7 @@ from .module.importer_engine import (
     _clear_all_package_class_hints,
     _spec_for_existing_module,
 )
-from .package.spec_cache import (
+from .common.services.spec_cache import (
     _cached_stdlib_check,
     _spec_cache_get,
     _spec_cache_put,
@@ -202,9 +202,9 @@ from .package.spec_cache import (
     _cache_spec_if_missing,
     _spec_cache_prune_locked,
 )
-from .package.installer_engine import (
-    _is_externally_managed,
-    _check_pip_audit_available,
+from .package.services import (
+    is_externally_managed as _is_externally_managed,
+    check_pip_audit_available as _check_pip_audit_available,
 )
 from .module.importer_engine import (
     _is_import_in_progress,
@@ -343,7 +343,7 @@ __all__ = [
     "manifest",
     "_lazy_importer",
     # Internal utilities (for advanced usage)
-    "_check_package_keywords",
+    "check_package_keywords",
     "_detect_lazy_installation",
     "_detect_meta_info_mode",
     "_set_package_class_hints",

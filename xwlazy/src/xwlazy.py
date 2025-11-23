@@ -8,7 +8,7 @@ This allows users to import the library in two ways:
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 10-Oct-2025
 
 DESIGN RATIONALE FOR WILDCARD IMPORT:

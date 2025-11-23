@@ -25,7 +25,6 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from exonware.xwlazy import (  # noqa: E402
-    manifest,
     AsyncInstallHandle,
     DependencyMapper,
     LazyInstaller,
@@ -34,10 +33,9 @@ from exonware.xwlazy import (  # noqa: E402
     LazyManifestLoader,
     PackageManifest,
 )
-from exonware.xwlazy.common.utils import manifest as manifest_utils  # noqa: E402
-from exonware.xwlazy.discovery import mapper as mapper_module  # noqa: E402
+from exonware.xwlazy.package.services.manifest import get_manifest_loader  # noqa: E402
+from exonware.xwlazy.common.services.dependency_mapper import DependencyMapper as DM  # noqa: E402
 import exonware.xwlazy as lazy_core_module  # noqa: E402
-manifest_module = manifest  # Alias for compatibility with test code
 
 
 def test_manifest_loader_reads_pyproject_and_json(tmp_path, monkeypatch):
@@ -89,8 +87,8 @@ def test_dependency_mapper_prefers_manifest(tmp_path, monkeypatch):
 
     loader = LazyManifestLoader(package_roots={"demo": project_root})
     # Patch at the source module and where it's used (root cause fix)
-    monkeypatch.setattr(manifest_utils, "get_manifest_loader", lambda: loader)
-    monkeypatch.setattr(mapper_module, "get_manifest_loader", lambda: loader)
+    monkeypatch.setattr("exonware.xwlazy.package.services.manifest.get_manifest_loader", lambda: loader)
+    monkeypatch.setattr("exonware.xwlazy.common.services.dependency_mapper.get_manifest_loader", lambda: loader)
 
     mapper = DependencyMapper("demo")
     assert mapper.get_package_name("special") == "mapped"
@@ -144,8 +142,8 @@ def test_class_wrap_prefixes_register_hints(tmp_path, monkeypatch):
 
     loader = LazyManifestLoader(package_roots={"wrapdemo": project_root})
     # Patch at the source module and where it's used (root cause fix)
-    monkeypatch.setattr(manifest_utils, "get_manifest_loader", lambda: loader)
-    monkeypatch.setattr(mapper_module, "get_manifest_loader", lambda: loader)
+    monkeypatch.setattr("exonware.xwlazy.package.services.manifest.get_manifest_loader", lambda: loader)
+    monkeypatch.setattr("exonware.xwlazy.common.services.dependency_mapper.get_manifest_loader", lambda: loader)
 
     lazy_core_module.sync_manifest_configuration("wrapdemo")
     try:
@@ -199,9 +197,12 @@ def test_lazy_installer_cached_tree_roundtrip(tmp_path, monkeypatch):
     installer = LazyInstaller("cachetest")
     cache_dir = tmp_path / "cache"
     site_dir = tmp_path / "site"
+    site_dir.mkdir(parents=True, exist_ok=True)
 
-    monkeypatch.setattr(installer, "_get_async_cache_dir", lambda: cache_dir)
-    monkeypatch.setattr(installer, "_site_packages_dir", lambda: site_dir)
+    # Set cache dir directly
+    installer._async_cache_dir = cache_dir
+    # Patch get_site_packages_dir to return our test site_dir
+    monkeypatch.setattr("exonware.xwlazy.common.services.install_cache_utils.get_site_packages_dir", lambda: site_dir)
 
     wheel_path = tmp_path / "demo.whl"
     with zipfile.ZipFile(wheel_path, "w") as archive:

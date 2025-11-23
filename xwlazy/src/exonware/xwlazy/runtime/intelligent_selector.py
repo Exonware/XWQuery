@@ -6,16 +6,15 @@ Intelligent mode utilities for automatic mode switching.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.1.0.18
+Version: 0.1.0.19
 Generation Date: 19-Nov-2025
 
 This module provides intelligent mode switching based on load level.
 """
 
 from typing import Dict, Tuple, Optional
-from enum import Enum
 
-from ..defs import LazyLoadMode, LazyInstallMode
+from ..defs import LazyLoadMode, LazyInstallMode, LoadLevel
 
 # Lazy import to avoid circular dependency
 logger = None
@@ -24,17 +23,9 @@ def _get_logger():
     """Get logger (lazy import to avoid circular dependency)."""
     global logger
     if logger is None:
-        from ..module.importer_engine import get_logger
+        from ..common.logger import get_logger
         logger = get_logger("xwlazy.loading.intelligent")
     return logger
-
-
-class LoadLevel(Enum):
-    """Load level categories."""
-    LIGHT = "light_load"
-    MEDIUM = "medium_load"
-    HEAVY = "heavy_load"
-    ENTERPRISE = "enterprise_load"
 
 
 # Optimal mode mappings based on benchmark results (updated from consistency test)

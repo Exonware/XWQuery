@@ -10,7 +10,7 @@ Generation Date: 15-Nov-2025
 Deny list policy - blocks packages in the deny list.
 """
 
-from typing import Tuple, List, Set
+from typing import
 from ...package.base import APolicyStrategy
 
 class DenyListPolicy(APolicyStrategy):
@@ -20,7 +20,7 @@ class DenyListPolicy(APolicyStrategy):
     Packages in the deny list cannot be installed.
     """
     
-    def __init__(self, denied_packages: Set[str]):
+    def __init__(self, denied_packages: set[str]):
         """
         Initialize deny list policy.
         
@@ -29,7 +29,7 @@ class DenyListPolicy(APolicyStrategy):
         """
         self._denied = {pkg.lower() for pkg in denied_packages}
     
-    def is_allowed(self, package_name: str) -> Tuple[bool, str]:
+    def is_allowed(self, package_name: str) -> tuple[bool, str]:
         """
         Check if package is allowed to be installed.
         
@@ -43,7 +43,7 @@ class DenyListPolicy(APolicyStrategy):
             return (False, f"Package '{package_name}' is in deny list")
         return (True, f"Package '{package_name}' is not in deny list")
     
-    def get_pip_args(self, package_name: str) -> List[str]:
+    def get_pip_args(self, package_name: str) -> list[str]:
         """
         Get pip arguments based on policy.
         

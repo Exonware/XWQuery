@@ -15,7 +15,7 @@ following GUIDE_ARCH.md structure.
 
 from __future__ import annotations
 
-from typing import Optional, Any, Dict
+from typing import Optional, Any
 
 # Import LazyConfig dataclass from defs.py
 from .defs import LazyConfig as _LazyConfigBase

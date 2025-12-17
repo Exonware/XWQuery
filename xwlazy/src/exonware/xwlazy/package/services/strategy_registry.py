@@ -11,7 +11,7 @@ Registry to store custom strategies per package for both package and module oper
 """
 
 import threading
-from typing import Dict, Optional, Any, TYPE_CHECKING
+from typing import Optional, Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ...contracts import (
@@ -23,22 +23,39 @@ if TYPE_CHECKING:
         IModuleHelperStrategy,
         IModuleManagerStrategy,
         ICachingStrategy,
+        IInstallStrategy,
+        ILoadStrategy,
+        ICacheStrategy,
     )
 
 class StrategyRegistry:
-    """Registry to store custom strategies per package."""
+    """
+    Registry to store custom strategies per package and enable runtime strategy swapping.
     
-    # Package strategies
-    _package_execution_strategies: Dict[str, 'IInstallExecutionStrategy'] = {}
-    _package_timing_strategies: Dict[str, 'IInstallTimingStrategy'] = {}
-    _package_discovery_strategies: Dict[str, 'IDiscoveryStrategy'] = {}
-    _package_policy_strategies: Dict[str, 'IPolicyStrategy'] = {}
-    _package_mapping_strategies: Dict[str, 'IMappingStrategy'] = {}
+    Supports both:
+    - Per-package strategies (different strategies for different packages)
+    - Global strategy swapping (change default strategies used by all packages)
+    """
     
-    # Module strategies
-    _module_helper_strategies: Dict[str, 'IModuleHelperStrategy'] = {}
-    _module_manager_strategies: Dict[str, 'IModuleManagerStrategy'] = {}
-    _module_caching_strategies: Dict[str, 'ICachingStrategy'] = {}
+    # Package strategies (per-package)
+    _package_execution_strategies: dict[str, 'IInstallExecutionStrategy'] = {}
+    _package_timing_strategies: dict[str, 'IInstallTimingStrategy'] = {}
+    _package_discovery_strategies: dict[str, 'IDiscoveryStrategy'] = {}
+    _package_policy_strategies: dict[str, 'IPolicyStrategy'] = {}
+    _package_mapping_strategies: dict[str, 'IMappingStrategy'] = {}
+    
+    # Module strategies (per-package)
+    _module_helper_strategies: dict[str, 'IModuleHelperStrategy'] = {}
+    _module_manager_strategies: dict[str, 'IModuleManagerStrategy'] = {}
+    _module_caching_strategies: dict[str, 'ICachingStrategy'] = {}
+    
+    # Global strategies (for runtime swapping)
+    _global_install_strategies: dict[str, 'IInstallStrategy'] = {}
+    _global_load_strategies: dict[str, 'ILoadStrategy'] = {}
+    _global_cache_strategies: dict[str, 'ICacheStrategy'] = {}
+    _default_install_strategy: Optional[str] = None
+    _default_load_strategy: Optional[str] = None
+    _default_cache_strategy: Optional[str] = None
     
     _lock = threading.RLock()
     
@@ -181,6 +198,127 @@ class StrategyRegistry:
         """Clear all strategies (package and module) for a package."""
         cls.clear_package_strategies(package_name)
         cls.clear_module_strategies(package_name)
+    
+    # ========================================================================
+    # Global Strategy Management (for runtime swapping)
+    # ========================================================================
+    
+    @classmethod
+    def register_install_strategy(cls, name: str, strategy: 'IInstallStrategy') -> None:
+        """
+        Register a global installation strategy for runtime swapping.
+        
+        Args:
+            name: Strategy name (e.g., 'pip', 'wheel', 'async', 'cached')
+            strategy: Strategy instance implementing IInstallStrategy
+        """
+        with cls._lock:
+            cls._global_install_strategies[name] = strategy
+            if cls._default_install_strategy is None:
+                cls._default_install_strategy = name
+    
+    @classmethod
+    def get_install_strategy(cls, name: Optional[str] = None) -> Optional['IInstallStrategy']:
+        """
+        Get global installation strategy by name.
+        
+        Args:
+            name: Strategy name (uses default if None)
+            
+        Returns:
+            Strategy instance or None if not found
+        """
+        with cls._lock:
+            if name is None:
+                name = cls._default_install_strategy
+            return cls._global_install_strategies.get(name) if name else None
+    
+    @classmethod
+    def register_load_strategy(cls, name: str, strategy: 'ILoadStrategy') -> None:
+        """
+        Register a global loading strategy for runtime swapping.
+        
+        Args:
+            name: Strategy name (e.g., 'lazy', 'simple', 'advanced')
+            strategy: Strategy instance implementing ILoadStrategy
+        """
+        with cls._lock:
+            cls._global_load_strategies[name] = strategy
+            if cls._default_load_strategy is None:
+                cls._default_load_strategy = name
+    
+    @classmethod
+    def get_load_strategy(cls, name: Optional[str] = None) -> Optional['ILoadStrategy']:
+        """
+        Get global loading strategy by name.
+        
+        Args:
+            name: Strategy name (uses default if None)
+            
+        Returns:
+            Strategy instance or None if not found
+        """
+        with cls._lock:
+            if name is None:
+                name = cls._default_load_strategy
+            return cls._global_load_strategies.get(name) if name else None
+    
+    @classmethod
+    def register_cache_strategy(cls, name: str, strategy: 'ICacheStrategy') -> None:
+        """
+        Register a global caching strategy for runtime swapping.
+        
+        Args:
+            name: Strategy name (e.g., 'lru', 'lfu', 'ttl', 'multitier')
+            strategy: Strategy instance implementing ICacheStrategy
+        """
+        with cls._lock:
+            cls._global_cache_strategies[name] = strategy
+            if cls._default_cache_strategy is None:
+                cls._default_cache_strategy = name
+    
+    @classmethod
+    def get_cache_strategy(cls, name: Optional[str] = None) -> Optional['ICacheStrategy']:
+        """
+        Get global caching strategy by name.
+        
+        Args:
+            name: Strategy name (uses default if None)
+            
+        Returns:
+            Strategy instance or None if not found
+        """
+        with cls._lock:
+            if name is None:
+                name = cls._default_cache_strategy
+            return cls._global_cache_strategies.get(name) if name else None
+    
+    @classmethod
+    def swap_install_strategy(cls, name: str) -> bool:
+        """Swap to a different global installation strategy."""
+        with cls._lock:
+            if name in cls._global_install_strategies:
+                cls._default_install_strategy = name
+                return True
+            return False
+    
+    @classmethod
+    def swap_load_strategy(cls, name: str) -> bool:
+        """Swap to a different global loading strategy."""
+        with cls._lock:
+            if name in cls._global_load_strategies:
+                cls._default_load_strategy = name
+                return True
+            return False
+    
+    @classmethod
+    def swap_cache_strategy(cls, name: str) -> bool:
+        """Swap to a different global caching strategy."""
+        with cls._lock:
+            if name in cls._global_cache_strategies:
+                cls._default_cache_strategy = name
+                return True
+            return False
 
 __all__ = ['StrategyRegistry']
 

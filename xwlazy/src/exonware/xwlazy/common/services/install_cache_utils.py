@@ -19,7 +19,7 @@ import tempfile
 import subprocess
 import zipfile
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional
 from contextlib import suppress
 
 # Lazy imports
@@ -77,7 +77,7 @@ def get_site_packages_dir() -> Path:
     path.mkdir(parents=True, exist_ok=True)
     return path
 
-def pip_install_from_path(wheel_path: Path, policy_args: Optional[List[str]] = None) -> bool:
+def pip_install_from_path(wheel_path: Path, policy_args: Optional[list[str]] = None) -> bool:
     """Install a wheel file using pip."""
     try:
         pip_args = [
@@ -104,7 +104,7 @@ def pip_install_from_path(wheel_path: Path, policy_args: Optional[List[str]] = N
 
 def ensure_cached_wheel(
     package_name: str,
-    policy_args: Optional[List[str]] = None,
+    policy_args: Optional[list[str]] = None,
     cache_dir: Optional[Path] = None
 ) -> Optional[Path]:
     """Ensure a wheel is cached, downloading it if necessary."""
@@ -220,7 +220,7 @@ def has_cached_install_tree(
 
 def install_from_cached_wheel(
     package_name: str,
-    policy_args: Optional[List[str]] = None,
+    policy_args: Optional[list[str]] = None,
     cache_dir: Optional[Path] = None
 ) -> bool:
     """Install from a cached wheel file."""

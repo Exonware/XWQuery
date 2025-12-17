@@ -5,7 +5,7 @@ This module contains LazyInstallConfig which manages per-package lazy installati
 configuration. Extracted from lazy_core.py Section 5.
 """
 
-from typing import Dict, Optional
+from typing import Optional
 from ...common.services import LazyStateManager
 from ...defs import LazyLoadMode, LazyInstallMode, LazyModeConfig
 from ...defs import get_preset_mode
@@ -47,13 +47,13 @@ _MODE_ENUM_MAP = {
 
 class LazyInstallConfig:
     """Global configuration for lazy installation per package."""
-    _configs: Dict[str, bool] = {}
-    _modes: Dict[str, str] = {}
-    _load_modes: Dict[str, LazyLoadMode] = {}
-    _install_modes: Dict[str, LazyInstallMode] = {}
-    _mode_configs: Dict[str, LazyModeConfig] = {}
-    _initialized: Dict[str, bool] = {}
-    _manual_overrides: Dict[str, bool] = {}
+    _configs: dict[str, bool] = {}
+    _modes: dict[str, str] = {}
+    _load_modes: dict[str, LazyLoadMode] = {}
+    _install_modes: dict[str, LazyInstallMode] = {}
+    _mode_configs: dict[str, LazyModeConfig] = {}
+    _initialized: dict[str, bool] = {}
+    _manual_overrides: dict[str, bool] = {}
     
     @classmethod
     def set(
@@ -171,15 +171,19 @@ class LazyInstallConfig:
                 
                 # Enable async for modes that support it
                 installer = LazyInstallerRegistry.get_instance(package_key)
-                if installer and mode_enum in (LazyInstallMode.SMART, LazyInstallMode.FULL, LazyInstallMode.CLEAN, LazyInstallMode.TEMPORARY):
-                    installer._async_enabled = True
-                    installer._ensure_async_loop()
+                if installer:
+                    # CRITICAL: Enable the installer (it's disabled by default)
+                    installer.enable()
                     
-                    # For FULL mode, install all dependencies on start
-                    if mode_enum == LazyInstallMode.FULL:
-                        loop = installer._async_loop
-                        if loop:
-                            asyncio.run_coroutine_threadsafe(installer.install_all_dependencies(), loop)
+                    if mode_enum in (LazyInstallMode.SMART, LazyInstallMode.FULL, LazyInstallMode.CLEAN, LazyInstallMode.TEMPORARY):
+                        installer._async_enabled = True
+                        installer._ensure_async_loop()
+                        
+                        # For FULL mode, install all dependencies on start
+                        if mode_enum == LazyInstallMode.FULL:
+                            loop = installer._async_loop
+                            if loop:
+                                asyncio.run_coroutine_threadsafe(installer.install_all_dependencies(), loop)
                 
                 if install_hook:
                     if not is_import_hook_installed(package_key):

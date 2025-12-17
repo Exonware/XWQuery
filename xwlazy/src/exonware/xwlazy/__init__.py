@@ -63,6 +63,10 @@ from .facade import (
     configure_lazy_mode,
     preload_modules,
     optimize_lazy_mode,
+    # One-line activation API
+    auto_enable_lazy,
+    # Lazy-loader compatible API
+    attach,
     # Public API functions
     enable_lazy_install,
     disable_lazy_install,
@@ -167,6 +171,10 @@ def __getattr__(name: str) -> Any:
     elif name == "XWRuntimeHelper":
         from .runtime import XWRuntimeHelper
         return XWRuntimeHelper
+    elif name == "manifest":
+        # Import manifest module for lazy access
+        from .package.services import manifest
+        return manifest
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 # Import core classes for advanced usage
@@ -210,7 +218,7 @@ from .module.importer_engine import (
     _mark_import_started,
     _mark_import_finished,
     _lazy_aware_import_module,
-    _patch_import_module,
+    # _patch_import_module removed - deprecated, use sys.meta_path hooks instead
     _unpatch_import_module,
 )
 
@@ -245,6 +253,10 @@ __all__ = [
     "configure_lazy_mode",
     "preload_modules",
     "optimize_lazy_mode",
+    # One-line activation API
+    "auto_enable_lazy",
+    # Lazy-loader compatible API
+    "attach",
     # Public API functions
     "enable_lazy_install",
     "disable_lazy_install",
@@ -361,7 +373,7 @@ __all__ = [
     "_mark_import_started",
     "_mark_import_finished",
     "_lazy_aware_import_module",
-    "_patch_import_module",
+    # "_patch_import_module",  # Removed - deprecated, use sys.meta_path hooks instead
     "_unpatch_import_module",
 ]
 

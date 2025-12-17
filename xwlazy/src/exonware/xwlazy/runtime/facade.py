@@ -5,7 +5,7 @@ Main facade: XWRuntimeHelper extends ARuntimeHelper
 Provides concrete implementation for all runtime services.
 """
 
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Optional, Any
 from .base import ARuntimeHelper
 from ..defs import LazyLoadMode, LazyInstallMode
 
@@ -26,7 +26,7 @@ class XWRuntimeHelper(ARuntimeHelper):
         # TODO: Implement import recording
         pass
     
-    def predict_next_imports(self, current_module: str, count: int = 3) -> List[str]:
+    def predict_next_imports(self, current_module: str, count: int = 3) -> list[str]:
         """Predict next likely imports based on patterns."""
         # TODO: Implement prediction logic
         return []
@@ -48,17 +48,17 @@ class XWRuntimeHelper(ARuntimeHelper):
         from .intelligent_selector import LoadLevel
         return LoadLevel.LIGHT
     
-    def get_optimal_mode(self, load_level) -> Tuple[LazyLoadMode, LazyInstallMode]:
+    def get_optimal_mode(self, load_level) -> tuple[LazyLoadMode, LazyInstallMode]:
         """Get optimal mode for a load level."""
         # TODO: Implement mode selection
         return LazyLoadMode.AUTO, LazyInstallMode.SMART
     
-    def update_mode_map(self, mode_map: Dict[Any, Tuple[LazyLoadMode, LazyInstallMode]]) -> None:
+    def update_mode_map(self, mode_map: dict[Any, tuple[LazyLoadMode, LazyInstallMode]]) -> None:
         """Update mode mapping with benchmark results."""
         # TODO: Implement mode map update
         pass
     
-    def get_metric_stats(self, name: str) -> Dict[str, Any]:
+    def get_metric_stats(self, name: str) -> dict[str, Any]:
         """Get statistics for a metric."""
         with self._lock:
             values = self._metrics.get(name, [])
@@ -72,12 +72,12 @@ class XWRuntimeHelper(ARuntimeHelper):
                 'max': max(values)
             }
     
-    def get_all_stats(self) -> Dict[str, Dict[str, Any]]:
+    def get_all_stats(self) -> dict[str, dict[str, Any]]:
         """Get statistics for all metrics."""
         with self._lock:
             return {name: self.get_metric_stats(name) for name in self._metrics.keys()}
     
-    def get_performance_stats(self) -> Dict[str, Any]:
+    def get_performance_stats(self) -> dict[str, Any]:
         """Get performance statistics."""
         with self._lock:
             return {

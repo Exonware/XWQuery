@@ -12,13 +12,21 @@ Abstract base classes for shared/common strategies.
 
 from abc import ABC, abstractmethod
 from typing import Optional, Any
-from ..contracts import ICachingStrategy
+from ..contracts import ICachingStrategy, ICacheStrategy
 
 # =============================================================================
 # ABSTRACT CACHING STRATEGY
 # =============================================================================
 
 class ACachingStrategy(ICachingStrategy, ABC):
+    """
+    Abstract base class for caching strategies (legacy name).
+    
+    Note: Use ACacheStrategy for new code (ICacheStrategy interface).
+    """
+    pass
+
+class ACacheStrategy(ICacheStrategy, ABC):
     """
     Abstract base class for caching strategies.
     
@@ -51,6 +59,7 @@ class ACachingStrategy(ICachingStrategy, ABC):
 # =============================================================================
 
 __all__ = [
-    'ACachingStrategy',
+    'ACachingStrategy',  # Legacy name
+    'ACacheStrategy',    # New name for ICacheStrategy interface
 ]
 

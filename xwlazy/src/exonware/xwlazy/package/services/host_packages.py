@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import os
 import sys
-from typing import Iterable, Sequence, Tuple
+import functools
+from typing import Iterable, Sequence
 
 # Lazy imports to avoid circular dependency
 def _get_config_package_lazy_install_enabled():
@@ -40,13 +41,48 @@ class LazyMetaPathFinder:
         self.package_name = package_name
     
     def _enhance_classes_with_class_methods(self, module):
-        """Placeholder method."""
-        pass
+        """Enhance classes with lazy-aware static/class method behavior."""
+        
+        for name, cls in vars(module).items():
+            if not isinstance(cls, type):
+                continue
+            
+            # Skip if not a serializer (heuristic)
+            if not name.endswith('Serializer'):
+                continue
+
+            # Methods to patch
+            for method_name in ['encode', 'decode']:
+                if not hasattr(cls, method_name):
+                    continue
+
+                original_method = getattr(cls, method_name)
+                if not callable(original_method):
+                    continue
+                
+                # Check if already patched to avoid recursion/duplication
+                if getattr(original_method, '_is_lazy_wrapper', False):
+                    continue
+
+                @functools.wraps(original_method)
+                def wrapper(first_arg, *args, **kwargs):
+                    # Check if first_arg is 'self' (instance of cls)
+                    if isinstance(first_arg, cls):
+                        return original_method(first_arg, *args, **kwargs)
+                    
+                    # Called as class method or static usage: Class.encode(data)
+                    # first_arg is actually the data
+                    # Instantiate to trigger lazy loading (__init__)
+                    instance = cls()
+                    return original_method(instance, first_arg, *args, **kwargs)
+                
+                wrapper._is_lazy_wrapper = True
+                setattr(cls, method_name, wrapper)
 
 _TRUTHY = {"1", "true", "yes", "on"}
-_REGISTERED: dict[str, dict[str, Tuple[str, ...]]] = {}
+_REGISTERED: dict[str, dict[str, tuple[str, ...]]] = {}
 
-def _normalized(items: Iterable[str]) -> Tuple[str, ...]:
+def _normalized(items: Iterable[str]) -> tuple[str, ...]:
     seen = []
     for item in items:
         if item not in seen:
@@ -142,4 +178,3 @@ def _apply_wrappers_for_loaded_modules(
                 finder._enhance_classes_with_class_methods(module)  # type: ignore[attr-defined]
             except Exception:
                 continue
-

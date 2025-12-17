@@ -15,7 +15,7 @@ import sys
 import asyncio
 import threading
 import importlib.metadata
-from typing import Dict, List, Optional, Set, Callable
+from typing import Optional, Callable
 
 from .install_result import InstallResult, InstallStatus
 from .install_policy import LazyInstallPolicy
@@ -55,7 +55,7 @@ class InstallerEngine:
         self._loop: Optional[asyncio.AbstractEventLoop] = None
         self._loop_thread: Optional[threading.Thread] = None
         self._lock = threading.RLock()
-        self._active_installs: Set[str] = set()  # Track active installs to prevent duplicates
+        self._active_installs: set[str] = set()  # Track active installs to prevent duplicates
         
         # Get install mode from config
         self._mode = LazyInstallConfig.get_install_mode(package_name) or LazyInstallMode.SMART
@@ -275,7 +275,7 @@ class InstallerEngine:
         self,
         *package_names: str,
         callback: Optional[Callable[[str, InstallResult], None]] = None
-    ) -> Dict[str, InstallResult]:
+    ) -> dict[str, InstallResult]:
         """
         Install multiple packages in parallel (async), but wait for all to complete.
         

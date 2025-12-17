@@ -19,11 +19,12 @@ Design Pattern: Facade Pattern
 - Centralizes public API
 """
 
+import os
 import sys
 import subprocess
 import importlib
 import importlib.util
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Optional, Any
 from types import ModuleType
 
 # Import from contracts for types
@@ -70,6 +71,9 @@ from .module.importer_engine import (
     is_import_hook_installed as _is_import_hook_installed,
     register_lazy_module_prefix as _register_lazy_module_prefix,
     register_lazy_module_methods as _register_lazy_module_methods,
+    register_lazy_package as _register_lazy_package,
+    install_global_import_hook as _install_global_import_hook,
+    is_global_import_hook_installed as _is_global_import_hook_installed,
     LazyImporter,
     LazyModuleRegistry,
 )
@@ -94,7 +98,7 @@ class LazyModeFacade:
     def __init__(self):
         self._enabled = False
         self._strategy = "on_demand"
-        self._configs: Dict[str, Any] = {}
+        self._configs: dict[str, Any] = {}
     
     def enable(self, strategy: str = "on_demand", **kwargs) -> None:
         """Enable lazy mode with specified strategy."""
@@ -112,7 +116,7 @@ class LazyModeFacade:
         """Check if lazy mode is currently enabled."""
         return self._enabled
     
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get lazy mode performance statistics."""
         return {
             "enabled": self._enabled,
@@ -139,16 +143,17 @@ def is_lazy_mode_enabled() -> bool:
     """Check if lazy mode is currently enabled."""
     return _lazy_facade.is_enabled()
 
-def get_lazy_mode_stats() -> Dict[str, Any]:
+def get_lazy_mode_stats() -> dict[str, Any]:
     """Get lazy mode performance statistics."""
     return _lazy_facade.get_stats()
 
 def configure_lazy_mode(package_name: str, config: LazyModeConfig) -> None:
     """Configure lazy mode for a specific package."""
-    LazyInstallConfig.set_mode_config(package_name, config)
+    # Use set() method with mode_config parameter
+    LazyInstallConfig.set(package_name, True, mode_config=config)
     logger.info(f"Configured lazy mode for {package_name}")
 
-def preload_modules(package_name: str, modules: List[str]) -> None:
+def preload_modules(package_name: str, modules: list[str]) -> None:
     """Preload specified modules for a package."""
     for module_name in modules:
         _lazy_importer.preload_module(module_name)
@@ -158,6 +163,134 @@ def optimize_lazy_mode(package_name: str) -> None:
     """Optimize lazy mode configuration for a package."""
     _lazy_module_registry.preload_frequently_used()
     logger.info(f"Optimization completed for {package_name}")
+
+# =============================================================================
+# ONE-LINE ACTIVATION API
+# =============================================================================
+
+def auto_enable_lazy(package_name: Optional[str] = None, mode: str = "smart") -> bool:
+    """
+    Auto-enable lazy mode for a package - ONE LINE ACTIVATION!
+    
+    Usage in any library's __init__.py:
+        from exonware.xwlazy import auto_enable_lazy
+        auto_enable_lazy(__package__)
+    
+    Args:
+        package_name: Package name (auto-detected if None)
+        mode: Lazy mode ("smart", "lite", "full", "clean", "temporary")
+    
+    Returns:
+        True if enabled, False otherwise
+    """
+    import inspect
+    
+    # Auto-detect package name from caller
+    if package_name is None:
+        try:
+            frame = inspect.currentframe().f_back
+            package_name = (frame.f_globals.get('__package__') or 
+                          frame.f_globals.get('__name__', '').split('.')[0])
+        except Exception:
+            logger.warning("Could not auto-detect package name")
+            return False
+    
+    if not package_name:
+        logger.warning("Package name is required")
+        return False
+    
+    try:
+        # Get preset mode configuration
+        config = get_preset_mode(mode)
+        if config is None:
+            logger.warning(f"Unknown mode: {mode}, using 'smart'")
+            config = get_preset_mode("smart")
+        
+        # Register package for lazy loading/installation
+        _register_lazy_package(package_name, config)
+        
+        # Enable lazy install for this package with mode config
+        # Pass mode_config through set() method (not a separate set_mode_config method)
+        LazyInstallConfig.set(
+            package_name, 
+            True, 
+            mode=mode,
+            mode_config=config
+        )
+        
+        # Install global import hook if not already installed
+        if not _is_global_import_hook_installed():
+            _install_global_import_hook()
+        
+        # Also install meta_path hook for compatibility
+        _install_import_hook(package_name)
+        
+        logger.info(f"✅ Auto-enabled lazy mode for package: {package_name} (mode: {mode})")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to auto-enable lazy mode for {package_name}: {e}")
+        return False
+
+def attach(package_name: str, submodules: Optional[list[str]] = None, submod_attrs: Optional[dict[str, list[str]]] = None):
+    """
+    Attach lazily loaded submodules and attributes (lazy-loader compatible API).
+    
+    Returns (__getattr__, __dir__, __all__) for lazy loading.
+    
+    Usage:
+        __getattr__, __dir__, __all__ = lazy.attach(__name__, ['submodule1'], {'module': ['attr1', 'attr2']})
+    
+    Args:
+        package_name: Package name (typically __name__)
+        submodules: List of submodule names to attach
+        submod_attrs: Dict mapping submodule -> list of attributes/functions
+    
+    Returns:
+        Tuple of (__getattr__, __dir__, __all__)
+    """
+    import importlib
+    
+    if submod_attrs is None:
+        submod_attrs = {}
+    if submodules is None:
+        submodules = []
+    
+    submodules_set = set(submodules)
+    attr_to_modules = {
+        attr: mod for mod, attrs in submod_attrs.items() for attr in attrs
+    }
+    
+    __all__ = sorted(submodules_set | attr_to_modules.keys())
+    
+    def __getattr__(name: str) -> Any:
+        """Lazy load submodule or attribute on first access."""
+        if name in submodules_set:
+            return importlib.import_module(f"{package_name}.{name}")
+        elif name in attr_to_modules:
+            submod_path = f"{package_name}.{attr_to_modules[name]}"
+            submod = importlib.import_module(submod_path)
+            attr = getattr(submod, name)
+            
+            # If attribute lives in a file with same name as attribute,
+            # ensure attribute (not module) is accessible
+            if name == attr_to_modules[name]:
+                pkg = sys.modules[package_name]
+                pkg.__dict__[name] = attr
+            
+            return attr
+        else:
+            raise AttributeError(f"module {package_name!r} has no attribute {name!r}")
+    
+    def __dir__() -> list[str]:
+        """Return list of available attributes."""
+        return __all__.copy()
+    
+    # Eager import if EAGER_IMPORT env var is set (for debugging)
+    if os.environ.get("EAGER_IMPORT", ""):
+        for attr in set(attr_to_modules.keys()) | submodules_set:
+            __getattr__(attr)
+    
+    return __getattr__, __dir__, __all__.copy()
 
 # =============================================================================
 # PUBLIC API FUNCTIONS - Installation
@@ -195,7 +328,7 @@ def install_missing_package(package_name: str, module_name: str, installer_packa
         logger.error(f"Failed to install package {package_name} for {installer_package}: {e}")
         return False
 
-def install_and_import(module_name: str, package_name: str = None, installer_package: str = 'default') -> Tuple[Optional[ModuleType], bool]:
+def install_and_import(module_name: str, package_name: str = None, installer_package: str = 'default') -> tuple[Optional[ModuleType], bool]:
     """Install package and import module."""
     try:
         installer = LazyInstallerRegistry.get_instance(installer_package)
@@ -207,7 +340,7 @@ def install_and_import(module_name: str, package_name: str = None, installer_pac
         logger.error(f"Failed to install and import {module_name} for {installer_package}: {e}")
         return None, False
 
-def get_lazy_install_stats(package_name: str) -> Dict[str, Any]:
+def get_lazy_install_stats(package_name: str) -> dict[str, Any]:
     """Get installation statistics for a package."""
     try:
         installer = LazyInstallerRegistry.get_instance(package_name)
@@ -224,7 +357,7 @@ def get_lazy_install_stats(package_name: str) -> Dict[str, Any]:
             'total_failed': 0,
         }
 
-def get_all_lazy_install_stats() -> Dict[str, Dict[str, Any]]:
+def get_all_lazy_install_stats() -> dict[str, dict[str, Any]]:
     """Get installation statistics for all packages."""
     try:
         all_instances = LazyInstallerRegistry.get_all_instances()
@@ -233,7 +366,7 @@ def get_all_lazy_install_stats() -> Dict[str, Dict[str, Any]]:
         logger.error(f"Failed to get all stats: {e}")
         return {}
 
-def lazy_import_with_install(module_name: str, package_name: str = None, installer_package: str = 'default') -> Tuple[Optional[ModuleType], bool]:
+def lazy_import_with_install(module_name: str, package_name: str = None, installer_package: str = 'default') -> tuple[Optional[ModuleType], bool]:
     """Lazy import with automatic installation."""
     try:
         installer = LazyInstallerRegistry.get_instance(installer_package)
@@ -260,7 +393,7 @@ def install_import_hook(package_name: str = 'default') -> None:
     """Install performant import hook for automatic lazy installation."""
     try:
         _install_import_hook(package_name)
-        logger.info(f"Import hook installed for {package_name}")
+        logger.debug(f"Import hook installed for {package_name}")
     except Exception as e:
         logger.error(f"Failed to install import hook for {package_name}: {e}")
         raise
@@ -269,7 +402,7 @@ def uninstall_import_hook(package_name: str = 'default') -> None:
     """Uninstall import hook for a package."""
     try:
         _uninstall_import_hook(package_name)
-        logger.info(f"Import hook uninstalled for {package_name}")
+        logger.debug(f"Import hook uninstalled for {package_name}")
     except Exception as e:
         logger.error(f"Failed to uninstall import hook for {package_name}: {e}")
         raise
@@ -298,13 +431,11 @@ def enable_lazy_imports(mode: LazyLoadMode = LazyLoadMode.AUTO, package_name: Op
     """
     try:
         _lazy_importer.enable(mode)
-        # Also patch import_module to be lazy-aware (from archive)
-        from .module.importer_engine import _patch_import_module
-        _patch_import_module()
+        # Note: _patch_import_module removed - using sys.meta_path hooks instead
         if package_name:
-            logger.info(f"Lazy imports enabled for {package_name} with mode {mode}")
+            logger.debug(f"Lazy imports enabled for {package_name} with mode {mode}")
         else:
-            logger.info(f"Lazy imports enabled with mode {mode}")
+            logger.debug(f"Lazy imports enabled with mode {mode}")
     except Exception as e:
         if package_name:
             logger.error(f"Failed to enable lazy imports for {package_name}: {e}")
@@ -418,7 +549,7 @@ def get_lazy_module(module_name: str, package_name: str = None) -> Optional[Modu
     import sys
     return sys.modules.get(module_name)
 
-def get_loading_stats(package_name: str) -> Dict[str, Any]:
+def get_loading_stats(package_name: str) -> dict[str, Any]:
     """Get loading statistics for a package."""
     try:
         return _lazy_module_registry.get_stats()
@@ -440,7 +571,7 @@ def preload_frequently_used(package_name: str) -> None:
     except Exception as e:
         logger.error(f"Failed to preload frequently used for {package_name}: {e}")
 
-def get_lazy_import_stats(package_name: str) -> Dict[str, Any]:
+def get_lazy_import_stats(package_name: str) -> dict[str, Any]:
     """Get lazy import statistics for a package."""
     try:
         return _lazy_importer.get_stats()
@@ -535,7 +666,18 @@ def config_package_lazy_install_enabled(
             mode_config=mode_config,
         )
         
-        # Install hook if requested and enabled
+        # Register package for global __import__ hook (for module-level imports)
+        if enabled:
+            try:
+                from .module.importer_engine import register_lazy_package, install_global_import_hook
+                # Register package for global hook
+                register_lazy_package(package_name, mode_config)
+                # Install global hook if not already installed
+                install_global_import_hook()
+            except Exception as global_hook_error:
+                logger.warning(f"Failed to register package for global hook {package_name}: {global_hook_error}")
+        
+        # Install meta_path hook if requested and enabled
         if install_hook and enabled:
             try:
                 install_import_hook(package_name)
@@ -543,7 +685,7 @@ def config_package_lazy_install_enabled(
                 logger.warning(f"Failed to install import hook for {package_name}: {hook_error}")
         
         result = LazyInstallConfig.is_enabled(package_name)
-        logger.info(f"Configured lazy installation for {package_name}: enabled={result}, mode={mode}")
+        logger.debug(f"Configured lazy installation for {package_name}: enabled={result}, mode={mode}")
         return result
     except Exception as e:
         logger.error(f"Failed to configure lazy installation for {package_name}: {e}")
@@ -626,7 +768,7 @@ def sync_manifest_configuration(package_name: str) -> None:
         if manifest and manifest.class_wrap_prefixes:
             _set_package_class_hints(package_key, manifest.class_wrap_prefixes)
         
-        logger.info(f"Manifest configuration synced for {package_name}")
+        logger.debug(f"Manifest configuration synced for {package_name}")
     except Exception as e:
         logger.error(f"Failed to sync manifest configuration for {package_name}: {e}")
         raise
@@ -644,7 +786,7 @@ def refresh_lazy_manifests() -> None:
 # SECURITY & POLICY FUNCTIONS
 # =============================================================================
 
-def set_package_allow_list(package_name: str, allowed_packages: List[str]) -> None:
+def set_package_allow_list(package_name: str, allowed_packages: list[str]) -> None:
     """Set allow list for a package."""
     try:
         LazyInstallPolicy.set_allow_list(package_name, allowed_packages)
@@ -653,7 +795,7 @@ def set_package_allow_list(package_name: str, allowed_packages: List[str]) -> No
         logger.error(f"Failed to set allow list for {package_name}: {e}")
         raise
 
-def set_package_deny_list(package_name: str, denied_packages: List[str]) -> None:
+def set_package_deny_list(package_name: str, denied_packages: list[str]) -> None:
     """Set deny list for a package."""
     try:
         LazyInstallPolicy.set_deny_list(package_name, denied_packages)
@@ -689,7 +831,7 @@ def set_package_index_url(package_name: str, index_url: str) -> None:
         logger.error(f"Failed to set index URL for {package_name}: {e}")
         raise
 
-def set_package_extra_index_urls(package_name: str, extra_index_urls: List[str]) -> None:
+def set_package_extra_index_urls(package_name: str, extra_index_urls: list[str]) -> None:
     """Set extra index URLs for a package."""
     try:
         LazyInstallPolicy.set_extra_index_urls(package_name, extra_index_urls)
@@ -716,7 +858,7 @@ def set_package_lockfile(package_name: str, lockfile_path: str) -> None:
         logger.error(f"Failed to set lockfile path for {package_name}: {e}")
         raise
 
-def generate_package_sbom(package_name: str, output_path: Optional[str] = None) -> Dict[str, Any]:
+def generate_package_sbom(package_name: str, output_path: Optional[str] = None) -> dict[str, Any]:
     """Generate SBOM for a package."""
     try:
         installer = LazyInstallerRegistry.get_instance(package_name)
@@ -752,7 +894,7 @@ def register_lazy_module_prefix(prefix: str) -> None:
         logger.error(f"Failed to register lazy module prefix {prefix}: {e}")
         raise
 
-def register_lazy_module_methods(prefix: str, methods: Tuple[str, ...]) -> None:
+def register_lazy_module_methods(prefix: str, methods: tuple[str, ...]) -> None:
     """Register methods for a lazy module."""
     try:
         _register_lazy_module_methods(prefix, methods)
@@ -839,7 +981,7 @@ def get_keyword_detection_keyword(package_name: Optional[str] = None) -> Optiona
         logger.error(f"Failed to get keyword detection keyword: {e}")
         return None
 
-def check_package_keywords(package_name: Optional[str] = None, keywords: Optional[List[str]] = None) -> bool:
+def check_package_keywords(package_name: Optional[str] = None, keywords: Optional[list[str]] = None) -> bool:
     """
     Check if a package (or any package) has the specified keyword in its metadata.
     
@@ -872,7 +1014,7 @@ def get_lazy_discovery(package_name: str = 'default') -> Optional[APackageHelper
         logger.error(f"Failed to get discovery instance for {package_name}: {e}")
         return None
 
-def discover_dependencies(package_name: str = 'default') -> Dict[str, str]:
+def discover_dependencies(package_name: str = 'default') -> dict[str, str]:
     """Discover dependencies for a package."""
     try:
         discovery = _get_lazy_discovery()
@@ -916,6 +1058,10 @@ __all__ = [
     'configure_lazy_mode',
     'preload_modules',
     'optimize_lazy_mode',
+    # One-line activation API
+    'auto_enable_lazy',
+    # Lazy-loader compatible API
+    'attach',
     # Public API functions
     'enable_lazy_install',
     'disable_lazy_install',

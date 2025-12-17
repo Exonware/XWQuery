@@ -15,13 +15,14 @@ This module defines the abstract base class for module operations.
 import sys
 import threading
 from abc import ABC, abstractmethod
-from typing import Dict, List, Optional, Any, Tuple
+from typing import Optional, Any
 from types import ModuleType
 
 from ..contracts import (
     IModuleHelper,
     IModuleHelperStrategy,
     IModuleManagerStrategy,
+    ILoadStrategy,
 )
 from ..package.base import APackageHelper
 
@@ -291,7 +292,7 @@ class AModuleHelper(IModuleHelper, ABC):
         # Uninstall the packages (package_helper handles deduplication and caching)
         self._get_package_helper().uninstall(*package_names)
     
-    def load(self, *module_names: str) -> List[ModuleType]:
+    def load(self, *module_names: str) -> list[ModuleType]:
         """
         Load one or more modules into memory.
         
@@ -405,7 +406,7 @@ class AModuleHelper(IModuleHelper, ABC):
     # Note: Many methods from IModuleHelper are already implemented above.
     # The following are stubs that need concrete implementations:
     
-    def install_and_import(self, module_name: str, package_name: Optional[str] = None) -> Tuple[Optional[ModuleType], bool]:
+    def install_and_import(self, module_name: str, package_name: Optional[str] = None) -> tuple[Optional[ModuleType], bool]:
         """Install package and import module (from IModuleInstaller)."""
         raise NotImplementedError("Subclasses must implement install_and_import")
     
@@ -465,7 +466,7 @@ class AModuleHelper(IModuleHelper, ABC):
         """Check if a root module name is being watched (from IWatchedRegistry)."""
         raise NotImplementedError("Subclasses must implement has_root")
     
-    def get_matching_prefixes(self, fullname: str) -> Tuple[str, ...]:
+    def get_matching_prefixes(self, fullname: str) -> tuple[str, ...]:
         """Get all watched prefixes that match a module name (from IWatchedRegistry)."""
         raise NotImplementedError("Subclasses must implement get_matching_prefixes")
     
@@ -557,9 +558,65 @@ class AModuleManagerStrategy(IModuleManagerStrategy, ABC):
 # EXPORT ALL
 # =============================================================================
 
+# =============================================================================
+# ABSTRACT LOADING STRATEGY (Enhanced for Runtime Swapping)
+# =============================================================================
+
+class ALoadStrategy(ILoadStrategy, ABC):
+    """
+    Abstract base class for module loading strategies.
+    
+    Enables runtime strategy swapping for different loading methods
+    (lazy, simple, advanced, etc.).
+    """
+    
+    @abstractmethod
+    def load(self, module_name: str) -> ModuleType:
+        """
+        Load a module.
+        
+        Args:
+            module_name: Module name to load
+            
+        Returns:
+            Loaded module
+        """
+        ...
+    
+    def should_lazy_load(self, module_name: str) -> bool:
+        """
+        Determine if module should be lazy loaded.
+        
+        Default implementation returns True.
+        Override for strategy-specific logic.
+        
+        Args:
+            module_name: Module name to check
+            
+        Returns:
+            True if should lazy load, False otherwise
+        """
+        return True
+    
+    @abstractmethod
+    def unload(self, module_name: str) -> None:
+        """
+        Unload a module.
+        
+        Args:
+            module_name: Module name to unload
+        """
+        ...
+
+# =============================================================================
+# EXPORT ALL
+# =============================================================================
+
 __all__ = [
     'AModuleHelper',
     'AModuleHelperStrategy',
     'AModuleManagerStrategy',
+    # Enhanced Strategy Interfaces for Runtime Swapping
+    'ALoadStrategy',
 ]
 

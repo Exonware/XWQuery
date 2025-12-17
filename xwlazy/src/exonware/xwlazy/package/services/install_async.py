@@ -14,7 +14,7 @@ import os
 import asyncio
 import threading
 import importlib
-from typing import Optional, Dict, Any
+from typing import Optional, Any
 
 from .async_install_handle import AsyncInstallHandle
 from .manifest import PackageManifest
@@ -45,8 +45,17 @@ def _ensure_logging_initialized():
     global logger, _log
     if logger is None:
         logger = _get_logger()
+        if logger is None:
+            import logging
+            logger = logging.getLogger("xwlazy.lazy_installer.fallback")
+            logger.addHandler(logging.NullHandler())
     if _log is None:
         _log = _get_log_event()
+        if _log is None:
+            # Simple fallback
+            def _fallback_log(event, *args, **kwargs):
+                pass
+            _log = _fallback_log
 
 class AsyncInstallMixin:
     """Mixin for async installation operations."""
@@ -84,7 +93,12 @@ class AsyncInstallMixin:
     def apply_manifest(self, manifest: Optional[PackageManifest]) -> None:
         """Apply manifest-driven configuration such as async installs."""
         env_override = _ENV_ASYNC_INSTALL
-        desired_async = bool(env_override or (manifest and manifest.async_installs))
+        # Force disable async install unless strictly overridden by env var (safety default)
+        if not env_override:
+            desired_async = False
+        else:
+            desired_async = True
+        # desired_async = bool(env_override or (manifest and manifest.async_installs))
         desired_workers = _ENV_ASYNC_WORKERS or (manifest.async_workers if manifest else 1)
         desired_workers = max(1, desired_workers)
         

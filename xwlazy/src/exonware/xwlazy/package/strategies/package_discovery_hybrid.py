@@ -11,7 +11,7 @@ Hybrid discovery - combines file-based and manifest-based discovery.
 """
 
 from pathlib import Path
-from typing import Dict, Optional, Any
+from typing import Optional, Any
 from ...package.base import ADiscoveryStrategy
 from .package_discovery_file import FileBasedDiscovery
 from .package_discovery_manifest import ManifestBasedDiscovery
@@ -36,7 +36,7 @@ class HybridDiscovery(ADiscoveryStrategy):
         self._file_discovery = FileBasedDiscovery(project_root)
         self._manifest_discovery = ManifestBasedDiscovery(package_name, project_root)
     
-    def discover(self, project_root: Any = None) -> Dict[str, str]:
+    def discover(self, project_root: Any = None) -> dict[str, str]:
         """
         Discover dependencies from all sources.
         

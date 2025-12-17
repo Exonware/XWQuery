@@ -24,7 +24,7 @@ import time
 import importlib
 import tracemalloc
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any
 
 # Mark all tests in this file as core and performance tests
 pytestmark = [
@@ -43,7 +43,7 @@ class VersionComparison:
     """Compare new modular vs old monolithic implementation."""
     
     def __init__(self):
-        self.results: Dict[str, Dict[str, Any]] = {}
+        self.results: dict[str, dict[str, Any]] = {}
     
     def measure_import_time(self, module_name: str, import_path: str) -> float:
         """Measure time to import a module."""

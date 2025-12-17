@@ -10,7 +10,7 @@ Generation Date: 15-Nov-2025
 Clean timing - install on usage + uninstall after completion.
 """
 
-from typing import List, Any
+from typing import Any
 from ...package.base import AInstallTimingStrategy
 
 class CleanTiming(AInstallTimingStrategy):
@@ -51,7 +51,7 @@ class CleanTiming(AInstallTimingStrategy):
         """
         return True
     
-    def get_install_priority(self, packages: List[str]) -> List[str]:
+    def get_install_priority(self, packages: list[str]) -> list[str]:
         """
         Get priority order for installing packages.
         

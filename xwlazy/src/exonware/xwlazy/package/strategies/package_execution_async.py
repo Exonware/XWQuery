@@ -14,7 +14,7 @@ Uses shared utilities from common/services/install_async_utils.
 import sys
 import asyncio
 import subprocess
-from typing import List, Any
+from typing import Any
 from ...package.base import AInstallExecutionStrategy
 from ...package.services.install_result import InstallResult, InstallStatus
 from ...common.services.install_async_utils import async_install_package
@@ -27,7 +27,7 @@ class AsyncExecution(AInstallExecutionStrategy):
     Uses shared utilities from common/services/install_async_utils.
     """
     
-    def execute_install(self, package_name: str, policy_args: List[str]) -> Any:
+    def execute_install(self, package_name: str, policy_args: list[str]) -> Any:
         """
         Execute installation asynchronously.
         
@@ -62,7 +62,7 @@ class AsyncExecution(AInstallExecutionStrategy):
                 error=str(e)
             )
     
-    async def _async_install(self, package_name: str, policy_args: List[str]) -> InstallResult:
+    async def _async_install(self, package_name: str, policy_args: list[str]) -> InstallResult:
         """
         Async installation implementation.
         

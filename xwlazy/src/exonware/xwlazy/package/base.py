@@ -15,7 +15,7 @@ This module defines the abstract base class for package operations.
 import threading
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Set, Tuple
+from typing import Optional, Any
 from types import ModuleType
 
 from ..defs import (
@@ -31,6 +31,7 @@ from ..contracts import (
     IDiscoveryStrategy,
     IPolicyStrategy,
     IMappingStrategy,
+    IInstallStrategy,
 )
 
 # =============================================================================
@@ -78,24 +79,24 @@ class APackageHelper(IPackageHelper, ABC):
         """
         # From APackageDiscovery
         self.project_root = Path(project_root) if project_root else self._find_project_root()
-        self.discovered_dependencies: Dict[str, DependencyInfo] = {}
-        self._discovery_sources: List[str] = []
-        self._cached_dependencies: Dict[str, str] = {}
-        self._file_mtimes: Dict[str, float] = {}
+        self.discovered_dependencies: dict[str, DependencyInfo] = {}
+        self._discovery_sources: list[str] = []
+        self._cached_dependencies: dict[str, str] = {}
+        self._file_mtimes: dict[str, float] = {}
         self._cache_valid = False
         
         # From APackageInstaller
         self._package_name = package_name
         self._enabled = False
         self._mode = LazyInstallMode.SMART
-        self._installed_packages: Set[str] = set()
-        self._failed_packages: Set[str] = set()
+        self._installed_packages: set[str] = set()
+        self._failed_packages: set[str] = set()
         
         # From APackageCache
-        self._cache: Dict[str, Any] = {}
+        self._cache: dict[str, Any] = {}
         
         # From APackageHelper
-        self._uninstalled_packages: Set[str] = set()
+        self._uninstalled_packages: set[str] = set()
         
         # Common
         self._lock = threading.RLock()
@@ -105,15 +106,15 @@ class APackageHelper(IPackageHelper, ABC):
     # ========================================================================
     
     def _find_project_root(self) -> Path:
-        """Find the project root directory by looking for markers."""
-        current = Path(__file__).parent.parent.parent
-        while current != current.parent:
-            if (current / 'pyproject.toml').exists() or (current / 'setup.py').exists():
-                return current
-            current = current.parent
-        return Path.cwd()
+        """
+        Find the project root directory by looking for markers.
+        
+        Uses the shared utility function from common.utils.
+        """
+        from ..common.utils import find_project_root
+        return find_project_root()
     
-    def discover_all_dependencies(self) -> Dict[str, str]:
+    def discover_all_dependencies(self) -> dict[str, str]:
         """
         Template method: Discover all dependencies from all sources.
         
@@ -186,7 +187,7 @@ class APackageHelper(IPackageHelper, ABC):
         """Update file modification times for cache validation (abstract step)."""
         pass
     
-    def get_discovery_sources(self) -> List[str]:
+    def get_discovery_sources(self) -> list[str]:
         """Get list of sources used for discovery."""
         return self._discovery_sources.copy()
     
@@ -194,9 +195,17 @@ class APackageHelper(IPackageHelper, ABC):
     # Package Installation Methods (from APackageInstaller)
     # ========================================================================
     
-    def get_package_name(self) -> str:
-        """Get the package name this instance is for."""
-        return self._package_name
+    def get_package_name(self, import_name: Optional[str] = None) -> Optional[str]:
+        """
+        Get package name.
+        If import_name is None, returns the package name this instance is for.
+        If import_name is provided, maps it to a package name (via IDependencyMapper).
+        """
+        if import_name is None:
+            return self._package_name
+        
+        # For IDependencyMapper implementation
+        raise NotImplementedError("Subclasses must implement get_package_name(import_name)")
     
     def set_mode(self, mode: LazyInstallMode) -> None:
         """Set the installation mode."""
@@ -236,7 +245,7 @@ class APackageHelper(IPackageHelper, ABC):
         pass
     
     @abstractmethod
-    def _check_security_policy(self, package_name: str) -> Tuple[bool, str]:
+    def _check_security_policy(self, package_name: str) -> tuple[bool, str]:
         """
         Check security policy for package (abstract method).
         
@@ -249,7 +258,7 @@ class APackageHelper(IPackageHelper, ABC):
         pass
     
     @abstractmethod
-    def _run_pip_install(self, package_name: str, args: List[str]) -> bool:
+    def _run_pip_install(self, package_name: str, args: list[str]) -> bool:
         """
         Run pip install with arguments (abstract method).
         
@@ -262,7 +271,7 @@ class APackageHelper(IPackageHelper, ABC):
         """
         pass
     
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get installation statistics."""
         with self._lock:
             return {
@@ -548,7 +557,7 @@ class APackageHelper(IPackageHelper, ABC):
     # Note: Many methods from IPackageHelper are already implemented above.
     # The following are stubs that need concrete implementations:
     
-    def install_and_import(self, module_name: str, package_name: Optional[str] = None) -> Tuple[Optional[ModuleType], bool]:
+    def install_and_import(self, module_name: str, package_name: Optional[str] = None) -> tuple[Optional[ModuleType], bool]:
         """Install package and import module (from IPackageInstaller)."""
         raise NotImplementedError("Subclasses must implement install_and_import")
     
@@ -556,15 +565,15 @@ class APackageHelper(IPackageHelper, ABC):
         """Get package name for a given import name (from IPackageDiscovery)."""
         raise NotImplementedError("Subclasses must implement get_package_for_import")
     
-    def get_imports_for_package(self, package_name: str) -> List[str]:
+    def get_imports_for_package(self, package_name: str) -> list[str]:
         """Get all possible import names for a package (from IPackageDiscovery)."""
         raise NotImplementedError("Subclasses must implement get_imports_for_package")
     
-    def get_package_name(self, import_name: str) -> Optional[str]:
-        """Get package name for an import name (from IDependencyMapper)."""
-        raise NotImplementedError("Subclasses must implement get_package_name")
+    # def get_package_name(self, import_name: str) -> Optional[str]:
+    #    """Get package name for an import name (from IDependencyMapper)."""
+    #    raise NotImplementedError("Subclasses must implement get_package_name")
     
-    def get_import_names(self, package_name: str) -> List[str]:
+    def get_import_names(self, package_name: str) -> list[str]:
         """Get all import names for a package (from IDependencyMapper)."""
         raise NotImplementedError("Subclasses must implement get_import_names")
     
@@ -591,15 +600,15 @@ class APackageHelper(IPackageHelper, ABC):
         """Get full mode configuration for a package (from IConfigManager)."""
         raise NotImplementedError("Subclasses must implement get_mode_config")
     
-    def get_manifest_signature(self, package_name: str) -> Optional[Tuple[str, float, float]]:
+    def get_manifest_signature(self, package_name: str) -> Optional[tuple[str, float, float]]:
         """Get manifest file signature (from IManifestLoader)."""
         raise NotImplementedError("Subclasses must implement get_manifest_signature")
     
-    def get_shared_dependencies(self, package_name: str, signature: Optional[Tuple[str, float, float]] = None) -> Dict[str, str]:
+    def get_shared_dependencies(self, package_name: str, signature: Optional[tuple[str, float, float]] = None) -> dict[str, str]:
         """Get shared dependencies from manifest (from IManifestLoader)."""
         raise NotImplementedError("Subclasses must implement get_shared_dependencies")
     
-    def get_watched_prefixes(self, package_name: str) -> Tuple[str, ...]:
+    def get_watched_prefixes(self, package_name: str) -> tuple[str, ...]:
         """Get watched prefixes from manifest (from IManifestLoader)."""
         raise NotImplementedError("Subclasses must implement get_watched_prefixes")
 
@@ -662,12 +671,12 @@ class APackageManagerStrategy(IPackageManagerStrategy, ABC):
         ...
     
     @abstractmethod
-    def discover_dependencies(self) -> Dict[str, str]:
+    def discover_dependencies(self) -> dict[str, str]:
         """Discover dependencies."""
         ...
     
     @abstractmethod
-    def check_security_policy(self, package_name: str) -> Tuple[bool, str]:
+    def check_security_policy(self, package_name: str) -> tuple[bool, str]:
         """Check security policy."""
         ...
 
@@ -683,7 +692,7 @@ class AInstallExecutionStrategy(IInstallExecutionStrategy, ABC):
     """
     
     @abstractmethod
-    def execute_install(self, package_name: str, policy_args: List[str]) -> Any:
+    def execute_install(self, package_name: str, policy_args: list[str]) -> Any:
         """Execute installation of a package."""
         ...
     
@@ -714,7 +723,7 @@ class AInstallTimingStrategy(IInstallTimingStrategy, ABC):
         ...
     
     @abstractmethod
-    def get_install_priority(self, packages: List[str]) -> List[str]:
+    def get_install_priority(self, packages: list[str]) -> list[str]:
         """Get priority order for installing packages."""
         ...
 
@@ -730,7 +739,7 @@ class ADiscoveryStrategy(IDiscoveryStrategy, ABC):
     """
     
     @abstractmethod
-    def discover(self, project_root: Any) -> Dict[str, str]:
+    def discover(self, project_root: Any) -> dict[str, str]:
         """Discover dependencies from sources."""
         ...
     
@@ -751,12 +760,12 @@ class APolicyStrategy(IPolicyStrategy, ABC):
     """
     
     @abstractmethod
-    def is_allowed(self, package_name: str) -> Tuple[bool, str]:
+    def is_allowed(self, package_name: str) -> tuple[bool, str]:
         """Check if package is allowed to be installed."""
         ...
     
     @abstractmethod
-    def get_pip_args(self, package_name: str) -> List[str]:
+    def get_pip_args(self, package_name: str) -> list[str]:
         """Get pip arguments based on policy."""
         ...
 
@@ -777,7 +786,7 @@ class AMappingStrategy(IMappingStrategy, ABC):
         ...
     
     @abstractmethod
-    def map_package_to_imports(self, package_name: str) -> List[str]:
+    def map_package_to_imports(self, package_name: str) -> list[str]:
         """Map package name to possible import names."""
         ...
 
@@ -794,5 +803,61 @@ __all__ = [
     'ADiscoveryStrategy',
     'APolicyStrategy',
     'AMappingStrategy',
+    # Enhanced Strategy Interfaces for Runtime Swapping
+    'AInstallStrategy',
 ]
+
+# =============================================================================
+# ABSTRACT INSTALLATION STRATEGY (Enhanced for Runtime Swapping)
+# =============================================================================
+
+class AInstallStrategy(IInstallStrategy, ABC):
+    """
+    Abstract base class for installation strategies.
+    
+    Enables runtime strategy swapping for different installation methods
+    (pip, wheel, async, cached, etc.).
+    """
+    
+    @abstractmethod
+    def install(self, package_name: str, version: Optional[str] = None) -> bool:
+        """
+        Install a package.
+        
+        Args:
+            package_name: Package name to install
+            version: Optional version specification
+            
+        Returns:
+            True if installation successful, False otherwise
+        """
+        ...
+    
+    def can_install(self, package_name: str) -> bool:
+        """
+        Check if this strategy can install a package.
+        
+        Default implementation returns True.
+        Override for strategy-specific logic.
+        
+        Args:
+            package_name: Package name to check
+            
+        Returns:
+            True if can install, False otherwise
+        """
+        return True
+    
+    @abstractmethod
+    def uninstall(self, package_name: str) -> bool:
+        """
+        Uninstall a package.
+        
+        Args:
+            package_name: Package name to uninstall
+            
+        Returns:
+            True if uninstallation successful, False otherwise
+        """
+        ...
 

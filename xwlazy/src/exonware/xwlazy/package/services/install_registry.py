@@ -11,14 +11,14 @@ Registry to manage separate lazy installer instances per package.
 """
 
 import threading
-from typing import Dict, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .lazy_installer import LazyInstaller
 
 class LazyInstallerRegistry:
     """Registry to manage separate lazy installer instances per package."""
-    _instances: Dict[str, 'LazyInstaller'] = {}
+    _instances: dict[str, 'LazyInstaller'] = {}
     _lock = threading.RLock()
     
     @classmethod
@@ -40,7 +40,7 @@ class LazyInstallerRegistry:
             return cls._instances[package_name]
     
     @classmethod
-    def get_all_instances(cls) -> Dict[str, 'LazyInstaller']:
+    def get_all_instances(cls) -> dict[str, 'LazyInstaller']:
         """
         Get all lazy installer instances.
         

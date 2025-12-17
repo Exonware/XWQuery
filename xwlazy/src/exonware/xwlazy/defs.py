@@ -13,7 +13,7 @@ for the lazy loading system following GUIDE_ARCH.md structure.
 """
 
 from enum import Enum
-from typing import TypedDict, Dict, List, Optional, Any, Tuple
+from typing import TypedDict, Optional, Any
 from dataclasses import dataclass, field
 from types import ModuleType
 
@@ -95,7 +95,7 @@ class LazyModeConfig:
     # Additional configuration options
     auto_uninstall_large: bool = False  # For AUTO_MODE behavior
     large_package_threshold_mb: float = 50.0  # Size threshold for SIZE_AWARE mode
-    preload_priority: List[str] = field(default_factory=list)  # Priority modules for PRELOAD
+    preload_priority: list[str] = field(default_factory=list)  # Priority modules for PRELOAD
     background_workers: int = 2  # Workers for BACKGROUND mode
     
     def __post_init__(self):
@@ -118,7 +118,7 @@ class InstallResult:
 @dataclass
 class LazyConfig:
     """Bridge configuration settings with the lazy package implementation."""
-    packages: Tuple[str, ...] = field(
+    packages: tuple[str, ...] = field(
         default_factory=lambda: ("default",)
     )
     
@@ -129,12 +129,12 @@ class LazyConfig:
 class PackageManifest:
     """Resolved manifest data for a single package."""
     package: str
-    dependencies: Dict[str, str] = field(default_factory=dict)
-    watched_prefixes: Tuple[str, ...] = ()
+    dependencies: dict[str, str] = field(default_factory=dict)
+    watched_prefixes: tuple[str, ...] = ()
     async_installs: bool = False
     async_workers: int = 1
-    class_wrap_prefixes: Tuple[str, ...] = ()
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    class_wrap_prefixes: tuple[str, ...] = ()
+    metadata: dict[str, Any] = field(default_factory=dict)
     
     def get_dependency(self, import_name: str) -> Optional[str]:
         """Return the declared package for the given import name."""
@@ -160,7 +160,7 @@ class PackageData:
     access_count: int = 0
     install_mode: Optional['LazyInstallMode'] = None
     error: Optional[Exception] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 @dataclass(frozen=True)
 class ModuleData:
@@ -175,7 +175,7 @@ class ModuleData:
     load_time: Optional[float] = None
     access_count: int = 0
     error: Optional[Exception] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 # =============================================================================
 # TYPE DEFINITIONS
@@ -194,8 +194,8 @@ class PackageStats(TypedDict, total=False):
     enabled: bool
     mode: str
     package_name: str
-    installed_packages: List[str]
-    failed_packages: List[str]
+    installed_packages: list[str]
+    failed_packages: list[str]
     total_installed: int
     total_failed: int
 
@@ -214,10 +214,10 @@ class LazyStatus(TypedDict, total=False):
 # Default configuration values
 DEFAULT_LARGE_PACKAGE_THRESHOLD_MB: float = 50.0
 DEFAULT_BACKGROUND_WORKERS: int = 2
-DEFAULT_PRELOAD_PRIORITY: List[str] = []
+DEFAULT_PRELOAD_PRIORITY: list[str] = []
 
 # Common import -> package mappings (will be populated from discovery)
-COMMON_IMPORT_MAPPINGS: Dict[str, str] = {
+COMMON_IMPORT_MAPPINGS: dict[str, str] = {
     # Common mappings that are frequently used
     'cv2': 'opencv-python',
     'PIL': 'Pillow',
@@ -262,7 +262,7 @@ DISCOVERY_SOURCE_PIPFILE = "Pipfile"
 DISCOVERY_SOURCE_MANIFEST = "manifest.json"
 
 # Installation mode aliases
-INSTALL_MODE_ALIASES: Dict[str, str] = {
+INSTALL_MODE_ALIASES: dict[str, str] = {
     'auto': 'smart',
     'on_demand': 'smart',
     'on-demand': 'smart',
@@ -287,7 +287,7 @@ PIPFILE_PATTERN = "Pipfile"
 # =============================================================================
 
 # Preset mode combinations for convenience
-PRESET_MODES: Dict[str, LazyModeConfig] = {
+PRESET_MODES: dict[str, LazyModeConfig] = {
     "none": LazyModeConfig(
         load_mode=LazyLoadMode.NONE,
         install_mode=LazyInstallMode.NONE

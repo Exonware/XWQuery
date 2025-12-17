@@ -11,7 +11,7 @@ File-based discovery - discovers dependencies from project files.
 """
 
 from pathlib import Path
-from typing import Dict, Optional, Any
+from typing import Optional, Any
 from ...package.base import ADiscoveryStrategy
 
 class FileBasedDiscovery(ADiscoveryStrategy):
@@ -49,7 +49,7 @@ class FileBasedDiscovery(ADiscoveryStrategy):
         
         return cwd
     
-    def discover(self, project_root: Any = None) -> Dict[str, str]:
+    def discover(self, project_root: Any = None) -> dict[str, str]:
         """
         Discover dependencies from project files.
         

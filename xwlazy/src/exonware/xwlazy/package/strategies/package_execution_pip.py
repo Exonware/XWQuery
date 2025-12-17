@@ -12,7 +12,7 @@ Pip execution strategy - direct pip install.
 
 import sys
 import subprocess
-from typing import List, Any
+from typing import Any
 from ...package.base import AInstallExecutionStrategy
 from ...package.services.install_result import InstallResult, InstallStatus
 
@@ -23,7 +23,7 @@ class PipExecution(AInstallExecutionStrategy):
     This is the default execution strategy that uses pip install.
     """
     
-    def execute_install(self, package_name: str, policy_args: List[str]) -> Any:
+    def execute_install(self, package_name: str, policy_args: list[str]) -> Any:
         """
         Execute installation using pip.
         

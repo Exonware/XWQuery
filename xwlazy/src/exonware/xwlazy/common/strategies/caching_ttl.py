@@ -12,7 +12,7 @@ Works with ANY data type (modules, packages, etc.).
 """
 
 import time
-from typing import Dict, Optional, Any, Tuple
+from typing import Optional, Any
 from ...common.base import ACachingStrategy
 
 class TTLCache(ACachingStrategy):
@@ -30,7 +30,7 @@ class TTLCache(ACachingStrategy):
         Args:
             ttl_seconds: Time-to-live in seconds (default: 1 hour)
         """
-        self._cache: Dict[str, Tuple[Any, float]] = {}  # (value, expiry_time)
+        self._cache: dict[str, tuple[Any, float]] = {}  # (value, expiry_time)
         self._ttl = ttl_seconds
     
     def get(self, key: str) -> Optional[Any]:

@@ -21,7 +21,7 @@ import importlib
 import importlib.machinery
 import importlib.util
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional
 from collections import OrderedDict
 from functools import lru_cache
 
@@ -31,7 +31,7 @@ _SPEC_CACHE_TTL = float(os.environ.get("XWLAZY_SPEC_CACHE_TTL", "60") or 60.0)
 
 # Cache storage
 _spec_cache_lock = threading.RLock()
-_spec_cache: OrderedDict[str, Tuple[importlib.machinery.ModuleSpec, float]] = OrderedDict()
+_spec_cache: OrderedDict[str, tuple[importlib.machinery.ModuleSpec, float]] = OrderedDict()
 
 # Multi-level cache: L1 (in-memory) + L2 (disk)
 _CACHE_L2_DIR = Path(

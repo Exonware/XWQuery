@@ -63,7 +63,7 @@ import subprocess
 import concurrent.futures
 from pathlib import Path
 from types import ModuleType
-from typing import Dict, List, Optional, Set, Tuple, Any, Iterable, Callable
+from typing import Optional, Any, Iterable, Callable
 from collections import OrderedDict, defaultdict, Counter, deque
 from queue import Queue
 from datetime import datetime
@@ -103,11 +103,22 @@ _installing = threading.local()
 _installation_depth = 0
 _installation_depth_lock = threading.Lock()
 
-def _get_thread_imports() -> Set[str]:
+# Thread-local flag to prevent recursion during installation checks
+_checking_installation = threading.local()
+
+def _get_thread_imports() -> set[str]:
     """Get thread-local import set (creates if needed)."""
     if not hasattr(_thread_local, 'imports'):
         _thread_local.imports = set()
     return _thread_local.imports
+
+def _is_checking_installation() -> bool:
+    """Check if we're currently checking installation status (to prevent recursion)."""
+    return getattr(_checking_installation, 'active', False)
+
+def _set_checking_installation(value: bool) -> None:
+    """Set the installation check flag."""
+    _checking_installation.active = value
 
 def _is_import_in_progress(module_name: str) -> bool:
     """Check if a module import is currently in progress for this thread."""
@@ -138,6 +149,556 @@ _installation_depth = 0
 _installation_depth_lock = threading.Lock()
 
 # =============================================================================
+# GLOBAL __import__ HOOK (Critical for Module-Level Imports)
+# =============================================================================
+
+# Global state for builtins.__import__ hook
+_original_builtins_import: Optional[Callable] = None
+_global_import_hook_installed: bool = False
+_global_import_hook_lock = threading.RLock()
+
+# Fast-path caches for O(1) lookup
+_installed_cache: set[str] = set()
+_failed_cache: set[str] = set()
+
+# Registry of packages that should auto-install
+_lazy_packages: dict[str, Any] = {}
+
+def register_lazy_package(package_name: str, config: Optional[Any] = None) -> None:
+    """
+    Register a package for lazy loading/installation.
+    
+    Args:
+        package_name: Package name to register
+        config: Optional configuration object
+    """
+    with _global_import_hook_lock:
+        _lazy_packages[package_name] = config or {}
+        logger.debug(f"Registered lazy package: {package_name}")
+
+def _should_auto_install(module_name: str) -> bool:
+    """
+    Check if module should be auto-installed.
+    
+    Checks if:
+    1. Module's root package is registered, OR
+    2. Module maps to a known package (via DependencyMapper) AND packages are registered
+    
+    Args:
+        module_name: Module name to check
+        
+    Returns:
+        True if should auto-install, False otherwise
+    """
+    root_package = module_name.split('.')[0]
+    
+    # Fast path: root package is registered
+    if root_package in _lazy_packages:
+        return True
+    
+    # If no packages are registered, don't auto-install
+    if not _lazy_packages:
+        return False
+    
+    # Check if module maps to a known package via DependencyMapper
+    # This handles cases like:
+    # - 'yaml' -> 'PyYAML' (different name)
+    # - 'msgpack' -> 'msgpack' (same name, but still a known dependency)
+    # - 'bson' -> 'pymongo' (different name)
+    try:
+        # Use the first registered package to get the mapper context
+        # All registered packages should have the same dependency mappings
+        registered_package = next(iter(_lazy_packages.keys()), None)
+        if registered_package:
+            mapper = DependencyMapper(package_name=registered_package)
+        else:
+            mapper = DependencyMapper()
+        
+        package_name = mapper.get_package_name(module_name)
+        
+        # If DependencyMapper found a package name (not None), it's a known dependency
+        # Allow installation attempt - the installer will verify if it's actually needed
+        if package_name:
+            logger.debug(f"[AUTO-INSTALL] Module '{module_name}' maps to package '{package_name}', allowing auto-install")
+            return True
+        else:
+            logger.debug(f"[AUTO-INSTALL] Module '{module_name}' has no package mapping, skipping auto-install")
+            
+    except Exception as e:
+        # If mapper fails, log and be conservative
+        logger.debug(f"[AUTO-INSTALL] DependencyMapper failed for '{module_name}': {e}")
+        pass
+    
+    return False
+
+def _try_install_package(module_name: str) -> bool:
+    """
+    Try to install package for missing module.
+    
+    Tries all registered packages until one succeeds.
+    
+    Args:
+        module_name: Module name that failed to import
+        
+    Returns:
+        True if installation successful, False otherwise
+    """
+    # Try root package first
+    root_package = module_name.split('.')[0]
+    if root_package in _lazy_packages:
+        try:
+            logger.info(f"[AUTO-INSTALL] Trying root package {root_package} for module {module_name}")
+            installer = LazyInstallerRegistry.get_instance(root_package)
+            logger.info(f"[AUTO-INSTALL] Installer for {root_package}: {installer is not None}, enabled={installer.is_enabled() if installer else False}")
+            
+            if installer is None:
+                logger.warning(f"[AUTO-INSTALL] Installer for {root_package} is None")
+            elif not installer.is_enabled():
+                logger.warning(f"[AUTO-INSTALL] Installer for {root_package} is disabled")
+            else:
+                logger.info(f"Auto-installing missing package for module: {module_name} (via {root_package})")
+                logger.info(f"[AUTO-INSTALL] Calling install_and_import('{module_name}')")
+                try:
+                    module, success = installer.install_and_import(module_name)
+                    logger.info(f"[AUTO-INSTALL] install_and_import returned: module={module is not None}, success={success}")
+                    if success and module:
+                        _installed_cache.add(module_name)
+                        logger.info(f"[AUTO-INSTALL] Successfully installed and imported '{module_name}'")
+                        return True
+                    else:
+                        logger.warning(f"[AUTO-INSTALL] install_and_import failed for '{module_name}': success={success}, module={module is not None}")
+                except Exception as install_exc:
+                    logger.error(f"[AUTO-INSTALL] install_and_import raised exception: {install_exc}", exc_info=True)
+                    raise
+        except Exception as e:
+            logger.error(f"[AUTO-INSTALL] Exception installing via root package {root_package}: {e}", exc_info=True)
+    
+    # Try all registered packages (for dependencies like 'yaml' when 'xwsystem' is registered)
+    for registered_package in _lazy_packages.keys():
+        if registered_package == root_package:
+            continue  # Already tried
+        
+        try:
+            logger.debug(f"[AUTO-INSTALL] Trying to get installer for {registered_package}")
+            installer = LazyInstallerRegistry.get_instance(registered_package)
+            logger.debug(f"[AUTO-INSTALL] Installer retrieved: {installer is not None}")
+            
+            if installer is None:
+                logger.warning(f"[AUTO-INSTALL] Installer for {registered_package} is None")
+                continue
+                
+            if not installer.is_enabled():
+                logger.warning(f"[AUTO-INSTALL] Installer for {registered_package} is disabled")
+                continue
+                
+            logger.info(f"Auto-installing missing package for module: {module_name} (via {registered_package})")
+            logger.info(f"[AUTO-INSTALL] Calling install_and_import('{module_name}')")
+            try:
+                module, success = installer.install_and_import(module_name)
+                logger.info(f"[AUTO-INSTALL] install_and_import returned: module={module is not None}, success={success}")
+            except Exception as install_exc:
+                logger.error(f"[AUTO-INSTALL] install_and_import raised exception: {install_exc}", exc_info=True)
+                raise
+            
+            if success and module:
+                _installed_cache.add(module_name)
+                logger.info(f"[AUTO-INSTALL] Successfully installed and imported '{module_name}'")
+                return True
+            else:
+                logger.warning(f"[AUTO-INSTALL] install_and_import failed for '{module_name}': success={success}, module={module is not None}")
+        except Exception as e:
+            logger.error(f"[AUTO-INSTALL] Exception installing via {registered_package}: {e}", exc_info=True)
+            continue
+    
+    logger.warning(f"[AUTO-INSTALL] Failed to install package for module '{module_name}' via all registered packages")
+    return False
+
+def _intercepting_import(name: str, globals=None, locals=None, fromlist=(), level=0):
+    """
+    Intercept ALL imports including module-level ones.
+    
+    This is the global builtins.__import__ replacement that catches
+    ALL imports, including those at module level during package initialization.
+    
+    CRITICAL: Skip relative imports (level > 0) - they must use normal import path.
+    Relative imports are package/module agnostic and should not be intercepted.
+    
+    CRITICAL: When fromlist is non-empty (e.g., "from module import Class"),
+    Python's import machinery needs direct access to module attributes via getattr().
+    We MUST return the actual module object without any wrapping.
+    """
+    # CRITICAL FIX: Handle relative imports (level > 0)
+    # Relative imports like "from .common import" have level=1
+    # We must use normal import BUT still enhance the module after import (package/module agnostic)
+    if level > 0:
+        result = _original_builtins_import(name, globals, locals, fromlist, level)
+        # CRITICAL: Enhance modules imported via relative imports (package/module agnostic)
+        # This ensures instance methods work on classes for ANY package/module structure
+        if result and isinstance(result, ModuleType) and fromlist:
+            try:
+                for pkg_name in _lazy_packages.keys():
+                    if name.startswith(pkg_name) or name.startswith(f"exonware.{pkg_name}"):
+                        finder = _installed_hooks.get(pkg_name)
+                        if finder:
+                            finder._enhance_classes_with_class_methods(result)
+                            break
+            except Exception:
+                pass
+        return result
+    
+    # CRITICAL FIX: Handle fromlist imports specially
+    # When fromlist is present (e.g., "from module import Class"),
+    # Python needs direct access to module attributes via getattr(module, 'Class')
+    # We MUST return the actual module without any wrapping or modification
+    if fromlist:
+        # Import partial module detector (lazy import to avoid circular dependency)
+        try:
+            from .partial_module_detector import (
+                is_partially_initialized as _default_is_partially_initialized,
+                mark_module_importing,
+                unmark_module_importing,
+                DetectionStrategy,
+                PartialModuleDetector
+            )
+            # Allow strategy override via environment variable for testing
+            strategy_name = os.environ.get('XWLAZY_PARTIAL_DETECTION_STRATEGY', 'hybrid')
+            try:
+                strategy = DetectionStrategy(strategy_name)
+                detector = PartialModuleDetector(strategy)
+                is_partially_initialized = lambda n, m: detector.is_partially_initialized(n, m)
+            except (ValueError, AttributeError):
+                # Use default detector (HYBRID strategy)
+                is_partially_initialized = _default_is_partially_initialized
+        except ImportError:
+            # Fallback if detector not available
+            def is_partially_initialized(name, mod):
+                return False
+            def mark_module_importing(name):
+                pass
+            def unmark_module_importing(name):
+                pass
+        
+        # Mark this module as being imported (for tracking)
+        mark_module_importing(name)
+        
+        try:
+            # Fast path: already imported and in sys.modules
+            # CRITICAL: For fromlist imports, we must be VERY conservative
+            # Only return early if we're CERTAIN the module is fully initialized
+            # and NOT currently being imported
+            if name in sys.modules:
+                module = sys.modules[name]
+                # Ensure module is fully loaded (not a placeholder or lazy wrapper)
+                # Check if it's a real ModuleType (not a proxy/wrapper)
+                if isinstance(module, ModuleType):
+                    # CRITICAL: Check if module is partially initialized
+                    # We must NOT return a partially initialized module
+                    # For fromlist imports, be extra conservative - only return if
+                    # module is definitely fully loaded AND not currently importing
+                    if not is_partially_initialized(name, module):
+                        # Additional check: verify module has meaningful content
+                        # (not just metadata attributes)
+                        module_dict = getattr(module, '__dict__', {})
+                        metadata_attrs = {'__name__', '__loader__', '__spec__', '__package__', '__file__', '__path__', '__cached__'}
+                        content_attrs = set(module_dict.keys()) - metadata_attrs
+                        
+                        # Only return if module has actual content (classes, functions, etc.)
+                        # OR if it's a namespace package (has __path__)
+                        has_content = len(content_attrs) > 0
+                        is_namespace = hasattr(module, '__path__')
+                        
+                        if has_content or is_namespace:
+                            # Check if it's a placeholder by looking for common placeholder patterns
+                            is_placeholder = (
+                                hasattr(module, '__getattr__') and 
+                                not hasattr(module, '__file__') and
+                                not hasattr(module, '__path__')  # Namespace packages don't have __file__
+                            )
+                            if not is_placeholder:
+                                # Module is fully loaded with content, return it directly
+                                # CRITICAL FIX: Enhance classes before returning
+                                try:
+                                    # Find which package this module belongs to
+                                    for pkg_name in _lazy_packages.keys():
+                                        # Check if module name starts with package name or "exonware." + package name
+                                        if name.startswith(pkg_name) or name.startswith(f"exonware.{pkg_name}"):
+                                            finder = _installed_hooks.get(pkg_name)
+                                            if finder:
+                                                finder._enhance_classes_with_class_methods(module)
+                                                break
+                                except Exception:
+                                    pass
+                                unmark_module_importing(name)
+                                return module
+                    # Module is partially initialized or has no content - fall through to normal import
+            # If it's a placeholder, partially initialized, or has no content, fall through to normal import
+        finally:
+            # Always unmark when done (even if exception occurs)
+            unmark_module_importing(name)
+        
+        # For fromlist imports, use normal import path to ensure classes/functions
+        # are accessible via getattr() - Python's import machinery handles extraction
+        try:
+            # Mark as importing before calling original import
+            try:
+                from .partial_module_detector import mark_module_importing, unmark_module_importing
+                mark_module_importing(name)
+            except ImportError:
+                pass
+            
+            try:
+                result = _original_builtins_import(name, globals, locals, fromlist, level)
+                # Cache success but return actual module (no wrapping)
+                _installed_cache.add(name)
+                # CRITICAL FIX: Enhance classes in the module for class-level method access
+                # This makes instance methods callable on classes (e.g., BsonSerializer.encode(data))
+                if result and isinstance(result, ModuleType):
+                    try:
+                        # Find which package this module belongs to
+                        for pkg_name in _lazy_packages.keys():
+                            # Check if module name starts with package name or "exonware." + package name
+                            if name.startswith(pkg_name) or name.startswith(f"exonware.{pkg_name}"):
+                                finder = _installed_hooks.get(pkg_name)
+                                if finder:
+                                    finder._enhance_classes_with_class_methods(result)
+                                    break
+                    except Exception as e:
+                        # Enhancement failed - don't break the import, but log for debugging
+                        logger.debug(f"Enhancement failed for {name}: {e}", exc_info=True)
+                        pass
+                return result
+            finally:
+                # Always unmark when done
+                try:
+                    from .partial_module_detector import unmark_module_importing
+                    unmark_module_importing(name)
+                except ImportError:
+                    pass
+        except ImportError as e:
+            # Only try auto-install if needed
+            if _should_auto_install(name):
+                try:
+                    if _try_install_package(name):
+                        # Retry import after installation - return actual module
+                        result = _original_builtins_import(name, globals, locals, fromlist, level)
+                        _installed_cache.add(name)
+                        # CRITICAL FIX: Enhance classes in the module for class-level method access
+                        if result and isinstance(result, ModuleType):
+                            try:
+                                # Find which package this module belongs to
+                                for pkg_name in _lazy_packages.keys():
+                                    # Check if module name starts with package name or "exonware." + package name
+                                    if name.startswith(pkg_name) or name.startswith(f"exonware.{pkg_name}"):
+                                        finder = _installed_hooks.get(pkg_name)
+                                        if finder:
+                                            finder._enhance_classes_with_class_methods(result)
+                                            break
+                            except Exception:
+                                pass
+                        return result
+                except Exception:
+                    # If installation fails, don't crash - just raise the original ImportError
+                    pass
+            
+            # Installation failed or not applicable - cache failure (but limit cache size)
+            if len(_failed_cache) < 1000:  # Prevent unbounded growth
+                _failed_cache.add(name)
+            raise
+    
+    # Fast path: cached as installed (but still enhance for fromlist)
+    if name in _installed_cache:
+        result = _original_builtins_import(name, globals, locals, fromlist, level)
+        # CRITICAL: Enhance even cached modules for fromlist imports (package/module agnostic)
+        if fromlist and result and isinstance(result, ModuleType):
+            try:
+                for pkg_name in _lazy_packages.keys():
+                    if name.startswith(pkg_name) or name.startswith(f"exonware.{pkg_name}"):
+                        finder = _installed_hooks.get(pkg_name)
+                        if finder:
+                            finder._enhance_classes_with_class_methods(result)
+                            break
+            except Exception:
+                pass
+        return result
+    
+    # Fast path: already imported (for non-fromlist imports)
+    # CRITICAL: For fromlist imports, enhance even if module is cached
+    if name in sys.modules:
+        result = _original_builtins_import(name, globals, locals, fromlist, level)
+        if fromlist:
+            module = sys.modules.get(name)
+            if module and isinstance(module, ModuleType):
+                try:
+                    for pkg_name in _lazy_packages.keys():
+                        if name.startswith(pkg_name) or name.startswith(f"exonware.{pkg_name}"):
+                            finder = _installed_hooks.get(pkg_name)
+                            if finder:
+                                finder._enhance_classes_with_class_methods(module)
+                                break
+                except Exception:
+                    pass
+        return result
+    
+    # Fast path: known failure
+    if name in _failed_cache:
+        raise ImportError(f"No module named '{name}'")
+    
+    # Fast path: skip stdlib/builtin modules (performance optimization)
+    if name in sys.builtin_module_names:
+        return _original_builtins_import(name, globals, locals, fromlist, level)
+    
+    # Skip private/internal modules (performance optimization)
+    # But allow if it's a submodule of a registered package
+    if name.startswith('_'):
+        # Check if it's a submodule of a registered package
+        root_package = name.split('.')[0]
+        if root_package not in _lazy_packages:
+            return _original_builtins_import(name, globals, locals, fromlist, level)
+    
+    # Skip test-related modules to avoid interfering with pytest
+    if name.startswith(('pytest', '_pytest', 'pluggy', '_pluggy')):
+        return _original_builtins_import(name, globals, locals, fromlist, level)
+    
+    # Skip debugging/profiling modules
+    if name in ('tracemalloc', 'pdb', 'ipdb', 'debugpy', 'pydevd'):
+        return _original_builtins_import(name, globals, locals, fromlist, level)
+    
+    try:
+        # Try normal import first
+        result = _original_builtins_import(name, globals, locals, fromlist, level)
+        # Success - cache it
+        _installed_cache.add(name)
+        # CRITICAL FIX: Enhance classes for fromlist imports (package/module agnostic)
+        # This ensures instance methods work on classes for ANY package/module structure
+        if result and isinstance(result, ModuleType) and fromlist:
+            try:
+                for pkg_name in _lazy_packages.keys():
+                    if name.startswith(pkg_name) or name.startswith(f"exonware.{pkg_name}"):
+                        finder = _installed_hooks.get(pkg_name)
+                        if finder:
+                            finder._enhance_classes_with_class_methods(result)
+                            break
+            except Exception:
+                pass
+        return result
+    except ImportError as e:
+        # Check if this package should be auto-installed
+        # ROOT CAUSE DEBUG: Log the exact import name and traceback to find where typos originate
+        if any(typo in name for typo in ['contrrib', 'msgpackk', 'msgppack', 'mmsgpack']):
+            import traceback
+            logger.warning(
+                f"[ROOT CAUSE] Typo detected in module name '{name}'. "
+                f"ImportError: {e}. "
+                f"Traceback:\n{''.join(traceback.format_stack()[-5:-1])}"
+            )
+        logger.debug(f"[AUTO-INSTALL] ImportError for '{name}': {e}")
+        should_install = _should_auto_install(name)
+        logger.debug(f"[AUTO-INSTALL] Should auto-install '{name}': {should_install}")
+        
+        if should_install:
+            try:
+                logger.info(f"[AUTO-INSTALL] Attempting to install package for '{name}'")
+                if _try_install_package(name):
+                    logger.info(f"[AUTO-INSTALL] Successfully installed package for '{name}', retrying import")
+                    # Retry import after installation
+                    try:
+                        result = _original_builtins_import(name, globals, locals, fromlist, level)
+                        _installed_cache.add(name)
+                        logger.info(f"[AUTO-INSTALL] Successfully imported '{name}' after installation")
+                        return result
+                    except ImportError as retry_error:
+                        logger.warning(f"[AUTO-INSTALL] Import still failed for '{name}' after installation: {retry_error}")
+                        pass
+                else:
+                    logger.warning(f"[AUTO-INSTALL] Installation attempt returned False for '{name}'")
+            except Exception as install_error:
+                # If installation fails, log it but don't crash - just raise the original ImportError
+                logger.error(f"[AUTO-INSTALL] Installation failed for '{name}': {install_error}", exc_info=True)
+                pass
+        else:
+            logger.debug(f"[AUTO-INSTALL] Not auto-installing '{name}' (not eligible)")
+        
+        # Installation failed or not applicable - cache failure (but limit cache size)
+        if len(_failed_cache) < 1000:  # Prevent unbounded growth
+            _failed_cache.add(name)
+        raise
+    except Exception:
+        # For any other exception, don't interfere - let it propagate
+        # This prevents the hook from breaking system functionality
+        raise
+
+def install_global_import_hook() -> None:
+    """
+    Install global builtins.__import__ hook for auto-install.
+    
+    This hook intercepts ALL imports including module-level ones,
+    enabling auto-installation for registered packages.
+    """
+    global _original_builtins_import, _global_import_hook_installed
+    
+    with _global_import_hook_lock:
+        if _global_import_hook_installed:
+            logger.debug("Global import hook already installed")
+            return
+        
+        if _original_builtins_import is None:
+            _original_builtins_import = builtins.__import__
+        
+        builtins.__import__ = _intercepting_import
+        _global_import_hook_installed = True
+        logger.info("✅ Global builtins.__import__ hook installed for auto-install")
+
+def uninstall_global_import_hook() -> None:
+    """
+    Uninstall global builtins.__import__ hook.
+    
+    Restores original builtins.__import__.
+    """
+    global _original_builtins_import, _global_import_hook_installed
+    
+    with _global_import_hook_lock:
+        if not _global_import_hook_installed:
+            return
+        
+        if _original_builtins_import is not None:
+            builtins.__import__ = _original_builtins_import
+            _original_builtins_import = None
+        
+        _global_import_hook_installed = False
+        logger.info("Global builtins.__import__ hook uninstalled")
+
+def is_global_import_hook_installed() -> bool:
+    """Check if global import hook is installed."""
+    return _global_import_hook_installed
+
+def clear_global_import_caches() -> None:
+    """
+    Clear global import hook caches (useful for testing).
+    
+    Clears both installed and failed caches.
+    """
+    global _installed_cache, _failed_cache
+    with _global_import_hook_lock:
+        _installed_cache.clear()
+        _failed_cache.clear()
+        logger.debug("Cleared global import hook caches")
+
+def get_global_import_cache_stats() -> dict[str, Any]:
+    """
+    Get statistics about global import hook caches.
+    
+    Returns:
+        Dict with cache sizes and hit/miss information
+    """
+    with _global_import_hook_lock:
+        return {
+            'installed_cache_size': len(_installed_cache),
+            'failed_cache_size': len(_failed_cache),
+            'registered_packages': list(_lazy_packages.keys()),
+            'hook_installed': _global_import_hook_installed,
+        }
+
+# =============================================================================
 # PREFIX TRIE (from prefix_trie.py)
 # =============================================================================
 
@@ -147,7 +708,7 @@ class _PrefixTrie:
     __slots__ = ("_root",)
 
     def __init__(self) -> None:
-        self._root: Dict[str, Dict[str, Any]] = {}
+        self._root: dict[str, dict[str, Any]] = {}
 
     def add(self, prefix: str) -> None:
         """Add a prefix to the trie."""
@@ -156,10 +717,10 @@ class _PrefixTrie:
             node = node.setdefault(char, {})
         node["_end"] = prefix
 
-    def iter_matches(self, value: str) -> Tuple[str, ...]:
+    def iter_matches(self, value: str) -> tuple[str, ...]:
         """Find all matching prefixes for a given value."""
         node = self._root
-        matches: List[str] = []
+        matches: list[str] = []
         for char in value:
             end_value = node.get("_end")
             if end_value:
@@ -192,15 +753,15 @@ class WatchedPrefixRegistry:
         "_root_snapshot_dirty",
     )
 
-    def __init__(self, initial: Optional[List[str]] = None) -> None:
+    def __init__(self, initial: Optional[list[str]] = None) -> None:
         self._lock = threading.RLock()
         self._prefix_refcounts: Counter[str] = Counter()
-        self._owner_map: Dict[str, Set[str]] = {}
-        self._prefixes: Set[str] = set()
+        self._owner_map: dict[str, set[str]] = {}
+        self._prefixes: set[str] = set()
         self._trie = _PrefixTrie()
         self._dirty = False
         self._root_refcounts: Counter[str] = Counter()
-        self._root_snapshot: Set[str] = set()
+        self._root_snapshot: set[str] = set()
         self._root_snapshot_dirty = False
         if initial:
             for prefix in initial:
@@ -287,7 +848,7 @@ class WatchedPrefixRegistry:
                 return True
             return normalized in self._owner_map.get(owner_key, set())
 
-    def get_matching_prefixes(self, module_name: str) -> Tuple[str, ...]:
+    def get_matching_prefixes(self, module_name: str) -> tuple[str, ...]:
         with self._lock:
             if not self._prefixes:
                 return ()
@@ -367,12 +928,12 @@ class ParallelLoader:
                 )
             return self._executor
     
-    def load_modules_parallel(self, module_paths: List[str]) -> Dict[str, Any]:
+    def load_modules_parallel(self, module_paths: list[str]) -> dict[str, Any]:
         """Load multiple modules in parallel."""
         executor = self._get_executor()
-        results: Dict[str, Any] = {}
+        results: dict[str, Any] = {}
         
-        def _load_module(module_path: str) -> Tuple[str, Any, Optional[Exception]]:
+        def _load_module(module_path: str) -> tuple[str, Any, Optional[Exception]]:
             try:
                 module = importlib.import_module(module_path)
                 return (module_path, module, None)
@@ -390,8 +951,8 @@ class ParallelLoader:
     
     def load_modules_with_priority(
         self,
-        module_paths: List[Tuple[str, int]]
-    ) -> Dict[str, Any]:
+        module_paths: list[tuple[str, int]]
+    ) -> dict[str, Any]:
         """Load modules in parallel with priority ordering."""
         sorted_modules = sorted(module_paths, key=lambda x: x[1], reverse=True)
         module_list = [path for path, _ in sorted_modules]
@@ -408,11 +969,11 @@ class DependencyGraph:
     """Manages module dependencies for optimal parallel loading."""
     
     def __init__(self):
-        self._dependencies: Dict[str, List[str]] = {}
-        self._reverse_deps: Dict[str, List[str]] = {}
+        self._dependencies: dict[str, list[str]] = {}
+        self._reverse_deps: dict[str, list[str]] = {}
         self._lock = threading.RLock()
     
-    def add_dependency(self, module: str, depends_on: List[str]) -> None:
+    def add_dependency(self, module: str, depends_on: list[str]) -> None:
         """Add dependencies for a module."""
         with self._lock:
             self._dependencies[module] = depends_on
@@ -422,17 +983,17 @@ class DependencyGraph:
                 if module not in self._reverse_deps[dep]:
                     self._reverse_deps[dep].append(module)
     
-    def get_load_order(self, modules: List[str]) -> List[List[str]]:
+    def get_load_order(self, modules: list[str]) -> list[list[str]]:
         """Get optimal load order for parallel loading (topological sort levels)."""
         with self._lock:
-            in_degree: Dict[str, int] = {m: 0 for m in modules}
+            in_degree: dict[str, int] = {m: 0 for m in modules}
             for module, deps in self._dependencies.items():
                 if module in modules:
                     for dep in deps:
                         if dep in modules:
                             in_degree[module] += 1
             
-            levels: List[List[str]] = []
+            levels: list[list[str]] = []
             remaining = set(modules)
             
             while remaining:
@@ -472,9 +1033,23 @@ def _lazy_aware_import_module(name: str, package: Optional[str] = None) -> Modul
         _mark_import_finished(name)
 
 def _patch_import_module() -> None:
-    """Patch importlib.import_module to be lazy-aware."""
-    importlib.import_module = _lazy_aware_import_module
-    logger.debug("Patched importlib.import_module to be lazy-aware")
+    """
+    Patch importlib.import_module to be lazy-aware.
+    
+    WARNING: This performs global monkey-patching that affects ALL code in the Python process.
+    This can cause conflicts with other libraries. Use sys.meta_path hooks instead.
+    
+    This function is kept for backward compatibility but should be avoided in new code.
+    """
+    # DISABLED: Dangerous monkey-patching disabled by default
+    logger.warning(
+        "_patch_import_module called - Dangerous monkey-patching is DISABLED. "
+        "Use sys.meta_path hooks (install_import_hook) instead."
+    )
+    return
+    # Original code (disabled):
+    # importlib.import_module = _lazy_aware_import_module
+    # logger.debug("Patched importlib.import_module to be lazy-aware")
 
 def _unpatch_import_module() -> None:
     """Restore original importlib.import_module."""
@@ -533,7 +1108,7 @@ def bootstrap_lazy_mode(package_name: str) -> None:
     enabled = env_enabled
 
     if enabled is None:
-        from ...common.services import _detect_lazy_installation
+        from ..common.services.keyword_detection import _detect_lazy_installation
         enabled = _detect_lazy_installation(package_name)
 
     if not enabled:
@@ -548,35 +1123,28 @@ def bootstrap_lazy_mode(package_name: str) -> None:
     )
 
 def bootstrap_lazy_mode_deferred(package_name: str) -> None:
-    """Schedule lazy mode bootstrap to run AFTER the calling package finishes importing."""
-    package_name_lower = package_name.lower()
-    package_module_name = f"exonware.{package_name_lower}"
+    """
+    Schedule lazy mode bootstrap to run AFTER the calling package finishes importing.
     
-    original_import = __builtins__.__import__ if hasattr(__builtins__, '__import__') else __import__
+    WARNING: This function performs dangerous global monkey-patching of __builtins__.__import__.
+    This can cause conflicts with other libraries (gevent, greenlet, debuggers, etc.).
+    Consider using sys.meta_path hooks instead (install_import_hook) which is safer.
     
-    def _import_hook(name, *args, **kwargs):
-        result = original_import(name, *args, **kwargs)
-        
-        if name == package_module_name or name.startswith(f"{package_module_name}."):
-            if package_module_name in sys.modules:
-                import threading
-                def _install_hook():
-                    if hasattr(__builtins__, '__import__'):
-                        __builtins__.__import__ = original_import
-                    else:
-                        import builtins
-                        builtins.__import__ = original_import
-                    bootstrap_lazy_mode(package_name_lower)
-                
-                threading.Timer(0.0, _install_hook).start()
-        
-        return result
+    This function is kept for backward compatibility but should be avoided in new code.
+    """
+    # DISABLED: Dangerous monkey-patching disabled by default
+    # Uncomment only if absolutely necessary and you understand the risks
+    logger.warning(
+        f"bootstrap_lazy_mode_deferred called for {package_name} - "
+        "Dangerous monkey-patching is DISABLED. Use install_import_hook() instead."
+    )
+    return
     
-    if hasattr(__builtins__, '__import__'):
-        __builtins__.__import__ = _import_hook
-    else:
-        import builtins
-        builtins.__import__ = _import_hook
+    # Original code (disabled):
+    # package_name_lower = package_name.lower()
+    # package_module_name = f"exonware.{package_name_lower}"
+    # original_import = __builtins__.__import__ if hasattr(__builtins__, '__import__') else __import__
+    # ... (rest of dangerous code)
 
 # =============================================================================
 # LAZY LOADER (from loader.py)
@@ -650,9 +1218,9 @@ class LazyModuleRegistry:
     __slots__ = ('_modules', '_load_times', '_lock', '_access_counts')
     
     def __init__(self):
-        self._modules: Dict[str, LazyLoader] = {}
-        self._load_times: Dict[str, float] = {}
-        self._access_counts: Dict[str, int] = {}
+        self._modules: dict[str, LazyLoader] = {}
+        self._load_times: dict[str, float] = {}
+        self._access_counts: dict[str, int] = {}
         self._lock = threading.RLock()
     
     def register_module(self, name: str, module_path: str) -> None:
@@ -687,7 +1255,7 @@ class LazyModuleRegistry:
                     except Exception as e:
                         logger.warning(f"Failed to preload {name}: {e}")
     
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get loading statistics."""
         with self._lock:
             loaded_count = sum(
@@ -717,8 +1285,14 @@ class LazyModuleRegistry:
 class LazyImporter:
     """
     Lazy importer that defers heavy module imports until first access.
+    
     Supports multiple load modes: NONE, AUTO, PRELOAD, BACKGROUND, CACHED,
     TURBO, ADAPTIVE, HYPERPARALLEL, STREAMING, ULTRA, INTELLIGENT.
+    
+    ARCHITECTURAL NOTE: This class implements many modes for what should be a simple
+    lazy loading mechanism. Modes like TURBO, ULTRA, and HYPERPARALLEL add significant
+    complexity and may introduce concurrency issues with Python's import lock.
+    Consider simplifying to just Lazy/Eager modes in future refactoring.
     """
     
     __slots__ = (
@@ -733,11 +1307,11 @@ class LazyImporter:
         """Initialize lazy importer."""
         self._enabled = False
         self._load_mode = LazyLoadMode.NONE
-        self._lazy_modules: Dict[str, str] = {}
-        self._loaded_modules: Dict[str, ModuleType] = {}
-        self._access_counts: Dict[str, int] = {}
-        self._load_times: Dict[str, float] = {}
-        self._background_tasks: Dict[str, asyncio.Task] = {}
+        self._lazy_modules: dict[str, str] = {}
+        self._loaded_modules: dict[str, ModuleType] = {}
+        self._access_counts: dict[str, int] = {}
+        self._load_times: dict[str, float] = {}
+        self._background_tasks: dict[str, asyncio.Task] = {}
         self._async_loop: Optional[asyncio.AbstractEventLoop] = None
         
         # Superior mode components
@@ -1264,7 +1838,7 @@ class LazyImporter:
                 logger.error(f"Failed to preload {module_name}: {e}")
                 return False
     
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get lazy import statistics."""
         with self._lock:
             return {
@@ -1321,7 +1895,7 @@ class LazyImportHook(AModuleHelper):
 # =============================================================================
 
 # Wrapped class cache
-_WRAPPED_CLASS_CACHE: Dict[str, Set[str]] = defaultdict(set)
+_WRAPPED_CLASS_CACHE: dict[str, set[str]] = defaultdict(set)
 _wrapped_cache_lock = threading.RLock()
 
 # Default lazy methods
@@ -1333,15 +1907,15 @@ _DEFAULT_LAZY_METHODS = tuple(
 )
 
 # Lazy prefix method registry
-_lazy_prefix_method_registry: Dict[str, Tuple[str, ...]] = {}
+_lazy_prefix_method_registry: dict[str, tuple[str, ...]] = {}
 
 # Package class hints
-_package_class_hints: Dict[str, Tuple[str, ...]] = {}
+_package_class_hints: dict[str, tuple[str, ...]] = {}
 _class_hint_lock = threading.RLock()
 
 def _set_package_class_hints(package_name: str, hints: Iterable[str]) -> None:
     """Set class hints for a package."""
-    normalized: Tuple[str, ...] = tuple(
+    normalized: tuple[str, ...] = tuple(
         OrderedDict((hint.lower(), None) for hint in hints if hint).keys()  # type: ignore[arg-type]
     )
     with _class_hint_lock:
@@ -1350,7 +1924,7 @@ def _set_package_class_hints(package_name: str, hints: Iterable[str]) -> None:
         else:
             _package_class_hints.pop(package_name, None)
 
-def _get_package_class_hints(package_name: str) -> Tuple[str, ...]:
+def _get_package_class_hints(package_name: str) -> tuple[str, ...]:
     """Get class hints for a package."""
     with _class_hint_lock:
         return _package_class_hints.get(package_name, ())
@@ -1360,7 +1934,7 @@ def _clear_all_package_class_hints() -> None:
     with _class_hint_lock:
         _package_class_hints.clear()
 
-def register_lazy_module_methods(prefix: str, methods: Tuple[str, ...]) -> None:
+def register_lazy_module_methods(prefix: str, methods: tuple[str, ...]) -> None:
     """Register method names to enhance for all classes under a module prefix."""
     prefix = prefix.strip()
     if not prefix:
@@ -1472,39 +2046,45 @@ class LazyMetaPathFinder:
         
         PERFORMANCE: Optimized for zero overhead on successful imports.
         """
-        # Debug logging for msgpack to trace why it's not being intercepted
-        if fullname == 'msgpack':
-            logger.info(f"[HOOK] find_spec called for msgpack, enabled={self._enabled}, in_sys_modules={fullname in sys.modules}, installing={getattr(_installing_state, 'active', False)}, importing={getattr(_importing_state, 'active', False)}")
-        
         # CRITICAL: Check installing state FIRST to prevent recursion during installation
         if getattr(_installing_state, 'active', False):
-            if fullname == 'msgpack':
-                logger.info(f"[HOOK] Installation in progress, skipping msgpack")
             logger.debug(f"[HOOK] Installation in progress, skipping {fullname} to prevent recursion")
+            return None
+        
+        # CRITICAL: Check if we're checking installation status to prevent infinite recursion
+        if _is_checking_installation():
+            logger.debug(f"[HOOK] Checking installation status, bypassing lazy finder for {fullname} to prevent recursion")
             return None
         
         # Fast path 1: Hook disabled
         if not self._enabled:
-            if fullname == 'msgpack':
-                logger.info(f"[HOOK] Hook disabled, skipping msgpack")
             return None
         
-        # Fast path 2: Module already loaded or partially initialized
+        # Fast path 2: Module already loaded - wrap it if needed
         if fullname in sys.modules:
-            if fullname == 'msgpack':
-                logger.info(f"[HOOK] msgpack already in sys.modules, skipping")
+            module = sys.modules[fullname]
+            # Wrap classes in already-loaded modules to ensure auto-instantiation works
+            if isinstance(module, ModuleType) and not getattr(module, '_xwlazy_wrapped', False):
+                try:
+                    self._wrap_classes_for_auto_instantiation(module)
+                    module._xwlazy_wrapped = True  # Mark as wrapped to avoid re-wrapping
+                except Exception:
+                    pass
             return None
         
         # Fast path 3: Skip C extension modules and internal modules
-        if fullname.startswith('_'):
+        # Also skip submodules that start with underscore (e.g., yaml._yaml)
+        if fullname.startswith('_') or ('.' in fullname and fullname.split('.')[-1].startswith('_')):
             logger.debug(f"[HOOK] Skipping C extension/internal module {fullname}")
             return None
         
         # Fast path 4: Check if parent package is partially initialized
+        # CRITICAL: Skip ALL submodules of packages that are in sys.modules
+        # This prevents circular import issues when a package imports its own submodules
         if '.' in fullname:
             parent_package = fullname.split('.', 1)[0]
             if parent_package in sys.modules:
-                logger.debug(f"[HOOK] Skipping {fullname} - parent {parent_package} is partially initialized")
+                logger.debug(f"[HOOK] Skipping {fullname} - parent {parent_package} is in sys.modules (prevent circular import)")
                 return None
             if _is_import_in_progress(parent_package):
                 logger.debug(f"[HOOK] Skipping {fullname} - parent {parent_package} import in progress")
@@ -1528,7 +2108,22 @@ class LazyMetaPathFinder:
         try:
             installer = LazyInstallerRegistry.get_instance(self._package_name)
             package_name = installer._dependency_mapper.get_package_name(root_name)
-            if package_name and installer.is_package_installed(package_name):
+            
+            # ROOT CAUSE FIX: If this is the package we are managing, DO NOT skip interception!
+            # We need to wrap it even if it is installed, so we can intercept its imports.
+            should_skip = False
+            if package_name == self._package_name or root_name == self._package_name:
+                should_skip = False
+            elif package_name:
+                # Set flag to prevent recursion during installation check
+                _set_checking_installation(True)
+                try:
+                    if installer.is_package_installed(package_name):
+                        should_skip = True
+                finally:
+                    _set_checking_installation(False)
+            
+            if should_skip:
                 logger.debug(f"[HOOK] Package {package_name} is installed (cache check), skipping interception of {fullname}")
                 return None
         except Exception:
@@ -1550,24 +2145,23 @@ class LazyMetaPathFinder:
                 return None
         
         # Fast path 6: Import in progress
+        # NOTE: We allow lazy install to proceed even if import is in progress,
+        # because we need to install missing packages during import
         if _is_import_in_progress(fullname):
-            if fullname == 'msgpack':
-                logger.info(f"[HOOK] msgpack import in progress, skipping")
-            return None
+            # Only skip if lazy install is disabled (for watched modules, we still need to wrap)
+            if not lazy_install_enabled and not _watched_registry.has_root(root_name):
+                return None
         
+        # Only skip global importing state if lazy install is disabled
+        # (lazy install needs to run even during imports to install missing packages)
         if getattr(_importing_state, 'active', False):
-            if fullname == 'msgpack':
-                logger.info(f"[HOOK] Global importing active, skipping msgpack")
-            return None
+            if not lazy_install_enabled and not _watched_registry.has_root(root_name):
+                return None
         
         # Install mode check already done above
-        matching_prefixes: Tuple[str, ...] = ()
+        matching_prefixes: tuple[str, ...] = ()
         if _watched_registry.has_root(root_name):
             matching_prefixes = _watched_registry.get_matching_prefixes(fullname)
-        
-        # Debug: Check if msgpack reaches this point
-        if fullname == 'msgpack':
-            logger.debug(f"[HOOK] msgpack: matching_prefixes={matching_prefixes}, has_root={_watched_registry.has_root(root_name)}")
         
         installer = LazyInstallerRegistry.get_instance(self._package_name)
         
@@ -1608,6 +2202,8 @@ class LazyMetaPathFinder:
                                         if module:
                                             try:
                                                 self._enhance_classes_with_class_methods(module)
+                                                # Enable auto-instantiation for classes in this module
+                                                self._wrap_classes_for_auto_instantiation(module)
                                             except Exception as enhance_exc:
                                                 logger.debug(f"[HOOK] Could not enhance classes in {fullname}: {enhance_exc}")
                                             spec = _spec_for_existing_module(fullname, module, spec)
@@ -1649,9 +2245,15 @@ class LazyMetaPathFinder:
                 try:
                     installer = LazyInstallerRegistry.get_instance(self._package_name)
                     package_name = installer._dependency_mapper.get_package_name(parent_package)
-                    if package_name and not installer.is_package_installed(package_name):
-                        logger.debug(f"[HOOK] Parent package {parent_package} not installed, intercepting parent")
-                        return self.find_spec(parent_package, path, target)
+                    if package_name:
+                        # Set flag to prevent recursion during installation check
+                        _set_checking_installation(True)
+                        try:
+                            if not installer.is_package_installed(package_name):
+                                logger.debug(f"[HOOK] Parent package {parent_package} not installed, intercepting parent")
+                                return self.find_spec(parent_package, path, target)
+                        finally:
+                            _set_checking_installation(False)
                 except Exception:
                     pass
             return None
@@ -1663,8 +2265,62 @@ class LazyMetaPathFinder:
         # ROOT CAUSE FIX: For lazy installation, intercept missing imports and install them
         logger.debug(f"[HOOK] Checking lazy install for {fullname}: enabled={lazy_install_enabled}, install_mode={install_mode}")
         if lazy_install_enabled:
+            # Prevent infinite loops: Skip if already attempting import
             if _is_import_in_progress(fullname):
+                logger.debug(f"[HOOK] Import {fullname} already in progress, skipping to prevent recursion")
                 return None
+            
+            # Prevent infinite loops: Check if we've already tried to install this package
+            installer = LazyInstallerRegistry.get_instance(self._package_name)
+            package_name = installer._dependency_mapper.get_package_name(root_name)
+            
+            # ROOT CAUSE FIX: Check if module is ALREADY importable BEFORE checking package installation
+            # This handles cases where package name != module name (e.g., PyYAML -> yaml)
+            try:
+                # Try direct import first (most reliable check)
+                if fullname in sys.modules:
+                    logger.debug(f"[HOOK] Module {fullname} already in sys.modules, skipping installation")
+                    return None
+                
+                # Temporarily remove finders to check actual importability
+                xwlazy_finder_names = {'LazyMetaPathFinder', 'LazyPathFinder', 'LazyLoader'}
+                xwlazy_finders = [f for f in sys.meta_path if type(f).__name__ in xwlazy_finder_names]
+                for finder in xwlazy_finders:
+                    try:
+                        sys.meta_path.remove(finder)
+                    except ValueError:
+                        pass
+                
+                try:
+                    # Check spec without importing (avoids triggering module code execution)
+                    # This prevents circular import issues when checking importability
+                    spec = importlib.util.find_spec(fullname)
+                    if spec is not None and spec.loader is not None:
+                        logger.debug(f"[HOOK] Module {fullname} has valid spec, skipping installation")
+                        return None
+                finally:
+                    # Restore finders
+                    for finder in reversed(xwlazy_finders):
+                        if finder not in sys.meta_path:
+                            sys.meta_path.insert(0, finder)
+            except Exception as e:
+                logger.debug(f"[HOOK] Importability check failed for {fullname}: {e}")
+                # If check fails, proceed with installation attempt
+            
+            if package_name:
+                if package_name in installer.get_failed_packages():
+                    logger.debug(f"[HOOK] Package {package_name} previously failed installation, skipping {fullname}")
+                    return None
+                
+                # Also check package installation status (for cache efficiency)
+                # Set flag to prevent recursion during installation check
+                _set_checking_installation(True)
+                try:
+                    if installer.is_package_installed(package_name):
+                        logger.debug(f"[HOOK] Package {package_name} is already installed, skipping installation attempt for {fullname}")
+                        return None
+                finally:
+                    _set_checking_installation(False)
             
             _mark_import_started(fullname)
             try:
@@ -1677,6 +2333,12 @@ class LazyMetaPathFinder:
                         return None
                     from ..facade import lazy_import_with_install
                 
+                # Log installation attempt (DEBUG level to reduce noise)
+                if package_name:
+                    logger.debug(f"⏳ [HOOK] Attempting to install package '{package_name}' for module '{fullname}'")
+                else:
+                    logger.debug(f"⏳ [HOOK] Attempting to install module '{fullname}' (no package mapping found)")
+                
                 _importing_state.active = True
                 try:
                     module, success = lazy_import_with_install(
@@ -1688,6 +2350,7 @@ class LazyMetaPathFinder:
                 
                 if success and module:
                     # Module was successfully installed and imported
+                    logger.debug(f"✅ [HOOK] Successfully installed and imported '{fullname}'")
                     xwlazy_finder_names = {'LazyMetaPathFinder', 'LazyPathFinder', 'LazyLoader'}
                     xwlazy_finders = [f for f in sys.meta_path if type(f).__name__ in xwlazy_finder_names]
                     for finder in xwlazy_finders:
@@ -1710,18 +2373,35 @@ class LazyMetaPathFinder:
                                 sys.meta_path.insert(0, finder)
                     return None
                 else:
-                    logger.debug(f"[HOOK] Failed to install/import {fullname}")
+                    # Only log warning if it's not a known missing package (reduce noise)
+                    if package_name and package_name not in installer.get_failed_packages():
+                        logger.debug(f"❌ [HOOK] Failed to install/import {fullname}")
+                    else:
+                        logger.debug(f"❌ [HOOK] Failed to install/import {fullname} (already marked as failed)")
+                    # Mark as failed to prevent infinite retry loops
+                    if package_name:
+                        installer._failed_packages.add(package_name)
                     try:
                         installer = LazyInstallerRegistry.get_instance(self._package_name)
-                        if installer.is_async_enabled():
+                        # Force disable async install usage in engine
+                        use_async = False # installer.is_async_enabled()
+                        if use_async:
                             placeholder = self._build_async_placeholder(fullname, installer)
                             if placeholder is not None:
                                 return placeholder
                     except Exception:
                         pass
+                    # Return None to let Python handle the ImportError naturally
                     return None
             except Exception as e:
-                logger.debug(f"Lazy import hook failed for {fullname}: {e}")
+                logger.error(f"❌ [HOOK] Lazy import hook failed for {fullname}: {e}", exc_info=True)
+                # Mark as failed to prevent infinite retry loops
+                if package_name:
+                    try:
+                        installer = LazyInstallerRegistry.get_instance(self._package_name)
+                        installer._failed_packages.add(package_name)
+                    except Exception:
+                        pass
                 return None
             finally:
                 _mark_import_finished(fullname)
@@ -1787,6 +2467,11 @@ class LazyMetaPathFinder:
                         logger.debug(f"[STAGE 1] Async install scheduling failed for '{name}': {schedule_exc}")
                     deferred = DeferredImportError(name, e, self._package_name, async_handle=async_handle)
                     deferred_imports[name] = deferred
+                    
+                    # ROOT CAUSE FIX: Register deferred object in sys.modules to prevent infinite import loops
+                    # If we don't do this, subsequent imports of the same missing module will trigger find_spec again
+                    sys.modules[name] = deferred
+                    
                     return deferred
                 finally:
                     _mark_import_finished(name)
@@ -1805,6 +2490,9 @@ class LazyMetaPathFinder:
                     log_event("hook", logger.info, f"✓ [STAGE 1] Module {fullname} loaded with NO deferred imports (all dependencies available)")
                 
                 self._enhance_classes_with_class_methods(module)
+                
+                # Enable auto-instantiation for classes in this module
+                self._wrap_classes_for_auto_instantiation(module)
                 
             finally:
                 logger.debug(f"[STAGE 1] Restoring original __import__")
@@ -1852,7 +2540,7 @@ class LazyMetaPathFinder:
             return
         dep_entries = [(lower, deferred_imports[lower_map[lower]]) for lower in pending_lower]
         wrapped_count = 0
-        newly_wrapped: Set[str] = set()
+        newly_wrapped: set[str] = set()
         
         for name, obj in list(module.__dict__.items()):
             if not pending_lower:
@@ -1890,88 +2578,94 @@ class LazyMetaPathFinder:
         
         log_event("hook", logger.info, f"[STAGE 1] Wrapped {wrapped_count} classes in {module_name}")
     
-    def _enhance_classes_with_class_methods(self, module):
-        """Enhance classes that registered lazy class methods."""
-        if module is None:
-            return
+    def _wrap_classes_for_auto_instantiation(self, module: ModuleType) -> None:
+        """
+        Wrap classes in modules with AutoInstantiateProxy for auto-instantiation.
         
-        methods_to_apply: Tuple[str, ...] = ()
-        for prefix, methods in _lazy_prefix_method_registry.items():
-            if module.__name__.startswith(prefix.rstrip('.')):
-                methods_to_apply = methods
-                break
+        This enables: from module import Class as instance
+        Then: instance.method() works automatically without manual instantiation.
         
-        if not methods_to_apply:
-            methods_to_apply = _DEFAULT_LAZY_METHODS
+        We wrap classes directly in module.__dict__ AND add a __getattr__ fallback
+        to catch any classes that might be accessed before wrapping completes.
         
-        if not methods_to_apply:
-            return
+        We wrap ALL classes in the module's namespace, whether defined in this
+        module or imported from submodules (like BsonSerializer imported in __init__.py).
+        """
+        import inspect
+        import types
         
-        enhanced = 0
+        # Store original __getattr__ if it exists
+        original_getattr = getattr(module, '__getattr__', None)
+        
+        wrapped_count = 0
+        wrapped_classes = {}  # Track wrapped classes for __getattr__
+        
         for name, obj in list(module.__dict__.items()):
-            if not isinstance(obj, type):
-                continue
-            for method_name in methods_to_apply:
-                attr = obj.__dict__.get(method_name)
-                if attr is None:
+            # Wrap classes that are in this module's namespace
+            # This includes classes defined here AND classes imported from submodules
+            if (inspect.isclass(obj) and 
+                not inspect.isbuiltin(obj) and
+                hasattr(obj, '__module__')):
+                # Skip if it's already a proxy
+                if isinstance(obj, AutoInstantiateProxy):
                     continue
-                if getattr(attr, "__lazy_wrapped__", False):
+                # Skip if it's a wrapper class
+                if obj.__name__.startswith('Lazy'):
                     continue
-                if not callable(attr):
+                # Skip if it's a type from typing or other special modules
+                module_name = obj.__module__
+                if module_name in ('typing', 'builtins', '__builtin__'):
                     continue
                 
-                if isinstance(attr, (classmethod, staticmethod)):
-                    continue
-                
-                import inspect
-                try:
-                    sig = inspect.signature(attr)
-                    params = list(sig.parameters.keys())
-                    if params and params[0] == 'self':
-                        logger.debug(
-                            "[LAZY ENHANCE] Wrapping instance method %s.%s.%s for class-level access",
-                            module.__name__,
-                            name,
-                            method_name,
-                        )
-                except Exception:
-                    pass
-                
-                try:
-                    original_func = attr
-                    
-                    def class_method_wrapper(func):
-                        def _class_call(cls, *args, **kwargs):
-                            instance = cls()
-                            return func(instance, *args, **kwargs)
-                        _class_call.__name__ = getattr(func, '__name__', 'lazy_method')
-                        _class_call.__doc__ = func.__doc__
-                        _class_call.__lazy_wrapped__ = True
-                        return _class_call
-                    
-                    setattr(
-                        obj,
-                        method_name,
-                        classmethod(class_method_wrapper(original_func)),
-                    )
-                    enhanced += 1
-                    logger.debug(
-                        "[LAZY ENHANCE] Added class-level %s() to %s.%s",
-                        method_name,
-                        module.__name__,
-                        name,
-                    )
-                except Exception as exc:
-                    logger.debug(
-                        "[LAZY ENHANCE] Skipped %s.%s.%s: %s",
-                        module.__name__,
-                        name,
-                        method_name,
-                        exc,
-                    )
+                logger.debug(f"[AUTO-INST] Wrapping class '{name}' ({module_name}) in {module.__name__} for auto-instantiation")
+                proxy = AutoInstantiateProxy(obj)
+                module.__dict__[name] = proxy
+                wrapped_classes[name] = proxy
+                wrapped_count += 1
         
-        if enhanced:
-            log_event("enhance", logger.info, "✓ [LAZY ENHANCE] Added %s convenience methods in %s", enhanced, module.__name__)
+        # Add __getattr__ fallback to wrap classes on access (for classes added after initial load)
+        if wrapped_count > 0 or True:  # Always add __getattr__ for consistency
+            def auto_instantiate_getattr(name: str):
+                """Module-level __getattr__ that wraps classes for auto-instantiation."""
+                # First try original __getattr__
+                if original_getattr:
+                    try:
+                        attr = original_getattr(name)
+                        # If it's a class, wrap it
+                        if inspect.isclass(attr) and not inspect.isbuiltin(attr):
+                            if not isinstance(attr, AutoInstantiateProxy):
+                                logger.debug(f"[AUTO-INST] Wrapping class '{name}' on access in {module.__name__}")
+                                proxy = AutoInstantiateProxy(attr)
+                                module.__dict__[name] = proxy  # Cache it
+                                return proxy
+                        return attr
+                    except AttributeError:
+                        pass
+                
+                # Get from __dict__ (might be unwrapped)
+                if name in module.__dict__:
+                    attr = module.__dict__[name]
+                    # If it's an unwrapped class, wrap it now
+                    if (inspect.isclass(attr) and 
+                        not inspect.isbuiltin(attr) and
+                        not isinstance(attr, AutoInstantiateProxy) and
+                        hasattr(attr, '__module__')):
+                        module_name = attr.__module__
+                        if module_name not in ('typing', 'builtins', '__builtin__'):
+                            logger.debug(f"[AUTO-INST] Wrapping class '{name}' on access in {module.__name__}")
+                            proxy = AutoInstantiateProxy(attr)
+                            module.__dict__[name] = proxy  # Cache it
+                            return proxy
+                    return attr
+                
+                raise AttributeError(f"module '{module.__name__}' has no attribute '{name}'")
+            
+            # Only set __getattr__ if module doesn't already have a custom one
+            if not hasattr(module, '__getattr__') or isinstance(getattr(module, '__getattr__', None), types.MethodType):
+                module.__getattr__ = auto_instantiate_getattr  # type: ignore[attr-defined]
+        
+        if wrapped_count > 0:
+            logger.debug(f"[AUTO-INST] Wrapped {wrapped_count} classes in {module.__name__} for auto-instantiation")
     
     def _create_lazy_class_wrapper(self, original_class, deferred_import: DeferredImportError):
         """Create a wrapper class that installs dependencies when instantiated."""
@@ -1998,9 +2692,155 @@ class LazyMetaPathFinder:
         LazyClassWrapper.__doc__ = original_class.__doc__
         
         return LazyClassWrapper
+    
+    def _enhance_classes_with_class_methods(self, module):
+        """Enhance classes with lazy class methods - automatically detects ALL instance methods."""
+        if module is None:
+            return
+        # Debug: Check if module has classes
+        module_classes = [name for name, obj in module.__dict__.items() if isinstance(obj, type)]
+        if not module_classes:
+            return  # No classes to enhance
+        
+        # Get methods from registry (if any) for specific prefixes
+        methods_to_apply: tuple[str, ...] = ()
+        for prefix, methods in _lazy_prefix_method_registry.items():
+            if module.__name__.startswith(prefix.rstrip('.')):
+                methods_to_apply = methods
+                break
+        
+        # If no prefix match, use default methods from env var
+        if not methods_to_apply:
+            methods_to_apply = _DEFAULT_LAZY_METHODS
+        
+        # CRITICAL FIX: If no specific methods registered, enhance ALL instance methods
+        # This makes xwlazy handle ALL scenarios (classes, functions, instance methods)
+        auto_detect_all = not methods_to_apply
+        
+        enhanced = 0
+        for name, obj in list(module.__dict__.items()):
+            if not isinstance(obj, type):
+                continue
+            
+            # Get methods to enhance for this class
+            if auto_detect_all:
+                # Auto-detect instance methods defined DIRECTLY in this class (not inherited)
+                # This prevents wrapping wrong methods from parent classes
+                methods_to_wrap = []
+                # Only check methods in this class's __dict__ to avoid inherited methods
+                for attr_name, attr_value in obj.__dict__.items():
+                    if attr_name.startswith('_') and attr_name not in ('__init__', '__new__'):
+                        continue  # Skip private methods except __init__ and __new__
+                    if not callable(attr_value):
+                        continue
+                    if isinstance(attr_value, (classmethod, staticmethod)):
+                        continue
+                    if getattr(attr_value, "__lazy_wrapped__", False):
+                        continue
+                    # Check if it's an instance method (has 'self' as first param)
+                    import inspect
+                    try:
+                        if inspect.isfunction(attr_value):
+                            sig = inspect.signature(attr_value)
+                            params = list(sig.parameters.keys())
+                            if params and params[0] == 'self':
+                                methods_to_wrap.append(attr_name)
+                    except (ValueError, TypeError):
+                        # Can't inspect signature, skip
+                        pass
+            else:
+                # Use specific methods from registry
+                methods_to_wrap = list(methods_to_apply)
+            
+            # Enhance each method
+            for method_name in methods_to_wrap:
+                try:
+                    # CRITICAL FIX: Only get from class __dict__ to ensure we get the RIGHT method
+                    original_func = obj.__dict__.get(method_name)
+                    if original_func is None:
+                        continue  # Method not in class dict
+                    if not inspect.isfunction(original_func):
+                        continue
+                    if getattr(original_func, "__lazy_wrapped__", False):
+                        continue
+                    if isinstance(original_func, (classmethod, staticmethod)):
+                        continue
+                    if original_func.__name__ != method_name:
+                        continue
+                    # Verify it's an instance method
+                    try:
+                        params = list(inspect.signature(original_func).parameters.keys())
+                        if not params or params[0] != 'self':
+                            continue
+                    except Exception:
+                        continue
+                    # Create wrapper with proper closure
+                    class_obj, func_to_call = obj, original_func
+                    import functools
+                    def make_wrapper(fn, cls):
+                        @functools.wraps(fn)
+                        def wrapper(first_arg, *args, **kwargs):
+                            if isinstance(first_arg, cls):
+                                return fn(first_arg, *args, **kwargs)
+                            instance = cls()
+                            return fn(instance, first_arg, *args, **kwargs)
+                        return wrapper
+                    smart_wrapper = make_wrapper(func_to_call, class_obj)
+                    smart_wrapper.__lazy_wrapped__ = True
+                    setattr(obj, method_name, smart_wrapper)
+                    enhanced += 1
+                except Exception as exc:
+                    # Silent skip - one line as requested (package/module agnostic)
+                    pass
+        
+        if enhanced:
+            log_event("enhance", logger.info, "✓ [LAZY ENHANCE] Enhanced %s methods in %s", enhanced, module.__name__)
+
+
+class AutoInstantiateProxy:
+    """
+    Proxy that auto-instantiates a class on first method call.
+    
+    Enables: from module import Class as instance
+    Then: instance.method() automatically creates Class() and calls method
+    
+    This allows users to import classes with 'as' and use them directly
+    without needing to manually instantiate.
+    """
+    
+    def __init__(self, original_class):
+        """Initialize proxy with the class to wrap."""
+        self._class = original_class
+        self._instance = None
+        self._is_instantiated = False
+    
+    def _ensure_instantiated(self):
+        """Ensure the class is instantiated."""
+        if not self._is_instantiated:
+            self._instance = self._class()
+            self._is_instantiated = True
+    
+    def __getattr__(self, name: str):
+        """Get attribute from instance, instantiating if needed."""
+        self._ensure_instantiated()
+        return getattr(self._instance, name)
+    
+    def __call__(self, *args, **kwargs):
+        """Allow calling the proxy directly (creates new instance)."""
+        return self._class(*args, **kwargs)
+    
+    def __repr__(self):
+        if self._is_instantiated:
+            return f"<AutoInstantiateProxy({self._class.__name__}): instantiated>"
+        return f"<AutoInstantiateProxy({self._class.__name__}): will instantiate on first use>"
+    
+    @property
+    def __class__(self):
+        """Return the wrapped class for isinstance checks."""
+        return self._class
 
 # Registry of installed hooks per package
-_installed_hooks: Dict[str, LazyMetaPathFinder] = {}
+_installed_hooks: dict[str, LazyMetaPathFinder] = {}
 _hook_lock = threading.RLock()
 
 def install_import_hook(package_name: str = 'default') -> None:
@@ -2113,5 +2953,12 @@ __all__ = [
     '_get_package_class_hints',
     '_clear_all_package_class_hints',
     '_spec_for_existing_module',
+    # Global __import__ hook (for module-level imports)
+    'register_lazy_package',
+    'install_global_import_hook',
+    'uninstall_global_import_hook',
+    'is_global_import_hook_installed',
+    'clear_global_import_caches',
+    'get_global_import_cache_stats',
 ]
 

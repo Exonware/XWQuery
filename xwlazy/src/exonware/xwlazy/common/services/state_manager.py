@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Optional
 
 def _get_base_config_dir() -> Path:
     """Determine a cross-platform directory for storing lazy configuration."""
@@ -25,12 +25,12 @@ class LazyStateManager:
     def __init__(self, package_name: str) -> None:
         self._package = package_name.lower()
         self._state_path = _get_base_config_dir() / "state.json"
-        self._state: Dict[str, Dict[str, bool]] = self._load_state()
+        self._state: dict[str, dict[str, bool]] = self._load_state()
 
     # --------------------------------------------------------------------- #
     # Persistence helpers
     # --------------------------------------------------------------------- #
-    def _load_state(self) -> Dict[str, Dict[str, bool]]:
+    def _load_state(self) -> dict[str, dict[str, bool]]:
         if not self._state_path.exists():
             return {}
         try:
@@ -47,7 +47,7 @@ class LazyStateManager:
         with self._state_path.open("w", encoding="utf-8") as fh:
             json.dump(self._state, fh, indent=2, sort_keys=True)
 
-    def _ensure_entry(self) -> Dict[str, bool]:
+    def _ensure_entry(self) -> dict[str, bool]:
         return self._state.setdefault(self._package, {})
 
     # --------------------------------------------------------------------- #

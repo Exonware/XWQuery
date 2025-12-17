@@ -14,7 +14,7 @@ Uses shared utilities from common/services/install_cache_utils.
 import sys
 import subprocess
 from pathlib import Path
-from typing import List, Any, Optional
+from typing import Any, Optional
 from ...package.base import AInstallExecutionStrategy
 from ...package.services.install_result import InstallResult, InstallStatus
 from ...common.services.install_cache_utils import (
@@ -39,7 +39,7 @@ class CachedExecution(AInstallExecutionStrategy):
         """
         self._cache_dir = cache_dir
     
-    def execute_install(self, package_name: str, policy_args: List[str]) -> Any:
+    def execute_install(self, package_name: str, policy_args: list[str]) -> Any:
         """
         Execute installation from cached tree.
         

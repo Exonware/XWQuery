@@ -14,7 +14,7 @@ This module provides adaptive learning for ADAPTIVE mode.
 
 import time
 import threading
-from typing import Dict, List, Tuple, Optional
+from typing import Optional
 from collections import defaultdict, deque
 
 # Logger not used in this module, removed to avoid circular dependency
@@ -33,9 +33,9 @@ class AdaptiveLearner:
         self._learning_window = learning_window
         self._prediction_depth = prediction_depth
         self._import_sequences: deque = deque(maxlen=learning_window)
-        self._access_times: Dict[str, List[float]] = defaultdict(list)
-        self._import_chains: Dict[str, Dict[str, int]] = defaultdict(lambda: defaultdict(int))
-        self._module_scores: Dict[str, float] = {}
+        self._access_times: dict[str, list[float]] = defaultdict(list)
+        self._import_chains: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+        self._module_scores: dict[str, float] = {}
         self._lock = threading.RLock()
     
     def record_import(self, module_name: str, import_time: float) -> None:
@@ -82,14 +82,14 @@ class AdaptiveLearner:
             # Combined score
             self._module_scores[module_name] = frequency * 0.4 + recency * 1000 * 0.4 + chain_weight * 0.2
     
-    def predict_next_imports(self, current_module: Optional[str] = None, limit: int = 5) -> List[str]:
+    def predict_next_imports(self, current_module: Optional[str] = None, limit: int = 5) -> list[str]:
         """Predict likely next imports based on patterns."""
         # Lock-free check first
         if not self._import_sequences:
             return []
         
         with self._lock:
-            candidates: Dict[str, float] = {}
+            candidates: dict[str, float] = {}
             
             # Predict based on current module chain (lock-free read of dict)
             if current_module:
@@ -105,7 +105,7 @@ class AdaptiveLearner:
             sorted_candidates = sorted(candidates.items(), key=lambda x: x[1], reverse=True)
             return [module for module, _ in sorted_candidates[:limit]]
     
-    def get_priority_modules(self, limit: int = 10) -> List[str]:
+    def get_priority_modules(self, limit: int = 10) -> list[str]:
         """Get modules that should be preloaded based on scores."""
         with self._lock:
             sorted_modules = sorted(

@@ -13,7 +13,7 @@ This module defines all interfaces, enums, and protocols for the lazy loading
 system following GUIDE_ARCH.md structure.
 """
 
-from typing import Protocol, Dict, List, Optional, Any, Tuple, runtime_checkable
+from typing import Protocol, Optional, Any, runtime_checkable
 from types import ModuleType
 
 # Import enums and dataclasses from defs.py
@@ -119,7 +119,7 @@ class IPackageHelper(Protocol):
         """
         ...
     
-    def install_and_import(self, module_name: str, package_name: Optional[str] = None) -> Tuple[Optional[ModuleType], bool]:
+    def install_and_import(self, module_name: str, package_name: Optional[str] = None) -> tuple[Optional[ModuleType], bool]:
         """
         Install package and import module (from IPackageInstaller).
         
@@ -152,7 +152,7 @@ class IPackageHelper(Protocol):
     # Package Discovery (from IPackageDiscovery)
     # ========================================================================
     
-    def discover_all_dependencies(self) -> Dict[str, str]:
+    def discover_all_dependencies(self) -> dict[str, str]:
         """
         Discover all dependencies from all available sources.
         
@@ -175,7 +175,7 @@ class IPackageHelper(Protocol):
         """
         ...
     
-    def get_imports_for_package(self, package_name: str) -> List[str]:
+    def get_imports_for_package(self, package_name: str) -> list[str]:
         """
         Get all possible import names for a package.
         
@@ -297,7 +297,7 @@ class IPackageHelper(Protocol):
     # Manifest Loading (from IManifestLoader)
     # ========================================================================
     
-    def get_manifest_signature(self, package_name: str) -> Optional[Tuple[str, float, float]]:
+    def get_manifest_signature(self, package_name: str) -> Optional[tuple[str, float, float]]:
         """
         Get manifest file signature (path, mtime, size).
         
@@ -309,7 +309,7 @@ class IPackageHelper(Protocol):
         """
         ...
     
-    def get_shared_dependencies(self, package_name: str, signature: Optional[Tuple[str, float, float]] = None) -> Dict[str, str]:
+    def get_shared_dependencies(self, package_name: str, signature: Optional[tuple[str, float, float]] = None) -> dict[str, str]:
         """
         Get shared dependencies from manifest.
         
@@ -322,7 +322,7 @@ class IPackageHelper(Protocol):
         """
         ...
     
-    def get_watched_prefixes(self, package_name: str) -> Tuple[str, ...]:
+    def get_watched_prefixes(self, package_name: str) -> tuple[str, ...]:
         """
         Get watched prefixes from manifest.
         
@@ -353,7 +353,7 @@ class IPackageHelper(Protocol):
         """
         ...
     
-    def get_import_names(self, package_name: str) -> List[str]:
+    def get_import_names(self, package_name: str) -> list[str]:
         """
         Get all import names for a package (from IDependencyMapper).
         
@@ -476,7 +476,7 @@ class IModuleHelper(Protocol):
         """
         ...
     
-    def load(self, *module_names: str) -> List[ModuleType]:
+    def load(self, *module_names: str) -> list[ModuleType]:
         """
         Load one or more modules into memory.
         
@@ -509,7 +509,7 @@ class IModuleHelper(Protocol):
     # Module Installation (from IModuleInstaller)
     # ========================================================================
     
-    def install_and_import(self, module_name: str, package_name: Optional[str] = None) -> Tuple[Optional[ModuleType], bool]:
+    def install_and_import(self, module_name: str, package_name: Optional[str] = None) -> tuple[Optional[ModuleType], bool]:
         """
         Install package and import module (from IModuleInstaller).
         
@@ -807,7 +807,7 @@ class IModuleHelper(Protocol):
         """
         ...
     
-    def get_matching_prefixes(self, fullname: str) -> Tuple[str, ...]:
+    def get_matching_prefixes(self, fullname: str) -> tuple[str, ...]:
         """
         Get all watched prefixes that match a module name (from IWatchedRegistry).
         
@@ -945,7 +945,7 @@ class IRuntime(Protocol):
         """
         ...
     
-    def predict_next_imports(self, current_module: str, count: int = 3) -> List[str]:
+    def predict_next_imports(self, current_module: str, count: int = 3) -> list[str]:
         """
         Predict next likely imports based on patterns (from IAdaptiveLearner).
         
@@ -995,7 +995,7 @@ class IRuntime(Protocol):
         """
         ...
     
-    def get_optimal_mode(self, load_level: Any) -> Tuple[LazyLoadMode, LazyInstallMode]:
+    def get_optimal_mode(self, load_level: Any) -> tuple[LazyLoadMode, LazyInstallMode]:
         """
         Get optimal mode for a load level (from IIntelligentSelector).
         
@@ -1007,7 +1007,7 @@ class IRuntime(Protocol):
         """
         ...
     
-    def update_mode_map(self, mode_map: Dict[Any, Tuple[LazyLoadMode, LazyInstallMode]]) -> None:
+    def update_mode_map(self, mode_map: dict[Any, tuple[LazyLoadMode, LazyInstallMode]]) -> None:
         """
         Update mode mapping with benchmark results (from IIntelligentSelector).
         
@@ -1031,7 +1031,7 @@ class IRuntime(Protocol):
         """
         ...
     
-    def get_metric_stats(self, name: str) -> Dict[str, Any]:
+    def get_metric_stats(self, name: str) -> dict[str, Any]:
         """
         Get statistics for a metric (from IMetricsCollector).
         
@@ -1043,7 +1043,7 @@ class IRuntime(Protocol):
         """
         ...
     
-    def get_all_stats(self) -> Dict[str, Dict[str, Any]]:
+    def get_all_stats(self) -> dict[str, dict[str, Any]]:
         """
         Get statistics for all metrics (from IMetricsCollector).
         
@@ -1079,7 +1079,7 @@ class IRuntime(Protocol):
         """
         ...
     
-    def get_performance_stats(self) -> Dict[str, Any]:
+    def get_performance_stats(self) -> dict[str, Any]:
         """
         Get performance statistics (from IPerformanceMonitor).
         
@@ -1280,11 +1280,11 @@ class IPackageManagerStrategy(Protocol):
         """Uninstall a package."""
         ...
     
-    def discover_dependencies(self) -> Dict[str, str]:
+    def discover_dependencies(self) -> dict[str, str]:
         """Discover dependencies."""
         ...
     
-    def check_security_policy(self, package_name: str) -> Tuple[bool, str]:
+    def check_security_policy(self, package_name: str) -> tuple[bool, str]:
         """Check security policy."""
         ...
 
@@ -1299,7 +1299,7 @@ class IInstallExecutionStrategy(Protocol):
     
     Defines the mechanism for actually installing packages (pip, wheel, cached, async).
     """
-    def execute_install(self, package_name: str, policy_args: List[str]) -> Any:
+    def execute_install(self, package_name: str, policy_args: list[str]) -> Any:
         """Execute installation of a package."""
         ...
     
@@ -1322,7 +1322,7 @@ class IInstallTimingStrategy(Protocol):
         """Determine if package should be uninstalled after use."""
         ...
     
-    def get_install_priority(self, packages: List[str]) -> List[str]:
+    def get_install_priority(self, packages: list[str]) -> list[str]:
         """Get priority order for installing packages."""
         ...
 
@@ -1333,7 +1333,7 @@ class IDiscoveryStrategy(Protocol):
     
     Defines how to find dependencies (from files, manifest, auto-detect).
     """
-    def discover(self, project_root: Any) -> Dict[str, str]:
+    def discover(self, project_root: Any) -> dict[str, str]:
         """Discover dependencies from sources."""
         ...
     
@@ -1348,11 +1348,11 @@ class IPolicyStrategy(Protocol):
     
     Defines security policies and what packages are allowed/denied.
     """
-    def is_allowed(self, package_name: str) -> Tuple[bool, str]:
+    def is_allowed(self, package_name: str) -> tuple[bool, str]:
         """Check if package is allowed to be installed."""
         ...
     
-    def get_pip_args(self, package_name: str) -> List[str]:
+    def get_pip_args(self, package_name: str) -> list[str]:
         """Get pip arguments based on policy."""
         ...
 
@@ -1367,8 +1367,141 @@ class IMappingStrategy(Protocol):
         """Map import name to package name."""
         ...
     
-    def map_package_to_imports(self, package_name: str) -> List[str]:
+    def map_package_to_imports(self, package_name: str) -> list[str]:
         """Map package name to possible import names."""
+        ...
+
+# =============================================================================
+# STRATEGY INTERFACES FOR RUNTIME SWAPPING (Enhanced)
+# =============================================================================
+
+@runtime_checkable
+class IInstallStrategy(Protocol):
+    """
+    Installation strategy interface for swappable installation algorithms.
+    
+    Enables runtime strategy swapping for different installation methods
+    (pip, wheel, async, cached, etc.).
+    """
+    def install(self, package_name: str, version: Optional[str] = None) -> bool:
+        """
+        Install a package.
+        
+        Args:
+            package_name: Package name to install
+            version: Optional version specification
+            
+        Returns:
+            True if installation successful, False otherwise
+        """
+        ...
+    
+    def can_install(self, package_name: str) -> bool:
+        """
+        Check if this strategy can install a package.
+        
+        Args:
+            package_name: Package name to check
+            
+        Returns:
+            True if can install, False otherwise
+        """
+        ...
+    
+    def uninstall(self, package_name: str) -> bool:
+        """
+        Uninstall a package.
+        
+        Args:
+            package_name: Package name to uninstall
+            
+        Returns:
+            True if uninstallation successful, False otherwise
+        """
+        ...
+
+@runtime_checkable
+class ILoadStrategy(Protocol):
+    """
+    Module loading strategy interface for swappable loading algorithms.
+    
+    Enables runtime strategy swapping for different loading methods
+    (lazy, simple, advanced, etc.).
+    """
+    def load(self, module_name: str) -> ModuleType:
+        """
+        Load a module.
+        
+        Args:
+            module_name: Module name to load
+            
+        Returns:
+            Loaded module
+        """
+        ...
+    
+    def should_lazy_load(self, module_name: str) -> bool:
+        """
+        Determine if module should be lazy loaded.
+        
+        Args:
+            module_name: Module name to check
+            
+        Returns:
+            True if should lazy load, False otherwise
+        """
+        ...
+    
+    def unload(self, module_name: str) -> None:
+        """
+        Unload a module.
+        
+        Args:
+            module_name: Module name to unload
+        """
+        ...
+
+@runtime_checkable
+class ICacheStrategy(Protocol):
+    """
+    Caching strategy interface for swappable caching algorithms.
+    
+    Enables runtime strategy swapping for different caching methods
+    (LRU, LFU, TTL, multi-tier, etc.).
+    """
+    def get(self, key: str) -> Optional[Any]:
+        """
+        Get value from cache.
+        
+        Args:
+            key: Cache key
+            
+        Returns:
+            Cached value or None if not found
+        """
+        ...
+    
+    def put(self, key: str, value: Any) -> None:
+        """
+        Put value in cache.
+        
+        Args:
+            key: Cache key
+            value: Value to cache
+        """
+        ...
+    
+    def invalidate(self, key: str) -> None:
+        """
+        Invalidate cached value.
+        
+        Args:
+            key: Cache key to invalidate
+        """
+        ...
+    
+    def clear(self) -> None:
+        """Clear all cached values."""
         ...
 
 # =============================================================================
@@ -1392,5 +1525,9 @@ __all__ = [
     'IDiscoveryStrategy',
     'IPolicyStrategy',
     'IMappingStrategy',
+    # Enhanced Strategy Interfaces for Runtime Swapping
+    'IInstallStrategy',
+    'ILoadStrategy',
+    'ICacheStrategy',
 ]
 

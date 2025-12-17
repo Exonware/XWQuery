@@ -15,7 +15,7 @@ import sys
 import subprocess
 from datetime import datetime
 from pathlib import Path
-from typing import Dict
+from typing import
 
 from .install_policy import LazyInstallPolicy
 

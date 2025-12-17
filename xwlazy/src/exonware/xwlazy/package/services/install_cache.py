@@ -14,7 +14,7 @@ Uses shared utilities from common/services/install_cache_utils.
 import os
 import time
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional
 from collections import OrderedDict
 
 # Import shared utilities
@@ -93,7 +93,7 @@ class InstallCacheMixin:
         """Get the cached wheel file path for a package."""
         return get_wheel_path(package_name, self._async_cache_dir)  # type: ignore[attr-defined]
     
-    def _install_from_cached_wheel(self, package_name: str, policy_args: Optional[List[str]] = None) -> bool:
+    def _install_from_cached_wheel(self, package_name: str, policy_args: Optional[list[str]] = None) -> bool:
         """Install from a cached wheel file."""
         return _install_from_cached_wheel_util(
             package_name,
@@ -101,11 +101,11 @@ class InstallCacheMixin:
             self._async_cache_dir  # type: ignore[attr-defined]
         )
     
-    def _pip_install_from_path(self, wheel_path: Path, policy_args: Optional[List[str]] = None) -> bool:
+    def _pip_install_from_path(self, wheel_path: Path, policy_args: Optional[list[str]] = None) -> bool:
         """Install a wheel file using pip."""
         return pip_install_from_path(wheel_path, policy_args)
     
-    def _ensure_cached_wheel(self, package_name: str, policy_args: Optional[List[str]] = None) -> Optional[Path]:
+    def _ensure_cached_wheel(self, package_name: str, policy_args: Optional[list[str]] = None) -> Optional[Path]:
         """Ensure a wheel is cached, downloading it if necessary."""
         return ensure_cached_wheel(
             package_name,

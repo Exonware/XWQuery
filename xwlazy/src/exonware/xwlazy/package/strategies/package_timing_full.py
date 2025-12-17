@@ -10,7 +10,7 @@ Generation Date: 15-Nov-2025
 Full timing - install all dependencies upfront.
 """
 
-from typing import List, Any
+from typing import Any
 from ...package.base import AInstallTimingStrategy
 
 class FullTiming(AInstallTimingStrategy):
@@ -50,7 +50,7 @@ class FullTiming(AInstallTimingStrategy):
         """
         return False
     
-    def get_install_priority(self, packages: List[str]) -> List[str]:
+    def get_install_priority(self, packages: list[str]) -> list[str]:
         """
         Get priority order for installing packages.
         

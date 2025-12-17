@@ -5,7 +5,7 @@ This module contains DependencyMapper class extracted from lazy_core.py Section 
 """
 
 import threading
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Optional
 
 # Lazy import to avoid circular dependency
 def _get_logger():
@@ -59,14 +59,14 @@ class DependencyMapper:
     def __init__(self, package_name: str = 'default'):
         """Initialize dependency mapper."""
         self._discovery = None  # Lazy init to avoid circular imports
-        self._package_import_mapping: Dict[str, List[str]] = {}
-        self._import_package_mapping: Dict[str, str] = {}
+        self._package_import_mapping: dict[str, list[str]] = {}
+        self._import_package_mapping: dict[str, str] = {}
         self._cached = False
         self._lock = threading.RLock()
         self._package_name = package_name
         self._manifest_generation = -1
-        self._manifest_dependencies: Dict[str, str] = {}
-        self._manifest_signature: Optional[Tuple[str, float, float]] = None
+        self._manifest_dependencies: dict[str, str] = {}
+        self._manifest_signature: Optional[tuple[str, float, float]] = None
         self._manifest_empty = False
 
     def set_package_name(self, package_name: str) -> None:
@@ -115,7 +115,7 @@ class DependencyMapper:
         manifest = loader.get_manifest(self._package_name)
         current_generation = loader.generation
 
-        dependencies: Dict[str, str] = {}
+        dependencies: dict[str, str] = {}
         manifest_empty = True
         if manifest and manifest.dependencies:
             dependencies = {
@@ -143,7 +143,7 @@ class DependencyMapper:
             _cache_spec_if_missing(module_name)
         return needs_cache
 
-    DENY_LIST: Set[str] = {
+    DENY_LIST: set[str] = {
         # POSIX-only modules that don't exist on Windows but try to auto-install
         "pwd",
         "grp",
@@ -191,7 +191,9 @@ class DependencyMapper:
         1. Skip checks (stdlib, deny list)
         2. Manifest dependencies (explicit user configuration - highest priority)
         3. Spec cache (module already exists - skip auto-install)
-        4. Discovery mappings (automatic discovery)
+        4. Discovery mappings (automatic discovery from project configs)
+        5. Common mappings (quick access list - works without project configs)
+        6. Fallback to import_name itself
         """
         if self._should_skip_auto_install(import_name):
             return None
@@ -206,24 +208,40 @@ class DependencyMapper:
         if manifest_hit:
             return manifest_hit
         
-        # Check spec cache - if module already exists, skip auto-install
+        # Check common mappings BEFORE spec cache (common mappings are reliable)
+        # This is important for exonware projects to work immediately
+        # Common mappings take precedence over spec cache because spec cache can be stale
+        discovery = self._get_discovery()
+        common_mappings = getattr(discovery, 'COMMON_MAPPINGS', {})
+        common_hit = common_mappings.get(import_name)
+        if common_hit:
+            return common_hit
+        
+        # Check spec cache - if module already exists AND we don't have a common mapping, skip auto-install
+        # Note: We check this AFTER common mappings because spec cache can be stale after uninstallation
         if _spec_cache_get(import_name):
             return None
 
+        # Try discovery mappings (from project configs)
         self._ensure_mappings_cached()
-        return self._import_package_mapping.get(import_name, import_name)
+        discovery_hit = self._import_package_mapping.get(import_name)
+        if discovery_hit:
+            return discovery_hit
+        
+        # Fallback: assume import name matches package name
+        return import_name
     
-    def get_import_names(self, package_name: str) -> List[str]:
+    def get_import_names(self, package_name: str) -> list[str]:
         """Get all possible import names for a package."""
         self._ensure_mappings_cached()
         return self._package_import_mapping.get(package_name, [package_name])
     
-    def get_package_import_mapping(self) -> Dict[str, List[str]]:
+    def get_package_import_mapping(self) -> dict[str, list[str]]:
         """Get complete package to import names mapping."""
         self._ensure_mappings_cached()
         return self._package_import_mapping.copy()
     
-    def get_import_package_mapping(self) -> Dict[str, str]:
+    def get_import_package_mapping(self) -> dict[str, str]:
         """Get complete import to package name mapping."""
         self._ensure_mappings_cached()
         return self._import_package_mapping.copy()

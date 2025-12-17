@@ -20,7 +20,7 @@ import subprocess
 import importlib
 import importlib.util
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Set, Any
+from typing import Optional, Any
 from collections import OrderedDict
 from types import ModuleType
 
@@ -154,10 +154,13 @@ class LazyInstaller(
         self._async_enabled = False
         self._async_workers = 1
         self._async_loop: Optional[asyncio.AbstractEventLoop] = None
-        self._async_tasks: Dict[str, Any] = {}
+        self._async_tasks: dict[str, Any] = {}
         self._known_missing: OrderedDict[str, float] = OrderedDict()
         self._async_cache_dir = _DEFAULT_ASYNC_CACHE_DIR
         self._loop_thread: Optional[threading.Thread] = None
+        # Hard force disable async installs to prevent any potential issues
+        # This overrides any env vars or manifest settings
+        self._async_enabled = False
         
         # ROOT CAUSE FIX: Load persistent installation cache
         # This cache tracks installed packages across Python restarts
@@ -166,6 +169,7 @@ class LazyInstaller(
     
     def install_package(self, package_name: str, module_name: str = None) -> bool:
         """Install a package using pip."""
+        sys.stderr.write(f"DEBUG: install_package called for {package_name}\n")
         _ensure_logging_initialized()
         # CRITICAL: Set flag FIRST before ANY operations to prevent recursion
         if getattr(_installing, 'active', False):
@@ -188,11 +192,22 @@ class LazyInstaller(
                 if package_name in self._installed_packages:
                     return True
                 
+                # ROOT CAUSE FIX: Check if already importable (handles pre-installed packages not in cache)
+                # This prevents unnecessary pip calls and handles cache desync
+                check_name = module_name or package_name.replace('-', '_')
+                if check_name and self._is_module_importable(check_name):
+                    _log("install", logger.info, f"Package {package_name} found in environment, marking as installed")
+                    # Update caches
+                    self._installed_packages.add(package_name)
+                    version = self._get_installed_version(package_name)
+                    self._install_cache.mark_installed(package_name, version)
+                    return True
+                
                 if package_name in self._failed_packages:
                     return False
                 
                 if self._mode == LazyInstallMode.DISABLED or self._mode == LazyInstallMode.NONE:
-                    _log("install", f"Lazy installation disabled for {self._package_name}, skipping {package_name}")
+                    _log("install", logger.info, f"Lazy installation disabled for {self._package_name}, skipping {package_name}")
                     return False
                 
                 if self._mode == LazyInstallMode.WARN:
@@ -211,7 +226,7 @@ class LazyInstaller(
                 
                 if self._mode == LazyInstallMode.INTERACTIVE:
                     if not self._ask_user_permission(package_name, module_name or package_name):
-                        _log("install", f"User declined installation of {package_name}")
+                        _log("install", logger.info, f"User declined installation of {package_name}")
                         self._failed_packages.add(package_name)
                         return False
                 
@@ -414,6 +429,12 @@ class LazyInstaller(
     
     def _is_module_importable(self, module_name: str) -> bool:
         """Check if module can be imported without installation."""
+        # CRITICAL FIX: Check if import is already in progress to prevent recursion
+        from ...module.importer_engine import _is_import_in_progress
+        if _is_import_in_progress(module_name):
+            # Import is already in progress, don't check again to avoid recursion
+            return False
+        
         try:
             spec = importlib.util.find_spec(module_name)
             return spec is not None and spec.loader is not None
@@ -457,15 +478,20 @@ class LazyInstaller(
         
         return False
     
-    def install_and_import(self, module_name: str, package_name: str = None) -> Tuple[Optional[ModuleType], bool]:
+    def install_and_import(self, module_name: str, package_name: str = None) -> tuple[Optional[ModuleType], bool]:
         """
         Install package and import module.
         
         ROOT CAUSE FIX: Check if module is importable FIRST before attempting
         installation. This prevents circular imports and unnecessary installations.
         """
+        # CRITICAL: Initialize lazy imports first
+        _ensure_logging_initialized()
+        
+        sys.stderr.write(f"DEBUG: install_and_import called for {module_name}\n")
         # CRITICAL: Prevent recursion - if installation is already in progress, skip
         if getattr(_installing, 'active', False):
+            sys.stderr.write(f"DEBUG: Recursion guard hit for {module_name}\n")
             logger.debug(
                 f"Installation in progress, skipping install_and_import for {module_name} "
                 f"to prevent recursion"
@@ -473,27 +499,71 @@ class LazyInstaller(
             return None, False
         
         if not self.is_enabled():
+            sys.stderr.write(f"DEBUG: Installer disabled for {module_name}\n")
             return None, False
         
         # Get package name early for cache check
         if package_name is None:
             package_name = self._dependency_mapper.get_package_name(module_name)
         
+        sys.stderr.write(f"DEBUG: package_name for {module_name} is {package_name}\n")
+        
         # ROOT CAUSE FIX: Check persistent cache FIRST (fastest, no importability check)
         if package_name and self._install_cache.is_installed(package_name):
             # Package is in persistent cache - import directly
+            # CRITICAL: Remove finders before importing to prevent recursion
+            xwlazy_finder_names = {'LazyMetaPathFinder', 'LazyPathFinder', 'LazyLoader'}
+            xwlazy_finders = [f for f in sys.meta_path if type(f).__name__ in xwlazy_finder_names]
+            for finder in xwlazy_finders:
+                try:
+                    sys.meta_path.remove(finder)
+                except ValueError:
+                    pass
+            
             try:
                 module = importlib.import_module(module_name)
                 self._clear_module_missing(module_name)
-                _spec_cache_put(module_name, importlib.util.find_spec(module_name))
+                # Also remove finders before find_spec to prevent recursion
+                spec = importlib.util.find_spec(module_name)
+                _spec_cache_put(module_name, spec)
                 logger.debug(f"Module {module_name} is in persistent cache, imported directly")
                 return module, True
             except ImportError as e:
-                logger.debug(f"Module {module_name} in cache but import failed: {e}")
-                # Cache might be stale - fall through to importability check
+                _log("install", logger.warning, f"Module {module_name} in cache but import failed: {e}")
+                # ROOT CAUSE FIX: Cache is stale - invalidate it so we try to install properly
+                if package_name:
+                    logger.debug(f"Invalidating stale cache entry for {package_name}")
+                    self._install_cache.mark_uninstalled(package_name)
+                    with self._lock:
+                        self._installed_packages.discard(package_name)
+                        # Also clear from failed packages so we can retry installation
+                        self._failed_packages.discard(package_name)
+                # Fall through to importability check and installation
+            finally:
+                # Restore finders
+                for finder in reversed(xwlazy_finders):
+                    if finder not in sys.meta_path:
+                        sys.meta_path.insert(0, finder)
         
         # ROOT CAUSE FIX: Check if module is ALREADY importable BEFORE doing anything else
-        if self._is_module_importable(module_name):
+        # But first, remove finders to prevent recursion
+        xwlazy_finder_names = {'LazyMetaPathFinder', 'LazyPathFinder', 'LazyLoader'}
+        xwlazy_finders = [f for f in sys.meta_path if type(f).__name__ in xwlazy_finder_names]
+        for finder in xwlazy_finders:
+            try:
+                sys.meta_path.remove(finder)
+            except ValueError:
+                pass
+
+        try:
+            is_importable = self._is_module_importable(module_name)
+        finally:
+            # Restore finders
+            for finder in reversed(xwlazy_finders):
+                if finder not in sys.meta_path:
+                    sys.meta_path.insert(0, finder)
+
+        if is_importable:
             # Module is already importable - import it directly
             if package_name:
                 version = self._get_installed_version(package_name)
@@ -505,7 +575,15 @@ class LazyInstaller(
                 logger.debug(f"Module {module_name} is already importable, imported directly")
                 return module, True
             except ImportError as e:
-                logger.debug(f"Module {module_name} appeared importable but import failed: {e}")
+                _log("install", logger.warning, f"Module {module_name} appeared importable but import failed: {e}")
+                # ROOT CAUSE FIX: If importability check passed but import failed, invalidate cache
+                if package_name:
+                    logger.debug(f"Invalidating stale cache entry for {package_name} (importability check was wrong)")
+                    self._install_cache.mark_uninstalled(package_name)
+                    with self._lock:
+                        self._installed_packages.discard(package_name)
+                        # Also clear from failed packages so we can retry installation
+                        self._failed_packages.discard(package_name)
         
         # Package name should already be set from cache check above
         if package_name is None:
@@ -573,6 +651,7 @@ class LazyInstaller(
                             if finder not in sys.meta_path:
                                 sys.meta_path.insert(0, finder)
                 except ImportError as e:
+                    _log("install", logger.warning, f"Import retry {attempt} failed for {module_name}: {e}")
                     if attempt < 2:
                         time.sleep(0.1 * (attempt + 1))
                     else:
@@ -582,11 +661,11 @@ class LazyInstaller(
         self._mark_module_missing(module_name)
         return None, False
     
-    def _check_security_policy(self, package_name: str) -> Tuple[bool, str]:
+    def _check_security_policy(self, package_name: str) -> tuple[bool, str]:
         """Check security policy for package."""
         return LazyInstallPolicy.is_package_allowed(self._package_name, package_name)
     
-    def _run_pip_install(self, package_name: str, args: List[str]) -> bool:
+    def _run_pip_install(self, package_name: str, args: list[str]) -> bool:
         """Run pip install with arguments."""
         if self._install_from_cached_wheel(package_name):
             return True
@@ -599,6 +678,7 @@ class LazyInstaller(
                 '--disable-pip-version-check',
                 '--no-input',
             ] + args + [package_name]
+            _log("install", logger.info, f"Running pip install for {package_name}...")
             result = subprocess.run(
                 pip_args,
                 capture_output=True,
@@ -607,22 +687,27 @@ class LazyInstaller(
             )
             if result.returncode == 0:
                 self._ensure_cached_wheel(package_name)
+                _log("install", logger.info, f"Pip install successful for {package_name}")
                 return True
+            _log("install", logger.error, f"Pip failed for {package_name}: {result.stderr}")
+            print(f"DEBUG: Pip failed for {package_name}: {result.stderr}")
             return False
-        except subprocess.CalledProcessError:
+        except subprocess.CalledProcessError as e:
+            _log("install", logger.error, f"Pip error for {package_name}: {e.stderr if hasattr(e, 'stderr') else e}")
+            print(f"DEBUG: Pip error for {package_name}: {e.stderr if hasattr(e, 'stderr') else e}")
             return False
     
-    def get_installed_packages(self) -> Set[str]:
+    def get_installed_packages(self) -> set[str]:
         """Get set of installed package names."""
         with self._lock:
             return self._installed_packages.copy()
     
-    def get_failed_packages(self) -> Set[str]:
+    def get_failed_packages(self) -> set[str]:
         """Get set of failed package names."""
         with self._lock:
             return self._failed_packages.copy()
     
-    def get_async_tasks(self) -> Dict[str, Any]:
+    def get_async_tasks(self) -> dict[str, Any]:
         """Get dictionary of async installation tasks."""
         with self._lock:
             return {
@@ -633,7 +718,7 @@ class LazyInstaller(
                 for module_name, task in self._async_tasks.items()
             }
     
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get installation statistics (extends base class method)."""
         base_stats = super().get_stats()
         with self._lock:

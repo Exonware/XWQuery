@@ -11,7 +11,7 @@ Manifest-based discovery - discovers dependencies from manifest files.
 """
 
 from pathlib import Path
-from typing import Dict, Optional, Any
+from typing import Optional, Any
 from ...package.base import ADiscoveryStrategy
 
 class ManifestBasedDiscovery(ADiscoveryStrategy):
@@ -51,7 +51,7 @@ class ManifestBasedDiscovery(ADiscoveryStrategy):
         
         return cwd
     
-    def discover(self, project_root: Any = None) -> Dict[str, str]:
+    def discover(self, project_root: Any = None) -> dict[str, str]:
         """
         Discover dependencies from manifest files.
         

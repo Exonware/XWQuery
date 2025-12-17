@@ -9,7 +9,7 @@ description = "Tiny package used for async install benchmarks."
 authors = [
   {name = "eXonware Bench Team", email = "connect@exonware.com"}
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 readme = "README.md"
 
 [project.urls]

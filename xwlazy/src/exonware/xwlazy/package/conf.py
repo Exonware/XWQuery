@@ -23,7 +23,7 @@ import subprocess
 import sys
 import types
 import warnings
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 # Import from new structure
 from .services.host_packages import refresh_host_package
@@ -56,14 +56,14 @@ class _PackageConfig:
         """Enable/disable lazy mode for this package."""
         if value:
             # Default to "smart" mode when enabling lazy install
-            config_package_lazy_install_enabled(self._package_name, True, mode="smart", install_hook=False)
-            install_import_hook(self._package_name)
+            # config_package_lazy_install_enabled will register package and install global hook
+            config_package_lazy_install_enabled(self._package_name, True, mode="smart", install_hook=True)
             refresh_host_package(self._package_name)
         else:
             config_package_lazy_install_enabled(self._package_name, False, install_hook=False)
             uninstall_import_hook(self._package_name)
 
-    def lazy_install_status(self) -> Dict[str, Any]:
+    def lazy_install_status(self) -> dict[str, Any]:
         """Return runtime status for this package."""
         return {
             "package": self._package_name,
@@ -112,7 +112,7 @@ class _LazyConfModule(types.ModuleType):
 
     def __init__(self, name: str, doc: Optional[str]) -> None:
         super().__init__(name, doc)
-        self._package_configs: Dict[str, _PackageConfig] = {}
+        self._package_configs: dict[str, _PackageConfig] = {}
         self._suppress_warnings: bool = True  # Default: suppress warnings
         self._original_stderr: Optional[Any] = None
         self._filtered_stderr: Optional[_FilteredStderr] = None
@@ -168,7 +168,7 @@ class _LazyConfModule(types.ModuleType):
         except Exception as exc:  # pragma: no cover
             print(f"[WARN] Could not uninstall exonware-xwlazy: {exc}")
 
-    def _get_global_lazy_status(self) -> Dict[str, Any]:
+    def _get_global_lazy_status(self) -> dict[str, Any]:
         """Return aggregate status for DX tooling."""
         installed = self._is_xwlazy_installed()
         # Check all known packages, not just those in _package_configs

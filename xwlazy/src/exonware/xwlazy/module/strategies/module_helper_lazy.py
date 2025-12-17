@@ -14,7 +14,7 @@ import importlib
 import importlib.util
 import threading
 from types import ModuleType
-from typing import Any, Optional, Dict
+from typing import Any, Optional
 from ...module.base import AModuleHelperStrategy
 from ..data import ModuleData
 
@@ -28,8 +28,8 @@ class LazyHelper(AModuleHelperStrategy):
     
     def __init__(self):
         """Initialize lazy helper."""
-        self._cache: Dict[str, ModuleType] = {}
-        self._loading: Dict[str, bool] = {}
+        self._cache: dict[str, ModuleType] = {}
+        self._loading: dict[str, bool] = {}
         self._lock = threading.RLock()
     
     def load(self, module_path: str, package_helper: Any) -> ModuleType:

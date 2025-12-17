@@ -14,7 +14,7 @@ This module defines the abstract base class for runtime services.
 
 import threading
 from abc import ABC, abstractmethod
-from typing import Dict, List, Optional, Any, Tuple
+from typing import Optional, Any
 
 from ..contracts import (
     IRuntime,
@@ -63,19 +63,19 @@ class ARuntimeHelper(IRuntime, ABC):
         self._auto_state: Optional[bool] = None
         
         # From IMetricsCollector
-        self._metrics: Dict[str, List[float]] = {}
+        self._metrics: dict[str, list[float]] = {}
         
         # From IPerformanceMonitor
-        self._load_times: Dict[str, List[float]] = {}
-        self._access_counts: Dict[str, int] = {}
+        self._load_times: dict[str, list[float]] = {}
+        self._access_counts: dict[str, int] = {}
         
         # From IMultiTierCache
-        self._l1_cache: Dict[str, Any] = {}
-        self._l2_cache: Dict[str, Any] = {}
-        self._l3_cache: Dict[str, Any] = {}
+        self._l1_cache: dict[str, Any] = {}
+        self._l2_cache: dict[str, Any] = {}
+        self._l3_cache: dict[str, Any] = {}
         
         # From IRegistry
-        self._registry: Dict[str, Any] = {}
+        self._registry: dict[str, Any] = {}
         
         # Common
         self._lock = threading.RLock()
@@ -112,7 +112,7 @@ class ARuntimeHelper(IRuntime, ABC):
         pass
     
     @abstractmethod
-    def predict_next_imports(self, current_module: str, count: int = 3) -> List[str]:
+    def predict_next_imports(self, current_module: str, count: int = 3) -> list[str]:
         """Predict next likely imports based on patterns (from IAdaptiveLearner)."""
         pass
     
@@ -137,12 +137,12 @@ class ARuntimeHelper(IRuntime, ABC):
         pass
     
     @abstractmethod
-    def get_optimal_mode(self, load_level: Any) -> Tuple[Any, Any]:
+    def get_optimal_mode(self, load_level: Any) -> tuple[Any, Any]:
         """Get optimal mode for a load level (from IIntelligentSelector)."""
         pass
     
     @abstractmethod
-    def update_mode_map(self, mode_map: Dict[Any, Tuple[Any, Any]]) -> None:
+    def update_mode_map(self, mode_map: dict[Any, tuple[Any, Any]]) -> None:
         """Update mode mapping with benchmark results (from IIntelligentSelector)."""
         pass
     
@@ -158,12 +158,12 @@ class ARuntimeHelper(IRuntime, ABC):
             self._metrics[name].append(value)
     
     @abstractmethod
-    def get_metric_stats(self, name: str) -> Dict[str, Any]:
+    def get_metric_stats(self, name: str) -> dict[str, Any]:
         """Get statistics for a metric (from IMetricsCollector)."""
         pass
     
     @abstractmethod
-    def get_all_stats(self) -> Dict[str, Dict[str, Any]]:
+    def get_all_stats(self) -> dict[str, dict[str, Any]]:
         """Get statistics for all metrics (from IMetricsCollector)."""
         pass
     
@@ -189,7 +189,7 @@ class ARuntimeHelper(IRuntime, ABC):
             self._access_counts[module] = self._access_counts.get(module, 0) + 1
     
     @abstractmethod
-    def get_performance_stats(self) -> Dict[str, Any]:
+    def get_performance_stats(self) -> dict[str, Any]:
         """Get performance statistics (from IPerformanceMonitor)."""
         pass
     

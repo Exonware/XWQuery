@@ -11,7 +11,7 @@ Security and policy configuration for lazy installation.
 """
 
 import threading
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Optional
 
 # Lazy import to avoid circular dependency
 def _get_log_event():
@@ -28,14 +28,14 @@ class LazyInstallPolicy:
     """
     __slots__ = ()
     
-    _allow_lists: Dict[str, Set[str]] = {}
-    _deny_lists: Dict[str, Set[str]] = {}
-    _index_urls: Dict[str, str] = {}
-    _extra_index_urls: Dict[str, List[str]] = {}
-    _trusted_hosts: Dict[str, List[str]] = {}
-    _require_hashes: Dict[str, bool] = {}
-    _verify_ssl: Dict[str, bool] = {}
-    _lockfile_paths: Dict[str, str] = {}
+    _allow_lists: dict[str, set[str]] = {}
+    _deny_lists: dict[str, set[str]] = {}
+    _index_urls: dict[str, str] = {}
+    _extra_index_urls: dict[str, list[str]] = {}
+    _trusted_hosts: dict[str, list[str]] = {}
+    _require_hashes: dict[str, bool] = {}
+    _verify_ssl: dict[str, bool] = {}
+    _lockfile_paths: dict[str, str] = {}
     _lock = threading.RLock()
     
     @classmethod
@@ -46,7 +46,7 @@ class LazyInstallPolicy:
             _log = _get_log_event()
     
     @classmethod
-    def set_allow_list(cls, package_name: str, allowed_packages: List[str]) -> None:
+    def set_allow_list(cls, package_name: str, allowed_packages: list[str]) -> None:
         """Set allow list for a package (only these can be installed)."""
         cls._ensure_logging()
         with cls._lock:
@@ -54,7 +54,7 @@ class LazyInstallPolicy:
             _log("config", f"Set allow list for {package_name}: {len(allowed_packages)} packages")
     
     @classmethod
-    def set_deny_list(cls, package_name: str, denied_packages: List[str]) -> None:
+    def set_deny_list(cls, package_name: str, denied_packages: list[str]) -> None:
         """Set deny list for a package (these cannot be installed)."""
         cls._ensure_logging()
         with cls._lock:
@@ -78,7 +78,7 @@ class LazyInstallPolicy:
             cls._deny_lists[package_name].add(denied_package)
     
     @classmethod
-    def is_package_allowed(cls, installer_package: str, target_package: str) -> Tuple[bool, str]:
+    def is_package_allowed(cls, installer_package: str, target_package: str) -> tuple[bool, str]:
         """Check if target_package can be installed by installer_package."""
         with cls._lock:
             if installer_package in cls._deny_lists:
@@ -100,7 +100,7 @@ class LazyInstallPolicy:
             _log("config", f"Set index URL for {package_name}: {index_url}")
     
     @classmethod
-    def set_extra_index_urls(cls, package_name: str, urls: List[str]) -> None:
+    def set_extra_index_urls(cls, package_name: str, urls: list[str]) -> None:
         """Set extra index URLs for a package."""
         cls._ensure_logging()
         with cls._lock:
@@ -116,7 +116,7 @@ class LazyInstallPolicy:
             cls._trusted_hosts[package_name].append(host)
     
     @classmethod
-    def get_pip_args(cls, package_name: str) -> List[str]:
+    def get_pip_args(cls, package_name: str) -> list[str]:
         """Get pip install arguments for a package based on policy."""
         args = []
         

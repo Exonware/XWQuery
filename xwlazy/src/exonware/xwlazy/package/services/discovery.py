@@ -19,7 +19,7 @@ import subprocess
 import sys
 import threading
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Optional
 
 from ..base import APackageHelper
 from ...defs import DependencyInfo
@@ -54,32 +54,59 @@ class LazyDiscovery(APackageHelper):
     }
     
     # Common import name to package name mappings
+    # Quick access list: Works without loading project configs
+    # Includes exonware-common packages for instant resolution
     COMMON_MAPPINGS = {
+        # Image processing
         'cv2': 'opencv-python',
         'PIL': 'Pillow',
         'Pillow': 'Pillow',
+        
+        # Data formats
         'yaml': 'PyYAML',
+        'bson': 'pymongo',
+        'msgpack': 'msgpack',  # Exonware common: MessagePack
+        'cbor2': 'cbor2',  # Exonware common: CBOR
+        'cbor': 'cbor2',
+        
+        # Machine learning / Data science
         'sklearn': 'scikit-learn',
         'bs4': 'beautifulsoup4',
+        'numpy': 'numpy',
+        'pandas': 'pandas',
+        'matplotlib': 'matplotlib',
+        'seaborn': 'seaborn',
+        'plotly': 'plotly',
+        'scipy': 'scipy',
+        'scikit-image': 'scikit-image',
+        
+        # Web frameworks
+        'django': 'Django',
+        'flask': 'Flask',
+        'fastapi': 'fastapi',
+        'uvicorn': 'uvicorn',
+        
+        # Database
+        'MySQLdb': 'mysqlclient',
+        'psycopg2': 'psycopg2-binary',
+        
+        # Serialization (Exonware common)
+        'lxml': 'lxml',
+        'xml': 'lxml',
+        'fastavro': 'fastavro',  # Exonware common: Avro
+        'avro': 'fastavro',
+        'protobuf': 'protobuf',  # Exonware common: Protocol Buffers
+        'pyarrow': 'pyarrow',  # Exonware common: Parquet/Feather
+        'parquet': 'pyarrow',
+        'feather': 'pyarrow',
+        
+        # Utilities
         'dateutil': 'python-dateutil',
         'requests_oauthlib': 'requests-oauthlib',
         'google': 'google-api-python-client',
         'jwt': 'PyJWT',
         'crypto': 'pycrypto',
         'Crypto': 'pycrypto',
-        'MySQLdb': 'mysqlclient',
-        'psycopg2': 'psycopg2-binary',
-        'bson': 'pymongo',
-        'lxml': 'lxml',
-        'numpy': 'numpy',
-        'pandas': 'pandas',
-        'matplotlib': 'matplotlib',
-        'seaborn': 'seaborn',
-        'plotly': 'plotly',
-        'django': 'Django',
-        'flask': 'Flask',
-        'fastapi': 'fastapi',
-        'uvicorn': 'uvicorn',
         'pytest': 'pytest',
         'black': 'black',
         'isort': 'isort',
@@ -89,20 +116,58 @@ class LazyDiscovery(APackageHelper):
         'pytz': 'pytz',
         'aiofiles': 'aiofiles',
         'watchdog': 'watchdog',
+        
+        # Image utilities
         'wand': 'Wand',
         'exifread': 'ExifRead',
         'piexif': 'piexif',
         'rawpy': 'rawpy',
         'imageio': 'imageio',
-        'scipy': 'scipy',
-        'scikit-image': 'scikit-image',
+        
+        # OpenCV
         'opencv-python': 'opencv-python',
         'opencv-contrib-python': 'opencv-contrib-python',
+        
+        # Observability
         'opentelemetry': 'opentelemetry-api',
         'opentelemetry.trace': 'opentelemetry-api',
         'opentelemetry.sdk': 'opentelemetry-sdk',
     }
     
+    # ========================================================================
+    # Stub Implementations for APackageHelper (Installation methods not used by Discovery)
+    # ========================================================================
+    
+    def install_package(self, package_name: str, module_name: Optional[str] = None) -> bool:
+        return False
+
+    def _check_security_policy(self, package_name: str) -> tuple[bool, str]:
+        return (False, "Discovery only")
+
+    def _run_pip_install(self, package_name: str, args: list[str]) -> bool:
+        return False
+
+    def is_cache_valid(self, key: str) -> bool:
+        return False
+
+    def _check_importability(self, package_name: str) -> bool:
+        return False
+    
+    def _check_persistent_cache(self, package_name: str) -> bool:
+        return False
+    
+    def _mark_installed_in_persistent_cache(self, package_name: str) -> None:
+        pass
+    
+    def _mark_uninstalled_in_persistent_cache(self, package_name: str) -> None:
+        pass
+    
+    def _run_install(self, *package_names: str) -> None:
+        pass
+    
+    def _run_uninstall(self, *package_names: str) -> None:
+        pass
+
     def _discover_from_sources(self) -> None:
         """Discover dependencies from all sources."""
         self._discover_from_pyproject_toml()
@@ -316,12 +381,12 @@ class LazyDiscovery(APackageHelper):
         mapping = self.discover_all_dependencies()
         return mapping.get(import_name)
     
-    def get_imports_for_package(self, package_name: str) -> List[str]:
+    def get_imports_for_package(self, package_name: str) -> list[str]:
         """Get all possible import names for a package."""
         mapping = self.get_package_import_mapping()
         return mapping.get(package_name, [package_name])
     
-    def get_package_import_mapping(self) -> Dict[str, List[str]]:
+    def get_package_import_mapping(self) -> dict[str, list[str]]:
         """Get mapping of package names to their possible import names."""
         self.discover_all_dependencies()
         
@@ -338,7 +403,7 @@ class LazyDiscovery(APackageHelper):
         
         return package_to_imports
     
-    def get_import_package_mapping(self) -> Dict[str, str]:
+    def get_import_package_mapping(self) -> dict[str, str]:
         """Get mapping of import names to package names."""
         self.discover_all_dependencies()
         return {import_name: dep_info.package_name for import_name, dep_info in self.discovered_dependencies.items()}

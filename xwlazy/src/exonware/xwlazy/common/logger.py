@@ -17,7 +17,7 @@ import os
 import sys
 import logging
 import io
-from typing import Dict, Optional
+from typing import Optional
 from datetime import datetime
 
 # =============================================================================
@@ -37,7 +37,7 @@ _EMOJI_MAP = {
 }
 
 # Default log category states
-_CATEGORY_DEFAULTS: Dict[str, bool] = {
+_CATEGORY_DEFAULTS: dict[str, bool] = {
     "install": True,
     "hook": False,
     "enhance": False,
@@ -52,7 +52,7 @@ _CATEGORY_DEFAULTS: Dict[str, bool] = {
 # =============================================================================
 
 _configured = False
-_category_overrides: Dict[str, bool] = {}
+_category_overrides: dict[str, bool] = {}
 
 # =============================================================================
 # HELPER FUNCTIONS
@@ -186,7 +186,7 @@ def set_log_category(category: str, enabled: bool) -> None:
     """
     _category_overrides[_normalize_category(category)] = bool(enabled)
 
-def set_log_categories(overrides: Dict[str, bool]) -> None:
+def set_log_categories(overrides: dict[str, bool]) -> None:
     """
     Bulk update multiple log categories.
     
@@ -196,7 +196,7 @@ def set_log_categories(overrides: Dict[str, bool]) -> None:
     for category, enabled in overrides.items():
         set_log_category(category, enabled)
 
-def get_log_categories() -> Dict[str, bool]:
+def get_log_categories() -> dict[str, bool]:
     """
     Return the effective state for each built-in log category.
     

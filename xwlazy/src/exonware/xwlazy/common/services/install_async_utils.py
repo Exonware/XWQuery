@@ -31,6 +31,11 @@ def _ensure_logging_initialized():
     global logger
     if logger is None:
         logger = _get_logger()
+        # Fallback if get_logger returns None (should not happen but safety first)
+        if logger is None:
+            import logging
+            logger = logging.getLogger("xwlazy.install_async_utils.fallback")
+            logger.addHandler(logging.NullHandler())
 
 async def get_package_size_mb(package_name: str) -> Optional[float]:
     """

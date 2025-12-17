@@ -4,7 +4,7 @@ Performance metrics tracking for lazy loading system.
 This module provides utilities for tracking and aggregating performance metrics.
 """
 
-from typing import Dict, Any, List, Optional
+from typing import Any, Optional
 from datetime import datetime
 from collections import defaultdict
 
@@ -13,9 +13,9 @@ class MetricsCollector:
     
     def __init__(self):
         """Initialize metrics collector."""
-        self._metrics: Dict[str, List[float]] = defaultdict(list)
-        self._counts: Dict[str, int] = defaultdict(int)
-        self._timestamps: Dict[str, List[datetime]] = defaultdict(list)
+        self._metrics: dict[str, list[float]] = defaultdict(list)
+        self._counts: dict[str, int] = defaultdict(int)
+        self._timestamps: dict[str, list[datetime]] = defaultdict(list)
     
     def record_metric(self, name: str, value: float, timestamp: Optional[datetime] = None) -> None:
         """Record a metric value."""
@@ -25,7 +25,7 @@ class MetricsCollector:
             timestamp = datetime.now()
         self._timestamps[name].append(timestamp)
     
-    def get_metric_stats(self, name: str) -> Dict[str, Any]:
+    def get_metric_stats(self, name: str) -> dict[str, Any]:
         """Get statistics for a specific metric."""
         values = self._metrics.get(name, [])
         if not values:
@@ -39,7 +39,7 @@ class MetricsCollector:
             'max': max(values),
         }
     
-    def get_all_stats(self) -> Dict[str, Dict[str, Any]]:
+    def get_all_stats(self) -> dict[str, dict[str, Any]]:
         """Get statistics for all metrics."""
         return {name: self.get_metric_stats(name) for name in self._metrics.keys()}
     

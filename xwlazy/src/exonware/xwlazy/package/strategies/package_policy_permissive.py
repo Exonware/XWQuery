@@ -10,7 +10,7 @@ Generation Date: 15-Nov-2025
 Permissive policy - allows all packages (default).
 """
 
-from typing import Tuple, List
+from typing import
 from ...package.base import APolicyStrategy
 
 class PermissivePolicy(APolicyStrategy):
@@ -20,7 +20,7 @@ class PermissivePolicy(APolicyStrategy):
     This is the default policy that doesn't restrict any packages.
     """
     
-    def is_allowed(self, package_name: str) -> Tuple[bool, str]:
+    def is_allowed(self, package_name: str) -> tuple[bool, str]:
         """
         Check if package is allowed to be installed.
         
@@ -32,7 +32,7 @@ class PermissivePolicy(APolicyStrategy):
         """
         return (True, "Permissive policy allows all packages")
     
-    def get_pip_args(self, package_name: str) -> List[str]:
+    def get_pip_args(self, package_name: str) -> list[str]:
         """
         Get pip arguments based on policy.
         

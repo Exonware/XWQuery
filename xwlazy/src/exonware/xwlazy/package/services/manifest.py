@@ -24,7 +24,7 @@ import json
 import os
 from pathlib import Path
 from threading import RLock
-from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
+from typing import Any, Iterable, Optional
 
 try:  # Python 3.11+
     import tomllib  # type: ignore[attr-defined]
@@ -34,7 +34,7 @@ except Exception:  # pragma: no cover - fallback for <=3.10
     except ImportError:  # pragma: no cover
         tomllib = None  # type: ignore
 
-DEFAULT_MANIFEST_FILENAMES: Tuple[str, ...] = (
+DEFAULT_MANIFEST_FILENAMES: tuple[str, ...] = (
     "xwlazy.manifest.json",
     "lazy.manifest.json",
     ".xwlazy.manifest.json",
@@ -53,8 +53,8 @@ def _normalize_prefix(prefix: str) -> str:
         prefix = f"{prefix}."
     return prefix
 
-def _normalize_wrap_hints(values: Iterable[Any]) -> List[str]:
-    hints: List[str] = []
+def _normalize_wrap_hints(values: Iterable[Any]) -> list[str]:
+    hints: list[str] = []
     for value in values:
         if value is None:
             continue
@@ -79,18 +79,18 @@ class LazyManifestLoader:
     def __init__(
         self,
         default_root: Optional[Path] = None,
-        package_roots: Optional[Dict[str, Path]] = None,
+        package_roots: Optional[dict[str, Path]] = None,
     ) -> None:
         self._default_root = default_root
         self._provided_roots = {
             _normalize_package_name(name): Path(path)
             for name, path in (package_roots or {}).items()
         }
-        self._manifest_cache: Dict[str, PackageManifest] = {}
-        self._source_signatures: Dict[str, Tuple[str, float, float]] = {}
-        self._pyproject_cache: Dict[Path, Tuple[float, Dict[str, Any]]] = {}
-        self._shared_dependency_maps: Dict[
-            Tuple[str, float, float], Dict[str, Dict[str, str]]
+        self._manifest_cache: dict[str, PackageManifest] = {}
+        self._source_signatures: dict[str, tuple[str, float, float]] = {}
+        self._pyproject_cache: dict[Path, tuple[float, dict[str, Any]]] = {}
+        self._shared_dependency_maps: dict[
+            tuple[str, float, float], dict[str, dict[str, str]]
         ] = {}
         self._lock = RLock()
         self._generation = 0
@@ -163,7 +163,7 @@ class LazyManifestLoader:
             self._generation += 1
             return manifest
 
-    def get_manifest_signature(self, package_name: Optional[str]) -> Optional[Tuple[str, float, float]]:
+    def get_manifest_signature(self, package_name: Optional[str]) -> Optional[tuple[str, float, float]]:
         key = _normalize_package_name(package_name)
         with self._lock:
             signature = self._source_signatures.get(key)
@@ -177,8 +177,8 @@ class LazyManifestLoader:
     def get_shared_dependencies(
         self,
         package_name: Optional[str],
-        signature: Optional[Tuple[str, float, float]],
-    ) -> Optional[Dict[str, str]]:
+        signature: Optional[tuple[str, float, float]],
+    ) -> Optional[dict[str, str]]:
         if signature is None:
             return None
         with self._lock:
@@ -222,7 +222,7 @@ class LazyManifestLoader:
         )
         return manifest
 
-    def _compute_signature(self, package_key: str) -> Optional[Tuple[str, float, float]]:
+    def _compute_signature(self, package_key: str) -> Optional[tuple[str, float, float]]:
         root = self._resolve_project_root(package_key)
         pyproject_path = root / "pyproject.toml"
         pyproject_mtime = pyproject_path.stat().st_mtime if pyproject_path.exists() else 0.0
@@ -258,20 +258,27 @@ class LazyManifestLoader:
 
     @staticmethod
     def _walk_to_project_root(start: Path) -> Optional[Path]:
-        current = start
-        while True:
-            if (current / "pyproject.toml").exists():
-                return current
-            parent = current.parent
-            if parent == current:
-                break
-            current = parent
-        return None
+        """Walk up from start path to find project root."""
+        from ...common.utils import find_project_root
+        # Use utility function, but start from the provided path
+        try:
+            return find_project_root(start)
+        except Exception:
+            # Fallback: simple walk-up logic
+            current = start
+            while True:
+                if (current / "pyproject.toml").exists():
+                    return current
+                parent = current.parent
+                if parent == current:
+                    break
+                current = parent
+            return None
 
     # ------------------------------- #
     # Pyproject helpers
     # ------------------------------- #
-    def _load_pyproject(self, path: Path) -> Dict[str, Any]:
+    def _load_pyproject(self, path: Path) -> dict[str, Any]:
         if not path.exists() or tomllib is None:
             return {}
 
@@ -291,9 +298,9 @@ class LazyManifestLoader:
 
     def _extract_pyproject_entry(
         self,
-        pyproject_data: Dict[str, Any],
+        pyproject_data: dict[str, Any],
         package_key: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         tool_section = pyproject_data.get("tool", {})
         lazy_section = tool_section.get("xwlazy", {})
         packages = lazy_section.get("packages", {})
@@ -362,8 +369,8 @@ class LazyManifestLoader:
     def _load_json_manifest(
         self,
         root: Path,
-        pyproject_data: Dict[str, Any],
-    ) -> Tuple[Dict[str, Any], Optional[Path]]:
+        pyproject_data: dict[str, Any],
+    ) -> tuple[dict[str, Any], Optional[Path]]:
         manifest_path = self._resolve_manifest_path(root, root / "pyproject.toml")
         if not manifest_path:
             return {}, None
@@ -381,12 +388,12 @@ class LazyManifestLoader:
     def _merge_sources(
         self,
         package_key: str,
-        pyproject_data: Dict[str, Any],
-        json_data: Dict[str, Any],
-    ) -> Dict[str, Any]:
-        merged_dependencies: Dict[str, str] = {}
-        merged_watched: List[str] = []
-        merged_wrap_hints: List[str] = []
+        pyproject_data: dict[str, Any],
+        json_data: dict[str, Any],
+    ) -> dict[str, Any]:
+        merged_dependencies: dict[str, str] = {}
+        merged_watched: list[str] = []
+        merged_wrap_hints: list[str] = []
 
         # Pyproject first (acts as baseline)
         py_entry = self._extract_pyproject_entry(pyproject_data, package_key)
@@ -436,8 +443,8 @@ class LazyManifestLoader:
                 if "async_workers" in entry:
                     async_workers = entry.get("async_workers", async_workers)
 
-        seen_wrap: Set[str] = set()
-        ordered_wrap_hints: List[str] = []
+        seen_wrap: set[str] = set()
+        ordered_wrap_hints: list[str] = []
         for hint in merged_wrap_hints:
             if hint not in seen_wrap:
                 seen_wrap.add(hint)

@@ -10,7 +10,7 @@ Generation Date: 15-Nov-2025
 Hybrid mapping strategy - tries both manifest and discovery, uses best match.
 """
 
-from typing import Optional, List
+from typing import Optional
 from ...package.base import AMappingStrategy
 from ...package.services.manifest import get_manifest_loader
 
@@ -74,7 +74,7 @@ class HybridMapping(AMappingStrategy):
         common_mappings = discovery.COMMON_MAPPINGS
         return common_mappings.get(import_name)
     
-    def map_package_to_imports(self, package_name: str) -> List[str]:
+    def map_package_to_imports(self, package_name: str) -> list[str]:
         """
         Map package name to possible import names.
         

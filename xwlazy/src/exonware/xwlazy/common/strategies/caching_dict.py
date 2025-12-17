@@ -11,7 +11,7 @@ Simple dict-based cache implementation.
 Works with ANY data type (modules, packages, etc.).
 """
 
-from typing import Dict, Optional, Any
+from typing import Optional, Any
 from ...common.base import ACachingStrategy
 
 class DictCache(ACachingStrategy):
@@ -24,7 +24,7 @@ class DictCache(ACachingStrategy):
     
     def __init__(self):
         """Initialize dict cache."""
-        self._cache: Dict[str, Any] = {}
+        self._cache: dict[str, Any] = {}
     
     def get(self, key: str) -> Optional[Any]:
         """Get value from cache."""

@@ -23,7 +23,7 @@ import importlib
 import importlib.util
 import threading
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Any, Set
+from typing import Optional, Any
 from collections import OrderedDict
 from queue import Queue
 
@@ -59,7 +59,7 @@ class MultiTierCache:
         self._l2_dir = l2_dir or Path.home() / ".xwlazy_cache"
         self._l2_dir.mkdir(parents=True, exist_ok=True)
         self._enable_l3 = enable_l3
-        self._l3_patterns: Dict[str, Tuple[int, float]] = {}
+        self._l3_patterns: dict[str, tuple[int, float]] = {}
         self._lock = threading.RLock()
         
         self._l2_write_queue: Queue = Queue()
@@ -192,7 +192,7 @@ class MultiTierCache:
                 for old_key, _ in sorted_patterns[:1000]:
                     del self._l3_patterns[old_key]
     
-    def get_predictive_keys(self, limit: int = 10) -> List[str]:
+    def get_predictive_keys(self, limit: int = 10) -> list[str]:
         """
         Get keys likely to be accessed soon (for preloading).
         
@@ -370,7 +370,7 @@ class InstallationCache:
         
         self._cache_file = cache_file
         self._lock = threading.RLock()
-        self._cache: Dict[str, Dict[str, Any]] = {}
+        self._cache: dict[str, dict[str, Any]] = {}
         self._dirty = False
         
         # Load cache on init
@@ -487,7 +487,7 @@ class InstallationCache:
             self._dirty = True
             self._save_cache()
     
-    def get_all_installed(self) -> Set[str]:
+    def get_all_installed(self) -> set[str]:
         """
         Get set of all packages marked as installed.
         

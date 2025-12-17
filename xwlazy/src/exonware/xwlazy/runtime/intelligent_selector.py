@@ -12,7 +12,7 @@ Generation Date: 19-Nov-2025
 This module provides intelligent mode switching based on load level.
 """
 
-from typing import Dict, Tuple, Optional
+from typing import Optional
 
 from ..defs import LazyLoadMode, LazyInstallMode, LoadLevel
 
@@ -32,7 +32,7 @@ def _get_logger():
 # Updated: 2025-11-19 - Based on 20-iteration consistency test averages
 # Light: ultra+full (0.568ms avg), Medium: hyperparallel+full (5.134ms avg)
 # Heavy: preload+size_aware (18.475ms avg), Enterprise: preload+full (44.742ms avg)
-INTELLIGENT_MODE_MAP: Dict[LoadLevel, Tuple[LazyLoadMode, LazyInstallMode]] = {
+INTELLIGENT_MODE_MAP: dict[LoadLevel, tuple[LazyLoadMode, LazyInstallMode]] = {
     LoadLevel.LIGHT: (LazyLoadMode.ULTRA, LazyInstallMode.FULL),  # Winner: 0.568ms avg (±26.1% CV)
     LoadLevel.MEDIUM: (LazyLoadMode.HYPERPARALLEL, LazyInstallMode.FULL),  # Winner: 5.134ms avg (±4.7% CV)
     LoadLevel.HEAVY: (LazyLoadMode.PRELOAD, LazyInstallMode.SIZE_AWARE),  # Winner: 18.475ms avg (±10.2% CV)
@@ -42,7 +42,7 @@ INTELLIGENT_MODE_MAP: Dict[LoadLevel, Tuple[LazyLoadMode, LazyInstallMode]] = {
 class IntelligentModeSelector:
     """Selects optimal mode based on current load characteristics."""
     
-    def __init__(self, mode_map: Optional[Dict[LoadLevel, Tuple[LazyLoadMode, LazyInstallMode]]] = None):
+    def __init__(self, mode_map: Optional[dict[LoadLevel, tuple[LazyLoadMode, LazyInstallMode]]] = None):
         """
         Initialize intelligent mode selector.
         
@@ -55,7 +55,7 @@ class IntelligentModeSelector:
         self._total_import_time = 0.0
         self._import_count = 0
     
-    def update_mode_map(self, mode_map: Dict[LoadLevel, Tuple[LazyLoadMode, LazyInstallMode]]) -> None:
+    def update_mode_map(self, mode_map: dict[LoadLevel, tuple[LazyLoadMode, LazyInstallMode]]) -> None:
         """Update the mode mapping with benchmark results."""
         self._mode_map = mode_map.copy()
         _get_logger().info(f"Updated INTELLIGENT mode mapping: {mode_map}")
@@ -111,7 +111,7 @@ class IntelligentModeSelector:
         
         return self._current_load_level
     
-    def get_optimal_mode(self, load_level: Optional[LoadLevel] = None) -> Tuple[LazyLoadMode, LazyInstallMode]:
+    def get_optimal_mode(self, load_level: Optional[LoadLevel] = None) -> tuple[LazyLoadMode, LazyInstallMode]:
         """
         Get optimal mode combination for given load level.
         
@@ -134,7 +134,7 @@ class IntelligentModeSelector:
     
     def should_switch_mode(
         self,
-        current_mode: Tuple[LazyLoadMode, LazyInstallMode],
+        current_mode: tuple[LazyLoadMode, LazyInstallMode],
         detected_level: LoadLevel
     ) -> bool:
         """

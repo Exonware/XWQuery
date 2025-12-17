@@ -10,7 +10,7 @@ Generation Date: 15-Nov-2025
 Smart timing - install on first usage (on-demand).
 """
 
-from typing import List, Any
+from typing import Any
 from ...package.base import AInstallTimingStrategy
 from ...defs import LazyInstallMode
 
@@ -52,7 +52,7 @@ class SmartTiming(AInstallTimingStrategy):
         """
         return False
     
-    def get_install_priority(self, packages: List[str]) -> List[str]:
+    def get_install_priority(self, packages: list[str]) -> list[str]:
         """
         Get priority order for installing packages.
         

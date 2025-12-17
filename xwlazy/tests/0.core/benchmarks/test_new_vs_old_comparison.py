@@ -26,7 +26,7 @@ import importlib
 import tracemalloc
 import gc
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Any
 
 # Mark all tests in this file as core and performance tests
 pytestmark = [
@@ -46,7 +46,7 @@ class BenchmarkResults:
     """Store benchmark results for comparison."""
     
     def __init__(self):
-        self.results: Dict[str, Dict[str, Any]] = {}
+        self.results: dict[str, dict[str, Any]] = {}
     
     def add_result(self, category: str, metric: str, value: Any):
         """Add a benchmark result."""
@@ -83,7 +83,7 @@ def benchmark_results():
     """Session-scoped fixture to collect all benchmark results."""
     return BenchmarkResults()
 
-def count_code_metrics(path: Path, pattern: str = "*.py") -> Dict[str, int]:
+def count_code_metrics(path: Path, pattern: str = "*.py") -> dict[str, int]:
     """Count code metrics for a directory."""
     metrics = {
         'files': 0,

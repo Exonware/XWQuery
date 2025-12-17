@@ -23,7 +23,7 @@ import importlib
 import tracemalloc
 import gc
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any
 
 # Configure UTF-8 encoding for Windows console
 if sys.platform == "win32":
@@ -45,7 +45,7 @@ ARCHIVE_ROOT = PROJECT_ROOT / "_archive" / "lazy"
 if str(PROJECT_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-def count_code_metrics(path: Path, pattern: str = "*.py") -> Dict[str, Any]:
+def count_code_metrics(path: Path, pattern: str = "*.py") -> dict[str, Any]:
     """Count code metrics for a directory."""
     metrics = {
         'files': 0,
@@ -79,7 +79,7 @@ def count_code_metrics(path: Path, pattern: str = "*.py") -> Dict[str, Any]:
     
     return metrics
 
-def measure_import_time(import_func, iterations: int = 10) -> Dict[str, float]:
+def measure_import_time(import_func, iterations: int = 10) -> dict[str, float]:
     """Measure import time over multiple iterations."""
     times = []
     

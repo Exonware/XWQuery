@@ -28,6 +28,11 @@ from .cache import (
     InstallationCache,
 )
 
+from .utils import (
+    find_project_root,
+    find_config_file,
+)
+
 __all__ = [
     # Logger
     'get_logger',
@@ -43,5 +48,8 @@ __all__ = [
     'MultiTierCache',
     'BytecodeCache',
     'InstallationCache',
+    # Utils
+    'find_project_root',
+    'find_config_file',
 ]
 

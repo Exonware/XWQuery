@@ -11,7 +11,7 @@ LFU cache implementation with size limit.
 Works with ANY data type (modules, packages, etc.).
 """
 
-from typing import Dict, Optional, Any
+from typing import Optional, Any
 from collections import Counter
 from ...common.base import ACachingStrategy
 
@@ -30,7 +30,7 @@ class LFUCache(ACachingStrategy):
         Args:
             max_size: Maximum number of items in cache
         """
-        self._cache: Dict[str, Any] = {}
+        self._cache: dict[str, Any] = {}
         self._freq: Counter[str] = Counter()
         self._max_size = max_size
     

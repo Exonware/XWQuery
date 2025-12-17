@@ -1,0 +1,19 @@
+# bson.out.grammar
+# BSON Output Grammar - Template for generating BSON from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#each elements}}{{value}}{{/each}}
+
+@element = {{type}}{{name}}{{value}}
+
+@type = {{value}}
+
+@value = {{value}}
+
+@cstring = {{value}}\x00
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

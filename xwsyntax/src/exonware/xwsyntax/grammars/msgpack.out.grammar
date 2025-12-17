@@ -1,0 +1,67 @@
+# msgpack.out.grammar
+# MessagePack Output Grammar - Template for generating MessagePack from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@value = {{value}}
+
+@positive_fixint = {{value}}
+
+@negative_fixint = {{value}}
+
+@uint8 = \xCC{{value}}
+
+@uint16 = \xCD{{value|bytes_2}}
+
+@uint32 = \xCE{{value|bytes_4}}
+
+@uint64 = \xCF{{value|bytes_8}}
+
+@int8 = \xD0{{value}}
+
+@int16 = \xD1{{value|bytes_2}}
+
+@int32 = \xD2{{value|bytes_4}}
+
+@int64 = \xD3{{value|bytes_8}}
+
+@fixstr = {{value|fixstr}}
+
+@str8 = \xD9{{length|byte}}{{value}}
+
+@str16 = \xDA{{length|bytes_2}}{{value}}
+
+@str32 = \xDB{{length|bytes_4}}{{value}}
+
+@fixarray = {{value|fixarray}}
+
+@array16 = \xDC{{length|bytes_2}}{{#each items}}{{value}}{{/each}}
+
+@array32 = \xDD{{length|bytes_4}}{{#each items}}{{value}}{{/each}}
+
+@fixmap = {{value|fixmap}}
+
+@map16 = \xDE{{length|bytes_2}}{{#each pairs}}{{key}}{{value}}{{/each}}
+
+@map32 = \xDF{{length|bytes_4}}{{#each pairs}}{{key}}{{value}}{{/each}}
+
+@nil = \xC0
+
+@false = \xC2
+
+@true = \xC3
+
+@float32 = \xCA{{value|bytes_4}}
+
+@float64 = \xCB{{value|bytes_8}}
+
+@bin8 = \xC4{{length|byte}}{{value}}
+
+@bin16 = \xC5{{length|bytes_2}}{{value}}
+
+@bin32 = \xC6{{length|bytes_4}}{{value}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

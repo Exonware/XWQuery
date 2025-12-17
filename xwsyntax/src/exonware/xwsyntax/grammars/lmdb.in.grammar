@@ -1,0 +1,25 @@
+// lmdb.grammar
+// LMDB Grammar - Lightning Memory-Mapped Database
+// Company: eXonware.com
+
+?start: lmdb_database
+
+lmdb_database: meta_page* free_pages data_pages
+
+meta_page: magic version page_size flags root_pgno free_pgno last_pgno
+
+data_pages: page*
+
+page: page_header node*
+
+node: flags key_size value_size key value
+
+// Terminals
+BYTE: /[\x00-\xFF]/
+INT: /[\x00-\xFF]{4,8}/
+magic: "BTree"
+
+%import common.WS
+
+%ignore WS
+

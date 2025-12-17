@@ -7,7 +7,7 @@ Author: Eng. Muhammad AlShehri
 Date: October 29, 2025
 """
 
-from typing import List, Optional, Any, Dict
+from typing import Optional, Any
 from ..base import ASyntaxHandler, AGrammar
 from ..syntax_tree import ASTNode
 from ..defs import GrammarFormat
@@ -33,7 +33,7 @@ class JSONGrammarHandler(ASyntaxHandler):
         return "JSON"
     
     @property
-    def file_extensions(self) -> List[str]:
+    def file_extensions(self) -> list[str]:
         return [".json", ".json5", ".jsonl", ".ndjson"]
     
     @property
@@ -41,11 +41,11 @@ class JSONGrammarHandler(ASyntaxHandler):
         return "application/json"
     
     @property
-    def mime_types(self) -> List[str]:
+    def mime_types(self) -> list[str]:
         return ["application/json", "text/json", "application/x-json"]
     
     @property
-    def aliases(self) -> List[str]:
+    def aliases(self) -> list[str]:
         return ["json", "JSON", "json5", "jsonl"]
     
     @property
@@ -68,7 +68,7 @@ class JSONGrammarHandler(ASyntaxHandler):
     # GRAMMAR OPERATIONS
     # =========================================================================
     
-    def parse_grammar(self, text: str, metadata: Optional[Dict[str, Any]] = None) -> AGrammar:
+    def parse_grammar(self, text: str, metadata: Optional[dict[str, Any]] = None) -> AGrammar:
         from ..engine import Grammar
         return Grammar(
             name=metadata.get('name', self.syntax_name) if metadata else self.syntax_name,
@@ -77,7 +77,7 @@ class JSONGrammarHandler(ASyntaxHandler):
             start_rule=metadata.get('start_rule', 'start') if metadata else 'start'
         )
     
-    def validate_grammar(self, text: str) -> List[str]:
+    def validate_grammar(self, text: str) -> list[str]:
         errors = []
         if not text or not text.strip():
             errors.append("Grammar cannot be empty")

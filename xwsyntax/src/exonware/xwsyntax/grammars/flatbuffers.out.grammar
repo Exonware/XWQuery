@@ -1,0 +1,49 @@
+# flatbuffers.out.grammar
+# FlatBuffers Output Grammar - Template for generating FlatBuffers from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@schema = {{#each includes}}{{value}}
+{{/each}}{{#each namespaces}}{{value}}
+{{/each}}{{#if root_type}}{{root_type}}
+{{/if}}{{#if file_extension}}{{file_extension}}
+{{/if}}{{#if file_identifier}}{{file_identifier}}
+{{/if}}{{#each attributes}}{{value}}
+{{/each}}{{#each tables}}{{value}}
+{{/each}}{{#each structs}}{{value}}
+{{/each}}{{#each enums}}{{value}}
+{{/each}}{{#each unions}}{{value}}
+{{/each}}{{#each rpc_services}}{{value}}
+{{/each}}
+
+@include = include "{{value}}";
+
+@namespace = namespace {{value}};
+
+@table = table {{name}} {
+{{#each fields}}{{value}}
+{{/each}}}
+
+@struct = struct {{name}} {
+{{#each fields}}{{value}}
+{{/each}}}
+
+@field = {{name}}: {{type}}{{#if default}} = {{default}}{{/if}}{{#if deprecated}} (deprecated){{/if}};
+
+@enum = enum {{name}}{{#if type}}: {{type}}{{/if}} {
+{{#each values}}{{value}}
+{{/each}}}
+
+@union = union {{name}} {
+{{#each values}}{{value}}
+{{/each}}}
+
+@rpc_service = rpc_service {{name}} {
+{{#each methods}}{{value}}
+{{/each}}}
+
+@rpc_method = {{name}}({{request_type}}): {{response_type}}{{#if streaming}} (streaming){{/if}};
+
+@indent = 2
+@pretty = true
+

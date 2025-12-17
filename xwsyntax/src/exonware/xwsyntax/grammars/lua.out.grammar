@@ -1,0 +1,50 @@
+# lua.out.grammar
+# Lua Output Grammar - Template for generating Lua code from AST
+# Lua Programming Language
+# Company: eXonware.com
+# Version: 1.0
+
+@chunk = {{block}}
+
+@block = {{#each statements}}{{value}}
+{{/each}}{{#if return}}{{return}}{{/if}}
+
+@stat = {{value}}
+
+@assignment = {{#each vars}}{{value}}{{#if !@last}}, {{/if}}{{/each}} = {{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@functioncall = {{target}}{{#if method}}:{{method}}{{/if}}({{#if args}}{{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}})
+
+@if_stat = if {{condition}} then
+{{then_block}}{{#each elseif}}elseif {{condition}} then
+{{block}}{{/each}}{{#if else}}else
+{{else_block}}{{/if}}
+end
+
+@while_stat = while {{condition}} do
+{{block}}
+end
+
+@repeat_stat = repeat
+{{block}}
+until {{condition}}
+
+@for_stat = for {{variable}} = {{start}}, {{end}}{{#if step}}, {{step}}{{/if}} do
+{{block}}
+end
+
+@for_in_stat = for {{#each vars}}{{value}}{{#if !@last}}, {{/if}}{{/each}} in {{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}} do
+{{block}}
+end
+
+@function_def = function {{name}}({{#if params}}{{#each params}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}})
+{{block}}
+end
+
+@table_constructor = {{{#each fields}}{{key}}{{#if key}} = {{/if}}{{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@exp = {{value}}
+
+@indent = 2
+@pretty = true
+

@@ -1,0 +1,57 @@
+# delta.out.grammar
+# Delta Lake Output Grammar - Template for generating Delta log entries from AST
+# Table Format Specification
+# Company: eXonware.com
+# Version: 1.0
+
+@delta_log = {{#each entries}}{{value}}
+{{/each}}
+
+@log_entry = {{action}}{{#if content}} {{content}}{{/if}}
+
+@metadata = {
+{{#if id}}  "id": "{{id}}",{{/if}}
+{{#if schema}}  "schema": "{{schema}}",{{/if}}
+{{#if partition_columns}}  "partitionColumns": [{{#each partition_columns}}"{{value}}"{{#if !@last}}, {{/if}}{{/each}}],{{/if}}
+{{#if created_time}}  "createdTime": {{created_time}},{{/if}}
+{{#if format}}  "format": {{format}},{{/if}}
+{{#if configuration}}  "configuration": {{configuration}}{{/if}}
+}
+
+@add = {
+{{#if path}}  "path": "{{path}}",{{/if}}
+{{#if partition_values}}  "partitionValues": {{partition_values}},{{/if}}
+{{#if size}}  "size": {{size}},{{/if}}
+{{#if modification_time}}  "modificationTime": {{modification_time}},{{/if}}
+{{#if data_change}}  "dataChange": {{data_change}},{{/if}}
+{{#if stats}}  "stats": "{{stats}}",{{/if}}
+{{#if tags}}  "tags": {{tags}}{{/if}}
+}
+
+@remove = {
+{{#if path}}  "path": "{{path}}",{{/if}}
+{{#if deletion_timestamp}}  "deletionTimestamp": {{deletion_timestamp}},{{/if}}
+{{#if data_change}}  "dataChange": {{data_change}},{{/if}}
+{{#if extended_file_metadata}}  "extendedFileMetadata": {{extended_file_metadata}},{{/if}}
+{{#if partition_values}}  "partitionValues": {{partition_values}},{{/if}}
+{{#if size}}  "size": {{size}}{{/if}}
+}
+
+@protocol = {
+{{#if min_reader_version}}  "minReaderVersion": {{min_reader_version}},{{/if}}
+{{#if min_writer_version}}  "minWriterVersion": {{min_writer_version}}{{/if}}
+}
+
+@commit_info = {
+{{#if timestamp}}  "timestamp": {{timestamp}},{{/if}}
+{{#if operation}}  "operation": "{{operation}}",{{/if}}
+{{#if operation_parameters}}  "operationParameters": {{operation_parameters}},{{/if}}
+{{#if read_version}}  "readVersion": {{read_version}},{{/if}}
+{{#if isolation_level}}  "isolationLevel": "{{isolation_level}}",{{/if}}
+{{#if is_blind_append}}  "isBlindAppend": {{is_blind_append}},{{/if}}
+{{#if operation_metrics}}  "operationMetrics": {{operation_metrics}}{{/if}}
+}
+
+@indent = 2
+@pretty = true
+

@@ -1,22 +1,135 @@
-﻿# xwqueryscript Output Grammar
+﻿# xwqueryscript.out.grammar
+# XWQueryScript Output Grammar - Template for generating XWQueryScript from AST
 # Company: eXonware.com
-# Generated: 2025-10-29
-#
-# This is a basic template for xwqueryscript generation
-# TODO: Implement proper templates for each rule
-#
-# Template syntax:
-#   {{child_N}} - Access child node by index
-#   {{value}} - Access node value
-#   {{#each children}}...{{/each}} - Loop over children
-#   {{#if condition}}...{{/if}} - Conditional rendering
+# Version: 1.0
 
-# Root rule (update with actual root from .in.grammar)
-@
-start = {{value}}
+@statement = {{value}}
 
-# Add templates for each rule in the input grammar
-# Example:
-# @
-rule_name = {{child_0}} {{value}} {{child_1}}
+@select_stmt = SELECT {{select_list}}{{#if from}} {{from}}{{/if}}{{#if where}} {{where}}{{/if}}{{#if group_by}} {{group_by}}{{/if}}{{#if having}} {{having}}{{/if}}{{#if order_by}} {{order_by}}{{/if}}{{#if limit}} {{limit}}{{/if}}{{#if window}} {{window}}{{/if}}
 
+@select_list = {{#if wildcard}}*{{else}}{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}}
+
+@select_item = {{expression}}{{#if alias}} AS {{alias}}{{/if}}
+
+@from_clause = FROM {{table}}{{#each joins}} {{value}}{{/each}}
+
+@table_ref = {{name}}{{#if alias}} AS {{alias}}{{/if}}
+
+@join_clause = {{#if type}}{{type}} {{/if}}JOIN {{table}}{{#if alias}} AS {{alias}}{{/if}} ON {{condition}}
+
+@join_type = {{value}}
+
+@where_clause = WHERE {{expression}}
+
+@group_by_clause = GROUP BY {{#each expressions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@having_clause = HAVING {{expression}}
+
+@order_by_clause = ORDER BY {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@order_item = {{expression}}{{#if direction}} {{direction}}{{/if}}
+
+@limit_clause = LIMIT {{value}}{{#if offset}} OFFSET {{offset}}{{/if}}
+
+@window_clause = WINDOW OVER ({{#if partition}}PARTITION BY {{#each expressions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}}{{#if order}} ORDER BY {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}})
+
+@insert_stmt = INSERT INTO {{table}}{{#if columns}} ({{columns}}){{/if}} VALUES{{#if single}} {{value}}{{else}} {{#each tuples}}({{values}}){{#if !@last}}, {{/if}}{{/each}}{{/if}}
+
+@id_list = {{#each ids}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@value_tuple_list = {{#each tuples}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@value_tuple = ({{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@update_stmt = UPDATE {{table}} SET {{#each assignments}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if where}} {{where}}{{/if}}
+
+@assignment = {{name}} = {{value}}
+
+@delete_stmt = DELETE FROM {{table}}{{#if where}} {{where}}{{/if}}
+
+@create_stmt = CREATE {{type}} {{name}}
+
+@object_type = {{value}}
+
+@drop_stmt = DROP {{type}}{{#if if_exists}} IF EXISTS{{/if}} {{name}}
+
+@describe_stmt = DESCRIBE {{name}}
+
+@load_stmt = LOAD FROM {{path}}{{#if into}} INTO {{into}}{{/if}}
+
+@store_stmt = STORE {{source}} TO {{path}}
+
+@merge_stmt = MERGE {{target}}{{#if with}} WITH {{with}}{{else}} USING {{using}}{{/if}} ON {{condition}}
+
+@alter_stmt = ALTER {{type}} {{name}} {{action}}
+
+@alter_action = {{value}}
+
+@with_stmt = WITH {{#each ctes}}{{value}}{{#if !@last}}, {{/if}}{{/each}} {{statement}}
+
+@cte = {{name}} AS ({{select}})
+
+@match_stmt = MATCH {{pattern}}{{#if where}} {{where}}{{/if}} RETURN {{returns}}
+
+@pattern = {{#each nodes}}{{value}}{{#if !@last}} {{relationship}}{{/if}}{{/each}}
+
+@node_pattern = ({{#if variable}}{{variable}}{{/if}}{{#if label}}{{label}}{{/if}}{{#if props}} {{props}}{{/if}})
+
+@relationship = {{#if reverse}}<{{/if}}-{{#if variable}}[{{variable}}{{#if type}} {{type}}{{/if}}{{#if props}} {{props}}{{/if}}]{{else}}[{{#if type}}{{type}}{{/if}}{{#if props}} {{props}}{{/if}}]{{/if}}-{{#if reverse}}>{{/if}}
+
+@label = :{{value}}
+
+@rel_type = :{{value}}
+
+@props = {{{#each pairs}}{{key}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@prop_list = {{#each pairs}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@prop_pair = {{key}}: {{value}}
+
+@return_list = {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@return_item = {{#if wildcard}}*{{else}}{{expression}}{{#if alias}} AS {{alias}}{{/if}}{{/if}}
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} OR {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} AND {{/if}}{{/each}}
+
+@not_expr = {{#if negated}}NOT {{/if}}{{comparison}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{else}}{{#if like}} LIKE {{pattern}}{{else}}{{#if in}} IN {{list}}{{else}}{{#if between}} BETWEEN {{left}} AND {{right}}{{else}}{{#if has}} HAS {{property}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}
+
+@compare_op = {{value}}
+
+@additive = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@multiplicative = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@primary = {{value}}
+
+@column_ref = {{#each parts}}{{value}}{{#if !@last}}.{{/if}}{{/each}}
+
+@function_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@aggregate_function = {{value}}
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@subquery = ({{select}})
+
+@value_list = {{#if parens}}({{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}}){{else}}[{{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]{{/if}}
+
+@literal = {{value}}
+
+@array_literal = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@object_literal = {{{#each pairs}}{{key}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@data_type = {{value}}
+
+@indent = 2
+@pretty = true

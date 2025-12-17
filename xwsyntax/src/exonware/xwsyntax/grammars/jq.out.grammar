@@ -1,22 +1,45 @@
-﻿# jq Output Grammar
+﻿# jq.out.grammar
+# jq Output Grammar - Template for generating jq from AST
 # Company: eXonware.com
-# Generated: 2025-10-29
-#
-# This is a basic template for jq generation
-# TODO: Implement proper templates for each rule
-#
-# Template syntax:
-#   {{child_N}} - Access child node by index
-#   {{value}} - Access node value
-#   {{#each children}}...{{/each}} - Loop over children
-#   {{#if condition}}...{{/if}} - Conditional rendering
+# Version: 1.0
 
-# Root rule (update with actual root from .in.grammar)
-@
-start = {{value}}
+@filter = {{value}}
 
-# Add templates for each rule in the input grammar
-# Example:
-# @
-rule_name = {{child_0}} {{value}} {{child_1}}
+@pipe = {{#each terms}}{{value}}{{#if !@last}} | {{/if}}{{/each}}
 
+@term = {{value}}
+
+@recursive_descent = ..
+
+@identifier_index = .{{name}}{{#if optional}}?{{/if}}
+
+@generic_index = [{{value}}]{{#if optional}}?{{/if}}
+
+@slice = [{{#if start}}{{start}}{{/if}}:{{#if end}}{{end}}{{/if}}]
+
+@iterator = .[]{{#if optional}}?{{/if}}
+
+@optional = {{value}}?
+
+@function_call = {{name}}{{#if args}}({{args}}){{/if}}
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}; {{/if}}{{/each}}
+
+@array_construction = [{{#if value}}{{value}}{{/if}}]
+
+@object_construction = {{{#each fields}}{{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@object_field = {{#if shorthand}}{{name}}{{else}}{{key}}: {{value}}{{/if}}
+
+@conditional = if {{condition}} then {{then}}{{#each elifs}} elif {{condition}} then {{then}}{{/each}}{{#if else}} else {{else}}{{/if}} end
+
+@try_catch = try {{value}}{{#if catch}} catch {{catch}}{{/if}}
+
+@reduce_expr = reduce {{value}} as ${{var}} ({{init}}; {{update}})
+
+@foreach_expr = foreach {{value}} as ${{var}} ({{init}}; {{update}}{{#if extract}}; {{extract}}{{/if}})
+
+@literal = {{value}}
+
+@indent = 2
+@pretty = true

@@ -1,7 +1,7 @@
 // CQL Grammar for Lark
 // Cassandra Query Language
 
-start: statement
+?start: statement
 
 statement: select_stmt
          | insert_stmt

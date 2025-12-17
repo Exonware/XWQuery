@@ -1,0 +1,17 @@
+# lmdb.out.grammar
+# LMDB Output Grammar - Template for generating LMDB from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@lmdb_database = {{#each meta_pages}}{{value}}{{/each}}{{free_pages}}{{data_pages}}
+
+@meta_page = {{magic}}{{version}}{{page_size}}{{flags}}{{root_pgno}}{{free_pgno}}{{last_pgno}}
+
+@page = {{header}}{{#each nodes}}{{value}}{{/each}}
+
+@node = {{flags}}{{key_size}}{{value_size}}{{key}}{{value}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

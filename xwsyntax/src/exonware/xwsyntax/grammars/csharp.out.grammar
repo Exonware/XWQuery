@@ -1,0 +1,16 @@
+# csharp.out.grammar
+# C# Output Grammar - Template for generating C# from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@compilation_unit = {{#each usings}}{{value}}
+{{/each}}{{#each members}}{{value}}
+{{/each}}
+
+@class_declaration = {{#if attributes}}{{attributes}} {{/if}}{{#if modifiers}}{{modifiers}} {{/if}}class {{name}}{{#if type_params}}{{type_params}}{{/if}}{{#if base_class}} : {{base_class}}{{/if}} {
+{{#each members}}{{value}}
+{{/each}}}
+
+@indent = 4
+@pretty = true
+

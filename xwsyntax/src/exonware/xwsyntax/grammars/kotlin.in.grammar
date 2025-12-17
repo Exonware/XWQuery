@@ -1,0 +1,36 @@
+// kotlin.grammar
+// Kotlin Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: kotlin_file
+
+kotlin_file: [package_header] import_list* top_level_object*
+
+package_header: "package" qualified_name
+
+import_list: "import" [qualified_name "." "*" | qualified_name ["as" simple_identifier]]
+
+top_level_object: declaration | function_declaration | property_declaration | class_declaration | object_declaration
+
+declaration: "class" | "interface" | "object" | "enum" | "annotation" | "typealias"
+
+function_declaration: [modifiers] "fun" [type_parameters] [receiver_type "."] function_name [type_parameters] "(" [parameter_list] ")" [type] [function_body]
+
+class_declaration: [modifiers] "class" simple_identifier [type_parameters] [primary_constructor] [colon super_type] [class_body]
+
+property_declaration: [modifiers] ["val" | "var"] [type_parameters] [receiver_type "."] property_name [type] [property_initializer]
+
+qualified_name: simple_identifier ("." simple_identifier)*
+
+simple_identifier: IDENTIFIER
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

@@ -2,7 +2,7 @@
 // Couchbase N1QL (Non-first Query Language)
 // SQL for JSON documents
 
-start: statement
+?start: statement
 
 statement: select_stmt
          | insert_stmt

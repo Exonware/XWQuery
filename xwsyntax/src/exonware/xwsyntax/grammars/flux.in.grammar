@@ -2,7 +2,7 @@
 // InfluxDB Flux Query Language
 // Functional data scripting language
 
-start: file
+?start: file
 
 file: package_clause? import_list? statement_list
 

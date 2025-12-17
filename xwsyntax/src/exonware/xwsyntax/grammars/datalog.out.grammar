@@ -1,22 +1,40 @@
-﻿# datalog Output Grammar
+﻿# datalog.out.grammar
+# Datalog Output Grammar - Template for generating Datalog from AST
 # Company: eXonware.com
-# Generated: 2025-10-29
-#
-# This is a basic template for datalog generation
-# TODO: Implement proper templates for each rule
-#
-# Template syntax:
-#   {{child_N}} - Access child node by index
-#   {{value}} - Access node value
-#   {{#each children}}...{{/each}} - Loop over children
-#   {{#if condition}}...{{/if}} - Conditional rendering
+# Version: 1.0
 
-# Root rule (update with actual root from .in.grammar)
-@
-start = {{value}}
+@program = {{#each items}}{{value}}
+{{/each}}
 
-# Add templates for each rule in the input grammar
-# Example:
-# @
-rule_name = {{child_0}} {{value}} {{child_1}}
+@rule = {{head}} :- {{body}}.
 
+@fact = {{atom}}.
+
+@query = ?- {{body}}.
+
+@head = {{atom}}
+
+@body = {{#each literals}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@literal = {{#if negated}}not {{/if}}{{atom}}
+
+@atom = {{predicate}}{{#if terms}}({{terms}}){{/if}}
+
+@predicate_name = {{value}}
+
+@term_list = {{#each terms}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@term = {{value}}
+
+@variable = {{value}}
+
+@constant = {{value}}
+
+@compound_term = {{functor}}({{terms}})
+
+@functor = {{value}}
+
+@list_term = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if tail}}| {{tail}}{{/if}}]
+
+@indent = 2
+@pretty = true

@@ -1,0 +1,39 @@
+# edn.out.grammar
+# EDN Output Grammar - Template for generating EDN from AST
+# Extensible Data Notation (Clojure)
+# Company: eXonware.com
+# Version: 1.0
+
+@value = {{value}}
+
+@map = {{{#each entries}}{{key}} {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@vector = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@list = ({{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@set = #{ {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@tagged_value = #{{tag}} {{value}}
+
+@nil = nil
+
+@boolean = {{value}}
+
+@string = {{value}}
+
+@character = \\{{value}}
+
+@symbol = {{value}}
+
+@keyword = :{{value}}
+
+@integer = {{value}}
+
+@float = {{value}}
+
+@ratio = {{numerator}}/{{denominator}}
+
+@indent = 2
+@pretty = true
+

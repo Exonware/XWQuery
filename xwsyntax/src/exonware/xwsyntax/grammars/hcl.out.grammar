@@ -1,0 +1,40 @@
+# hcl.out.grammar
+# HCL Output Grammar - Template for generating HCL from AST
+# HashiCorp Configuration Language
+# Company: eXonware.com
+# Version: 1.0
+
+@body = {{#each items}}{{value}}
+{{/each}}
+
+@attribute = {{name}} = {{expression}}
+
+@block = {{#each labels}}{{value}}{{#if !@last}} " "{{/if}}{{/each}} {
+{{#each body_items}}  {{value}}
+{{/each}}}
+
+@block_label = {{value}}
+
+@expression = {{#each terms}}{{value}}{{#if operator}} {{operator}} {{/if}}{{/each}}
+
+@variable_expr = {{#each parts}}{{value}}{{#if !@last}}.{{/if}}{{/each}}
+
+@function_call = {{name}}({{#if args}}{{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}})
+
+@object_value = {{{#each elements}}{{key}} = {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@object_elem = {{key}} = {{value}}
+
+@tuple_value = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@string_literal = {{value}}
+
+@number_literal = {{value}}
+
+@boolean_literal = {{value}}
+
+@null_literal = null
+
+@indent = 2
+@pretty = true
+

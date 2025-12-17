@@ -1,0 +1,45 @@
+// typescript.grammar
+// TypeScript Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: program
+
+program: statement*
+
+statement: expression_stmt | declaration | control_stmt | function_decl | class_decl | interface_decl | type_decl
+
+declaration: ("var" | "let" | "const") IDENTIFIER [type_annotation] ["=" expression] ";"
+
+type_annotation: ":" type
+
+type: primitive_type | array_type | object_type | union_type | function_type | generic_type
+
+primitive_type: "string" | "number" | "boolean" | "void" | "null" | "undefined" | "any" | "unknown"
+
+array_type: type "[]" | "Array" "<" type ">"
+
+object_type: "{" [property ("," property)*] "}"
+
+property: IDENTIFIER [type_annotation] ["?"]
+
+union_type: type ("|" type)+
+
+function_type: "(" [param ("," param)*] ")" "=>" type
+
+generic_type: IDENTIFIER "<" [type ("," type)*] ">"
+
+interface_decl: "interface" IDENTIFIER ["extends" IDENTIFIER] "{" interface_body "}"
+
+type_decl: "type" IDENTIFIER "=" type ";"
+
+// Reuse JavaScript grammar for rest
+%import javascript.in.grammar
+
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

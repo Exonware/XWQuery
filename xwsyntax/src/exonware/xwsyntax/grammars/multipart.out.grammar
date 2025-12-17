@@ -1,0 +1,28 @@
+# multipart.out.grammar
+# Multipart Output Grammar - Template for generating multipart/form-data
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#each parts}}{{value}}{{#if !@last}}
+{{boundary}}
+{{/if}}{{/each}}
+{{final_boundary}}
+
+@part = {{boundary}}
+{{headers}}
+
+{{body}}
+
+@boundary = --{{value}}
+
+@headers = {{#each headers}}{{name}}: {{value}}
+{{/each}}
+
+@header = {{child_0}}: {{child_1}}
+
+@body = {{value}}
+
+@indent = 0
+@pretty = false
+@boundary_prefix = "--"
+

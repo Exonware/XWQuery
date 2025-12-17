@@ -1,7 +1,7 @@
 // JSONiq Grammar for Lark
 // XQuery for JSON
 
-start: module
+?start: module
 
 module: prolog? expression
 

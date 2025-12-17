@@ -2,7 +2,7 @@
 // ISO Graph Query Language (GQL)
 // Standard graph query language
 
-start: query
+?start: query
 
 query: graph_pattern_query
      | insert_query

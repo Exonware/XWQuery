@@ -1,7 +1,7 @@
 // Elasticsearch DSL Grammar for Lark
 // Elasticsearch Query DSL (JSON-based)
 
-start: query
+?start: query
 
 query: match_all_query
      | match_query

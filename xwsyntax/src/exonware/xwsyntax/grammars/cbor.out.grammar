@@ -1,0 +1,29 @@
+# cbor.out.grammar
+# CBOR Output Grammar - Template for generating CBOR from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@data_item = {{value}}
+
+@unsigned_integer = {{major_type}}{{value}}
+
+@negative_integer = {{major_type}}{{value}}
+
+@byte_string = {{major_type}}{{length}}{{data}}
+
+@text_string = {{major_type}}{{length}}{{data}}
+
+@array = {{major_type}}{{length}}{{#each items}}{{value}}{{/each}}
+
+@map = {{major_type}}{{length}}{{#each pairs}}{{key}}{{value}}{{/each}}
+
+@tag = {{major_type}}{{tag_value}}{{child_0}}
+
+@simple_value = {{major_type}}{{value}}
+
+@floating_point = {{major_type}}{{value}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

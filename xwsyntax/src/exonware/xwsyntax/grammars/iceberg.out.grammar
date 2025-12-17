@@ -1,0 +1,65 @@
+# iceberg.out.grammar
+# Apache Iceberg Output Grammar - Template for generating Iceberg metadata from AST
+# Table Format Specification
+# Company: eXonware.com
+# Version: 1.0
+
+@iceberg_spec = {{format_version}}
+{{metadata}}
+
+@format_version = format-version: {{version}}
+
+@table_metadata = {{#each blocks}}{{value}}
+{{/each}}
+
+@table_metadata_v1 = {
+{{#if uuid}}  "uuid": "{{uuid}}",{{/if}}
+{{#if location}}  "location": "{{location}}",{{/if}}
+{{#if last_updated_ms}}  "last-updated-ms": {{last_updated_ms}},{{/if}}
+{{#if last_column_id}}  "last-column-id": {{last_column_id}},{{/if}}
+{{#if schema}}  "schema": {{schema}},{{/if}}
+{{#if current_schema_id}}  "current-schema-id": {{current_schema_id}},{{/if}}
+{{#if schemas}}  "schemas": {{schemas}},{{/if}}
+{{#if partition_spec}}  "partition-spec": {{partition_spec}},{{/if}}
+{{#if default_spec_id}}  "default-spec-id": {{default_spec_id}},{{/if}}
+{{#if partition_specs}}  "partition-specs": {{partition_specs}},{{/if}}
+{{#if properties}}  "properties": {{properties}},{{/if}}
+{{#if current_snapshot_id}}  "current-snapshot-id": {{current_snapshot_id}},{{/if}}
+{{#if snapshots}}  "snapshots": {{snapshots}},{{/if}}
+{{#if snapshot_log}}  "snapshot-log": {{snapshot_log}},{{/if}}
+{{#if metadata_log}}  "metadata-log": {{metadata_log}},{{/if}}
+{{#if sort_order}}  "sort-order": {{sort_order}},{{/if}}
+{{#if default_sort_order_id}}  "default-sort-order-id": {{default_sort_order_id}},{{/if}}
+{{#if sort_orders}}  "sort-orders": {{sort_orders}},{{/if}}
+{{#if refs}}  "refs": {{refs}}{{/if}}
+}
+
+@schema_object = {
+{{#if type}}  "type": "{{type}}",{{/if}}
+{{#if schema_id}}  "schema-id": {{schema_id}},{{/if}}
+{{#if fields}}  "fields": [{{#each fields}}{{value}}{{#if !@last}}, {{/if}}{{/each}}],{{/if}}
+{{#if identifier_field_ids}}  "identifier-field-ids": [{{#each identifier_field_ids}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]{{/if}}
+}
+
+@field = {
+{{#if id}}  "id": {{id}},{{/if}}
+{{#if name}}  "name": "{{name}}",{{/if}}
+{{#if type}}  "type": "{{type}}",{{/if}}
+{{#if required}}  "required": {{required}},{{/if}}
+{{#if doc}}  "doc": "{{doc}}",{{/if}}
+{{#if initial_default}}  "initial-default": {{initial_default}},{{/if}}
+{{#if write_default}}  "write-default": {{write_default}}{{/if}}
+}
+
+@snapshot = {
+{{#if snapshot_id}}  "snapshot-id": {{snapshot_id}},{{/if}}
+{{#if sequence_number}}  "sequence-number": {{sequence_number}},{{/if}}
+{{#if timestamp_ms}}  "timestamp-ms": {{timestamp_ms}},{{/if}}
+{{#if manifest_list}}  "manifest-list": "{{manifest_list}}",{{/if}}
+{{#if summary}}  "summary": {{summary}},{{/if}}
+{{#if schema_id}}  "schema-id": {{schema_id}}{{/if}}
+}
+
+@indent = 2
+@pretty = true
+

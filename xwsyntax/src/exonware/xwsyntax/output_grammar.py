@@ -9,12 +9,12 @@ Parses and manages .out.grammar files for text generation from AST.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.1
+Version: 0.0.1.2
 Generation Date: 29-Oct-2025
 """
 
 import re
-from typing import Any, Dict, List, Optional, Callable
+from typing import Any, Optional, Callable
 from pathlib import Path
 
 
@@ -37,9 +37,9 @@ class OutputGrammar:
         """
         self.name = name
         self.grammar_text = grammar_text
-        self.templates: Dict[str, str] = {}
-        self.formatting_rules: Dict[str, Any] = {}
-        self.filters: Dict[str, str] = {}
+        self.templates: dict[str, str] = {}
+        self.formatting_rules: dict[str, Any] = {}
+        self.filters: dict[str, str] = {}
         
         # Parse grammar
         self._parse_grammar()
@@ -118,15 +118,15 @@ class OutputGrammar:
         """Get filter definition."""
         return self.filters.get(filter_name)
     
-    def list_templates(self) -> List[str]:
+    def list_templates(self) -> list[str]:
         """List all template names."""
         return list(self.templates.keys())
     
-    def list_formatting_rules(self) -> List[str]:
+    def list_formatting_rules(self) -> list[str]:
         """List all formatting rule names."""
         return list(self.formatting_rules.keys())
     
-    def list_filters(self) -> List[str]:
+    def list_filters(self) -> list[str]:
         """List all filter names."""
         return list(self.filters.keys())
     
@@ -168,7 +168,7 @@ class OutputGrammarRegistry:
             grammar_dir: Directory containing .out.grammar files
         """
         self.grammar_dir = grammar_dir
-        self._grammars: Dict[str, OutputGrammar] = {}
+        self._grammars: dict[str, OutputGrammar] = {}
     
     def load_grammar(self, format_name: str) -> OutputGrammar:
         """
@@ -205,7 +205,7 @@ class OutputGrammarRegistry:
         """Get cached grammar or None."""
         return self._grammars.get(format_name)
     
-    def list_formats(self) -> List[str]:
+    def list_formats(self) -> list[str]:
         """List all available formats."""
         if not self.grammar_dir:
             return []

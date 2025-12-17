@@ -1,22 +1,85 @@
-﻿# gql Output Grammar
+﻿# gql.out.grammar
+# GQL Output Grammar - Template for generating GQL from AST
 # Company: eXonware.com
-# Generated: 2025-10-29
-#
-# This is a basic template for gql generation
-# TODO: Implement proper templates for each rule
-#
-# Template syntax:
-#   {{child_N}} - Access child node by index
-#   {{value}} - Access node value
-#   {{#each children}}...{{/each}} - Loop over children
-#   {{#if condition}}...{{/if}} - Conditional rendering
+# Version: 1.0
 
-# Root rule (update with actual root from .in.grammar)
-@
-start = {{value}}
+@query = {{value}}
 
-# Add templates for each rule in the input grammar
-# Example:
-# @
-rule_name = {{child_0}} {{value}} {{child_1}}
+@graph_pattern_query = MATCH {{pattern}}{{#if where}} {{where}}{{/if}} RETURN {{returns}}
 
+@insert_query = INSERT {{pattern}}
+
+@update_query = MATCH {{pattern}} SET {{sets}}{{#if where}} {{where}}{{/if}}
+
+@delete_query = MATCH {{pattern}}{{#if where}} {{where}}{{/if}}{{#if detach}} DETACH{{/if}} DELETE {{variables}}
+
+@graph_pattern = {{#each patterns}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@path_pattern = {{#each nodes}}{{value}}{{#if !@last}} {{edge}}{{/if}}{{/each}}
+
+@node_pattern = ({{#if variable}}{{variable}}{{/if}}{{#if labels}}{{labels}}{{/if}}{{#if where}} {{where}}{{/if}})
+
+@edge_pattern = {{value}}
+
+@directed_edge = {{#if reverse}}<{{/if}}-{{#if variable}}[{{variable}}{{#if type}} {{type}}{{/if}}{{#if where}} {{where}}{{/if}}]{{else}}[{{#if type}}{{type}}{{/if}}{{#if where}} {{where}}{{/if}}]{{/if}}-{{#if reverse}}>{{/if}}
+
+@undirected_edge = -{{#if variable}}[{{variable}}{{#if type}} {{type}}{{/if}}{{#if where}} {{where}}{{/if}}]{{else}}[{{#if type}}{{type}}{{/if}}{{#if where}} {{where}}{{/if}}]{{/if}}-
+
+@variable = {{value}}
+
+@label_expr = {{#each labels}}:{{value}}{{/each}}
+
+@type_expr = {{#each types}}:{{value}}{{#if !@last}}|{{/if}}{{/each}}
+
+@label_name = {{value}}
+
+@type_name = {{value}}
+
+@where_inline = {{{expression}}}
+
+@where_clause = WHERE {{expression}}
+
+@return_list = {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@return_item = {{#if wildcard}}*{{else}}{{expression}}{{#if alias}} AS {{alias}}{{/if}}{{/if}}
+
+@set_list = {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@set_item = {{variable}}.{{property}} = {{value}}
+
+@variable_list = {{#each variables}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} OR {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} AND {{/if}}{{/each}}
+
+@not_expr = {{#if negated}}NOT {{/if}}{{comparison}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{else}}{{#if in}} IN {{list}}{{else}}{{#if is_null}} IS NULL{{else}}{{#if is_not_null}} IS NOT NULL{{/if}}{{/if}}{{/if}}{{/if}}
+
+@compare_op = {{value}}
+
+@additive = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@multiplicative = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@primary = {{value}}
+
+@function_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@function_name = {{value}}
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@value_list = ({{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@literal = {{value}}
+
+@property_name = {{value}}
+
+@indent = 2
+@pretty = true

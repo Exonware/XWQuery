@@ -1,0 +1,46 @@
+// xslt.grammar
+// XSLT Grammar - XSL Transformations
+// Based on XSLT 2.0/3.0 specification
+// Company: eXonware.com
+
+?start: stylesheet
+
+stylesheet: "<?xml" versioninfo "?>" (stylesheet_element)*
+
+versioninfo: /version\s*=\s*"[^"]*"/
+
+stylesheet_element: xsl_element | literal_element
+
+xsl_element: "<xsl:" IDENTIFIER (attribute)* ("/>" | ">" (content)* "</xsl:" IDENTIFIER ">")
+
+literal_element: "<" IDENTIFIER (attribute)* ("/>" | ">" (content)* "</" IDENTIFIER ">")
+
+content: xsl_element | literal_element | text | xsl_value_of | xsl_for_each | xsl_if | xsl_choose | xsl_apply_templates
+
+xsl_value_of: "<xsl:value-of" (attribute)* "/>"
+
+xsl_for_each: "<xsl:for-each" (attribute)* ">" (content)* "</xsl:for-each>"
+
+xsl_if: "<xsl:if" (attribute)* ">" (content)* "</xsl:if>"
+
+xsl_choose: "<xsl:choose>" (xsl_when)* (xsl_otherwise)? "</xsl:choose>"
+
+xsl_when: "<xsl:when" (attribute)* ">" (content)* "</xsl:when>"
+
+xsl_otherwise: "<xsl:otherwise>" (content)* "</xsl:otherwise>"
+
+xsl_apply_templates: "<xsl:apply-templates" (attribute)* "/>"
+
+attribute: IDENTIFIER "=" attribute_value
+
+attribute_value: "\"" /[^"]/* "\"" | "'" /[^']/* "'"
+
+text: /[^<]+/
+
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_.-]*/
+
+%import common.WS
+%import common.NEWLINE
+
+%ignore WS
+

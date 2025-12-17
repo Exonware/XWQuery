@@ -1,0 +1,38 @@
+// scala.grammar
+// Scala Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: compilation_unit
+
+compilation_unit: package_declaration? import_declaration* top_level_definition*
+
+package_declaration: "package" qualified_name
+
+import_declaration: "import" import_expression ("," import_expression)*
+
+import_expression: qualified_name ["." ("*" | "{" import_selectors "}")]
+
+top_level_definition: object_definition | class_definition | trait_definition | package_object
+
+object_definition: [modifiers] "object" IDENTIFIER [extends_clause] "{" template_body "}"
+
+class_definition: [modifiers] "class" IDENTIFIER [type_parameters] [class_parameters] [extends_clause] "{" template_body "}"
+
+trait_definition: [modifiers] "trait" IDENTIFIER [type_parameters] [extends_clause] "{" template_body "}"
+
+extends_clause: "extends" [type] [with_clause]
+
+with_clause: "with" type ("," type)*
+
+qualified_name: IDENTIFIER ("." IDENTIFIER)*
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

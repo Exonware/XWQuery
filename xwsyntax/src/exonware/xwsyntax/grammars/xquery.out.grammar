@@ -1,22 +1,75 @@
-﻿# xquery Output Grammar
+﻿# xquery.out.grammar
+# XQuery Output Grammar - Template for generating XQuery from AST
 # Company: eXonware.com
-# Generated: 2025-10-29
-#
-# This is a basic template for xquery generation
-# TODO: Implement proper templates for each rule
-#
-# Template syntax:
-#   {{child_N}} - Access child node by index
-#   {{value}} - Access node value
-#   {{#each children}}...{{/each}} - Loop over children
-#   {{#if condition}}...{{/if}} - Conditional rendering
+# Version: 1.0
 
-# Root rule (update with actual root from .in.grammar)
-@
-start = {{value}}
+@module = {{#if prolog}}{{prolog}}
+{{/if}}{{body}}
 
-# Add templates for each rule in the input grammar
-# Example:
-# @
-rule_name = {{child_0}} {{value}} {{child_1}}
+@prolog = {{#each declarations}}{{value}}
+{{/each}}
 
+@namespace_decl = declare namespace {{name}} = {{uri}}
+
+@import_decl = import module {{uri}}
+
+@variable_decl = declare variable ${{name}} := {{value}}
+
+@query_body = {{expression}}
+
+@expression = {{value}}
+
+@flwor_expr = {{#each for_clauses}}{{value}}
+{{/each}}{{#each let_clauses}}{{value}}
+{{/each}}{{#if where}}{{where}}
+{{/if}}{{#if order}}{{order}}
+{{/if}}return {{return}}
+
+@for_clause = for ${{var}} in {{source}}
+
+@let_clause = let ${{var}} := {{value}}
+
+@where_clause = where {{expression}}
+
+@order_clause = order by {{#each specs}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@order_spec = {{expression}}{{#if modifier}} {{modifier}}{{/if}}
+
+@order_modifier = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} or {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} and {{/if}}{{/each}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{else}}{{#if range}} to {{end}}{{/if}}{{/if}}
+
+@compare_op = {{value}}
+
+@range_expr = {{start}}{{#if end}} to {{end}}{{/if}}
+
+@additive = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@multiplicative = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@union_expr = {{value}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@postfix_expr = {{primary}}{{#each postfixes}}{{value}}{{/each}}
+
+@postfix = {{value}}
+
+@predicate = [{{expression}}]
+
+@primary_expr = {{value}}
+
+@path_expr = {{value}}
+
+@function_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@literal = {{value}}
+
+@indent = 2
+@pretty = true

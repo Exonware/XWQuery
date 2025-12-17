@@ -1,0 +1,37 @@
+// jsonl.grammar
+// JSONL (JSON Lines) Grammar - One JSON object per line
+// Based on JSON Lines specification
+// Company: eXonware.com
+
+?start: document
+
+document: line*
+
+line: json_value NEWLINE
+
+json_value: object
+          | array
+          | string
+          | number
+          | "true"  -> true
+          | "false" -> false
+          | "null"  -> null
+
+object: "{" [pair ("," pair)*] "}"
+pair: string ":" json_value
+
+array: "[" [json_value ("," json_value)*] "]"
+
+string: ESCAPED_STRING
+number: SIGNED_NUMBER
+
+// Terminals
+%import common.ESCAPED_STRING
+%import common.SIGNED_NUMBER
+%import common.WS
+%import common.NEWLINE
+
+NEWLINE: /\r?\n/
+
+%ignore WS
+

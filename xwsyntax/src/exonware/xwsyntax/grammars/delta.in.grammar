@@ -1,0 +1,121 @@
+// delta.grammar
+// Delta Lake Grammar - Table Format Specification
+// Based on Delta Lake protocol specification
+// Company: eXonware.com
+
+?start: delta_log
+
+delta_log: log_entry+
+
+log_entry: action (metadata | add | remove | protocol | commit_info | checkpoint)?
+
+action: "add" | "remove" | "metadata" | "protocol" | "commitInfo" | "checkpoint"
+
+metadata: "{" metadata_fields "}"
+
+metadata_fields: id? schema? partition_columns? created_time? format? configuration?
+
+id: "\"id\":" GUID
+
+GUID: /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
+
+schema: "\"schema\":" schema_string
+
+schema_string: STRING
+
+partition_columns: "\"partitionColumns\":" "[" (partition_column ("," partition_column)*)? "]"
+
+partition_column: STRING
+
+created_time: "\"createdTime\":" NUMBER
+
+format: "\"format\":" format_spec
+
+format_spec: "{" provider "}"
+
+provider: "\"provider\":" STRING
+
+configuration: "\"configuration\":" "{" (config_entry ("," config_entry)*)? "}"
+
+config_entry: STRING ":" STRING
+
+add: "{" add_fields "}"
+
+add_fields: path? partition_values? size? modification_time? data_change? stats? tags?
+
+path: "\"path\":" STRING
+
+partition_values: "\"partitionValues\":" "{" (partition_value ("," partition_value)*)? "}"
+
+partition_value: STRING ":" (STRING | NUMBER | "null")
+
+size: "\"size\":" NUMBER
+
+modification_time: "\"modificationTime\":" NUMBER
+
+data_change: "\"dataChange\":" boolean
+
+boolean: "true" | "false"
+
+stats: "\"stats\":" STRING
+
+tags: "\"tags\":" "{" (tag_entry ("," tag_entry)*)? "}"
+
+tag_entry: STRING ":" STRING
+
+remove: "{" remove_fields "}"
+
+remove_fields: path? deletion_timestamp? data_change? extended_file_metadata? partition_values? size?
+
+deletion_timestamp: "\"deletionTimestamp\":" NUMBER
+
+extended_file_metadata: "\"extendedFileMetadata\":" boolean
+
+protocol: "{" protocol_fields "}"
+
+protocol_fields: min_reader_version? min_writer_version?
+
+min_reader_version: "\"minReaderVersion\":" NUMBER
+
+min_writer_version: "\"minWriterVersion\":" NUMBER
+
+commit_info: "{" commit_info_fields "}"
+
+commit_info_fields: timestamp? operation? operation_parameters? read_version? isolation_level? is_blind_append? operation_metrics?
+
+timestamp: "\"timestamp\":" NUMBER
+
+operation: "\"operation\":" STRING
+
+operation_parameters: "\"operationParameters\":" "{" (param_entry ("," param_entry)*)? "}"
+
+param_entry: STRING ":" STRING
+
+read_version: "\"readVersion\":" NUMBER
+
+isolation_level: "\"isolationLevel\":" STRING
+
+is_blind_append: "\"isBlindAppend\":" boolean
+
+operation_metrics: "\"operationMetrics\":" "{" (metric_entry ("," metric_entry)*)? "}"
+
+metric_entry: STRING ":" NUMBER
+
+checkpoint: "{" checkpoint_fields "}"
+
+checkpoint_fields: version? size? parts?
+
+version: "\"version\":" NUMBER
+
+parts: "\"parts\":" "[" (part ("," part)*)? "]"
+
+part: STRING
+
+NUMBER: /[0-9]+/
+
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+
+%import common.WS
+
+%ignore WS
+

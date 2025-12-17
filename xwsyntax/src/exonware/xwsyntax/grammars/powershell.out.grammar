@@ -1,0 +1,25 @@
+# powershell.out.grammar
+# PowerShell Output Grammar - Template for generating PowerShell from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@script_block = {{#each statements}}{{value}}
+{{/each}}
+
+@command = {{name}}{{#each arguments}} {{value}}{{/each}}{{#each parameters}} -{{name}}{{#if value}}:{{value}}{{/if}}{{/each}}
+
+@assignment = ${{name}} = {{value}}
+
+@if_statement = if ({{condition}}) {
+{{body}}{{#if else}}
+} else {
+{{else_body}}{{/if}}
+}
+
+@function_definition = function {{name}}({{params}}) {
+{{body}}
+}
+
+@indent = 4
+@pretty = true
+

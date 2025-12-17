@@ -1,0 +1,42 @@
+// bson.grammar
+// BSON Grammar - Binary JSON representation
+// Based on BSON specification
+// Company: eXonware.com
+
+?start: document
+
+document: element*
+
+element: type byte* value
+
+type: "\x01" -> double
+     | "\x02" -> string
+     | "\x03" -> document
+     | "\x04" -> array
+     | "\x05" -> binary
+     | "\x06" -> undefined
+     | "\x07" -> object_id
+     | "\x08" -> boolean
+     | "\x09" -> utc_datetime
+     | "\x0A" -> null
+     | "\x0B" -> regex
+     | "\x0C" -> db_pointer
+     | "\x0D" -> javascript
+     | "\x0E" -> symbol
+     | "\x0F" -> javascript_with_scope
+     | "\x10" -> int32
+     | "\x11" -> timestamp
+     | "\x12" -> int64
+     | "\x13" -> decimal128
+     | "\xFF" -> min_key
+     | "\x7F" -> max_key
+
+value: cstring type_specific_data
+
+cstring: STRING_BYTES "\x00"
+STRING_BYTES: /[^\x00]*/
+
+%import common.WS
+
+%ignore WS
+

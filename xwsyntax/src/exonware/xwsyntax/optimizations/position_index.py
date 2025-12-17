@@ -8,7 +8,7 @@ Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
 """
 
-from typing import List
+from typing import
 
 # xwnode is a required dependency per pyproject.toml
 # No try/except per DEV_GUIDELINES.md Line 128
@@ -47,14 +47,14 @@ class PositionIndex:
         for child in node.children:
             self._walk_and_index(child)
     
-    def find_overlapping(self, start_line: int, end_line: int) -> List[ASTNode]:
+    def find_overlapping(self, start_line: int, end_line: int) -> list[ASTNode]:
         """
         Find all nodes overlapping the given line range.
         O(log n + k) where k = number of results.
         """
         return self._index.find_overlaps(start_line, end_line)
     
-    def find_at_position(self, line: int) -> List[ASTNode]:
+    def find_at_position(self, line: int) -> list[ASTNode]:
         """
         Find all nodes at given line.
         O(log n + k) where k = number of results.

@@ -15,14 +15,14 @@ the production-tested serialization system.
 """
 
 from pathlib import Path
-from typing import Dict, Any, Optional, Union
+from typing import Any, Optional, Union
 from .defs import GrammarFormat
 from .errors import GrammarError, GrammarNotFoundError
 
 # Import serialization from xwsystem - no try/except per DEV_GUIDELINES.md Line 128
 from exonware.xwsystem.io.serialization import (
     JsonSerializer,
-    PlistlibSerializer,
+    PlistSerializer,
     XmlSerializer,
     YamlSerializer,
     TomlSerializer,
@@ -54,8 +54,8 @@ class MultiFormatGrammarLoader:
     @property
     def plist_serializer(self):
         """Lazy-load PLIST serializer."""
-        if self._plist_ser is None and PlistlibSerializer:
-            self._plist_ser = PlistlibSerializer()
+        if self._plist_ser is None and PlistSerializer:
+            self._plist_ser = PlistSerializer()
         return self._plist_ser
     
     @property
@@ -79,7 +79,7 @@ class MultiFormatGrammarLoader:
             self._toml_ser = TomlSerializer()
         return self._toml_ser
     
-    def load_grammar_file(self, file_path: Union[str, Path]) -> tuple[str, GrammarFormat, Dict[str, Any]]:
+    def load_grammar_file(self, file_path: Union[str, Path]) -> tuple[str, GrammarFormat, dict[str, Any]]:
         """
         Load grammar from file in any supported format.
         
@@ -135,7 +135,7 @@ class MultiFormatGrammarLoader:
                 raise
             raise GrammarError(f"Failed to load grammar from {file_path}: {e}")
     
-    def _load_lark_format(self, file_path: Path) -> tuple[str, GrammarFormat, Dict[str, Any]]:
+    def _load_lark_format(self, file_path: Path) -> tuple[str, GrammarFormat, dict[str, Any]]:
         """Load Lark EBNF grammar."""
         grammar_text = file_path.read_text(encoding='utf-8')
         metadata = {
@@ -144,7 +144,7 @@ class MultiFormatGrammarLoader:
         }
         return grammar_text, GrammarFormat.LARK, metadata
     
-    def _load_textmate_json(self, file_path: Path) -> tuple[str, GrammarFormat, Dict[str, Any]]:
+    def _load_textmate_json(self, file_path: Path) -> tuple[str, GrammarFormat, dict[str, Any]]:
         """Load TextMate JSON grammar using JsonSerializer."""
         if not self.json_serializer:
             raise GrammarError("JSON serializer not available")
@@ -163,8 +163,8 @@ class MultiFormatGrammarLoader:
         
         return grammar_text, GrammarFormat.CUSTOM, metadata
     
-    def _load_textmate_plist(self, file_path: Path) -> tuple[str, GrammarFormat, Dict[str, Any]]:
-        """Load TextMate PLIST grammar using PlistlibSerializer."""
+    def _load_textmate_plist(self, file_path: Path) -> tuple[str, GrammarFormat, dict[str, Any]]:
+        """Load TextMate PLIST grammar using PlistSerializer."""
         if not self.plist_serializer:
             raise GrammarError("PLIST serializer not available")
         
@@ -182,7 +182,7 @@ class MultiFormatGrammarLoader:
         
         return grammar_text, GrammarFormat.CUSTOM, metadata
     
-    def _load_xml_format(self, file_path: Path) -> tuple[str, GrammarFormat, Dict[str, Any]]:
+    def _load_xml_format(self, file_path: Path) -> tuple[str, GrammarFormat, dict[str, Any]]:
         """Load XML grammar using XmlSerializer."""
         if not self.xml_serializer:
             raise GrammarError("XML serializer not available")
@@ -206,7 +206,7 @@ class MultiFormatGrammarLoader:
         
         return grammar_text, GrammarFormat.CUSTOM, metadata
     
-    def _load_yaml_format(self, file_path: Path) -> tuple[str, GrammarFormat, Dict[str, Any]]:
+    def _load_yaml_format(self, file_path: Path) -> tuple[str, GrammarFormat, dict[str, Any]]:
         """Load YAML grammar using YamlSerializer."""
         if not self.yaml_serializer:
             raise GrammarError("YAML serializer not available")
@@ -228,7 +228,7 @@ class MultiFormatGrammarLoader:
         
         return grammar_text, GrammarFormat.LARK, metadata
     
-    def _load_toml_format(self, file_path: Path) -> tuple[str, GrammarFormat, Dict[str, Any]]:
+    def _load_toml_format(self, file_path: Path) -> tuple[str, GrammarFormat, dict[str, Any]]:
         """Load TOML grammar using TomlSerializer."""
         if not self.toml_serializer:
             raise GrammarError("TOML serializer not available")
@@ -246,7 +246,7 @@ class MultiFormatGrammarLoader:
         
         return grammar_text, GrammarFormat.LARK, metadata
     
-    def _convert_textmate_to_lark(self, textmate_data: Dict[str, Any]) -> str:
+    def _convert_textmate_to_lark(self, textmate_data: dict[str, Any]) -> str:
         """
         Convert TextMate grammar to Lark EBNF format.
         
@@ -305,7 +305,7 @@ NAME: /[a-zA-Z_][\\w]*/
 %ignore WS
 """
     
-    def _convert_yaml_grammar_to_lark(self, yaml_data: Dict[str, Any]) -> str:
+    def _convert_yaml_grammar_to_lark(self, yaml_data: dict[str, Any]) -> str:
         """Convert YAML-defined grammar to Lark."""
         # If YAML contains 'rules' key, build grammar from it
         if isinstance(yaml_data, dict) and 'rules' in yaml_data:
@@ -320,7 +320,7 @@ NAME: /[a-zA-Z_][\\w]*/
         # Otherwise, return simple grammar
         return "?start: content\ncontent: ANY*\nANY: /.*/"
     
-    def _convert_toml_grammar_to_lark(self, toml_data: Dict[str, Any]) -> str:
+    def _convert_toml_grammar_to_lark(self, toml_data: dict[str, Any]) -> str:
         """Convert TOML-defined grammar to Lark."""
         # If TOML contains 'grammar' section, use it
         if 'grammar' in toml_data:

@@ -1,0 +1,28 @@
+// csv.grammar
+// CSV Grammar - Comma-Separated Values
+// Based on RFC 4180
+// Company: eXonware.com
+
+?start: document
+
+document: header? record*
+
+header: record
+
+record: field ("," field)* NEWLINE
+
+field: escaped_field | non_escaped_field
+
+escaped_field: "\"" escaped_content "\""
+escaped_content: (ESCAPED_CHAR | /[^"]/)*
+non_escaped_field: FIELD_CONTENT
+
+// Terminals
+ESCAPED_CHAR: /""/
+FIELD_CONTENT: /[^,\n\r"]+/
+NEWLINE: /\r?\n/
+
+%import common.WS
+
+%ignore WS
+

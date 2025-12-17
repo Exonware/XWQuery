@@ -1,7 +1,7 @@
 // Datalog Grammar for Lark
 // Logic programming query language
 
-start: program
+?start: program
 
 program: (rule | fact | query)*
 

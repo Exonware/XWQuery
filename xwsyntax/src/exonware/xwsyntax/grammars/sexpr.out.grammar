@@ -1,0 +1,35 @@
+# sexpr.out.grammar
+# S-Expression Output Grammar - Template for generating S-Expressions from AST
+# Lisp S-Expression Format
+# Company: eXonware.com
+# Version: 1.0
+
+@sexpr = {{value}}
+
+@list = ({{#each items}}{{value}}{{#if !@last}} {{/if}}{{/each}})
+
+@atom = {{value}}
+
+@symbol = {{value}}
+
+@number = {{value}}
+
+@integer = {{value}}
+
+@float = {{value}}
+
+@ratio = {{numerator}}/{{denominator}}
+
+@complex = #C({{real}} {{imag}})
+
+@string = {{value}}
+
+@character = #\\{{value}}
+
+@boolean = {{value}}
+
+@nil = nil
+
+@indent = 0
+@pretty = false
+

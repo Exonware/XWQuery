@@ -1,0 +1,19 @@
+# swift.out.grammar
+# Swift Output Grammar - Template for generating Swift from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@top_level_decl = {{#each statements}}{{value}}
+{{/each}}
+
+@constant_declaration = {{#if let}}let {{/if}}{{name}}{{#if type}}: {{type}}{{/if}} = {{value}}
+
+@function_declaration = func {{name}}{{#if generics}}{{generics}}{{/if}}{{signature}}{{#if body}} {{body}}{{/if}}
+
+@class_declaration = {{#if class}}class {{/if}}{{name}}{{#if generics}}{{generics}}{{/if}}{{#if inheritance}} {{inheritance}}{{/if}} {
+{{#each members}}{{value}}
+{{/each}}}
+
+@indent = 4
+@pretty = true
+

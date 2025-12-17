@@ -1,0 +1,39 @@
+// capnproto.grammar
+// Cap'n Proto Grammar - Cap'n Proto schema
+// Company: eXonware.com
+
+?start: file
+
+file: using* annotation* struct* enum* interface* const*
+
+using: "using" IDENTIFIER "=" import_path ";"
+
+annotation: "annotation" IDENTIFIER "(" annotation_params ")" [annotation_targets] ";"
+
+struct: "struct" IDENTIFIER "{" field* "}"
+
+field: IDENTIFIER ":" field_type [default_value] ";"
+
+field_type: builtin_type | list_type | struct_type | enum_type | interface_type
+
+enum: "enum" IDENTIFIER "{" enum_value* "}"
+
+interface: "interface" IDENTIFIER "{" method* "}"
+
+method: IDENTIFIER "(" param_list ")" "->" "(" param_list ")" ";"
+
+const: "const" IDENTIFIER ":" const_type "=" const_value ";"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+import_path: STRING
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

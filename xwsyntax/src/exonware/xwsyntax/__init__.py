@@ -10,7 +10,7 @@ and provides bidirectional grammars (parse + generate) for universal format conv
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.1
+Version: 0.0.1.2
 
 Features:
 - 31 grammar formats (queries, data, programming languages, specialized)
@@ -37,10 +37,6 @@ Usage:
     ast = grammar.parse('{"name": "Alice"}')
     output = grammar.generate(ast)
 """
-
-from xwlazy.lazy import config_package_lazy_install_enabled
-
-config_package_lazy_install_enabled("xwsyntax")
 
 from .facade import (
     XWSyntax,
@@ -69,6 +65,7 @@ from .monaco_exporter import (
     export_grammar_to_monaco,
 )
 from .grammar_loader import MultiFormatGrammarLoader, get_grammar_loader
+from .grammar_metadata import GrammarMetadata, get_grammar_metadata
 from .output_grammar import OutputGrammar, OutputGrammarRegistry, get_default_registry
 from .unparser import GrammarUnparser
 from .bidirectional import BidirectionalGrammar, BidirectionalGrammarRegistry, get_bidirectional_registry
@@ -93,6 +90,9 @@ __all__ = [
     # Loaders
     'MultiFormatGrammarLoader',
     'get_grammar_loader',
+    # Metadata
+    'GrammarMetadata',
+    'get_grammar_metadata',
     # AST
     'ASTNode',
     'ASTVisitor',

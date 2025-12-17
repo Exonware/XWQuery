@@ -1,0 +1,21 @@
+# xwnode_executor.out.grammar
+# XWNode Executor Output Grammar - Template for generating XWNode execution plans
+# Company: eXonware.com
+# Version: 1.0
+
+@execution_plan = {{#each nodes}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@node = {{type}}{{#if config}} {{config}}{{/if}}{{#if children}} {{children}}{{/if}}
+
+@node_type = {{value}}
+
+@node_config = {{{#each pairs}}{{key}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@config_pair = {{child_0}}: {{child_1}}
+
+@node_children = [{{#each nodes}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@indent = 2
+@pretty = true
+

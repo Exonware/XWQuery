@@ -1,0 +1,43 @@
+// html.grammar
+// HTML Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: document
+
+document: doctype? html_element
+
+doctype: "<!DOCTYPE" [doctype_value] ">"
+
+html_element: "<html" [attributes] ">" content "</html>"
+
+content: element* | text*
+
+element: start_tag content? end_tag | void_element
+
+start_tag: "<" tag_name [attributes] ">"
+
+end_tag: "</" tag_name ">"
+
+void_element: "<" tag_name [attributes] "/>"
+
+tag_name: IDENTIFIER
+
+attributes: attribute*
+
+attribute: attribute_name ["=" attribute_value]
+
+attribute_name: IDENTIFIER
+
+attribute_value: STRING | IDENTIFIER
+
+text: TEXT_CONTENT
+
+// Terminals
+IDENTIFIER: /[a-zA-Z][a-zA-Z0-9-]*/
+STRING: "\"" /[^"]/* "\"" | "'" /[^']/* "'"
+TEXT_CONTENT: /[^<]+/
+
+%import common.WS
+
+%ignore WS
+

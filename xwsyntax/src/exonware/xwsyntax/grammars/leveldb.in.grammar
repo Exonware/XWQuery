@@ -1,0 +1,26 @@
+// leveldb.grammar
+// LevelDB Grammar - Key-value storage library
+// Company: eXonware.com
+
+?start: leveldb_database
+
+leveldb_database: manifest* log_file* sstable*
+
+manifest: version edit*
+
+edit: comparator log_number prev_log_number next_file_number last_sequence
+
+log_file: record*
+
+record: checksum length type data
+
+sstable: data_block* index_block meta_index_block footer
+
+// Terminals
+BYTE: /[\x00-\xFF]/
+INT: /[\x00-\xFF]{4,8}/
+
+%import common.WS
+
+%ignore WS
+

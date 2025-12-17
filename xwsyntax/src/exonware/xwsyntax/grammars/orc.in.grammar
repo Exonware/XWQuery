@@ -1,0 +1,24 @@
+// orc.grammar
+// ORC Grammar - Optimized Row Columnar format
+// Company: eXonware.com
+
+?start: orc_file
+
+orc_file: postscript footer metadata stripe*
+
+postscript: footer_length compression compression_block_size
+
+footer: header_length content_length stripe_statistics* file_statistics schema number_of_rows row_index_stride
+
+metadata: stripe_footer*
+
+stripe: index_data row_data stripe_footer
+
+// Terminals
+BYTE: /[\x00-\xFF]/
+INT: /[\x00-\xFF]{4,8}/
+
+%import common.WS
+
+%ignore WS
+

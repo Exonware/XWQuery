@@ -1,7 +1,7 @@
 // JMESPath Grammar for Lark
 // JSON query expression language
 
-start: expression
+?start: expression
 
 expression: or_expr
 

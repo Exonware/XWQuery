@@ -1,0 +1,26 @@
+# xwquery.out.grammar
+# XWQuery Output Grammar - Template for generating XWQuery from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@query = {{type}} {{body}}
+
+@select_body = {{select_list}}{{from_clause?}}{{where_clause?}}{{group_by_clause?}}{{having_clause?}}{{order_by_clause?}}{{limit_clause?}}
+
+@select_list = {{#if wildcard}}*{{else}}{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}}
+
+@from_clause =  FROM {{table}}{{#each joins}} {{value}}{{/each}}
+
+@where_clause =  WHERE {{condition}}
+
+@group_by_clause =  GROUP BY {{#each expressions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@having_clause =  HAVING {{condition}}
+
+@order_by_clause =  ORDER BY {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@limit_clause =  LIMIT {{number}}{{#if offset}} OFFSET {{offset}}{{/if}}
+
+@indent = 2
+@pretty = true
+

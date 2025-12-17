@@ -1,0 +1,19 @@
+# shell.out.grammar
+# Shell Output Grammar - Template for generating Shell script from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@script = {{#each commands}}{{value}}
+{{/each}}
+
+@simple_command = {{#each assignments}}{{value}} {{/each}}{{#if command}}{{command}}{{/if}}{{#each arguments}} {{value}}{{/each}}
+
+@if_command = if {{condition}}; then
+{{then_body}}{{#if else}}
+else
+{{else_body}}{{/if}}
+fi
+
+@indent = 4
+@pretty = true
+

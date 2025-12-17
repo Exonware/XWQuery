@@ -6,7 +6,7 @@ This module enables automatic generation of Monaco Editor syntax highlighting
 from Lark grammar definitions.
 """
 
-from typing import Dict, List, Any, Optional, Set, Union
+from typing import Any, Optional, Union
 from dataclasses import dataclass, field
 import re
 import json
@@ -21,17 +21,17 @@ class MonarchLanguage:
     ignoreCase: bool = False
     
     # Language elements
-    keywords: List[str] = field(default_factory=list)
-    operators: List[str] = field(default_factory=list)
+    keywords: list[str] = field(default_factory=list)
+    operators: list[str] = field(default_factory=list)
     symbols: str = ''
     
     # Brackets
-    brackets: List[Dict[str, str]] = field(default_factory=list)
+    brackets: list[dict[str, str]] = field(default_factory=list)
     
     # Tokenizer rules
-    tokenizer: Dict[str, List[Any]] = field(default_factory=dict)
+    tokenizer: dict[str, list[Any]] = field(default_factory=dict)
     
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for JSON export."""
         result = {
             'defaultToken': self.defaultToken,
@@ -63,12 +63,12 @@ class MonarchLanguage:
 class MonarchLanguageConfig:
     """Monaco language configuration (auto-closing, comments, etc.)."""
     
-    comments: Optional[Dict[str, Any]] = None
-    brackets: List[List[str]] = field(default_factory=list)
-    autoClosingPairs: List[Dict[str, str]] = field(default_factory=list)
-    surroundingPairs: List[Dict[str, str]] = field(default_factory=list)
+    comments: Optional[dict[str, Any]] = None
+    brackets: list[list[str]] = field(default_factory=list)
+    autoClosingPairs: list[dict[str, str]] = field(default_factory=list)
+    surroundingPairs: list[dict[str, str]] = field(default_factory=list)
     
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for JSON export."""
         result = {}
         
@@ -97,16 +97,16 @@ class MonacoExporter:
     
     def __init__(self):
         """Initialize exporter."""
-        self._keywords: Set[str] = set()
-        self._operators: Set[str] = set()
-        self._brackets: List[str] = []
+        self._keywords: set[str] = set()
+        self._operators: set[str] = set()
+        self._brackets: list[str] = []
     
     def export_from_grammar_text(
         self,
         grammar_text: str,
         language_name: str,
         case_insensitive: bool = False,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Export Monaco Monarch definition from Lark grammar text.
         
@@ -173,7 +173,7 @@ class MonacoExporter:
         escaped = [re.escape(op) for op in self._operators]
         return '|'.join(escaped)
     
-    def _build_brackets(self) -> List[Dict[str, str]]:
+    def _build_brackets(self) -> list[dict[str, str]]:
         """Build bracket definitions."""
         bracket_map = {
             '(': ('parenthesis', ')'),
@@ -193,7 +193,7 @@ class MonacoExporter:
         
         return result
     
-    def _build_tokenizer(self, language_name: str) -> Dict[str, List[Any]]:
+    def _build_tokenizer(self, language_name: str) -> dict[str, list[Any]]:
         """Build tokenizer rules."""
         root_rules = []
         
@@ -248,7 +248,7 @@ class MonacoExporter:
             'comment': comment_rules,
         }
     
-    def _build_bracket_pairs(self) -> List[List[str]]:
+    def _build_bracket_pairs(self) -> list[list[str]]:
         """Build bracket pairs for auto-closing."""
         pairs = []
         bracket_map = {'(': ')', '[': ']', '{': '}'}
@@ -259,7 +259,7 @@ class MonacoExporter:
         
         return pairs
     
-    def _build_auto_closing_pairs(self) -> List[Dict[str, str]]:
+    def _build_auto_closing_pairs(self) -> list[dict[str, str]]:
         """Build auto-closing pair definitions."""
         pairs = []
         bracket_map = {'(': ')', '[': ']', '{': '}'}
@@ -276,13 +276,13 @@ class MonacoExporter:
         
         return pairs
     
-    def _build_surrounding_pairs(self) -> List[Dict[str, str]]:
+    def _build_surrounding_pairs(self) -> list[dict[str, str]]:
         """Build surrounding pair definitions."""
         return self._build_auto_closing_pairs()
     
     def generate_typescript_code(
         self,
-        monaco_def: Dict[str, Any],
+        monaco_def: dict[str, Any],
         language_name: str,
     ) -> str:
         """

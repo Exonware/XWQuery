@@ -2,7 +2,7 @@
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.1
+Version: 0.0.1.2
 Generation Date: November 4, 2025
 
 Codec Adapter - Bridge between xwsyntax handlers and ICodec interface.
@@ -11,7 +11,7 @@ This adapter allows xwsyntax handlers to work seamlessly with UniversalCodecRegi
 without breaking their existing API.
 """
 
-from typing import Any, Optional, Union, List
+from typing import Any, Optional, Union
 from pathlib import Path
 
 from exonware.xwsystem.io.codec.contracts import ICodec, ICodecMetadata

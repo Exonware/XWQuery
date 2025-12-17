@@ -2,7 +2,7 @@
 // Grafana Loki Log Query Language - Simplified Version
 // Handles basic log queries and filters
 
-start: query
+?start: query
 
 query: log_query
      | metric_query

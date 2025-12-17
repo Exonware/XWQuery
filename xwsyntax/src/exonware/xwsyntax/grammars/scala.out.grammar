@@ -1,0 +1,17 @@
+# scala.out.grammar
+# Scala Output Grammar - Template for generating Scala from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@compilation_unit = {{#if package}}{{package}}
+{{/if}}{{#each imports}}{{value}}
+{{/each}}{{#each definitions}}{{value}}
+{{/each}}
+
+@class_definition = {{#if modifiers}}{{modifiers}} {{/if}}class {{name}}{{#if type_params}}{{type_params}}{{/if}}{{#if params}}{{params}}{{/if}}{{#if extends}} extends {{extends}}{{/if}} {
+{{#each body}}{{value}}
+{{/each}}}
+
+@indent = 2
+@pretty = true
+

@@ -1,7 +1,7 @@
 // Gremlin Grammar for Lark
 // Apache TinkerPop Graph Traversal Language
 
-start: traversal
+?start: traversal
 
 traversal: source_step (traversal_step)*
 

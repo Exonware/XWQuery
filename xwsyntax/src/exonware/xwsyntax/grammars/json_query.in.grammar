@@ -1,7 +1,7 @@
 // JSON Query Grammar for Lark
 // Simple JSON path/query language
 
-start: query
+?start: query
 
 query: path_query
      | filter_query

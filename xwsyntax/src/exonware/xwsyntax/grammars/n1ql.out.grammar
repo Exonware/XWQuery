@@ -1,22 +1,47 @@
-﻿# n1ql Output Grammar
+﻿# n1ql.out.grammar
+# N1QL Output Grammar - Template for generating N1QL from AST
 # Company: eXonware.com
-# Generated: 2025-10-29
-#
-# This is a basic template for n1ql generation
-# TODO: Implement proper templates for each rule
-#
-# Template syntax:
-#   {{child_N}} - Access child node by index
-#   {{value}} - Access node value
-#   {{#each children}}...{{/each}} - Loop over children
-#   {{#if condition}}...{{/if}} - Conditional rendering
+# Version: 1.0
 
-# Root rule (update with actual root from .in.grammar)
-@
-start = {{value}}
+@statement = {{value}}
 
-# Add templates for each rule in the input grammar
-# Example:
-# @
-rule_name = {{child_0}} {{value}} {{child_1}}
+@select_stmt = SELECT{{#if raw}} RAW{{/if}} {{select_list}}{{#if from}} {{from}}{{/if}}{{#if use_keys}} USE KEYS {{keys}}{{/if}}{{#if where}} {{where}}{{/if}}{{#if group_by}} {{group_by}}{{/if}}{{#if having}} {{having}}{{/if}}{{#if order_by}} {{order_by}}{{/if}}{{#if limit}} {{limit}}{{/if}}{{#if offset}} {{offset}}{{/if}}
 
+@select_list = {{#if wildcard}}*{{else}}{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}}
+
+@select_item = {{expression}}{{#if alias}} AS {{alias}}{{/if}}
+
+@from_clause = FROM {{source}}{{#each joins}} {{value}}{{/each}}
+
+@from_source = {{value}}{{#if alias}} AS {{alias}}{{/if}}
+
+@keyspace_ref = {{value}}
+
+@join_clause = {{#if type}}{{type}} {{/if}}JOIN {{source}}{{#if alias}} AS {{alias}}{{/if}} ON {{condition}}
+
+@where_clause = WHERE {{expression}}
+
+@group_by_clause = GROUP BY {{#each expressions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@having_clause = HAVING {{expression}}
+
+@order_by_clause = ORDER BY {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@limit_clause = LIMIT {{value}}
+
+@offset_clause = OFFSET {{value}}
+
+@insert_stmt = INSERT INTO {{keyspace}} ({{#each keys}}{{value}}{{#if !@last}}, {{/if}}{{/each}}) VALUES {{values}}{{#if returning}} RETURNING {{returning}}{{/if}}
+
+@update_stmt = UPDATE {{keyspace}} SET {{#each assignments}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if where}} {{where}}{{/if}}{{#if returning}} RETURNING {{returning}}{{/if}}
+
+@delete_stmt = DELETE FROM {{keyspace}}{{#if where}} {{where}}{{/if}}{{#if returning}} RETURNING {{returning}}{{/if}}
+
+@upsert_stmt = UPSERT INTO {{keyspace}} ({{#each keys}}{{value}}{{#if !@last}}, {{/if}}{{/each}}) VALUES {{values}}{{#if returning}} RETURNING {{returning}}{{/if}}
+
+@merge_stmt = MERGE INTO {{target}} USING {{source}} ON {{condition}} WHEN MATCHED THEN {{update}}{{#if insert}} WHEN NOT MATCHED THEN {{insert}}{{/if}}
+
+@expression = {{value}}
+
+@indent = 2
+@pretty = true

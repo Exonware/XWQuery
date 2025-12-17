@@ -1,0 +1,49 @@
+# xml.out.grammar
+# XML Output Grammar - Template for generating XML from AST
+# Based on XML 1.0 specification (W3C)
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#if prolog}}{{prolog}}
+{{/if}}{{element}}{{#each misc}}{{value}}{{/each}}
+
+@prolog = <?xml{{#if version}} {{version}}{{/if}}{{#if encoding}} {{encoding}}{{/if}}{{#if standalone}} {{standalone}}{{/if}}?>{{#each misc}}
+{{value}}{{/each}}{{#if doctype}}
+{{doctype}}{{/if}}
+
+@xml_decl = <?xml{{#if version}} {{version}}{{/if}}{{#if encoding}} {{encoding}}{{/if}}{{#if standalone}} {{standalone}}{{/if}}?>
+
+@version_info = version="{{version}}"
+
+@encoding_decl = encoding="{{encoding}}"
+
+@standalone_decl = standalone="{{value}}"
+
+@doctype_decl = <!DOCTYPE {{name}}{{#if external_id}} {{external_id}}{{/if}}{{#if internal_subset}} [
+{{internal_subset}}]{{/if}}>
+
+@element = {{#if empty}}<{{name}}{{#each attributes}} {{key}}="{{value}}"{{/each}}/>{{else}}<{{name}}{{#each attributes}} {{key}}="{{value}}"{{/each}}>{{content}}</{{name}}>{{/if}}
+
+@stag = <{{name}}{{#each attributes}} {{key}}="{{value}}"{{/each}}>
+
+@etag = </{{name}}>
+
+@attribute = {{name}}="{{value}}"
+
+@content = {{#each items}}{{value}}{{/each}}
+
+@chardata = {{value}}
+
+@entity_ref = &{{name}};
+
+@char_ref = {{#if hex}}&#x{{value}};{{else}}&#{{value}};{{/if}}
+
+@comment = <!--{{value}}-->
+
+@pi = <?{{target}}{{#if content}} {{content}}{{/if}}?>
+
+@cdsect = <![CDATA[{{value}}]]>
+
+@indent = 2
+@pretty = true
+

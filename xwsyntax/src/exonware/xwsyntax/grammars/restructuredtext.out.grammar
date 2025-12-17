@@ -1,0 +1,19 @@
+# restructuredtext.out.grammar
+# reStructuredText Output Grammar - Template for generating reStructuredText from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#each blocks}}{{value}}
+{{/each}}
+
+@heading = {{text}}
+{{marker}}
+
+@paragraph = {{#each inlines}}{{value}}{{/each}}
+
+@code_block = {{#if language}}.. code-block:: {{language}}
+{{/if}}{{content}}
+
+@indent = 0
+@pretty = true
+

@@ -3,7 +3,7 @@
 Parser caching for performance optimization.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 from functools import lru_cache
 from .defs import CACHE_SIZE
 
@@ -12,7 +12,7 @@ class SimpleParserCache:
     """Simple dictionary-based parser cache."""
     
     def __init__(self, max_size: int = CACHE_SIZE):
-        self._cache: Dict[str, Any] = {}
+        self._cache: dict[str, Any] = {}
         self._max_size = max_size
     
     def get(self, key: str) -> Optional[Any]:
@@ -42,7 +42,7 @@ class LRUParserCache:
     def __init__(self, max_size: int = CACHE_SIZE):
         self._max_size = max_size
         self._get_cached = lru_cache(maxsize=max_size)(self._get_internal)
-        self._storage: Dict[str, Any] = {}
+        self._storage: dict[str, Any] = {}
     
     def _get_internal(self, key: str) -> Optional[Any]:
         """Internal cached get."""

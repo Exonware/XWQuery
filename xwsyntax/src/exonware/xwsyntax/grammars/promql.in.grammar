@@ -2,7 +2,7 @@
 // Prometheus Query Language
 // Time-series metrics query language
 
-start: expression
+?start: expression
 
 expression: or_expr
 

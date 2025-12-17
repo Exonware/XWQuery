@@ -1,7 +1,7 @@
 // XML Query Grammar for Lark
 // Simplified XML query language
 
-start: query_expr
+?start: query_expr
 
 query_expr: for_expr
           | path_expr

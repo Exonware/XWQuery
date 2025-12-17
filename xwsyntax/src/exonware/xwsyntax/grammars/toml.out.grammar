@@ -1,0 +1,40 @@
+# toml.out.grammar
+# TOML Output Grammar - Template for generating TOML from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#each expressions}}{{value}}{{#if !@last}}
+
+{{/if}}{{/each}}
+
+@key_value = {{child_0}} = {{child_1}}
+
+@table = [{{child_0}}]
+
+@array_table = [[{{child_0}}]]
+
+@key = {{value}}
+
+@simple_key = {{value}}
+
+@dotted_key = {{#each parts}}{{value}}{{#if !@last}}.{{/if}}{{/each}}
+
+@value = {{value}}
+
+@string = {{value}}
+
+@integer = {{value}}
+
+@float = {{value}}
+
+@boolean = {{value}}
+
+@date_time = {{value}}
+
+@array = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if trailing_comma}},{{/if}}]
+
+@inline_table = {{{#each pairs}}{{key}} = {{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if trailing_comma}},{{/if}}}
+
+@indent = 2
+@pretty = true
+

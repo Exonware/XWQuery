@@ -7,7 +7,7 @@ maintaining 100% backward compatibility.
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Callable
+from typing import Any, Optional, Callable
 from .defs import ASTNodeType
 
 # xwnode integration - always available
@@ -27,8 +27,8 @@ class ASTNode:
     
     type: str
     value: Any = None
-    children: List['ASTNode'] = field(default_factory=list)
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    children: list['ASTNode'] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
     
     # Internal xwnode representation for advanced operations
     _xwnode: Optional[XWNode] = field(default=None, repr=False, compare=False)
@@ -41,7 +41,7 @@ class ASTNode:
             # Provides O(1) type-based lookups and pre-computed metrics
             self._xwnode = XWNode.from_native(data, mode='AST')
     
-    def _to_dict_internal(self) -> Dict[str, Any]:
+    def _to_dict_internal(self) -> dict[str, Any]:
         """Convert to dict without triggering xwnode initialization."""
         result = {'type': self.type}
         if self.value is not None:
@@ -69,7 +69,7 @@ class ASTNode:
             parts.append(f"metadata={self.metadata!r}")
         return f"ASTNode({', '.join(parts)})"
     
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary representation."""
         result = {
             'type': self.type,
@@ -83,7 +83,7 @@ class ASTNode:
         return result
     
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'ASTNode':
+    def from_dict(cls, data: dict[str, Any]) -> 'ASTNode':
         """Create from dictionary representation."""
         children_data = data.get('children', [])
         children = [cls.from_dict(c) for c in children_data]
@@ -95,7 +95,7 @@ class ASTNode:
             metadata=data.get('metadata', {}),
         )
     
-    def find_all(self, node_type: str) -> List['ASTNode']:
+    def find_all(self, node_type: str) -> list['ASTNode']:
         """Find all nodes of a given type."""
         results = []
         if self.type == node_type:
@@ -214,7 +214,7 @@ class ASTNode:
         """
         return diff_nodes(self._xwnode, other._xwnode)
     
-    def patch(self, operations: List[Dict[str, Any]]) -> 'ASTNode':
+    def patch(self, operations: list[dict[str, Any]]) -> 'ASTNode':
         """
         Apply patch operations to AST.
         
@@ -263,7 +263,7 @@ class ASTNode:
 # IMMUTABLE AST FACTORY
 # ============================================================================
 
-def create_immutable_ast(data: Dict[str, Any]) -> ASTNode:
+def create_immutable_ast(data: dict[str, Any]) -> ASTNode:
     """
     Create an immutable AST with copy-on-write semantics.
     

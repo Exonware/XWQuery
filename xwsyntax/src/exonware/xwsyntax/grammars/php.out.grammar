@@ -1,0 +1,16 @@
+# php.out.grammar
+# PHP Output Grammar - Template for generating PHP from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@script = <?php
+{{#each statements}}{{value}}
+{{/each}}
+
+@class_declaration = {{#if modifiers}}{{modifiers}} {{/if}}class {{name}}{{#if extends}} extends {{extends}}{{/if}}{{#if implements}} implements {{implements}}{{/if}} {
+{{#each members}}{{value}}
+{{/each}}}
+
+@indent = 4
+@pretty = true
+

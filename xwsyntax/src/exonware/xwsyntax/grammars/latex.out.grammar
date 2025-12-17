@@ -1,0 +1,20 @@
+# latex.out.grammar
+# LaTeX Output Grammar - Template for generating LaTeX from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = \documentclass{{#if options}}[{{options}}]{{/if}}{{{class}}}
+{{#each preamble}}{{value}}
+{{/each}}\begin{document}
+{{content}}
+\end{document}
+
+@command = \{{name}}{{#each arguments}}{{value}}{{/each}}
+
+@environment = \begin{{{name}}}
+{{content}}
+\end{{{name}}}
+
+@indent = 2
+@pretty = true
+

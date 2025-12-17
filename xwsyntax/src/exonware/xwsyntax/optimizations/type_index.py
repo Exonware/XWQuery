@@ -8,7 +8,7 @@ Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
 """
 
-from typing import List
+from typing import
 
 # xwnode is a required dependency per pyproject.toml
 # No try/except per DEV_GUIDELINES.md Line 128
@@ -44,14 +44,14 @@ class TypeIndex:
         for child in node.children:
             self._walk_and_index(child)
     
-    def find_by_type(self, node_type: str) -> List[ASTNode]:
+    def find_by_type(self, node_type: str) -> list[ASTNode]:
         """
         Find all nodes of given type.
         O(k) where k = number of results.
         """
         return self._index.get(node_type, [])
     
-    def find_by_type_prefix(self, prefix: str) -> List[ASTNode]:
+    def find_by_type_prefix(self, prefix: str) -> list[ASTNode]:
         """
         Find all nodes whose type starts with prefix.
         O(k) where k = number of results.

@@ -1,0 +1,38 @@
+# capnproto.out.grammar
+# Cap'n Proto Output Grammar - Template for generating Cap'n Proto from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@file = {{#each usings}}{{value}}
+{{/each}}{{#each annotations}}{{value}}
+{{/each}}{{#each structs}}{{value}}
+{{/each}}{{#each enums}}{{value}}
+{{/each}}{{#each interfaces}}{{value}}
+{{/each}}{{#each consts}}{{value}}
+{{/each}}
+
+@using = using {{name}} = {{import_path}};
+
+@annotation = annotation {{name}}({{params}}){{#if targets}} {{targets}}{{/if}};
+
+@struct = struct {{name}} {
+{{#each fields}}{{value}}
+{{/each}}}
+
+@field = {{name}}: {{type}}{{#if default}} = {{default}}{{/if}};
+
+@enum = enum {{name}} {
+{{#each values}}{{value}}
+{{/each}}}
+
+@interface = interface {{name}} {
+{{#each methods}}{{value}}
+{{/each}}}
+
+@method = {{name}}({{params}}) -> ({{return_params}});
+
+@const = const {{name}}: {{type}} = {{value}};
+
+@indent = 2
+@pretty = true
+

@@ -1,7 +1,7 @@
 // XPath Grammar for Lark
 // Simplified for LALR parsing
 
-start: path_expr
+?start: path_expr
 
 path_expr: "/" step ("/" step)*
          | "//" step ("/" step)*

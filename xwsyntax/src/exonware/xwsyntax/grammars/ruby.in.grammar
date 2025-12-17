@@ -1,0 +1,40 @@
+// ruby.grammar
+// Ruby Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: program
+
+program: statement*
+
+statement: require_statement | class_definition | module_definition | method_definition | expression_statement
+
+require_statement: "require" STRING | "require_relative" STRING
+
+class_definition: ["class" | "module"] IDENTIFIER [inheritance] "end"
+
+module_definition: "module" IDENTIFIER "end"
+
+method_definition: ["def" | "def self."] IDENTIFIER ["(" [parameter_list] ")"] ["end"]
+
+inheritance: "<" IDENTIFIER
+
+expression_statement: expression [";" | NEWLINE]
+
+expression: assignment | method_call | conditional | loop
+
+assignment: IDENTIFIER "=" expression
+
+method_call: receiver "." IDENTIFIER ["(" [argument_list] ")"]
+
+conditional: "if" expression ["then"] statement* ["else" statement*] "end"
+
+loop: "while" expression ["do"] statement* "end" | "for" IDENTIFIER "in" expression ["do"] statement* "end"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\"" | "'" /[^'\\]|\\['"\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "'"
+%import common.WS
+%import common.NEWLINE
+
+%ignore WS
+

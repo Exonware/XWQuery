@@ -1,0 +1,27 @@
+# pickle.out.grammar
+# Pickle Output Grammar - Template for generating Python pickle from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@pickle_stream = {{#each opcodes}}{{value}}{{/each}}
+
+@opcode = {{value}}
+
+@PROTO = \x80{{version}}
+
+@FRAME = \x95{{frame_data}}
+
+@STOP = .
+
+@GLOBAL = c{{module}}.{{name}}
+{{newline}}
+
+@REDUCE = R
+
+@BUILD = b
+
+@indent = 0
+@pretty = false
+@binary_format = true
+@protocol_version = 5
+

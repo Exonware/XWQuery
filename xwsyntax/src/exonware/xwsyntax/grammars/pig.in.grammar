@@ -1,7 +1,7 @@
 // Pig Latin Grammar for Lark
 // Apache Pig data flow language
 
-start: statement_list
+?start: statement_list
 
 statement_list: statement+
 

@@ -2,7 +2,7 @@
 // MongoDB Query Language (MQL)
 // Document database query language
 
-start: query
+?start: query
 
 query: find_query
      | aggregate_query

@@ -10,11 +10,11 @@ for roundtrip text processing.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.1
+Version: 0.0.1.2
 Generation Date: 29-Oct-2025
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 from pathlib import Path
 from .engine import Grammar
 from .output_grammar import OutputGrammar, OutputGrammarRegistry
@@ -197,7 +197,7 @@ class BidirectionalGrammarRegistry:
     def __init__(self, grammar_dir: Optional[str] = None):
         """Initialize registry."""
         self.grammar_dir = grammar_dir
-        self._grammars: Dict[str, BidirectionalGrammar] = {}
+        self._grammars: dict[str, BidirectionalGrammar] = {}
     
     def load_grammar(self, format_name: str) -> BidirectionalGrammar:
         """Load bidirectional grammar."""

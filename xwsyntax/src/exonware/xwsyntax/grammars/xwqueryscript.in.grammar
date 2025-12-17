@@ -2,7 +2,7 @@
 // Universal Query Language - Core Operations
 // Simplified for LALR parsing
 
-start: statement
+?start: statement
 
 // Main statement types
 statement: select_stmt

@@ -1,0 +1,24 @@
+# markdown.out.grammar
+# Markdown Output Grammar - Template for generating Markdown from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#each blocks}}{{value}}
+{{/each}}
+
+@heading = {{level}} {{text}}
+
+@paragraph = {{#each inlines}}{{value}}{{/each}}
+
+@code_block = ```{{#if language}}{{language}}
+{{/if}}{{content}}```
+
+@list = {{#each items}}{{value}}{{/each}}
+
+@table = {{header}}
+{{separator}}
+{{#each rows}}{{value}}{{/each}}
+
+@indent = 0
+@pretty = true
+

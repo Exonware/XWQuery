@@ -5,11 +5,11 @@ Type protocols and interfaces for the syntax module.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.1
+Version: 0.0.1.2
 """
 
 from abc import ABC, abstractmethod
-from typing import Protocol, Any, Dict, List, Optional, Union
+from typing import Protocol, Any, Optional, Union
 from pathlib import Path
 from .defs import ParserMode, GrammarFormat
 
@@ -32,7 +32,7 @@ class ParseResult(Protocol):
         ...
     
     @property
-    def errors(self) -> List[str]:
+    def errors(self) -> list[str]:
         """List of errors if failed."""
         ...
 
@@ -102,7 +102,7 @@ class ISyntaxHandler(ISerialization):
                 return "sql"
             
             @property
-            def file_extensions(self) -> List[str]:
+            def file_extensions(self) -> list[str]:
                 return [".sql", ".ddl", ".dml"]
             
             def parse(self, text: str) -> ASTNode:
@@ -140,7 +140,7 @@ class ISyntaxHandler(ISerialization):
         pass
     
     @property
-    def aliases(self) -> List[str]:
+    def aliases(self) -> list[str]:
         """
         Alternative names for this format.
         
@@ -174,7 +174,7 @@ class ISyntaxHandler(ISerialization):
     # =========================================================================
     
     @abstractmethod
-    def parse_grammar(self, text: str, metadata: Optional[Dict[str, Any]] = None) -> 'AGrammar':
+    def parse_grammar(self, text: str, metadata: Optional[dict[str, Any]] = None) -> 'AGrammar':
         """
         Parse grammar text into a Grammar object.
         
@@ -194,7 +194,7 @@ class ISyntaxHandler(ISerialization):
         pass
     
     @abstractmethod
-    def validate_grammar(self, text: str) -> List[str]:
+    def validate_grammar(self, text: str) -> list[str]:
         """
         Validate grammar definition.
         

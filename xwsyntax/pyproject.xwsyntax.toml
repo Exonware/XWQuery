@@ -6,10 +6,10 @@ build-backend = "hatchling.build"
 
 [project]
 name = "xwsyntax"
-version = "0.0.1"
+version = "0.0.1.1"
 description = "Convenience wrapper for exonware-xwsyntax - provides 'import xwsyntax' alias"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 keywords = [
     "parser",
     "grammar",
@@ -39,10 +39,6 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Code Generators",
     "Topic :: Software Development :: Compilers",
@@ -57,17 +53,11 @@ dependencies = [
 text = "MIT"
 
 [project.optional-dependencies]
-optimization = [
-    "exonware-xwsyntax[optimization]",
-]
-binary = [
-    "exonware-xwsyntax[binary]",
-]
-ide = [
-    "exonware-xwsyntax[ide]",
-]
 dev = [
     "exonware-xwsyntax[dev]",
+]
+lazy = [
+    "exonware-xwsyntax[lazy]",
 ]
 full = [
     "exonware-xwsyntax[full]",

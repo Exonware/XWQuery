@@ -1,0 +1,49 @@
+# aql.out.grammar
+# AQL Output Grammar - Template for generating AQL from AST
+# ArangoDB Query Language
+# Company: eXonware.com
+# Version: 1.0
+
+@query = {{#each statements}}{{value}}{{#if !@last}}; {{/if}}{{/each}}
+
+@for_statement = FOR {{variable}} IN {{collection}}{{#if filter}} {{filter}}{{/if}}{{#if options}} {{options}}{{/if}}
+
+@filter_clause = FILTER {{expression}}
+
+@options_clause = OPTIONS {{object}}
+
+@return_statement = RETURN{{#if distinct}} DISTINCT{{/if}} {{expression}}
+
+@let_statement = LET {{variable}} = {{expression}}
+
+@collect_statement = COLLECT{{#if variables}} {{variables}}{{/if}}{{#if with_count}} {{with_count}}{{/if}}{{#if into}} INTO {{into}}{{/if}}{{#if keep}} KEEP {{keep}}{{/if}}
+
+@sort_statement = SORT {{#each specs}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@sort_spec = {{expression}}{{#if direction}} {{direction}}{{/if}}
+
+@limit_statement = LIMIT {{limit}}{{#if offset}}, {{offset}}{{/if}}
+
+@insert_statement = INSERT {{expression}} INTO {{collection}}{{#if return}} {{return}}{{/if}}
+
+@update_statement = UPDATE {{expression}} IN {{collection}} WITH {{update_expr}}{{#if return}} {{return}}{{/if}}
+
+@replace_statement = REPLACE {{expression}} IN {{collection}} WITH {{replace_expr}}{{#if return}} {{return}}{{/if}}
+
+@remove_statement = REMOVE {{expression}} IN {{collection}}{{#if return}} {{return}}{{/if}}
+
+@expression = {{value}}
+
+@variable = {{#each parts}}{{value}}{{#if !@last}}.{{/if}}{{/each}}
+
+@function_call = {{name}}({{#if args}}{{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}})
+
+@array = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@object = {{{#each properties}}{{key}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@literal = {{value}}
+
+@indent = 2
+@pretty = true
+

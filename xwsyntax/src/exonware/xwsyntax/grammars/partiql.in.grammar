@@ -2,7 +2,7 @@
 // AWS PartiQL - SQL for nested/semi-structured data
 // Based on PartiQL specification
 
-start: statement
+?start: statement
 
 statement: select_stmt
          | insert_stmt

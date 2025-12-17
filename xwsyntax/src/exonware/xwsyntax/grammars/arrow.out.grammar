@@ -1,0 +1,29 @@
+# arrow.out.grammar
+# Apache Arrow Output Grammar - Template for generating Arrow schema from AST
+# Columnar In-Memory Format
+# Company: eXonware.com
+# Version: 1.0
+
+@arrow_schema = {{schema_header}}
+{{#each fields}}{{value}}
+{{/each}}{{#if metadata}}{{metadata}}{{/if}}
+
+@schema_header = {{version}} {{magic}}
+
+@field = {{name}}: {{type}}{{#if nullable}} nullable{{/if}}{{#if metadata}} {{metadata}}{{/if}}
+
+@primitive_type = {{value}}
+
+@list_type = list<{{type}}>
+
+@struct_type = struct<{{#each fields}}{{value}}{{#if !@last}}, {{/if}}{{/each}}>
+
+@map_type = map<{{key_type}}, {{value_type}}>
+
+@union_type = union<{{#each types}}{{value}}{{#if !@last}}, {{/if}}{{/each}}>
+
+@metadata = {{{#each entries}}"{{key}}": "{{value}}"{{#if !@last}}, {{/if}}{{/each}}}
+
+@indent = 2
+@pretty = true
+

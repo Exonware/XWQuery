@@ -1,0 +1,17 @@
+# log.out.grammar
+# Log Output Grammar - Template for generating log files from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@log_file = {{#each entries}}{{value}}{{/each}}
+
+@log_entry = {{timestamp}}{{#if level}} {{level}}{{/if}}{{#if logger}} {{logger}}{{/if}} {{message}}{{#if exception}}
+{{exception}}{{/if}}
+
+@timestamp = {{date}} {{time}}
+
+@level = [{{value}}]
+
+@indent = 0
+@pretty = false
+

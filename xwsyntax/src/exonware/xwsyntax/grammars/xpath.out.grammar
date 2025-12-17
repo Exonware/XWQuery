@@ -1,22 +1,23 @@
-﻿# xpath Output Grammar
+﻿# xpath.out.grammar
+# XPath Output Grammar - Template for generating XPath from AST
 # Company: eXonware.com
-# Generated: 2025-10-29
-#
-# This is a basic template for xpath generation
-# TODO: Implement proper templates for each rule
-#
-# Template syntax:
-#   {{child_N}} - Access child node by index
-#   {{value}} - Access node value
-#   {{#each children}}...{{/each}} - Loop over children
-#   {{#if condition}}...{{/if}} - Conditional rendering
+# Version: 1.0
 
-# Root rule (update with actual root from .in.grammar)
-@
-start = {{value}}
+@path_expr = {{#if absolute}}/{{else}}{{#if descendant}}//{{/if}}{{/if}}{{#each steps}}{{value}}{{#if !@last}}/{{/if}}{{/each}}
 
-# Add templates for each rule in the input grammar
-# Example:
-# @
-rule_name = {{child_0}} {{value}} {{child_1}}
+@step = {{#if axis}}{{axis}}::{{/if}}{{test}}{{#each predicates}}{{value}}{{/each}}
 
+@axis_specifier = {{#if at}}@{{else}}{{name}}::{{/if}}
+
+@axis_name = {{value}}
+
+@node_test = {{value}}
+
+@predicate = [{{value}}]
+
+@comparison_op = {{value}}
+
+@value = {{value}}
+
+@indent = 0
+@pretty = false

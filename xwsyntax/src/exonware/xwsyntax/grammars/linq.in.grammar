@@ -2,7 +2,7 @@
 // Language Integrated Query (C#/VB.NET)
 // Simplified comprehension syntax
 
-start: query
+?start: query
 
 query: from_clause query_body
 

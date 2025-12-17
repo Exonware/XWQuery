@@ -7,12 +7,12 @@ NO HARDCODING - All metadata comes from handler classes.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.1
+Version: 0.0.1.2
 Date: October 29, 2025
 """
 
 from pathlib import Path
-from typing import Optional, Dict, Any, List
+from typing import Optional, Any
 from .syntax_tree import ASTNode
 from .base import AGrammar
 from .errors import SyntaxError, GrammarNotFoundError
@@ -63,9 +63,9 @@ class XWSyntax:
                  grammar_in: Optional[str] = None,
                  grammar_out: Optional[str] = None,
                  # Optional metadata overrides
-                 extensions: Optional[List[str]] = None,
-                 mime_types: Optional[List[str]] = None,
-                 aliases: Optional[List[str]] = None,
+                 extensions: Optional[list[str]] = None,
+                 mime_types: Optional[list[str]] = None,
+                 aliases: Optional[list[str]] = None,
                  category: Optional[str] = None,
                  **options):
         """
@@ -313,17 +313,17 @@ class XWSyntax:
     # =========================================================================
     
     @property
-    def extensions(self) -> List[str]:
+    def extensions(self) -> list[str]:
         """Get supported file extensions from handler."""
         return self._handler.file_extensions
     
     @property
-    def mime_types(self) -> List[str]:
+    def mime_types(self) -> list[str]:
         """Get MIME types from handler."""
         return getattr(self._handler, 'mime_types', [])
     
     @property
-    def aliases(self) -> List[str]:
+    def aliases(self) -> list[str]:
         """Get aliases from handler."""
         return self._handler.aliases
     
@@ -337,7 +337,7 @@ class XWSyntax:
         """Check if format supports bidirectional operations."""
         return self._handler.supports_bidirectional
     
-    def get_metadata(self) -> Dict[str, Any]:
+    def get_metadata(self) -> dict[str, Any]:
         """
         Get all metadata from handler.
         

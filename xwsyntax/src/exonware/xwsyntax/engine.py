@@ -4,7 +4,7 @@ Core syntax engine implementation using Lark parser.
 """
 
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from .base import AGrammar, ASyntaxEngine
 from .syntax_tree import ASTNode
 from .parser_cache import ParserCache
@@ -99,7 +99,7 @@ class Grammar(AGrammar):
                 text=text,
             )
     
-    def validate(self, text: str) -> List[str]:
+    def validate(self, text: str) -> list[str]:
         """
         Validate syntax without full parsing.
         
@@ -118,7 +118,7 @@ class Grammar(AGrammar):
             errors.append(f"Unexpected error: {e}")
         return errors
     
-    def export_to_monaco(self, case_insensitive: bool = False) -> Dict[str, Any]:
+    def export_to_monaco(self, case_insensitive: bool = False) -> dict[str, Any]:
         """
         Export grammar to Monaco Monarch format.
         
@@ -210,7 +210,7 @@ class SyntaxEngine(ASyntaxEngine):
         """
         self._grammar_dir = self._resolve_grammar_dir(grammar_dir)
         self._cache = ParserCache(max_size=cache_size)
-        self._grammars: Dict[str, Grammar] = {}
+        self._grammars: dict[str, Grammar] = {}
     
     def _resolve_grammar_dir(self, grammar_dir: Optional[Union[str, Path]]) -> Path:
         """Resolve grammar directory path."""
@@ -343,7 +343,7 @@ class SyntaxEngine(ASyntaxEngine):
         g = self.load_grammar(grammar)
         return g.parse(text, mode)
     
-    def validate(self, text: str, grammar: str) -> List[str]:
+    def validate(self, text: str, grammar: str) -> list[str]:
         """
         Validate text against grammar.
         
@@ -360,7 +360,7 @@ class SyntaxEngine(ASyntaxEngine):
         except GrammarNotFoundError as e:
             return [str(e)]
     
-    def list_grammars(self) -> List[str]:
+    def list_grammars(self) -> list[str]:
         """
         List available grammars.
         

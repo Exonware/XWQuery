@@ -9,12 +9,12 @@ a clean, intuitive interface.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.1
+Version: 0.0.1.2
 Generation Date: October 29, 2025
 """
 
 import logging
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from pathlib import Path
 
 from .base import AGrammar, ASyntaxEngine
@@ -24,6 +24,7 @@ from .errors import GrammarError, GrammarNotFoundError, ParseError
 from .defs import ParserMode, GrammarFormat
 from .grammar_loader import get_grammar_loader
 from .bidirectional import BidirectionalGrammar, get_bidirectional_registry
+from .grammar_metadata import get_grammar_metadata
 
 logger = logging.getLogger(__name__)
 
@@ -138,7 +139,7 @@ class XWSyntax(ASyntaxEngine):
         """
         return self._engine.parse(text, grammar, mode)
     
-    def validate(self, text: str, grammar: str) -> List[str]:
+    def validate(self, text: str, grammar: str) -> list[str]:
         """
         Validate text against grammar.
         
@@ -157,7 +158,7 @@ class XWSyntax(ASyntaxEngine):
         """
         return self._engine.validate(text, grammar)
     
-    def list_grammars(self) -> List[str]:
+    def list_grammars(self) -> list[str]:
         """
         List available grammars.
         
@@ -281,7 +282,7 @@ class XWSyntax(ASyntaxEngine):
         self,
         file_path: Union[str, Path],
         grammar: Optional[str] = None,
-    ) -> List[str]:
+    ) -> list[str]:
         """
         Validate file content.
         
@@ -317,6 +318,8 @@ class XWSyntax(ASyntaxEngine):
         """
         Detect grammar from file extension.
         
+        Uses grammars_master.json for format detection.
+        
         Args:
             ext: File extension (without dot)
             
@@ -326,35 +329,33 @@ class XWSyntax(ASyntaxEngine):
         Raises:
             GrammarError: If extension not recognized
         """
-        # Extension to grammar mapping
-        ext_map = {
-            'sql': 'sql',
-            'json': 'json',
-            'py': 'python',
-            'gql': 'graphql',
-            'graphql': 'graphql',
-            'cypher': 'cypher',
-            'cql': 'cql',
-            'sparql': 'sparql',
-            'xml': 'xml_query',
-            'xpath': 'xpath',
-            'xquery': 'xquery',
-            'yaml': 'yaml',
-            'yml': 'yaml',
-            'toml': 'toml',
-        }
+        # Use grammar metadata for detection
+        metadata = get_grammar_metadata()
         
-        if ext in ext_map:
-            return ext_map[ext]
+        # Try with dot
+        format_id = metadata.detect_from_extension(f'.{ext}')
+        if format_id:
+            return format_id
         
-        # Try direct match
+        # Try without dot (in case it was already included)
+        format_id = metadata.detect_from_extension(ext)
+        if format_id:
+            return format_id
+        
+        # Try direct match with available grammars
         available = self.list_grammars()
         if ext in available:
             return ext
         
+        # Try as alias
+        format_id = metadata.detect_from_alias(ext)
+        if format_id:
+            return format_id
+        
         raise GrammarError(
             f"Could not detect grammar for extension '.{ext}'. "
-            f"Please specify grammar explicitly."
+            f"Please specify grammar explicitly. "
+            f"Available extensions: {', '.join(sorted(metadata.list_extensions())[:20])}..."
         )
     
     # ============================================================================
@@ -365,7 +366,7 @@ class XWSyntax(ASyntaxEngine):
         self,
         grammar: str,
         case_insensitive: bool = False,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Export grammar to Monaco editor format.
         
@@ -393,7 +394,7 @@ class XWSyntax(ASyntaxEngine):
         self._engine.clear_cache()
         logger.info("Parser cache cleared")
     
-    def get_info(self, grammar: str) -> Dict[str, Any]:
+    def get_info(self, grammar: str) -> dict[str, Any]:
         """
         Get grammar information.
         
@@ -503,7 +504,7 @@ def parse(text: str, grammar: str, mode: ParserMode = ParserMode.STRICT) -> ASTN
     return syntax.parse(text, grammar, mode)
 
 
-def validate(text: str, grammar: str) -> List[str]:
+def validate(text: str, grammar: str) -> list[str]:
     """
     Quick validate function.
     
@@ -527,7 +528,7 @@ def load_grammar(name: str) -> AGrammar:
     return syntax.load_grammar(name)
 
 
-def list_grammars() -> List[str]:
+def list_grammars() -> list[str]:
     """
     Quick list grammars function.
     

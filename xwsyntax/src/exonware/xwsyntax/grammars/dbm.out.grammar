@@ -1,0 +1,23 @@
+# dbm.out.grammar
+# DBM Output Grammar - Template for generating DBM database from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@database = {{#each buckets}}{{value}}{{/each}}
+
+@bucket = {{#each entries}}{{value}}{{/each}}
+
+@hash_entry = {{key_length}}{{value_length}}{{key}}{{value}}
+
+@key_length = {{value|bytes_2}}
+
+@value_length = {{value|bytes_4}}
+
+@key = {{value}}
+
+@value = {{value}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

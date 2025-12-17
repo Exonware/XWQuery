@@ -1,0 +1,51 @@
+// arrow.grammar
+// Apache Arrow Grammar - Columnar In-Memory Format
+// Based on Apache Arrow specification
+// Company: eXonware.com
+
+?start: arrow_schema
+
+arrow_schema: schema_header fields metadata?
+
+schema_header: VERSION MAGIC
+
+VERSION: /[A-Z]{4}/
+
+MAGIC: /ARROW1/
+
+fields: field+
+
+field: name ":" type (nullable)? (metadata)?
+
+name: IDENTIFIER
+
+type: primitive_type | list_type | struct_type | map_type | union_type
+
+primitive_type: "bool" | "int8" | "int16" | "int32" | "int64" | "uint8" | "uint16" | "uint32" | "uint64" | "float16" | "float32" | "float64" | "decimal128" | "decimal256" | "date32" | "date64" | "time32" | "time64" | "timestamp" | "duration" | "interval" | "binary" | "string" | "large_binary" | "large_string" | "fixed_size_binary" | "utf8"
+
+list_type: "list<" type ">"
+
+struct_type: "struct<" (field ("," field)*)? ">"
+
+map_type: "map<" type "," type ">"
+
+union_type: "union<" (type ("," type)*)? ">"
+
+nullable: "nullable"
+
+metadata: "{" metadata_entry ("," metadata_entry)* "}"
+
+metadata_entry: key ":" value
+
+key: STRING
+
+value: STRING
+
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+
+%import common.WS
+
+%ignore WS
+

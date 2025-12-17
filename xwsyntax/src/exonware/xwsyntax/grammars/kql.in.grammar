@@ -2,7 +2,7 @@
 // Kusto Query Language (Azure Data Explorer)
 // Pipeline-based query language
 
-start: query
+?start: query
 
 // KQL uses pipelines: table | operator | operator
 query: table_source ("|" operator)*

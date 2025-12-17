@@ -1,22 +1,90 @@
-﻿# flux Output Grammar
+﻿# flux.out.grammar
+# Flux Output Grammar - Template for generating Flux from AST
 # Company: eXonware.com
-# Generated: 2025-10-29
-#
-# This is a basic template for flux generation
-# TODO: Implement proper templates for each rule
-#
-# Template syntax:
-#   {{child_N}} - Access child node by index
-#   {{value}} - Access node value
-#   {{#each children}}...{{/each}} - Loop over children
-#   {{#if condition}}...{{/if}} - Conditional rendering
+# Version: 1.0
 
-# Root rule (update with actual root from .in.grammar)
-@
-start = {{value}}
+@file = {{#if package}}{{package}}
+{{/if}}{{#each imports}}{{value}}
+{{/each}}{{#each statements}}{{value}}
+{{/each}}
 
-# Add templates for each rule in the input grammar
-# Example:
-# @
-rule_name = {{child_0}} {{value}} {{child_1}}
+@package_clause = package {{name}}
 
+@import_list = {{#each imports}}{{value}}
+{{/each}}
+
+@import_declaration = import "{{path}}"{{#if alias}} as {{alias}}{{/if}}
+
+@statement_list = {{#each statements}}{{value}}
+{{/each}}
+
+@statement = {{value}}
+
+@option_stmt = option {{name}} = {{value}}
+
+@builtin_stmt = builtin {{name}}
+
+@variable_assignment = {{name}} = {{value}}
+
+@expression_stmt = {{value}}
+
+@return_stmt = return {{value}}
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} or {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} and {{/if}}{{/each}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{/if}}
+
+@compare_op = {{value}}
+
+@pipe_expr = {{#each terms}}{{value}}{{#if !@last}} |> {{/if}}{{/each}}
+
+@pipe_forward = {{value}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@postfix_expr = {{primary}}{{#each postfixes}}{{value}}{{/each}}
+
+@postfix = {{value}}
+
+@member_expr = .{{name}}
+
+@index_expr = [{{value}}]
+
+@call_expr = ({{#if args}}{{args}}{{/if}})
+
+@primary_expr = {{value}}
+
+@function_literal = ({{#if params}}{{params}}{{/if}}) => {{body}}
+
+@param_list = {{#each params}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@param = {{name}}{{#if default}} = {{default}}{{/if}}
+
+@block = {
+{{#each statements}}  {{value}}
+{{/each}}}
+
+@literal = {{value}}
+
+@duration_literal = {{value}}{{unit}}
+
+@time_unit = {{value}}
+
+@datetime_literal = {{value}}
+
+@regexp_literal = /{{pattern}}/
+
+@array_literal = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@object_literal = {{{#each pairs}}{{key}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@object_pair = {{key}}: {{value}}
+
+@arg_list = {{value}}
+
+@indent = 2
+@pretty = true

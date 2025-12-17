@@ -1,0 +1,56 @@
+// xwquery.grammar
+// XWQuery Grammar - XWQuery native query format
+// Company: eXonware.com
+
+?start: query
+
+query: query_type query_body
+
+query_type: "SELECT" | "INSERT" | "UPDATE" | "DELETE" | "CREATE" | "ALTER" | "DROP" | "EXECUTE"
+
+query_body: select_body | insert_body | update_body | delete_body | create_body | alter_body | drop_body | execute_body
+
+select_body: select_list from_clause? where_clause? group_by_clause? having_clause? order_by_clause? limit_clause?
+
+select_list: "*" | select_item ("," select_item)*
+
+select_item: expression [alias]
+
+from_clause: "FROM" table_reference (join_clause)*
+
+where_clause: "WHERE" condition
+
+group_by_clause: "GROUP BY" expression ("," expression)*
+
+having_clause: "HAVING" condition
+
+order_by_clause: "ORDER BY" order_item ("," order_item)*
+
+order_item: expression ["ASC" | "DESC"]
+
+limit_clause: "LIMIT" number [offset_clause]
+
+offset_clause: "OFFSET" number
+
+insert_body: "INTO" table_name ["(" column_list ")"] values_clause
+
+update_body: table_name "SET" assignment_list where_clause?
+
+delete_body: "FROM" table_name where_clause?
+
+create_body: object_type object_name ["(" definition_list ")"]
+
+alter_body: object_type object_name alter_action
+
+drop_body: object_type object_name
+
+execute_body: function_name ["(" argument_list ")"]
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+%import common.SIGNED_NUMBER
+%import common.ESCAPED_STRING
+%import common.WS
+
+%ignore WS
+

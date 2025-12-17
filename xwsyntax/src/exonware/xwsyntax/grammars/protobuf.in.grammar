@@ -1,0 +1,59 @@
+// protobuf.grammar
+// Protobuf Grammar - Protocol Buffers
+// Based on Protocol Buffers Language Guide
+// Company: eXonware.com
+
+?start: proto_file
+
+proto_file: syntax? import* package? option* message* enum* service* extend*
+
+syntax: "syntax" "=" STRING ";"
+
+import: "import" ("weak" | "public")? STRING ";"
+
+package: "package" full_ident ";"
+
+option: "option" option_name "=" constant ";"
+
+message: "message" message_name "{" message_body "}"
+
+message_body: field* enum* message* option* oneof* map_field* reserved* extension_range*
+
+field: field_rule? field_type field_name "=" field_number [field_options] ";"
+
+field_rule: "repeated" | "optional" | "required"
+
+field_type: scalar_type | user_defined_type
+
+field_name: IDENTIFIER
+
+field_number: INT_LITERAL
+
+field_options: "[" option_list "]"
+
+enum: "enum" enum_name "{" enum_body "}"
+
+enum_body: option* enum_value*
+
+enum_value: IDENTIFIER "=" INT_LITERAL [enum_value_options] ";"
+
+service: "service" service_name "{" rpc* option* "}"
+
+rpc: "rpc" rpc_name "(" [stream] message_type ")" "returns" "(" [stream] message_type ")" [rpc_options] ";"
+
+// Terminals
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+INT_LITERAL: /[0-9]+/
+FULL_IDENT: IDENTIFIER ("." IDENTIFIER)*
+
+scalar_type: "double" | "float" | "int32" | "int64" | "uint32" | "uint64" | "sint32" | "sint64" | "fixed32" | "fixed64" | "sfixed32" | "sfixed64" | "bool" | "string" | "bytes"
+
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

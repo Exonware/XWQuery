@@ -5,11 +5,11 @@ Abstract base classes for the syntax module.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.1
+Version: 0.0.1.2
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from pathlib import Path
 from .defs import ParserMode, GrammarFormat
 
@@ -54,7 +54,7 @@ class AGrammar(ABC):
         pass
     
     @abstractmethod
-    def validate(self, text: str) -> List[str]:
+    def validate(self, text: str) -> list[str]:
         """
         Validate syntax without full parsing.
         
@@ -66,7 +66,7 @@ class AGrammar(ABC):
         """
         pass
     
-    def describe(self) -> Dict[str, Any]:
+    def describe(self) -> dict[str, Any]:
         """
         Get grammar description.
         
@@ -79,7 +79,7 @@ class AGrammar(ABC):
             'format': self.get_format().name,
         }
     
-    def export_to_monaco(self, case_insensitive: bool = False) -> Dict[str, Any]:
+    def export_to_monaco(self, case_insensitive: bool = False) -> dict[str, Any]:
         """
         Export grammar to Monaco Monarch format.
         
@@ -137,7 +137,7 @@ class ASyntaxEngine(ABC):
         pass
     
     @abstractmethod
-    def validate(self, text: str, grammar: str) -> List[str]:
+    def validate(self, text: str, grammar: str) -> list[str]:
         """
         Validate text against grammar.
         
@@ -151,7 +151,7 @@ class ASyntaxEngine(ABC):
         pass
     
     @abstractmethod
-    def list_grammars(self) -> List[str]:
+    def list_grammars(self) -> list[str]:
         """
         List available grammars.
         
@@ -191,7 +191,7 @@ class ASyntaxHandler(ASerialization):
                 return "Lark"
             
             @property
-            def file_extensions(self) -> List[str]:
+            def file_extensions(self) -> list[str]:
                 return [".grammar", ".lark"]
             
             def parse_grammar(self, text: str) -> AGrammar:
@@ -225,7 +225,7 @@ class ASyntaxHandler(ASerialization):
         return "syntax"
     
     @property
-    def mime_types(self) -> List[str]:
+    def mime_types(self) -> list[str]:
         """
         List of MIME types for this format.
         Default implementation returns empty list.
@@ -234,7 +234,7 @@ class ASyntaxHandler(ASerialization):
         return []
     
     @property
-    def aliases(self) -> List[str]:
+    def aliases(self) -> list[str]:
         """
         Alternative names for this format.
         Default implementation uses format_name if available.
@@ -264,7 +264,7 @@ class ASyntaxHandler(ASerialization):
     # =========================================================================
     
     @abstractmethod
-    def parse_grammar(self, text: str, metadata: Optional[Dict[str, Any]] = None) -> AGrammar:
+    def parse_grammar(self, text: str, metadata: Optional[dict[str, Any]] = None) -> AGrammar:
         """
         Parse grammar text into a Grammar object.
         
@@ -281,7 +281,7 @@ class ASyntaxHandler(ASerialization):
         pass
     
     @abstractmethod
-    def validate_grammar(self, text: str) -> List[str]:
+    def validate_grammar(self, text: str) -> list[str]:
         """
         Validate grammar definition.
         
@@ -369,13 +369,13 @@ class ASyntaxHandler(ASerialization):
         return self.syntax_name
     
     @property
-    def media_types(self) -> List[str]:
+    def media_types(self) -> list[str]:
         """Bridge to mime_types property (required by ICodec)."""
         # If subclass provides mime_types() method, use it
         # Otherwise return empty list
         return getattr(self, 'mime_types', [])
     
-    def encode(self, value: Any, *, options: Optional[Dict[str, Any]] = None) -> Union[bytes, str]:
+    def encode(self, value: Any, *, options: Optional[dict[str, Any]] = None) -> Union[bytes, str]:
         """
         Encode AST to text (bridges to generate()).
         
@@ -398,7 +398,7 @@ class ASyntaxHandler(ASerialization):
         grammar = options.get('grammar', None) if options else None
         return self.generate(value, grammar=grammar)
     
-    def decode(self, repr: Union[bytes, str], *, options: Optional[Dict[str, Any]] = None) -> Any:
+    def decode(self, repr: Union[bytes, str], *, options: Optional[dict[str, Any]] = None) -> Any:
         """
         Decode text to AST (bridges to parse()).
         

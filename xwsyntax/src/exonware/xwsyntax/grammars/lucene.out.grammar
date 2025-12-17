@@ -1,0 +1,27 @@
+# lucene.out.grammar
+# Lucene Query Syntax Output Grammar - Template for generating Lucene queries from AST
+# Apache Lucene Query Parser Syntax
+# Company: eXonware.com
+# Version: 1.0
+
+@query = {{#each clauses}}{{value}}{{#if operator}} {{operator}} {{/if}}{{/each}}
+
+@term = {{value}}
+
+@phrase = "{{content}}"
+
+@group = ({{query}})
+
+@range = {{#if inclusive}}[{{else}}{{{/if}}{{start}} TO {{end}}{{#if inclusive}}]{{else}}}{{{/if}}
+
+@wildcard = {{value}}
+
+@fuzzy = {{term}}~{{#if distance}}{{distance}}{{/if}}
+
+@boost = {{clause}}^{{boost}}
+
+@field_query = {{field}}:{{clause}}
+
+@indent = 0
+@pretty = false
+

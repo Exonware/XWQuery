@@ -1,22 +1,59 @@
-﻿# jmespath Output Grammar
+﻿# jmespath.out.grammar
+# JMESPath Output Grammar - Template for generating JMESPath from AST
 # Company: eXonware.com
-# Generated: 2025-10-29
-#
-# This is a basic template for jmespath generation
-# TODO: Implement proper templates for each rule
-#
-# Template syntax:
-#   {{child_N}} - Access child node by index
-#   {{value}} - Access node value
-#   {{#each children}}...{{/each}} - Loop over children
-#   {{#if condition}}...{{/if}} - Conditional rendering
+# Version: 1.0
 
-# Root rule (update with actual root from .in.grammar)
-@
-start = {{value}}
+@expression = {{value}}
 
-# Add templates for each rule in the input grammar
-# Example:
-# @
-rule_name = {{child_0}} {{value}} {{child_1}}
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} || {{/if}}{{/each}}
 
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} && {{/if}}{{/each}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{/if}}
+
+@compare_op = {{value}}
+
+@pipe_expr = {{#each projections}}{{value}}{{#if !@last}} | {{/if}}{{/each}}
+
+@projection = {{value}}
+
+@identifier_projection = {{name}}{{#if subexpr}}{{subexpr}}{{/if}}
+
+@index_projection = [{{index}}]{{#if subexpr}}{{subexpr}}{{/if}}
+
+@slice_projection = [{{#if start}}{{start}}{{/if}}:{{#if end}}{{end}}{{/if}}{{#if step}}:{{step}}{{/if}}]{{#if subexpr}}{{subexpr}}{{/if}}
+
+@flatten_projection = []{{#if subexpr}}{{subexpr}}{{/if}}
+
+@filter_projection = [?{{expression}}]{{#if subexpr}}{{subexpr}}{{/if}}
+
+@multi_select_list = [{{#each expressions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@multi_select_hash = {{{#each pairs}}{{key}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@keyval_expr = {{key}}: {{value}}
+
+@function_expr = {{name}}({{#if args}}{{args}}{{/if}})
+
+@function_name = {{value}}
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@current_node = @
+
+@wildcard = *
+
+@subexpr = {{#if dot}}.{{projection}}{{else}}[{{component}}]{{/if}}
+
+@projection_component = {{value}}
+
+@literal = {{value}}
+
+@array_literal = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@object_literal = {{{#each pairs}}{{key}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@raw_string = '{{value}}'
+
+@indent = 0
+@pretty = false

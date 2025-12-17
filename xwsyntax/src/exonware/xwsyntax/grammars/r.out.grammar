@@ -1,0 +1,35 @@
+# r.out.grammar
+# R Output Grammar - Template for generating R code from AST
+# Statistical Computing Language
+# Company: eXonware.com
+# Version: 1.0
+
+@expr = {{value}}
+
+@function_call = {{name}}({{#if args}}{{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}})
+
+@assignment = {{variable}} {{operator}} {{value}}
+
+@variable = {{#each parts}}{{value}}{{#if separator}}{{separator}}{{/if}}{{/each}}
+
+@if_expr = if ({{condition}}) {{then_expr}}{{#if else_expr}} else {{else_expr}}{{/if}}
+
+@for_expr = for ({{variable}} in {{sequence}}) {{body}}
+
+@while_expr = while ({{condition}}) {{body}}
+
+@repeat_expr = repeat {{body}}
+
+@number = {{value}}
+
+@string = {{value}}
+
+@logical = {{value}}
+
+@null = NULL
+
+@na = NA
+
+@indent = 2
+@pretty = true
+

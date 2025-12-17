@@ -1,0 +1,18 @@
+# avro.out.grammar
+# Avro Output Grammar - Template for generating Avro schema from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@schema = {{value}}
+
+@record_schema = {"type": "record", "name": "{{name}}", "fields": [{{#each fields}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]{{#if namespace}}, "namespace": "{{namespace}}"{{/if}}{{#if doc}}, "doc": "{{doc}}"{{/if}}}
+
+@enum_schema = {"type": "enum", "name": "{{name}}", "symbols": [{{#each symbols}}"{{value}}"{{#if !@last}}, {{/if}}{{/each}}]{{#if namespace}}, "namespace": "{{namespace}}"{{/if}}{{#if doc}}, "doc": "{{doc}}"{{/if}}}
+
+@fixed_schema = {"type": "fixed", "name": "{{name}}", "size": {{size}}{{#if namespace}}, "namespace": "{{namespace}}"{{/if}}}
+
+@field = {"name": "{{name}}", "type": {{type}}{{#if default}}, "default": {{default}}{{/if}}{{#if doc}}, "doc": "{{doc}}"{{/if}}}
+
+@indent = 2
+@pretty = true
+

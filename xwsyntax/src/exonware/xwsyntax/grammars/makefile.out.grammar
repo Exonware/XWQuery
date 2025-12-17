@@ -1,0 +1,17 @@
+# makefile.out.grammar
+# Makefile Output Grammar - Template for generating Makefile from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@makefile = {{#each statements}}{{value}}
+{{/each}}
+
+@rule = {{target}}:{{#if prerequisites}} {{prerequisites}}{{/if}}
+{{#each recipe}}{{value}}{{/each}}
+
+@variable_assignment = {{name}} {{operator}} {{value}}
+
+@indent = 0
+@pretty = false
+@use_tabs = true
+

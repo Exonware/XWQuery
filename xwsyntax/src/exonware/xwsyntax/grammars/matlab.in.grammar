@@ -1,0 +1,32 @@
+// matlab.grammar
+// MATLAB Grammar - MATLAB MAT file format
+// Company: eXonware.com
+
+?start: mat_file
+
+mat_file: header data_element*
+
+header: text_header | binary_header
+
+text_header: "MATLAB" /[^\x00]{116}/
+
+binary_header: endian_indicator version
+
+data_element: data_type data_size data
+
+data_type: INT32
+
+data_size: INT32
+
+data: BYTE*
+
+// Terminals
+INT32: /[\x00-\xFF]{4}/
+BYTE: /[\x00-\xFF]*/
+endian_indicator: "IM" | "MI"
+version: /[\x00-\xFF]{2}/
+
+%import common.WS
+
+%ignore WS
+

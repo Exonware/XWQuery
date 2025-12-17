@@ -1,22 +1,39 @@
-﻿# partiql Output Grammar
+﻿# partiql.out.grammar
+# PartiQL Output Grammar - Template for generating PartiQL from AST
 # Company: eXonware.com
-# Generated: 2025-10-29
-#
-# This is a basic template for partiql generation
-# TODO: Implement proper templates for each rule
-#
-# Template syntax:
-#   {{child_N}} - Access child node by index
-#   {{value}} - Access node value
-#   {{#each children}}...{{/each}} - Loop over children
-#   {{#if condition}}...{{/if}} - Conditional rendering
+# Version: 1.0
 
-# Root rule (update with actual root from .in.grammar)
-@
-start = {{value}}
+@statement = {{value}}
 
-# Add templates for each rule in the input grammar
-# Example:
-# @
-rule_name = {{child_0}} {{value}} {{child_1}}
+@select_stmt = SELECT{{#if value}} VALUE{{/if}} {{select_list}}{{#if from}} {{from}}{{/if}}{{#if where}} {{where}}{{/if}}{{#if group_by}} {{group_by}}{{/if}}{{#if having}} {{having}}{{/if}}{{#if order_by}} {{order_by}}{{/if}}{{#if limit}} {{limit}}{{/if}}{{#if offset}} {{offset}}{{/if}}
 
+@select_list = {{#if wildcard}}*{{else}}{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}}
+
+@select_item = {{expression}}{{#if alias}} AS {{alias}}{{/if}}
+
+@from_clause = FROM {{#each sources}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@from_source = {{#if unpivot}}UNPIVOT {{/if}}{{expression}}{{#if alias}} AS {{alias}}{{/if}}{{#if at}} AT {{at}}{{/if}}
+
+@where_clause = WHERE {{expression}}
+
+@group_by_clause = GROUP BY {{#each expressions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@having_clause = HAVING {{expression}}
+
+@order_by_clause = ORDER BY {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@limit_clause = LIMIT {{value}}
+
+@offset_clause = OFFSET {{value}}
+
+@insert_stmt = INSERT INTO {{table}} {{values}}{{#if returning}} RETURNING {{returning}}{{/if}}
+
+@update_stmt = UPDATE {{table}} SET {{#each assignments}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if where}} {{where}}{{/if}}{{#if returning}} RETURNING {{returning}}{{/if}}
+
+@delete_stmt = DELETE FROM {{table}}{{#if where}} {{where}}{{/if}}{{#if returning}} RETURNING {{returning}}{{/if}}
+
+@expression = {{value}}
+
+@indent = 2
+@pretty = true

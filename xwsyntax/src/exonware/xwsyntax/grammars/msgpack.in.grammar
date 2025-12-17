@@ -1,0 +1,97 @@
+// msgpack.grammar
+// MessagePack Grammar - Efficient binary serialization
+// Based on MessagePack specification
+// Company: eXonware.com
+
+?start: value
+
+value: positive_fixint
+     | negative_fixint
+     | uint8
+     | uint16
+     | uint32
+     | uint64
+     | int8
+     | int16
+     | int32
+     | int64
+     | fixstr
+     | str8
+     | str16
+     | str32
+     | fixarray
+     | array16
+     | array32
+     | fixmap
+     | map16
+     | map32
+     | nil
+     | false
+     | true
+     | float32
+     | float64
+     | bin8
+     | bin16
+     | bin32
+     | ext8
+     | ext16
+     | ext32
+     | fixext1
+     | fixext2
+     | fixext4
+     | fixext8
+     | fixext16
+
+positive_fixint: /[\x00-\x7F]/
+negative_fixint: /[\xE0-\xFF]/
+uint8: "\xCC" BYTE
+uint16: "\xCD" BYTE BYTE
+uint32: "\xCE" BYTE BYTE BYTE BYTE
+uint64: "\xCF" BYTE BYTE BYTE BYTE BYTE BYTE BYTE BYTE
+int8: "\xD0" BYTE
+int16: "\xD1" BYTE BYTE
+int32: "\xD2" BYTE BYTE BYTE BYTE
+int64: "\xD3" BYTE BYTE BYTE BYTE BYTE BYTE BYTE BYTE
+
+fixstr: /[\xA0-\xBF]/ STRING_BYTES
+str8: "\xD9" BYTE STRING_BYTES
+str16: "\xDA" BYTE BYTE STRING_BYTES
+str32: "\xDB" BYTE BYTE BYTE BYTE STRING_BYTES
+
+fixarray: /[\x90-\x9F]/ value*
+array16: "\xDC" BYTE BYTE value*
+array32: "\xDD" BYTE BYTE BYTE BYTE value*
+
+fixmap: /[\x80-\x8F]/ (value value)*
+map16: "\xDE" BYTE BYTE (value value)*
+map32: "\xDF" BYTE BYTE BYTE BYTE (value value)*
+
+nil: "\xC0"
+false: "\xC2"
+true: "\xC3"
+
+float32: "\xCA" BYTE BYTE BYTE BYTE
+float64: "\xCB" BYTE BYTE BYTE BYTE BYTE BYTE BYTE BYTE
+
+bin8: "\xC4" BYTE BINARY_BYTES
+bin16: "\xC5" BYTE BYTE BINARY_BYTES
+bin32: "\xC6" BYTE BYTE BYTE BYTE BINARY_BYTES
+
+ext8: "\xC7" BYTE BYTE EXT_BYTES
+ext16: "\xC8" BYTE BYTE EXT_BYTES
+ext32: "\xC9" BYTE BYTE BYTE BYTE EXT_BYTES
+fixext1: "\xD4" BYTE EXT_BYTES
+fixext2: "\xD5" BYTE EXT_BYTES
+fixext4: "\xD6" BYTE EXT_BYTES
+fixext8: "\xD7" BYTE EXT_BYTES
+fixext16: "\xD8" BYTE EXT_BYTES
+
+BYTE: /[\x00-\xFF]/
+STRING_BYTES: /[^\x00]*/
+BINARY_BYTES: /[\x00-\xFF]*/
+EXT_BYTES: /[\x00-\xFF]*/
+
+%import common.WS
+
+%ignore WS
+

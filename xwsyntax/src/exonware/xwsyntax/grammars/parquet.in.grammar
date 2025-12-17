@@ -1,0 +1,37 @@
+// parquet.grammar
+// Parquet Grammar - Apache Parquet columnar format
+// Company: eXonware.com
+
+?start: parquet_file
+
+parquet_file: magic_number file_metadata file_metadata_length row_groups footer
+
+magic_number: "PAR1"
+
+file_metadata: metadata_object
+
+file_metadata_length: INT32
+
+row_groups: row_group*
+
+row_group: row_group_metadata
+
+footer: file_metadata file_metadata_length magic_number
+
+metadata_object: schema* num_rows row_groups* key_value_metadata* created_by
+
+schema: schema_element*
+
+schema_element: type num_children name repetition_type type_length scale precision field_id logical_type
+
+row_group_metadata: columns* total_byte_size num_rows sorting_columns
+
+// Terminals
+INT32: /[\x00-\xFF]{4}/
+INT64: /[\x00-\xFF]{8}/
+metadata_object: /[\x00-\xFF]*/
+
+%import common.WS
+
+%ignore WS
+

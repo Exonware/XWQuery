@@ -1,7 +1,7 @@
 // jq Grammar for Lark
 // JSON processor and transformation language
 
-start: filter
+?start: filter
 
 filter: pipe
 

@@ -1,0 +1,21 @@
+// formdata.grammar
+// FormData Grammar - URL-encoded form data
+// Based on application/x-www-form-urlencoded
+// Company: eXonware.com
+
+?start: document
+
+document: field*
+
+field: key "=" value ("&" field)*
+
+key: URL_ENCODED
+value: URL_ENCODED
+
+// Terminals
+URL_ENCODED: /[^=&]+/
+
+%import common.WS
+
+%ignore WS
+

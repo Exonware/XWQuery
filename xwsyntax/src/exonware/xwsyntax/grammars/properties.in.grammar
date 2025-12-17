@@ -1,0 +1,30 @@
+// properties.grammar
+// Properties Grammar - Java Properties File Format
+// Based on Java Properties specification
+// Company: eXonware.com
+
+?start: properties
+
+properties: (property | comment | blank_line)*
+
+property: key "=" value NEWLINE
+        | key ":" value NEWLINE
+        | key value NEWLINE
+
+key: KEY_CHARS
+
+KEY_CHARS: /[^\s=:#!][^\s=:#]*/
+
+value: VALUE_CHARS*
+
+VALUE_CHARS: /[^\r\n]/
+
+comment: "#" /[^\r\n]*/ NEWLINE
+       | "!" /[^\r\n]*/ NEWLINE
+
+blank_line: NEWLINE
+
+%import common.NEWLINE
+
+%ignore WS
+

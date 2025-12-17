@@ -1,7 +1,7 @@
 // GraphQL Grammar for Lark
 // GraphQL query language for APIs
 
-start: document
+?start: document
 
 document: definition+
 

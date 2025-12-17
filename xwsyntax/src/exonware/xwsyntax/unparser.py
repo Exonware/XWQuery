@@ -10,12 +10,12 @@ Implements the reverse of parsing: AST → Text
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.1
+Version: 0.0.1.2
 Generation Date: 29-Oct-2025
 """
 
 import re
-from typing import Any, Dict, List, Optional, Union, Callable
+from typing import Any, Optional, Union, Callable
 from .syntax_tree import ASTNode
 from .output_grammar import OutputGrammar
 from .errors import GrammarError
@@ -40,7 +40,7 @@ class GrammarUnparser:
             output_grammar: Output grammar defining generation templates
         """
         self.output_grammar = output_grammar
-        self._template_cache: Dict[str, Any] = {}
+        self._template_cache: dict[str, Any] = {}
         self._indent_level = 0
         self._pretty = output_grammar.get_formatting_rule('pretty', True)
         self._indent_size = output_grammar.get_formatting_rule('indent', 2)
@@ -132,7 +132,7 @@ class GrammarUnparser:
         # Render template
         return self._render_template(template, context)
     
-    def _prepare_context(self, node: ASTNode) -> Dict[str, Any]:
+    def _prepare_context(self, node: ASTNode) -> dict[str, Any]:
         """
         Prepare context dictionary from AST node.
         
@@ -165,7 +165,7 @@ class GrammarUnparser:
         
         return context
     
-    def _add_named_children(self, context: Dict[str, Any], node: ASTNode) -> Dict[str, Any]:
+    def _add_named_children(self, context: dict[str, Any], node: ASTNode) -> dict[str, Any]:
         """Add named child accessors to context."""
         # Add generic child accessors
         for i, child in enumerate(node.children):
@@ -252,7 +252,7 @@ class GrammarUnparser:
         
         return None
     
-    def _render_template(self, template: str, context: Dict[str, Any]) -> str:
+    def _render_template(self, template: str, context: dict[str, Any]) -> str:
         """
         Render template with context.
         
@@ -281,7 +281,7 @@ class GrammarUnparser:
         
         return result
     
-    def _process_variables(self, template: str, context: Dict[str, Any]) -> str:
+    def _process_variables(self, template: str, context: dict[str, Any]) -> str:
         """Process variable substitutions."""
         def replace_var(match):
             var_expr = match.group(1).strip()
@@ -301,7 +301,7 @@ class GrammarUnparser:
         pattern = r'\{\{([^#/}][^}]*)\}\}'
         return re.sub(pattern, replace_var, template)
     
-    def _process_conditionals(self, template: str, context: Dict[str, Any]) -> str:
+    def _process_conditionals(self, template: str, context: dict[str, Any]) -> str:
         """Process conditional blocks."""
         pattern = r'\{\{#if\s+([^}]+)\}\}(.*?)\{\{/if\}\}'
         
@@ -325,7 +325,7 @@ class GrammarUnparser:
         
         return template
     
-    def _process_loops(self, template: str, context: Dict[str, Any]) -> str:
+    def _process_loops(self, template: str, context: dict[str, Any]) -> str:
         """Process loop blocks."""
         pattern = r'\{\{#each\s+([^}]+)\}\}(.*?)\{\{/each\}\}'
         
@@ -364,7 +364,7 @@ class GrammarUnparser:
         
         return template
     
-    def _get_value(self, path: str, context: Dict[str, Any]) -> Any:
+    def _get_value(self, path: str, context: dict[str, Any]) -> Any:
         """Get value from context using dot notation."""
         parts = path.split('.')
         value = context
@@ -382,7 +382,7 @@ class GrammarUnparser:
         
         return value
     
-    def _evaluate_condition(self, condition: str, context: Dict[str, Any]) -> bool:
+    def _evaluate_condition(self, condition: str, context: dict[str, Any]) -> bool:
         """Evaluate condition expression."""
         condition = condition.strip()
         

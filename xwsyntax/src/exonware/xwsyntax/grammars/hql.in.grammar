@@ -2,7 +2,7 @@
 // Hibernate Query Language
 // Object-oriented query language for Java Hibernate ORM
 
-start: statement
+?start: statement
 
 statement: select_stmt
          | update_stmt

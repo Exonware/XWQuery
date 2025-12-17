@@ -1,22 +1,38 @@
-﻿# pig Output Grammar
+﻿# pig.out.grammar
+# Pig Output Grammar - Template for generating Pig Latin from AST
 # Company: eXonware.com
-# Generated: 2025-10-29
-#
-# This is a basic template for pig generation
-# TODO: Implement proper templates for each rule
-#
-# Template syntax:
-#   {{child_N}} - Access child node by index
-#   {{value}} - Access node value
-#   {{#each children}}...{{/each}} - Loop over children
-#   {{#if condition}}...{{/if}} - Conditional rendering
+# Version: 1.0
 
-# Root rule (update with actual root from .in.grammar)
-@
-start = {{value}}
+@statement_list = {{#each statements}}{{value}}
+{{/each}}
 
-# Add templates for each rule in the input grammar
-# Example:
-# @
-rule_name = {{child_0}} {{value}} {{child_1}}
+@statement = {{value}}
 
+@load_stmt = {{var}} = LOAD '{{path}}'{{#if using}} USING {{using}}{{/if}}{{#if schema}} AS {{schema}}{{/if}};
+
+@store_stmt = STORE {{var}} INTO '{{path}}'{{#if using}} USING {{using}}{{/if}};
+
+@foreach_stmt = {{var}} = FOREACH {{source}} GENERATE {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}};
+
+@generate_list = {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@generate_item = {{expression}}{{#if alias}} AS {{alias}}{{/if}}
+
+@filter_stmt = {{var}} = FILTER {{source}} BY {{condition}};
+
+@group_stmt = {{var}} = GROUP {{source}} BY {{#each keys}}{{value}}{{#if !@last}}, {{/if}}{{/each}};
+
+@join_stmt = {{var}} = JOIN {{left}} BY {{left_key}}, {{right}} BY {{right_key}};
+
+@order_stmt = {{var}} = ORDER {{source}} BY {{#each keys}}{{value}}{{#if !@last}}, {{/if}}{{/each}};
+
+@limit_stmt = {{var}} = LIMIT {{source}} {{number}};
+
+@distinct_stmt = {{var}} = DISTINCT {{source}};
+
+@assignment_stmt = {{var}} = {{expression}};
+
+@expression = {{value}}
+
+@indent = 2
+@pretty = true

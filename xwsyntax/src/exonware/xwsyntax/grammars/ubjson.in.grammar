@@ -1,0 +1,42 @@
+// ubjson.grammar
+// UBJSON Grammar - Universal Binary JSON
+// Based on UBJSON specification
+// Company: eXonware.com
+
+?start: value
+
+value: type_marker value_data
+
+type_marker: "Z" -> null
+           | "T" -> no_op
+           | "T" -> true
+           | "F" -> false
+           | "B" -> uint8
+           | "i" -> int8
+           | "U" -> uint16
+           | "I" -> int16
+           | "l" -> int32
+           | "L" -> int64
+           | "d" -> float32
+           | "D" -> float64
+           | "C" -> char
+           | "S" -> string
+           | "H" -> high_precision
+           | "[" -> array_start
+           | "{" -> object_start
+           | "]" -> array_end
+           | "}" -> object_end
+
+value_data: BYTE* | INT* | FLOAT* | STRING* | value*
+
+BYTE: /[\x00-\xFF]/
+INT: /[\x00-\xFF]{2,8}/
+FLOAT: /[\x00-\xFF]{4,8}/
+STRING: LENGTH_BYTE STRING_BYTES
+LENGTH_BYTE: /[\x00-\xFF]/
+STRING_BYTES: /[^\x00]*/
+
+%import common.WS
+
+%ignore WS
+

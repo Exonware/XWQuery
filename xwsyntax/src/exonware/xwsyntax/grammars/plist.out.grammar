@@ -1,0 +1,37 @@
+# plist.out.grammar
+# Plist Output Grammar - Template for generating Apple Property List from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@plist = <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+{{dict}}
+</plist>
+
+@dict = <dict>
+{{#each key_values}}{{value}}
+{{/each}}</dict>
+
+@key_value = <key>{{key}}</key>
+{{value}}
+
+@string = <string>{{value}}</string>
+
+@integer = <integer>{{value}}</integer>
+
+@real = <real>{{value}}</real>
+
+@boolean = {{#if value}}<true/>{{else}}<false/>{{/if}}
+
+@date = <date>{{value}}</date>
+
+@data = <data>{{value|base64}}</data>
+
+@array = <array>
+{{#each items}}{{value}}
+{{/each}}</array>
+
+@indent = 2
+@pretty = true
+

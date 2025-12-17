@@ -8,14 +8,15 @@ Each handler declares its own metadata (ID, extensions, MIME types).
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com  
-Version: 0.0.1.1
+Version: 0.0.1.2
 Date: October 29, 2025
 """
 
-from typing import Dict, List, Optional, Type, Any
+from typing import Optional, Any
 from pathlib import Path
 from .contracts import ISyntaxHandler
 from .errors import SyntaxError
+from .grammar_metadata import get_grammar_metadata
 
 
 class SyntaxRegistry:
@@ -39,12 +40,12 @@ class SyntaxRegistry:
     
     def __init__(self):
         """Initialize empty registry."""
-        self._handlers: Dict[str, Type[ISyntaxHandler]] = {}
-        self._extension_map: Dict[str, str] = {}
-        self._alias_map: Dict[str, str] = {}
-        self._instances: Dict[str, ISyntaxHandler] = {}  # Cached instances
+        self._handlers: dict[str, type[ISyntaxHandler]] = {}
+        self._extension_map: dict[str, str] = {}
+        self._alias_map: dict[str, str] = {}
+        self._instances: dict[str, ISyntaxHandler] = {}  # Cached instances
     
-    def register(self, handler_class: Type[ISyntaxHandler]) -> None:
+    def register(self, handler_class: type[ISyntaxHandler]) -> None:
         """
         Register a syntax handler.
         
@@ -126,6 +127,8 @@ class SyntaxRegistry:
         """
         Auto-detect format ID from file extension.
         
+        First checks registered handlers, then falls back to grammars_master.json.
+        
         Args:
             file_path: Path to file
         
@@ -137,7 +140,23 @@ class SyntaxRegistry:
             # Returns: "SQL"
         """
         suffix = Path(file_path).suffix.lower()
-        return self._extension_map.get(suffix)
+        
+        # First try registered handlers
+        format_id = self._extension_map.get(suffix)
+        if format_id:
+            return format_id
+        
+        # Fallback to grammars_master.json
+        try:
+            metadata = get_grammar_metadata()
+            format_id = metadata.detect_from_extension(file_path)
+            if format_id:
+                return format_id
+        except Exception:
+            # If metadata not available, continue
+            pass
+        
+        return None
     
     def has_handler(self, format_identifier: str) -> bool:
         """
@@ -153,7 +172,7 @@ class SyntaxRegistry:
             return True
         return format_identifier.lower() in self._alias_map
     
-    def list_formats(self) -> List[str]:
+    def list_formats(self) -> list[str]:
         """
         List all registered format IDs.
         
@@ -162,7 +181,7 @@ class SyntaxRegistry:
         """
         return list(self._handlers.keys())
     
-    def list_all_extensions(self) -> List[str]:
+    def list_all_extensions(self) -> list[str]:
         """
         List all supported file extensions.
         
@@ -171,7 +190,7 @@ class SyntaxRegistry:
         """
         return list(self._extension_map.keys())
     
-    def get_metadata(self, format_identifier: str) -> Dict[str, Any]:
+    def get_metadata(self, format_identifier: str) -> dict[str, Any]:
         """
         Get complete metadata for a format.
         
@@ -261,7 +280,7 @@ def _auto_register_handlers(registry: SyntaxRegistry) -> None:
 # CONVENIENCE FUNCTIONS
 # ============================================================================
 
-def register_syntax_handler(handler_class: Type[ISyntaxHandler]) -> None:
+def register_syntax_handler(handler_class: type[ISyntaxHandler]) -> None:
     """
     Register a custom syntax handler.
     
@@ -280,14 +299,14 @@ def register_syntax_handler(handler_class: Type[ISyntaxHandler]) -> None:
                 return "customql"
             
             @property
-            def file_extensions(self) -> List[str]:
+            def file_extensions(self) -> list[str]:
                 return [".cql"]
     """
     registry = get_syntax_registry()
     registry.register(handler_class)
 
 
-def list_available_formats() -> List[str]:
+def list_available_formats() -> list[str]:
     """
     List all available syntax formats.
     

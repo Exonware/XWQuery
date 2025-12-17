@@ -1,7 +1,7 @@
 // SPARQL Grammar for Lark
 // SPARQL Protocol and RDF Query Language
 
-start: query
+?start: query
 
 query: prologue (select_query | construct_query | describe_query | ask_query)
 

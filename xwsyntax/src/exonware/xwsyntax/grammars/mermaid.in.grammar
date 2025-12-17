@@ -1,0 +1,160 @@
+// mermaid.grammar
+// Mermaid Grammar - Diagram and chart syntax
+// Based on Mermaid.js specification
+// Company: eXonware.com
+
+?start: diagram
+
+diagram: graph | sequence_diagram | class_diagram | state_diagram | er_diagram | gantt_chart | pie_chart | flowchart | gitgraph
+
+// Graph/Flowchart
+graph: "graph" direction? NEWLINE statement*
+
+flowchart: "flowchart" direction? NEWLINE statement*
+
+direction: "TD" | "TB" | "BT" | "RL" | "LR"
+
+statement: node_statement | edge_statement | subgraph_statement
+
+node_statement: node_id [node_text] [node_style]
+
+node_id: IDENTIFIER | STRING
+
+node_text: "[" text "]" | "(" text ")" | "{" text "}" | "(((" text ")))" | ">" text "]" | "{" text "}"
+
+node_style: ":::" style_class
+
+edge_statement: node_id edge_operator node_id [edge_text] [edge_style]
+
+edge_operator: "--" | "---" | "-->" | "==>" | "-.->" | "-.->" | "==>" | "---" | "--o" | "--x"
+
+edge_text: "|" text "|"
+
+subgraph_statement: "subgraph" IDENTIFIER NEWLINE statement* "end"
+
+// Sequence Diagram
+sequence_diagram: "sequenceDiagram" NEWLINE sequence_statement*
+
+sequence_statement: participant | activation | note | message | alt | opt | loop | par
+
+participant: "participant" IDENTIFIER [as_alias]
+
+as_alias: "as" IDENTIFIER
+
+activation: "activate" IDENTIFIER | "deactivate" IDENTIFIER
+
+note: "Note" position "over" IDENTIFIER ":" text
+
+position: "left of" | "right of" | "over"
+
+message: IDENTIFIER arrow IDENTIFIER ":" text
+
+arrow: "-->>" | "-->" | "-x" | "-)" | "->>"
+
+alt: "alt" text NEWLINE sequence_statement* "else" NEWLINE sequence_statement* "end"
+
+opt: "opt" text NEWLINE sequence_statement* "end"
+
+loop: "loop" text NEWLINE sequence_statement* "end"
+
+par: "par" text NEWLINE sequence_statement* "and" NEWLINE sequence_statement* "end"
+
+// Class Diagram
+class_diagram: "classDiagram" NEWLINE class_statement*
+
+class_statement: class_def | relationship
+
+class_def: "class" IDENTIFIER "{" [class_member*] "}"
+
+class_member: visibility? member_name [":" type] | method_name "(" [params] ")"
+
+visibility: "+" | "-" | "#" | "~"
+
+relationship: class_id relationship_type class_id [label]
+
+relationship_type: "<|--" | "*--" | "o--" | "-->"
+
+// State Diagram
+state_diagram: "stateDiagram-v2" NEWLINE state_statement*
+
+state_statement: state_def | transition | note
+
+state_def: "state" IDENTIFIER ["as" text] ["{" state_statement* "}"]
+
+transition: IDENTIFIER "-->" IDENTIFIER [":" text]
+
+// ER Diagram
+er_diagram: "erDiagram" NEWLINE er_statement*
+
+er_statement: entity_def | relationship_def
+
+entity_def: IDENTIFIER "{" attribute* "}"
+
+attribute: IDENTIFIER [type] [key_type]
+
+key_type: "PK" | "FK"
+
+relationship_def: IDENTIFIER "||--" cardinality "||" IDENTIFIER ":" label
+
+cardinality: "o" | "|" | "}" | "{"
+
+// Gantt Chart
+gantt_chart: "gantt" NEWLINE gantt_config* NEWLINE section*
+
+gantt_config: "title" ":" text | "dateFormat" ":" STRING | "section" ":" text
+
+section: IDENTIFIER ":" task* NEWLINE
+
+task: IDENTIFIER ":" [crit] [done] [active] [milestone] text "," start_date "," duration
+
+crit: "crit,"
+
+done: "done,"
+
+active: "active,"
+
+milestone: "milestone,"
+
+start_date: DATE
+
+duration: NUMBER [unit]
+
+unit: "d" | "w" | "m"
+
+// Pie Chart
+pie_chart: "pie" ["title" text] NEWLINE data_item*
+
+data_item: STRING ":" NUMBER
+
+// Git Graph
+gitgraph: "gitgraph" NEWLINE commit*
+
+commit: "commit" [commit_type] [commit_id] [commit_msg]
+
+commit_type: "id:" | "merge:" | "branch:"
+
+commit_id: STRING
+
+commit_msg: STRING
+
+// Common
+text: /[^\n\[\](){}|:]+/
+style_class: IDENTIFIER
+type: IDENTIFIER
+label: STRING
+DATE: /[0-9]{4}-[0-9]{2}-[0-9]{2}/
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: "\"" /[^"]/* "\"" | "'" /[^']/* "'"
+NUMBER: /[0-9]+(\.[0-9]+)?/
+NEWLINE: /\r?\n/
+
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

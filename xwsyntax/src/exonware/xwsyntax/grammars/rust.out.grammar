@@ -1,0 +1,16 @@
+# rust.out.grammar
+# Rust Output Grammar - Template for generating Rust from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@crate = {{#each items}}{{value}}
+{{/each}}
+
+@fn_item = {{#if pub}}pub {{/if}}{{#if unsafe}}unsafe {{/if}}{{#if extern}}extern{{#if abi}} "{{abi}}"{{/if}} {{/if}}fn {{name}}{{#if generics}}{{generics}}{{/if}}({{params}}){{#if return}} -> {{return}}{{/if}} {{body}}
+
+@struct_item = {{#if pub}}pub {{/if}}struct {{name}}{{#if generics}}{{generics}}{{/if}}{{#if body}} {{body}}{{/if}}
+
+@indent = 4
+@pretty = true
+@use_tabs = false
+

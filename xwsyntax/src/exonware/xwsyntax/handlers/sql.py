@@ -7,7 +7,7 @@ Author: Eng. Muhammad AlShehri
 Date: October 29, 2025
 """
 
-from typing import List, Optional, Any, Dict
+from typing import Optional, Any
 from pathlib import Path
 from ..base import ASyntaxHandler, AGrammar
 from ..syntax_tree import ASTNode
@@ -42,7 +42,7 @@ class SQLGrammarHandler(ASyntaxHandler):
         return "SQL"
     
     @property
-    def file_extensions(self) -> List[str]:
+    def file_extensions(self) -> list[str]:
         """Supported file extensions."""
         return [".sql", ".ddl", ".dml", ".dql"]
     
@@ -52,12 +52,12 @@ class SQLGrammarHandler(ASyntaxHandler):
         return "application/sql"
     
     @property
-    def mime_types(self) -> List[str]:
+    def mime_types(self) -> list[str]:
         """All MIME types."""
         return ["application/sql", "text/x-sql", "application/x-sql"]
     
     @property
-    def aliases(self) -> List[str]:
+    def aliases(self) -> list[str]:
         """Alternative names."""
         return ["sql", "SQL", "structured-query-language", "tsql", "plsql", "mysql", "postgresql"]
     
@@ -85,7 +85,7 @@ class SQLGrammarHandler(ASyntaxHandler):
     # GRAMMAR OPERATIONS (from ISyntaxHandler)
     # =========================================================================
     
-    def parse_grammar(self, text: str, metadata: Optional[Dict[str, Any]] = None) -> AGrammar:
+    def parse_grammar(self, text: str, metadata: Optional[dict[str, Any]] = None) -> AGrammar:
         """Parse SQL grammar definition."""
         # Implementation uses existing engine
         from ..engine import Grammar
@@ -96,7 +96,7 @@ class SQLGrammarHandler(ASyntaxHandler):
             start_rule=metadata.get('start_rule', 'start') if metadata else 'start'
         )
     
-    def validate_grammar(self, text: str) -> List[str]:
+    def validate_grammar(self, text: str) -> list[str]:
         """Validate SQL grammar."""
         errors = []
         # Basic validation

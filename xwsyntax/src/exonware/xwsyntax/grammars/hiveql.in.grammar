@@ -2,7 +2,7 @@
 // Hadoop Hive Query Language
 // Based on Apache Hive SQL dialect
 
-start: statement
+?start: statement
 
 statement: select_stmt
          | insert_stmt

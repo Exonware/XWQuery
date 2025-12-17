@@ -2,7 +2,7 @@
 // Event Query Language (Elastic/Endgame)
 // Query language for event-based data
 
-start: query
+?start: query
 
 query: sequence_query
      | event_query

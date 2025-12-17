@@ -1,0 +1,18 @@
+# sqlite3.out.grammar
+# SQLite3 Output Grammar - Template for generating SQLite3 database from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@database = {{#each pages}}{{value}}{{/each}}
+
+@page = {{header}}{{data}}
+
+@page_data = {{#each cells}}{{value}}{{/each}}{{free_space}}
+
+@cell = {{header}}{{data}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+@page_size = 4096
+

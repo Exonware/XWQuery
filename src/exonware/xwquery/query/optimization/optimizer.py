@@ -8,7 +8,7 @@ Applies optimization rules to execution plans.
 **Version:** 0.0.1.5
 """
 
-from typing import Optional, List
+from typing import Optional
 import asyncio
 
 from .base import AOptimizer, AOptimizationRule

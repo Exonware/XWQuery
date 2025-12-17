@@ -9,12 +9,12 @@ This module provides registry for managing operation executors.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
 import threading
-from typing import Dict, Type, Optional, List
+from typing import Optional
 
 from ...contracts import IOperationExecutor
 from exonware.xwnode.nodes.strategies.contracts import NodeType
@@ -46,12 +46,12 @@ class OperationRegistry:
         if self._initialized:
             return
         
-        self._executors: Dict[str, Type[IOperationExecutor]] = {}
-        self._instances: Dict[str, IOperationExecutor] = {}
+        self._executors: dict[str, type[IOperationExecutor]] = {}
+        self._instances: dict[str, IOperationExecutor] = {}
         self._lock = threading.RLock()
         self._initialized = True
     
-    def register(self, operation_name: str, executor_class: Type[IOperationExecutor]) -> None:
+    def register(self, operation_name: str, executor_class: type[IOperationExecutor]) -> None:
         """
         Register an executor for an operation.
         
@@ -100,12 +100,12 @@ class OperationRegistry:
         """
         return operation_name.upper() in self._executors
     
-    def list_operations(self) -> List[str]:
+    def list_operations(self) -> list[str]:
         """Get list of all registered operations."""
         with self._lock:
             return list(self._executors.keys())
     
-    def list_operations_for_node_type(self, node_type: NodeType) -> List[str]:
+    def list_operations_for_node_type(self, node_type: NodeType) -> list[str]:
         """
         Get list of operations supported by a node type.
         
@@ -159,7 +159,7 @@ def register_operation(operation_name: str):
         class CustomOperationExecutor(AOperationExecutor):
             ...
     """
-    def decorator(executor_class: Type[IOperationExecutor]):
+    def decorator(executor_class: type[IOperationExecutor]):
         registry = get_operation_registry()
         registry.register(operation_name, executor_class)
         return executor_class

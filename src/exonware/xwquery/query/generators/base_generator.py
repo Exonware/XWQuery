@@ -8,12 +8,12 @@ Provides common formatting, pretty-printing, and escaping.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional, Union, Set, Tuple
+from typing import Any, Optional, Union
 import time
 
 from ...contracts import QueryAction
@@ -69,7 +69,7 @@ class ABaseGenerator(ABC):
     # ==================== Abstract Methods (Implement in Subclasses) ====================
     
     @abstractmethod
-    def generate(self, actions: List[QueryAction], **options) -> str:
+    def generate(self, actions: list[QueryAction], **options) -> str:
         """
         Generate query string from QueryAction tree.
         
@@ -95,7 +95,7 @@ class ABaseGenerator(ABC):
     
     # ==================== Input Validation ====================
     
-    def validate_actions(self, actions: List[QueryAction]) -> None:
+    def validate_actions(self, actions: list[QueryAction]) -> None:
         """
         Validate QueryAction list.
         
@@ -217,7 +217,7 @@ class ABaseGenerator(ABC):
         """Record generation error."""
         self._error_count += 1
     
-    def get_performance_stats(self) -> Dict[str, Any]:
+    def get_performance_stats(self) -> dict[str, Any]:
         """
         Get generator performance statistics.
         
@@ -289,7 +289,7 @@ class ABaseGenerator(ABC):
     
     def format_list(
         self,
-        items: List[str],
+        items: list[str],
         separator: str = ", ",
         multiline: bool = False,
         indent_level: int = 0
@@ -623,7 +623,7 @@ class ABaseGenerator(ABC):
     
     # ==================== Validation with Monitoring ====================
     
-    def generate_with_validation(self, actions: List[QueryAction], **options) -> str:
+    def generate_with_validation(self, actions: list[QueryAction], **options) -> str:
         """
         Generate query with full validation and monitoring.
         
@@ -726,7 +726,7 @@ class AStructuredQueryGenerator(ABaseGenerator):
 class APathQueryGenerator(ABaseGenerator):
     """Base generator for path-based query languages (XPath, JMESPath, etc.)."""
     
-    def format_path(self, path_parts: List[str]) -> str:
+    def format_path(self, path_parts: list[str]) -> str:
         """
         Format path expression.
         
@@ -743,7 +743,7 @@ class APathQueryGenerator(ABaseGenerator):
 class AGraphQueryGenerator(ABaseGenerator):
     """Base generator for graph query languages (Cypher, Gremlin, etc.)."""
     
-    def format_node_pattern(self, pattern: Dict[str, Any]) -> str:
+    def format_node_pattern(self, pattern: dict[str, Any]) -> str:
         """
         Format graph node pattern.
         

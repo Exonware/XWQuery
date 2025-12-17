@@ -8,11 +8,11 @@ No conversion needed - just walk the QueryAction tree and execute.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: October 26, 2025
 """
 
-from typing import Any, List, Dict, Optional
+from typing import Any, Optional
 from ...contracts import QueryAction, ExecutionContext, ExecutionResult
 from .registry import get_operation_registry, OperationRegistry
 from .capability_checker import check_operation_compatibility
@@ -41,7 +41,7 @@ class ExecutionEngine:
             registry: Operation registry (uses global if not provided)
         """
         self._registry = registry or get_operation_registry()
-        self._execution_history: List[Dict] = []
+        self._execution_history: list[dict] = []
     
     def execute(self, query: str, node: Any, **kwargs) -> ExecutionResult:
         """
@@ -112,7 +112,7 @@ class ExecutionEngine:
             metadata=node_data.get('metadata', {})
         )
     
-    def _convert_dict_to_action(self, data: Dict[str, Any]) -> QueryAction:
+    def _convert_dict_to_action(self, data: dict[str, Any]) -> QueryAction:
         """Convert dict to QueryAction recursively."""
         action = QueryAction(
             type=data.get('type', 'UNKNOWN'),
@@ -230,7 +230,7 @@ class ExecutionEngine:
         self,
         action: QueryAction,
         context: ExecutionContext,
-        child_results: List[ExecutionResult]
+        child_results: list[ExecutionResult]
     ) -> ExecutionResult:
         """
         Execute a single operation.
@@ -285,7 +285,7 @@ class ExecutionEngine:
             'success': result.success,
         })
     
-    def get_execution_history(self) -> List[Dict]:
+    def get_execution_history(self) -> list[dict]:
         """Get execution history."""
         return self._execution_history.copy()
     

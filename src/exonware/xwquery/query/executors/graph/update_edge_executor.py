@@ -7,11 +7,11 @@ UPDATE_EDGE Operation Executor - Modify edge properties
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import Any, Dict
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 
@@ -43,7 +43,7 @@ class UpdateEdgeExecutor(AUniversalOperationExecutor):
             metadata={'operation': self.OPERATION_NAME}
         )
     
-    def _execute_update_edge(self, node: Any, params: Dict, context: ExecutionContext) -> Dict:
+    def _execute_update_edge(self, node: Any, params: dict, context: ExecutionContext) -> dict:
         """
         Execute UPDATE_EDGE - Modify edge properties.
         

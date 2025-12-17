@@ -8,11 +8,11 @@ This enables universal conversion from any query language to QueryAction trees.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 11-Oct-2025
 """
 
-from typing import Any, Dict, List, Optional, Union, Callable
+from typing import Any, Optional, Union, Callable
 from dataclasses import dataclass
 from exonware.xwsyntax import ASTNode
 from exonware.xwquery.contracts import QueryAction
@@ -24,7 +24,7 @@ class MappingRule:
     """A single AST→QueryAction mapping rule."""
     ast_pattern: str  # AST node type pattern
     query_action_type: str  # Target QueryAction type
-    extraction_func: Callable[[ASTNode], Dict[str, Any]]  # Function to extract data
+    extraction_func: Callable[[ASTNode], dict[str, Any]]  # Function to extract data
     priority: int = 0  # Rule priority (higher = more specific)
 
 
@@ -33,9 +33,9 @@ class FormatMapping:
     """Complete mapping configuration for a query format."""
     format_name: str
     description: str
-    rules: List[MappingRule]
+    rules: list[MappingRule]
     default_operation: str = "SELECT"
-    supported_operations: List[str] = None
+    supported_operations: list[str] = None
     
     def __post_init__(self):
         if self.supported_operations is None:
@@ -46,14 +46,14 @@ class FormatMappingRegistry:
     """Registry for all format mappings."""
     
     def __init__(self):
-        self._mappings: Dict[str, FormatMapping] = {}
+        self._mappings: dict[str, FormatMapping] = {}
         self._initialize_mappings()
     
     def get_mapping(self, format_name: str) -> Optional[FormatMapping]:
         """Get mapping for a specific format."""
         return self._mappings.get(format_name.lower())
     
-    def get_all_formats(self) -> List[str]:
+    def get_all_formats(self) -> list[str]:
         """Get list of all supported formats."""
         return list(self._mappings.keys())
     
@@ -467,7 +467,7 @@ class FormatMappingRegistry:
         )
     
     # Extraction methods for each format
-    def _extract_sql_select(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_sql_select(self, ast: ASTNode) -> dict[str, Any]:
         """Extract SQL SELECT data."""
         return {
             "operation": "SELECT",
@@ -480,7 +480,7 @@ class FormatMappingRegistry:
             "limit": self._extract_limit(ast)
         }
     
-    def _extract_sql_insert(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_sql_insert(self, ast: ASTNode) -> dict[str, Any]:
         """Extract SQL INSERT data."""
         return {
             "operation": "INSERT",
@@ -489,7 +489,7 @@ class FormatMappingRegistry:
             "values": self._extract_values(ast)
         }
     
-    def _extract_sql_update(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_sql_update(self, ast: ASTNode) -> dict[str, Any]:
         """Extract SQL UPDATE data."""
         return {
             "operation": "UPDATE",
@@ -498,7 +498,7 @@ class FormatMappingRegistry:
             "where": self._extract_where_clause(ast)
         }
     
-    def _extract_sql_delete(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_sql_delete(self, ast: ASTNode) -> dict[str, Any]:
         """Extract SQL DELETE data."""
         return {
             "operation": "DELETE",
@@ -506,7 +506,7 @@ class FormatMappingRegistry:
             "where": self._extract_where_clause(ast)
         }
     
-    def _extract_sql_create(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_sql_create(self, ast: ASTNode) -> dict[str, Any]:
         """Extract SQL CREATE data."""
         return {
             "operation": "CREATE",
@@ -515,7 +515,7 @@ class FormatMappingRegistry:
             "definition": self._extract_create_definition(ast)
         }
     
-    def _extract_sql_alter(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_sql_alter(self, ast: ASTNode) -> dict[str, Any]:
         """Extract SQL ALTER data."""
         return {
             "operation": "ALTER",
@@ -523,7 +523,7 @@ class FormatMappingRegistry:
             "action": self._extract_alter_action(ast)
         }
     
-    def _extract_sql_drop(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_sql_drop(self, ast: ASTNode) -> dict[str, Any]:
         """Extract SQL DROP data."""
         return {
             "operation": "DROP",
@@ -532,24 +532,24 @@ class FormatMappingRegistry:
         }
     
     # Placeholder extraction methods for other formats
-    def _extract_partiql_select(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_partiql_select(self, ast: ASTNode) -> dict[str, Any]:
         """Extract PartiQL SELECT data."""
         return self._extract_sql_select(ast)  # Similar to SQL
     
-    def _extract_partiql_insert(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_partiql_insert(self, ast: ASTNode) -> dict[str, Any]:
         """Extract PartiQL INSERT data."""
         return self._extract_sql_insert(ast)  # Similar to SQL
     
-    def _extract_partiql_update(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_partiql_update(self, ast: ASTNode) -> dict[str, Any]:
         """Extract PartiQL UPDATE data."""
         return self._extract_sql_update(ast)  # Similar to SQL
     
-    def _extract_partiql_delete(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_partiql_delete(self, ast: ASTNode) -> dict[str, Any]:
         """Extract PartiQL DELETE data."""
         return self._extract_sql_delete(ast)  # Similar to SQL
     
     # Generic extraction helpers
-    def _extract_column_list(self, ast: ASTNode) -> List[str]:
+    def _extract_column_list(self, ast: ASTNode) -> list[str]:
         """Extract column list from AST."""
         columns = []
         column_nodes = find_all_nodes_by_type(ast, "column_ref")
@@ -559,7 +559,7 @@ class FormatMappingRegistry:
                 columns.append(column_name)
         return columns
     
-    def _extract_table_list(self, ast: ASTNode) -> List[str]:
+    def _extract_table_list(self, ast: ASTNode) -> list[str]:
         """Extract table list from AST."""
         tables = []
         table_nodes = find_all_nodes_by_type(ast, "table_ref")
@@ -576,28 +576,28 @@ class FormatMappingRegistry:
             return extract_node_value(table_node) or "unknown_table"
         return "unknown_table"
     
-    def _extract_where_clause(self, ast: ASTNode) -> Optional[Dict[str, Any]]:
+    def _extract_where_clause(self, ast: ASTNode) -> Optional[dict[str, Any]]:
         """Extract WHERE clause from AST."""
         where_node = find_node_by_type(ast, "where_clause")
         if where_node:
             return {"condition": extract_node_value(where_node)}
         return None
     
-    def _extract_group_by(self, ast: ASTNode) -> Optional[List[str]]:
+    def _extract_group_by(self, ast: ASTNode) -> Optional[list[str]]:
         """Extract GROUP BY clause from AST."""
         group_by_node = find_node_by_type(ast, "group_by_clause")
         if group_by_node:
             return self._extract_column_list(group_by_node)
         return None
     
-    def _extract_having(self, ast: ASTNode) -> Optional[Dict[str, Any]]:
+    def _extract_having(self, ast: ASTNode) -> Optional[dict[str, Any]]:
         """Extract HAVING clause from AST."""
         having_node = find_node_by_type(ast, "having_clause")
         if having_node:
             return {"condition": extract_node_value(having_node)}
         return None
     
-    def _extract_order_by(self, ast: ASTNode) -> Optional[List[Dict[str, Any]]]:
+    def _extract_order_by(self, ast: ASTNode) -> Optional[list[dict[str, Any]]]:
         """Extract ORDER BY clause from AST."""
         order_by_node = find_node_by_type(ast, "order_by_clause")
         if order_by_node:
@@ -623,7 +623,7 @@ class FormatMappingRegistry:
                         continue
         return None
     
-    def _extract_values(self, ast: ASTNode) -> List[List[Any]]:
+    def _extract_values(self, ast: ASTNode) -> list[list[Any]]:
         """Extract VALUES from AST."""
         values = []
         values_node = find_node_by_type(ast, "values_clause")
@@ -640,7 +640,7 @@ class FormatMappingRegistry:
                     values.append(row_values)
         return values
     
-    def _extract_assignments(self, ast: ASTNode) -> List[Dict[str, Any]]:
+    def _extract_assignments(self, ast: ASTNode) -> list[dict[str, Any]]:
         """Extract assignments from AST."""
         assignments = []
         assignment_nodes = find_all_nodes_by_type(ast, "assignment")
@@ -677,7 +677,7 @@ class FormatMappingRegistry:
             return extract_node_value(name_node) or "unknown_object"
         return "unknown_object"
     
-    def _extract_create_definition(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_create_definition(self, ast: ASTNode) -> dict[str, Any]:
         """Extract CREATE definition from AST."""
         definition = {}
         
@@ -692,7 +692,7 @@ class FormatMappingRegistry:
         
         return definition
     
-    def _extract_alter_action(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_alter_action(self, ast: ASTNode) -> dict[str, Any]:
         """Extract ALTER action from AST."""
         action = {}
         action_node = find_node_by_type(ast, "alter_action")
@@ -710,233 +710,233 @@ class FormatMappingRegistry:
         return "TABLE"
     
     # Placeholder methods for other formats (to be implemented)
-    def _extract_n1ql_select(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_n1ql_select(self, ast: ASTNode) -> dict[str, Any]:
         """Extract N1QL SELECT data."""
         return self._extract_sql_select(ast)
     
-    def _extract_n1ql_insert(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_n1ql_insert(self, ast: ASTNode) -> dict[str, Any]:
         """Extract N1QL INSERT data."""
         return self._extract_sql_insert(ast)
     
-    def _extract_n1ql_update(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_n1ql_update(self, ast: ASTNode) -> dict[str, Any]:
         """Extract N1QL UPDATE data."""
         return self._extract_sql_update(ast)
     
-    def _extract_n1ql_delete(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_n1ql_delete(self, ast: ASTNode) -> dict[str, Any]:
         """Extract N1QL DELETE data."""
         return self._extract_sql_delete(ast)
     
-    def _extract_hiveql_select(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_hiveql_select(self, ast: ASTNode) -> dict[str, Any]:
         """Extract HiveQL SELECT data."""
         return self._extract_sql_select(ast)
     
-    def _extract_hiveql_insert(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_hiveql_insert(self, ast: ASTNode) -> dict[str, Any]:
         """Extract HiveQL INSERT data."""
         return self._extract_sql_insert(ast)
     
-    def _extract_hiveql_create(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_hiveql_create(self, ast: ASTNode) -> dict[str, Any]:
         """Extract HiveQL CREATE data."""
         return self._extract_sql_create(ast)
     
-    def _extract_kql_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_kql_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract KQL query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
-    def _extract_kql_command(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_kql_command(self, ast: ASTNode) -> dict[str, Any]:
         """Extract KQL command data."""
         return {"operation": "COMMAND", "command": extract_node_value(ast)}
     
-    def _extract_hql_select(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_hql_select(self, ast: ASTNode) -> dict[str, Any]:
         """Extract HQL SELECT data."""
         return self._extract_sql_select(ast)
     
-    def _extract_hql_update(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_hql_update(self, ast: ASTNode) -> dict[str, Any]:
         """Extract HQL UPDATE data."""
         return self._extract_sql_update(ast)
     
-    def _extract_hql_delete(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_hql_delete(self, ast: ASTNode) -> dict[str, Any]:
         """Extract HQL DELETE data."""
         return self._extract_sql_delete(ast)
     
     # Graph query extractions
-    def _extract_cypher_match(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_cypher_match(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Cypher MATCH data."""
         return {"operation": "MATCH", "pattern": extract_node_value(ast)}
     
-    def _extract_cypher_create(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_cypher_create(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Cypher CREATE data."""
         return {"operation": "CREATE", "pattern": extract_node_value(ast)}
     
-    def _extract_cypher_merge(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_cypher_merge(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Cypher MERGE data."""
         return {"operation": "MERGE", "pattern": extract_node_value(ast)}
     
-    def _extract_cypher_delete(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_cypher_delete(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Cypher DELETE data."""
         return {"operation": "DELETE", "pattern": extract_node_value(ast)}
     
-    def _extract_gremlin_traversal(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_gremlin_traversal(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Gremlin traversal data."""
         return {"operation": "TRAVERSAL", "steps": extract_node_value(ast)}
     
-    def _extract_gremlin_add_vertex(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_gremlin_add_vertex(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Gremlin add vertex data."""
         return {"operation": "ADD_VERTEX", "vertex": extract_node_value(ast)}
     
-    def _extract_gremlin_add_edge(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_gremlin_add_edge(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Gremlin add edge data."""
         return {"operation": "ADD_EDGE", "edge": extract_node_value(ast)}
     
-    def _extract_sparql_select(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_sparql_select(self, ast: ASTNode) -> dict[str, Any]:
         """Extract SPARQL SELECT data."""
         return {"operation": "SELECT", "query": extract_node_value(ast)}
     
-    def _extract_sparql_construct(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_sparql_construct(self, ast: ASTNode) -> dict[str, Any]:
         """Extract SPARQL CONSTRUCT data."""
         return {"operation": "CONSTRUCT", "query": extract_node_value(ast)}
     
-    def _extract_sparql_ask(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_sparql_ask(self, ast: ASTNode) -> dict[str, Any]:
         """Extract SPARQL ASK data."""
         return {"operation": "ASK", "query": extract_node_value(ast)}
     
-    def _extract_sparql_describe(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_sparql_describe(self, ast: ASTNode) -> dict[str, Any]:
         """Extract SPARQL DESCRIBE data."""
         return {"operation": "DESCRIBE", "query": extract_node_value(ast)}
     
-    def _extract_gql_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_gql_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract GQL query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
-    def _extract_gql_mutation(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_gql_mutation(self, ast: ASTNode) -> dict[str, Any]:
         """Extract GQL mutation data."""
         return {"operation": "MUTATION", "mutation": extract_node_value(ast)}
     
     # XML/Document extractions
-    def _extract_xquery_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_xquery_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract XQuery query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
-    def _extract_xquery_update(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_xquery_update(self, ast: ASTNode) -> dict[str, Any]:
         """Extract XQuery update data."""
         return {"operation": "UPDATE", "update": extract_node_value(ast)}
     
-    def _extract_xml_query_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_xml_query_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract XML Query query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
-    def _extract_xpath_path(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_xpath_path(self, ast: ASTNode) -> dict[str, Any]:
         """Extract XPath path data."""
         return {"operation": "PATH", "path": extract_node_value(ast)}
     
     # JSON query extractions
-    def _extract_jmespath_expression(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_jmespath_expression(self, ast: ASTNode) -> dict[str, Any]:
         """Extract JMESPath expression data."""
         return {"operation": "EXPRESSION", "expression": extract_node_value(ast)}
     
-    def _extract_jq_filter(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_jq_filter(self, ast: ASTNode) -> dict[str, Any]:
         """Extract JQ filter data."""
         return {"operation": "FILTER", "filter": extract_node_value(ast)}
     
-    def _extract_jsoniq_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_jsoniq_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract JSONiq query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
-    def _extract_json_query_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_json_query_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract JSON Query query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
     # API query extractions
-    def _extract_graphql_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_graphql_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract GraphQL query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
-    def _extract_graphql_mutation(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_graphql_mutation(self, ast: ASTNode) -> dict[str, Any]:
         """Extract GraphQL mutation data."""
         return {"operation": "MUTATION", "mutation": extract_node_value(ast)}
     
-    def _extract_graphql_subscription(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_graphql_subscription(self, ast: ASTNode) -> dict[str, Any]:
         """Extract GraphQL subscription data."""
         return {"operation": "SUBSCRIPTION", "subscription": extract_node_value(ast)}
     
     # Time-series extractions
-    def _extract_promql_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_promql_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract PromQL query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
-    def _extract_logql_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_logql_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract LogQL query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
-    def _extract_flux_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_flux_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Flux query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
     # Other extractions
-    def _extract_eql_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_eql_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract EQL query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
-    def _extract_datalog_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_datalog_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Datalog query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
-    def _extract_pig_script(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_pig_script(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Pig script data."""
         return {"operation": "SCRIPT", "script": extract_node_value(ast)}
     
-    def _extract_linq_query(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_linq_query(self, ast: ASTNode) -> dict[str, Any]:
         """Extract LINQ query data."""
         return {"operation": "QUERY", "query": extract_node_value(ast)}
     
-    def _extract_mongodb_find(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_mongodb_find(self, ast: ASTNode) -> dict[str, Any]:
         """Extract MongoDB find data."""
         return {"operation": "FIND", "query": extract_node_value(ast)}
     
-    def _extract_mongodb_insert(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_mongodb_insert(self, ast: ASTNode) -> dict[str, Any]:
         """Extract MongoDB insert data."""
         return {"operation": "INSERT", "document": extract_node_value(ast)}
     
-    def _extract_mongodb_update(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_mongodb_update(self, ast: ASTNode) -> dict[str, Any]:
         """Extract MongoDB update data."""
         return {"operation": "UPDATE", "query": extract_node_value(ast)}
     
-    def _extract_mongodb_delete(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_mongodb_delete(self, ast: ASTNode) -> dict[str, Any]:
         """Extract MongoDB delete data."""
         return {"operation": "DELETE", "query": extract_node_value(ast)}
     
-    def _extract_cql_select(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_cql_select(self, ast: ASTNode) -> dict[str, Any]:
         """Extract CQL SELECT data."""
         return self._extract_sql_select(ast)
     
-    def _extract_cql_insert(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_cql_insert(self, ast: ASTNode) -> dict[str, Any]:
         """Extract CQL INSERT data."""
         return self._extract_sql_insert(ast)
     
-    def _extract_cql_update(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_cql_update(self, ast: ASTNode) -> dict[str, Any]:
         """Extract CQL UPDATE data."""
         return self._extract_sql_update(ast)
     
-    def _extract_cql_delete(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_cql_delete(self, ast: ASTNode) -> dict[str, Any]:
         """Extract CQL DELETE data."""
         return self._extract_sql_delete(ast)
     
-    def _extract_elasticsearch_search(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_elasticsearch_search(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Elasticsearch search data."""
         return {"operation": "SEARCH", "query": extract_node_value(ast)}
     
-    def _extract_elasticsearch_index(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_elasticsearch_index(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Elasticsearch index data."""
         return {"operation": "INDEX", "document": extract_node_value(ast)}
     
-    def _extract_elasticsearch_update(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_elasticsearch_update(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Elasticsearch update data."""
         return {"operation": "UPDATE", "query": extract_node_value(ast)}
     
-    def _extract_elasticsearch_delete(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_elasticsearch_delete(self, ast: ASTNode) -> dict[str, Any]:
         """Extract Elasticsearch delete data."""
         return {"operation": "DELETE", "query": extract_node_value(ast)}
     
-    def _extract_xwqueryscript_script(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_xwqueryscript_script(self, ast: ASTNode) -> dict[str, Any]:
         """Extract XWQueryScript script data."""
         return {"operation": "SCRIPT", "script": extract_node_value(ast)}
 

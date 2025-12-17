@@ -7,11 +7,11 @@ This module implements the MQL query strategy for MongoDB Query Language operati
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from .base import ADocumentQueryStrategy
 from ...errors import XWQueryValueError
 from ...defs import QueryMode
@@ -37,7 +37,7 @@ class MQLStrategy(ADocumentQueryStrategy):
             return False
         return any(op in query for op in ["find", "aggregate", "insert", "update", "delete", "createIndex"])
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get MQL query execution plan."""
         return {
             "query_type": "MQL",
@@ -53,12 +53,12 @@ class MQLStrategy(ADocumentQueryStrategy):
         """Execute filter query."""
         return self.execute(f"db.collection.find({filter_expression})")
     
-    def projection_query(self, fields: List[str]) -> Any:
+    def projection_query(self, fields: list[str]) -> Any:
         """Execute projection query."""
         projection = {field: 1 for field in fields}
         return self.execute(f"db.collection.find({{}}, {projection})")
     
-    def sort_query(self, sort_fields: List[str], order: str = "asc") -> Any:
+    def sort_query(self, sort_fields: list[str], order: str = "asc") -> Any:
         """Execute sort query."""
         sort_order = 1 if order == "asc" else -1
         return self.execute(f"db.collection.find().sort({{{sort_fields[0]}: {sort_order}}})")

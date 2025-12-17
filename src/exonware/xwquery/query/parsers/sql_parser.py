@@ -8,11 +8,11 @@ Supports SQL:2016 standard with comprehensive error handling.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List, Dict, Any, Optional, Tuple
+from typing import Any, Optional
 from .sql_tokenizer import SQLTokenizer, SQLToken, SQLTokenType, tokenize_sql
 from .base_parser import AStructuredQueryParser
 from .query_action_builder import QueryActionBuilder
@@ -49,12 +49,12 @@ class SQLParser(AStructuredQueryParser):
     def __init__(self, conversion_mode: ConversionMode = ConversionMode.FLEXIBLE):
         """Initialize SQL parser."""
         super().__init__(conversion_mode)
-        self.tokens: List[SQLToken] = []
+        self.tokens: list[SQLToken] = []
         self.current = 0
     
     # ==================== Main Parsing Entry Point ====================
     
-    def parse(self, query: str, **options) -> List[QueryAction]:
+    def parse(self, query: str, **options) -> list[QueryAction]:
         """
         Parse SQL query to QueryAction tree.
         
@@ -100,7 +100,7 @@ class SQLParser(AStructuredQueryParser):
     
     # ==================== SELECT Statement Parsing ====================
     
-    def _parse_select_statement(self) -> List[QueryAction]:
+    def _parse_select_statement(self) -> list[QueryAction]:
         """Parse SELECT statement."""
         builder = QueryActionBuilder()
         
@@ -168,7 +168,7 @@ class SQLParser(AStructuredQueryParser):
         
         return builder.build()
     
-    def _parse_select_columns(self) -> List[str]:
+    def _parse_select_columns(self) -> list[str]:
         """Parse column list in SELECT."""
         columns = []
         
@@ -278,7 +278,7 @@ class SQLParser(AStructuredQueryParser):
     
     # ==================== INSERT Statement ====================
     
-    def _parse_insert_statement(self) -> List[QueryAction]:
+    def _parse_insert_statement(self) -> list[QueryAction]:
         """Parse INSERT statement."""
         builder = QueryActionBuilder()
         
@@ -322,7 +322,7 @@ class SQLParser(AStructuredQueryParser):
     
     # ==================== UPDATE Statement ====================
     
-    def _parse_update_statement(self) -> List[QueryAction]:
+    def _parse_update_statement(self) -> list[QueryAction]:
         """Parse UPDATE statement."""
         # UPDATE
         self._consume(SQLTokenType.UPDATE, "Expected UPDATE")
@@ -362,7 +362,7 @@ class SQLParser(AStructuredQueryParser):
     
     # ==================== DELETE Statement ====================
     
-    def _parse_delete_statement(self) -> List[QueryAction]:
+    def _parse_delete_statement(self) -> list[QueryAction]:
         """Parse DELETE statement."""
         # DELETE FROM
         self._consume(SQLTokenType.DELETE, "Expected DELETE")
@@ -388,7 +388,7 @@ class SQLParser(AStructuredQueryParser):
     
     # ==================== CTE (WITH) Statement ====================
     
-    def _parse_cte_statement(self) -> List[QueryAction]:
+    def _parse_cte_statement(self) -> list[QueryAction]:
         """Parse CTE (WITH) statement."""
         # WITH
         self._consume(SQLTokenType.WITH, "Expected WITH")
@@ -439,11 +439,11 @@ class SQLParser(AStructuredQueryParser):
     
     # ==================== Expression Parsing ====================
     
-    def _parse_expression(self) -> Dict[str, Any]:
+    def _parse_expression(self) -> dict[str, Any]:
         """Parse expression to AST dict."""
         return self._parse_or_expression()
     
-    def _parse_or_expression(self) -> Dict[str, Any]:
+    def _parse_or_expression(self) -> dict[str, Any]:
         """Parse OR expression."""
         left = self._parse_and_expression()
         
@@ -458,7 +458,7 @@ class SQLParser(AStructuredQueryParser):
         
         return left
     
-    def _parse_and_expression(self) -> Dict[str, Any]:
+    def _parse_and_expression(self) -> dict[str, Any]:
         """Parse AND expression."""
         left = self._parse_not_expression()
         
@@ -473,7 +473,7 @@ class SQLParser(AStructuredQueryParser):
         
         return left
     
-    def _parse_not_expression(self) -> Dict[str, Any]:
+    def _parse_not_expression(self) -> dict[str, Any]:
         """Parse NOT expression."""
         if self._match(SQLTokenType.NOT):
             operand = self._parse_comparison_expression()
@@ -485,7 +485,7 @@ class SQLParser(AStructuredQueryParser):
         
         return self._parse_comparison_expression()
     
-    def _parse_comparison_expression(self) -> Dict[str, Any]:
+    def _parse_comparison_expression(self) -> dict[str, Any]:
         """Parse comparison expression."""
         left = self._parse_additive_expression()
         
@@ -531,7 +531,7 @@ class SQLParser(AStructuredQueryParser):
         
         return left
     
-    def _parse_additive_expression(self) -> Dict[str, Any]:
+    def _parse_additive_expression(self) -> dict[str, Any]:
         """Parse addition/subtraction expression."""
         left = self._parse_multiplicative_expression()
         
@@ -542,7 +542,7 @@ class SQLParser(AStructuredQueryParser):
         
         return left
     
-    def _parse_multiplicative_expression(self) -> Dict[str, Any]:
+    def _parse_multiplicative_expression(self) -> dict[str, Any]:
         """Parse multiplication/division expression."""
         left = self._parse_primary_expression()
         
@@ -555,7 +555,7 @@ class SQLParser(AStructuredQueryParser):
         
         return left
     
-    def _parse_primary_expression(self) -> Dict[str, Any]:
+    def _parse_primary_expression(self) -> dict[str, Any]:
         """Parse primary expression."""
         # Parentheses
         if self._match(SQLTokenType.LPAREN):
@@ -605,7 +605,7 @@ class SQLParser(AStructuredQueryParser):
         """Check if current token is aggregate function."""
         return self._is_function_keyword()
     
-    def _parse_identifier_or_function(self) -> Dict[str, Any]:
+    def _parse_identifier_or_function(self) -> dict[str, Any]:
         """Parse identifier or function call."""
         name = self._advance().value
         
@@ -624,7 +624,7 @@ class SQLParser(AStructuredQueryParser):
         
         return {'type': 'identifier', 'value': name}
     
-    def _parse_aggregate_function(self) -> Dict[str, Any]:
+    def _parse_aggregate_function(self) -> dict[str, Any]:
         """Parse aggregate function (COUNT, SUM, etc.)."""
         func_name = self._advance().value
         
@@ -658,7 +658,7 @@ class SQLParser(AStructuredQueryParser):
         expr = self._parse_expression()
         return self._expression_to_string(expr)
     
-    def _expression_to_string(self, expr: Dict[str, Any]) -> str:
+    def _expression_to_string(self, expr: dict[str, Any]) -> str:
         """Convert expression AST to string."""
         expr_type = expr.get('type')
         
@@ -683,7 +683,7 @@ class SQLParser(AStructuredQueryParser):
         else:
             return str(expr)
     
-    def _parse_column_list(self) -> List[str]:
+    def _parse_column_list(self) -> list[str]:
         """Parse comma-separated column list."""
         columns = []
         while True:
@@ -693,7 +693,7 @@ class SQLParser(AStructuredQueryParser):
                 break
         return columns
     
-    def _parse_expression_list(self) -> List[Dict[str, Any]]:
+    def _parse_expression_list(self) -> list[dict[str, Any]]:
         """Parse comma-separated expression list."""
         expressions = []
         while True:
@@ -703,7 +703,7 @@ class SQLParser(AStructuredQueryParser):
                 break
         return expressions
     
-    def _parse_order_by_list(self) -> List[Tuple[str, str]]:
+    def _parse_order_by_list(self) -> list[tuple[str, str]]:
         """Parse ORDER BY list."""
         specs = []
         while True:
@@ -728,7 +728,7 @@ class SQLParser(AStructuredQueryParser):
         token = self._consume(SQLTokenType.NUMBER_LITERAL, "Expected number")
         return int(token.value)
     
-    def _extract_subquery_tokens(self) -> List[SQLToken]:
+    def _extract_subquery_tokens(self) -> list[SQLToken]:
         """Extract tokens until matching closing parenthesis."""
         # Simplified - just skip to closing paren
         depth = 1
@@ -791,7 +791,7 @@ class SQLParser(AStructuredQueryParser):
 
 # ==================== Convenience Function ====================
 
-def parse_sql(query: str, **options) -> List[QueryAction]:
+def parse_sql(query: str, **options) -> list[QueryAction]:
     """
     Parse SQL query to QueryAction tree.
     

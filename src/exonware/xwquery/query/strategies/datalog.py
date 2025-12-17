@@ -7,11 +7,11 @@ This module implements the Datalog query strategy for Datalog operations.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from .base import AStructuredQueryStrategy
 from ...errors import XWQueryValueError
 from ...defs import QueryMode
@@ -37,7 +37,7 @@ class DatalogStrategy(AStructuredQueryStrategy):
             return False
         return any(op in query for op in [":-", "?", "!", "assert", "retract"])
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get Datalog query execution plan."""
         return {
             "query_type": "Datalog",
@@ -45,15 +45,15 @@ class DatalogStrategy(AStructuredQueryStrategy):
             "estimated_cost": 200
         }
     
-    def select_query(self, table: str, columns: List[str], where_clause: str = None) -> Any:
+    def select_query(self, table: str, columns: list[str], where_clause: str = None) -> Any:
         """Execute SELECT query."""
         return self.execute(f"?- {table}({', '.join(columns)})")
     
-    def insert_query(self, table: str, data: Dict[str, Any]) -> Any:
+    def insert_query(self, table: str, data: dict[str, Any]) -> Any:
         """Execute INSERT query."""
         return self.execute(f"assert({table}({', '.join(data.values())}))")
     
-    def update_query(self, table: str, data: Dict[str, Any], where_clause: str = None) -> Any:
+    def update_query(self, table: str, data: dict[str, Any], where_clause: str = None) -> Any:
         """Execute UPDATE query."""
         return self.execute(f"retract({table}({where_clause})), assert({table}({', '.join(data.values())}))")
     
@@ -61,10 +61,10 @@ class DatalogStrategy(AStructuredQueryStrategy):
         """Execute DELETE query."""
         return self.execute(f"retract({table}({where_clause}))")
     
-    def join_query(self, tables: List[str], join_conditions: List[str]) -> Any:
+    def join_query(self, tables: list[str], join_conditions: list[str]) -> Any:
         """Execute JOIN query."""
         return self.execute(f"?- {tables[0]}(X), {tables[1]}(X)")
     
-    def aggregate_query(self, table: str, functions: List[str], group_by: List[str] = None) -> Any:
+    def aggregate_query(self, table: str, functions: list[str], group_by: list[str] = None) -> Any:
         """Execute aggregate query."""
         return self.execute(f"?- {table}(X), aggregate({functions[0]}, X)")

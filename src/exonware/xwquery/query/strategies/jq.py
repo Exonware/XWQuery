@@ -7,11 +7,11 @@ This module implements the jq query strategy for jq JSON processor operations.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from .base import ADocumentQueryStrategy
 from ...errors import XWQueryValueError
 from ...defs import QueryMode
@@ -37,7 +37,7 @@ class JQStrategy(ADocumentQueryStrategy):
             return False
         return any(op in query for op in [".", "|", "select", "map", "filter", "group_by", "sort_by"])
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get jq query execution plan."""
         return {
             "query_type": "jq",
@@ -53,11 +53,11 @@ class JQStrategy(ADocumentQueryStrategy):
         """Execute filter query."""
         return self.execute(f"select({filter_expression})")
     
-    def projection_query(self, fields: List[str]) -> Any:
+    def projection_query(self, fields: list[str]) -> Any:
         """Execute projection query."""
         return self.execute(f"{{{', '.join(f'{field}: .{field}' for field in fields)}}}")
     
-    def sort_query(self, sort_fields: List[str], order: str = "asc") -> Any:
+    def sort_query(self, sort_fields: list[str], order: str = "asc") -> Any:
         """Execute sort query."""
         return self.execute(f"sort_by(.{sort_fields[0]})")
     

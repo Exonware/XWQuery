@@ -8,7 +8,7 @@ Individual optimization rules that can be applied to execution plans.
 **Version:** 0.0.1.5
 """
 
-from typing import Optional, List
+from typing import Optional
 from copy import deepcopy
 
 from .base import AOptimizationRule, ExecutionPlan, PlanNode

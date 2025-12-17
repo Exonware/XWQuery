@@ -8,11 +8,11 @@ Uses xwnode strategies for 2-3x faster statistics and 99% memory savings.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 27-Oct-2025
 """
 
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Optional
 import random
 
 from .base import AStatisticsManager
@@ -51,9 +51,9 @@ class InMemoryStatisticsManager(AStatisticsManager):
             self._indexes = XWNode(mode=NodeMode.HASH_MAP)
         else:
             # Fallback to Python dicts
-            self._table_stats: Dict[str, TableStatistics] = {}
-            self._column_stats: Dict[str, Dict[str, ColumnStatistics]] = {}
-            self._indexes: Dict[str, Set[str]] = {}
+            self._table_stats: dict[str, TableStatistics] = {}
+            self._column_stats: dict[str, dict[str, ColumnStatistics]] = {}
+            self._indexes: dict[str, set[str]] = {}
     
     async def get_table_row_count(self, table: str) -> int:
         """Get the number of rows in a table"""

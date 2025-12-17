@@ -7,11 +7,11 @@ This module implements the Elasticsearch DSL query strategy for Elasticsearch Qu
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from .base import AStructuredQueryStrategy
 from ...errors import XWQueryValueError
 from ...defs import QueryMode
@@ -37,7 +37,7 @@ class ElasticDSLStrategy(AStructuredQueryStrategy):
             return False
         return any(op in query for op in ["query", "match", "term", "bool", "filter", "must", "should"])
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get Elasticsearch DSL query execution plan."""
         return {
             "query_type": "ELASTIC_DSL",
@@ -45,15 +45,15 @@ class ElasticDSLStrategy(AStructuredQueryStrategy):
             "estimated_cost": 120
         }
     
-    def select_query(self, table: str, columns: List[str], where_clause: str = None) -> Any:
+    def select_query(self, table: str, columns: list[str], where_clause: str = None) -> Any:
         """Execute SELECT query."""
         return self.execute(f"GET /{table}/_search")
     
-    def insert_query(self, table: str, data: Dict[str, Any]) -> Any:
+    def insert_query(self, table: str, data: dict[str, Any]) -> Any:
         """Execute INSERT query."""
         return self.execute(f"POST /{table}/_doc")
     
-    def update_query(self, table: str, data: Dict[str, Any], where_clause: str = None) -> Any:
+    def update_query(self, table: str, data: dict[str, Any], where_clause: str = None) -> Any:
         """Execute UPDATE query."""
         return self.execute(f"POST /{table}/_update_by_query")
     
@@ -61,10 +61,10 @@ class ElasticDSLStrategy(AStructuredQueryStrategy):
         """Execute DELETE query."""
         return self.execute(f"POST /{table}/_delete_by_query")
     
-    def join_query(self, tables: List[str], join_conditions: List[str]) -> Any:
+    def join_query(self, tables: list[str], join_conditions: list[str]) -> Any:
         """Execute JOIN query."""
         return self.execute(f"GET /{tables[0]}/_search")
     
-    def aggregate_query(self, table: str, functions: List[str], group_by: List[str] = None) -> Any:
+    def aggregate_query(self, table: str, functions: list[str], group_by: list[str] = None) -> Any:
         """Execute aggregate query."""
         return self.execute(f"GET /{table}/_search")

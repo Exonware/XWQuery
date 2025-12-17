@@ -8,11 +8,11 @@ to convert ASTs to QueryAction trees.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 11-Oct-2025
 """
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from abc import ABC, abstractmethod
 from exonware.xwsyntax import ASTNode
 from exonware.xwquery.contracts import QueryAction
@@ -40,7 +40,7 @@ class FormatConverter(ABC):
         """Convert AST to QueryAction tree."""
         pass
     
-    def _create_query_action(self, operation: str, params: Dict[str, Any]) -> QueryAction:
+    def _create_query_action(self, operation: str, params: dict[str, Any]) -> QueryAction:
         """Create a QueryAction with the given operation and parameters."""
         return QueryAction(
             type=operation,
@@ -112,7 +112,7 @@ class SQLConverter(FormatConverter):
         else:
             return "SELECT"  # Default
     
-    def _extract_operation_params(self, statement_node: ASTNode, operation: str) -> Dict[str, Any]:
+    def _extract_operation_params(self, statement_node: ASTNode, operation: str) -> dict[str, Any]:
         """Extract parameters based on operation type."""
         if operation == "SELECT":
             return self.mapping._extract_sql_select(statement_node)
@@ -181,7 +181,7 @@ class CypherConverter(FormatConverter):
         else:
             return "MATCH"  # Default
     
-    def _extract_operation_params(self, statement_node: ASTNode, operation: str) -> Dict[str, Any]:
+    def _extract_operation_params(self, statement_node: ASTNode, operation: str) -> dict[str, Any]:
         """Extract parameters based on operation type."""
         if operation == "MATCH":
             return self.mapping._extract_cypher_match(statement_node)
@@ -240,7 +240,7 @@ class GraphQLConverter(FormatConverter):
         else:
             return "QUERY"  # Default
     
-    def _extract_operation_params(self, operation_node: ASTNode, operation: str) -> Dict[str, Any]:
+    def _extract_operation_params(self, operation_node: ASTNode, operation: str) -> dict[str, Any]:
         """Extract parameters based on operation type."""
         if operation == "QUERY":
             return self.mapping._extract_graphql_query(operation_node)
@@ -319,7 +319,7 @@ class MongoDBConverter(FormatConverter):
         else:
             return "FIND"  # Default
     
-    def _extract_operation_params(self, operation_node: ASTNode, operation: str) -> Dict[str, Any]:
+    def _extract_operation_params(self, operation_node: ASTNode, operation: str) -> dict[str, Any]:
         """Extract parameters based on operation type."""
         if operation == "FIND":
             return self.mapping._extract_mongodb_find(operation_node)
@@ -396,7 +396,7 @@ class ConverterFactory:
         return GenericConverter(format_name, query_mode)
     
     @classmethod
-    def get_supported_formats(cls) -> List[str]:
+    def get_supported_formats(cls) -> list[str]:
         """Get list of all supported formats."""
         return list(cls._converters.keys()) + format_mapping_registry.get_all_formats()
     
@@ -412,7 +412,7 @@ def create_converter(format_name: str, query_mode: QueryMode = QueryMode.AUTO) -
     return ConverterFactory.create_converter(format_name, query_mode)
 
 
-def get_supported_formats() -> List[str]:
+def get_supported_formats() -> list[str]:
     """Get list of all supported formats."""
     return ConverterFactory.get_supported_formats()
 

@@ -7,12 +7,12 @@ This module implements the SPARQL query strategy for RDF data queries.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
 import re
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from .base import AGraphQueryStrategy
 from ...errors import XWQueryTypeError, XWQueryValueError
 from ...defs import QueryMode
@@ -68,7 +68,7 @@ class SPARQLStrategy(AGraphQueryStrategy):
         
         return False
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get SPARQL query execution plan."""
         query_type = self._get_query_type(query)
         
@@ -81,7 +81,7 @@ class SPARQLStrategy(AGraphQueryStrategy):
             "optimization_hints": self._get_optimization_hints(query)
         }
     
-    def path_query(self, start: Any, end: Any) -> List[Any]:
+    def path_query(self, start: Any, end: Any) -> list[Any]:
         """Execute path query using SPARQL property paths."""
         query = f"""
         SELECT ?path ?length
@@ -93,7 +93,7 @@ class SPARQLStrategy(AGraphQueryStrategy):
         """
         return self.execute(query)
     
-    def neighbor_query(self, node: Any) -> List[Any]:
+    def neighbor_query(self, node: Any) -> list[Any]:
         """Execute neighbor query."""
         query = f"""
         SELECT ?neighbor ?predicate
@@ -103,7 +103,7 @@ class SPARQLStrategy(AGraphQueryStrategy):
         """
         return self.execute(query)
     
-    def shortest_path_query(self, start: Any, end: Any) -> List[Any]:
+    def shortest_path_query(self, start: Any, end: Any) -> list[Any]:
         """Execute shortest path query."""
         query = f"""
         SELECT ?path (COUNT(?step) AS ?length)
@@ -117,7 +117,7 @@ class SPARQLStrategy(AGraphQueryStrategy):
         """
         return self.execute(query)
     
-    def connected_components_query(self) -> List[List[Any]]:
+    def connected_components_query(self) -> list[list[Any]]:
         """Execute connected components query."""
         query = """
         SELECT ?component (COUNT(?node) AS ?size)
@@ -129,7 +129,7 @@ class SPARQLStrategy(AGraphQueryStrategy):
         """
         return self.execute(query)
     
-    def cycle_detection_query(self) -> List[List[Any]]:
+    def cycle_detection_query(self) -> list[list[Any]]:
         """Execute cycle detection query."""
         query = """
         SELECT ?cycle
@@ -204,7 +204,7 @@ class SPARQLStrategy(AGraphQueryStrategy):
         
         return pattern_count
     
-    def _get_optimization_hints(self, query: str) -> List[str]:
+    def _get_optimization_hints(self, query: str) -> list[str]:
         """Get query optimization hints."""
         hints = []
         

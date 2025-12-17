@@ -7,11 +7,11 @@ RANGE Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
-from typing import Any, Dict, List
+from typing import Any
 from ....base import AOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -63,7 +63,7 @@ class RangeExecutor(AOperationExecutor):
         )
     
     def _execute_range(self, node: Any, start: Any, end: Any, inclusive: bool,
-                      path: str, context: ExecutionContext) -> Dict:
+                      path: str, context: ExecutionContext) -> dict:
         """
         Execute RANGE query with enhanced data handling.
         

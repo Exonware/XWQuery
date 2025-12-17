@@ -9,7 +9,7 @@ Abstract base classes for query optimization components.
 """
 
 from abc import ABC
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from dataclasses import dataclass, field
 
 from .contracts import (
@@ -29,24 +29,24 @@ class PlanNode(IPlanNode):
     """Base implementation of execution plan node"""
     
     node_type: PlanNodeType
-    properties: Dict[str, Any] = field(default_factory=dict)
-    children: List[IPlanNode] = field(default_factory=list)
+    properties: dict[str, Any] = field(default_factory=dict)
+    children: list[IPlanNode] = field(default_factory=list)
     estimated_cost: float = 0.0
     estimated_rows: int = 0
     
     def get_type(self) -> str:
         return self.node_type.name
     
-    def get_children(self) -> List[IPlanNode]:
+    def get_children(self) -> list[IPlanNode]:
         return self.children
     
     def get_cost(self) -> float:
         return self.estimated_cost
     
-    def get_properties(self) -> Dict[str, Any]:
+    def get_properties(self) -> dict[str, Any]:
         return self.properties
     
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert node to dictionary"""
         return {
             'type': self.node_type.name,
@@ -64,7 +64,7 @@ class ExecutionPlan(IExecutionPlan):
     root: IPlanNode
     plan_type: str = "logical"  # 'logical' or 'physical'
     optimization_level: OptimizationLevel = OptimizationLevel.STANDARD
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
     
     def get_root_node(self) -> IPlanNode:
         return self.root
@@ -75,7 +75,7 @@ class ExecutionPlan(IExecutionPlan):
     def get_estimated_rows(self) -> int:
         return self.root.estimated_rows
     
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             'plan_type': self.plan_type,
             'optimization_level': self.optimization_level.name,
@@ -152,9 +152,9 @@ class AStatisticsManager(IStatisticsManager, ABC):
     """Abstract base class for statistics managers"""
     
     def __init__(self):
-        self._table_stats: Dict[str, Any] = {}
-        self._column_stats: Dict[str, Dict[str, Any]] = {}
-        self._indexes: Dict[str, List[str]] = {}
+        self._table_stats: dict[str, Any] = {}
+        self._column_stats: dict[str, dict[str, Any]] = {}
+        self._indexes: dict[str, list[str]] = {}
     
     async def get_table_row_count(self, table: str) -> int:
         """Get table row count"""
@@ -197,7 +197,7 @@ class AOptimizer(IOptimizer, ABC):
     ):
         self._cost_model = cost_model
         self._statistics_manager = statistics_manager
-        self._rules: List[IOptimizationRule] = []
+        self._rules: list[IOptimizationRule] = []
     
     async def optimize(self, plan: IExecutionPlan) -> IExecutionPlan:
         """Optimize execution plan"""
@@ -212,7 +212,7 @@ class AOptimizer(IOptimizer, ABC):
         """Remove optimization rule"""
         self._rules = [r for r in self._rules if r.get_name() != rule_name]
     
-    def get_rules(self) -> List[IOptimizationRule]:
+    def get_rules(self) -> list[IOptimizationRule]:
         """Get all optimization rules"""
         return self._rules.copy()
 

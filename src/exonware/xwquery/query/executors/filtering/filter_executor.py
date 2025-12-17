@@ -7,11 +7,11 @@ FILTER Executor - General-purpose filtering using WHERE expression evaluation
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
-from typing import Any, Dict, List, Callable, Optional
+from typing import Any, Callable, Optional
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -79,7 +79,7 @@ class FilterExecutor(AUniversalOperationExecutor):
         )
     
     def _execute_filter(self, node: Any, condition: Any, path: Optional[str], 
-                       context: ExecutionContext) -> Dict:
+                       context: ExecutionContext) -> dict:
         """
         Execute filter logic with path support.
         
@@ -92,7 +92,7 @@ class FilterExecutor(AUniversalOperationExecutor):
             context: Execution context
             
         Returns:
-            Dict with filtered items and metadata
+            dict with filtered items and metadata
         """
         filtered_items = []
         

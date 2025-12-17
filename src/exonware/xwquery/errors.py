@@ -6,12 +6,12 @@ Rich error hierarchy with context and suggestions, following xwnode pattern.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: October 26, 2025
 """
 
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from exonware.xwsystem import get_logger
 
 logger = get_logger(__name__)
@@ -36,8 +36,8 @@ class XWQueryError(Exception):
     
     def __init__(self, message: str, *, 
                  error_code: str = None,
-                 context: Dict[str, Any] = None,
-                 suggestions: List[str] = None,
+                 context: dict[str, Any] = None,
+                 suggestions: list[str] = None,
                  cause: Exception = None):
         super().__init__(message)
         self.message = message
@@ -83,8 +83,8 @@ class XWQueryValueError(XWQueryError, ValueError):
     
     def __init__(self, message: str, *,
                  invalid_value: Any = None,
-                 constraints: Dict[str, Any] = None,
-                 validation_rules: List[str] = None):
+                 constraints: dict[str, Any] = None,
+                 validation_rules: list[str] = None):
         self.invalid_value = invalid_value
         self.constraints = constraints or {}
         self.validation_rules = validation_rules or []
@@ -115,7 +115,7 @@ class XWQueryTypeError(XWQueryError, TypeError):
     def __init__(self, message: str, *,
                  attempted_operation: str = None,
                  actual_type: str = None,
-                 expected_types: List[str] = None):
+                 expected_types: list[str] = None):
         self.attempted_operation = attempted_operation
         self.actual_type = actual_type
         self.expected_types = expected_types or []
@@ -351,7 +351,7 @@ class UnsupportedFormatError(XWQueryError):
     
     def __init__(self, message: str, *,
                  format_name: str = None,
-                 available_formats: List[str] = None):
+                 available_formats: list[str] = None):
         self.format_name = format_name
         self.available_formats = available_formats or []
         

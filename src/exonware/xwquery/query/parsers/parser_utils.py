@@ -8,12 +8,12 @@ Reusable functions for tokenization, normalization, expression parsing.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
 import re
-from typing import List, Dict, Any, Optional, Tuple, Union
+from typing import Any, Optional, Union
 from enum import Enum
 
 
@@ -140,9 +140,9 @@ class Tokenizer:
         self.position = 0
         self.line = 1
         self.column = 1
-        self.tokens: List[Token] = []
+        self.tokens: list[Token] = []
     
-    def tokenize(self) -> List[Token]:
+    def tokenize(self) -> list[Token]:
         """
         Tokenize entire query.
         
@@ -360,7 +360,7 @@ class Tokenizer:
 
 # ==================== Expression Parsing ====================
 
-def parse_expression(expr: str) -> Dict[str, Any]:
+def parse_expression(expr: str) -> dict[str, Any]:
     """
     Parse expression string to structured format.
     
@@ -414,7 +414,7 @@ def parse_expression(expr: str) -> Dict[str, Any]:
     return {'type': 'literal', 'value': expr}
 
 
-def split_args(args_str: str) -> List[str]:
+def split_args(args_str: str) -> list[str]:
     """
     Split function arguments respecting nested parentheses.
     

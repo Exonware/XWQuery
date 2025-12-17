@@ -7,11 +7,11 @@ HAS Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
-from typing import Any, Dict, List
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -42,7 +42,7 @@ class HasExecutor(AUniversalOperationExecutor):
             metadata={'matched_count': len(result_data.get('items', []))}
         )
     
-    def _execute_has(self, node: Any, property_name: str, path: str, context: ExecutionContext) -> Dict:
+    def _execute_has(self, node: Any, property_name: str, path: str, context: ExecutionContext) -> dict:
         """Execute HAS using shared utilities."""
         if path:
             try:

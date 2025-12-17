@@ -10,11 +10,11 @@ Simplifies parser implementation across all 31 strategies.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from ...contracts import QueryAction
 
 
@@ -41,7 +41,7 @@ class QueryActionBuilder:
         self._current = None
         self._stack = []
     
-    def select(self, fields: Optional[List[str]] = None, table: Optional[str] = None) -> 'QueryActionBuilder':
+    def select(self, fields: Optional[list[str]] = None, table: Optional[str] = None) -> 'QueryActionBuilder':
         """Add SELECT operation."""
         action = QueryAction(
             type='SELECT',
@@ -50,25 +50,25 @@ class QueryActionBuilder:
         self._add_action(action)
         return self
     
-    def where(self, condition: Union[Dict, str]) -> 'QueryActionBuilder':
+    def where(self, condition: Union[dict, str]) -> 'QueryActionBuilder':
         """Add WHERE operation."""
         action = QueryAction(type='WHERE', params={'condition': condition})
         self._add_action(action)
         return self
     
-    def group_by(self, fields: List[str]) -> 'QueryActionBuilder':
+    def group_by(self, fields: list[str]) -> 'QueryActionBuilder':
         """Add GROUP BY operation."""
         action = QueryAction(type='GROUP', params={'fields': fields})
         self._add_action(action)
         return self
     
-    def having(self, condition: Union[Dict, str]) -> 'QueryActionBuilder':
+    def having(self, condition: Union[dict, str]) -> 'QueryActionBuilder':
         """Add HAVING operation."""
         action = QueryAction(type='HAVING', params={'condition': condition})
         self._add_action(action)
         return self
     
-    def order_by(self, fields: List[str], ascending: bool = True) -> 'QueryActionBuilder':
+    def order_by(self, fields: list[str], ascending: bool = True) -> 'QueryActionBuilder':
         """Add ORDER BY operation."""
         action = QueryAction(type='ORDER', params={'fields': fields, 'ascending': ascending})
         self._add_action(action)
@@ -80,7 +80,7 @@ class QueryActionBuilder:
         self._add_action(action)
         return self
     
-    def join(self, join_type: str, right_table: str, on: Union[Dict, str]) -> 'QueryActionBuilder':
+    def join(self, join_type: str, right_table: str, on: Union[dict, str]) -> 'QueryActionBuilder':
         """Add JOIN operation."""
         action = QueryAction(
             type='JOIN',
@@ -98,29 +98,29 @@ class QueryActionBuilder:
         self._add_action(action)
         return self
     
-    def distinct(self, fields: Optional[List[str]] = None) -> 'QueryActionBuilder':
+    def distinct(self, fields: Optional[list[str]] = None) -> 'QueryActionBuilder':
         """Add DISTINCT operation."""
         action = QueryAction(type='DISTINCT', params={'fields': fields})
         self._add_action(action)
         return self
     
-    def project(self, fields: List[str]) -> 'QueryActionBuilder':
+    def project(self, fields: list[str]) -> 'QueryActionBuilder':
         """Add PROJECT operation (field selection)."""
         action = QueryAction(type='PROJECT', params={'fields': fields})
         self._add_action(action)
         return self
     
-    def filter(self, condition: Union[Dict, str]) -> 'QueryActionBuilder':
+    def filter(self, condition: Union[dict, str]) -> 'QueryActionBuilder':
         """Add FILTER operation (alias for WHERE)."""
         return self.where(condition)
     
-    def insert(self, table: str, values: Dict[str, Any]) -> 'QueryActionBuilder':
+    def insert(self, table: str, values: dict[str, Any]) -> 'QueryActionBuilder':
         """Add INSERT operation."""
         action = QueryAction(type='INSERT', params={'table': table, 'values': values})
         self._add_action(action)
         return self
     
-    def update(self, table: str, values: Dict[str, Any], condition: Optional[Union[Dict, str]] = None) -> 'QueryActionBuilder':
+    def update(self, table: str, values: dict[str, Any], condition: Optional[Union[dict, str]] = None) -> 'QueryActionBuilder':
         """Add UPDATE operation."""
         action = QueryAction(
             type='UPDATE',
@@ -129,14 +129,14 @@ class QueryActionBuilder:
         self._add_action(action)
         return self
     
-    def delete(self, table: str, condition: Optional[Union[Dict, str]] = None) -> 'QueryActionBuilder':
+    def delete(self, table: str, condition: Optional[Union[dict, str]] = None) -> 'QueryActionBuilder':
         """Add DELETE operation."""
         action = QueryAction(type='DELETE', params={'table': table, 'condition': condition})
         self._add_action(action)
         return self
     
     # Graph operations
-    def match(self, pattern: Union[Dict, str]) -> 'QueryActionBuilder':
+    def match(self, pattern: Union[dict, str]) -> 'QueryActionBuilder':
         """Add MATCH operation (graph)."""
         action = QueryAction(type='MATCH', params={'pattern': pattern})
         self._add_action(action)
@@ -201,8 +201,8 @@ class QueryActionBuilder:
 # HELPER FUNCTIONS
 # ============================================================================
 
-def build_select(fields: List[str], table: str, where: Optional[Union[Dict, str]] = None,
-                 group_by: Optional[List[str]] = None, order_by: Optional[List[str]] = None,
+def build_select(fields: list[str], table: str, where: Optional[Union[dict, str]] = None,
+                 group_by: Optional[list[str]] = None, order_by: Optional[list[str]] = None,
                  limit: Optional[int] = None) -> QueryAction:
     """
     Quick helper to build SELECT QueryAction.
@@ -230,8 +230,8 @@ def build_select(fields: List[str], table: str, where: Optional[Union[Dict, str]
     return builder.build()
 
 
-def build_match(pattern: Union[Dict, str], where: Optional[Union[Dict, str]] = None,
-                return_fields: Optional[List[str]] = None) -> QueryAction:
+def build_match(pattern: Union[dict, str], where: Optional[Union[dict, str]] = None,
+                return_fields: Optional[list[str]] = None) -> QueryAction:
     """
     Quick helper to build MATCH QueryAction (Cypher/graph).
     

@@ -8,13 +8,13 @@ Kept for backward compatibility and executor-specific base classes.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: October 26, 2025
 """
 
 import time
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 # Import from root
 from ...base import AOperationExecutor
@@ -38,7 +38,7 @@ class AUniversalOperationExecutor(AOperationExecutor):
     """
     
     # Universal operations support all node types (empty list)
-    SUPPORTED_NODE_TYPES: List[Any] = []
+    SUPPORTED_NODE_TYPES: list[Any] = []
 
 
 class ATreeOperationExecutor(AOperationExecutor):
@@ -52,7 +52,7 @@ class ATreeOperationExecutor(AOperationExecutor):
     """
     
     # Only works on tree nodes - will be checked at runtime
-    SUPPORTED_NODE_TYPES: List[Any] = []  # Specific node types determined at runtime
+    SUPPORTED_NODE_TYPES: list[Any] = []  # Specific node types determined at runtime
     REQUIRED_CAPABILITIES: OperationCapability = OperationCapability.REQUIRES_ORDERED
 
 
@@ -67,7 +67,7 @@ class AGraphOperationExecutor(AOperationExecutor):
     """
     
     # Only works on graph nodes - will be checked at runtime
-    SUPPORTED_NODE_TYPES: List[Any] = []  # Specific node types determined at runtime
+    SUPPORTED_NODE_TYPES: list[Any] = []  # Specific node types determined at runtime
 
 
 class ALinearOperationExecutor(AOperationExecutor):
@@ -80,7 +80,7 @@ class ALinearOperationExecutor(AOperationExecutor):
     """
     
     # Only works on linear and matrix nodes - will be checked at runtime
-    SUPPORTED_NODE_TYPES: List[Any] = []  # Specific node types determined at runtime
+    SUPPORTED_NODE_TYPES: list[Any] = []  # Specific node types determined at runtime
 
 
 __all__ = [

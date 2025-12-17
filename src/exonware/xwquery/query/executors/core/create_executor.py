@@ -7,11 +7,11 @@ CREATE Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
-from typing import Any, Dict, List
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -61,7 +61,7 @@ class CreateExecutor(AUniversalOperationExecutor):
         )
     
     def _execute_create(self, node: Any, structure_type: str, name: str, 
-                       schema: Dict, options: Dict, context: ExecutionContext) -> Dict:
+                       schema: dict, options: dict, context: ExecutionContext) -> dict:
         """Actual CREATE logic."""
         try:
             # Create structure based on type

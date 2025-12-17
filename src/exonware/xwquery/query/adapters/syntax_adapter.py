@@ -8,11 +8,11 @@ This enables grammar-based parsing to integrate with existing executors.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 import os
 from exonware.xwsyntax import ASTNode, SyntaxEngine, BidirectionalGrammar
 from exonware.xwquery.contracts import QueryAction
@@ -270,7 +270,7 @@ class SyntaxToQueryActionConverter:
         return action
     
     # Helper methods for extracting AST components
-    def _extract_select_list(self, ast: ASTNode) -> List[str]:
+    def _extract_select_list(self, ast: ASTNode) -> list[str]:
         """Extract SELECT list from AST."""
         select_list = []
         
@@ -315,7 +315,7 @@ class SyntaxToQueryActionConverter:
         
         return None
     
-    def _extract_where_clause(self, ast: ASTNode) -> Optional[Dict[str, Any]]:
+    def _extract_where_clause(self, ast: ASTNode) -> Optional[dict[str, Any]]:
         """Extract WHERE clause from AST."""
         where_node = find_node_by_type(ast, "where_clause")
         if not where_node:
@@ -331,7 +331,7 @@ class SyntaxToQueryActionConverter:
         
         return None
     
-    def _extract_group_by(self, ast: ASTNode) -> Optional[List[str]]:
+    def _extract_group_by(self, ast: ASTNode) -> Optional[list[str]]:
         """Extract GROUP BY clause from AST."""
         group_by_node = find_node_by_type(ast, "group_by_clause")
         if not group_by_node:
@@ -346,7 +346,7 @@ class SyntaxToQueryActionConverter:
         
         return columns if columns else None
     
-    def _extract_having(self, ast: ASTNode) -> Optional[Dict[str, Any]]:
+    def _extract_having(self, ast: ASTNode) -> Optional[dict[str, Any]]:
         """Extract HAVING clause from AST."""
         having_node = find_node_by_type(ast, "having_clause")
         if not having_node:
@@ -362,7 +362,7 @@ class SyntaxToQueryActionConverter:
         
         return None
     
-    def _extract_order_by(self, ast: ASTNode) -> Optional[List[Dict[str, Any]]]:
+    def _extract_order_by(self, ast: ASTNode) -> Optional[list[dict[str, Any]]]:
         """Extract ORDER BY clause from AST."""
         order_by_node = find_node_by_type(ast, "order_by_clause")
         if not order_by_node:
@@ -422,7 +422,7 @@ class SyntaxToQueryActionConverter:
         
         return "unknown_table"
     
-    def _extract_column_list(self, ast: ASTNode) -> List[str]:
+    def _extract_column_list(self, ast: ASTNode) -> list[str]:
         """Extract column list from AST."""
         columns = []
         
@@ -437,7 +437,7 @@ class SyntaxToQueryActionConverter:
         
         return columns
     
-    def _extract_values(self, ast: ASTNode) -> List[List[Any]]:
+    def _extract_values(self, ast: ASTNode) -> list[list[Any]]:
         """Extract VALUES from AST."""
         values = []
         
@@ -463,7 +463,7 @@ class SyntaxToQueryActionConverter:
         
         return values
     
-    def _extract_assignments(self, ast: ASTNode) -> List[Dict[str, Any]]:
+    def _extract_assignments(self, ast: ASTNode) -> list[dict[str, Any]]:
         """Extract assignments from AST."""
         assignments = []
         
@@ -516,7 +516,7 @@ class SyntaxToQueryActionConverter:
         
         return "unknown_object"
     
-    def _extract_create_definition(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_create_definition(self, ast: ASTNode) -> dict[str, Any]:
         """Extract CREATE definition from AST."""
         definition = {}
         
@@ -542,7 +542,7 @@ class SyntaxToQueryActionConverter:
         
         return definition
     
-    def _extract_alter_action(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_alter_action(self, ast: ASTNode) -> dict[str, Any]:
         """Extract ALTER action from AST."""
         action = {}
         
@@ -574,7 +574,7 @@ class SyntaxToQueryActionConverter:
         
         return "TABLE"  # Default
     
-    def _extract_expression(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_expression(self, ast: ASTNode) -> dict[str, Any]:
         """Extract expression from AST node."""
         if not ast:
             return {}
@@ -596,7 +596,7 @@ class SyntaxToQueryActionConverter:
             # Generic expression
             return {"type": "expression", "value": extract_node_value(ast)}
     
-    def _extract_comparison(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_comparison(self, ast: ASTNode) -> dict[str, Any]:
         """Extract comparison expression."""
         left = None
         right = None
@@ -617,7 +617,7 @@ class SyntaxToQueryActionConverter:
             "right": right
         }
     
-    def _extract_logical(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_logical(self, ast: ASTNode) -> dict[str, Any]:
         """Extract logical expression."""
         operator = None
         operands = []
@@ -634,7 +634,7 @@ class SyntaxToQueryActionConverter:
             "operands": operands
         }
     
-    def _extract_arithmetic(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_arithmetic(self, ast: ASTNode) -> dict[str, Any]:
         """Extract arithmetic expression."""
         operator = None
         operands = []
@@ -651,7 +651,7 @@ class SyntaxToQueryActionConverter:
             "operands": operands
         }
     
-    def _extract_function_call(self, ast: ASTNode) -> Dict[str, Any]:
+    def _extract_function_call(self, ast: ASTNode) -> dict[str, Any]:
         """Extract function call."""
         function_name = None
         arguments = []
@@ -733,7 +733,7 @@ class GrammarBasedSQLStrategy:
         except Exception:
             return False
     
-    def export_to_monaco(self) -> Dict[str, Any]:
+    def export_to_monaco(self) -> dict[str, Any]:
         """
         Export SQL grammar to Monaco format.
         

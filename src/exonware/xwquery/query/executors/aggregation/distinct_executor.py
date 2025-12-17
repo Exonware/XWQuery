@@ -7,11 +7,11 @@ DISTINCT Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 09-Oct-2025
 """
 
-from typing import Any, Dict, List
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -48,7 +48,7 @@ class DistinctExecutor(AUniversalOperationExecutor):
             metadata={'operation': self.OPERATION_NAME}
         )
     
-    def _execute_distinct(self, node: Any, params: Dict, context: ExecutionContext) -> Dict:
+    def _execute_distinct(self, node: Any, params: dict, context: ExecutionContext) -> dict:
         """
         Execute DISTINCT operation with hash set deduplication.
         
@@ -66,7 +66,7 @@ class DistinctExecutor(AUniversalOperationExecutor):
             context: Execution context
             
         Returns:
-            Dict with distinct results and metadata
+            dict with distinct results and metadata
         """
         # REUSE: Extract items using shared utility
         items = extract_items(node)
@@ -102,7 +102,7 @@ class DistinctExecutor(AUniversalOperationExecutor):
             'distinct_fields': distinct_fields
         }
     
-    def _distinct_all(self, items: List[Any]) -> List[Any]:
+    def _distinct_all(self, items: list[Any]) -> list[Any]:
         """
         Get distinct items using entire item for comparison.
         
@@ -128,7 +128,7 @@ class DistinctExecutor(AUniversalOperationExecutor):
         
         return distinct_items
     
-    def _distinct_by_fields(self, items: List[Any], fields: List[str]) -> List[Any]:
+    def _distinct_by_fields(self, items: list[Any], fields: list[str]) -> list[Any]:
         """
         Get distinct items by comparing only specific fields.
         

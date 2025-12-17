@@ -7,11 +7,11 @@ This module implements the XML Query strategy for generic XML operations.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from .base import ADocumentQueryStrategy
 from ...errors import XWQueryValueError
 from ...defs import QueryMode
@@ -37,7 +37,7 @@ class XMLQueryStrategy(ADocumentQueryStrategy):
             return False
         return any(op in query for op in ["<", ">", "/", "//", "@", "[", "]"])
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get XML query execution plan."""
         return {
             "query_type": "XML_QUERY",
@@ -53,11 +53,11 @@ class XMLQueryStrategy(ADocumentQueryStrategy):
         """Execute filter query."""
         return self.execute(f"//*[{filter_expression}]")
     
-    def projection_query(self, fields: List[str]) -> Any:
+    def projection_query(self, fields: list[str]) -> Any:
         """Execute projection query."""
         return self.execute(f"//*[{' or '.join(fields)}]")
     
-    def sort_query(self, sort_fields: List[str], order: str = "asc") -> Any:
+    def sort_query(self, sort_fields: list[str], order: str = "asc") -> Any:
         """Execute sort query."""
         return self.execute(f"//*[sort by {sort_fields[0]}]")
     

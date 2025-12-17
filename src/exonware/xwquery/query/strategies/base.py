@@ -8,12 +8,12 @@ Kept for backward compatibility.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: October 26, 2025
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Optional, List, Dict, Union, Type
+from typing import Any, Optional, Union
 from datetime import datetime
 
 # Import from root
@@ -39,7 +39,7 @@ class AQueryActionExecutor(AQueryStrategy):
         pass
     
     @abstractmethod
-    def get_supported_query_types(self) -> List[str]:
+    def get_supported_query_types(self) -> list[str]:
         """Get list of query types this backend supports."""
         pass
     
@@ -67,11 +67,11 @@ class ALinearQueryStrategy(AQueryStrategy):
         """Find element by index."""
         raise NotImplementedError("Subclasses must implement find_by_index")
     
-    def find_by_value(self, value: Any) -> List[int]:
+    def find_by_value(self, value: Any) -> list[int]:
         """Find indices by value."""
         raise NotImplementedError("Subclasses must implement find_by_value")
     
-    def range_query(self, start_index: int, end_index: int) -> List[Any]:
+    def range_query(self, start_index: int, end_index: int) -> list[Any]:
         """Query range of indices."""
         raise NotImplementedError("Subclasses must implement range_query")
     
@@ -87,15 +87,15 @@ class ATreeQueryStrategy(AQueryStrategy):
         """Find by key."""
         raise NotImplementedError("Subclasses must implement find_by_key")
     
-    def range_query(self, start_key: Any, end_key: Any) -> List[Any]:
+    def range_query(self, start_key: Any, end_key: Any) -> list[Any]:
         """Range query."""
         raise NotImplementedError("Subclasses must implement range_query")
     
-    def prefix_query(self, prefix: str) -> List[Any]:
+    def prefix_query(self, prefix: str) -> list[Any]:
         """Find all keys with prefix."""
         raise NotImplementedError("Subclasses must implement prefix_query")
     
-    def suffix_query(self, suffix: str) -> List[Any]:
+    def suffix_query(self, suffix: str) -> list[Any]:
         """Find all keys with suffix."""
         raise NotImplementedError("Subclasses must implement suffix_query")
 
@@ -103,23 +103,23 @@ class ATreeQueryStrategy(AQueryStrategy):
 class AGraphQueryStrategy(AQueryStrategy):
     """Graph query capabilities."""
     
-    def path_query(self, start: Any, end: Any) -> List[Any]:
+    def path_query(self, start: Any, end: Any) -> list[Any]:
         """Path query."""
         raise NotImplementedError("Subclasses must implement path_query")
     
-    def neighbor_query(self, node: Any) -> List[Any]:
+    def neighbor_query(self, node: Any) -> list[Any]:
         """Neighbor query."""
         raise NotImplementedError("Subclasses must implement neighbor_query")
     
-    def shortest_path_query(self, start: Any, end: Any) -> List[Any]:
+    def shortest_path_query(self, start: Any, end: Any) -> list[Any]:
         """Shortest path query."""
         raise NotImplementedError("Subclasses must implement shortest_path_query")
     
-    def connected_components_query(self) -> List[List[Any]]:
+    def connected_components_query(self) -> list[list[Any]]:
         """Connected components query."""
         raise NotImplementedError("Subclasses must implement connected_components_query")
     
-    def cycle_detection_query(self) -> List[List[Any]]:
+    def cycle_detection_query(self) -> list[list[Any]]:
         """Cycle detection query."""
         raise NotImplementedError("Subclasses must implement cycle_detection_query")
 
@@ -128,17 +128,17 @@ class AStructuredQueryStrategy(AQueryStrategy):
     """Structured query capabilities for SQL-like languages."""
     
     @abstractmethod
-    def select_query(self, table: str, columns: List[str], where_clause: str = None) -> Any:
+    def select_query(self, table: str, columns: list[str], where_clause: str = None) -> Any:
         """Execute SELECT query."""
         pass
     
     @abstractmethod
-    def insert_query(self, table: str, data: Dict[str, Any]) -> Any:
+    def insert_query(self, table: str, data: dict[str, Any]) -> Any:
         """Execute INSERT query."""
         pass
     
     @abstractmethod
-    def update_query(self, table: str, data: Dict[str, Any], where_clause: str = None) -> Any:
+    def update_query(self, table: str, data: dict[str, Any], where_clause: str = None) -> Any:
         """Execute UPDATE query."""
         pass
     
@@ -148,12 +148,12 @@ class AStructuredQueryStrategy(AQueryStrategy):
         pass
     
     @abstractmethod
-    def join_query(self, tables: List[str], join_conditions: List[str]) -> Any:
+    def join_query(self, tables: list[str], join_conditions: list[str]) -> Any:
         """Execute JOIN query."""
         pass
     
     @abstractmethod
-    def aggregate_query(self, table: str, functions: List[str], group_by: List[str] = None) -> Any:
+    def aggregate_query(self, table: str, functions: list[str], group_by: list[str] = None) -> Any:
         """Execute aggregate query."""
         pass
 
@@ -172,12 +172,12 @@ class ADocumentQueryStrategy(AQueryStrategy):
         pass
     
     @abstractmethod
-    def projection_query(self, fields: List[str]) -> Any:
+    def projection_query(self, fields: list[str]) -> Any:
         """Execute projection query."""
         pass
     
     @abstractmethod
-    def sort_query(self, sort_fields: List[str], order: str = "asc") -> Any:
+    def sort_query(self, sort_fields: list[str], order: str = "asc") -> Any:
         """Execute sort query."""
         pass
     

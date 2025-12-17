@@ -9,7 +9,7 @@ Defines interfaces for query optimization components.
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 from dataclasses import dataclass
 
 
@@ -32,7 +32,7 @@ class IExecutionPlan(ABC):
         pass
     
     @abstractmethod
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert plan to dictionary representation"""
         pass
 
@@ -46,7 +46,7 @@ class IPlanNode(ABC):
         pass
     
     @abstractmethod
-    def get_children(self) -> List['IPlanNode']:
+    def get_children(self) -> list['IPlanNode']:
         """Get child nodes"""
         pass
     
@@ -56,7 +56,7 @@ class IPlanNode(ABC):
         pass
     
     @abstractmethod
-    def get_properties(self) -> Dict[str, Any]:
+    def get_properties(self) -> dict[str, Any]:
         """Get node-specific properties"""
         pass
 
@@ -260,7 +260,7 @@ class TableStatistics:
     table_name: str
     row_count: int
     avg_row_size: int
-    column_stats: Dict[str, 'ColumnStatistics']
+    column_stats: dict[str, 'ColumnStatistics']
 
 
 @dataclass
@@ -271,7 +271,7 @@ class ColumnStatistics:
     null_fraction: float  # Fraction of null values (0.0 to 1.0)
     min_value: Optional[Any] = None
     max_value: Optional[Any] = None
-    histogram: Optional[List[Tuple[Any, int]]] = None  # Value -> frequency
+    histogram: Optional[list[tuple[Any, int]]] = None  # Value -> frequency
 
 
 @dataclass
@@ -279,7 +279,7 @@ class IndexInfo:
     """Information about an index"""
     table_name: str
     index_name: str
-    columns: List[str]
+    columns: list[str]
     index_type: str  # 'btree', 'hash', 'lsm', etc.
     is_unique: bool = False
     is_primary: bool = False

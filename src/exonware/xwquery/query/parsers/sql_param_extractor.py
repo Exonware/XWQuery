@@ -10,12 +10,12 @@ Uses regex for simplicity - follows DEV_GUIDELINES.md.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 09-Oct-2025
 """
 
 import re
-from typing import Dict, Any, List, Union
+from typing import Any, Union
 
 from .base import AParamExtractor
 from .errors import ParseError
@@ -29,7 +29,7 @@ class SQLParamExtractor(AParamExtractor):
     Implements IParamExtractor interface per DEV_GUIDELINES.md.
     """
     
-    def extract(self, query: str) -> Dict[str, Any]:
+    def extract(self, query: str) -> dict[str, Any]:
         """
         Extract parameters from query (IParamExtractor interface method).
         
@@ -46,7 +46,7 @@ class SQLParamExtractor(AParamExtractor):
         # Fallback
         return {'raw': query}
     
-    def extract_params(self, query: str, action_type: str) -> Dict[str, Any]:
+    def extract_params(self, query: str, action_type: str) -> dict[str, Any]:
         """
         Extract parameters based on action type.
         
@@ -82,7 +82,7 @@ class SQLParamExtractor(AParamExtractor):
         sql_keywords = ['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'FROM', 'WHERE']
         return any(kw in query_upper for kw in sql_keywords)
     
-    def extract_select_params(self, sql: str) -> Dict[str, Any]:
+    def extract_select_params(self, sql: str) -> dict[str, Any]:
         """Extract SELECT statement parameters."""
         params = {}
         
@@ -122,7 +122,7 @@ class SQLParamExtractor(AParamExtractor):
         
         return params
     
-    def extract_insert_params(self, sql: str) -> Dict[str, Any]:
+    def extract_insert_params(self, sql: str) -> dict[str, Any]:
         """Extract INSERT statement parameters."""
         params = {}
         
@@ -147,7 +147,7 @@ class SQLParamExtractor(AParamExtractor):
         
         return params
     
-    def extract_update_params(self, sql: str) -> Dict[str, Any]:
+    def extract_update_params(self, sql: str) -> dict[str, Any]:
         """Extract UPDATE statement parameters."""
         params = {}
         
@@ -168,7 +168,7 @@ class SQLParamExtractor(AParamExtractor):
         
         return params
     
-    def extract_delete_params(self, sql: str) -> Dict[str, Any]:
+    def extract_delete_params(self, sql: str) -> dict[str, Any]:
         """Extract DELETE statement parameters."""
         params = {}
         
@@ -184,7 +184,7 @@ class SQLParamExtractor(AParamExtractor):
         
         return params
     
-    def extract_where_params(self, sql: str) -> Dict[str, Any]:
+    def extract_where_params(self, sql: str) -> dict[str, Any]:
         """Extract WHERE clause parameters."""
         # Extract just the condition part
         where_match = re.search(r'WHERE\s+(.+?)(?:ORDER|GROUP|LIMIT|$)', sql, re.IGNORECASE | re.DOTALL)
@@ -192,7 +192,7 @@ class SQLParamExtractor(AParamExtractor):
             return self._parse_where_condition(where_match.group(1).strip())
         return {}
     
-    def extract_count_params(self, sql: str) -> Dict[str, Any]:
+    def extract_count_params(self, sql: str) -> dict[str, Any]:
         """Extract COUNT parameters."""
         params = {}
         
@@ -215,7 +215,7 @@ class SQLParamExtractor(AParamExtractor):
         
         return params
     
-    def extract_group_by_params(self, sql: str) -> Dict[str, Any]:
+    def extract_group_by_params(self, sql: str) -> dict[str, Any]:
         """Extract GROUP BY parameters."""
         params = {}
         
@@ -231,7 +231,7 @@ class SQLParamExtractor(AParamExtractor):
         
         return params
     
-    def extract_order_by_params(self, sql: str) -> Dict[str, Any]:
+    def extract_order_by_params(self, sql: str) -> dict[str, Any]:
         """Extract ORDER BY parameters."""
         params = {}
         
@@ -257,7 +257,7 @@ class SQLParamExtractor(AParamExtractor):
         
         return params
     
-    def _parse_where_condition(self, condition: str) -> Dict[str, Any]:
+    def _parse_where_condition(self, condition: str) -> dict[str, Any]:
         """
         Parse WHERE condition into structured format.
         
@@ -295,14 +295,14 @@ class SQLParamExtractor(AParamExtractor):
         # Can't parse - return as expression
         return {'expression': condition}
     
-    def _parse_in_values(self, values_str: str) -> List:
+    def _parse_in_values(self, values_str: str) -> list:
         """Parse IN clause values."""
         # IN ['value1', 'value2'] or IN ('value1', 'value2')
         values_str = values_str.strip().strip('[]()').strip()
         values = [self._parse_value(v.strip()) for v in values_str.split(',')]
         return values
     
-    def _parse_set_clause(self, set_str: str) -> Dict[str, Any]:
+    def _parse_set_clause(self, set_str: str) -> dict[str, Any]:
         """Parse SET clause in UPDATE."""
         assignments = {}
         
@@ -314,7 +314,7 @@ class SQLParamExtractor(AParamExtractor):
         
         return assignments
     
-    def _parse_dict_literal(self, dict_str: str) -> Dict[str, Any]:
+    def _parse_dict_literal(self, dict_str: str) -> dict[str, Any]:
         """Parse dictionary literal from string."""
         # Simple parser for {key: value, key2: value2}
         dict_str = dict_str.strip('{}').strip()
@@ -327,7 +327,7 @@ class SQLParamExtractor(AParamExtractor):
         
         return result
     
-    def _parse_tuple_literal(self, tuple_str: str) -> List[Any]:
+    def _parse_tuple_literal(self, tuple_str: str) -> list[Any]:
         """Parse tuple literal from string."""
         # Simple parser for (value1, value2, value3)
         tuple_str = tuple_str.strip('()').strip()

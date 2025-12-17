@@ -7,11 +7,11 @@ UPDATE Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
-from typing import Any, Dict, List
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -62,8 +62,8 @@ class UpdateExecutor(AUniversalOperationExecutor):
             }
         )
     
-    def _execute_update(self, node: Any, target: str, values: Dict, 
-                       condition: Any, context: ExecutionContext) -> Dict:
+    def _execute_update(self, node: Any, target: str, values: dict, 
+                       condition: Any, context: ExecutionContext) -> dict:
         """
         Actual UPDATE logic with full node traversal.
         
@@ -84,7 +84,7 @@ class UpdateExecutor(AUniversalOperationExecutor):
             context: Execution context
             
         Returns:
-            Dict with update results
+            dict with update results
         """
         updated_count = 0
         updated_items = []

@@ -7,12 +7,12 @@ This module implements the SQL query strategy for structured data queries.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
 import re
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from .base import AStructuredQueryStrategy
 from ...errors import XWQueryTypeError, XWQueryValueError
 from ...defs import QueryMode
@@ -69,7 +69,7 @@ class SQLStrategy(AStructuredQueryStrategy):
         
         return False
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get SQL query execution plan."""
         query_type = self._get_query_type(query)
         
@@ -81,7 +81,7 @@ class SQLStrategy(AStructuredQueryStrategy):
             "optimization_hints": self._get_optimization_hints(query)
         }
     
-    def select_query(self, table: str, columns: List[str], where_clause: str = None) -> Any:
+    def select_query(self, table: str, columns: list[str], where_clause: str = None) -> Any:
         """Execute SELECT query."""
         query = f"SELECT {', '.join(columns)} FROM {table}"
         if where_clause:
@@ -89,7 +89,7 @@ class SQLStrategy(AStructuredQueryStrategy):
         
         return self.execute(query)
     
-    def insert_query(self, table: str, data: Dict[str, Any]) -> Any:
+    def insert_query(self, table: str, data: dict[str, Any]) -> Any:
         """Execute INSERT query."""
         columns = list(data.keys())
         values = list(data.values())
@@ -97,7 +97,7 @@ class SQLStrategy(AStructuredQueryStrategy):
         query = f"INSERT INTO {table} ({', '.join(columns)}) VALUES ({', '.join(['?' for _ in values])})"
         return self.execute(query, values=values)
     
-    def update_query(self, table: str, data: Dict[str, Any], where_clause: str = None) -> Any:
+    def update_query(self, table: str, data: dict[str, Any], where_clause: str = None) -> Any:
         """Execute UPDATE query."""
         set_clause = ', '.join([f"{k} = ?" for k in data.keys()])
         query = f"UPDATE {table} SET {set_clause}"
@@ -115,7 +115,7 @@ class SQLStrategy(AStructuredQueryStrategy):
         
         return self.execute(query)
     
-    def join_query(self, tables: List[str], join_conditions: List[str]) -> Any:
+    def join_query(self, tables: list[str], join_conditions: list[str]) -> Any:
         """Execute JOIN query."""
         if len(tables) < 2:
             raise XWNodeValueError("JOIN requires at least 2 tables")
@@ -129,7 +129,7 @@ class SQLStrategy(AStructuredQueryStrategy):
         
         return self.execute(query)
     
-    def aggregate_query(self, table: str, functions: List[str], group_by: List[str] = None) -> Any:
+    def aggregate_query(self, table: str, functions: list[str], group_by: list[str] = None) -> Any:
         """Execute aggregate query."""
         query = f"SELECT {', '.join(functions)} FROM {table}"
         if group_by:
@@ -185,7 +185,7 @@ class SQLStrategy(AStructuredQueryStrategy):
         else:
             return 10
     
-    def _get_optimization_hints(self, query: str) -> List[str]:
+    def _get_optimization_hints(self, query: str) -> list[str]:
         """Get query optimization hints."""
         hints = []
         query = query.upper()
@@ -250,7 +250,7 @@ class SQLStrategy(AStructuredQueryStrategy):
         """Check if this strategy can handle the given query string."""
         return self.validate_query(query_string)
     
-    def get_supported_operations(self) -> List[str]:
+    def get_supported_operations(self) -> list[str]:
         """Get list of supported query operations."""
         return [
             "SELECT", "INSERT", "UPDATE", "DELETE", "CREATE", "DROP", "ALTER",
@@ -258,7 +258,7 @@ class SQLStrategy(AStructuredQueryStrategy):
             "WITH", "CASE", "WINDOW", "PARTITION BY", "OVER"
         ]
     
-    def estimate_complexity(self, query_string: str) -> Dict[str, Any]:
+    def estimate_complexity(self, query_string: str) -> dict[str, Any]:
         """Estimate query complexity and resource requirements."""
         complexity = self._estimate_complexity(query_string)
         cost = self._estimate_cost(query_string)

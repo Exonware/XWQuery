@@ -6,12 +6,12 @@ QueryAction extends ANode from xwnode - reusing tree functionality!
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: October 26, 2025
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from dataclasses import dataclass, field
 
 # Import ANode from xwnode - QueryAction will extend it!
@@ -46,11 +46,11 @@ class QueryAction(ANode):
     def __init__(
         self,
         type: str,
-        params: Optional[Dict[str, Any]] = None,
+        params: Optional[dict[str, Any]] = None,
         id: str = "",
         line_number: int = 0,
-        metadata: Optional[Dict[str, Any]] = None,
-        children: Optional[List['QueryAction']] = None,
+        metadata: Optional[dict[str, Any]] = None,
+        children: Optional[list['QueryAction']] = None,
         strategy: Any = None
     ):
         """
@@ -101,7 +101,7 @@ class QueryAction(ANode):
         return self._type
     
     @property
-    def params(self) -> Dict[str, Any]:
+    def params(self) -> dict[str, Any]:
         """Get operation parameters."""
         return self._params
     
@@ -116,12 +116,12 @@ class QueryAction(ANode):
         return self._line_number
     
     @property
-    def metadata(self) -> Dict[str, Any]:
+    def metadata(self) -> dict[str, Any]:
         """Get query metadata."""
         return self._query_metadata
     
     # Override children to return QueryActions instead of ANodes
-    def get_children(self) -> List['QueryAction']:
+    def get_children(self) -> list['QueryAction']:
         """
         Get child QueryActions.
         
@@ -145,7 +145,7 @@ class QueryAction(ANode):
         ]
     
     @property
-    def children(self) -> List['QueryAction']:
+    def children(self) -> list['QueryAction']:
         """Alias for get_children()."""
         return self.get_children()
     
@@ -187,10 +187,10 @@ class ExecutionContext:
     variables, transaction state, and configuration.
     """
     node: Any                        # Target XWNode to execute on
-    variables: Dict[str, Any] = field(default_factory=dict)  # Query variables
-    options: Dict[str, Any] = field(default_factory=dict)    # Execution options
+    variables: dict[str, Any] = field(default_factory=dict)  # Query variables
+    options: dict[str, Any] = field(default_factory=dict)    # Execution options
     parent_context: Optional['ExecutionContext'] = None      # Parent context for nested queries
-    metadata: Dict[str, Any] = field(default_factory=dict)   # Execution metadata
+    metadata: dict[str, Any] = field(default_factory=dict)   # Execution metadata
     
     def get_variable(self, name: str, default: Any = None) -> Any:
         """Get a variable value."""
@@ -218,7 +218,7 @@ class ExecutionResult:
     action_type: str = ""            # Type of action executed
     affected_count: int = 0          # Number of records affected
     execution_time: float = 0.0      # Execution time in seconds
-    metadata: Dict[str, Any] = field(default_factory=dict)  # Result metadata
+    metadata: dict[str, Any] = field(default_factory=dict)  # Result metadata
     
     def is_success(self) -> bool:
         """Check if execution was successful."""
@@ -269,7 +269,7 @@ class IOperationExecutor(ABC):
         """
         pass
     
-    def get_capabilities(self) -> List[OperationCapability]:
+    def get_capabilities(self) -> list[OperationCapability]:
         """Get capabilities of this executor."""
         return []
     
@@ -282,7 +282,7 @@ class IParamExtractor(ABC):
     """Interface for parameter extractors from query strings."""
     
     @abstractmethod
-    def extract(self, query: str) -> Dict[str, Any]:
+    def extract(self, query: str) -> dict[str, Any]:
         """Extract parameters from query string."""
         pass
 

@@ -8,12 +8,12 @@ Provides common tokenization, validation, and security.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
 from abc import ABC, abstractmethod
-from typing import List, Dict, Any, Optional, Tuple
+from typing import Any, Optional
 import re
 import time
 
@@ -71,7 +71,7 @@ class ABaseParser(ABC):
     # ==================== Abstract Methods (Implement in Subclasses) ====================
     
     @abstractmethod
-    def parse(self, query: str, **options) -> List[QueryAction]:
+    def parse(self, query: str, **options) -> list[QueryAction]:
         """
         Parse query string to QueryAction tree.
         
@@ -229,7 +229,7 @@ class ABaseParser(ABC):
         """Record parse error."""
         self._error_count += 1
     
-    def get_performance_stats(self) -> Dict[str, Any]:
+    def get_performance_stats(self) -> dict[str, Any]:
         """
         Get parser performance statistics.
         
@@ -302,7 +302,7 @@ class ABaseParser(ABC):
         
         return query
     
-    def extract_string_literals(self, query: str) -> Tuple[str, Dict[str, str]]:
+    def extract_string_literals(self, query: str) -> tuple[str, dict[str, str]]:
         """
         Extract string literals from query for easier parsing.
         
@@ -331,7 +331,7 @@ class ABaseParser(ABC):
         
         return query, literals
     
-    def restore_string_literals(self, query: str, literals: Dict[str, str]) -> str:
+    def restore_string_literals(self, query: str, literals: dict[str, str]) -> str:
         """
         Restore string literals in query.
         
@@ -349,7 +349,7 @@ class ABaseParser(ABC):
     
     # ==================== Validation with Monitoring ====================
     
-    def parse_with_validation(self, query: str, **options) -> List[QueryAction]:
+    def parse_with_validation(self, query: str, **options) -> list[QueryAction]:
         """
         Parse query with full validation and monitoring.
         
@@ -400,7 +400,7 @@ class ABaseParser(ABC):
 class AStructuredQueryParser(ABaseParser):
     """Base parser for structured query languages (SQL, N1QL, etc.)."""
     
-    def tokenize(self, query: str) -> List[str]:
+    def tokenize(self, query: str) -> list[str]:
         """
         Tokenize query into keywords, identifiers, operators, literals.
         
@@ -426,7 +426,7 @@ class AStructuredQueryParser(ABaseParser):
 class APathQueryParser(ABaseParser):
     """Base parser for path-based query languages (XPath, JMESPath, etc.)."""
     
-    def parse_path_expression(self, path: str) -> Dict[str, Any]:
+    def parse_path_expression(self, path: str) -> dict[str, Any]:
         """
         Parse path expression.
         
@@ -443,7 +443,7 @@ class APathQueryParser(ABaseParser):
 class AGraphQueryParser(ABaseParser):
     """Base parser for graph query languages (Cypher, Gremlin, etc.)."""
     
-    def parse_pattern(self, pattern: str) -> Dict[str, Any]:
+    def parse_pattern(self, pattern: str) -> dict[str, Any]:
         """
         Parse graph pattern.
         

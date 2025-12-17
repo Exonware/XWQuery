@@ -4,7 +4,7 @@ Query execution metrics and monitoring.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 """
 
 from exonware.xwsystem.monitoring import (

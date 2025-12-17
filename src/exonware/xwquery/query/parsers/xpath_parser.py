@@ -8,11 +8,11 @@ Supports XPath 1.0, 2.0, 3.0 with comprehensive error handling.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List, Dict, Any, Optional
+from typing import Any, Optional
 from .base_parser import APathQueryParser
 from .query_action_builder import QueryActionBuilder
 from ...contracts import QueryAction
@@ -73,7 +73,7 @@ class XPathParser(APathQueryParser):
     
     # ==================== Main Parsing Entry Point ====================
     
-    def parse(self, query: str, **options) -> List[QueryAction]:
+    def parse(self, query: str, **options) -> list[QueryAction]:
         """
         Parse XPath expression to QueryAction tree.
         
@@ -102,7 +102,7 @@ class XPathParser(APathQueryParser):
     
     # ==================== Location Path Parsing ====================
     
-    def _parse_location_path(self) -> Dict[str, Any]:
+    def _parse_location_path(self) -> dict[str, Any]:
         """
         Parse location path.
         
@@ -151,7 +151,7 @@ class XPathParser(APathQueryParser):
             'steps': steps
         }
     
-    def _parse_step(self) -> Optional[Dict[str, Any]]:
+    def _parse_step(self) -> Optional[dict[str, Any]]:
         """
         Parse location step.
         
@@ -233,7 +233,7 @@ class XPathParser(APathQueryParser):
         
         return name if name else '*'
     
-    def _parse_predicate(self) -> Dict[str, Any]:
+    def _parse_predicate(self) -> dict[str, Any]:
         """Parse predicate expression [condition]."""
         # [
         self._consume('[', "Expected [")
@@ -257,7 +257,7 @@ class XPathParser(APathQueryParser):
         # Parse expression
         return self._parse_predicate_expression(expr_text)
     
-    def _parse_predicate_expression(self, expr: str) -> Dict[str, Any]:
+    def _parse_predicate_expression(self, expr: str) -> dict[str, Any]:
         """Parse predicate expression to structured format."""
         # Simple expression parser for predicates
         expr = expr.strip()
@@ -311,7 +311,7 @@ class XPathParser(APathQueryParser):
     
     # ==================== Conversion to QueryAction ====================
     
-    def _location_path_to_actions(self, location_path: Dict[str, Any]) -> List[QueryAction]:
+    def _location_path_to_actions(self, location_path: dict[str, Any]) -> list[QueryAction]:
         """Convert location path to QueryAction tree."""
         builder = QueryActionBuilder()
         
@@ -413,7 +413,7 @@ class XPathParser(APathQueryParser):
 
 # ==================== Convenience Function ====================
 
-def parse_xpath(query: str, **options) -> List[QueryAction]:
+def parse_xpath(query: str, **options) -> list[QueryAction]:
     """
     Parse XPath expression to QueryAction tree.
     

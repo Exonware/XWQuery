@@ -8,11 +8,11 @@ Maps AST patterns to operation types for universal query processing.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 11-Oct-2025
 """
 
-from typing import Any, Dict, List, Optional, Union, Set
+from typing import Any, Optional, Union
 from dataclasses import dataclass
 from enum import Enum
 from exonware.xwsyntax import ASTNode
@@ -72,8 +72,8 @@ class OperationType(Enum):
 @dataclass
 class OperationPattern:
     """Pattern for detecting operation types."""
-    ast_node_types: List[str]  # AST node types that indicate this operation
-    keywords: List[str]  # Keywords that indicate this operation
+    ast_node_types: list[str]  # AST node types that indicate this operation
+    keywords: list[str]  # Keywords that indicate this operation
     priority: int = 0  # Detection priority (higher = more specific)
     format_specific: Optional[str] = None  # Format-specific patterns
 
@@ -229,7 +229,7 @@ class OperationDetector:
         else:
             return OperationType.SELECT  # Default
     
-    def _initialize_patterns(self) -> List[OperationPattern]:
+    def _initialize_patterns(self) -> list[OperationPattern]:
         """Initialize generic operation patterns."""
         return [
             # SQL-like operations
@@ -399,7 +399,7 @@ class OperationDetector:
             ),
         ]
     
-    def _initialize_format_patterns(self) -> Dict[str, List[OperationPattern]]:
+    def _initialize_format_patterns(self) -> dict[str, list[OperationPattern]]:
         """Initialize format-specific operation patterns."""
         return {
             "sql": [
@@ -667,7 +667,7 @@ class OperationDetector:
             ],
         }
     
-    def get_supported_operations(self, format_name: Optional[str] = None) -> Set[OperationType]:
+    def get_supported_operations(self, format_name: Optional[str] = None) -> set[OperationType]:
         """Get supported operations for a format."""
         if format_name and format_name.lower() in self._format_patterns:
             patterns = self._format_patterns[format_name.lower()]
@@ -695,7 +695,7 @@ def detect_operation(ast: ASTNode, format_name: Optional[str] = None) -> Operati
     return operation_detector.detect_operation(ast, format_name)
 
 
-def get_supported_operations(format_name: Optional[str] = None) -> Set[OperationType]:
+def get_supported_operations(format_name: Optional[str] = None) -> set[OperationType]:
     """Get supported operations for a format."""
     return operation_detector.get_supported_operations(format_name)
 

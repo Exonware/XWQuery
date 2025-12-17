@@ -7,11 +7,11 @@ GROUP Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 09-Oct-2025
 """
 
-from typing import Any, Dict, List
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -48,7 +48,7 @@ class GroupExecutor(AUniversalOperationExecutor):
             metadata={'operation': self.OPERATION_NAME}
         )
     
-    def _execute_group(self, node: Any, params: Dict, context: ExecutionContext) -> Dict:
+    def _execute_group(self, node: Any, params: dict, context: ExecutionContext) -> dict:
         """
         Execute GROUP BY operation with hash-based grouping.
         
@@ -80,7 +80,7 @@ class GroupExecutor(AUniversalOperationExecutor):
             context: Execution context
             
         Returns:
-            Dict with grouped results including keys, items, and counts
+            dict with grouped results including keys, items, and counts
         """
         # REUSE xwsystem: Validate input
         try:

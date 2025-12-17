@@ -7,11 +7,11 @@ PROJECT Executor - Column projection using xwnode field access
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 09-Oct-2025
 """
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -70,7 +70,7 @@ class ProjectExecutor(AUniversalOperationExecutor):
             }
         )
     
-    def _execute_project(self, node: Any, params: Dict, context: ExecutionContext) -> Dict:
+    def _execute_project(self, node: Any, params: dict, context: ExecutionContext) -> dict:
         """
         Execute PROJECT logic with field selection and aliasing.
         
@@ -82,7 +82,7 @@ class ProjectExecutor(AUniversalOperationExecutor):
             context: Execution context
             
         Returns:
-            Dict with projected results
+            dict with projected results
         """
         # Extract fields specification
         fields = params.get('fields', params.get('select', params.get('columns', [])))
@@ -129,7 +129,7 @@ class ProjectExecutor(AUniversalOperationExecutor):
             'total_items': len(items)
         }
     
-    def _project_item(self, item: Any, fields: Union[List[str], Dict[str, str]]) -> Dict:
+    def _project_item(self, item: Any, fields: Union[list[str], dict[str, str]]) -> dict:
         """
         Project specified fields from item.
         
@@ -137,7 +137,7 @@ class ProjectExecutor(AUniversalOperationExecutor):
         
         Supports:
         - List of fields: ['name', 'age'] -> {'name': ..., 'age': ...}
-        - Dict aliasing: {'user_id': 'id'} -> {'user_id': value_of_id}
+        - dict aliasing: {'user_id': 'id'} -> {'user_id': value_of_id}
         - Nested fields: 'user.profile.email' using dot notation
         """
         projected = {}

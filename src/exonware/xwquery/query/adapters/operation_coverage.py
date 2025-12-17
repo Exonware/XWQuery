@@ -8,11 +8,11 @@ and analyzes coverage across all query formats.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 11-Oct-2025
 """
 
-from typing import Any, Dict, List, Optional, Union, Set
+from typing import Any, Optional, Union
 from dataclasses import dataclass
 from enum import Enum
 from exonware.xwquery.defs import ALL_OPERATIONS, OPERATION_CATEGORIES
@@ -25,7 +25,7 @@ class ExecutorInfo:
     module_path: str  # Module path where executor is located
     is_implemented: bool  # Whether executor is implemented
     priority: int = 0  # Execution priority
-    dependencies: List[str] = None  # Required dependencies
+    dependencies: list[str] = None  # Required dependencies
     
     def __post_init__(self):
         if self.dependencies is None:
@@ -38,7 +38,7 @@ class OperationCoverage:
     operation: str  # Operation name
     category: str  # Operation category
     executor: Optional[ExecutorInfo]  # Executor information
-    supported_formats: Set[str]  # Formats that support this operation
+    supported_formats: set[str]  # Formats that support this operation
     implementation_status: str  # Implementation status
     test_coverage: float = 0.0  # Test coverage percentage
 
@@ -51,7 +51,7 @@ class OperationCoverageAnalyzer:
         self._format_support = self._initialize_format_support()
         self._coverage_data = self._analyze_coverage()
     
-    def get_coverage_report(self) -> Dict[str, Any]:
+    def get_coverage_report(self) -> dict[str, Any]:
         """Get comprehensive coverage report."""
         return {
             "total_operations": len(ALL_OPERATIONS),
@@ -67,7 +67,7 @@ class OperationCoverageAnalyzer:
         """Get coverage information for a specific operation."""
         return self._coverage_data.get(operation)
     
-    def get_missing_executors(self) -> List[str]:
+    def get_missing_executors(self) -> list[str]:
         """Get list of operations missing executors."""
         missing = []
         for operation, coverage in self._coverage_data.items():
@@ -75,11 +75,11 @@ class OperationCoverageAnalyzer:
                 missing.append(operation)
         return missing
     
-    def get_format_support(self, format_name: str) -> Set[str]:
+    def get_format_support(self, format_name: str) -> set[str]:
         """Get operations supported by a format."""
         return self._format_support.get(format_name.lower(), set())
     
-    def _initialize_executor_mappings(self) -> Dict[str, ExecutorInfo]:
+    def _initialize_executor_mappings(self) -> dict[str, ExecutorInfo]:
         """Initialize mappings from operations to executors."""
         return {
             # Core operations
@@ -449,7 +449,7 @@ class OperationCoverageAnalyzer:
             ),
         }
     
-    def _initialize_format_support(self) -> Dict[str, Set[str]]:
+    def _initialize_format_support(self) -> dict[str, set[str]]:
         """Initialize format support matrix."""
         return {
             # SQL-like formats
@@ -710,7 +710,7 @@ class OperationCoverageAnalyzer:
             },
         }
     
-    def _analyze_coverage(self) -> Dict[str, OperationCoverage]:
+    def _analyze_coverage(self) -> dict[str, OperationCoverage]:
         """Analyze coverage for all operations."""
         coverage = {}
         
@@ -767,7 +767,7 @@ class OperationCoverageAnalyzer:
         implemented = self._count_implemented()
         return (implemented / total) * 100.0 if total > 0 else 0.0
     
-    def _get_operations_by_category(self) -> Dict[str, List[str]]:
+    def _get_operations_by_category(self) -> dict[str, list[str]]:
         """Get operations grouped by category."""
         result = {}
         for operation, coverage in self._coverage_data.items():
@@ -777,7 +777,7 @@ class OperationCoverageAnalyzer:
             result[category].append(operation)
         return result
     
-    def _get_missing_executors(self) -> List[str]:
+    def _get_missing_executors(self) -> list[str]:
         """Get list of operations missing executors."""
         missing = []
         for operation, coverage in self._coverage_data.items():
@@ -785,7 +785,7 @@ class OperationCoverageAnalyzer:
                 missing.append(operation)
         return missing
     
-    def _get_format_support_matrix(self) -> Dict[str, Dict[str, bool]]:
+    def _get_format_support_matrix(self) -> dict[str, dict[str, bool]]:
         """Get format support matrix."""
         matrix = {}
         for format_name, operations in self._format_support.items():
@@ -800,7 +800,7 @@ operation_coverage_analyzer = OperationCoverageAnalyzer()
 
 
 # Convenience functions
-def get_coverage_report() -> Dict[str, Any]:
+def get_coverage_report() -> dict[str, Any]:
     """Get comprehensive coverage report."""
     return operation_coverage_analyzer.get_coverage_report()
 
@@ -810,12 +810,12 @@ def get_operation_coverage(operation: str) -> Optional[OperationCoverage]:
     return operation_coverage_analyzer.get_operation_coverage(operation)
 
 
-def get_missing_executors() -> List[str]:
+def get_missing_executors() -> list[str]:
     """Get list of operations missing executors."""
     return operation_coverage_analyzer.get_missing_executors()
 
 
-def get_format_support(format_name: str) -> Set[str]:
+def get_format_support(format_name: str) -> set[str]:
     """Get operations supported by a format."""
     return operation_coverage_analyzer.get_format_support(format_name)
 

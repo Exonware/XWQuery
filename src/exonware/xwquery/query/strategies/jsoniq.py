@@ -7,12 +7,12 @@ This module implements the JSONiq query strategy for JSON data queries.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
 import re
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from .base import ADocumentQueryStrategy
 from ...errors import XWQueryTypeError, XWQueryValueError
 from ...defs import QueryMode
@@ -73,7 +73,7 @@ class JSONiqStrategy(ADocumentQueryStrategy):
         
         return False
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get JSONiq query execution plan."""
         query_type = self._get_query_type(query)
         
@@ -101,7 +101,7 @@ class JSONiqStrategy(ADocumentQueryStrategy):
         """
         return self.execute(query)
     
-    def projection_query(self, fields: List[str]) -> Any:
+    def projection_query(self, fields: list[str]) -> Any:
         """Execute projection query."""
         if len(fields) == 1:
             query = f"""
@@ -117,7 +117,7 @@ class JSONiqStrategy(ADocumentQueryStrategy):
         
         return self.execute(query)
     
-    def sort_query(self, sort_fields: List[str], order: str = "asc") -> Any:
+    def sort_query(self, sort_fields: list[str], order: str = "asc") -> Any:
         """Execute sort query."""
         if order.lower() == "desc":
             query = f"""
@@ -197,7 +197,7 @@ class JSONiqStrategy(ADocumentQueryStrategy):
         else:
             return 30
     
-    def _extract_expressions(self, query: str) -> List[str]:
+    def _extract_expressions(self, query: str) -> list[str]:
         """Extract JSONiq expressions from query."""
         expressions = []
         
@@ -229,7 +229,7 @@ class JSONiqStrategy(ADocumentQueryStrategy):
         
         return expressions
     
-    def _get_optimization_hints(self, query: str) -> List[str]:
+    def _get_optimization_hints(self, query: str) -> list[str]:
         """Get query optimization hints."""
         hints = []
         

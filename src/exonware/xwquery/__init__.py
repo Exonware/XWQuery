@@ -7,13 +7,9 @@ Enhanced with xwnode-aligned architecture.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: October 26, 2025
 """
-
-from xwlazy.lazy import config_package_lazy_install_enabled
-
-config_package_lazy_install_enabled("xwquery")
 
 from typing import Optional
 from exonware.xwsystem import get_logger

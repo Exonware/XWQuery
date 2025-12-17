@@ -8,24 +8,24 @@ Formatting helpers for SQL-style and functional-style queries.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List, Dict, Any, Optional, Union
+from typing import Any, Optional, Union
 import re
 
 
 # ==================== SQL-Style Formatting ====================
 
 def format_sql_select(
-    columns: List[str],
+    columns: list[str],
     table: str,
     where: Optional[str] = None,
-    joins: Optional[List[str]] = None,
-    group_by: Optional[List[str]] = None,
+    joins: Optional[list[str]] = None,
+    group_by: Optional[list[str]] = None,
     having: Optional[str] = None,
-    order_by: Optional[List[str]] = None,
+    order_by: Optional[list[str]] = None,
     limit: Optional[int] = None,
     offset: Optional[int] = None,
     indent: str = "  ",
@@ -114,8 +114,8 @@ def format_sql_select(
 
 def format_sql_insert(
     table: str,
-    columns: List[str],
-    values: List[Any],
+    columns: list[str],
+    values: list[Any],
     indent: str = "  ",
     pretty: bool = True
 ) -> str:
@@ -146,7 +146,7 @@ VALUES
 
 def format_sql_update(
     table: str,
-    assignments: Dict[str, Any],
+    assignments: dict[str, Any],
     where: Optional[str] = None,
     indent: str = "  ",
     pretty: bool = True
@@ -305,7 +305,7 @@ def needs_quoting(name: str, keywords: set) -> bool:
 # ==================== Expression Formatting ====================
 
 def format_expression(
-    expr: Dict[str, Any],
+    expr: dict[str, Any],
     precedence: Optional[int] = None
 ) -> str:
     """
@@ -363,7 +363,7 @@ def format_expression(
 
 def format_function_call(
     name: str,
-    args: List[str],
+    args: list[str],
     multiline: bool = False,
     indent: str = "  "
 ) -> str:
@@ -388,7 +388,7 @@ def format_function_call(
 
 
 def format_chained_calls(
-    calls: List[str],
+    calls: list[str],
     indent: str = "  "
 ) -> str:
     """

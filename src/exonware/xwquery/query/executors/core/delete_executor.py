@@ -7,11 +7,11 @@ DELETE Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
-from typing import Any, Dict, List
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -62,7 +62,7 @@ class DeleteExecutor(AUniversalOperationExecutor):
         )
     
     def _execute_delete(self, node: Any, target: str, condition: Any, 
-                       context: ExecutionContext) -> Dict:
+                       context: ExecutionContext) -> dict:
         """
         Actual DELETE logic with full node traversal.
         
@@ -82,7 +82,7 @@ class DeleteExecutor(AUniversalOperationExecutor):
             context: Execution context
             
         Returns:
-            Dict with delete results
+            dict with delete results
         """
         deleted_count = 0
         deleted_items = []

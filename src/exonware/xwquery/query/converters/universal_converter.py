@@ -8,11 +8,11 @@ Enables SQL ↔ XPath ↔ Cypher ↔ ... (31 formats total).
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List, Optional
+from typing import Optional
 from ...contracts import QueryAction
 from ...errors import XWQueryValueError
 from ...defs import ConversionMode
@@ -188,7 +188,7 @@ class UniversalQueryConverter:
     
     # ==================== Helper Methods ====================
     
-    def get_supported_formats(self) -> List[str]:
+    def get_supported_formats(self) -> list[str]:
         """Get list of supported formats."""
         # Formats supported for both parsing and generation
         return sorted(set(self.parsers.keys()) & set(self.generators.keys()))
@@ -210,11 +210,11 @@ class UniversalQueryConverter:
     
     def convert_many(
         self,
-        queries: List[str],
+        queries: list[str],
         from_format: str,
         to_format: str,
         **options
-    ) -> List[str]:
+    ) -> list[str]:
         """
         Convert multiple queries.
         

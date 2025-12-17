@@ -7,11 +7,11 @@ This module implements the GQL query strategy for ISO/IEC 39075:2024 Graph Query
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from .base import AGraphQueryStrategy
 from ...errors import XWQueryValueError
 from ...defs import QueryMode
@@ -37,7 +37,7 @@ class GQLStrategy(AGraphQueryStrategy):
             return False
         return any(op in query.upper() for op in ["MATCH", "SELECT", "WHERE", "RETURN", "CREATE", "DELETE"])
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get GQL query execution plan."""
         return {
             "query_type": "GQL",

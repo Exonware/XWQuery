@@ -7,11 +7,11 @@ This module implements the PartiQL query strategy for AWS PartiQL operations.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from .base import AStructuredQueryStrategy
 from ...errors import XWQueryValueError
 from ...defs import QueryMode
@@ -37,7 +37,7 @@ class PartiQLStrategy(AStructuredQueryStrategy):
             return False
         return any(op in query.upper() for op in ["SELECT", "FROM", "WHERE", "INSERT", "UPDATE", "DELETE"])
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get PartiQL query execution plan."""
         return {
             "query_type": "PartiQL",
@@ -45,15 +45,15 @@ class PartiQLStrategy(AStructuredQueryStrategy):
             "estimated_cost": 85
         }
     
-    def select_query(self, table: str, columns: List[str], where_clause: str = None) -> Any:
+    def select_query(self, table: str, columns: list[str], where_clause: str = None) -> Any:
         """Execute SELECT query."""
         return self.execute(f"SELECT {', '.join(columns)} FROM {table}")
     
-    def insert_query(self, table: str, data: Dict[str, Any]) -> Any:
+    def insert_query(self, table: str, data: dict[str, Any]) -> Any:
         """Execute INSERT query."""
         return self.execute(f"INSERT INTO {table} VALUE {data}")
     
-    def update_query(self, table: str, data: Dict[str, Any], where_clause: str = None) -> Any:
+    def update_query(self, table: str, data: dict[str, Any], where_clause: str = None) -> Any:
         """Execute UPDATE query."""
         return self.execute(f"UPDATE {table} SET {data}")
     
@@ -61,10 +61,10 @@ class PartiQLStrategy(AStructuredQueryStrategy):
         """Execute DELETE query."""
         return self.execute(f"DELETE FROM {table}")
     
-    def join_query(self, tables: List[str], join_conditions: List[str]) -> Any:
+    def join_query(self, tables: list[str], join_conditions: list[str]) -> Any:
         """Execute JOIN query."""
         return self.execute(f"SELECT * FROM {tables[0]} JOIN {tables[1]}")
     
-    def aggregate_query(self, table: str, functions: List[str], group_by: List[str] = None) -> Any:
+    def aggregate_query(self, table: str, functions: list[str], group_by: list[str] = None) -> Any:
         """Execute aggregate query."""
         return self.execute(f"SELECT {', '.join(functions)} FROM {table}")

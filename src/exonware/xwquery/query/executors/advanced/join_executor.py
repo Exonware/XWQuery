@@ -7,11 +7,11 @@ JOIN Executor - Hash-based joins using xwnode HASH_MAP strategy
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 09-Oct-2025
 """
 
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 from enum import Enum
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
@@ -81,7 +81,7 @@ class JoinExecutor(AUniversalOperationExecutor):
             }
         )
     
-    def _execute_join(self, node: Any, params: Dict, context: ExecutionContext) -> Dict:
+    def _execute_join(self, node: Any, params: dict, context: ExecutionContext) -> dict:
         """
         Execute JOIN using hash-based algorithm.
         
@@ -101,7 +101,7 @@ class JoinExecutor(AUniversalOperationExecutor):
             context: Execution context
             
         Returns:
-            Dict with joined results and metadata
+            dict with joined results and metadata
         """
         # Extract parameters
         right_data = params.get('right', params.get('right_table', []))
@@ -153,8 +153,8 @@ class JoinExecutor(AUniversalOperationExecutor):
             'right_count': len(right_data)
         }
     
-    def _inner_join(self, left: List[Dict], right: List[Dict], 
-                    left_key: str, right_key: str) -> List[Dict]:
+    def _inner_join(self, left: list[dict], right: list[dict], 
+                    left_key: str, right_key: str) -> list[dict]:
         """
         INNER JOIN: Returns only matching rows.
         
@@ -181,8 +181,8 @@ class JoinExecutor(AUniversalOperationExecutor):
         
         return result
     
-    def _left_join(self, left: List[Dict], right: List[Dict],
-                   left_key: str, right_key: str) -> List[Dict]:
+    def _left_join(self, left: list[dict], right: list[dict],
+                   left_key: str, right_key: str) -> list[dict]:
         """
         LEFT JOIN: All from left + matching from right.
         
@@ -218,8 +218,8 @@ class JoinExecutor(AUniversalOperationExecutor):
         
         return result
     
-    def _right_join(self, left: List[Dict], right: List[Dict],
-                    left_key: str, right_key: str) -> List[Dict]:
+    def _right_join(self, left: list[dict], right: list[dict],
+                    left_key: str, right_key: str) -> list[dict]:
         """
         RIGHT JOIN: All from right + matching from left.
         
@@ -255,8 +255,8 @@ class JoinExecutor(AUniversalOperationExecutor):
         
         return result
     
-    def _full_outer_join(self, left: List[Dict], right: List[Dict],
-                         left_key: str, right_key: str) -> List[Dict]:
+    def _full_outer_join(self, left: list[dict], right: list[dict],
+                         left_key: str, right_key: str) -> list[dict]:
         """
         FULL OUTER JOIN: All rows from both tables.
         
@@ -304,7 +304,7 @@ class JoinExecutor(AUniversalOperationExecutor):
         
         return result
     
-    def _cross_join(self, left: List[Dict], right: List[Dict]) -> List[Dict]:
+    def _cross_join(self, left: list[dict], right: list[dict]) -> list[dict]:
         """
         CROSS JOIN: Cartesian product.
         
@@ -317,12 +317,12 @@ class JoinExecutor(AUniversalOperationExecutor):
                 result.append(joined)
         return result
     
-    def _parse_join_condition(self, join_on: Any) -> Tuple[str, str]:
+    def _parse_join_condition(self, join_on: Any) -> tuple[str, str]:
         """
         Parse join condition to extract key fields.
         
         Supports:
-        - Dict: {'left_field': 'right_field'}
+        - dict: {'left_field': 'right_field'}
         - String: 'field' (assumes same field name in both tables)
         - Tuple: ('left_field', 'right_field')
         """
@@ -355,8 +355,8 @@ class JoinExecutor(AUniversalOperationExecutor):
         
         return None
     
-    def _merge_records(self, left: Optional[Dict], right: Optional[Dict],
-                      left_prefix: str = 'left', right_prefix: str = 'right') -> Dict:
+    def _merge_records(self, left: Optional[dict], right: Optional[dict],
+                      left_prefix: str = 'left', right_prefix: str = 'right') -> dict:
         """
         Merge two records with prefixes to avoid key conflicts.
         

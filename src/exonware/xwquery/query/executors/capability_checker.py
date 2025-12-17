@@ -9,11 +9,11 @@ This module provides capability checking for operations on different node types.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
-from typing import Dict, List, Set, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 # Import NodeType from nodes module per DEV_GUIDELINES
 from exonware.xwnode.nodes.strategies.contracts import NodeType
@@ -134,7 +134,7 @@ def check_operation_compatibility(operation: str, node_type: NodeType) -> bool:
     return True
 
 
-def get_supported_operations(node_type: NodeType) -> List[str]:
+def get_supported_operations(node_type: NodeType) -> list[str]:
     """
     Get list of operations supported by a node type.
     
@@ -153,7 +153,7 @@ def get_supported_operations(node_type: NodeType) -> List[str]:
     return supported
 
 
-def get_universal_operations() -> List[str]:
+def get_universal_operations() -> list[str]:
     """
     Get list of universal operations (work on all node types).
     
@@ -170,7 +170,7 @@ def get_universal_operations() -> List[str]:
     return universal
 
 
-def get_type_specific_operations(node_type: NodeType) -> List[str]:
+def get_type_specific_operations(node_type: NodeType) -> list[str]:
     """
     Get operations that are specific to (or optimal for) a node type.
     

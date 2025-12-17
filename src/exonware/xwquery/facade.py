@@ -7,11 +7,11 @@ and improved usability.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: October 26, 2025
 """
 
-from typing import Any, List, Dict, Optional
+from typing import Any, Optional
 from .contracts import ExecutionResult
 
 
@@ -36,7 +36,7 @@ class XWQueryFacade:
     # ============================================================================
     
     @staticmethod
-    def quick_select(data: Any, filter_expr: str = None, fields: List[str] = None) -> ExecutionResult:
+    def quick_select(data: Any, filter_expr: str = None, fields: list[str] = None) -> ExecutionResult:
         """
         Quick SELECT query with optional filter and fields.
         
@@ -102,7 +102,7 @@ class XWQueryFacade:
     # ============================================================================
     
     @staticmethod
-    def build_select(table: str, fields: List[str] = None, where: str = None, 
+    def build_select(table: str, fields: list[str] = None, where: str = None, 
                     order_by: str = None, limit: int = None) -> str:
         """
         Build a SELECT query string.
@@ -130,7 +130,7 @@ class XWQueryFacade:
         return query
     
     @staticmethod
-    def build_insert(table: str, values: Dict[str, Any]) -> str:
+    def build_insert(table: str, values: dict[str, Any]) -> str:
         """
         Build an INSERT query string.
         
@@ -146,7 +146,7 @@ class XWQueryFacade:
         return f"INSERT INTO {table} ({fields}) VALUES ({placeholders})"
     
     @staticmethod
-    def build_update(table: str, values: Dict[str, Any], where: str) -> str:
+    def build_update(table: str, values: dict[str, Any], where: str) -> str:
         """
         Build an UPDATE query string.
         
@@ -180,7 +180,7 @@ class XWQueryFacade:
     # ============================================================================
     
     @staticmethod
-    def explain(query: str) -> Dict[str, Any]:
+    def explain(query: str) -> dict[str, Any]:
         """
         Explain query execution plan.
         
@@ -204,7 +204,7 @@ class XWQueryFacade:
         }
     
     @staticmethod
-    def benchmark(query: str, data: Any, iterations: int = 100) -> Dict[str, Any]:
+    def benchmark(query: str, data: Any, iterations: int = 100) -> dict[str, Any]:
         """
         Benchmark query performance.
         
@@ -240,7 +240,7 @@ class XWQueryFacade:
 # CONVENIENCE FUNCTIONS
 # ============================================================================
 
-def quick_select(data: Any, filter_expr: str = None, fields: List[str] = None) -> ExecutionResult:
+def quick_select(data: Any, filter_expr: str = None, fields: list[str] = None) -> ExecutionResult:
     """Quick SELECT - convenience function."""
     return XWQueryFacade.quick_select(data, filter_expr, fields)
 
@@ -255,18 +255,18 @@ def quick_aggregate(data: Any, agg_func: str, field: str, group_by: str = None) 
     return XWQueryFacade.quick_aggregate(data, agg_func, field, group_by)
 
 
-def build_select(table: str, fields: List[str] = None, where: str = None, 
+def build_select(table: str, fields: list[str] = None, where: str = None, 
                 order_by: str = None, limit: int = None) -> str:
     """Build SELECT query - convenience function."""
     return XWQueryFacade.build_select(table, fields, where, order_by, limit)
 
 
-def build_insert(table: str, values: Dict[str, Any]) -> str:
+def build_insert(table: str, values: dict[str, Any]) -> str:
     """Build INSERT query - convenience function."""
     return XWQueryFacade.build_insert(table, values)
 
 
-def build_update(table: str, values: Dict[str, Any], where: str) -> str:
+def build_update(table: str, values: dict[str, Any], where: str) -> str:
     """Build UPDATE query - convenience function."""
     return XWQueryFacade.build_update(table, values, where)
 
@@ -276,12 +276,12 @@ def build_delete(table: str, where: str) -> str:
     return XWQueryFacade.build_delete(table, where)
 
 
-def explain(query: str) -> Dict[str, Any]:
+def explain(query: str) -> dict[str, Any]:
     """Explain query - convenience function."""
     return XWQueryFacade.explain(query)
 
 
-def benchmark(query: str, data: Any, iterations: int = 100) -> Dict[str, Any]:
+def benchmark(query: str, data: Any, iterations: int = 100) -> dict[str, Any]:
     """Benchmark query - convenience function."""
     return XWQueryFacade.benchmark(query, data, iterations)
 

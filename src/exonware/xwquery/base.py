@@ -11,13 +11,13 @@ Following xwnode pattern where root base.py contains shared base classes.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: October 26, 2025
 """
 
 import time
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 from .contracts import (
     IOperationExecutor,
@@ -50,7 +50,7 @@ class AOperationExecutor(IOperationExecutor):
     OPERATION_NAME: str = "UNKNOWN"
     
     # Supported node types (empty = all types)
-    SUPPORTED_NODE_TYPES: List[Any] = []
+    SUPPORTED_NODE_TYPES: list[Any] = []
     
     # Required capabilities
     REQUIRED_CAPABILITIES: OperationCapability = OperationCapability.NONE
@@ -158,7 +158,7 @@ class AOperationExecutor(IOperationExecutor):
                     required_capability=f"Requires one of: {supported}"
                 )
     
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get execution statistics for this executor."""
         avg_time = self._total_time / self._execution_count if self._execution_count > 0 else 0
         
@@ -214,7 +214,7 @@ class AParamExtractor(IParamExtractor, ABC):
         # Return as string
         return value_str
     
-    def _split_fields(self, fields_str: str) -> List[str]:
+    def _split_fields(self, fields_str: str) -> list[str]:
         """Split comma-separated fields, handling nested expressions."""
         if fields_str.strip() == '*':
             return ['*']

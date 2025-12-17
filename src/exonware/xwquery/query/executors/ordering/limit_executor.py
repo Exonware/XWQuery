@@ -16,11 +16,11 @@ Priority alignment:
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 27-Oct-2025
 """
 
-from typing import Any, Dict, List, Union
+from typing import Any, Union
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -59,7 +59,7 @@ class LimitExecutor(AUniversalOperationExecutor):
             }
         )
     
-    def _execute_limit(self, data: Any, params: Dict, context: ExecutionContext) -> Union[List[Dict], Any]:
+    def _execute_limit(self, data: Any, params: dict, context: ExecutionContext) -> Union[list[dict], Any]:
         """
         Execute limit logic with offset support.
         

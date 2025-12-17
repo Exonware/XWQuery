@@ -9,11 +9,11 @@ Implements SELECT operation execution on all node types.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
-from typing import Any, List, Dict, Optional
+from typing import Any, Optional
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationCapability
@@ -108,7 +108,7 @@ class SelectExecutor(AUniversalOperationExecutor):
             return node.STRATEGY_TYPE
         return NodeType.TREE  # Default
     
-    def _select_from_linear(self, source: Any, columns: List[str], context: ExecutionContext, where_condition: Optional[Dict] = None) -> List[Dict]:
+    def _select_from_linear(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: Optional[dict] = None) -> list[dict]:
         """Select from linear node (list-like)."""
         results = []
         
@@ -130,7 +130,7 @@ class SelectExecutor(AUniversalOperationExecutor):
         
         return results
     
-    def _select_from_tree(self, source: Any, columns: List[str], context: ExecutionContext, where_condition: Optional[Dict] = None) -> List[Dict]:
+    def _select_from_tree(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: Optional[dict] = None) -> list[dict]:
         """Select from tree node (key-value map)."""
         results = []
         
@@ -164,7 +164,7 @@ class SelectExecutor(AUniversalOperationExecutor):
         
         return results
     
-    def _select_from_graph(self, source: Any, columns: List[str], context: ExecutionContext, where_condition: Optional[Dict] = None) -> List[Dict]:
+    def _select_from_graph(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: Optional[dict] = None) -> list[dict]:
         """Select from graph node."""
         # For graphs, return nodes
         results = []
@@ -187,7 +187,7 @@ class SelectExecutor(AUniversalOperationExecutor):
         
         return results
     
-    def _select_from_matrix(self, source: Any, columns: List[str], context: ExecutionContext, where_condition: Optional[Dict] = None) -> List[Dict]:
+    def _select_from_matrix(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: Optional[dict] = None) -> list[dict]:
         """Select from matrix node."""
         results = []
         
@@ -209,7 +209,7 @@ class SelectExecutor(AUniversalOperationExecutor):
         
         return results
     
-    def _project_columns(self, value: Any, columns: List[str]) -> Optional[Dict]:
+    def _project_columns(self, value: Any, columns: list[str]) -> Optional[dict]:
         """Project specific columns from a value."""
         if not isinstance(value, dict):
             return {'value': value}
@@ -221,7 +221,7 @@ class SelectExecutor(AUniversalOperationExecutor):
         
         return projected if projected else None
     
-    def _matches_condition(self, row: Dict, condition: Dict[str, Any]) -> bool:
+    def _matches_condition(self, row: dict, condition: dict[str, Any]) -> bool:
         """Check if a single row matches a WHERE condition."""
         if not condition or not isinstance(row, dict):
             return True
@@ -260,14 +260,14 @@ class SelectExecutor(AUniversalOperationExecutor):
         
         return False
     
-    def _apply_where_filter(self, data: List[Dict], condition: Dict[str, Any]) -> List[Dict]:
+    def _apply_where_filter(self, data: list[dict], condition: dict[str, Any]) -> list[dict]:
         """Apply WHERE filter to data (legacy, prefer filtering in select methods)."""
         if not condition:
             return data
         
         return [row for row in data if self._matches_condition(row, condition)]
     
-    def _apply_order_by(self, data: List[Dict], order_by: str) -> List[Dict]:
+    def _apply_order_by(self, data: list[dict], order_by: str) -> list[dict]:
         """
         Apply ORDER BY sorting to data.
         
@@ -302,7 +302,7 @@ class SelectExecutor(AUniversalOperationExecutor):
             # (better than crashing - Usability priority #2)
             return data
     
-    def _apply_limit(self, data: List[Dict], limit: int, offset: int = 0) -> List[Dict]:
+    def _apply_limit(self, data: list[dict], limit: int, offset: int = 0) -> list[dict]:
         """
         Apply LIMIT with optional offset to data.
         

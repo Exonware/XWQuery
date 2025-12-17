@@ -7,11 +7,11 @@ N1QL generator - Couchbase N1QL (SQL for JSON).
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List
+from typing import
 from .sql_generator import SQLGenerator
 from ...contracts import QueryAction
 from ...defs import ConversionMode
@@ -24,7 +24,7 @@ class N1QLGenerator(SQLGenerator):
         return "N1QL"
 
 
-def generate_n1ql(actions: List[QueryAction], pretty: bool = True, **options) -> str:
+def generate_n1ql(actions: list[QueryAction], pretty: bool = True, **options) -> str:
     """Generate N1QL query from QueryAction tree."""
     generator = N1QLGenerator(pretty_print=pretty, **options)
     return generator.generate_with_validation(actions, **options)

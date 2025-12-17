@@ -7,11 +7,11 @@ VALUES Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
-from typing import Any, Dict, List
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -47,7 +47,7 @@ class ValuesExecutor(AUniversalOperationExecutor):
             metadata={'row_count': len(result_data.get('rows', []))}
         )
     
-    def _execute_values(self, values: List, columns: List, context: ExecutionContext) -> Dict:
+    def _execute_values(self, values: list, columns: list, context: ExecutionContext) -> dict:
         """Execute VALUES inline data."""
         rows = []
         

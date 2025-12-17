@@ -7,12 +7,11 @@ following the same pattern as xwnode/defs.py.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: October 26, 2025
 """
 
 from enum import Enum, Flag, auto
-from typing import List, Dict
 
 
 # ============================================================================
@@ -236,7 +235,7 @@ ALL_OPERATIONS = (
 )
 
 # Operation categories mapping
-OPERATION_CATEGORIES: Dict[str, List[str]] = {
+OPERATION_CATEGORIES: dict[str, list[str]] = {
     "core": CORE_OPERATIONS,
     "filtering": FILTER_OPERATIONS,
     "aggregation": AGGREGATION_OPERATIONS,

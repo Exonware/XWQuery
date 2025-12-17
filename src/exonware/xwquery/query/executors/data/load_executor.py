@@ -7,11 +7,11 @@ LOAD Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 09-Oct-2025
 """
 
-from typing import Any, Dict, List
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -40,7 +40,7 @@ class LoadExecutor(AUniversalOperationExecutor):
             metadata={'source': params.get('source', params.get('from'))}
         )
     
-    def _execute_load(self, node: Any, params: Dict, context: ExecutionContext) -> Dict:
+    def _execute_load(self, node: Any, params: dict, context: ExecutionContext) -> dict:
         """
         Execute LOAD - prepare for xwdata integration.
         

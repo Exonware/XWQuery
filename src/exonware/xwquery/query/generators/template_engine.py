@@ -8,13 +8,13 @@ conditionals, loops, and nested templates.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 29-Oct-2025
 """
 
 import os
 import re
-from typing import Any, Dict, List, Optional, Union, Callable
+from typing import Any, Optional, Union, Callable
 from pathlib import Path
 
 
@@ -47,10 +47,10 @@ class TemplateEngine:
             template_dir: Directory containing template files
         """
         self.template_dir = template_dir
-        self._template_cache: Dict[str, str] = {}
-        self._filters: Dict[str, Callable] = self._initialize_filters()
+        self._template_cache: dict[str, str] = {}
+        self._filters: dict[str, Callable] = self._initialize_filters()
     
-    def render(self, template: str, context: Dict[str, Any]) -> str:
+    def render(self, template: str, context: dict[str, Any]) -> str:
         """
         Render template with context data.
         
@@ -78,7 +78,7 @@ class TemplateEngine:
         
         return output
     
-    def render_file(self, template_name: str, context: Dict[str, Any]) -> str:
+    def render_file(self, template_name: str, context: dict[str, Any]) -> str:
         """
         Render template from file.
         
@@ -126,7 +126,7 @@ class TemplateEngine:
         """Remove template comments."""
         return re.sub(self.COMMENT_PATTERN, '', template, flags=re.DOTALL)
     
-    def _process_parameters(self, template: str, context: Dict[str, Any]) -> str:
+    def _process_parameters(self, template: str, context: dict[str, Any]) -> str:
         """Process parameter substitutions."""
         def replace_param(match):
             param_expr = match.group(1).strip()
@@ -153,7 +153,7 @@ class TemplateEngine:
         
         return re.sub(self.PARAM_PATTERN, replace_param, template)
     
-    def _process_conditionals(self, template: str, context: Dict[str, Any]) -> str:
+    def _process_conditionals(self, template: str, context: dict[str, Any]) -> str:
         """Process conditional blocks."""
         def replace_conditional(match):
             condition = match.group(1).strip()
@@ -176,7 +176,7 @@ class TemplateEngine:
         
         return template
     
-    def _process_loops(self, template: str, context: Dict[str, Any]) -> str:
+    def _process_loops(self, template: str, context: dict[str, Any]) -> str:
         """Process loop blocks."""
         def replace_loop(match):
             items_expr = match.group(1).strip()
@@ -216,7 +216,7 @@ class TemplateEngine:
         
         return template
     
-    def _process_partials(self, template: str, context: Dict[str, Any]) -> str:
+    def _process_partials(self, template: str, context: dict[str, Any]) -> str:
         """Process partial includes."""
         def replace_partial(match):
             partial_name = match.group(1).strip()
@@ -229,7 +229,7 @@ class TemplateEngine:
         
         return re.sub(self.PARTIAL_PATTERN, replace_partial, template)
     
-    def _get_value(self, path: str, context: Dict[str, Any]) -> Any:
+    def _get_value(self, path: str, context: dict[str, Any]) -> Any:
         """
         Get value from context using dot notation.
         
@@ -256,7 +256,7 @@ class TemplateEngine:
         
         return value
     
-    def _evaluate_condition(self, condition: str, context: Dict[str, Any]) -> bool:
+    def _evaluate_condition(self, condition: str, context: dict[str, Any]) -> bool:
         """
         Evaluate condition expression.
         
@@ -311,7 +311,7 @@ class TemplateEngine:
         value = self._get_value(condition, context)
         return bool(value)
     
-    def _initialize_filters(self) -> Dict[str, Callable]:
+    def _initialize_filters(self) -> dict[str, Callable]:
         """Initialize built-in filters."""
         return {
             'upper': lambda x: str(x).upper(),
@@ -361,7 +361,7 @@ class QueryTemplateEngine(TemplateEngine):
         self.add_filter('and_list', lambda x: ' AND '.join(str(i) for i in x) if hasattr(x, '__iter__') else str(x))
         self.add_filter('or_list', lambda x: ' OR '.join(str(i) for i in x) if hasattr(x, '__iter__') else str(x))
     
-    def render_query(self, format_name: str, operation: str, context: Dict[str, Any]) -> str:
+    def render_query(self, format_name: str, operation: str, context: dict[str, Any]) -> str:
         """
         Render query for specific format and operation.
         
@@ -378,13 +378,13 @@ class QueryTemplateEngine(TemplateEngine):
 
 
 # Convenience functions
-def render_template(template: str, context: Dict[str, Any]) -> str:
+def render_template(template: str, context: dict[str, Any]) -> str:
     """Render template with context."""
     engine = TemplateEngine()
     return engine.render(template, context)
 
 
-def render_query_template(template_dir: str, format_name: str, operation: str, context: Dict[str, Any]) -> str:
+def render_query_template(template_dir: str, format_name: str, operation: str, context: dict[str, Any]) -> str:
     """Render query template."""
     engine = QueryTemplateEngine(template_dir)
     return engine.render_query(format_name, operation, context)

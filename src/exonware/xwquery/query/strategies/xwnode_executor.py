@@ -9,11 +9,11 @@ using the existing XWNode strategy system.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Dict, List, Optional, Type
+from typing import Any, Optional
 from datetime import datetime
 
 from .base import AQueryActionExecutor
@@ -121,7 +121,7 @@ class XWNodeQueryActionExecutor(AQueryActionExecutor):
         except Exception:
             return False
     
-    def get_supported_query_types(self) -> List[str]:
+    def get_supported_query_types(self) -> list[str]:
         """Get list of query types supported by XWNode."""
         return self._supported_queries.copy()
     
@@ -141,7 +141,7 @@ class XWNodeQueryActionExecutor(AQueryActionExecutor):
         self._strategy_cache[query_type_upper] = strategy
         return strategy
     
-    def _get_strategy_class(self, query_type: str) -> Optional[Type]:
+    def _get_strategy_class(self, query_type: str) -> Optional[type]:
         """Get strategy class for query type."""
         strategy_map = {
             "SQL": "sql",
@@ -202,7 +202,7 @@ class XWNodeQueryActionExecutor(AQueryActionExecutor):
         script_strategy = XWQueryScriptStrategy(actions_tree)
         return script_strategy.to_format("SQL")  # Default to SQL
     
-    def get_execution_stats(self) -> Dict[str, Any]:
+    def get_execution_stats(self) -> dict[str, Any]:
         """Get execution statistics."""
         stats = self._execution_stats.copy()
         
@@ -235,7 +235,7 @@ class XWNodeQueryActionExecutor(AQueryActionExecutor):
             "execution_times": []
         }
     
-    def get_backend_info(self) -> Dict[str, Any]:
+    def get_backend_info(self) -> dict[str, Any]:
         """Get XWNode backend information."""
         return {
             "backend": "XWNODE",
@@ -252,7 +252,7 @@ class XWNodeQueryActionExecutor(AQueryActionExecutor):
             "execution_stats": self.get_execution_stats()
         }
     
-    def estimate_cost(self, query: str, query_type: str) -> Dict[str, Any]:
+    def estimate_cost(self, query: str, query_type: str) -> dict[str, Any]:
         """Estimate execution cost for XWNode."""
         try:
             strategy = self._get_strategy(query_type)
@@ -276,13 +276,13 @@ class XWNodeQueryActionExecutor(AQueryActionExecutor):
                 "strategy_used": "Unknown"
             }
     
-    def execute(self, query: str, context: Dict[str, Any] = None, **kwargs) -> Any:
+    def execute(self, query: str, context: dict[str, Any] = None, **kwargs) -> Any:
         """Execute query using XWNode strategies."""
         # Determine query type automatically if not specified
         query_type = kwargs.get('query_type', self._detect_query_type(query))
         return self.execute_query(query, query_type, **kwargs)
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get query execution plan."""
         query_type = self._detect_query_type(query)
         try:
@@ -301,11 +301,11 @@ class XWNodeQueryActionExecutor(AQueryActionExecutor):
         query_type = self._detect_query_type(query_string)
         return query_type in self._supported_queries
     
-    def get_supported_operations(self) -> List[str]:
+    def get_supported_operations(self) -> list[str]:
         """Get list of supported operations."""
         return self._supported_queries.copy()
     
-    def estimate_complexity(self, query_string: str) -> Dict[str, Any]:
+    def estimate_complexity(self, query_string: str) -> dict[str, Any]:
         """Estimate query complexity."""
         query_type = self._detect_query_type(query_string)
         return self.estimate_cost(query_string, query_type)

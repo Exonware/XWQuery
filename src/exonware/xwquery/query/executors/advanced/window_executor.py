@@ -7,11 +7,11 @@ WINDOW Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 09-Oct-2025
 """
 
-from typing import Any, Dict, List
+from typing import Any
 from ....base import AOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -45,7 +45,7 @@ class WindowExecutor(AOperationExecutor):
             metadata={'operation': self.OPERATION_NAME}
         )
     
-    def _execute_window(self, node: Any, params: Dict, context: ExecutionContext) -> Dict:
+    def _execute_window(self, node: Any, params: dict, context: ExecutionContext) -> dict:
         """Execute WINDOW - Window functions (ROW_NUMBER, RANK, etc.)."""
         function = params.get('function', 'ROW_NUMBER')
         partition_by = params.get('partition_by', [])

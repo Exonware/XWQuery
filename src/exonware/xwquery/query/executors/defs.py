@@ -8,7 +8,7 @@ Imports shared types from root defs.py per DEV_GUIDELINES.md.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: October 26, 2025
 """
 

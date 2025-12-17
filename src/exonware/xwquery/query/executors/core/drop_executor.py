@@ -7,11 +7,11 @@ DROP Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
-from typing import Any, Dict, List
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -60,7 +60,7 @@ class DropExecutor(AUniversalOperationExecutor):
         )
     
     def _execute_drop(self, node: Any, structure_type: str, name: str, 
-                     if_exists: bool, context: ExecutionContext) -> Dict:
+                     if_exists: bool, context: ExecutionContext) -> dict:
         """Actual DROP logic."""
         try:
             # Determine path based on structure type

@@ -8,13 +8,13 @@ and provides conversion between different query formats using actions in tree fo
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
 import re
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional, Union, Type, TYPE_CHECKING
+from typing import Any, Optional, Union, TYPE_CHECKING
 from datetime import datetime
 
 from .base import AQueryStrategy
@@ -77,7 +77,7 @@ class XWQueryScriptStrategy(AQueryStrategy):
         self._comments = []
         self._metadata = {}
     
-    def execute(self, query: str, context: Dict[str, Any] = None, **kwargs) -> Any:
+    def execute(self, query: str, context: dict[str, Any] = None, **kwargs) -> Any:
         """Execute XWQuery script."""
         if not self.validate_query(query):
             raise XWNodeValueError(f"Invalid XWQuery script: {query}")
@@ -190,7 +190,7 @@ class XWQueryScriptStrategy(AQueryStrategy):
         
         return True
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get XWQuery script execution plan."""
         return {
             "query_type": "XWQUERY_SCRIPT",
@@ -204,11 +204,11 @@ class XWQueryScriptStrategy(AQueryStrategy):
         """Check if this strategy can handle the given query string."""
         return self.validate_query(query_string)
     
-    def get_supported_operations(self) -> List[str]:
+    def get_supported_operations(self) -> list[str]:
         """Get list of supported query operations."""
         return self.ACTION_TYPES.copy()
     
-    def estimate_complexity(self, query_string: str) -> Dict[str, Any]:
+    def estimate_complexity(self, query_string: str) -> dict[str, Any]:
         """Estimate query complexity and resource requirements."""
         actions = self._extract_actions(query_string)
         complexity_level = self._estimate_complexity(query_string)
@@ -228,7 +228,7 @@ class XWQueryScriptStrategy(AQueryStrategy):
         self._actions_tree = self._dict_to_query_action(parsed_actions)
         return self
     
-    def _dict_to_query_action(self, data: Dict[str, Any]) -> 'QueryAction':
+    def _dict_to_query_action(self, data: dict[str, Any]) -> 'QueryAction':
         """Convert parsed dictionary to QueryAction tree."""
         from ...contracts import QueryAction
         
@@ -288,7 +288,7 @@ class XWQueryScriptStrategy(AQueryStrategy):
         self._actions_tree = actions_tree
         return self
     
-    def _parse_xwquery_script(self, script_content: str) -> Dict[str, Any]:
+    def _parse_xwquery_script(self, script_content: str) -> dict[str, Any]:
         """Parse XWQuery script into tree structure with nesting support."""
         return {
             "root": {
@@ -303,7 +303,7 @@ class XWQueryScriptStrategy(AQueryStrategy):
             }
         }
     
-    def _parse_statements(self, script_content: str) -> List[Dict[str, Any]]:
+    def _parse_statements(self, script_content: str) -> list[dict[str, Any]]:
         """Parse individual statements with nesting support."""
         statements = []
         lines = script_content.split('\n')
@@ -324,7 +324,7 @@ class XWQueryScriptStrategy(AQueryStrategy):
         
         return statements
     
-    def _parse_statement_line(self, line: str, action_type: str, line_num: int) -> Optional[Dict[str, Any]]:
+    def _parse_statement_line(self, line: str, action_type: str, line_num: int) -> Optional[dict[str, Any]]:
         """
         Parse a single statement line and extract structured parameters.
         
@@ -344,7 +344,7 @@ class XWQueryScriptStrategy(AQueryStrategy):
             "children": []  # For nested actions
         }
     
-    def _extract_comments(self, script_content: str) -> List[Dict[str, Any]]:
+    def _extract_comments(self, script_content: str) -> list[dict[str, Any]]:
         """Extract comments from script content."""
         comments = []
         lines = script_content.split('\n')
@@ -359,7 +359,7 @@ class XWQueryScriptStrategy(AQueryStrategy):
         
         return comments
     
-    def _extract_actions(self, query: str) -> List[str]:
+    def _extract_actions(self, query: str) -> list[str]:
         """Extract action types from query."""
         actions = []
         query_upper = query.upper()
@@ -391,7 +391,7 @@ class XWQueryScriptStrategy(AQueryStrategy):
         else:
             return 10
     
-    def _get_optimization_hints(self, query: str) -> List[str]:
+    def _get_optimization_hints(self, query: str) -> list[str]:
         """Get query optimization hints."""
         hints = []
         
@@ -402,13 +402,13 @@ class XWQueryScriptStrategy(AQueryStrategy):
         
         return hints
     
-    def _get_strategy_class(self, format_name: str) -> Optional[Type[AQueryStrategy]]:
+    def _get_strategy_class(self, format_name: str) -> Optional[type[AQueryStrategy]]:
         """Get strategy class for format using XWNode's strategy registry."""
         from ..registry import get_strategy_registry
         registry = get_strategy_registry()
         return registry.get_query_strategy(format_name.upper())
     
-    def _get_strategy_class_fallback(self, format_name: str) -> Optional[Type[AQueryStrategy]]:
+    def _get_strategy_class_fallback(self, format_name: str) -> Optional[type[AQueryStrategy]]:
         """
         Fallback strategy class lookup.
         
@@ -494,11 +494,11 @@ class XWQueryScriptStrategy(AQueryStrategy):
         
         return self
     
-    def _find_action_by_id(self, action_id: str) -> Optional[Dict[str, Any]]:
+    def _find_action_by_id(self, action_id: str) -> Optional[dict[str, Any]]:
         """Find action by ID in the tree."""
         return self._search_tree(self._actions_tree, action_id)
     
-    def _search_tree(self, node: ANode, action_id: str) -> Optional[Dict[str, Any]]:
+    def _search_tree(self, node: ANode, action_id: str) -> Optional[dict[str, Any]]:
         """Recursively search for action in tree."""
         if isinstance(node, ANode):
             node_data = node.to_native()
@@ -523,13 +523,13 @@ class XWQueryScriptStrategy(AQueryStrategy):
         
         return None
     
-    def _get_all_actions(self) -> List[Dict[str, Any]]:
+    def _get_all_actions(self) -> list[dict[str, Any]]:
         """Get all actions from the tree (flattened)."""
         actions = []
         self._flatten_tree(self._actions_tree, actions)
         return actions
     
-    def _flatten_tree(self, node: ANode, actions: List[Dict[str, Any]]):
+    def _flatten_tree(self, node: ANode, actions: list[dict[str, Any]]):
         """Flatten the tree to get all actions."""
         if isinstance(node, ANode):
             node_data = node.to_native()
@@ -580,7 +580,7 @@ class XWQueryScriptStrategy(AQueryStrategy):
         
         return '\n'.join(query_lines)
     
-    def to_native(self) -> Dict[str, Any]:
+    def to_native(self) -> dict[str, Any]:
         """Convert to native Python object."""
         return {
             "actions_tree": self._actions_tree.to_native(),

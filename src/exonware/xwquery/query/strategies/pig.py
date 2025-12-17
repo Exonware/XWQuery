@@ -7,12 +7,12 @@ This module implements the Pig query strategy for Apache Pig Latin operations.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
 import re
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from .base import AStructuredQueryStrategy
 from ...errors import XWQueryTypeError, XWQueryValueError
 from ...defs import QueryMode
@@ -68,7 +68,7 @@ class PigStrategy(AStructuredQueryStrategy):
         
         return False
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get Pig query execution plan."""
         query_type = self._get_query_type(query)
         
@@ -81,7 +81,7 @@ class PigStrategy(AStructuredQueryStrategy):
             "optimization_hints": self._get_optimization_hints(query)
         }
     
-    def select_query(self, table: str, columns: List[str], where_clause: str = None) -> Any:
+    def select_query(self, table: str, columns: list[str], where_clause: str = None) -> Any:
         """Execute SELECT query."""
         query = f"data = LOAD '{table}' AS ({', '.join(columns)});"
         if where_clause:
@@ -92,13 +92,13 @@ class PigStrategy(AStructuredQueryStrategy):
         
         return self.execute(query)
     
-    def insert_query(self, table: str, data: Dict[str, Any]) -> Any:
+    def insert_query(self, table: str, data: dict[str, Any]) -> Any:
         """Execute INSERT query."""
         # Pig doesn't support INSERT, use LOAD and STORE
         query = f"data = LOAD '{table}'; new_data = LOAD 'new_data' AS ({', '.join(data.keys())}); combined = UNION data, new_data; STORE combined INTO '{table}';"
         return self.execute(query)
     
-    def update_query(self, table: str, data: Dict[str, Any], where_clause: str = None) -> Any:
+    def update_query(self, table: str, data: dict[str, Any], where_clause: str = None) -> Any:
         """Execute UPDATE query."""
         # Pig doesn't support UPDATE, use FILTER and FOREACH
         query = f"data = LOAD '{table}';"
@@ -121,7 +121,7 @@ class PigStrategy(AStructuredQueryStrategy):
         
         return self.execute(query)
     
-    def join_query(self, tables: List[str], join_conditions: List[str]) -> Any:
+    def join_query(self, tables: list[str], join_conditions: list[str]) -> Any:
         """Execute JOIN query."""
         if len(tables) < 2:
             raise XWNodeValueError("JOIN requires at least 2 tables")
@@ -131,7 +131,7 @@ class PigStrategy(AStructuredQueryStrategy):
         
         return self.execute(query)
     
-    def aggregate_query(self, table: str, functions: List[str], group_by: List[str] = None) -> Any:
+    def aggregate_query(self, table: str, functions: list[str], group_by: list[str] = None) -> Any:
         """Execute aggregate query."""
         query = f"data = LOAD '{table}';"
         if group_by:
@@ -187,7 +187,7 @@ class PigStrategy(AStructuredQueryStrategy):
         else:
             return 60
     
-    def _extract_operations(self, query: str) -> List[str]:
+    def _extract_operations(self, query: str) -> list[str]:
         """Extract Pig operations from query."""
         operations = []
         
@@ -199,7 +199,7 @@ class PigStrategy(AStructuredQueryStrategy):
         
         return operations
     
-    def _get_optimization_hints(self, query: str) -> List[str]:
+    def _get_optimization_hints(self, query: str) -> list[str]:
         """Get query optimization hints."""
         hints = []
         

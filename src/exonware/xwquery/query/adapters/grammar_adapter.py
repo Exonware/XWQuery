@@ -8,13 +8,13 @@ Loads grammars from xwquery's grammars directory for all 31+ formats.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: October 29, 2025
 """
 
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from exonware.xwsyntax import BidirectionalGrammar, SyntaxEngine
 from exonware.xwquery.contracts import QueryAction
 from exonware.xwquery.defs import QueryMode, ConversionMode, FormatType
@@ -147,7 +147,7 @@ class UniversalGrammarAdapter:
             return False
     
     @staticmethod
-    def list_available_formats() -> List[str]:
+    def list_available_formats() -> list[str]:
         """
         List all available grammar formats in xwquery's grammars directory.
         

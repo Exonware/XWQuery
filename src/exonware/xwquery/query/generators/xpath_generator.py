@@ -8,11 +8,11 @@ Supports XPath 1.0, 2.0, 3.0 with conversion modes.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List, Dict, Any, Optional
+from typing import Any, Optional
 from .base_generator import APathQueryGenerator
 from ...contracts import QueryAction
 from ...errors import XWQueryValueError
@@ -55,7 +55,7 @@ class XPathGenerator(APathQueryGenerator):
     
     # ==================== Main Generation Entry Point ====================
     
-    def generate(self, actions: List[QueryAction], **options) -> str:
+    def generate(self, actions: list[QueryAction], **options) -> str:
         """
         Generate XPath expression from QueryAction tree.
         
@@ -99,8 +99,8 @@ class XPathGenerator(APathQueryGenerator):
     def _build_xpath(
         self,
         table: Optional[str],
-        columns: List[str],
-        predicates: List[str]
+        columns: list[str],
+        predicates: list[str]
     ) -> str:
         """
         Build XPath expression.
@@ -171,7 +171,7 @@ class XPathGenerator(APathQueryGenerator):
         
         return ' and '.join(conditions) if conditions else None
     
-    def _filter_dict_to_predicate(self, filter_dict: Dict[str, Any]) -> str:
+    def _filter_dict_to_predicate(self, filter_dict: dict[str, Any]) -> str:
         """Convert filter dictionary to XPath predicate."""
         conditions = []
         
@@ -231,7 +231,7 @@ class XPathGenerator(APathQueryGenerator):
     
     # ==================== Path Formatting ====================
     
-    def format_path(self, path_parts: List[str]) -> str:
+    def format_path(self, path_parts: list[str]) -> str:
         """
         Format path from parts.
         
@@ -287,7 +287,7 @@ class XPathGenerator(APathQueryGenerator):
 
 # ==================== Convenience Function ====================
 
-def generate_xpath(actions: List[QueryAction], **options) -> str:
+def generate_xpath(actions: list[QueryAction], **options) -> str:
     """
     Generate XPath expression from QueryAction tree.
     

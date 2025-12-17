@@ -8,11 +8,11 @@ Caches query results using xwnode's LRU_CACHE strategy for 10-50x performance im
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 27-Oct-2025
 """
 
-from typing import Any, Dict, Optional, List
+from typing import Any, Optional
 from dataclasses import dataclass
 from collections import OrderedDict
 import hashlib
@@ -78,7 +78,7 @@ class QueryCache:
             self._timestamps = {} if ttl_seconds else None
         else:
             # Fallback to OrderedDict for backward compatibility
-            self._cache: OrderedDict[str, CacheEntry] = OrderedDict()
+            self._cache: Ordereddict[str, CacheEntry] = OrderedDict()
             self._current_memory_bytes = 0
             self._timestamps = None
             # Statistics (for fallback)
@@ -86,7 +86,7 @@ class QueryCache:
             self._misses = 0
             self._evictions = 0
     
-    def get(self, query: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
+    def get(self, query: str, params: Optional[dict[str, Any]] = None) -> Optional[Any]:
         """
         Get cached result for a query
         
@@ -142,7 +142,7 @@ class QueryCache:
         self,
         query: str,
         result: Any,
-        params: Optional[Dict[str, Any]] = None
+        params: Optional[dict[str, Any]] = None
     ) -> None:
         """
         Cache a query result
@@ -187,7 +187,7 @@ class QueryCache:
             self._cache[query_hash] = entry
             self._current_memory_bytes += size_bytes
     
-    def invalidate(self, query: Optional[str] = None, params: Optional[Dict[str, Any]] = None) -> None:
+    def invalidate(self, query: Optional[str] = None, params: Optional[dict[str, Any]] = None) -> None:
         """
         Invalidate cache entries
         
@@ -235,7 +235,7 @@ class QueryCache:
         # In production, you'd want to track query-table dependencies
         self.invalidate()
     
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get cache statistics"""
         if self._use_xwnode:
             # Access underlying LRU_CACHE strategy for stats
@@ -277,7 +277,7 @@ class QueryCache:
             self._misses = 0
             self._evictions = 0
     
-    def _hash_query(self, query: str, params: Optional[Dict[str, Any]] = None) -> str:
+    def _hash_query(self, query: str, params: Optional[dict[str, Any]] = None) -> str:
         """Generate hash for query and parameters"""
         # Normalize query (remove extra whitespace)
         normalized_query = ' '.join(query.split())

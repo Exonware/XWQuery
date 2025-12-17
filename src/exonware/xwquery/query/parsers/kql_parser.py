@@ -8,11 +8,11 @@ Extends SQL parser with time-series and log-specific operators.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List
+from typing import
 from .sql_parser import SQLParser
 from ...contracts import QueryAction
 from ...defs import ConversionMode
@@ -35,7 +35,7 @@ class KQLParser(SQLParser):
         return "KQL"
 
 
-def parse_kql(query: str, **options) -> List[QueryAction]:
+def parse_kql(query: str, **options) -> list[QueryAction]:
     """Parse KQL query to QueryAction tree."""
     parser = KQLParser()
     return parser.parse_with_validation(query, **options)

@@ -7,12 +7,12 @@ This module implements the JMESPath query strategy for JSON data queries.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
 import re
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from .base import ADocumentQueryStrategy
 from ...errors import XWQueryTypeError, XWQueryValueError
 from ...defs import QueryMode
@@ -76,7 +76,7 @@ class JMESPathStrategy(ADocumentQueryStrategy):
         
         return False
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get JMESPath query execution plan."""
         query_type = self._get_query_type(query)
         
@@ -100,7 +100,7 @@ class JMESPathStrategy(ADocumentQueryStrategy):
         query = f"[?{filter_expression}]"
         return self.execute(query)
     
-    def projection_query(self, fields: List[str]) -> Any:
+    def projection_query(self, fields: list[str]) -> Any:
         """Execute projection query."""
         if len(fields) == 1:
             query = f"$.{fields[0]}"
@@ -110,7 +110,7 @@ class JMESPathStrategy(ADocumentQueryStrategy):
         
         return self.execute(query)
     
-    def sort_query(self, sort_fields: List[str], order: str = "asc") -> Any:
+    def sort_query(self, sort_fields: list[str], order: str = "asc") -> Any:
         """Execute sort query."""
         if order.lower() == "desc":
             query = f"sort_by(@, &{sort_fields[0]}) | reverse(@)"
@@ -174,7 +174,7 @@ class JMESPathStrategy(ADocumentQueryStrategy):
         else:
             return 20
     
-    def _extract_expressions(self, query: str) -> List[str]:
+    def _extract_expressions(self, query: str) -> list[str]:
         """Extract JMESPath expressions from query."""
         expressions = []
         
@@ -200,7 +200,7 @@ class JMESPathStrategy(ADocumentQueryStrategy):
         
         return expressions
     
-    def _get_optimization_hints(self, query: str) -> List[str]:
+    def _get_optimization_hints(self, query: str) -> list[str]:
         """Get query optimization hints."""
         hints = []
         

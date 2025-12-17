@@ -8,11 +8,11 @@ Extends SQL parser with MapReduce functions and Hadoop features.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List
+from typing import
 from .sql_parser import SQLParser
 from ...contracts import QueryAction
 from ...defs import ConversionMode
@@ -36,7 +36,7 @@ class HiveQLParser(SQLParser):
         return "HiveQL"
 
 
-def parse_hiveql(query: str, **options) -> List[QueryAction]:
+def parse_hiveql(query: str, **options) -> list[QueryAction]:
     """Parse HiveQL query to QueryAction tree."""
     parser = HiveQLParser()
     return parser.parse_with_validation(query, **options)

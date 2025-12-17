@@ -7,7 +7,7 @@ name = "exonware-xwquery"
 dynamic = ["version"]
 description = "Universal query language for data structures - 50+ operations, 35+ format converters"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 keywords = [ "query", "sql", "graphql", "cypher", "sparql", "data", "conversion", "exonware",]
 classifiers = [ 
     "Development Status :: 3 - Alpha", 
@@ -15,18 +15,14 @@ classifiers = [
     "License :: OSI Approved :: MIT License", 
     "Operating System :: OS Independent", 
     "Programming Language :: Python :: 3", 
-    "Programming Language :: Python :: 3.8", 
-    "Programming Language :: Python :: 3.9", 
-    "Programming Language :: Python :: 3.10", 
-    "Programming Language :: Python :: 3.11", 
     "Programming Language :: Python :: 3.12", 
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Database :: Database Engines/Servers",
 ]
 dependencies = [
-    "exonware-xwsystem>=0.0.1",
-    "exonware-xwnode>=0.0.1.28",
-    "exonware-xwsyntax>=0.0.1",
+    "exonware-xwsystem",
+    "exonware-xwnode",
+    "exonware-xwsyntax",
 ]
 
 [[project.authors]]
@@ -46,10 +42,15 @@ dev = [
     "mypy>=1.0.0",
 ]
 lazy = [
+    "exonware-xwsystem[lazy]",
     "exonware-xwnode[lazy]",
+    "exonware-xwsyntax[lazy]",
 ]
 full = [
+    # xwquery leverages all full capabilities
+    "exonware-xwsystem[full]",
     "exonware-xwnode[full]",
+    "exonware-xwsyntax[full]",
 ]
 
 [project.urls]
@@ -66,7 +67,7 @@ profile = "black"
 line_length = 88
 
 [tool.mypy]
-python_version = "0.0.1.7"
+python_version = "0.0.1.8"
 strict = true
 warn_return_any = true
 warn_unused_configs = true

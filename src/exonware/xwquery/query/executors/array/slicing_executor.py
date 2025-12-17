@@ -7,11 +7,11 @@ SLICING Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 09-Oct-2025
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from ....base import AOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -39,7 +39,7 @@ class SlicingExecutor(AOperationExecutor):
             metadata={'slice_count': result_data.get('count', 0)}
         )
     
-    def _execute_slicing(self, node: Any, params: Dict, context: ExecutionContext) -> Dict:
+    def _execute_slicing(self, node: Any, params: dict, context: ExecutionContext) -> dict:
         """Execute SLICING using Python's native list slicing."""
         # REUSE: Extract items
         items = extract_items(node)

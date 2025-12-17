@@ -10,11 +10,11 @@ following GUIDELINES_DEV.md "Never reinvent the wheel" principle.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import Any, List, Dict, Optional, Callable, Union
+from typing import Any, Optional, Callable, Union
 import sys
 
 # ============================================================================
@@ -129,7 +129,7 @@ class SafeExtractor:
     """
     
     @staticmethod
-    def extract_items(node: Any, validate: bool = True) -> List[Any]:
+    def extract_items(node: Any, validate: bool = True) -> list[Any]:
         """
         Safely extract items from any data structure.
         
@@ -364,12 +364,12 @@ class SmartAggregator:
     """
     
     @staticmethod
-    def compute_aggregates(items: List[Any], field: Optional[str] = None) -> Dict[str, Any]:
+    def compute_aggregates(items: list[Any], field: Optional[str] = None) -> dict[str, Any]:
         """
         Compute all aggregates in a single pass with null handling.
         
         Returns:
-            Dict with: sum, avg, min, max, count, null_count
+            dict with: sum, avg, min, max, count, null_count
         """
         if not items:
             return {

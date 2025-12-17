@@ -10,12 +10,12 @@ from query string content using multi-stage detection pipeline.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 26-Oct-2025
 """
 
 import re
-from typing import Dict, List, Tuple, Optional
+from typing import Optional
 from collections import defaultdict
 
 
@@ -41,7 +41,7 @@ class QueryFormatDetector:
         self._keyword_weights = self._build_keyword_weights()
         self._pattern_matchers = self._build_pattern_matchers()
     
-    def _build_keyword_weights(self) -> Dict[str, Dict[str, int]]:
+    def _build_keyword_weights(self) -> dict[str, dict[str, int]]:
         """
         Build keyword dictionaries with uniqueness weights.
         
@@ -100,12 +100,12 @@ class QueryFormatDetector:
             }
         }
     
-    def _build_pattern_matchers(self) -> Dict[str, List[Tuple[re.Pattern, float]]]:
+    def _build_pattern_matchers(self) -> dict[str, list[tuple[re.Pattern, float]]]:
         """
         Build regex patterns for structure-based detection.
         
         Returns:
-            Dict mapping format -> [(pattern, confidence_weight), ...]
+            dict mapping format -> [(pattern, confidence_weight), ...]
         """
         return {
             'SQL': [
@@ -173,7 +173,7 @@ class QueryFormatDetector:
             ],
         }
     
-    def detect_format(self, query: str) -> Tuple[str, float]:
+    def detect_format(self, query: str) -> tuple[str, float]:
         """
         Detect query format using multi-stage pipeline.
         
@@ -217,7 +217,7 @@ class QueryFormatDetector:
         
         return best_format, confidence
     
-    def _quick_keyword_check(self, query: str) -> Optional[Tuple[str, float]]:
+    def _quick_keyword_check(self, query: str) -> Optional[tuple[str, float]]:
         """
         Stage 1: Quick keyword check for common formats.
         
@@ -263,7 +263,7 @@ class QueryFormatDetector:
         
         return None  # No quick match, continue to deeper analysis
     
-    def _pattern_matching_detection(self, query: str) -> Dict[str, float]:
+    def _pattern_matching_detection(self, query: str) -> dict[str, float]:
         """
         Stage 2: Pattern-based detection using regex.
         
@@ -282,7 +282,7 @@ class QueryFormatDetector:
         
         return scores
     
-    def _keyword_frequency_detection(self, query: str) -> Dict[str, float]:
+    def _keyword_frequency_detection(self, query: str) -> dict[str, float]:
         """
         Stage 3: Keyword frequency analysis.
         
@@ -310,9 +310,9 @@ class QueryFormatDetector:
     
     def _combine_scores(
         self, 
-        pattern_scores: Dict[str, float],
-        keyword_scores: Dict[str, float]
-    ) -> Dict[str, float]:
+        pattern_scores: dict[str, float],
+        keyword_scores: dict[str, float]
+    ) -> dict[str, float]:
         """
         Stage 4: Combine and weight different detection methods.
         
@@ -330,7 +330,7 @@ class QueryFormatDetector:
         
         return dict(combined)
     
-    def detect_format_with_candidates(self, query: str) -> Dict[str, float]:
+    def detect_format_with_candidates(self, query: str) -> dict[str, float]:
         """
         Detect format and return all candidates with scores.
         
@@ -340,7 +340,7 @@ class QueryFormatDetector:
             query: Query string
             
         Returns:
-            Dict of format -> confidence score for all detected formats
+            dict of format -> confidence score for all detected formats
             
         Example:
             >>> detector = QueryFormatDetector()
@@ -373,7 +373,7 @@ class QueryFormatDetector:
 _global_detector: Optional[QueryFormatDetector] = None
 
 
-def detect_query_format(query: str) -> Tuple[str, float]:
+def detect_query_format(query: str) -> tuple[str, float]:
     """
     Convenience function for query format detection.
     

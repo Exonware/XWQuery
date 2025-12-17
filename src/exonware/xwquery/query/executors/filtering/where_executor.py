@@ -7,11 +7,11 @@ WHERE Operation Executor
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 08-Oct-2025
 """
 
-from typing import Any, List, Dict, Union, Optional
+from typing import Any, Union, Optional
 import operator
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
@@ -56,7 +56,7 @@ class WhereExecutor(AUniversalOperationExecutor):
         Execute WHERE operation - filter data based on condition.
         
         Supports:
-        - Dict-based conditions: {'field': value, 'field2': value2}
+        - dict-based conditions: {'field': value, 'field2': value2}
         - Callable conditions: lambda item: item['age'] > 18
         - Expression conditions: "field > 10"
         - List data from params or context node
@@ -92,7 +92,7 @@ class WhereExecutor(AUniversalOperationExecutor):
         
         Supports multiple condition types:
         - None: Match all (returns True)
-        - Dict: {'field': value, ...} - all fields must match
+        - dict: {'field': value, ...} - all fields must match
         - Callable: lambda item: boolean
         - String: "field > 10" - simple expression evaluation
         - List/Tuple: [cond1, cond2, ...] - all conditions must match (AND)
@@ -122,7 +122,7 @@ class WhereExecutor(AUniversalOperationExecutor):
         # Default: treat as boolean
         return bool(condition)
     
-    def _evaluate_dict_condition(self, item: Any, condition: Dict) -> bool:
+    def _evaluate_dict_condition(self, item: Any, condition: dict) -> bool:
         """
         Evaluate dict-based condition.
         

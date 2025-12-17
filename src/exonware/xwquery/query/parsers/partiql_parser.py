@@ -8,11 +8,11 @@ Extends SQL parser with JSON path navigation and dynamic typing.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List
+from typing import
 from .sql_parser import SQLParser
 from ...contracts import QueryAction
 from ...defs import ConversionMode
@@ -54,7 +54,7 @@ class PartiQLParser(SQLParser):
 
 # ==================== Convenience Function ====================
 
-def parse_partiql(query: str, **options) -> List[QueryAction]:
+def parse_partiql(query: str, **options) -> list[QueryAction]:
     """
     Parse PartiQL query to QueryAction tree.
     

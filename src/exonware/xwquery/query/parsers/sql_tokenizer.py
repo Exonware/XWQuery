@@ -8,12 +8,12 @@ Handles all SQL:2016 standard tokens with excellent error reporting.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
 from enum import Enum, auto
-from typing import List, Optional, Tuple
+from typing import Optional
 from dataclasses import dataclass
 
 from ...errors import XWQueryParseError
@@ -322,11 +322,11 @@ class SQLTokenizer:
         self.position = 0
         self.line = 1
         self.column = 1
-        self.tokens: List[SQLToken] = []
+        self.tokens: list[SQLToken] = []
     
     # ==================== Main Tokenization ====================
     
-    def tokenize(self) -> List[SQLToken]:
+    def tokenize(self) -> list[SQLToken]:
         """
         Tokenize entire SQL query.
         
@@ -709,7 +709,7 @@ class SQLTokenizer:
     
     # ==================== Public API ====================
     
-    def get_tokens(self) -> List[SQLToken]:
+    def get_tokens(self) -> list[SQLToken]:
         """Get tokenized SQL tokens (cached after first call)."""
         if not self.tokens or self.tokens[-1].type != SQLTokenType.EOF:
             return self.tokenize()
@@ -718,7 +718,7 @@ class SQLTokenizer:
 
 # ==================== Convenience Function ====================
 
-def tokenize_sql(query: str) -> List[SQLToken]:
+def tokenize_sql(query: str) -> list[SQLToken]:
     """
     Tokenize SQL query.
     

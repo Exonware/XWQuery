@@ -11,7 +11,7 @@ into xwquery QueryAction trees.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 29-Oct-2024
 
 Priority Alignment:
@@ -22,7 +22,7 @@ Priority Alignment:
 - Extensibility (#5): Easy to extend for new grammar formats
 """
 
-from typing import Any, List, Optional, Iterator, Callable, Dict
+from typing import Any, Optional, Iterator, Callable
 from exonware.xwsyntax import ASTNode
 
 
@@ -64,7 +64,7 @@ def find_node_by_type(ast: ASTNode, node_type: str) -> Optional[ASTNode]:
     return None
 
 
-def find_all_nodes_by_type(ast: ASTNode, node_type: str, max_depth: int = MAX_AST_DEPTH) -> List[ASTNode]:
+def find_all_nodes_by_type(ast: ASTNode, node_type: str, max_depth: int = MAX_AST_DEPTH) -> list[ASTNode]:
     """
     Find all nodes of specified type in AST tree (depth-first search).
     
@@ -279,7 +279,7 @@ def find_nodes_by_predicate(
     ast: ASTNode,
     predicate: Callable[[ASTNode], bool],
     max_depth: int = MAX_AST_DEPTH
-) -> List[ASTNode]:
+) -> list[ASTNode]:
     """
     Find all nodes matching a predicate function.
     
@@ -363,7 +363,7 @@ def extract_keyword_node(ast: ASTNode, keyword: str) -> Optional[ASTNode]:
     return None
 
 
-def ast_to_dict(ast: ASTNode, max_depth: int = 10) -> Dict[str, Any]:
+def ast_to_dict(ast: ASTNode, max_depth: int = 10) -> dict[str, Any]:
     """
     Convert AST to dictionary representation (for debugging/logging).
     
@@ -450,7 +450,7 @@ def get_ast_depth(ast: ASTNode) -> int:
     return 1 + max_child_depth
 
 
-def collect_terminals(ast: ASTNode) -> List[ASTNode]:
+def collect_terminals(ast: ASTNode) -> list[ASTNode]:
     """
     Collect all terminal (leaf) nodes from AST tree.
     
@@ -516,7 +516,7 @@ def get_child_by_type(ast: ASTNode, node_type: str) -> Optional[ASTNode]:
     return None
 
 
-def get_children_by_type(ast: ASTNode, node_type: str) -> List[ASTNode]:
+def get_children_by_type(ast: ASTNode, node_type: str) -> list[ASTNode]:
     """Get all direct children of specified type."""
     if not ast or not hasattr(ast, 'children'):
         return []
@@ -529,7 +529,7 @@ def is_terminal(node: ASTNode) -> bool:
     return node.type == 'terminal' or not hasattr(node, 'children') or not node.children
 
 
-def get_node_at_path(ast: ASTNode, path: List[str]) -> Optional[ASTNode]:
+def get_node_at_path(ast: ASTNode, path: list[str]) -> Optional[ASTNode]:
     """
     Navigate AST using a path of node types.
     
@@ -555,7 +555,7 @@ def get_node_at_path(ast: ASTNode, path: List[str]) -> Optional[ASTNode]:
     return current
 
 
-def extract_identifier_chain(ast: ASTNode) -> List[str]:
+def extract_identifier_chain(ast: ASTNode) -> list[str]:
     """
     Extract chain of identifiers (for property access like a.b.c).
     

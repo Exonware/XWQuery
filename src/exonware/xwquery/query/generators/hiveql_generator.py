@@ -7,11 +7,11 @@ HiveQL generator - Hadoop Hive SQL dialect.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List
+from typing import
 from .sql_generator import SQLGenerator
 from ...contracts import QueryAction
 from ...defs import ConversionMode
@@ -24,7 +24,7 @@ class HiveQLGenerator(SQLGenerator):
         return "HiveQL"
 
 
-def generate_hiveql(actions: List[QueryAction], pretty: bool = True, **options) -> str:
+def generate_hiveql(actions: list[QueryAction], pretty: bool = True, **options) -> str:
     """Generate HiveQL query from QueryAction tree."""
     generator = HiveQLGenerator(pretty_print=pretty, **options)
     return generator.generate_with_validation(actions, **options)

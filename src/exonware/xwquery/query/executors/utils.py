@@ -10,18 +10,18 @@ Solution: Centralize common utilities following GUIDELINES_DEV.md "Never reinven
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import Any, Dict, List, Optional, Callable
+from typing import Any, Optional, Callable
 
 
 # ============================================================================
 # DATA EXTRACTION UTILITIES
 # ============================================================================
 
-def extract_items(node: Any) -> List[Any]:
+def extract_items(node: Any) -> list[Any]:
     """
     Extract items from node regardless of type.
     
@@ -208,7 +208,7 @@ def matches_condition(item: Any, condition: Any,
     
     Supports:
     - None: Match all
-    - Dict: {'field': value} - all fields must match
+    - dict: {'field': value} - all fields must match
     - Callable: lambda item: boolean
     - String: Field existence check
     - Custom evaluator: For complex conditions (e.g., WHERE expressions)
@@ -345,7 +345,7 @@ def items_equal(item1: Any, item2: Any) -> bool:
 # AGGREGATION UTILITIES
 # ============================================================================
 
-def compute_aggregates(items: List[Any], field: Optional[str] = None) -> Dict[str, Any]:
+def compute_aggregates(items: list[Any], field: Optional[str] = None) -> dict[str, Any]:
     """
     Compute all common aggregates in a single pass.
     
@@ -363,7 +363,7 @@ def compute_aggregates(items: List[Any], field: Optional[str] = None) -> Dict[st
         field: Optional field to aggregate on
         
     Returns:
-        Dict with all aggregate values
+        dict with all aggregate values
     """
     if not items:
         return {
@@ -407,7 +407,7 @@ def compute_aggregates(items: List[Any], field: Optional[str] = None) -> Dict[st
 # PROJECTION UTILITIES  
 # ============================================================================
 
-def project_fields(item: Dict, fields: List[str]) -> Dict:
+def project_fields(item: dict, fields: list[str]) -> dict:
     """
     Project specified fields from item.
     
@@ -418,7 +418,7 @@ def project_fields(item: Dict, fields: List[str]) -> Dict:
         fields: List of field names/paths
         
     Returns:
-        Dict with projected fields
+        dict with projected fields
     """
     projected = {}
     

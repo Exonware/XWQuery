@@ -7,11 +7,11 @@ HQL generator - Hibernate Query Language (ORM-oriented).
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List
+from typing import
 from .sql_generator import SQLGenerator
 from ...contracts import QueryAction
 from ...defs import ConversionMode
@@ -24,7 +24,7 @@ class HQLGenerator(SQLGenerator):
         return "HQL"
 
 
-def generate_hql(actions: List[QueryAction], pretty: bool = True, **options) -> str:
+def generate_hql(actions: list[QueryAction], pretty: bool = True, **options) -> str:
     """Generate HQL query from QueryAction tree."""
     generator = HQLGenerator(pretty_print=pretty, **options)
     return generator.generate_with_validation(actions, **options)

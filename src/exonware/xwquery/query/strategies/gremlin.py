@@ -7,12 +7,12 @@ This module implements the Gremlin query strategy for Apache TinkerPop graph que
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: January 2, 2025
 """
 
 import re
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 from .base import AGraphQueryStrategy
 from ...errors import XWQueryTypeError, XWQueryValueError
 from ...defs import QueryMode
@@ -68,7 +68,7 @@ class GremlinStrategy(AGraphQueryStrategy):
         
         return False
     
-    def get_query_plan(self, query: str) -> Dict[str, Any]:
+    def get_query_plan(self, query: str) -> dict[str, Any]:
         """Get Gremlin query execution plan."""
         query_type = self._get_query_type(query)
         
@@ -81,27 +81,27 @@ class GremlinStrategy(AGraphQueryStrategy):
             "optimization_hints": self._get_optimization_hints(query)
         }
     
-    def path_query(self, start: Any, end: Any) -> List[Any]:
+    def path_query(self, start: Any, end: Any) -> list[Any]:
         """Execute path query."""
         query = f"g.V('{start}').repeat(out()).until(hasId('{end}')).path()"
         return self.execute(query)
     
-    def neighbor_query(self, node: Any) -> List[Any]:
+    def neighbor_query(self, node: Any) -> list[Any]:
         """Execute neighbor query."""
         query = f"g.V('{node}').both()"
         return self.execute(query)
     
-    def shortest_path_query(self, start: Any, end: Any) -> List[Any]:
+    def shortest_path_query(self, start: Any, end: Any) -> list[Any]:
         """Execute shortest path query."""
         query = f"g.V('{start}').repeat(out()).until(hasId('{end}')).path().limit(1)"
         return self.execute(query)
     
-    def connected_components_query(self) -> List[List[Any]]:
+    def connected_components_query(self) -> list[list[Any]]:
         """Execute connected components query."""
         query = "g.V().repeat(both()).until(cyclicPath()).dedup()"
         return self.execute(query)
     
-    def cycle_detection_query(self) -> List[List[Any]]:
+    def cycle_detection_query(self) -> list[list[Any]]:
         """Execute cycle detection query."""
         query = "g.V().repeat(out()).until(cyclicPath()).path()"
         return self.execute(query)
@@ -152,7 +152,7 @@ class GremlinStrategy(AGraphQueryStrategy):
         else:
             return 45
     
-    def _extract_steps(self, query: str) -> List[str]:
+    def _extract_steps(self, query: str) -> list[str]:
         """Extract Gremlin steps from query."""
         steps = []
         
@@ -165,7 +165,7 @@ class GremlinStrategy(AGraphQueryStrategy):
         
         return steps
     
-    def _get_optimization_hints(self, query: str) -> List[str]:
+    def _get_optimization_hints(self, query: str) -> list[str]:
         """Get query optimization hints."""
         hints = []
         

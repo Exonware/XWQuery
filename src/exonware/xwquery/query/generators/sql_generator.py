@@ -8,11 +8,11 @@ Supports SQL:2016 standard with pretty-printing.
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 0.0.1.7
+Version: 0.0.1.8
 Generation Date: 28-Oct-2025
 """
 
-from typing import List, Dict, Any, Optional
+from typing import Any, Optional
 from .base_generator import AStructuredQueryGenerator
 from .generator_utils import (
     format_sql_select,
@@ -57,7 +57,7 @@ class SQLGenerator(AStructuredQueryGenerator):
     
     # ==================== Main Generation Entry Point ====================
     
-    def generate(self, actions: List[QueryAction], **options) -> str:
+    def generate(self, actions: list[QueryAction], **options) -> str:
         """
         Generate SQL query from QueryAction tree.
         
@@ -97,7 +97,7 @@ class SQLGenerator(AStructuredQueryGenerator):
     
     # ==================== SELECT Statement Generation ====================
     
-    def _generate_select_statement(self, actions: List[QueryAction]) -> str:
+    def _generate_select_statement(self, actions: list[QueryAction]) -> str:
         """Generate SELECT statement from actions."""
         # Extract components from actions
         select_action = None
@@ -186,7 +186,7 @@ class SQLGenerator(AStructuredQueryGenerator):
         
         return select_sql
     
-    def _generate_cte_clause(self, ctes: List[Dict[str, Any]], recursive: bool) -> str:
+    def _generate_cte_clause(self, ctes: list[dict[str, Any]], recursive: bool) -> str:
         """Generate WITH (CTE) clause."""
         cte_parts = []
         
@@ -301,7 +301,7 @@ class SQLGenerator(AStructuredQueryGenerator):
     
     # ==================== Helper Methods ====================
     
-    def _action_params_to_where_string(self, params: Dict[str, Any]) -> str:
+    def _action_params_to_where_string(self, params: dict[str, Any]) -> str:
         """Convert action params to WHERE clause string."""
         # If params contain a 'condition' key, use it
         if 'condition' in params:
@@ -321,7 +321,7 @@ class SQLGenerator(AStructuredQueryGenerator):
         
         return ' AND '.join(conditions) if conditions else ''
     
-    def _format_filter_dict(self, filter_dict: Dict[str, Any]) -> str:
+    def _format_filter_dict(self, filter_dict: dict[str, Any]) -> str:
         """Format filter dictionary to SQL WHERE condition."""
         conditions = []
         
@@ -390,7 +390,7 @@ class SQLGenerator(AStructuredQueryGenerator):
         else:
             return format_sql_value(str(value))
     
-    def _expression_dict_to_string(self, expr: Dict[str, Any]) -> str:
+    def _expression_dict_to_string(self, expr: dict[str, Any]) -> str:
         """Convert expression AST dict to SQL string."""
         expr_type = expr.get('type')
         
@@ -452,7 +452,7 @@ SQL_KEYWORDS = {
 
 # ==================== Convenience Function ====================
 
-def generate_sql(actions: List[QueryAction], pretty: bool = True, **options) -> str:
+def generate_sql(actions: list[QueryAction], pretty: bool = True, **options) -> str:
     """
     Generate SQL query from QueryAction tree.
     

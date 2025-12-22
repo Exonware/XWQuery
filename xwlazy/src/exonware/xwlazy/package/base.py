@@ -204,7 +204,9 @@ class APackageHelper(IPackageHelper, ABC):
         if import_name is None:
             return self._package_name
         
-        # For IDependencyMapper implementation
+        # For IDependencyMapper implementation - must be implemented by subclasses
+        # Note: This method signature conflicts with the property getter, so subclasses
+        # should implement this variant if they implement IDependencyMapper
         raise NotImplementedError("Subclasses must implement get_package_name(import_name)")
     
     def set_mode(self, mode: LazyInstallMode) -> None:
@@ -557,60 +559,72 @@ class APackageHelper(IPackageHelper, ABC):
     # Note: Many methods from IPackageHelper are already implemented above.
     # The following are stubs that need concrete implementations:
     
+    @abstractmethod
     def install_and_import(self, module_name: str, package_name: Optional[str] = None) -> tuple[Optional[ModuleType], bool]:
         """Install package and import module (from IPackageInstaller)."""
-        raise NotImplementedError("Subclasses must implement install_and_import")
+        pass
     
+    @abstractmethod
     def get_package_for_import(self, import_name: str) -> Optional[str]:
         """Get package name for a given import name (from IPackageDiscovery)."""
-        raise NotImplementedError("Subclasses must implement get_package_for_import")
+        pass
     
+    @abstractmethod
     def get_imports_for_package(self, package_name: str) -> list[str]:
         """Get all possible import names for a package (from IPackageDiscovery)."""
-        raise NotImplementedError("Subclasses must implement get_imports_for_package")
+        pass
     
     # def get_package_name(self, import_name: str) -> Optional[str]:
     #    """Get package name for an import name (from IDependencyMapper)."""
     #    raise NotImplementedError("Subclasses must implement get_package_name")
     
+    @abstractmethod
     def get_import_names(self, package_name: str) -> list[str]:
         """Get all import names for a package (from IDependencyMapper)."""
-        raise NotImplementedError("Subclasses must implement get_import_names")
+        pass
     
+    @abstractmethod
     def is_stdlib_or_builtin(self, import_name: str) -> bool:
         """Check if import name is stdlib or builtin (from IDependencyMapper)."""
-        raise NotImplementedError("Subclasses must implement is_stdlib_or_builtin")
+        pass
     
     # Note: is_enabled(package_name) from IConfigManager is removed to avoid conflict
     # with is_enabled() instance method. Use LazyInstallConfig.is_enabled(package_name) instead.
     
+    @abstractmethod
     def get_mode(self, package_name: str) -> str:
         """Get installation mode for a package (from IConfigManager)."""
-        raise NotImplementedError("Subclasses must implement get_mode")
+        pass
     
+    @abstractmethod
     def get_load_mode(self, package_name: str) -> Any:
         """Get load mode for a package (from IConfigManager)."""
-        raise NotImplementedError("Subclasses must implement get_load_mode")
+        pass
     
+    @abstractmethod
     def get_install_mode(self, package_name: str) -> Any:
         """Get install mode for a package (from IConfigManager)."""
-        raise NotImplementedError("Subclasses must implement get_install_mode")
+        pass
     
+    @abstractmethod
     def get_mode_config(self, package_name: str) -> Optional[Any]:
         """Get full mode configuration for a package (from IConfigManager)."""
-        raise NotImplementedError("Subclasses must implement get_mode_config")
+        pass
     
+    @abstractmethod
     def get_manifest_signature(self, package_name: str) -> Optional[tuple[str, float, float]]:
         """Get manifest file signature (from IManifestLoader)."""
-        raise NotImplementedError("Subclasses must implement get_manifest_signature")
+        pass
     
+    @abstractmethod
     def get_shared_dependencies(self, package_name: str, signature: Optional[tuple[str, float, float]] = None) -> dict[str, str]:
         """Get shared dependencies from manifest (from IManifestLoader)."""
-        raise NotImplementedError("Subclasses must implement get_shared_dependencies")
+        pass
     
+    @abstractmethod
     def get_watched_prefixes(self, package_name: str) -> tuple[str, ...]:
         """Get watched prefixes from manifest (from IManifestLoader)."""
-        raise NotImplementedError("Subclasses must implement get_watched_prefixes")
+        pass
 
 # =============================================================================
 # DEPRECATED CLASSES (for backward compatibility)

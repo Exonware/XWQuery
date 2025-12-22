@@ -406,89 +406,110 @@ class AModuleHelper(IModuleHelper, ABC):
     # Note: Many methods from IModuleHelper are already implemented above.
     # The following are stubs that need concrete implementations:
     
+    @abstractmethod
     def install_and_import(self, module_name: str, package_name: Optional[str] = None) -> tuple[Optional[ModuleType], bool]:
         """Install package and import module (from IModuleInstaller)."""
-        raise NotImplementedError("Subclasses must implement install_and_import")
+        pass
     
+    @abstractmethod
     def is_package_installed(self, package_name: str) -> bool:
         """Check if package is installed (from IModuleInstaller)."""
-        raise NotImplementedError("Subclasses must implement is_package_installed")
+        pass
     
+    @abstractmethod
     def mark_installed(self, package_name: str, version: Optional[str] = None) -> None:
         """Mark package as installed in persistent cache (from IModuleInstaller)."""
-        raise NotImplementedError("Subclasses must implement mark_installed")
+        pass
     
+    @abstractmethod
     def is_hook_installed(self) -> bool:
         """Check if hook is installed (from IImportHook)."""
-        raise NotImplementedError("Subclasses must implement is_hook_installed")
+        pass
     
+    @abstractmethod
     def find_spec(self, fullname: str, path: Optional[str] = None, target=None) -> Optional[Any]:
         """Find module spec (from IMetaPathFinder)."""
-        raise NotImplementedError("Subclasses must implement find_spec")
+        pass
     
+    @abstractmethod
     def should_intercept(self, fullname: str) -> bool:
         """Determine if a module should be intercepted (from IMetaPathFinder)."""
-        raise NotImplementedError("Subclasses must implement should_intercept")
+        pass
     
+    @abstractmethod
     def is_module_installed(self, fullname: str) -> bool:
         """Check if module is already installed (from IMetaPathFinder)."""
-        raise NotImplementedError("Subclasses must implement is_module_installed")
+        pass
     
+    @abstractmethod
     def intercept_missing_import(self, module_name: str) -> Optional[ModuleType]:
         """Intercept a missing import (from IImportInterceptor)."""
-        raise NotImplementedError("Subclasses must implement intercept_missing_import")
+        pass
     
+    @abstractmethod
     def should_intercept_module(self, module_name: str) -> bool:
         """Determine if a module should be intercepted (from IImportInterceptor)."""
-        raise NotImplementedError("Subclasses must implement should_intercept_module")
+        pass
     
+    @abstractmethod
     def prevent_recursion(self, module_name: str) -> bool:
         """Check if we should prevent recursion (from IImportInterceptor)."""
-        raise NotImplementedError("Subclasses must implement prevent_recursion")
+        pass
     
+    @abstractmethod
     def import_module(self, module_name: str, package_name: Optional[str] = None) -> Any:
         """Import a module with lazy loading (from ILazyImporter)."""
-        raise NotImplementedError("Subclasses must implement import_module")
+        pass
     
+    @abstractmethod
     def enable_lazy_loading(self, load_mode: Any) -> None:
         """Enable lazy loading with a mode (from ILazyImporter)."""
-        raise NotImplementedError("Subclasses must implement enable_lazy_loading")
+        pass
     
+    @abstractmethod
     def disable_lazy_loading(self) -> None:
         """Disable lazy loading (from ILazyImporter)."""
-        raise NotImplementedError("Subclasses must implement disable_lazy_loading")
+        pass
     
+    @abstractmethod
     def is_lazy_loading_enabled(self) -> bool:
         """Check if lazy loading is enabled (from ILazyImporter)."""
-        raise NotImplementedError("Subclasses must implement is_lazy_loading_enabled")
+        pass
     
+    @abstractmethod
     def has_root(self, root_name: str) -> bool:
         """Check if a root module name is being watched (from IWatchedRegistry)."""
-        raise NotImplementedError("Subclasses must implement has_root")
+        pass
     
+    @abstractmethod
     def get_matching_prefixes(self, fullname: str) -> tuple[str, ...]:
         """Get all watched prefixes that match a module name (from IWatchedRegistry)."""
-        raise NotImplementedError("Subclasses must implement get_matching_prefixes")
+        pass
     
+    @abstractmethod
     def is_prefix_owned_by(self, prefix: str, package_name: str) -> bool:
         """Check if a prefix is owned by a package (from IWatchedRegistry)."""
-        raise NotImplementedError("Subclasses must implement is_prefix_owned_by")
+        pass
     
+    @abstractmethod
     def is_watched_registry_empty(self) -> bool:
         """Check if registry is empty (from IWatchedRegistry)."""
-        raise NotImplementedError("Subclasses must implement is_watched_registry_empty")
+        pass
     
+    @abstractmethod
     def get_bytecode(self, module_path: str, source_code: str) -> Optional[bytes]:
         """Get cached bytecode for module (from IBytecodeCache)."""
-        raise NotImplementedError("Subclasses must implement get_bytecode")
+        pass
     
+    @abstractmethod
     def cache_bytecode(self, module_path: str, source_code: str, bytecode: bytes) -> None:
         """Cache bytecode for module (from IBytecodeCache)."""
-        raise NotImplementedError("Subclasses must implement cache_bytecode")
+        pass
     
+    @abstractmethod
     def clear_bytecode_cache(self) -> None:
         """Clear bytecode cache (from IBytecodeCache)."""
-        raise NotImplementedError("Subclasses must implement clear_bytecode_cache")
+        pass
 
 # =============================================================================
 # ABSTRACT MODULE HELPER STRATEGY

@@ -130,4 +130,3 @@ class TestAsyncExecution:
         result = strategy.execute_install("test_pkg", [])
         # Async execution returns a handle/future, not immediate result
         assert result is not None
-

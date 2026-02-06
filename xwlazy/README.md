@@ -151,6 +151,10 @@ After `pip install -e .`, xwlazy automatically enables lazy loading for your pac
 ## 📖 Documentation
 
 - **[Architecture Reference](docs/REF_ARCH.md)** - System design, patterns, and structure
+- **[Integration Guide](docs/INTEGRATION_GUIDE.md)** - Integration with xw libraries
+- **[Best Practices](docs/BEST_PRACTICES.md)** - Usage guidelines and recommendations
+- **[Troubleshooting Guide](docs/TROUBLESHOOTING.md)** - Common issues and solutions
+- **[Production Deployment](docs/PRODUCTION_DEPLOYMENT.md)** - Production deployment guide
 - **[Keyword Detection Guide](docs/KEYWORD_DETECTION.md)** - Zero-code integration
 - **[Competition Benchmarks](benchmarks/competition_tests/)** - Performance comparisons
 - **[Performance Analysis](benchmarks/competition_tests/PERFORMANCE_ANALYSIS.md)** - Optimization recommendations

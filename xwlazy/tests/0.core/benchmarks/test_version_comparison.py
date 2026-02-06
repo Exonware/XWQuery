@@ -285,4 +285,3 @@ def print_comparison_summary(version_comparison):
     print("  - Easier maintenance (smaller, focused modules)")
     print("  - Better testability (isolated components)")
     print("=" * 80)
-

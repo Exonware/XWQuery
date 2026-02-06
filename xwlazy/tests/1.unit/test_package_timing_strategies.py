@@ -128,4 +128,3 @@ class TestTemporaryTiming:
         # Temporary mode: always uninstall after
         assert strategy.should_uninstall_after("test_pkg", None) == True
         assert strategy.should_uninstall_after("test_pkg", {}) == True
-

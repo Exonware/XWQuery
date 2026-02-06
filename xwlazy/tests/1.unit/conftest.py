@@ -20,4 +20,3 @@ tests_dir = Path(__file__).resolve().parent.parent.parent
 src_path = tests_dir.parent / "src"
 if str(src_path) not in sys.path:
     sys.path.insert(0, str(src_path))
-

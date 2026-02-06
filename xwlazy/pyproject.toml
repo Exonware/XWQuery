@@ -38,6 +38,9 @@ Subtree = "https://github.com/Exonware/XWLazy.git"
 [tool.hatch.version]
 path = "src/exonware/xwlazy/version.py"
 
+# Fallback: use static version if version.py doesn't exist
+# __version__ = "1.0.1"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/exonware", "src/xwlazy"]
 

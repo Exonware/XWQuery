@@ -13,7 +13,7 @@ Version: 1.0.0
 Generation Date: 17-Nov-2025
 """
 
-from typing import List, Dict, Any, Callable
+from typing import Any, Callable
 from dataclasses import dataclass
 
 
@@ -22,8 +22,8 @@ class TestScenario:
     """Definition of a test scenario."""
     name: str
     description: str
-    modules_to_import: List[str]
-    expected_features: List[str]
+    modules_to_import: list[str]
+    expected_features: list[str]
     load_level: str  # "light", "medium", "heavy"
 
 
@@ -83,14 +83,14 @@ def get_scenario(name: str) -> TestScenario:
     return SCENARIOS.get(name)
 
 
-def list_scenarios() -> List[str]:
+def list_scenarios() -> list[str]:
     """List all available scenario names."""
     return list(SCENARIOS.keys())
 
 
 def create_custom_scenario(
     name: str,
-    modules: List[str],
+    modules: list[str],
     description: str = None,
     load_level: str = "medium",
 ) -> TestScenario:
@@ -102,4 +102,3 @@ def create_custom_scenario(
         expected_features=[],
         load_level=load_level,
     )
-

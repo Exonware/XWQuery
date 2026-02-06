@@ -25,7 +25,7 @@ import time
 import subprocess
 import gc
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Tuple
+from typing import Optional, Any
 from dataclasses import dataclass, asdict
 from datetime import datetime
 import statistics
@@ -110,8 +110,8 @@ class ModeBenchmarkResult:
     error: Optional[str] = None
     version: str = "new"  # "new" or "old"
     iterations: int = 1
-    times: List[float] = None  # List of all iteration times
-    memories: List[float] = None  # List of all iteration memories
+    times: list[float] = None  # List of all iteration times
+    memories: list[float] = None  # List of all iteration memories
     avg_time: float = 0.0  # Average time across iterations
     avg_memory: float = 0.0  # Average memory across iterations
     min_time: float = 0.0
@@ -243,7 +243,7 @@ def run_mode_benchmark_multiple(
     )
 
 
-def find_best_mode_per_load_level(all_results: List[ModeBenchmarkResult]) -> Dict[str, Tuple[str, str]]:
+def find_best_mode_per_load_level(all_results: list[ModeBenchmarkResult]) -> dict[str, tuple[str, str]]:
     """Find the best mode combination for each load level based on average time."""
     best_modes = {}
     
@@ -261,7 +261,7 @@ def find_best_mode_per_load_level(all_results: List[ModeBenchmarkResult]) -> Dic
     return best_modes
 
 
-def update_intelligent_mode_config(best_modes: Dict[str, Tuple[str, str]], output_file: Path):
+def update_intelligent_mode_config(best_modes: dict[str, tuple[str, str]], output_file: Path):
     """Update intelligent mode configuration file with benchmark results."""
     try:
         from exonware.xwlazy.loading.intelligent_utils import LoadLevel, LazyLoadMode, LazyInstallMode
@@ -289,7 +289,7 @@ def update_intelligent_mode_config(best_modes: Dict[str, Tuple[str, str]], outpu
 # Generated: {datetime.now().isoformat()}
 # Based on 100-iteration averages
 
-INTELLIGENT_MODE_MAP: Dict[LoadLevel, Tuple[LazyLoadMode, LazyInstallMode]] = {{
+INTELLIGENT_MODE_MAP: dict[LoadLevel, tuple[LazyLoadMode, LazyInstallMode]] = {{
 '''
     
     for load_level, (load_mode, install_mode) in mode_map_config.items():
@@ -303,7 +303,7 @@ INTELLIGENT_MODE_MAP: Dict[LoadLevel, Tuple[LazyLoadMode, LazyInstallMode]] = {{
     print(f"💾 Intelligent mode config saved to: {config_file}")
 
 
-def generate_comprehensive_report(all_results: List[ModeBenchmarkResult], output_file: Path, best_modes: Dict[str, Tuple[str, str]]):
+def generate_comprehensive_report(all_results: list[ModeBenchmarkResult], output_file: Path, best_modes: dict[str, tuple[str, str]]):
     """Generate a comprehensive markdown report with averages."""
     
     # Group results
@@ -539,4 +539,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

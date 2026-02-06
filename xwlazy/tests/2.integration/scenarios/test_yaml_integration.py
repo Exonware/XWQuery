@@ -111,4 +111,3 @@ class TestCachePersistence:
                 cache_file.unlink()
             if os.path.exists(temp_dir):
                 shutil.rmtree(temp_dir, ignore_errors=True)
-

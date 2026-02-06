@@ -115,4 +115,3 @@ class TestInstallerCacheIntegration:
         
         # Should still know package is installed
         assert new_installer.is_package_installed("test-package")
-

@@ -88,4 +88,3 @@ except ImportError as e:
     print(f"❌ Failed to import numpy: {e}")
 
 print("\n🎉 Example complete! xwlazy handled everything automatically.")
-

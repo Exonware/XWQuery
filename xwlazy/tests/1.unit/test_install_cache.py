@@ -171,4 +171,3 @@ class TestInstallationCache:
         assert len(installed) == 10
         for i in range(10):
             assert f"package{i}" in installed
-

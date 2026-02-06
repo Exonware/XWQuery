@@ -172,4 +172,3 @@ class TestInstallerMethods:
             result, success = self.installer.install_and_import("test_module", "test-package")
             assert success is False
             assert result is None
-

@@ -459,4 +459,3 @@ class TestStrategyPerformance:
         
         # Should handle 100 operations in under 0.5 seconds
         assert elapsed < 0.5, f"Registry operations too slow: {elapsed:.3f}s"
-

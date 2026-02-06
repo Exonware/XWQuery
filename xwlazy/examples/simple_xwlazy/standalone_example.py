@@ -63,4 +63,3 @@ except ImportError as e:
 print("\n🎉 Example complete! xwlazy handled everything automatically.")
 print("\n💡 Key takeaway: Just one line hooks xwlazy:")
 print("   config_package_lazy_install_enabled('my_package', install_hook=True)")
-

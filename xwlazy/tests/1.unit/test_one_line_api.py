@@ -230,4 +230,3 @@ class TestAttachAPI:
         assert "submodule1" in dir_result
         assert "submodule2" in dir_result
         assert "attr1" in dir_result
-

@@ -8,7 +8,7 @@ This allows users to import the library in two ways:
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Generation Date: 10-Oct-2025
+Version: 1.0.1.2
 
 DESIGN RATIONALE FOR WILDCARD IMPORT:
 This file intentionally uses a wildcard import (from exonware.xwlazy import *) as an 
@@ -26,18 +26,5 @@ The wildcard import here is intentional and follows Python best practices for al
 # Import everything from the main package
 from exonware.xwlazy import *  # noqa: F401, F403
 
-# Import version info
-from exonware.xwlazy.version import (
-    __version__,
-    VERSION_MAJOR,
-    VERSION_MINOR,
-    VERSION_PATCH,
-    VERSION_BUILD,
-    VERSION_SUFFIX,
-    VERSION_STRING,
-    get_version,
-    get_version_info,
-    get_version_dict,
-    is_dev_version,
-    is_release_version,
-)
+# Re-export version
+__version__ = "1.0.1"

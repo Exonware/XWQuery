@@ -209,4 +209,3 @@ def test_lazy_installer_cached_tree_roundtrip(tmp_path, monkeypatch):
     installed_file = site_dir / "demo_pkg" / "__init__.py"
     assert installed_file.exists()
     assert "value = 42" in installed_file.read_text()
-

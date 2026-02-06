@@ -8,7 +8,6 @@ import json
 import statistics
 import time
 from pathlib import Path
-from typing import Dict, List
 from datetime import datetime
 
 # Add src to path
@@ -183,4 +182,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

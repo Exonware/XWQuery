@@ -139,4 +139,3 @@ class TestStrategySelection:
         
         # Cleanup
         StrategyRegistry.clear_all_strategies("test_pkg")
-

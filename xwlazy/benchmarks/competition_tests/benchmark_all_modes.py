@@ -25,7 +25,7 @@ import time
 import subprocess
 import gc
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Tuple
+from typing import Optional, Any
 from dataclasses import dataclass, asdict
 from datetime import datetime
 import statistics
@@ -258,7 +258,7 @@ def benchmark_old_version(
         )
 
 
-def generate_comprehensive_report(all_results: List[ModeBenchmarkResult], output_file: Path):
+def generate_comprehensive_report(all_results: list[ModeBenchmarkResult], output_file: Path):
     """Generate a comprehensive markdown report."""
     
     # Group results
@@ -527,4 +527,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

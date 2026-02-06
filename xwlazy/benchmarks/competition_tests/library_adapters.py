@@ -13,7 +13,7 @@ Version: 1.0.0
 Generation Date: 17-Nov-2025
 """
 
-from typing import Any, Optional, List, Dict
+from typing import Any, Optional
 import importlib
 import sys
 
@@ -33,7 +33,7 @@ class LibraryAdapter:
         """Import a module using the library's mechanism."""
         return importlib.import_module(module_name)
 
-    def get_features(self) -> List[str]:
+    def get_features(self) -> list[str]:
         """Get list of supported features."""
         return []
 
@@ -41,7 +41,7 @@ class LibraryAdapter:
 class XWLazyAdapter(LibraryAdapter):
     """Adapter for xwlazy with two-dimensional mode system."""
 
-    def __init__(self, library_name: str, module: Any, config: Dict[str, Any] = None):
+    def __init__(self, library_name: str, module: Any, config: dict[str, Any] = None):
         """Initialize xwlazy adapter with mode configuration.
         
         Args:
@@ -159,7 +159,7 @@ class XWLazyAdapter(LibraryAdapter):
         # xwlazy should handle this automatically if enabled
         return importlib.import_module(module_name)
 
-    def get_features(self) -> List[str]:
+    def get_features(self) -> list[str]:
         """Get xwlazy features based on configuration."""
         features = []
         mode = self.config.get("mode", "lite")
@@ -283,7 +283,7 @@ class PipImportAdapter(LibraryAdapter):
             print(f"    Warning: Failed to enable pipimport: {e}")
             return False
 
-    def get_features(self) -> List[str]:
+    def get_features(self) -> list[str]:
         """Get pipimport features."""
         return ["auto_install"]
 
@@ -307,7 +307,7 @@ class DeferredImportAdapter(LibraryAdapter):
         except:
             return importlib.import_module(module_name)
 
-    def get_features(self) -> List[str]:
+    def get_features(self) -> list[str]:
         """Get deferred-import features."""
         return ["deferred_loading"]
 
@@ -331,7 +331,7 @@ class LazyLoaderAdapter(LibraryAdapter):
         except:
             return importlib.import_module(module_name)
 
-    def get_features(self) -> List[str]:
+    def get_features(self) -> list[str]:
         """Get lazy-loader features."""
         return ["lazy_import", "caching"]
 
@@ -348,7 +348,7 @@ class LazyImportsAdapter(LibraryAdapter):
         except:
             return False
 
-    def get_features(self) -> List[str]:
+    def get_features(self) -> list[str]:
         """Get lazy-imports features."""
         return ["lazy_import"]
 
@@ -372,7 +372,7 @@ class LazyImportAdapter(LibraryAdapter):
         except:
             return importlib.import_module(module_name)
 
-    def get_features(self) -> List[str]:
+    def get_features(self) -> list[str]:
         """Get lazy-import features."""
         return ["lazy_import"]
 
@@ -389,7 +389,7 @@ class PyLazyImportsAdapter(LibraryAdapter):
         except:
             return False
 
-    def get_features(self) -> List[str]:
+    def get_features(self) -> list[str]:
         """Get pylazyimports features."""
         return ["lazy_import"]
 
@@ -406,7 +406,7 @@ class LaziAdapter(LibraryAdapter):
         except:
             return False
 
-    def get_features(self) -> List[str]:
+    def get_features(self) -> list[str]:
         """Get lazi features."""
         return ["lazy_import", "auto_detection"]
 
@@ -423,13 +423,13 @@ class LazyImportsLiteAdapter(LibraryAdapter):
         except:
             return False
 
-    def get_features(self) -> List[str]:
+    def get_features(self) -> list[str]:
         """Get lazy-imports-lite features."""
         return ["lazy_import", "keyword_detection"]
 
 
 # Adapter factory
-def create_adapter(library_name: str, config: Dict[str, bool] = None) -> Optional[LibraryAdapter]:
+def create_adapter(library_name: str, config: dict[str, bool] = None) -> Optional[LibraryAdapter]:
     """Create an adapter for a library.
     
     Args:
@@ -475,4 +475,3 @@ def create_adapter(library_name: str, config: Dict[str, bool] = None) -> Optiona
         pass
 
     return None
-

@@ -201,4 +201,3 @@ class TestLRUCache:
         assert cache.get("key1") is None
         assert cache.get("key2") == "value2"
         assert cache.get("key3") == "value3"
-

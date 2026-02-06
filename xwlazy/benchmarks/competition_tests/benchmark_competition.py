@@ -28,7 +28,7 @@ import threading
 import queue
 import gc
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Tuple
+from typing import Optional, Any
 from dataclasses import dataclass, asdict
 from datetime import datetime
 import importlib.util
@@ -195,7 +195,7 @@ class BenchmarkResult:
     package_size_mb: float
     success: bool
     error: Optional[str] = None
-    features_supported: List[str] = None
+    features_supported: list[str] = None
     timestamp: str = None
     relative_time: float = 1.0  # Relative to baseline (1.0 = same speed, >1.0 = slower, <1.0 = faster)
     test_mode: str = "lazy_import_only"  # Which test mode was used
@@ -252,7 +252,7 @@ class BenchmarkRunner:
             print(f"  Warning: Uninstall failed: {e}")
             return False
 
-    def install_library(self, library_name: str) -> Tuple[bool, Optional[str]]:
+    def install_library(self, library_name: str) -> tuple[bool, Optional[str]]:
         """Install a library and return (success, version)."""
         lib_info = LIBRARIES.get(library_name)
         if not lib_info:
@@ -960,7 +960,7 @@ class BenchmarkRunner:
                 test_category="standard",
             )
 
-    def detect_features(self, module: Any, library_name: str, test_mode: str = "lazy_import_only") -> List[str]:
+    def detect_features(self, module: Any, library_name: str, test_mode: str = "lazy_import_only") -> list[str]:
         """Detect available features in a library."""
         try:
             from library_adapters import create_adapter
@@ -995,7 +995,7 @@ class BenchmarkRunner:
 
         return features
 
-    def _run_stress_tests(self, library_name: str, baseline_time: float, test_mode: str) -> List[BenchmarkResult]:
+    def _run_stress_tests(self, library_name: str, baseline_time: float, test_mode: str) -> list[BenchmarkResult]:
         """Run all stress tests for a library.
         
         Why: Tests library performance under high load, concurrency, and memory pressure.
@@ -1044,7 +1044,7 @@ class BenchmarkRunner:
         
         return results
 
-    def _run_edge_case_tests(self, library_name: str, baseline_time: float, test_mode: str) -> List[BenchmarkResult]:
+    def _run_edge_case_tests(self, library_name: str, baseline_time: float, test_mode: str) -> list[BenchmarkResult]:
         """Run all edge case tests for a library.
         
         Why: Tests library robustness with invalid inputs, missing dependencies, and error conditions.
@@ -2410,7 +2410,7 @@ class BenchmarkRunner:
     def run_benchmark(self, library_name: str, test_name: str = None, baseline_time: float = None, 
                      skip_uninstall: bool = False, test_mode: str = "lazy_import_only",
                      pre_installed: bool = False, run_stress: bool = False, 
-                     run_edge_cases: bool = False) -> List[BenchmarkResult]:
+                     run_edge_cases: bool = False) -> list[BenchmarkResult]:
         """Run benchmarks for a library.
         
         Why: Ensures fair comparison by using same baseline for all libraries.
@@ -2553,7 +2553,7 @@ class BenchmarkRunner:
         
         return base_name
 
-    def save_results(self, results: List[BenchmarkResult], description: str = "COMPETITION",
+    def save_results(self, results: list[BenchmarkResult], description: str = "COMPETITION",
                     pre_installed: bool = False, stress: bool = False, edge_cases: bool = False):
         """Save results to JSON following BENCH_* naming convention."""
         filename = f"{self._generate_benchmark_filename(description, pre_installed, stress, edge_cases)}.json"
@@ -2564,7 +2564,7 @@ class BenchmarkRunner:
 
         print(f"\n💾 Results saved to: {filepath}")
 
-    def generate_report(self, results: List[BenchmarkResult], description: str = "COMPETITION",
+    def generate_report(self, results: list[BenchmarkResult], description: str = "COMPETITION",
                        pre_installed: bool = False, stress: bool = False, edge_cases: bool = False):
         """Generate markdown report following BENCH_* naming convention."""
         filename = f"{self._generate_benchmark_filename(description, pre_installed, stress, edge_cases)}.md"

@@ -510,4 +510,3 @@ class TestOneLineActivation:
             
             result = auto_enable_lazy(f"test_package_{mode}", mode=mode)
             assert result is True, f"Mode '{mode}' failed to enable"
-

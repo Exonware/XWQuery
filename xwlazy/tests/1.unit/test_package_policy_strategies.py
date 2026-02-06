@@ -120,4 +120,3 @@ class TestDenyListPolicy:
         strategy = DenyListPolicy(denied_packages={"bad_pkg"})
         args = strategy.get_pip_args("good_pkg")
         assert args == []
-

@@ -195,4 +195,3 @@ class TestKeywordDetection:
             # The function should catch the exception and return False
             result = check_package_keywords()
             assert result is False
-

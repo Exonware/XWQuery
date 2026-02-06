@@ -134,4 +134,3 @@ class TestHybridMapping:
         strategy = HybridMapping("test_pkg")
         result = strategy.map_package_to_imports("test_package")
         assert isinstance(result, list)
-

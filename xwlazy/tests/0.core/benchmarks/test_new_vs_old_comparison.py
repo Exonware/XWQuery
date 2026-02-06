@@ -308,4 +308,3 @@ def print_final_summary(benchmark_results):
             print(f"  - Easier maintenance: Smaller, focused modules")
     
     print("=" * 80)
-

@@ -29,4 +29,3 @@ config_package_lazy_install_enabled(__name__.split('.')[0], install_hook=True)
 #   from simple_xwlazy import some_function
 #   # Later in code:
 #   import pandas  # <- pandas will be automatically installed if missing!
-

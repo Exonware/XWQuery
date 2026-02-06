@@ -18,7 +18,6 @@ import io
 import importlib
 import json
 from pathlib import Path
-from typing import Dict, List, Set
 from datetime import datetime
 
 # Fix Windows console encoding for Unicode characters
@@ -35,7 +34,7 @@ def test_feature(adapter: LibraryAdapter, feature_name: str) -> bool:
     return feature_name in features
 
 
-def compare_features() -> Dict[str, Dict[str, bool]]:
+def compare_features() -> dict[str, dict[str, bool]]:
     """Compare features across all libraries."""
     libraries = [
         "xwlazy",
@@ -100,7 +99,7 @@ def _generate_benchmark_filename(description: str = "FEATURES") -> str:
     return f"BENCH_{date_str}_{time_str}_{description}"
 
 
-def generate_feature_report(results: Dict[str, Dict[str, bool]]):
+def generate_feature_report(results: dict[str, dict[str, bool]]):
     """Generate a markdown report of feature comparison."""
     filename = f"{_generate_benchmark_filename('FEATURES')}.md"
     report_path = Path(__file__).parent / "output_log" / filename
@@ -154,4 +153,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

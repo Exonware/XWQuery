@@ -254,4 +254,3 @@ def test_async_install_real_pip(benchmark):
         _pip_uninstall(ASYNC_SAMPLE_NAME)
 
     benchmark.pedantic(run, rounds=3, iterations=1)
-

@@ -1,0 +1,39 @@
+// batch.grammar
+// Batch Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: script
+
+script: statement*
+
+statement: command | label | comment | if_statement | for_statement | goto_statement
+
+command: command_name [argument*]
+
+command_name: IDENTIFIER | "@" IDENTIFIER
+
+argument: /[^\n&|<>]+/
+
+label: ":" IDENTIFIER
+
+comment: "REM" /[^\n]*/ | "::" /[^\n]*/
+
+if_statement: "if" condition command ["else" command]
+
+for_statement: "for" IDENTIFIER "in" "(" list ")" "do" command "done"
+
+goto_statement: "goto" IDENTIFIER
+
+condition: /[^\n]+/
+
+list: item ("," item)*
+
+item: /[^,)]+/
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+%import common.WS
+%import common.NEWLINE
+
+%ignore WS
+

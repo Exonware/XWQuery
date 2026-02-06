@@ -1,0 +1,14 @@
+/* ============================================
+   SIDEBAR - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-sidebar: 6px;
+    /* Fallback: --radius-navigation → --radius-md → 6px */
+}
+
+/* Utility class for direct application */
+.radius-sidebar-subtle {
+    border-radius: var(--radius-sidebar, 6px) !important;
+}

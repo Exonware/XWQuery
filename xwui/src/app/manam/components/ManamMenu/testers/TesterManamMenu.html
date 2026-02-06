@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="dark" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManamMenu Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../../../styles/theme/colors/dark.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../../../app/_old/styles/testers.css">
+    
+    <!-- Component CSS -->
+    <link rel="stylesheet" href="../ManamMenu.css">
+    
+    <style>
+        /* Ensure test area has proper layout for mobile menu */
+        .test-area {
+            position: relative;
+            background: linear-gradient(135deg, #1A1E31 0%, #0f172a 100%);
+        }
+        
+        /* Mobile app container - works within viewport */
+        .manam-app-container {
+            width: 100%;
+            height: 100%;
+            min-height: 667px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #1A1E31 0%, #0f172a 100%);
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        
+        /* In viewport, use full viewport height */
+        .platform-viewport-content .manam-app-container {
+            height: 100%;
+            min-height: 667px;
+        }
+        
+        /* App content area */
+        .manam-app-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: var(--spacing-lg, 2rem) var(--spacing-md, 1rem);
+            padding-bottom: 90px; /* Space for bottom menu */
+            box-sizing: border-box;
+        }
+        
+        /* Menu container - positioned at bottom of container */
+        .manam-menu-wrapper {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000;
+            background: transparent;
+        }
+        
+        /* When in viewport, menu spans full width of container */
+        .platform-viewport-content .manam-menu-wrapper {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+        }
+        
+        /* Remove padding from viewport content for full-width app container */
+        .platform-viewport-content .manam-app-container {
+            margin: 0 -1rem;
+            width: calc(100% + 2rem);
+        }
+        
+        /* Ensure viewport content allows full-width menu at bottom */
+        .platform-viewport-content {
+            padding-bottom: 0 !important;
+        }
+        
+        /* Demo content styling */
+        .demo-content {
+            text-align: center;
+            color: var(--color-text, #f1f5f9);
+        }
+        
+        .demo-content h2 {
+            margin: 0 0 var(--spacing-md, 1rem);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-text, #f1f5f9);
+        }
+        
+        .demo-content p {
+            color: var(--color-text-secondary, #cbd5e1);
+            line-height: 1.6;
+            margin: 0 0 var(--spacing-md, 1rem);
+        }
+        
+        .demo-feature-card {
+            margin-top: var(--spacing-xl, 3rem);
+            padding: var(--spacing-lg, 2rem);
+            background: rgba(107, 91, 204, 0.1);
+            border-radius: var(--radius-lg, 16px);
+        }
+        
+        .demo-feature-card p {
+            color: var(--accent-primary, #6B5BCC);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs, 0.5rem);
+        }
+        
+        .demo-feature-card .hint {
+            color: var(--color-text-secondary, #cbd5e1);
+            font-size: 0.875rem;
+            margin-top: var(--spacing-xs, 0.5rem);
+        }
+    </style>
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        <script type="module" src="./TesterManamMenu.ts"></script>
+</body>
+</html>

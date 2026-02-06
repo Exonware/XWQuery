@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIConsole",
+  "name": "XWUI Console Component",
+  "description": "Console component similar to Chrome DevTools console. Displays logs, errors, warnings, and info messages with filtering capabilities. Supports timestamps, source information, auto-scrolling, and theme customization.",
+  "path": "display.console",
+  "tags": ["display", "console", "logs", "debug", "developer", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "maxEntries": {
+          "type": "number",
+          "description": "Maximum number of log entries to keep in memory"
+        },
+        "showTimestamp": {
+          "type": "boolean",
+          "description": "Whether to show timestamps for log entries"
+        },
+        "showSource": {
+          "type": "boolean",
+          "description": "Whether to show source information for log entries"
+        },
+        "autoScroll": {
+          "type": "boolean",
+          "description": "Whether to automatically scroll to bottom when new entries are added"
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["light", "dark"],
+          "description": "Theme for the console display"
+        },
+        "formats": {
+          "type": "object",
+          "description": "Date/time format strings",
+          "properties": {
+            "date": {
+              "type": "string",
+              "description": "Date format string"
+            },
+            "time": {
+              "type": "string",
+              "description": "Time format string"
+            },
+            "datetime": {
+              "type": "string",
+              "description": "Date-time format string"
+            }
+          }
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "events": {
+          "type": "array",
+          "description": "Array of console events to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "description": "Unique identifier for the event"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["log", "info", "warn", "error", "debug", "trace", "group", "groupCollapsed", "groupEnd", "table", "success", "system"],
+                "description": "Type of console event"
+              },
+              "timestamp": {
+                "type": ["number", "string"],
+                "description": "Original timestamp - Unix timestamp (seconds or milliseconds as number) or ISO 8601 string"
+              },
+              "color": {
+                "type": "string",
+                "description": "Color for the event display"
+              },
+              "label": {
+                "type": "string",
+                "description": "Label for the event"
+              },
+              "msg": {
+                "type": "string",
+                "description": "Message text for the event"
+              },
+              "source": {
+                "type": "string",
+                "description": "Source/operation/module name where the event originated"
+              },
+              "level": {
+                "type": "string",
+                "enum": ["log", "error", "warn", "info", "debug"],
+                "description": "Explicit log level (overrides type mapping if provided)"
+              },
+              "data": {
+                "description": "Additional structured data/context for the event"
+              }
+            },
+            "required": ["id", "type", "timestamp"]
+          }
+        }
+      }
+    }
+  }
+}

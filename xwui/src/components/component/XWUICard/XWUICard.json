@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "XWUICard",
+  "description": "Content card container component with header, body, and footer slots. Supports cover images (via XWUIImage), XWUITitled (icon, title, subtitle, body), XWUIBadge (next to title), XWUITag (footer chips), and customizable padding. Can be hoverable and clickable. Maintains backward compatibility with legacy cover, content, header, and footer properties.",
+  "meta": {
+    "input": {
+      "description": "Input data required for the component",
+      "rules": [
+        "New API: image (XWUIImageData or URL string), icon, title, subtitle, body, badge, tags",
+        "Legacy API: header, title, subtitle, cover, content, footer (maintained for backward compatibility)",
+        "If icon/title/subtitle/body provided, uses XWUITitled component",
+        "If badge provided, renders XWUIBadge next to title",
+        "If tags provided, renders XWUITag components in footer",
+        "If image provided, uses XWUIImage component (falls back to cover for backward compatibility)"
+      ],
+      "properties": {
+        "image": {
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "Image data (XWUIImageData object) or URL string. Uses XWUIImage component. Takes precedence over 'cover'."
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon name for XWUIIcon (used in XWUITitled)"
+        },
+        "title": {
+          "type": "string",
+          "description": "Card title text (used in XWUITitled or standalone)"
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Card subtitle text (used in XWUITitled)"
+        },
+        "body": {
+          "type": [
+            "HTMLElement",
+            "string"
+          ],
+          "description": "Card body content (used in XWUITitled). Takes precedence over 'content'."
+        },
+        "badge": {
+          "type": [
+            "object",
+            "number"
+          ],
+          "description": "Badge data (XWUIBadgeData object) or simple count number. Renders next to title."
+        },
+        "tags": {
+          "type": "array",
+          "description": "Array of tag data (XWUITagData objects) or simple strings. Renders in footer as XWUITag components."
+        },
+        "header": {
+          "type": [
+            "HTMLElement",
+            "string"
+          ],
+          "description": "Custom header element or string (legacy - use icon/title/subtitle/body for new API)"
+        },
+        "cover": {
+          "type": "string",
+          "description": "Cover image URL (legacy - use 'image' for new API with XWUIImage support)"
+        },
+        "content": {
+          "type": [
+            "HTMLElement",
+            "string"
+          ],
+          "description": "Card body content (legacy - use 'body' for new API)"
+        },
+        "footer": {
+          "type": [
+            "HTMLElement",
+            "string"
+          ],
+          "description": "Card footer (legacy - use 'tags' for new API with XWUITag components)"
+        }
+      }
+    },
+    "output": {
+      "description": "Output produced by the component",
+      "rules": [
+        "Renders card element with header, body, and footer sections",
+        "Uses XWUIImage for image display if 'image' provided, falls back to simple img for 'cover'",
+        "Uses XWUITitled for icon, title, subtitle, and body if provided",
+        "Renders XWUIBadge next to title if badge provided",
+        "Renders XWUITag components in footer if tags provided",
+        "Falls back to legacy rendering for header, content, footer if new API not used",
+        "Applies variant styling (default, outlined, elevated, filled)",
+        "Applies padding based on configuration"
+      ],
+      "properties": {
+        "cardElement": {
+          "type": "HTMLElement",
+          "description": "The rendered card DOM element"
+        }
+      }
+    },
+    "actions": {
+      "description": "User actions supported by the component",
+      "rules": [
+        "Click event fires when card is clicked (if clickable is true)",
+        "Keyboard navigation (Enter/Space) triggers click (if clickable is true)",
+        "Hover effects applied when hoverable is true",
+        "onClick event handler can be registered"
+      ],
+      "properties": {
+        "onClick": {
+          "type": "function",
+          "description": "Register click event handler"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "variant": {
+      "type": "string",
+      "enum": [
+        "default",
+        "outlined",
+        "elevated",
+        "filled"
+      ],
+      "default": "default",
+      "description": "Card visual variant/style"
+    },
+    "hoverable": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable hover effects on card"
+    },
+    "clickable": {
+      "type": "boolean",
+      "default": false,
+      "description": "Make card clickable (adds role=button and keyboard support)"
+    },
+    "padding": {
+      "type": "string",
+      "enum": [
+        "none",
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium",
+      "description": "Card padding size"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS class name for the component"
+    }
+  },
+  "id": "XWUICard"
+}

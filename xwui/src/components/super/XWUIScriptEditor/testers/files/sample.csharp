@@ -1,0 +1,118 @@
+// C# Example
+// Comprehensive C# code demonstrating various features
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Example
+{
+    // Metadata class
+    public class Metadata
+    {
+        public string Author { get; set; }
+        public string Created { get; set; }
+        public List<string> Tags { get; set; }
+        
+        public Metadata()
+        {
+            Author = "XWUI Team";
+            Created = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ");
+            Tags = new List<string> { "example", "csharp", "c#" };
+        }
+    }
+    
+    // Item class
+    public class Item
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool Active { get; set; }
+        public double Price { get; set; }
+        public List<string> Categories { get; set; }
+        
+        public Item(int id, string name, bool active, double price)
+        {
+            Id = id;
+            Name = name;
+            Active = active;
+            Price = price;
+            Categories = new List<string>();
+        }
+    }
+    
+    // Document class
+    public class Document
+    {
+        public string Name { get; set; }
+        public string Version { get; set; }
+        public string Description { get; set; }
+        public Metadata Metadata { get; set; }
+        public List<Item> Items { get; set; }
+        
+        public Document(string name, string version, string description)
+        {
+            Name = name;
+            Version = version;
+            Description = description;
+            Metadata = new Metadata();
+            Items = new List<Item>();
+        }
+        
+        public void AddItem(Item item)
+        {
+            Items.Add(item);
+        }
+        
+        public List<Item> GetActiveItems()
+        {
+            return Items.Where(item => item.Active).ToList();
+        }
+        
+        public double GetTotalPrice()
+        {
+            return GetActiveItems().Sum(item => item.Price);
+        }
+        
+        public string ToJSON()
+        {
+            return System.Text.Json.JsonSerializer.Serialize(new
+            {
+                name = Name,
+                version = Version,
+                description = Description,
+                metadata = Metadata,
+                items = Items
+            }, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+        }
+    }
+    
+    // Program class
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            var doc = new Document(
+                "Sample C# Document",
+                "1.0.0",
+                "C# code example"
+            );
+            
+            doc.AddItem(new Item(1, "First Item", true, 29.99)
+            {
+                Categories = new List<string> { "electronics", "gadgets" }
+            });
+            
+            doc.AddItem(new Item(2, "Second Item", false, 49.99)
+            {
+                Categories = new List<string> { "books", "education" }
+            });
+            
+            Console.WriteLine($"Document: {doc.Name}");
+            Console.WriteLine($"Active items: {doc.GetActiveItems().Count}");
+            Console.WriteLine($"Total price: ${doc.GetTotalPrice():F2}");
+            Console.WriteLine($"\nJSON:\n{doc.ToJSON()}");
+        }
+    }
+}
+

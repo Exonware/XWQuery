@@ -1,0 +1,81 @@
+/**
+ * XWUITag Component Styles
+ * Base tag component - simple, lightweight tag display
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/container/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-tag, var(--radius-sm, 4px));
+    font-weight: var(--font-weight-medium, 500);
+    white-space: nowrap;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+/* Variants */
+.xwui-tag-default {
+    background: var(--bg-tag-default, var(--bg-secondary, #f8f9fa));
+    color: var(--text-tag-default, var(--text-secondary, #6c757d));
+    border: var(--border-tag-width, var(--border-width-thin, 1px)) var(--border-tag-style, solid) var(--border-tag-color, var(--border-color, #dee2e6));
+}
+
+.xwui-tag-primary {
+    background: var(--bg-tag-primary, var(--accent-primary, #1890ff));
+    color: var(--text-tag-primary, #ffffff);
+    border: var(--border-tag-width, var(--border-width-thin, 1px)) var(--border-tag-style, solid) var(--border-tag-primary-color, var(--accent-primary, #1890ff));
+}
+
+.xwui-tag-success {
+    background: var(--bg-tag-success, var(--color-success, #52c41a));
+    color: var(--text-tag-success, #ffffff);
+    border: var(--border-tag-width, var(--border-width-thin, 1px)) var(--border-tag-style, solid) var(--border-tag-success-color, var(--color-success, #52c41a));
+}
+
+.xwui-tag-warning {
+    background: var(--bg-tag-warning, var(--color-warning, #faad14));
+    color: var(--text-tag-warning, #ffffff);
+    border: var(--border-tag-width, var(--border-width-thin, 1px)) var(--border-tag-style, solid) var(--border-tag-warning-color, var(--color-warning, #faad14));
+}
+
+.xwui-tag-error {
+    background: var(--bg-tag-error, var(--color-error, #ff4d4f));
+    color: var(--text-tag-error, #ffffff);
+    border: var(--border-tag-width, var(--border-width-thin, 1px)) var(--border-tag-style, solid) var(--border-tag-error-color, var(--color-error, #ff4d4f));
+}
+
+/* Sizes */
+.xwui-tag-small {
+    padding: var(--spacing-tag-small-y, 0.125rem) var(--spacing-tag-small-x, 0.5rem);
+    font-size: var(--font-size-xs, 0.75rem);
+    line-height: 1.4;
+}
+
+.xwui-tag-medium {
+    padding: var(--spacing-tag-medium-y, 0.25rem) var(--spacing-tag-medium-x, 0.75rem);
+    font-size: var(--font-size-sm, 0.875rem);
+    line-height: 1.4;
+}
+
+.xwui-tag-large {
+    padding: var(--spacing-tag-large-y, 0.375rem) var(--spacing-tag-large-x, 1rem);
+    font-size: var(--font-size-base, 1rem);
+    line-height: 1.5;
+}
+
+.xwui-tag-label {
+    display: inline-block;
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

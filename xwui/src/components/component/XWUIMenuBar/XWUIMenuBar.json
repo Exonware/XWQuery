@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIMenuBar",
+  "name": "XWUI Menubar Component",
+  "description": "Menu bar component typically used in desktop applications. Displays horizontal menu items that can expand into dropdown menus. Uses XWUIMenu components internally.",
+  "path": "navigation.menubar",
+  "tags": [
+    "navigation",
+    "menubar",
+    "menu",
+    "desktop",
+    "application"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the menubar"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of menu items to display in the menubar",
+          "items": {
+            "description": "XWUIMenuItem (see XWUIMenu schema for structure)"
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    }
+  }
+}

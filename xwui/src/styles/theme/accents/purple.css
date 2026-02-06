@@ -1,0 +1,24 @@
+/* ============================================
+   PURPLE ACCENT - Purple palette
+   ============================================ */
+
+:root[data-accent="purple"] {
+    /* Accent colors - Purple palette */
+    --accent-primary: #9333ea;
+    --accent-hover: #7e22ce;
+    --accent-light: #a855f7;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 147, 51, 234;
+    --accent-hover-rgb: 126, 34, 206;
+    --accent-light-rgb: 168, 85, 247;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

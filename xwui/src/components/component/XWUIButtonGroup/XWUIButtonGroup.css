@@ -1,0 +1,48 @@
+/**
+ * XWUIButtonGroup Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/button/*.css (component-specific roundness)
+ */
+
+.xwui-button-group {
+    display: inline-flex;
+    border-radius: var(--radius-button, var(--radius-md, 6px));
+    overflow: hidden;
+}
+
+.xwui-button-group-vertical {
+    flex-direction: column;
+}
+
+/* Group item */
+.xwui-button-group-item {
+    position: relative;
+}
+
+.xwui-button-group-item:not(:last-child) {
+    border-right: var(--border-width-regular, 1.5px) solid var(--border-color);
+}
+
+.xwui-button-group-vertical .xwui-button-group-item:not(:last-child) {
+    border-right: none;
+    border-bottom: var(--border-width-regular, 1.5px) solid var(--border-color);
+}
+
+.xwui-button-group-item-selected {
+    z-index: 1;
+}
+
+.xwui-button-group-item-selected > div {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+    border-color: var(--accent-primary);
+}
+

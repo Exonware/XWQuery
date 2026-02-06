@@ -1,0 +1,15 @@
+# c.out.grammar
+# C Output Grammar - Template for generating C from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@translation_unit = {{#each declarations}}{{value}}
+{{/each}}
+
+@function_definition = {{#if specifiers}}{{specifiers}} {{/if}}{{declarator}}{{#if declarations}} {{declarations}}{{/if}} {{body}}
+
+@declaration = {{#if specifiers}}{{specifiers}} {{/if}}{{declarators}};
+
+@indent = 4
+@pretty = true
+

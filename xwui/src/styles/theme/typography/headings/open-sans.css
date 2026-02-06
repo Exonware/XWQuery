@@ -1,0 +1,13 @@
+/* ============================================
+   HEADINGS TYPOGRAPHY - OPEN-SANS
+   ============================================ */
+
+:root[data-font="open-sans"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-headings-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-headings-open-sans {
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif)) !important;
+}

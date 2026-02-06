@@ -1,0 +1,61 @@
+/* ============================================
+   CATPPUCCIN FRAPPE COLOR THEME - Blue-tinted dark theme
+   @primary: #303446
+   @secondary: #414559
+   @text: #c6d0f5
+   ============================================ */
+
+:root[data-theme="catppuccin-frappe"] {
+    /* Background colors */
+    --bg-primary: #303446;
+    --bg-secondary: #414559;
+    --bg-tertiary: #51576d;
+    --bg-app: #303446;
+    --bg-elevated: #414559;
+    --bg-hover: #51576d;
+    --bg-active: #626880;
+    
+    /* Text colors */
+    --text-primary: #c6d0f5;
+    --text-secondary: #b5bfe2;
+    --text-tertiary: #a5adce;
+    --text-inverse: #303446;
+    
+    /* Border colors */
+    --border-color: rgba(181, 191, 226, 0.2);
+    --border-light: rgba(181, 191, 226, 0.1);
+    --border-medium: rgba(181, 191, 226, 0.2);
+    --border-strong: rgba(181, 191, 226, 0.3);
+    
+    /* Control colors */
+    --control-bg: #414559;
+    --control-bg-hover: #51576d;
+    --control-bg-active: #626880;
+    --control-border: #51576d;
+    --control-text: #c6d0f5;
+    --control-text-secondary: #b5bfe2;
+    --control-active: #85c1dc;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #e5c890;
+    --status-before-start-border: #ef9f76;
+    --status-before-start-hover: #ef9f76;
+    --status-processing: #85c1dc;
+    --status-processing-border: #99d1db;
+    --status-processing-hover: #99d1db;
+    --status-processing-text: #303446;
+    --status-error: #e78284;
+    --status-error-border: #ea999c;
+    --status-error-hover: #ea999c;
+    --status-error-text: #303446;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

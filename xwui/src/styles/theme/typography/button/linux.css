@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON TYPOGRAPHY - LINUX
+   ============================================ */
+
+:root[data-font="linux"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-button-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-button-linux {
+    font-family: var(--font-button-family, var(--font-family-base, sans-serif)) !important;
+}

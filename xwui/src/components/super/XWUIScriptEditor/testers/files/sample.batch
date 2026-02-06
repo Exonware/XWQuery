@@ -1,0 +1,96 @@
+@echo off
+REM Batch Script Example
+REM Comprehensive Windows batch script demonstrating various features
+
+REM Script metadata
+set SCRIPT_NAME=sample.bat
+set VERSION=1.0.0
+set AUTHOR=XWUI Team
+
+REM Functions
+:print_header
+echo ==========================================
+echo   %~1
+echo ==========================================
+goto :eof
+
+:print_success
+echo [OK] %~1
+goto :eof
+
+:print_error
+echo [ERROR] %~1
+goto :eof
+
+:print_warning
+echo [WARNING] %~1
+goto :eof
+
+REM Main function
+call :print_header "Sample Batch Script"
+echo Version: %VERSION%
+echo Author: %AUTHOR%
+echo.
+
+REM Check dependencies
+call :print_header "Checking Dependencies"
+where git >nul 2>&1
+if %ERRORLEVEL% EQU 0 (
+    call :print_success "Git is installed"
+) else (
+    call :print_error "Git is not installed"
+)
+
+where node >nul 2>&1
+if %ERRORLEVEL% EQU 0 (
+    call :print_success "Node.js is installed"
+) else (
+    call :print_warning "Node.js is not installed"
+)
+
+REM Process items
+call :print_header "Processing Items"
+set /a active_count=0
+set /a total_price=0
+
+REM Item 1
+set item1_id=1
+set item1_name=First Item
+set item1_active=true
+set item1_price=29.99
+if "%item1_active%"=="true" (
+    set /a active_count+=1
+    set /a total_price+=29
+)
+
+REM Item 2
+set item2_id=2
+set item2_name=Second Item
+set item2_active=false
+set item2_price=49.99
+
+REM Item 3
+set item3_id=3
+set item3_name=Third Item
+set item3_active=true
+set item3_price=19.99
+if "%item3_active%"=="true" (
+    set /a active_count+=1
+    set /a total_price+=19
+)
+
+echo Active items: %active_count%
+echo Total price: $%total_price%.99
+
+REM File operations
+call :print_header "File Operations"
+if exist "config.json" (
+    call :print_success "config.json exists"
+) else (
+    call :print_warning "config.json not found"
+)
+
+REM Exit
+call :print_header "Script Complete"
+exit /b 0
+

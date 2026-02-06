@@ -1,0 +1,77 @@
+﻿# elasticsearch.out.grammar
+# Elasticsearch Output Grammar - Template for generating Elasticsearch Query DSL from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@query = {{value}}
+
+@match_all_query = {"match_all": {}}
+
+@match_query = {"match": {{{field_match}}}}
+
+@field_match = "{{field}}": {{value}}
+
+@match_params = {"query": "{{query}}"{{#if options}}, {{options}}{{/if}}}
+
+@match_options = {{#each options}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@match_option = {{value}}
+
+@term_query = {"term": {{{field_value}}}}
+
+@field_value = "{{field}}": {{value}}
+
+@terms_query = {"terms": {"{{field}}": [{{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]}}
+
+@range_query = {"range": {"{{field}}": {{{#each conditions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}}}}
+
+@range_condition = {{op}}: {{value}}
+
+@range_op = {{value}}
+
+@bool_query = {"bool": {{{clauses}}}}
+
+@bool_clauses = {{#each clauses}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@bool_clause = {{value}}
+
+@query_array = {{#if single}}{{value}}{{else}}[{{#each queries}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]{{/if}}
+
+@multi_match_query = {"multi_match": {{{params}}}}
+
+@multi_match_params = "query": "{{query}}", "fields": [{{#each fields}}"{{value}}"{{#if !@last}}, {{/if}}{{/each}}]{{#if options}}, {{options}}{{/if}}
+
+@query_string_query = {"query_string": {"query": "{{query}}"{{#if options}}, {{options}}{{/if}}}}
+
+@query_string_options = {{#each options}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@query_string_option = {{value}}
+
+@fuzzy_query = {"fuzzy": {"{{field}}": {"value": "{{value}}"{{#if options}}, {{options}}{{/if}}}}
+
+@fuzzy_options = {{#each options}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@fuzzy_option = {{value}}
+
+@prefix_query = {"prefix": {"{{field}}": "{{value}}"}}
+
+@wildcard_query = {"wildcard": {"{{field}}": "{{value}}"}}
+
+@exists_query = {"exists": {"field": "{{field}}"}}
+
+@nested_query = {"nested": {"path": "{{path}}", "query": {{query}}}}
+
+@aggregation_query = {"aggs": {{{#each definitions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}}}
+
+@agg_definition = "{{name}}": {{{type}}: {{{params}}}}}
+
+@agg_type = {{value}}
+
+@agg_params = {{#each params}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@agg_param = "{{name}}": {{value}}
+
+@value = {{value}}
+
+@indent = 2
+@pretty = true

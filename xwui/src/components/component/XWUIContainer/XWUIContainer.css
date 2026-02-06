@@ -1,0 +1,14 @@
+/**
+ * XWUIContainer Component Styles
+ * Container with max-width and centering
+ */
+
+.xwui-container-wrapper {
+    /* Wrapper has no specific styles */
+}
+
+.xwui-container {
+    box-sizing: border-box;
+    width: 100%;
+}
+

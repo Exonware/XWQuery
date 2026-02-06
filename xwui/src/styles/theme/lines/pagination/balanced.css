@@ -1,0 +1,17 @@
+/* ============================================
+   PAGINATION LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-pagination-width: var(--border-width-regular, 1.5px);
+    --border-pagination-style: solid;
+    --border-pagination-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-pagination-balanced {
+    border-style: var(--border-pagination-style, solid);
+    border-width: var(--border-pagination-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-pagination-color, var(--border-medium, var(--border-color)));
+}

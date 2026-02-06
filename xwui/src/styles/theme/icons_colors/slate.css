@@ -1,0 +1,12 @@
+/* ============================================
+   SLATE ICON COLORS - Neutral slate theme
+   ============================================ */
+
+:root[data-icons-colors="slate"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #0f172a;        /* Primary fill color - dark slate text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #64748b;        /* Accent/rail/marks color - slate */
+    --icons-color-transparent: transparent;
+}
+

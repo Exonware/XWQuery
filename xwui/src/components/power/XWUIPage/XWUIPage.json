@@ -1,0 +1,451 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIPage",
+  "name": "XWUI Page Component",
+  "description": "Generic page component that composes existing XWUI components to create various page layouts. Supports admin panels, list pages, forms, detail pages, search pages, dashboards, settings, wizards, and custom layouts. Uses zero custom rendering logic - only composes/links existing components.",
+  "path": "layout.pages",
+  "tags": ["page", "layout", "admin", "form", "list", "dashboard", "settings", "wizard", "search", "detail", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "pageType": {
+          "type": "string",
+          "enum": ["admin", "list", "form", "detail", "search", "dashboard", "settings", "wizard", "report", "custom"],
+          "description": "Page type preset for common layouts",
+          "default": "custom"
+        },
+        "layout": {
+          "type": "object",
+          "description": "Layout configuration for the page",
+          "additionalProperties": false,
+          "properties": {
+            "grid": {
+              "type": "object",
+              "description": "Grid-based layout configuration (used when not using AppShell)",
+              "additionalProperties": false,
+              "properties": {
+                "columns": {
+                  "oneOf": [
+                    { "type": "number" },
+                    { "type": "string" }
+                  ],
+                  "description": "Number of columns or grid-template-columns value"
+                },
+                "rows": {
+                  "oneOf": [
+                    { "type": "number" },
+                    { "type": "string" }
+                  ],
+                  "description": "Number of rows or grid-template-rows value"
+                },
+                "gap": {
+                  "type": "string",
+                  "description": "Grid gap"
+                },
+                "rowGap": {
+                  "type": "string",
+                  "description": "Row gap (overrides gap for rows)"
+                },
+                "columnGap": {
+                  "type": "string",
+                  "description": "Column gap (overrides gap for columns)"
+                },
+                "areas": {
+                  "type": "string",
+                  "description": "CSS grid-template-areas value"
+                },
+                "alignItems": {
+                  "type": "string",
+                  "enum": ["start", "end", "center", "stretch", "baseline"],
+                  "description": "Align items in grid"
+                },
+                "justifyItems": {
+                  "type": "string",
+                  "enum": ["start", "end", "center", "stretch"],
+                  "description": "Justify items in grid"
+                },
+                "alignContent": {
+                  "type": "string",
+                  "enum": ["start", "end", "center", "stretch", "space-between", "space-around", "space-evenly"],
+                  "description": "Align content in grid"
+                },
+                "justifyContent": {
+                  "type": "string",
+                  "enum": ["start", "end", "center", "stretch", "space-between", "space-around", "space-evenly"],
+                  "description": "Justify content in grid"
+                },
+                "autoFlow": {
+                  "type": "string",
+                  "enum": ["row", "column", "dense", "row dense", "column dense"],
+                  "description": "Grid auto flow direction"
+                },
+                "autoRows": {
+                  "type": "string",
+                  "description": "Grid auto rows size"
+                },
+                "autoColumns": {
+                  "type": "string",
+                  "description": "Grid auto columns size"
+                },
+                "minChildWidth": {
+                  "type": "string",
+                  "description": "Minimum child width for auto-fit responsive grids"
+                },
+                "responsive": {
+                  "type": "object",
+                  "description": "Responsive breakpoint overrides",
+                  "additionalProperties": false,
+                  "properties": {
+                    "sm": {
+                      "type": "object",
+                      "description": "Small breakpoint (>= 640px) overrides"
+                    },
+                    "md": {
+                      "type": "object",
+                      "description": "Medium breakpoint (>= 768px) overrides"
+                    },
+                    "lg": {
+                      "type": "object",
+                      "description": "Large breakpoint (>= 1024px) overrides"
+                    },
+                    "xl": {
+                      "type": "object",
+                      "description": "Extra large breakpoint (>= 1280px) overrides"
+                    }
+                  }
+                }
+              }
+            },
+            "regions": {
+              "type": "object",
+              "description": "Region visibility flags",
+              "additionalProperties": false,
+              "properties": {
+                "header": {
+                  "type": "boolean",
+                  "description": "Show header region",
+                  "default": false
+                },
+                "sidebar": {
+                  "type": "boolean",
+                  "description": "Show sidebar region",
+                  "default": false
+                },
+                "main": {
+                  "type": "boolean",
+                  "description": "Show main content region",
+                  "default": true
+                },
+                "footer": {
+                  "type": "boolean",
+                  "description": "Show footer region",
+                  "default": false
+                },
+                "aside": {
+                  "type": "boolean",
+                  "description": "Show aside (right sidebar) region",
+                  "default": false
+                },
+                "breadcrumbs": {
+                  "type": "boolean",
+                  "description": "Show breadcrumbs region",
+                  "default": false
+                },
+                "actions": {
+                  "type": "boolean",
+                  "description": "Show actions region",
+                  "default": false
+                }
+              }
+            },
+            "sizes": {
+              "type": "object",
+              "description": "Region size overrides",
+              "additionalProperties": false,
+              "properties": {
+                "headerHeight": {
+                  "type": "string",
+                  "description": "Header height"
+                },
+                "sidebarWidth": {
+                  "type": "string",
+                  "description": "Sidebar width"
+                },
+                "asideWidth": {
+                  "type": "string",
+                  "description": "Aside (right sidebar) width"
+                },
+                "footerHeight": {
+                  "type": "string",
+                  "description": "Footer height"
+                }
+              }
+            },
+            "useAppShell": {
+              "type": "boolean",
+              "description": "Use AppShell layout instead of Grid",
+              "default": false
+            },
+            "appShell": {
+              "type": "object",
+              "description": "AppShell-specific configuration",
+              "additionalProperties": false,
+              "properties": {
+                "sidebarCollapsible": {
+                  "type": "boolean",
+                  "description": "Whether sidebar can be collapsed",
+                  "default": false
+                },
+                "sidebarCollapsed": {
+                  "type": "boolean",
+                  "description": "Whether sidebar is initially collapsed",
+                  "default": false
+                },
+                "sidebarWidth": {
+                  "type": "string",
+                  "description": "Sidebar width",
+                  "default": "280px"
+                },
+                "direction": {
+                  "type": "string",
+                  "enum": ["ltr", "rtl"],
+                  "description": "Text direction",
+                  "default": "ltr"
+                },
+                "className": {
+                  "type": "string",
+                  "description": "Additional CSS class name"
+                }
+              }
+            }
+          }
+        },
+        "container": {
+          "type": "object",
+          "description": "Container wrapper settings",
+          "additionalProperties": false,
+          "properties": {
+            "maxWidth": {
+              "oneOf": [
+                { "type": "number" },
+                { "type": "string" }
+              ],
+              "description": "Maximum width of container"
+            },
+            "center": {
+              "type": "boolean",
+              "description": "Whether to center the container",
+              "default": false
+            },
+            "padding": {
+              "oneOf": [
+                { "type": "number" },
+                { "type": "string" }
+              ],
+              "description": "Container padding"
+            },
+            "className": {
+              "type": "string",
+              "description": "Additional CSS class name for container"
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "description": "Optional metadata for future extensions (API endpoints, permissions, etc.)",
+          "additionalProperties": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for page wrapper"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Page title"
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Page subtitle"
+        },
+        "description": {
+          "type": "string",
+          "description": "Page description"
+        },
+        "header": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "description": "Component descriptor for header region",
+              "properties": {
+                "component": { "type": "string" },
+                "region": { "type": "string" },
+                "gridArea": { "type": "string" },
+                "span": { "type": "number" },
+                "conf_comp": { "type": "object" },
+                "data": { "type": "object" },
+                "targetId": { "type": "string" }
+              }
+            }
+          ],
+          "description": "Header region content (HTMLElement, string, or component descriptor)"
+        },
+        "sidebar": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "description": "Component descriptor for sidebar region",
+              "properties": {
+                "component": { "type": "string" },
+                "region": { "type": "string" },
+                "gridArea": { "type": "string" },
+                "span": { "type": "number" },
+                "conf_comp": { "type": "object" },
+                "data": { "type": "object" },
+                "targetId": { "type": "string" }
+              }
+            }
+          ],
+          "description": "Sidebar region content (HTMLElement, string, or component descriptor)"
+        },
+        "main": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "description": "Component descriptor for main region"
+            },
+            {
+              "type": "array",
+              "description": "Array of component descriptors for main region",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "component": { "type": "string" },
+                  "region": { "type": "string" },
+                  "gridArea": { "type": "string" },
+                  "span": { "type": "number" },
+                  "conf_comp": { "type": "object" },
+                  "data": { "type": "object" },
+                  "targetId": { "type": "string" }
+                }
+              }
+            }
+          ],
+          "description": "Main content region (HTMLElement, string, component descriptor, or array of descriptors)"
+        },
+        "footer": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "description": "Component descriptor for footer region"
+            }
+          ],
+          "description": "Footer region content (HTMLElement, string, or component descriptor)"
+        },
+        "aside": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "description": "Component descriptor for aside region"
+            }
+          ],
+          "description": "Aside (right sidebar) region content (HTMLElement, string, or component descriptor)"
+        },
+        "breadcrumbs": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "description": "Component descriptor for breadcrumbs region"
+            }
+          ],
+          "description": "Breadcrumbs region content (HTMLElement, string, or component descriptor)"
+        },
+        "actions": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "description": "Component descriptor for actions region"
+            },
+            {
+              "type": "array",
+              "description": "Array of component descriptors for actions region",
+              "items": {
+                "type": "object"
+              }
+            }
+          ],
+          "description": "Actions region content (HTMLElement, string, component descriptor, or array of descriptors)"
+        },
+        "sections": {
+          "type": "array",
+          "description": "Sections array for complex main content",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "region": {
+                "type": "string",
+                "enum": ["header", "sidebar", "main", "footer", "aside", "breadcrumbs", "actions"]
+              },
+              "gridArea": { "type": "string" },
+              "component": {
+                "type": "object",
+                "properties": {
+                  "component": { "type": "string" },
+                  "region": { "type": "string" },
+                  "gridArea": { "type": "string" },
+                  "span": { "type": "number" },
+                  "conf_comp": { "type": "object" },
+                  "data": { "type": "object" },
+                  "targetId": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "content": {
+          "type": "array",
+          "description": "Generic content array (alternative to individual regions)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "region": {
+                "type": "string",
+                "enum": ["header", "sidebar", "main", "footer", "aside", "breadcrumbs", "actions"]
+              },
+              "gridArea": { "type": "string" },
+              "span": { "type": "number" },
+              "content": {
+                "oneOf": [
+                  { "type": "string" },
+                  { "type": "object" }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,13 @@
+/* ============================================
+   CAPTION TYPOGRAPHY - POPPINS
+   ============================================ */
+
+:root[data-font="poppins"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-caption-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-caption-poppins {
+    font-family: var(--font-caption-family, var(--font-family-base, sans-serif)) !important;
+}

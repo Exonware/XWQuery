@@ -1,0 +1,212 @@
+/**
+ * XWUITabs Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/tab/*.css (component-specific border widths)
+ * - Roundness: theme/roundness/tab/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-tabs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.xwui-tabs-vertical {
+    flex-direction: row;
+}
+
+/* Tab list */
+.xwui-tabs-list {
+    display: flex;
+    gap: 0;
+}
+
+.xwui-tabs-horizontal .xwui-tabs-list {
+    flex-direction: row;
+    border-bottom: var(--border-tab-width, var(--border-width-regular, 1.5px)) var(--border-tab-style, solid) var(--border-tab-color, var(--border-color, #dee2e6));
+}
+
+.xwui-tabs-vertical .xwui-tabs-list {
+    flex-direction: column;
+    border-right: var(--border-tab-width, var(--border-width-regular, 1.5px)) var(--border-tab-style, solid) var(--border-tab-color, var(--border-color, #dee2e6));
+    min-width: 150px;
+}
+
+.xwui-tabs-centered .xwui-tabs-list {
+    justify-content: center;
+}
+
+.xwui-tabs-full-width .xwui-tab {
+    flex: 1;
+}
+
+/* Individual tab */
+.xwui-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm, 0.5rem);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-secondary, #6c757d);
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
+    position: relative;
+    white-space: nowrap;
+}
+
+.xwui-tab:hover:not(.xwui-tab-disabled) {
+    color: var(--text-primary, #212529);
+}
+
+.xwui-tab-active {
+    color: var(--accent-primary, #4f46e5);
+}
+
+.xwui-tab-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Size variants */
+.xwui-tabs-small .xwui-tab {
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+    font-size: var(--font-size-sm, 0.8125rem);
+}
+
+.xwui-tabs-medium .xwui-tab {
+    padding: var(--spacing-sm, 0.75rem) var(--spacing-lg, 1.25rem);
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-tabs-large .xwui-tab {
+    padding: var(--spacing-md, 1rem) var(--spacing-lg, 1.5rem);
+    font-size: var(--font-size-base, 1rem);
+}
+
+/* Line variant */
+.xwui-tabs-line .xwui-tab-active::after {
+    content: '';
+    position: absolute;
+    background: var(--accent-primary, #4f46e5);
+}
+
+.xwui-tabs-line.xwui-tabs-horizontal .xwui-tab-active::after {
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+}
+
+.xwui-tabs-line.xwui-tabs-vertical .xwui-tab-active::after {
+    right: -1px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+}
+
+/* Card variant */
+.xwui-tabs-card .xwui-tab {
+    border: var(--border-tab-width, var(--border-width-regular, 1.5px)) var(--border-tab-style, solid) transparent;
+    border-radius: var(--radius-tab, var(--radius-sm, 6px)) var(--radius-tab, var(--radius-sm, 6px)) 0 0;
+    margin-bottom: -1px;
+}
+
+.xwui-tabs-card .xwui-tab-active {
+    background: var(--bg-primary, #ffffff);
+    border-color: var(--border-color, #dee2e6);
+    border-bottom-color: transparent;
+}
+
+.xwui-tabs-card.xwui-tabs-vertical .xwui-tab {
+    border-radius: var(--radius-tab, var(--radius-sm, 6px)) 0 0 var(--radius-tab, var(--radius-sm, 6px));
+    margin-bottom: 0;
+    margin-right: -1px;
+}
+
+.xwui-tabs-card.xwui-tabs-vertical .xwui-tab-active {
+    border-right-color: transparent;
+    border-bottom-color: var(--border-color, #dee2e6);
+}
+
+/* Button variant */
+.xwui-tabs-button .xwui-tabs-list {
+    gap: var(--spacing-xs, 0.25rem);
+    padding: var(--spacing-xs, 0.25rem);
+    background: var(--bg-secondary, #f8f9fa);
+    border-radius: var(--radius-tab, var(--radius-md, 8px));
+    border: none;
+}
+
+.xwui-tabs-button .xwui-tab {
+    border-radius: var(--radius-tab, var(--radius-sm, 6px));
+}
+
+.xwui-tabs-button .xwui-tab-active {
+    background: var(--bg-primary, #ffffff);
+    box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+}
+
+/* Tab icon */
+.xwui-tab-icon {
+    display: flex;
+    align-items: center;
+}
+
+.xwui-tab-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Tab content/panels */
+.xwui-tabs-content {
+    flex: 1;
+}
+
+.xwui-tab-panel {
+    padding: var(--spacing-md, 1rem) 0;
+}
+
+.xwui-tabs-vertical .xwui-tab-panel {
+    padding: 0 var(--spacing-md, 1rem);
+}
+
+.xwui-tab-panel[hidden] {
+    display: none;
+}
+
+/* Dark theme */
+[data-theme="dark"] .xwui-tabs-horizontal .xwui-tabs-list,
+[data-theme="dark"] .xwui-tabs-vertical .xwui-tabs-list {
+    border-color: var(--border-color, #334155);
+}
+
+[data-theme="dark"] .xwui-tab {
+    color: var(--text-secondary, #94a3b8);
+}
+
+[data-theme="dark"] .xwui-tab:hover:not(.xwui-tab-disabled) {
+    color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .xwui-tabs-card .xwui-tab-active {
+    background: var(--bg-primary, #0f172a);
+    border-color: var(--border-color, #334155);
+}
+
+[data-theme="dark"] .xwui-tabs-button .xwui-tabs-list {
+    background: var(--bg-secondary, #1e293b);
+}
+
+[data-theme="dark"] .xwui-tabs-button .xwui-tab-active {
+    background: var(--bg-primary, #0f172a);
+}
+

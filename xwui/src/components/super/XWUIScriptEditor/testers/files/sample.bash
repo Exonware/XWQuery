@@ -1,0 +1,108 @@
+#!/bin/bash
+# Bash Script Example
+# Comprehensive Bash script demonstrating various features
+
+# Script metadata
+SCRIPT_NAME="sample.sh"
+VERSION="1.0.0"
+AUTHOR="XWUI Team"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Functions
+print_header() {
+    echo "=========================================="
+    echo "  $1"
+    echo "=========================================="
+}
+
+print_success() {
+    echo -e "${GREEN}✓${NC} $1"
+}
+
+print_error() {
+    echo -e "${RED}✗${NC} $1"
+}
+
+print_warning() {
+    echo -e "${YELLOW}⚠${NC} $1"
+}
+
+# Check if command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Process items
+process_items() {
+    local items=("$@")
+    local total=0
+    local count=0
+    
+    for item in "${items[@]}"; do
+        if [[ $item == *"active"* ]]; then
+            ((count++))
+            price=$(echo "$item" | grep -oP 'price:\K[0-9.]+')
+            total=$(echo "$total + $price" | bc)
+        fi
+    done
+    
+    echo "Active items: $count"
+    echo "Total price: \$$(printf "%.2f" $total)"
+}
+
+# Main function
+main() {
+    print_header "Sample Bash Script"
+    echo "Version: $VERSION"
+    echo "Author: $AUTHOR"
+    echo ""
+    
+    # Check dependencies
+    print_header "Checking Dependencies"
+    if command_exists "git"; then
+        print_success "Git is installed"
+    else
+        print_error "Git is not installed"
+    fi
+    
+    if command_exists "node"; then
+        print_success "Node.js is installed"
+    else
+        print_warning "Node.js is not installed"
+    fi
+    
+    # Process items
+    print_header "Processing Items"
+    items=(
+        "id:1 name:First\ Item active:true price:29.99"
+        "id:2 name:Second\ Item active:false price:49.99"
+        "id:3 name:Third\ Item active:true price:19.99"
+    )
+    
+    process_items "${items[@]}"
+    
+    # File operations
+    print_header "File Operations"
+    if [ -f "config.json" ]; then
+        print_success "config.json exists"
+    else
+        print_warning "config.json not found"
+    fi
+    
+    # Exit
+    print_header "Script Complete"
+    exit 0
+}
+
+# Error handling
+set -e
+trap 'print_error "Script failed at line $LINENO"' ERR
+
+# Run main function
+main "$@"
+

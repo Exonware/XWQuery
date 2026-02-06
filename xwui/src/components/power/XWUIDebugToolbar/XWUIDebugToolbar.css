@@ -1,0 +1,183 @@
+/**
+ * XWUIDebugToolbar Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ */
+
+.xwui-debug-toolbar-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.xwui-debug-toolbar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary, #ffffff);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-md, 8px);
+}
+
+/* Toolbar Controls */
+.xwui-debug-toolbar-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.5rem);
+    padding: var(--spacing-sm, 0.75rem);
+    border-bottom: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    background: var(--bg-secondary, #f8f9fa);
+}
+
+/* Panels */
+.xwui-debug-toolbar-panels {
+    flex: 1;
+    display: flex;
+    gap: var(--spacing-sm, 0.75rem);
+    padding: var(--spacing-sm, 0.75rem);
+    overflow: auto;
+}
+
+.xwui-debug-toolbar-panel {
+    flex: 1;
+    min-width: 200px;
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-sm, 4px);
+    padding: var(--spacing-sm, 0.75rem);
+    background: var(--bg-primary, #ffffff);
+}
+
+.xwui-debug-toolbar-panel h4 {
+    margin: 0 0 var(--spacing-sm, 0.75rem) 0;
+    font-size: var(--font-size-base, 1rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+}
+
+/* Breakpoints */
+.xwui-debug-breakpoints-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.xwui-debug-breakpoint {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.5rem);
+    padding: var(--spacing-xs, 0.5rem);
+    cursor: pointer;
+    border-radius: var(--radius-sm, 4px);
+    transition: background 0.2s ease;
+}
+
+.xwui-debug-breakpoint:hover {
+    background: var(--bg-hover, #f8f9fa);
+}
+
+.xwui-debug-breakpoint.enabled {
+    color: var(--text-primary, #212529);
+}
+
+.xwui-debug-breakpoint.disabled {
+    color: var(--text-secondary, #6c757d);
+    opacity: 0.6;
+}
+
+.xwui-debug-breakpoint-toggle {
+    font-size: var(--font-size-base, 1rem);
+    width: 1.5rem;
+    text-align: center;
+}
+
+.xwui-debug-breakpoint-info {
+    flex: 1;
+    font-family: var(--font-family-mono, 'Courier New', monospace);
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-debug-breakpoint-condition {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #6c757d);
+    font-style: italic;
+}
+
+/* Variables */
+.xwui-debug-variables-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-debug-variables-table th {
+    text-align: left;
+    padding: var(--spacing-xs, 0.5rem);
+    border-bottom: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-debug-variables-table td {
+    padding: var(--spacing-xs, 0.5rem);
+    border-bottom: var(--border-width-thin, 1px) solid var(--border-color, #e0e0e0);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-debug-variables-table tr:hover {
+    background: var(--bg-hover, #f8f9fa);
+}
+
+/* Call Stack */
+.xwui-debug-callstack-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.xwui-debug-callstack-frame {
+    padding: var(--spacing-xs, 0.5rem);
+    border-bottom: var(--border-width-thin, 1px) solid var(--border-color, #e0e0e0);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.xwui-debug-callstack-frame:hover {
+    background: var(--bg-hover, #f8f9fa);
+}
+
+.xwui-debug-callstack-frame.active {
+    background: var(--bg-secondary, #f8f9fa);
+    border-left: var(--border-width-regular, 3px) solid var(--accent-primary, #4f46e5);
+    padding-left: calc(var(--spacing-xs, 0.5rem) - 3px);
+}
+
+.xwui-debug-callstack-function {
+    display: block;
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+    margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-debug-callstack-location {
+    display: block;
+    font-family: var(--font-family-mono, 'Courier New', monospace);
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #6c757d);
+}
+
+/* Empty state */
+.xwui-debug-empty {
+    padding: var(--spacing-md, 1rem);
+    text-align: center;
+    color: var(--text-secondary, #6c757d);
+    font-size: var(--font-size-sm, 0.875rem);
+    margin: 0;
+}
+

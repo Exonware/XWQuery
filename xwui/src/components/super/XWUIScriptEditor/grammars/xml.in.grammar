@@ -1,0 +1,129 @@
+// xml.grammar
+// XML Grammar - Extensible Markup Language
+// Based on XML 1.0 specification (W3C)
+// Company: eXonware.com
+
+?start: document
+
+document: prolog? element (MISC)*
+
+prolog: XMLDecl? (MISC)* (doctypedecl (MISC)*)?
+
+XMLDecl: "<?xml" versioninfo encodingdecl? sddecl? S? "?>"
+
+versioninfo: S "version" EQ ("'" VERSION "'" | "\"" VERSION "\"")
+
+VERSION: /1\.[0-9]+/
+
+encodingdecl: S "encoding" EQ ("'" ENCODING "'" | "\"" ENCODING "\"")
+
+ENCODING: /[A-Za-z][A-Za-z0-9._-]*/
+
+sddecl: S "standalone" EQ ("'" ("yes" | "no") "'" | "\"" ("yes" | "no") "\"")
+
+doctypedecl: "<!DOCTYPE" S NAME (S externalid)? S? ("[" intsubset "]")? S? ">"
+
+externalid: "SYSTEM" S systemliteral | "PUBLIC" S pubidliteral S systemliteral
+
+systemliteral: ("'" /[^']/* "'") | ("\"" /[^"]/* "\"")
+
+pubidliteral: ("'" PUBIDCHAR* "'") | ("\"" PUBIDCHAR* "\"")
+
+PUBIDCHAR: /[a-zA-Z0-9\-'()+,.\/:;=?@!*#$_%]/
+
+intsubset: (markupdecl | declsep)*
+
+markupdecl: elementdecl | attlistdecl | entitydecl | notationdecl | pi | comment
+
+elementdecl: "<!ELEMENT" S NAME S contentspec S? ">"
+
+contentspec: "EMPTY" | "ANY" | mixed | children
+
+children: (choice | seq) ("?" | "*" | "+")?
+
+choice: "(" S? cp (S? "|" S? cp)+ S? ")"
+
+seq: "(" S? cp (S? "," S? cp)* S? ")"
+
+cp: (NAME | choice | seq) ("?" | "*" | "+")?
+
+mixed: "(" S? "#PCDATA" (S? "|" S? NAME)* S? ")*" | "(" S? "#PCDATA" S? ")"
+
+attlistdecl: "<!ATTLIST" S NAME attdef+ S? ">"
+
+attdef: S NAME S atttype S defaultdecl
+
+atttype: stringtype | tokenizedtype | enumeratedtype
+
+stringtype: "CDATA"
+
+tokenizedtype: "ID" | "IDREF" | "IDREFS" | "ENTITY" | "ENTITIES" | "NMTOKEN" | "NMTOKENS"
+
+enumeratedtype: notationtype | enumeration
+
+notationtype: "NOTATION" S "(" S? NAME (S? "|" S? NAME)* S? ")"
+
+enumeration: "(" S? Nmtoken (S? "|" S? Nmtoken)* S? ")"
+
+Nmtoken: /[a-zA-Z0-9._:-]+/
+
+defaultdecl: "#REQUIRED" | "#IMPLIED" | (("#FIXED" S)? attvalue)
+
+entitydecl: gedecl | pedecl
+
+gedecl: "<!ENTITY" S NAME S entitydef S? ">"
+
+pedecl: "<!ENTITY" S "%" S NAME S entitydef S? ">"
+
+entitydef: entityvalue | externalid
+
+entityvalue: ("'" /[^'&%]*/ "'") | ("\"" /[^"&%]*/ "\"")
+
+notationdecl: "<!NOTATION" S NAME S (externalid | publicid) S? ">"
+
+publicid: "PUBLIC" S pubidliteral
+
+element: emptyelemtag | stag content etag
+
+stag: "<" NAME (S attribute)* S? ">"
+
+etag: "</" NAME S? ">"
+
+emptyelemtag: "<" NAME (S attribute)* S? "/>"
+
+content: (chardata | element | reference | cdsect | pi | comment)*
+
+attribute: NAME EQ attvalue
+
+attvalue: ("'" /[^'<&]*/ "'") | ("\"" /[^"<&]*/ "\"")
+
+reference: entityref | charref
+
+entityref: "&" NAME ";"
+
+charref: "&#" NUMBER ";" | "&#x" HEXNUMBER ";"
+
+NUMBER: /[0-9]+/
+
+HEXNUMBER: /[0-9a-fA-F]+/
+
+NAME: /[a-zA-Z_][a-zA-Z0-9_.:-]*/
+
+cdsect: "<![CDATA[" /[^\]]*\]\]/ "]]>"
+
+pi: "<?" PITARGET (S /[^?]*/)? "?>"
+
+PITARGET: /[a-zA-Z_][a-zA-Z0-9_.-]*/
+
+comment: "<!--" /[^-]|-[^-]/* "-->"
+
+chardata: /[^<&]+/
+
+MISC: comment | pi | S
+
+S: /[\x20\t\r\n]+/
+
+EQ: S? "=" S?
+
+%ignore S
+

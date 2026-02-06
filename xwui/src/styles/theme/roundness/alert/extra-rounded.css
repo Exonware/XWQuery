@@ -1,0 +1,14 @@
+/* ============================================
+   ALERT - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-alert: 24px;
+    /* Fallback: --radius-feedback → --radius-md → 24px */
+}
+
+/* Utility class for direct application */
+.radius-alert-extra-rounded {
+    border-radius: var(--radius-alert, 24px) !important;
+}

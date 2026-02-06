@@ -1,0 +1,13 @@
+/* ============================================
+   LABEL TYPOGRAPHY - SYSTEM
+   ============================================ */
+
+:root[data-font="system"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-label-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-label-system {
+    font-family: var(--font-label-family, var(--font-family-base, sans-serif)) !important;
+}

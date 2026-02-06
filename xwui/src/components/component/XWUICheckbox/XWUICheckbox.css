@@ -1,0 +1,163 @@
+/**
+ * XWUICheckbox Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/rounded.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-checkbox {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm, 0.625rem);
+    cursor: pointer;
+    user-select: none;
+}
+
+.xwui-checkbox-disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Hidden input */
+.xwui-checkbox-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Visual checkbox */
+.xwui-checkbox-visual {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--border-control-width, var(--border-width-thick, 2px)) var(--border-control-style, solid) var(--border-control-color, var(--border-color, #dee2e6));
+    border-radius: var(--radius-control, var(--radius-xs, 4px));
+    background: var(--bg-primary, #ffffff);
+    transition: all 0.15s ease;
+}
+
+.xwui-checkbox-icon {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.15s ease;
+    color: var(--text-inverse);
+}
+
+/* Size variants */
+.xwui-checkbox-small .xwui-checkbox-visual {
+    width: 16px;
+    height: 16px;
+}
+
+.xwui-checkbox-small .xwui-checkbox-icon {
+    width: 12px;
+    height: 12px;
+}
+
+.xwui-checkbox-medium .xwui-checkbox-visual {
+    width: 20px;
+    height: 20px;
+}
+
+.xwui-checkbox-medium .xwui-checkbox-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.xwui-checkbox-large .xwui-checkbox-visual {
+    width: 24px;
+    height: 24px;
+}
+
+.xwui-checkbox-large .xwui-checkbox-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* Checked state */
+.xwui-checkbox-input:checked + .xwui-checkbox-visual {
+    background: var(--accent-primary, #4f46e5);
+    border-color: var(--accent-primary, #4f46e5);
+    box-shadow: var(--glow-checkbox-checked, none);
+}
+
+.xwui-checkbox-input:checked + .xwui-checkbox-visual .xwui-checkbox-icon-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Indeterminate state */
+.xwui-checkbox-input:indeterminate + .xwui-checkbox-visual {
+    background: var(--accent-primary, #4f46e5);
+    border-color: var(--accent-primary, #4f46e5);
+}
+
+.xwui-checkbox-input:indeterminate + .xwui-checkbox-visual .xwui-checkbox-icon-indeterminate {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.xwui-checkbox-input:indeterminate + .xwui-checkbox-visual .xwui-checkbox-icon-check {
+    opacity: 0;
+}
+
+/* Focus state */
+.xwui-checkbox-input:focus-visible + .xwui-checkbox-visual {
+    box-shadow: var(--glow-checkbox-focus, var(--shadow-xs));
+}
+
+/* Hover state */
+.xwui-checkbox:hover .xwui-checkbox-visual {
+    border-color: var(--accent-primary, #4f46e5);
+}
+
+/* Color variants */
+.xwui-checkbox-success .xwui-checkbox-input:checked + .xwui-checkbox-visual,
+.xwui-checkbox-success .xwui-checkbox-input:indeterminate + .xwui-checkbox-visual {
+    background: var(--accent-success, #10b981);
+    border-color: var(--accent-success, #10b981);
+}
+
+.xwui-checkbox-warning .xwui-checkbox-input:checked + .xwui-checkbox-visual,
+.xwui-checkbox-warning .xwui-checkbox-input:indeterminate + .xwui-checkbox-visual {
+    background: var(--accent-warning, #f59e0b);
+    border-color: var(--accent-warning, #f59e0b);
+}
+
+.xwui-checkbox-error .xwui-checkbox-input:checked + .xwui-checkbox-visual,
+.xwui-checkbox-error .xwui-checkbox-input:indeterminate + .xwui-checkbox-visual {
+    background: var(--accent-error, #ef4444);
+    border-color: var(--accent-error, #ef4444);
+}
+
+/* Text content */
+.xwui-checkbox-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xxs, 0.125rem);
+}
+
+.xwui-checkbox-label {
+    font-size: var(--font-size-base, 0.9375rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+    line-height: 1.4;
+}
+
+.xwui-checkbox-description {
+    font-size: var(--font-size-sm, 0.8125rem);
+    color: var(--text-secondary, #6c757d);
+    line-height: 1.4;
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

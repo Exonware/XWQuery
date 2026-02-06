@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUITester - Loading Solutions Comparison</title>
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuitester-loading-solutions-content">
+<div class="button-group">
+                <h2>Loading Solutions Comparison</h2>
+                <p>Four different approaches to prevent FOUC (Flash of Unstyled Content):</p>
+            </div>
+            
+            <div class="button-group">
+                <h3>Solution 1: Hide Body + Spinner</h3>
+                <p><strong>Approach:</strong> Hide body with CSS, show XWUISpinner overlay, wait for all stylesheets</p>
+                <p><strong>Pros:</strong> Complete prevention of FOUC, smooth fade-in</p>
+                <p><strong>Cons:</strong> More complex, requires waiting for all CSS</p>
+                <div class="button-row">
+                    <a href="TesterXWUITester-Solution1.html" target="_blank">
+                        <button style="padding: 0.5rem 1rem; cursor: pointer;">Test Solution 1</button>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <h3>Solution 2: Wait for Style + Spinner</h3>
+                <p><strong>Approach:</strong> Hide body, show spinner, wait for style instance to be ready</p>
+                <p><strong>Pros:</strong> Simpler implementation, faster</p>
+                <p><strong>Cons:</strong> May show content slightly before all CSS loads</p>
+                <div class="button-row">
+                    <a href="TesterXWUITester-Solution2.html" target="_blank">
+                        <button style="padding: 0.5rem 1rem; cursor: pointer;">Test Solution 2</button>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <h3>Solution 3: waitForReady() + Spinner</h3>
+                <p><strong>Approach:</strong> Use tester.waitForReady() method, show spinner overlay</p>
+                <p><strong>Pros:</strong> Cleanest API, reusable, handles all edge cases</p>
+                <p><strong>Cons:</strong> Requires method implementation</p>
+                <div class="button-row">
+                    <a href="TesterXWUITester-Solution3.html" target="_blank">
+                        <button style="padding: 0.5rem 1rem; cursor: pointer;">Test Solution 3</button>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <h3>Solution 4: Skeleton Loaders</h3>
+                <p><strong>Approach:</strong> Show skeleton placeholders matching component shapes</p>
+                <p><strong>Pros:</strong> Best UX, shows content structure, works for backend loading</p>
+                <p><strong>Cons:</strong> Requires skeleton implementation for each component type</p>
+                <p><strong>Presets:</strong> button, table, article, card, list, form, header, sidebar, footer, menu, avatar, image, video, chart, code, badge, input, textarea, select, checkbox, radio</p>
+                <div class="button-row">
+                    <a href="TesterXWUITester-Solution4.html" target="_blank">
+                        <button style="padding: 0.5rem 1rem; cursor: pointer;">Test Solution 4</button>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <h3>Recommendation</h3>
+                <p><strong>For most cases:</strong> Solution 3 (waitForReady + Spinner) - Clean API, handles everything</p>
+                <p><strong>For data-heavy apps:</strong> Solution 4 (Skeleton Loaders) - Best UX, shows structure</p>
+                <p><strong>For simple apps:</strong> Solution 2 (Wait for Style) - Fastest, simplest</p>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUITester-LoadingSolutions.ts"></script>
+</body>
+</html>
+

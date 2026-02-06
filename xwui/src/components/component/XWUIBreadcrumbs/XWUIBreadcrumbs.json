@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIBreadcrumbs",
+  "name": "XWUI Breadcrumbs Component",
+  "description": "Breadcrumb navigation component for displaying hierarchical paths. Supports custom separators, item collapsing, icons, and click handlers. Useful for navigation and showing user location in a hierarchy.",
+  "path": "navigation.breadcrumbs",
+  "tags": ["navigation", "breadcrumbs", "path", "hierarchy", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "separator": {
+          "type": "string",
+          "description": "Separator character or HTML between breadcrumb items",
+          "default": "/"
+        },
+        "maxItems": {
+          "type": "number",
+          "description": "Maximum number of items to display before collapsing"
+        },
+        "collapseAt": {
+          "type": "number",
+          "description": "Number of items at which to start collapsing",
+          "default": 4
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the breadcrumb items",
+          "default": "medium"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the breadcrumbs"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of breadcrumb items to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Display label for the breadcrumb item"
+              },
+              "href": {
+                "type": "string",
+                "description": "URL link for the breadcrumb item"
+              },
+              "icon": {
+                "type": "string",
+                "description": "SVG icon HTML string for the breadcrumb item"
+              },
+              "onClick": {
+                "description": "Click handler function (not serializable in JSON)"
+              }
+            },
+            "required": ["label"]
+          }
+        }
+      },
+      "required": ["items"]
+    }
+  }
+}
+

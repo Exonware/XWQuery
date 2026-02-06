@@ -1,0 +1,97 @@
+// Gremlin Grammar for Lark
+// Apache TinkerPop Graph Traversal Language
+
+?start: traversal
+
+traversal: source_step (traversal_step)*
+
+source_step: "g" "." graph_op
+
+graph_op: "V" "(" [arg_list] ")"        // Get vertices
+        | "E" "(" [arg_list] ")"        // Get edges
+        | "addV" "(" STRING ")"         // Add vertex
+        | "addE" "(" STRING ")"         // Add edge
+        | "inject" "(" arg_list ")"     // Inject values
+
+traversal_step: "." step_name step_args?
+
+step_name: IDENTIFIER
+
+step_args: "(" [arg_list] ")"
+
+arg_list: argument ("," argument)*
+
+argument: expression
+        | key_value
+
+key_value: STRING "," expression
+
+// Common traversal steps
+// Vertex/Edge steps: out, in, both, outE, inE, bothE, outV, inV, bothV, otherV
+// Filter steps: has, hasLabel, hasId, hasKey, hasValue, is, where, not, dedup, range, limit, tail
+// Map steps: values, valueMap, properties, label, id, key, value, path, select
+// FlatMap steps: flatMap, local, union, coalesce, repeat, emit, until, times
+// Reduce steps: count, sum, max, min, mean, fold, unfold
+// SideEffect steps: sideEffect, subgraph, aggregate, store, tree
+// Branch steps: branch, choose, optional
+// Barrier steps: barrier, cap
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr ("||" and_expr)*
+
+and_expr: comparison ("&&" comparison)*
+
+comparison: primary [compare_op primary]
+
+compare_op: "==" | "!=" | "<" | ">" | "<=" | ">="
+
+primary: literal
+       | IDENTIFIER
+       | function_call
+       | "(" expression ")"
+       | traversal  // Nested traversal
+
+function_call: IDENTIFIER "(" [arg_list] ")"
+
+// Predicates
+predicate: "eq" "(" expression ")"
+         | "neq" "(" expression ")"
+         | "lt" "(" expression ")"
+         | "lte" "(" expression ")"
+         | "gt" "(" expression ")"
+         | "gte" "(" expression ")"
+         | "inside" "(" expression "," expression ")"
+         | "outside" "(" expression "," expression ")"
+         | "between" "(" expression "," expression ")"
+         | "within" "(" arg_list ")"
+         | "without" "(" arg_list ")"
+
+// Literals
+literal: STRING
+       | NUMBER
+       | BOOLEAN_LITERAL
+       | NULL
+       | list_literal
+       | map_literal
+
+list_literal: "[" [expression ("," expression)*] "]"
+
+map_literal: "[" [map_entry ("," map_entry)*] "]"
+
+map_entry: STRING ":" expression
+         | "(" STRING "," expression ")"
+
+BOOLEAN_LITERAL: "true" | "false"
+
+NULL: "null"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+

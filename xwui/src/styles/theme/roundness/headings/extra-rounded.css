@@ -1,0 +1,14 @@
+/* ============================================
+   HEADINGS - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-headings: 32px;
+    /* Fallback: --radius-heading → --radius-lg → 32px */
+}
+
+/* Utility class for direct application */
+.radius-headings-extra-rounded {
+    border-radius: var(--radius-headings, 32px) !important;
+}

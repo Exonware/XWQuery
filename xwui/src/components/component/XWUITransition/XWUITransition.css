@@ -1,0 +1,147 @@
+/**
+ * XWUITransition Component Styles
+ * Animation transitions for enter/exit states
+ */
+
+.xwui-transition-container {
+    /* Container has no specific styles */
+}
+
+.xwui-transition {
+    /* Base transition styles */
+    transition-property: opacity, transform, height, width;
+    transition-timing-function: ease-in-out;
+    will-change: opacity, transform, height, width;
+}
+
+/* Fade Transition */
+.xwui-transition-fade {
+    transition-property: opacity;
+}
+
+.xwui-transition-fade.xwui-transition-exited,
+.xwui-transition-fade.xwui-transition-exiting {
+    opacity: 0;
+}
+
+.xwui-transition-fade.xwui-transition-entered,
+.xwui-transition-fade.xwui-transition-entering {
+    opacity: 1;
+}
+
+/* Slide Transition */
+.xwui-transition-slide {
+    transition-property: opacity, transform;
+}
+
+/* Slide Up */
+.xwui-transition-slide-up.xwui-transition-exited,
+.xwui-transition-slide-up.xwui-transition-exiting {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.xwui-transition-slide-up.xwui-transition-entered,
+.xwui-transition-slide-up.xwui-transition-entering {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Slide Down */
+.xwui-transition-slide-down.xwui-transition-exited,
+.xwui-transition-slide-down.xwui-transition-exiting {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.xwui-transition-slide-down.xwui-transition-entered,
+.xwui-transition-slide-down.xwui-transition-entering {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Slide Left */
+.xwui-transition-slide-left.xwui-transition-exited,
+.xwui-transition-slide-left.xwui-transition-exiting {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.xwui-transition-slide-left.xwui-transition-entered,
+.xwui-transition-slide-left.xwui-transition-entering {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Slide Right */
+.xwui-transition-slide-right.xwui-transition-exited,
+.xwui-transition-slide-right.xwui-transition-exiting {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.xwui-transition-slide-right.xwui-transition-entered,
+.xwui-transition-slide-right.xwui-transition-entering {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Scale Transition */
+.xwui-transition-scale {
+    transition-property: opacity, transform;
+    transform-origin: center;
+}
+
+.xwui-transition-scale.xwui-transition-exited,
+.xwui-transition-scale.xwui-transition-exiting {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.xwui-transition-scale.xwui-transition-entered,
+.xwui-transition-scale.xwui-transition-entering {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Grow Transition */
+.xwui-transition-grow {
+    transition-property: opacity, transform;
+    transform-origin: center;
+}
+
+.xwui-transition-grow.xwui-transition-exited,
+.xwui-transition-grow.xwui-transition-exiting {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.xwui-transition-grow.xwui-transition-entered,
+.xwui-transition-grow.xwui-transition-entering {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Collapse Transition */
+.xwui-transition-collapse {
+    transition-property: height, opacity;
+    overflow: hidden;
+}
+
+.xwui-transition-collapse.xwui-transition-exited,
+.xwui-transition-collapse.xwui-transition-exiting {
+    height: 0;
+    opacity: 0;
+}
+
+.xwui-transition-collapse.xwui-transition-entered,
+.xwui-transition-collapse.xwui-transition-entering {
+    height: auto;
+    opacity: 1;
+}
+
+/* Content wrapper */
+.xwui-transition-content {
+    /* Content inherits parent styles */
+}
+

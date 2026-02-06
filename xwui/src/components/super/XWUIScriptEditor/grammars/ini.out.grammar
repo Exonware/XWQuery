@@ -1,0 +1,22 @@
+# ini.out.grammar
+# INI Output Grammar - Template for generating INI from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#each sections}}{{value}}{{#if !@last}}
+
+{{/if}}{{/each}}
+
+@section = {{header}}{{#each key_values}}{{value}}{{/each}}
+
+@section_header = [{{child_0}}]
+
+@key_value = {{child_0}} = {{child_1}}
+
+@key = {{value}}
+
+@value = {{value}}
+
+@indent = 0
+@pretty = false
+

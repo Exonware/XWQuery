@@ -1,0 +1,60 @@
+# GraphDB Metadata Example
+# GraphDB is a graph database format
+# This file represents GraphDB structure and metadata in text form
+
+GraphDB Structure
+=================
+
+Database: sample.graphdb
+Format: RDF/SPARQL
+Triple Store: Native
+
+Namespaces:
+-----------
+  @prefix ex: <http://example.org/> .
+  @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+  @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+  @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+Triples:
+--------
+  ex:user1 rdf:type foaf:Person .
+  ex:user1 foaf:name "John Doe" .
+  ex:user1 foaf:email "john@example.com" .
+  ex:user1 ex:active true .
+  
+  ex:user2 rdf:type foaf:Person .
+  ex:user2 foaf:name "Jane Smith" .
+  ex:user2 foaf:email "jane@example.com" .
+  ex:user2 ex:active true .
+  
+  ex:order1 rdf:type ex:Order .
+  ex:order1 ex:user ex:user1 .
+  ex:order1 ex:total 29.99 .
+  ex:order1 ex:status "completed" .
+  ex:order1 ex:date "2025-01-15T10:00:00Z" .
+  
+  ex:order2 rdf:type ex:Order .
+  ex:order2 ex:user ex:user2 .
+  ex:order2 ex:total 49.99 .
+  ex:order2 ex:status "pending" .
+  ex:order2 ex:date "2025-01-15T11:00:00Z" .
+
+Graph Structure:
+----------------
+  Nodes: 4 (2 users, 2 orders)
+  Edges: 2 (user -> order relationships)
+  Properties: 12
+
+Statistics:
+-----------
+  - Total triples: 12
+  - Total size: ~2 KB
+  - Last updated: 2025-01-15T10:30:00Z
+
+Metadata:
+---------
+  - Author: XWUI Team
+  - Created: 2025-01-15T10:30:00Z
+  - Description: Sample GraphDB database with user and order relationships
+

@@ -1,0 +1,14 @@
+/* ============================================
+   CODE - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-code: 3px;
+    /* Fallback: --radius-content → --radius-md → 3px */
+}
+
+/* Utility class for direct application */
+.radius-code-minimal {
+    border-radius: var(--radius-code, 3px) !important;
+}

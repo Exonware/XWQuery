@@ -1,0 +1,61 @@
+// markdown.grammar
+// Markdown Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: document
+
+document: block*
+
+block: heading | paragraph | code_block | blockquote | list | horizontal_rule | table
+
+heading: heading_level heading_text NEWLINE
+
+heading_level: "#" | "##" | "###" | "####" | "#####" | "######"
+
+heading_text: /[^\n]+/
+
+paragraph: inline* NEWLINE
+
+code_block: "```" [language] NEWLINE code_content "```"
+
+blockquote: ">" inline* NEWLINE
+
+list: list_item+
+
+list_item: ("*" | "-" | "+" | NUMBER ".") " " inline* NEWLINE
+
+horizontal_rule: "---" | "***" | "___"
+
+table: table_header table_row*
+
+table_header: "|" cell+ "|" NEWLINE separator_row
+
+table_row: "|" cell+ "|" NEWLINE
+
+cell: /[^|]+/
+
+separator_row: "|" separator_cell+ "|" NEWLINE
+
+separator_cell: "---" | ":---" | "---:" | ":---:"
+
+inline: text | emphasis | strong | code | link | image
+
+text: /[^*_`\[\]()]+/
+
+emphasis: "*" inline+ "*" | "_" inline+ "_"
+
+strong: "**" inline+ "**" | "__" inline+ "__"
+
+code: "`" /[^`]+/ "`"
+
+link: "[" link_text "](" link_url ")"
+
+image: "![" alt_text "](" image_url ")"
+
+// Terminals
+NUMBER: /[0-9]+/
+NEWLINE: /\r?\n/
+%import common.WS
+
+%ignore WS
+

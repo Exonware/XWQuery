@@ -1,0 +1,31 @@
+/**
+ * XWUIProgressBySubtasks Component Styles
+ */
+
+.xwui-progress-by-subtasks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    width: 100%;
+}
+
+.xwui-progress-by-subtasks-header {
+    font-size: var(--font-size-base, 1rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-progress-by-subtasks-stats {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md, 1rem);
+}
+
+.xwui-progress-by-subtasks-progress {
+    width: 100%;
+}
+
+.xwui-progress-by-subtasks-tree {
+    margin-top: var(--spacing-sm, 0.5rem);
+}
+

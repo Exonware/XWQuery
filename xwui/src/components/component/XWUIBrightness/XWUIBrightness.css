@@ -1,0 +1,27 @@
+/**
+ * XWUIBrightness Component Styles
+ * Minimal styling - extends style system variables
+ */
+
+.xwui-brightness-controller {
+    padding: var(--spacing-md);
+    background: var(--color-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+}
+
+.xwui-brightness-controller .xwui-slider {
+    background: var(--color-surface);
+}
+
+.xwui-brightness-controller .xwui-slider__icon {
+    color: var(--accent-primary);
+}
+
+.xwui-brightness-controller .xwui-slider__icon svg {
+    color: var(--accent-primary);
+    fill: var(--accent-primary);
+    stroke: var(--accent-primary);
+}
+

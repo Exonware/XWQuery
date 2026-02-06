@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIButton - Three Ways Demo</title>
+    
+    <style>
+        .demo-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .demo-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .demo-section code {
+            background: #f5f5f5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        xwui-button {
+            display: inline-block;
+            margin: 0.5rem;
+        }
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+    </style>
+        <!-- Base Styles -->
+        <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Base reset (needed before other styles) -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuibutton.three-ways-content">
+<p>This demo shows all 3 ways to use XWUIButton:</p>
+            <ol>
+                <li><strong>Custom Element</strong>: <code>&lt;xwui-button&gt;</code> (vanilla HTML)</li>
+                <li><strong>React Simple</strong>: <code>&lt;Button&gt;</code> (React component)</li>
+                <li><strong>React Prefixed</strong>: <code>&lt;XWUIButton&gt;</code> (React component)</li>
+            </ol>
+
+            <!-- Method 1: Custom Element -->
+            <div class="demo-section">
+                <h3>Method 1: Custom Element (<code>&lt;xwui-button&gt;</code>)</h3>
+                <p>Vanilla HTML - no framework needed. Just use the custom element tag.</p>
+                <div class="button-group">
+                    <xwui-button 
+                        conf-comp='{"variant": "primary", "size": "medium"}'
+                        data='{"text": "Primary Button"}'>
+                    </xwui-button>
+                    <xwui-button 
+                        conf-comp='{"variant": "success", "size": "small"}'
+                        data='{"text": "Success Button"}'>
+                    </xwui-button>
+                    <xwui-button 
+                        conf-comp='{"variant": "danger", "size": "large"}'
+                        data='{"text": "Danger Button"}'>
+                    </xwui-button>
+                </div>
+            </div>
+
+            <!-- Method 2 & 3: React Components -->
+            <div class="demo-section">
+                <h3>Method 2 & 3: React Components</h3>
+                <p>React components - can use either <code>&lt;Button&gt;</code> or <code>&lt;XWUIButton&gt;</code></p>
+                <p><em>Note: React components require React to be installed. See code comments below for usage example.</em></p>
+                <div id="react-root"></div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIButton.three-ways.ts"></script>
+</body>
+</html>
+

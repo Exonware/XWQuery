@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "XWUIIcon",
+  "description": "SVG icon component with size variants and custom icon support",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Icon name from the XWUI icon set"
+        },
+        "svg": {
+          "type": "string",
+          "description": "Custom SVG string"
+        }
+      }
+    },
+    "conf_comp": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": [
+            "xs",
+            "s",
+            "m",
+            "l",
+            "xl"
+          ],
+          "default": "m",
+          "description": "Icon size variant"
+        },
+        "color": {
+          "type": "string",
+          "description": "Icon color (CSS color value)"
+        },
+        "spin": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the icon should spin"
+        },
+        "rotate": {
+          "type": "number",
+          "default": 0,
+          "description": "Rotation angle in degrees"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    }
+  },
+  "id": "XWUIIcon"
+}

@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-hidden.schema.json",
+  "title": "XWUIHidden Schema",
+  "description": "Schema for XWUIHidden component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "below": {
+          "type": "string",
+          "enum": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl"
+          ],
+          "description": "Hide below this breakpoint"
+        },
+        "above": {
+          "type": "string",
+          "enum": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl"
+          ],
+          "description": "Hide above this breakpoint"
+        },
+        "only": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl",
+                "2xl"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "xs",
+                  "sm",
+                  "md",
+                  "lg",
+                  "xl",
+                  "2xl"
+                ]
+              }
+            }
+          ],
+          "description": "Hide only at these breakpoints"
+        },
+        "implementation": {
+          "type": "string",
+          "enum": [
+            "css",
+            "js"
+          ],
+          "description": "Use CSS or JavaScript for hiding",
+          "default": "js"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "description": "HTMLElement"
+            }
+          ],
+          "description": "Content to show/hide based on breakpoints"
+        }
+      }
+    }
+  },
+  "id": "XWUIHidden"
+}

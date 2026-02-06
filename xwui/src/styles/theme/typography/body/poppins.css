@@ -1,0 +1,13 @@
+/* ============================================
+   BODY TYPOGRAPHY - POPPINS
+   ============================================ */
+
+:root[data-font="poppins"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-body-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-body-poppins {
+    font-family: var(--font-body-family, var(--font-family-base, sans-serif)) !important;
+}

@@ -1,0 +1,63 @@
+/**
+ * XWUICodeBlock Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/code/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-codeblock {
+    position: relative;
+    border-radius: var(--radius-code, var(--radius-md, 8px));
+    overflow: hidden;
+}
+
+.xwui-codeblock-copy {
+    position: absolute;
+    top: var(--spacing-sm, 0.5rem);
+    right: var(--spacing-sm, 0.5rem);
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+    border: var(--border-code-width, var(--border-width-regular, 1.5px)) var(--border-code-style, solid) var(--border-code-color, var(--border-color));
+    border-radius: var(--radius-code, var(--radius-sm, 6px));
+    background: var(--bg-primary);
+    cursor: pointer;
+    font-size: var(--font-size-sm, 0.875rem);
+    z-index: 1;
+    transition: all 0.2s;
+}
+
+.xwui-codeblock-copy:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-primary);
+}
+
+.xwui-codeblock-pre {
+    margin: 0;
+    padding: var(--spacing-md, 1rem);
+    overflow-x: auto;
+    font-family: var(--font-code-family, var(--font-family-mono, 'Courier New', Courier, monospace));
+    font-size: var(--font-size-sm, 0.875rem);
+    line-height: 1.6;
+    background: var(--bg-secondary);
+    border: var(--border-code-width, var(--border-width-regular, 1.5px)) var(--border-code-style, solid) var(--border-code-color, var(--border-color));
+    border-radius: var(--radius-code, var(--radius-md, 8px));
+}
+
+.xwui-codeblock-line-numbers {
+    padding-left: var(--spacing-2xl, 3rem);
+}
+
+.xwui-codeblock-pre code {
+    display: block;
+    white-space: pre;
+    word-wrap: normal;
+    tab-size: 2;
+}
+

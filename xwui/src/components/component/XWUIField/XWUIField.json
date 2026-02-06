@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIField",
+  "name": "XWUI Field Component",
+  "description": "Form field wrapper component that provides label, input, error message, and hint text in a consistent structure. Supports required and disabled states, various sizes, and validation error display. Uses XWUILabel internally.",
+  "path": "form.field",
+  "tags": ["form", "field", "input", "label", "validation", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "type": "boolean",
+          "description": "Whether the field is required"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the field is disabled"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the field"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the field"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Label text for the field"
+        },
+        "error": {
+          "type": "string",
+          "description": "Error message to display"
+        },
+        "hint": {
+          "type": "string",
+          "description": "Hint/help text to display below the input"
+        },
+        "input": {
+          "description": "Input element or HTML string for the field"
+        }
+      },
+      "required": ["input"]
+    }
+  }
+}
+

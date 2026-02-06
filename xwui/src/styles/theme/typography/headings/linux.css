@@ -1,0 +1,13 @@
+/* ============================================
+   HEADINGS TYPOGRAPHY - LINUX
+   ============================================ */
+
+:root[data-font="linux"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-headings-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-headings-linux {
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif)) !important;
+}

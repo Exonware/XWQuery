@@ -1,0 +1,14 @@
+/* ============================================
+   SKELETON - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-skeleton: 6px;
+    /* Fallback: --radius-feedback → --radius-sm → 6px */
+}
+
+/* Utility class for direct application */
+.radius-skeleton-rounded {
+    border-radius: var(--radius-skeleton, 6px) !important;
+}

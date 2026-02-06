@@ -1,0 +1,14 @@
+/* ============================================
+   ALERT - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-alert: 8px;
+    /* Fallback: --radius-feedback → --radius-md → 8px */
+}
+
+/* Utility class for direct application */
+.radius-alert-rounded {
+    border-radius: var(--radius-alert, 8px) !important;
+}

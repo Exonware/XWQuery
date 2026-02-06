@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIPickerColor Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- Component CSS -->
+</head>
+<body>
+    <div class="tester-container" style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+        <h1>XWUIPickerColor Component Tester</h1>
+        <p>Test the XWUIPickerColor component - the color picker popup.</p>
+        
+        <div style="margin: 2rem 0;">
+            <h2>Standalone Color Picker</h2>
+            <button id="trigger-btn" style="padding: 0.5rem 1rem; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px;">Open Color Picker</button>
+            <div id="picker-container"></div>
+            <div id="result" style="margin-top: 1rem; padding: 0.5rem; background: #f0f0f0; border-radius: 4px;">
+                Selected color will appear here
+            </div>
+            <div id="color-preview" style="margin-top: 1rem; width: 100px; height: 100px; border: 2px solid #333; border-radius: 4px; background: #000000;"></div>
+        </div>
+    </div>
+
+        <script type="module" src="./TesterXWUIPickerColor.ts"></script>
+</body>
+</html>
+

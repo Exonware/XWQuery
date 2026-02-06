@@ -1,0 +1,14 @@
+/* ============================================
+   TOOLTIP - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-tooltip: 0px;
+    /* Fallback: --radius-overlay → --radius-sm → 0px */
+}
+
+/* Utility class for direct application */
+.radius-tooltip-sharp {
+    border-radius: var(--radius-tooltip, 0px) !important;
+}

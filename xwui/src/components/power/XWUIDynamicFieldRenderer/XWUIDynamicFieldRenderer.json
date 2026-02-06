@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "layout": {
+      "type": "string",
+      "enum": [
+        "vertical",
+        "horizontal"
+      ],
+      "default": "vertical"
+    },
+    "showLabels": {
+      "type": "boolean",
+      "default": true
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "id": "XWUIDynamicFieldRenderer"
+}

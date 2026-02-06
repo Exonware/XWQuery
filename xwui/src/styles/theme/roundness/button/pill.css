@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-button: 12px;
+}
+
+/* Utility class for direct application */
+.radius-button-pill {
+    border-radius: var(--radius-button, 12px) !important;
+}

@@ -1,0 +1,206 @@
+/**
+ * XWUIDialog Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/dialog/*.css (component-specific border widths)
+ * - Roundness: theme/roundness/dialog/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-overlay, rgba(0, 0, 0, 0.5));
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: var(--spacing-2xl, 2rem);
+    overflow-y: auto;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.xwui-dialog-overlay-visible {
+    opacity: 1;
+}
+
+.xwui-dialog {
+    background: var(--bg-primary, #ffffff);
+    border-radius: var(--radius-dialog, var(--radius-lg, 12px));
+    box-shadow: var(--shadow-xl, 0 25px 50px -12px rgba(0, 0, 0, 0.25));
+    width: 100%;
+    max-height: calc(100vh - 4rem);
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.95) translateY(-20px);
+    transition: transform 0.2s ease;
+    outline: none;
+}
+
+.xwui-dialog-visible {
+    transform: scale(1) translateY(0);
+}
+
+.xwui-dialog-centered {
+    margin: auto;
+}
+
+/* Size variants */
+.xwui-dialog-small {
+    max-width: 400px;
+}
+
+.xwui-dialog-medium {
+    max-width: 560px;
+}
+
+.xwui-dialog-large {
+    max-width: 800px;
+}
+
+.xwui-dialog-fullscreen {
+    max-width: none;
+    width: calc(100% - 4rem);
+    height: calc(100vh - 4rem);
+    border-radius: 0;
+}
+
+/* Header */
+.xwui-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-lg, 1.25rem) var(--spacing-lg, 1.5rem);
+    border-bottom: var(--border-dialog-width, var(--border-width-regular, 1.5px)) var(--border-dialog-style, solid) var(--border-dialog-color, var(--border-color, #dee2e6));
+    flex-shrink: 0;
+}
+
+.xwui-dialog-title {
+    margin: 0;
+    font-size: var(--font-size-lg, 1.125rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-dialog-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-secondary, #6c757d);
+    border-radius: var(--radius-dialog, var(--radius-sm, 6px));
+    transition: background 0.2s, color 0.2s;
+}
+
+.xwui-dialog-close:hover {
+    background: var(--bg-secondary, #f8f9fa);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-dialog-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Body */
+.xwui-dialog-body {
+    padding: var(--spacing-lg, 1.5rem);
+    flex: 1;
+    color: var(--text-primary, #212529);
+}
+
+.xwui-dialog-scrollable .xwui-dialog-body {
+    overflow-y: auto;
+}
+
+/* Footer */
+.xwui-dialog-footer {
+    padding: var(--spacing-md, 1rem) var(--spacing-lg, 1.5rem);
+    border-top: var(--border-dialog-width, var(--border-width-regular, 1.5px)) var(--border-dialog-style, solid) var(--border-dialog-color, var(--border-color, #dee2e6));
+    flex-shrink: 0;
+}
+
+/* Dialog buttons */
+.xwui-dialog-btn {
+    padding: var(--spacing-sm, 0.625rem) var(--spacing-md, 1rem);
+    border: none;
+    border-radius: var(--radius-dialog, var(--radius-sm, 6px));
+    font-weight: var(--font-weight-medium, 500);
+    font-size: var(--font-size-sm, 0.875rem);
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.xwui-dialog-btn-primary {
+    background: var(--accent-primary, #4f46e5);
+    color: var(--text-inverse);
+}
+
+.xwui-dialog-btn-primary:hover {
+    background: var(--accent-hover, #4338ca);
+}
+
+.xwui-dialog-btn-secondary {
+    background: var(--bg-secondary, #f8f9fa);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-dialog-btn-secondary:hover {
+    background: var(--bg-tertiary, #e9ecef);
+}
+
+.xwui-dialog-btn-danger {
+    background: var(--accent-error, #ef4444);
+    color: var(--text-inverse);
+}
+
+.xwui-dialog-btn-danger:hover {
+    background: var(--accent-error-hover, #dc2626);
+}
+
+/* Dark theme */
+[data-theme="dark"] .xwui-dialog-overlay {
+    background: var(--color-overlay-dark, rgba(0, 0, 0, 0.7));
+}
+
+[data-theme="dark"] .xwui-dialog {
+    background: var(--bg-primary, #0f172a);
+}
+
+[data-theme="dark"] .xwui-dialog-header,
+[data-theme="dark"] .xwui-dialog-footer {
+    border-color: var(--border-color, #334155);
+}
+
+[data-theme="dark"] .xwui-dialog-title,
+[data-theme="dark"] .xwui-dialog-body {
+    color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .xwui-dialog-close:hover {
+    background: var(--bg-secondary, #1e293b);
+}
+
+[data-theme="dark"] .xwui-dialog-btn-secondary {
+    background: var(--bg-secondary, #1e293b);
+    color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .xwui-dialog-btn-secondary:hover {
+    background: var(--bg-tertiary, #334155);
+}
+

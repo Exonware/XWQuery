@@ -1,0 +1,25 @@
+# json.out.grammar
+# JSON Output Grammar - Template for generating JSON from AST
+# Based on RFC 8259
+# Company: eXonware.com
+# Version: 1.0
+
+@object = {{{#each pairs}}"{{key}}": {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@pair = {{child_0}}: {{child_1}}
+
+@array = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@string = {{value}}
+
+@number = {{value}}
+
+@true = true
+
+@false = false
+
+@null = null
+
+@indent = 2
+@pretty = false
+

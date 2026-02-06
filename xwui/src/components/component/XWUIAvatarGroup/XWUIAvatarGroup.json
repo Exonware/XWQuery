@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIAvatarGroup",
+  "name": "XWUI Avatar Group Component",
+  "description": "Group of avatars displayed together with overlap effect. Supports maximum display count with overflow indicator. Uses XWUIAvatar components internally.",
+  "path": "display.avatargroup",
+  "tags": ["display", "avatar", "group", "users", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "max": {
+          "type": "number",
+          "description": "Maximum number of avatars to display before showing overflow indicator"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["xs", "small", "medium", "large", "xl"],
+          "description": "Size of the avatars in the group",
+          "default": "medium"
+        },
+        "spacing": {
+          "type": "number",
+          "description": "Spacing between avatars in pixels (negative values create overlap)",
+          "default": -8
+        },
+        "total": {
+          "type": "number",
+          "description": "Total count for overflow indicator (if different from avatars array length)"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the avatar group"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "avatars": {
+          "type": "array",
+          "description": "Array of avatar items to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "src": {
+                "type": "string",
+                "description": "Image source URL for the avatar"
+              },
+              "alt": {
+                "type": "string",
+                "description": "Alternative text for the avatar image"
+              },
+              "icon": {
+                "type": "string",
+                "description": "Icon to display in the avatar"
+              },
+              "text": {
+                "type": "string",
+                "description": "Text/initials to display in the avatar"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

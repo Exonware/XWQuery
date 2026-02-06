@@ -1,0 +1,49 @@
+// restructuredtext.grammar
+// reStructuredText Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: document
+
+document: block*
+
+block: heading | paragraph | code_block | list | table | directive | field_list
+
+heading: heading_marker heading_text NEWLINE [underline] NEWLINE
+
+heading_marker: "=" | "-" | "^" | "\"" | "'" | "~" | "*" | "+" | "#"
+
+heading_text: /[^\n]+/
+
+paragraph: inline* NEWLINE NEWLINE
+
+code_block: "::" NEWLINE code_content | ".. code-block::" [language] NEWLINE code_content
+
+list: list_item+
+
+list_item: ("*" | "-" | "+" | NUMBER ".") " " inline* NEWLINE
+
+table: grid_table | simple_table
+
+directive: ".." directive_name "::" [arguments] NEWLINE directive_content
+
+field_list: field+
+
+field: ":" field_name ":" field_body NEWLINE
+
+inline: text | emphasis | strong | code | link | reference
+
+text: /[^*_`\[\]()]+/
+
+emphasis: "*" inline+ "*"
+
+strong: "**" inline+ "**"
+
+code: "``" /[^`]+/ "``"
+
+// Terminals
+NUMBER: /[0-9]+/
+NEWLINE: /\r?\n/
+%import common.WS
+
+%ignore WS
+

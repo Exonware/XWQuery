@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-button: 4px;
+}
+
+/* Utility class for direct application */
+.radius-button-subtle {
+    border-radius: var(--radius-button, 4px) !important;
+}

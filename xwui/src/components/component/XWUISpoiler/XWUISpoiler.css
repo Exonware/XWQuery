@@ -1,0 +1,34 @@
+/**
+ * XWUISpoiler Component Styles
+ */
+
+.xwui-spoiler-container {
+    /* Container has no specific styles */
+}
+
+.xwui-spoiler {
+    /* Component wrapper */
+}
+
+.xwui-spoiler-content-wrapper {
+    position: relative;
+}
+
+.xwui-spoiler-content {
+    /* Content styles */
+}
+
+.xwui-spoiler-toggle {
+    margin-top: var(--spacing-sm, 8px);
+    padding: var(--spacing-xs, 4px) 0;
+    border: none;
+    background: transparent;
+    color: var(--accent-primary, #1890ff);
+    cursor: pointer;
+    font-size: var(--font-size-sm, 14px);
+}
+
+.xwui-spoiler-toggle:hover {
+    color: var(--accent-hover, #40a9ff);
+}
+

@@ -1,0 +1,71 @@
+﻿# sparql.out.grammar
+# SPARQL Output Grammar - Template for generating SPARQL from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@query = {{prologue}} {{query_type}}
+
+@prologue = {{#each bases}}{{value}}
+{{/each}}{{#each prefixes}}{{value}}
+{{/each}}
+
+@base_decl = BASE {{iri}}
+
+@prefix_decl = PREFIX {{prefix}}: {{iri}}
+
+@select_query = SELECT{{#if distinct}} DISTINCT{{else}}{{#if reduced}} REDUCED{{/if}}{{/if}} {{vars}} {{where}} {{modifier}}
+
+@construct_query = CONSTRUCT {{template}} {{where}} {{modifier}}
+
+@describe_query = DESCRIBE {{vars}} {{where}} {{modifier}}
+
+@ask_query = ASK {{where}}
+
+@select_vars = {{#if wildcard}}*{{else}}{{#each vars}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}}
+
+@var = {{#if question}}?{{else}}${{/if}}{{name}}
+
+@where_clause = {{#if explicit}}WHERE {{/if}}{{{pattern}}}
+
+@group_graph_pattern = {{#each blocks}}{{value}}{{#if !@last}} {{separator}} {{/if}}{{/each}}
+
+@triples_block = {{#each triples}}{{value}}{{#if !@last}} . {{/if}}{{/each}}{{#if trailing_dot}}.{{/if}}
+
+@triple_pattern = {{subject}} {{predicate}} {{object}}
+
+@subject = {{value}}
+
+@predicate = {{value}}
+
+@object = {{value}}
+
+@iri = {{value}}
+
+@prefixed_name = {{prefix}}{{#if name}}:{{name}}{{/if}}
+
+@blank_node = {{value}}
+
+@graph_pattern_separator = {{value}}
+
+@filter_clause = FILTER {{constraint}}
+
+@optional_clause = OPTIONAL {{{pattern}}}
+
+@union_clause = {{#each patterns}}{{{value}}}{{#if !@last}} UNION {{/if}}{{/each}}
+
+@graph_clause = GRAPH {{iri}} {{{pattern}}}
+
+@constraint = {{value}}
+
+@solution_modifier = {{#if order}} {{order}}{{/if}}{{#if limit}} {{limit}}{{/if}}{{#if offset}} {{offset}}{{/if}}
+
+@order_clause = ORDER BY {{#each conditions}}{{value}}{{#if !@last}} {{/if}}{{/each}}
+
+@limit_clause = LIMIT {{value}}
+
+@offset_clause = OFFSET {{value}}
+
+@expression = {{value}}
+
+@indent = 2
+@pretty = true

@@ -1,0 +1,688 @@
+/* ============================================
+   INTERNATIONAL TYPOGRAPHY SUPPORT
+   Comprehensive support for RTL, LTR, Arabic, CJK, and UTF-8
+   ============================================ */
+
+/* UTF-8 Encoding Declaration */
+@charset "UTF-8";
+
+/* ============================================
+   DIRECTION SUPPORT (RTL/LTR)
+   ============================================ */
+
+:root {
+    /* Default direction - can be overridden by [dir] attribute */
+    --text-direction: ltr;
+    --text-align-start: left;
+    --text-align-end: right;
+    --margin-start: margin-left;
+    --margin-end: margin-right;
+    --padding-start: padding-left;
+    --padding-end: padding-right;
+    --border-start: border-left;
+    --border-end: border-right;
+    --border-start-radius: border-top-left-radius;
+    --border-end-radius: border-bottom-left-radius;
+    --border-start-end-radius: border-top-right-radius;
+    --border-end-start-radius: border-bottom-right-radius;
+}
+
+/* RTL Direction Support */
+[dir="rtl"],
+html[dir="rtl"] {
+    --text-direction: rtl;
+    --text-align-start: right;
+    --text-align-end: left;
+    direction: rtl;
+    text-align: right;
+}
+
+/* LTR Direction Support (explicit) */
+[dir="ltr"],
+html[dir="ltr"] {
+    --text-direction: ltr;
+    --text-align-start: left;
+    --text-align-end: right;
+    direction: ltr;
+    text-align: left;
+}
+
+/* Auto direction based on language */
+[dir="auto"] {
+    direction: auto;
+    unicode-bidi: plaintext;
+}
+
+/* ============================================
+   INTERNATIONAL FONT FALLBACKS
+   Comprehensive font stacks for different scripts
+   ============================================ */
+
+:root {
+    /* Arabic & Persian (Farsi) Font Stack */
+    --font-family-arabic: 'Segoe UI', 'Arabic UI Display', 'Arabic UI Text', 
+                          'Tahoma', 'Arial Unicode MS', 'Microsoft Sans Serif', 
+                          'Noto Sans Arabic', 'Amiri', 'Cairo', sans-serif;
+    
+    /* Hebrew Font Stack */
+    --font-family-hebrew: 'Segoe UI', 'Hebrew UI Display', 'Hebrew UI Text',
+                          'Tahoma', 'Arial Unicode MS', 'David', 'Miriam', 
+                          'Noto Sans Hebrew', sans-serif;
+    
+    /* Chinese (Simplified & Traditional) Font Stack */
+    --font-family-chinese: 'Microsoft YaHei', '微软雅黑', 'SimHei', '黑体',
+                           'SimSun', '宋体', 'PingFang SC', 'Hiragino Sans GB',
+                           'WenQuanYi Micro Hei', 'Noto Sans SC', 'Source Han Sans SC',
+                           'STHeiti', '华文黑体', sans-serif;
+    
+    /* Japanese Font Stack */
+    --font-family-japanese: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 
+                            'Yu Gothic', '游ゴシック', 'Meiryo', 'メイリオ',
+                            'MS PGothic', 'Noto Sans JP', 'Source Han Sans JP',
+                            'Osaka', sans-serif;
+    
+    /* Korean Font Stack */
+    --font-family-korean: 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo',
+                          'Nanum Gothic', '나눔고딕', 'Noto Sans KR', 
+                          'Source Han Sans KR', 'AppleGothic', sans-serif;
+    
+    /* Thai Font Stack */
+    --font-family-thai: 'Sarabun', 'Noto Sans Thai', 'Thonburi', 'Sathu',
+                        'Tahoma', 'Arial Unicode MS', sans-serif;
+    
+    /* Devanagari (Hindi, Sanskrit) Font Stack */
+    --font-family-devanagari: 'Mangal', 'Nirmala UI', 'Noto Sans Devanagari',
+                              'Arial Unicode MS', 'Tahoma', sans-serif;
+    
+    /* Cyrillic (Russian, etc.) Font Stack */
+    --font-family-cyrillic: 'Segoe UI', 'Segoe UI Cyrillic', 'Tahoma',
+                            'Arial Unicode MS', 'Noto Sans', sans-serif;
+    
+    /* Greek Font Stack */
+    --font-family-greek: 'Segoe UI', 'Segoe UI Greek', 'Tahoma',
+                         'Arial Unicode MS', 'Noto Sans', sans-serif;
+    
+    /* Vietnamese Font Stack */
+    --font-family-vietnamese: 'Segoe UI', 'Segoe UI Vietnamese', 'Tahoma',
+                              'Arial Unicode MS', 'Noto Sans', sans-serif;
+    
+    /* Armenian Font Stack */
+    --font-family-armenian: 'Noto Sans Armenian', 'Noto Serif Armenian',
+                           'Arial Unicode MS', 'Tahoma', sans-serif;
+    
+    /* Georgian Font Stack */
+    --font-family-georgian: 'Noto Sans Georgian', 'Noto Serif Georgian',
+                            'Arial Unicode MS', 'Tahoma', sans-serif;
+    
+    /* Mongolian Font Stack */
+    --font-family-mongolian: 'Noto Sans Mongolian', 'Noto Sans Mongolian UI',
+                             'Arial Unicode MS', sans-serif;
+    
+    /* Tibetan Font Stack */
+    --font-family-tibetan: 'Noto Sans Tibetan', 'Noto Serif Tibetan',
+                           'Arial Unicode MS', sans-serif;
+    
+    /* Ethiopic Font Stack */
+    --font-family-ethiopic: 'Noto Sans Ethiopic', 'Noto Serif Ethiopic',
+                            'Arial Unicode MS', sans-serif;
+    
+    /* Khmer Font Stack */
+    --font-family-khmer: 'Noto Sans Khmer', 'Noto Serif Khmer',
+                        'Arial Unicode MS', 'Leelawadee UI', sans-serif;
+    
+    /* Lao Font Stack */
+    --font-family-lao: 'Noto Sans Lao', 'Noto Serif Lao',
+                      'Arial Unicode MS', 'Phetsarath OT', sans-serif;
+    
+    /* Myanmar Font Stack */
+    --font-family-myanmar: 'Noto Sans Myanmar', 'Noto Serif Myanmar',
+                           'Arial Unicode MS', 'Myanmar Text', sans-serif;
+    
+    /* Sinhala Font Stack */
+    --font-family-sinhala: 'Noto Sans Sinhala', 'Noto Serif Sinhala',
+                           'Arial Unicode MS', sans-serif;
+    
+    /* Bengali Font Stack */
+    --font-family-bengali: 'Noto Sans Bengali', 'Noto Serif Bengali',
+                          'Vani', 'Shonar Bangla', 'Lohit Bengali',
+                          'Arial Unicode MS', sans-serif;
+    
+    /* Tamil Font Stack */
+    --font-family-tamil: 'Noto Sans Tamil', 'Noto Serif Tamil',
+                        'Latha', 'Vijaya', 'Lohit Tamil',
+                        'Arial Unicode MS', sans-serif;
+    
+    /* Telugu Font Stack */
+    --font-family-telugu: 'Noto Sans Telugu', 'Noto Serif Telugu',
+                         'Gautami', 'Pothana2000', 'Lohit Telugu',
+                         'Arial Unicode MS', sans-serif;
+    
+    /* Gujarati Font Stack */
+    --font-family-gujarati: 'Noto Sans Gujarati', 'Noto Serif Gujarati',
+                            'Shruti', 'Lohit Gujarati',
+                            'Arial Unicode MS', sans-serif;
+    
+    /* Kannada Font Stack */
+    --font-family-kannada: 'Noto Sans Kannada', 'Noto Serif Kannada',
+                          'Tunga', 'Lohit Kannada',
+                          'Arial Unicode MS', sans-serif;
+    
+    /* Malayalam Font Stack */
+    --font-family-malayalam: 'Noto Sans Malayalam', 'Noto Serif Malayalam',
+                            'Kartika', 'Lohit Malayalam',
+                            'Arial Unicode MS', sans-serif;
+    
+    /* Oriya Font Stack */
+    --font-family-oriya: 'Noto Sans Oriya', 'Noto Serif Oriya',
+                        'Kalinga', 'Lohit Oriya',
+                        'Arial Unicode MS', sans-serif;
+    
+    /* Punjabi Font Stack */
+    --font-family-punjabi: 'Noto Sans Gurmukhi', 'Noto Serif Gurmukhi',
+                           'Raavi', 'Lohit Punjabi',
+                           'Arial Unicode MS', sans-serif;
+    
+    /* Universal Fallback - Combines all scripts */
+    --font-family-international: var(--font-family-base),
+                                 var(--font-family-arabic),
+                                 var(--font-family-hebrew),
+                                 var(--font-family-chinese),
+                                 var(--font-family-japanese),
+                                 var(--font-family-korean),
+                                 var(--font-family-thai),
+                                 var(--font-family-devanagari),
+                                 var(--font-family-bengali),
+                                 var(--font-family-tamil),
+                                 var(--font-family-telugu),
+                                 var(--font-family-gujarati),
+                                 var(--font-family-kannada),
+                                 var(--font-family-malayalam),
+                                 var(--font-family-oriya),
+                                 var(--font-family-punjabi),
+                                 var(--font-family-armenian),
+                                 var(--font-family-georgian),
+                                 var(--font-family-mongolian),
+                                 var(--font-family-tibetan),
+                                 var(--font-family-ethiopic),
+                                 var(--font-family-khmer),
+                                 var(--font-family-lao),
+                                 var(--font-family-myanmar),
+                                 var(--font-family-sinhala),
+                                 var(--font-family-cyrillic),
+                                 var(--font-family-greek),
+                                 var(--font-family-vietnamese),
+                                 system-ui, -apple-system, BlinkMacSystemFont,
+                                 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ============================================
+   LANGUAGE-SPECIFIC TYPOGRAPHY
+   ============================================ */
+
+/* Arabic & Persian */
+[lang="ar"],
+[lang="fa"],
+[lang="ur"] {
+    font-family: var(--font-family-arabic);
+    direction: rtl;
+    text-align: right;
+}
+
+/* Hebrew */
+[lang="he"],
+[lang="yi"] {
+    font-family: var(--font-family-hebrew);
+    direction: rtl;
+    text-align: right;
+}
+
+/* Chinese (Simplified) */
+[lang="zh-CN"],
+[lang="zh-Hans"] {
+    font-family: var(--font-family-chinese);
+}
+
+/* Chinese (Traditional) */
+[lang="zh-TW"],
+[lang="zh-Hant"],
+[lang="zh-HK"] {
+    font-family: var(--font-family-chinese);
+}
+
+/* Japanese */
+[lang="ja"] {
+    font-family: var(--font-family-japanese);
+}
+
+/* Korean */
+[lang="ko"] {
+    font-family: var(--font-family-korean);
+}
+
+/* Thai */
+[lang="th"] {
+    font-family: var(--font-family-thai);
+}
+
+/* Devanagari (Hindi, Sanskrit) */
+[lang="hi"],
+[lang="sa"],
+[lang="ne"],
+[lang="mr"] {
+    font-family: var(--font-family-devanagari);
+}
+
+/* Cyrillic */
+[lang="ru"],
+[lang="uk"],
+[lang="bg"],
+[lang="sr"],
+[lang="mk"] {
+    font-family: var(--font-family-cyrillic);
+}
+
+/* Greek */
+[lang="el"] {
+    font-family: var(--font-family-greek);
+}
+
+/* Vietnamese */
+[lang="vi"] {
+    font-family: var(--font-family-vietnamese);
+}
+
+/* Armenian */
+[lang="hy"] {
+    font-family: var(--font-family-armenian);
+}
+
+/* Georgian */
+[lang="ka"] {
+    font-family: var(--font-family-georgian);
+}
+
+/* Mongolian */
+[lang="mn"] {
+    font-family: var(--font-family-mongolian);
+}
+
+/* Tibetan */
+[lang="bo"] {
+    font-family: var(--font-family-tibetan);
+}
+
+/* Ethiopic (Amharic, Tigrinya, etc.) */
+[lang="am"],
+[lang="ti"],
+[lang="om"] {
+    font-family: var(--font-family-ethiopic);
+}
+
+/* Khmer */
+[lang="km"] {
+    font-family: var(--font-family-khmer);
+}
+
+/* Lao */
+[lang="lo"] {
+    font-family: var(--font-family-lao);
+}
+
+/* Myanmar (Burmese) */
+[lang="my"] {
+    font-family: var(--font-family-myanmar);
+}
+
+/* Sinhala */
+[lang="si"] {
+    font-family: var(--font-family-sinhala);
+}
+
+/* Bengali */
+[lang="bn"] {
+    font-family: var(--font-family-bengali);
+}
+
+/* Tamil */
+[lang="ta"] {
+    font-family: var(--font-family-tamil);
+}
+
+/* Telugu */
+[lang="te"] {
+    font-family: var(--font-family-telugu);
+}
+
+/* Gujarati */
+[lang="gu"] {
+    font-family: var(--font-family-gujarati);
+}
+
+/* Kannada */
+[lang="kn"] {
+    font-family: var(--font-family-kannada);
+}
+
+/* Malayalam */
+[lang="ml"] {
+    font-family: var(--font-family-malayalam);
+}
+
+/* Oriya */
+[lang="or"] {
+    font-family: var(--font-family-oriya);
+}
+
+/* Punjabi */
+[lang="pa"] {
+    font-family: var(--font-family-punjabi);
+}
+
+/* ============================================
+   TEXT RENDERING OPTIMIZATIONS
+   ============================================ */
+
+/* Optimize text rendering for different scripts */
+:root {
+    /* Font rendering hints */
+    --font-smoothing: antialiased;
+    --font-rendering: optimizeLegibility;
+}
+
+* {
+    /* Enable better text rendering */
+    -webkit-font-smoothing: var(--font-smoothing);
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: var(--font-rendering);
+}
+
+/* Optimize for Arabic/Hebrew */
+[lang="ar"],
+[lang="fa"],
+[lang="ur"],
+[lang="he"],
+[lang="yi"],
+[dir="rtl"] {
+    /* Better ligature support for Arabic/Hebrew */
+    font-feature-settings: "liga" 1, "kern" 1;
+    font-variant-ligatures: common-ligatures;
+}
+
+/* Optimize for CJK (Chinese, Japanese, Korean) */
+[lang="zh"],
+[lang="ja"],
+[lang="ko"] {
+    /* Better rendering for CJK characters */
+    font-feature-settings: "liga" 1, "kern" 1;
+    text-rendering: optimizeLegibility;
+}
+
+/* ============================================
+   UNICODE RANGE SUPPORT
+   ============================================ */
+
+/* Arabic Unicode Range */
+@font-face {
+    font-family: 'Arabic Fallback';
+    unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
+    src: local('Segoe UI'), local('Tahoma');
+}
+
+/* Hebrew Unicode Range */
+@font-face {
+    font-family: 'Hebrew Fallback';
+    unicode-range: U+0590-05FF, U+FB00-FB4F;
+    src: local('Segoe UI'), local('Tahoma');
+}
+
+/* Chinese Unicode Range */
+@font-face {
+    font-family: 'Chinese Fallback';
+    unicode-range: U+4E00-9FFF, U+3400-4DBF, U+20000-2A6DF, U+2A700-2B73F;
+    src: local('Microsoft YaHei'), local('SimHei');
+}
+
+/* Japanese Unicode Range */
+@font-face {
+    font-family: 'Japanese Fallback';
+    unicode-range: U+3040-309F, U+30A0-30FF, U+4E00-9FFF;
+    src: local('Hiragino Kaku Gothic ProN'), local('Meiryo');
+}
+
+/* Korean Unicode Range */
+@font-face {
+    font-family: 'Korean Fallback';
+    unicode-range: U+AC00-D7AF, U+1100-11FF, U+3130-318F;
+    src: local('Malgun Gothic'), local('Apple SD Gothic Neo');
+}
+
+/* Armenian Unicode Range */
+@font-face {
+    font-family: 'Armenian Fallback';
+    unicode-range: U+0530-058F, U+FB00-FB4F;
+    src: local('Noto Sans Armenian'), local('Arial Unicode MS');
+}
+
+/* Georgian Unicode Range */
+@font-face {
+    font-family: 'Georgian Fallback';
+    unicode-range: U+10A0-10FF, U+2D00-2D2F;
+    src: local('Noto Sans Georgian'), local('Arial Unicode MS');
+}
+
+/* Mongolian Unicode Range */
+@font-face {
+    font-family: 'Mongolian Fallback';
+    unicode-range: U+1800-18AF, U+11660-1167F;
+    src: local('Noto Sans Mongolian'), local('Arial Unicode MS');
+}
+
+/* Tibetan Unicode Range */
+@font-face {
+    font-family: 'Tibetan Fallback';
+    unicode-range: U+0F00-0FFF;
+    src: local('Noto Sans Tibetan'), local('Arial Unicode MS');
+}
+
+/* Ethiopic Unicode Range */
+@font-face {
+    font-family: 'Ethiopic Fallback';
+    unicode-range: U+1200-137F, U+1380-139F, U+2D80-2DDF, U+AB00-AB2F;
+    src: local('Noto Sans Ethiopic'), local('Arial Unicode MS');
+}
+
+/* Khmer Unicode Range */
+@font-face {
+    font-family: 'Khmer Fallback';
+    unicode-range: U+1780-17FF, U+19E0-19FF;
+    src: local('Noto Sans Khmer'), local('Arial Unicode MS');
+}
+
+/* Lao Unicode Range */
+@font-face {
+    font-family: 'Lao Fallback';
+    unicode-range: U+0E80-0EFF;
+    src: local('Noto Sans Lao'), local('Arial Unicode MS');
+}
+
+/* Myanmar Unicode Range */
+@font-face {
+    font-family: 'Myanmar Fallback';
+    unicode-range: U+1000-109F, U+AA60-AA7F;
+    src: local('Noto Sans Myanmar'), local('Arial Unicode MS');
+}
+
+/* Sinhala Unicode Range */
+@font-face {
+    font-family: 'Sinhala Fallback';
+    unicode-range: U+0D80-0DFF;
+    src: local('Noto Sans Sinhala'), local('Arial Unicode MS');
+}
+
+/* ============================================
+   DIRECTIONAL UTILITIES
+   ============================================ */
+
+/* Text alignment utilities */
+.text-start {
+    text-align: var(--text-align-start) !important;
+}
+
+.text-end {
+    text-align: var(--text-align-end) !important;
+}
+
+/* Margin utilities */
+.margin-start {
+    margin-left: var(--spacing, 0);
+}
+
+[dir="rtl"] .margin-start {
+    margin-left: 0;
+    margin-right: var(--spacing, 0);
+}
+
+.margin-end {
+    margin-right: var(--spacing, 0);
+}
+
+[dir="rtl"] .margin-end {
+    margin-right: 0;
+    margin-left: var(--spacing, 0);
+}
+
+/* Padding utilities */
+.padding-start {
+    padding-left: var(--spacing, 0);
+}
+
+[dir="rtl"] .padding-start {
+    padding-left: 0;
+    padding-right: var(--spacing, 0);
+}
+
+.padding-end {
+    padding-right: var(--spacing, 0);
+}
+
+[dir="rtl"] .padding-end {
+    padding-right: 0;
+    padding-left: var(--spacing, 0);
+}
+
+/* Float utilities (use logical properties in modern CSS) */
+.float-start {
+    float: left;
+}
+
+[dir="rtl"] .float-start {
+    float: right;
+}
+
+.float-end {
+    float: right;
+}
+
+[dir="rtl"] .float-end {
+    float: left;
+}
+
+/* ============================================
+   BIDIRECTIONAL TEXT SUPPORT
+   ============================================ */
+
+/* Handle mixed LTR/RTL content */
+bdi,
+[dir="auto"] {
+    unicode-bidi: isolate;
+}
+
+/* Neutral direction for numbers and symbols */
+.number,
+[class*="number"] {
+    direction: ltr;
+    unicode-bidi: embed;
+    text-align: left;
+}
+
+/* ============================================
+   LINE HEIGHT OPTIMIZATIONS
+   ============================================ */
+
+/* Adjust line heights for different scripts */
+[lang="ar"],
+[lang="fa"],
+[lang="ur"] {
+    /* Arabic text often needs more vertical space */
+    line-height: 1.8;
+}
+
+[lang="zh"],
+[lang="ja"],
+[lang="ko"] {
+    /* CJK characters are typically square, can use tighter line height */
+    line-height: 1.6;
+}
+
+/* ============================================
+   CHARACTER SPACING
+   ============================================ */
+
+/* Letter spacing adjustments for different scripts */
+[lang="ar"],
+[lang="fa"],
+[lang="ur"] {
+    /* Arabic scripts may need slight letter spacing adjustments */
+    letter-spacing: 0.01em;
+}
+
+[lang="zh"],
+[lang="ja"],
+[lang="ko"] {
+    /* CJK typically doesn't use letter spacing */
+    letter-spacing: 0;
+}
+
+/* ============================================
+   WORD BREAK & WRAPPING
+   ============================================ */
+
+/* Word breaking for different scripts */
+[lang="zh"],
+[lang="ja"],
+[lang="ko"] {
+    /* CJK can break anywhere */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+[lang="ar"],
+[lang="fa"],
+[lang="ur"],
+[lang="he"] {
+    /* RTL scripts */
+    word-break: normal;
+    overflow-wrap: break-word;
+}
+
+/* ============================================
+   FONT FEATURE SETTINGS
+   ============================================ */
+
+/* Enable OpenType features for better typography */
+:root {
+    --font-features-default: "liga" 1, "kern" 1, "calt" 1;
+    --font-features-arabic: "liga" 1, "kern" 1, "calt" 1, "ss01" 1;
+}
+
+[lang="ar"],
+[lang="fa"],
+[lang="ur"] {
+    font-feature-settings: var(--font-features-arabic);
+}
+
+/* Default font features */
+body {
+    font-feature-settings: var(--font-features-default);
+}
+

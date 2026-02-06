@@ -1,0 +1,9 @@
+/**
+ * XWUIRangeSlider Component Styles
+ * Inherits from XWUISlider
+ */
+
+.xwui-range-slider-container {
+    /* Container has no specific styles - inherits from XWUISlider */
+}
+

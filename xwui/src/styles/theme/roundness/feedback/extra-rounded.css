@@ -1,0 +1,12 @@
+/* ============================================
+   FEEDBACK - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    --radius-feedback: 24px;
+}
+
+/* Utility class for direct application */
+.radius-feedback-extra-rounded {
+    border-radius: var(--radius-feedback, 24px) !important;
+}

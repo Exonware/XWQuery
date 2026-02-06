@@ -1,0 +1,15 @@
+/* ============================================
+   BUTTON - NO GLOW
+   ============================================ */
+
+:root[data-glow="none"] {
+    --glow-button-hover: none;
+    --glow-button-focus: none;
+    --glow-button-active: none;
+}
+
+/* Utility class for direct application */
+.glow-button-none {
+    box-shadow: none !important;
+}
+

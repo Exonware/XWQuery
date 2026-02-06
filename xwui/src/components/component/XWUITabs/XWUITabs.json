@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "XWUITabs",
+  "description": "Tab navigation component with various variants (line, card, button). Supports horizontal and vertical orientations, icons, disabled tabs, and content panels. Manages active tab state and tab switching.",
+  "meta": {
+    "input": {
+      "description": "Input data required for the component",
+      "rules": [
+        "Requires tabs array with at least one tab",
+        "Each tab must have id (string) and label (string)",
+        "Optional icon, disabled, and content for each tab",
+        "Optional activeTab string to set initial active tab",
+        "If activeTab not provided, first enabled tab is selected"
+      ],
+      "properties": {
+        "tabs": {
+          "type": "array",
+          "description": "Array of tab items",
+          "required": true,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique tab identifier"
+              },
+              "label": {
+                "type": "string",
+                "description": "Tab label text"
+              },
+              "icon": {
+                "type": "string",
+                "description": "Optional icon name or SVG"
+              },
+              "disabled": {
+                "type": "boolean",
+                "description": "Disable this tab"
+              },
+              "content": {
+                "type": [
+                  "HTMLElement",
+                  "string"
+                ],
+                "description": "Tab panel content (element or HTML string)"
+              }
+            }
+          }
+        },
+        "activeTab": {
+          "type": "string",
+          "description": "ID of initially active tab"
+        }
+      }
+    },
+    "output": {
+      "description": "Output produced by the component",
+      "rules": [
+        "Renders tab list with tab buttons",
+        "Displays active tab content in content panel",
+        "Shows icons if provided",
+        "Applies variant styling (line, card, button)",
+        "Supports horizontal and vertical orientations",
+        "Emits change events when tab is switched"
+      ],
+      "properties": {
+        "activeTabId": {
+          "type": "string",
+          "description": "Currently active tab ID"
+        },
+        "tabElement": {
+          "type": "HTMLElement",
+          "description": "The rendered tabs DOM element"
+        }
+      }
+    },
+    "actions": {
+      "description": "User actions supported by the component",
+      "rules": [
+        "Clicking tab button switches to that tab",
+        "Keyboard navigation (Arrow keys) moves between tabs",
+        "Enter/Space activates focused tab",
+        "Disabled tabs cannot be activated",
+        "onChange event fires when tab changes",
+        "setActiveTab() programmatically switches tabs"
+      ],
+      "properties": {
+        "setActiveTab": {
+          "type": "function",
+          "description": "Programmatically set active tab by ID"
+        },
+        "onChange": {
+          "type": "function",
+          "description": "Register callback for tab change events"
+        },
+        "getActiveTab": {
+          "type": "function",
+          "description": "Get currently active tab ID"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "variant": {
+      "type": "string",
+      "enum": [
+        "line",
+        "card",
+        "button"
+      ],
+      "default": "line",
+      "description": "Tab visual variant/style"
+    },
+    "size": {
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium",
+      "description": "Tab size"
+    },
+    "orientation": {
+      "type": "string",
+      "enum": [
+        "horizontal",
+        "vertical"
+      ],
+      "default": "horizontal",
+      "description": "Tab orientation (horizontal or vertical)"
+    },
+    "centered": {
+      "type": "boolean",
+      "default": false,
+      "description": "Center align tabs"
+    },
+    "fullWidth": {
+      "type": "boolean",
+      "default": false,
+      "description": "Make tabs take full width"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS class name for the component"
+    }
+  },
+  "id": "XWUITabs"
+}

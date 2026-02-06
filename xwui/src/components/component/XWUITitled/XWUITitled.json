@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "XWUITitled",
+  "description": "Component for displaying icon, title, subtitle, and body content in a structured layout.",
+  "meta": {
+    "input": {
+      "description": "Input data required for the component",
+      "rules": [
+        "Optional icon name (string)",
+        "Optional title string",
+        "Optional subtitle string",
+        "Optional body content (HTMLElement or string)"
+      ],
+      "properties": {
+        "icon": {
+          "type": "string",
+          "description": "Icon name for XWUIIcon"
+        },
+        "title": {
+          "type": "string",
+          "description": "Main title text"
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Subtitle text"
+        },
+        "body": {
+          "type": [
+            "HTMLElement",
+            "string"
+          ],
+          "description": "Body content (element or string)"
+        }
+      }
+    },
+    "output": {
+      "description": "Output produced by the component",
+      "rules": [
+        "Renders titled element with icon (optional), title (optional), subtitle (optional), and body (optional)",
+        "Displays content in a structured flex layout"
+      ],
+      "properties": {
+        "titledElement": {
+          "type": "HTMLElement",
+          "description": "The rendered titled DOM element"
+        }
+      }
+    },
+    "actions": {
+      "description": "User actions supported by the component",
+      "rules": [
+        "setIcon method to update icon",
+        "setTitle method to update title",
+        "setSubtitle method to update subtitle",
+        "setBody method to update body content"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "className": {
+      "type": "string",
+      "description": "Additional CSS class name for the component"
+    }
+  },
+  "id": "XWUITitled"
+}
+

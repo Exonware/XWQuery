@@ -1,0 +1,48 @@
+# xslt.out.grammar
+# XSLT Output Grammar - Template for generating XSLT from AST
+# XSL Transformations
+# Company: eXonware.com
+# Version: 1.0
+
+@stylesheet = <?xml version="1.0"?>
+{{#each elements}}{{value}}
+{{/each}}
+
+@xsl_element = <xsl:{{name}}{{#each attributes}} {{key}}="{{value}}"{{/each}}{{#if empty}}/>{{else}}>
+{{#each content}}  {{value}}
+{{/each}}</xsl:{{name}}>{{/if}}
+
+@literal_element = <{{name}}{{#each attributes}} {{key}}="{{value}}"{{/each}}{{#if empty}}/>{{else}}>
+{{#each content}}  {{value}}
+{{/each}}</{{name}}>{{/if}}
+
+@xsl_value_of = <xsl:value-of{{#each attributes}} {{key}}="{{value}}"{{/each}}/>
+
+@xsl_for_each = <xsl:for-each{{#each attributes}} {{key}}="{{value}}"{{/each}}>
+{{#each content}}  {{value}}
+{{/each}}</xsl:for-each>
+
+@xsl_if = <xsl:if{{#each attributes}} {{key}}="{{value}}"{{/each}}>
+{{#each content}}  {{value}}
+{{/each}}</xsl:if>
+
+@xsl_choose = <xsl:choose>
+{{#each when}}  {{value}}
+{{/each}}{{#if otherwise}}  {{otherwise}}
+{{/if}}</xsl:choose>
+
+@xsl_when = <xsl:when{{#each attributes}} {{key}}="{{value}}"{{/each}}>
+{{#each content}}  {{value}}
+{{/each}}</xsl:when>
+
+@xsl_otherwise = <xsl:otherwise>
+{{#each content}}  {{value}}
+{{/each}}</xsl:otherwise>
+
+@xsl_apply_templates = <xsl:apply-templates{{#each attributes}} {{key}}="{{value}}"{{/each}}/>
+
+@text = {{value}}
+
+@indent = 2
+@pretty = true
+

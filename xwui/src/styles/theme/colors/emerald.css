@@ -1,0 +1,58 @@
+/* ============================================
+   EMERALD COLOR THEME - Vibrant emerald theme
+   ============================================ */
+
+:root[data-theme="emerald"] {
+    /* Background colors */
+    --bg-primary: #ecfdf5;
+    --bg-secondary: #d1fae5;
+    --bg-tertiary: #a7f3d0;
+    --bg-app: #ecfdf5;
+    --bg-elevated: #ffffff;
+    --bg-hover: #d1fae5;
+    --bg-active: #a7f3d0;
+    
+    /* Text colors */
+    --text-primary: #064e3b;
+    --text-secondary: #10b981;
+    --text-tertiary: #34d399;
+    --text-inverse: #ffffff;
+    
+    /* Border colors */
+    --border-color: rgba(16, 185, 129, 0.2);
+    --border-light: rgba(16, 185, 129, 0.1);
+    --border-medium: rgba(16, 185, 129, 0.2);
+    --border-strong: rgba(16, 185, 129, 0.3);
+    
+    /* Control colors */
+    --control-bg: #ffffff;
+    --control-bg-hover: #d1fae5;
+    --control-bg-active: #a7f3d0;
+    --control-border: #6ee7b7;
+    --control-text: #064e3b;
+    --control-text-secondary: #10b981;
+    --control-active: #059669;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #fbbf24;
+    --status-before-start-border: #f59e0b;
+    --status-before-start-hover: #f59e0b;
+    --status-processing: #10b981;
+    --status-processing-border: #059669;
+    --status-processing-hover: #059669;
+    --status-processing-text: #ffffff;
+    --status-error: #ef4444;
+    --status-error-border: #dc2626;
+    --status-error-hover: #dc2626;
+    --status-error-text: #ffffff;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

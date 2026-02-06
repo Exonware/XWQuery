@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIToast",
+  "name": "XWUI Toast Component",
+  "description": "Toast notification system component for displaying temporary messages. Supports multiple positions, variants (info, success, warning, error), auto-dismiss, closable toasts, and action buttons. Useful for user feedback and notifications.",
+  "path": "feedback.toast",
+  "tags": ["feedback", "toast", "notification", "message", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "type": "string",
+          "enum": ["top-right", "top-left", "top-center", "bottom-right", "bottom-left", "bottom-center"],
+          "description": "Position where toasts appear",
+          "default": "top-right"
+        },
+        "maxToasts": {
+          "type": "number",
+          "description": "Maximum number of toasts to display simultaneously"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the toast container"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "toasts": {
+          "type": "array",
+          "description": "Array of toast options to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "description": "Toast message text (required)"
+              },
+              "title": {
+                "type": "string",
+                "description": "Toast title text"
+              },
+              "variant": {
+                "type": "string",
+                "enum": ["info", "success", "warning", "error"],
+                "description": "Toast variant/type"
+              },
+              "duration": {
+                "type": "number",
+                "description": "Auto-dismiss duration in milliseconds"
+              },
+              "closable": {
+                "type": "boolean",
+                "description": "Whether the toast can be manually closed",
+                "default": true
+              },
+              "action": {
+                "type": "object",
+                "description": "Action button configuration",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "description": "Action button label"
+                  },
+                  "onClick": {
+                    "description": "Action click handler (not serializable in JSON)"
+                  }
+                },
+                "required": ["label"]
+              }
+            },
+            "required": ["message"]
+          }
+        }
+      }
+    }
+  }
+}
+

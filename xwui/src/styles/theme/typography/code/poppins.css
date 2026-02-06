@@ -1,0 +1,13 @@
+/* ============================================
+   CODE TYPOGRAPHY - POPPINS
+   ============================================ */
+
+:root[data-font="poppins"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-code-family: var(--font-family-mono, monospace);
+}
+
+/* Utility class for direct application */
+.font-code-poppins {
+    font-family: var(--font-code-family, var(--font-family-base, sans-serif)) !important;
+}

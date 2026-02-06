@@ -1,0 +1,24 @@
+/* ============================================
+   ROSE ACCENT - Rose palette
+   ============================================ */
+
+:root[data-accent="rose"] {
+    /* Accent colors - Rose palette */
+    --accent-primary: #f43f5e;
+    --accent-hover: #e11d48;
+    --accent-light: #fb7185;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 244, 63, 94;
+    --accent-hover-rgb: 225, 29, 72;
+    --accent-light-rgb: 251, 113, 133;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

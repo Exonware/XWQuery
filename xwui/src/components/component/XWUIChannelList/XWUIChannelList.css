@@ -1,0 +1,171 @@
+/**
+ * XWUIChannelList Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ */
+
+.xwui-channel-list-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.xwui-channel-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary, #ffffff);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-md, 8px);
+}
+
+/* Search */
+.xwui-channel-list-search {
+    padding: var(--spacing-sm, 0.75rem);
+    border-bottom: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+}
+
+.xwui-channel-list-search-input {
+    width: 100%;
+    padding: var(--spacing-xs, 0.5rem) var(--spacing-sm, 0.75rem);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-sm, 4px);
+    background: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #212529);
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-channel-list-search-input:focus {
+    outline: 2px solid var(--accent-primary, #4f46e5);
+    outline-offset: 2px;
+    border-color: var(--accent-primary, #4f46e5);
+}
+
+/* List Items */
+.xwui-channel-list-items {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.xwui-channel-list-group-header {
+    padding: var(--spacing-xs, 0.5rem) var(--spacing-sm, 0.75rem);
+    font-size: var(--font-size-xs, 0.75rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-secondary, #6c757d);
+    text-transform: uppercase;
+    background: var(--bg-secondary, #f8f9fa);
+    border-bottom: var(--border-width-thin, 1px) solid var(--border-color, #e0e0e0);
+}
+
+.xwui-channel-list-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.75rem);
+    padding: var(--spacing-sm, 0.75rem);
+    cursor: pointer;
+    transition: background 0.2s ease;
+    border-bottom: var(--border-width-thin, 1px) solid var(--border-color, #e0e0e0);
+}
+
+.xwui-channel-list-item:hover {
+    background: var(--bg-hover, #f8f9fa);
+}
+
+.xwui-channel-list-item.selected {
+    background: var(--bg-secondary, #f8f9fa);
+    border-left: var(--border-width-regular, 3px) solid var(--accent-primary, #4f46e5);
+    padding-left: calc(var(--spacing-sm, 0.75rem) - 3px);
+}
+
+.xwui-channel-list-item.has-unread {
+    font-weight: var(--font-weight-medium, 500);
+}
+
+/* Avatar */
+.xwui-channel-list-avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary, #f8f9fa);
+    color: var(--text-primary, #212529);
+    font-weight: var(--font-weight-medium, 500);
+    position: relative;
+}
+
+.xwui-channel-list-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.xwui-channel-list-online-indicator {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--accent-success, #10b981);
+    border: 2px solid var(--bg-primary, #ffffff);
+}
+
+/* Content */
+.xwui-channel-list-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.xwui-channel-list-name-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.5rem);
+    margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-channel-list-name {
+    flex: 1;
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+    font-size: var(--font-size-base, 1rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.xwui-channel-list-unread-badge {
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--radius-full, 9999px);
+    background: var(--accent-primary, #4f46e5);
+    color: var(--text-inverse, #ffffff);
+    font-size: var(--font-size-xs, 0.75rem);
+    font-weight: var(--font-weight-medium, 500);
+    min-width: 1.25rem;
+    text-align: center;
+}
+
+.xwui-channel-list-time {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #6c757d);
+    white-space: nowrap;
+}
+
+.xwui-channel-list-last-message {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #6c757d);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+

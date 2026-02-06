@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-gallery-editor.schema.json",
+  "title": "XWUIGalleryEditor Schema",
+  "description": "Schema for XWUIGalleryEditor component",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "additionalProperties": false,
+      "properties": {
+        "layout": {
+          "type": "string",
+          "enum": [
+            "grid",
+            "carousel"
+          ],
+          "description": "Gallery layout type",
+          "default": "grid"
+        },
+        "columns": {
+          "type": "number",
+          "description": "Number of columns for grid layout",
+          "default": 4
+        },
+        "showUpload": {
+          "type": "boolean",
+          "description": "Show upload button",
+          "default": true
+        },
+        "allowDelete": {
+          "type": "boolean",
+          "description": "Allow deleting images",
+          "default": true
+        },
+        "allowReorder": {
+          "type": "boolean",
+          "description": "Allow reordering images",
+          "default": false
+        },
+        "maxImages": {
+          "type": "number",
+          "description": "Maximum number of images"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "additionalProperties": false,
+      "properties": {
+        "images": {
+          "type": "array",
+          "description": "Array of gallery images",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "src": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              },
+              "alt": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "src"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "id": "XWUIGalleryEditor"
+}

@@ -1,0 +1,40 @@
+// shell.grammar
+// Shell Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: script
+
+script: command*
+
+command: simple_command | pipeline | list | compound_command
+
+simple_command: [assignment]* [command_word] [argument*]
+
+pipeline: command ("|" command)+
+
+list: command ((";" | "&" | "&&" | "||") command)*
+
+compound_command: if_command | while_command | for_command
+
+if_command: "if" command "then" command ["else" command] "fi"
+
+while_command: "while" command "do" command "done"
+
+for_command: "for" IDENTIFIER ["in" word_list] "do" command "done"
+
+assignment: IDENTIFIER "=" word
+
+command_word: word
+
+argument: word
+
+word: STRING | IDENTIFIER | NUMBER | /[^\s|;&()]+/
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]/* "\"" | "'" /[^']/* "'"
+NUMBER: /[0-9]+/
+%import common.WS
+
+%ignore WS
+

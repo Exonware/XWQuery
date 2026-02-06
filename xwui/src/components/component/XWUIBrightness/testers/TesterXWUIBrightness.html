@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIBrightness Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+    <style>
+        .test-content {
+            display: flex;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-lg);
+            min-height: 100vh;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+        
+        .side-content {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        .demo-card {
+            background: var(--color-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .demo-card h3 {
+            margin: 0 0 var(--spacing-sm) 0;
+            color: var(--color-text);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .demo-card p {
+            margin: var(--spacing-xs) 0;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            font-size: var(--font-size-base);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: var(--spacing-xs);
+            flex-wrap: wrap;
+            margin-top: var(--spacing-sm);
+        }
+        
+        .demo-button {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--accent-primary);
+            color: var(--text-inverse);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .demo-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .demo-input {
+            width: 100%;
+            padding: var(--spacing-xs);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            margin-top: var(--spacing-xs);
+            background: var(--color-surface-elevated);
+            color: var(--color-text);
+            font-size: var(--font-size-base);
+        }
+        
+        .demo-list {
+            list-style: none;
+            padding: 0;
+            margin: var(--spacing-sm) 0 0 0;
+        }
+        
+        .demo-list li {
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid var(--border-color);
+            color: var(--color-text);
+            font-size: var(--font-size-base);
+        }
+        
+        .demo-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-left: var(--spacing-xs);
+        }
+        
+        .status-badge.success {
+            background: rgba(var(--accent-success-rgb), 0.1);
+            color: var(--accent-success);
+        }
+        
+        .status-badge.warning {
+            background: rgba(var(--accent-warning-rgb), 0.1);
+            color: var(--accent-warning);
+        }
+        
+        .status-badge.info {
+            background: rgba(var(--accent-primary-rgb), 0.1);
+            color: var(--accent-primary);
+        }
+        
+        .brightness-controls {
+            background: var(--color-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .brightness-controls h3 {
+            margin: 0 0 var(--spacing-sm) 0;
+            color: var(--color-text);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .control-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-sm);
+        }
+        
+        .control-button {
+            padding: var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--color-surface-elevated);
+            color: var(--color-text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .control-button:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-primary);
+        }
+        
+        .control-button.active {
+            background: var(--accent-primary);
+            color: var(--text-inverse);
+            border-color: var(--accent-primary);
+        }
+    </style>
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuibrightness-content">
+<div class="test-content">
+                <div class="main-content">
+                    <div class="demo-card">
+                        <h3>Main Content Area</h3>
+                        <p>This is the main content area of the page. You can control the brightness of this entire page using the brightness controller on the side.</p>
+                        <p>The brightness controller supports scroll-based adjustment - hover over the controller and scroll up to increase brightness, scroll down to decrease it.</p>
+                    </div>
+                    
+                    <div class="demo-card">
+                        <h3>Sample Form Elements</h3>
+                        <div>
+                            <label>Name:</label>
+                            <input type="text" class="demo-input" placeholder="Enter your name" value="John Doe">
+                        </div>
+                        <div style="margin-top: var(--spacing-sm);">
+                            <label>Email:</label>
+                            <input type="email" class="demo-input" placeholder="Enter your email" value="john@example.com">
+                        </div>
+                        <div class="button-group">
+                            <button class="demo-button">Submit</button>
+                            <button class="demo-button" style="background: var(--bg-secondary); color: var(--text-primary);">Cancel</button>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-card">
+                        <h3>Sample List</h3>
+                        <ul class="demo-list">
+                            <li>Item 1 - Sample list item</li>
+                            <li>Item 2 - Another list item</li>
+                            <li>Item 3 - Yet another item</li>
+                            <li>Item 4 - More content here</li>
+                            <li>Item 5 - Final list item</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="demo-card">
+                        <h3>Status Indicators</h3>
+                        <p>
+                            Status: Active <span class="status-badge success">Success</span>
+                        </p>
+                        <p>
+                            Status: Warning <span class="status-badge warning">Warning</span>
+                        </p>
+                        <p>
+                            Status: Info <span class="status-badge info">Info</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="side-content">
+                    <div class="brightness-controls">
+                        <h3>Brightness Control</h3>
+                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin: var(--spacing-xs) 0;">
+                            The brightness controller is positioned on the right side. You can adjust its position or hide/show it using the buttons below.
+                        </p>
+                        <div class="control-buttons">
+                            <button class="control-button" data-position="right" id="btn-position-right">Position: Right</button>
+                            <button class="control-button" data-position="left" id="btn-position-left">Position: Left</button>
+                            <button class="control-button" data-position="up" id="btn-position-up">Position: Top</button>
+                            <button class="control-button" data-position="down" id="btn-position-down">Position: Bottom</button>
+                            <button class="control-button" data-position="middle" id="btn-position-middle">Position: Center</button>
+                            <button class="control-button" id="btn-toggle">Hide Controller</button>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-card">
+                        <h3>Side Panel</h3>
+                        <p>This is a side panel with additional content. The brightness control affects this area as well.</p>
+                        <p>Try adjusting the brightness using the controller to see how it affects the entire page visibility.</p>
+                    </div>
+                    
+                    <div class="demo-card">
+                        <h3>Quick Actions</h3>
+                        <div class="button-group" style="flex-direction: column;">
+                            <button class="demo-button" style="width: 100%;">Action 1</button>
+                            <button class="demo-button" style="width: 100%; background: var(--accent-success);">Action 2</button>
+                            <button class="demo-button" style="width: 100%; background: var(--accent-warning); color: var(--color-text);">Action 3</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="brightness-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+    </template>
+
+    <script type="module" src="./TesterXWUIBrightness.ts"></script>
+</body>
+</html>
+

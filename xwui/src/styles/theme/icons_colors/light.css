@@ -1,0 +1,14 @@
+/* ============================================
+   LIGHT ICON COLORS - Clean and bright
+   @default: true
+   ============================================ */
+
+:root[data-icons-colors="light"],
+:root:not([data-icons-colors]) {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #212529;        /* Primary fill color - dark text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #6c757d;        /* Accent/rail/marks color - gray */
+    --icons-color-transparent: transparent;
+}
+

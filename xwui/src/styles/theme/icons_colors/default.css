@@ -1,0 +1,14 @@
+/* ============================================
+   DEFAULT ICON COLORS - Standard black, white, gray
+   @default: true
+   ============================================ */
+
+:root[data-icons-colors="default"],
+:root:not([data-icons-colors]) {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: black;        /* Primary fill color */
+    --icons-color-secondary: white;    /* Secondary/stroke color */
+    --icons-color-accent: gray;        /* Accent/rail/marks color */
+    --icons-color-transparent: transparent; /* Transparent color */
+}
+

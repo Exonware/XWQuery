@@ -1,0 +1,34 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Table -->
+  <rect x="15" y="20" width="70" height="60" rx="2" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <!-- Header row -->
+  <rect x="15" y="20" width="70" height="12" class="xwui-icon-fill"/>
+  <line x1="35" y1="20" x2="35" y2="80" class="xwui-icon-accent" stroke-width="1.5"/>
+  <line x1="55" y1="20" x2="55" y2="80" class="xwui-icon-accent" stroke-width="1.5"/>
+  <line x1="15" y1="32" x2="85" y2="32" class="xwui-icon-accent" stroke-width="1.5"/>
+  <!-- Header text -->
+  <text x="25" y="29" font-family="Arial" font-size="8" text-anchor="middle" fill="var(--icons-color-secondary, white)">Col1</text>
+  <text x="45" y="29" font-family="Arial" font-size="8" text-anchor="middle" fill="var(--icons-color-secondary, white)">Col2</text>
+  <text x="70" y="29" font-family="Arial" font-size="8" text-anchor="middle" fill="var(--icons-color-secondary, white)">Col3</text>
+  <!-- Data rows -->
+  <line x1="15" y1="44" x2="85" y2="44" class="xwui-icon-accent" stroke-width="1"/>
+  <text x="25" y="52" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-main, black)">A1</text>
+  <text x="45" y="52" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-main, black)">B1</text>
+  <text x="70" y="52" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-main, black)">C1</text>
+  
+  <line x1="15" y1="56" x2="85" y2="56" class="xwui-icon-accent" stroke-width="1"/>
+  <text x="25" y="64" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-main, black)">A2</text>
+  <text x="45" y="64" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-main, black)">B2</text>
+  <text x="70" y="64" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-main, black)">C2</text>
+  
+  <line x1="15" y1="68" x2="85" y2="68" class="xwui-icon-accent" stroke-width="1"/>
+  <text x="25" y="76" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-main, black)">A3</text>
+  <text x="45" y="76" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-main, black)">B3</text>
+  <text x="70" y="76" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-main, black)">C3</text>
+</svg>
+

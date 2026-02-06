@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIPickerDate Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- Component CSS -->
+</head>
+<body>
+    <div class="tester-container" style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+        <h1>XWUIPickerDate Component Tester</h1>
+        <p>Test the XWUIPickerDate component - the calendar popup for date selection.</p>
+        
+        <div style="margin: 2rem 0;">
+            <h2>Standalone Picker</h2>
+            <button id="trigger-btn" style="padding: 0.5rem 1rem; cursor: pointer;">Open Date Picker</button>
+            <div id="picker-container"></div>
+            <div id="result" style="margin-top: 1rem; padding: 0.5rem; background: #f0f0f0; border-radius: 4px;">
+                Selected date will appear here
+            </div>
+        </div>
+    </div>
+
+        <script type="module" src="./TesterXWUIPickerDate.ts"></script>
+</body>
+</html>
+

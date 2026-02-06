@@ -1,0 +1,14 @@
+/* ============================================
+   DIALOG - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-dialog: 0px;
+    /* Fallback: --radius-overlay → --radius-lg → 0px */
+}
+
+/* Utility class for direct application */
+.radius-dialog-sharp {
+    border-radius: var(--radius-dialog, 0px) !important;
+}

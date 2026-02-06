@@ -1,0 +1,17 @@
+/* ============================================
+   BADGE LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-badge-width: var(--border-width-regular, 1.5px);
+    --border-badge-style: solid;
+    --border-badge-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-badge-balanced {
+    border-style: var(--border-badge-style, solid);
+    border-width: var(--border-badge-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-badge-color, var(--border-medium, var(--border-color)));
+}

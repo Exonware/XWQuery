@@ -1,0 +1,17 @@
+/* ============================================
+   MENU LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-menu-width: var(--border-width-regular, 1.5px);
+    --border-menu-style: solid;
+    --border-menu-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-menu-balanced {
+    border-style: var(--border-menu-style, solid);
+    border-width: var(--border-menu-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-menu-color, var(--border-medium, var(--border-color)));
+}

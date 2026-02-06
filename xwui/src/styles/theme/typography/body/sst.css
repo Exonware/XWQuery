@@ -1,0 +1,13 @@
+/* ============================================
+   BODY TYPOGRAPHY - SST
+   ============================================ */
+
+:root[data-font="sst"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-body-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-body-sst {
+    font-family: var(--font-body-family, var(--font-family-base, sans-serif)) !important;
+}

@@ -1,0 +1,17 @@
+/* ============================================
+   PHOTO LINES - STRONG LINES
+   ============================================ */
+
+:root[data-lines="strong"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-photo-width: var(--border-width-regular, 2px);
+    --border-photo-style: solid;
+    --border-photo-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-photo-strong {
+    border-style: var(--border-photo-style, solid);
+    border-width: var(--border-photo-width, var(--border-width-regular, 2px));
+    border-color: var(--border-photo-color, var(--border-medium, var(--border-color)));
+}

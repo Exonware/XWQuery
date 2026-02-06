@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "XWUIProgress",
+  "description": "Progress bar component with linear and circular variants. Displays progress from 0-100%, supports indeterminate state, and can show value labels. Available in multiple sizes and colors.",
+  "meta": {
+    "input": {
+      "description": "Input data required for the component",
+      "rules": [
+        "Optional value number (0-100) for progress percentage",
+        "If value is undefined and indeterminate is false, shows 0%",
+        "Optional label string to display above progress bar"
+      ],
+      "properties": {
+        "value": {
+          "type": "number",
+          "description": "Progress value from 0 to 100",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "label": {
+          "type": "string",
+          "description": "Label text displayed above progress bar"
+        }
+      }
+    },
+    "output": {
+      "description": "Output produced by the component",
+      "rules": [
+        "Renders progress bar (linear or circular variant)",
+        "Displays progress fill based on value",
+        "Shows indeterminate animation if indeterminate is true",
+        "Displays value percentage if showValue is true",
+        "Shows label if provided",
+        "Applies color and size styling",
+        "Sets ARIA attributes for accessibility"
+      ],
+      "properties": {
+        "progressElement": {
+          "type": "HTMLElement",
+          "description": "The rendered progress DOM element"
+        },
+        "value": {
+          "type": "number",
+          "description": "Current progress value (0-100)"
+        }
+      }
+    },
+    "actions": {
+      "description": "User actions supported by the component",
+      "rules": [
+        "setValue() updates progress value dynamically",
+        "setLabel() updates label text",
+        "Progress updates automatically when data.value changes"
+      ],
+      "properties": {
+        "setValue": {
+          "type": "function",
+          "description": "Update progress value (0-100)"
+        },
+        "setLabel": {
+          "type": "function",
+          "description": "Update label text"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "variant": {
+      "type": "string",
+      "enum": [
+        "linear",
+        "circular"
+      ],
+      "default": "linear",
+      "description": "Progress bar variant (linear or circular)"
+    },
+    "size": {
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium",
+      "description": "Progress bar size"
+    },
+    "color": {
+      "type": "string",
+      "enum": [
+        "primary",
+        "success",
+        "warning",
+        "error"
+      ],
+      "default": "primary",
+      "description": "Progress bar color"
+    },
+    "indeterminate": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show indeterminate/animated progress (ignores value)"
+    },
+    "showValue": {
+      "type": "boolean",
+      "default": false,
+      "description": "Display percentage value on progress bar"
+    },
+    "strokeWidth": {
+      "type": "number",
+      "description": "Stroke width for circular variant (default: 4)"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS class name for the component"
+    }
+  },
+  "id": "XWUIProgress"
+}

@@ -1,0 +1,15 @@
+# hdf5.out.grammar
+# HDF5 Output Grammar - Template for generating HDF5 from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@hdf5_file = {{superblock}}{{#each headers}}{{value}}{{/each}}{{#each objects}}{{value}}{{/each}}
+
+@dataset = {{header}}{{space}}{{type}}{{storage}}
+
+@group = {{header}}{{messages}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

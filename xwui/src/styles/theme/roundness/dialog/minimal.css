@@ -1,0 +1,14 @@
+/* ============================================
+   DIALOG - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-dialog: 4px;
+    /* Fallback: --radius-overlay → --radius-lg → 4px */
+}
+
+/* Utility class for direct application */
+.radius-dialog-minimal {
+    border-radius: var(--radius-dialog, 4px) !important;
+}

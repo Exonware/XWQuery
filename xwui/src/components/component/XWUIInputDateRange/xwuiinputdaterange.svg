@@ -1,0 +1,30 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Input field background -->
+  <rect x="10" y="25" width="70" height="18" rx="3" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <!-- Text cursor -->
+  <line x1="25" y1="28" x2="25" y2="40" class="xwui-icon-fill" stroke-width="2"/>
+  <!-- Calendar icon button -->
+  <rect x="83" y="25" width="12" height="18" rx="3" class="xwui-icon-fill"/>
+  <rect x="85" y="28" width="8" height="12" rx="1" class="xwui-icon-secondary" stroke="var(--icons-color-secondary, white)" stroke-width="1"/>
+  <circle cx="88" cy="32" r="1" class="xwui-icon-secondary"/>
+  <!-- Calendar popup -->
+  <rect x="30" y="50" width="55" height="40" rx="4" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2.5"/>
+  <rect x="30" y="50" width="55" height="10" rx="4" class="xwui-icon-fill"/>
+  <line x1="36" y1="60" x2="36" y2="88" class="xwui-icon-accent" stroke-width="1"/>
+  <line x1="45" y1="60" x2="45" y2="88" class="xwui-icon-accent" stroke-width="1"/>
+  <line x1="54" y1="60" x2="54" y2="88" class="xwui-icon-accent" stroke-width="1"/>
+  <line x1="63" y1="60" x2="63" y2="88" class="xwui-icon-accent" stroke-width="1"/>
+  <line x1="72" y1="60" x2="72" y2="88" class="xwui-icon-accent" stroke-width="1"/>
+  <line x1="30" y1="67" x2="85" y2="67" class="xwui-icon-accent" stroke-width="1"/>
+  <line x1="30" y1="74" x2="85" y2="74" class="xwui-icon-accent" stroke-width="1"/>
+  <!-- Date range highlight -->
+  <rect x="36" y="67" width="18" height="7" class="xwui-icon-accent" opacity="0.3"/>
+  <circle cx="40" cy="70" r="2" class="xwui-icon-fill"/>
+  <circle cx="52" cy="70" r="2" class="xwui-icon-fill"/>
+</svg>
+

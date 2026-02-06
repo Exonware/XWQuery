@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIResult",
+  "name": "XWUI Result Component",
+  "description": "Result page/section component for displaying operation results with status icons. Supports success, error, info, and warning statuses with customizable icons, titles, descriptions, and extra content.",
+  "path": "display.result",
+  "tags": ["display", "result", "status", "feedback", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["success", "error", "info", "warning"],
+          "description": "Status type of the result",
+          "default": "info"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the result component",
+          "default": "medium"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the result"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title text for the result (required)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description text for the result"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Custom icon HTML string (overrides default status icon)"
+        },
+        "extra": {
+          "description": "Extra content element or HTML string to display below description"
+        }
+      },
+      "required": ["title"]
+    }
+  }
+}
+

@@ -1,0 +1,17 @@
+/* ============================================
+   ACCORDION LINES - SUBTLE LINES
+   ============================================ */
+
+:root[data-lines="subtle"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-accordion-width: var(--border-width-regular, 1px);
+    --border-accordion-style: solid;
+    --border-accordion-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-accordion-subtle {
+    border-style: var(--border-accordion-style, solid);
+    border-width: var(--border-accordion-width, var(--border-width-regular, 1px));
+    border-color: var(--border-accordion-color, var(--border-medium, var(--border-color)));
+}

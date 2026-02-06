@@ -1,0 +1,52 @@
+# PromQL (Prometheus Query Language) Examples
+# Time-series database query language
+
+# Basic queries
+http_requests_total
+http_requests_total{method="GET"}
+http_requests_total{status=~"2.."}
+
+# Rate calculations
+rate(http_requests_total[5m])
+rate(http_requests_total[5m])[1h:1m]
+
+# Aggregations
+sum(http_requests_total)
+avg(http_requests_total)
+max(http_requests_total)
+min(http_requests_total)
+count(http_requests_total)
+
+# Grouping
+sum by (method) (http_requests_total)
+sum by (status, method) (http_requests_total)
+
+# Arithmetic operations
+http_requests_total / 1000
+http_requests_total * 2
+http_requests_total + http_errors_total
+
+# Functions
+increase(http_requests_total[1h])
+delta(http_requests_total[5m])
+histogram_quantile(0.95, http_request_duration_seconds_bucket)
+
+# Time-based queries
+http_requests_total{method="GET"} offset 1h
+http_requests_total @ 1609459200
+
+# Complex queries
+rate(http_requests_total{status=~"5.."}[5m]) > 0.1
+sum(rate(http_requests_total[5m])) by (method) / sum(rate(http_requests_total[5m]))
+
+# Subqueries
+max_over_time(
+  rate(http_requests_total[5m])[1h:1m]
+)
+
+# Binary operators
+http_requests_total > 100
+http_requests_total == 0
+http_requests_total != 0
+http_requests_total and http_errors_total
+

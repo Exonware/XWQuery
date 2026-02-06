@@ -1,0 +1,12 @@
+/* ============================================
+   NIGHT ICON COLORS - Deep dark blue
+   ============================================ */
+
+:root[data-icons-colors="night"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #e0e1dd;        /* Primary fill color - light text */
+    --icons-color-secondary: #0d1b2a;    /* Secondary/stroke color - dark bg */
+    --icons-color-accent: #778da9;        /* Accent/rail/marks color - gray */
+    --icons-color-transparent: transparent;
+}
+

@@ -1,0 +1,13 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <rect x="15" y="30" width="70" height="50" rx="3" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2.5"/>
+  <path d="M 25 50 Q 35 45, 45 50 T 65 50" class="xwui-icon-fill" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M 30 60 Q 40 55, 50 60 T 70 60" class="xwui-icon-fill" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <line x1="20" y1="70" x2="80" y2="70" class="xwui-icon-accent" stroke-width="1.5"/>
+</svg>
+
+

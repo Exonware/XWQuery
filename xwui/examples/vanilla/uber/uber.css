@@ -1,0 +1,198 @@
+/**
+ * Uber-like mobile app page – shared across all framework examples.
+ * Reuses XWUI Button; rest is semantic HTML + this CSS.
+ */
+
+.uber-app {
+  --uber-bg: #f5f5f5;
+  --uber-surface: #fff;
+  --uber-text: #000;
+  --uber-text-muted: #666;
+  --uber-border: #e0e0e0;
+  --uber-primary: #000;
+  --uber-card-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  font-family: system-ui, -apple-system, sans-serif;
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--uber-bg);
+  color: var(--uber-text);
+  box-sizing: border-box;
+}
+
+.uber-app *,
+.uber-app *::before,
+.uber-app *::after { box-sizing: border-box; }
+
+/* App bar */
+.uber-appbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--uber-surface);
+  border-bottom: 1px solid var(--uber-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.uber-menu {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--uber-text);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uber-menu:hover { background: var(--uber-bg); }
+
+.uber-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.uber-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--uber-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Map placeholder */
+.uber-map {
+  height: 280px;
+  background: linear-gradient(180deg, #e8e8e8 0%, #d0d0d0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--uber-text-muted);
+  font-size: 0.875rem;
+  position: relative;
+}
+
+.uber-map::before {
+  content: "Map area";
+  position: absolute;
+  z-index: 1;
+}
+
+/* Bottom sheet */
+.uber-bottom-sheet {
+  background: var(--uber-surface);
+  border-radius: 20px 20px 0 0;
+  margin-top: -24px;
+  padding: 20px 16px 24px;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 5;
+}
+
+/* Where to / inputs */
+.uber-where-to {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 16px;
+}
+
+.uber-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--uber-bg);
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
+
+.uber-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.uber-dot.pickup { background: #22c55e; }
+.uber-dot.drop { background: #000; }
+
+.uber-row input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  outline: none;
+}
+
+.uber-row input::placeholder { color: var(--uber-text-muted); }
+
+/* Ride type cards */
+.uber-ride-types {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.uber-ride-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--uber-bg);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.uber-ride-card:hover { background: #eee; }
+
+.uber-ride-card.selected {
+  border-color: var(--uber-primary);
+  background: #f9f9f9;
+}
+
+.uber-ride-name { font-weight: 600; font-size: 0.9375rem; }
+.uber-ride-price { color: var(--uber-text-muted); font-size: 0.875rem; }
+
+/* Request button – XWUI, centered */
+.uber-request-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.uber-request-wrap xwui-button {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+}
+
+/* Optional: nav hint */
+.uber-nav-hint {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: var(--uber-text-muted);
+}
+
+.uber-nav-hint a {
+  color: var(--uber-primary);
+  text-decoration: none;
+}

@@ -1,0 +1,82 @@
+/**
+ * XWUITree Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Roundness: theme/roundness/rounded.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-tree {
+    width: 100%;
+}
+
+.xwui-tree-node {
+    position: relative;
+}
+
+.xwui-tree-node-content {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+    padding: var(--spacing-sm, 0.5rem);
+    border-radius: var(--radius-tree, var(--radius-sm, 6px));
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.xwui-tree-node-content:hover:not(.xwui-tree-node-disabled .xwui-tree-node-content) {
+    background: var(--bg-secondary);
+}
+
+.xwui-tree-node-selected .xwui-tree-node-content {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+}
+
+.xwui-tree-node-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.xwui-tree-expand-icon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.xwui-tree-spacer {
+    width: 16px;
+    flex-shrink: 0;
+}
+
+.xwui-tree-node-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.xwui-tree-node-icon svg {
+    width: 1em;
+    height: 1em;
+}
+
+.xwui-tree-node-label {
+    flex: 1;
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-tree-children {
+    margin-left: 0.5rem;
+}
+

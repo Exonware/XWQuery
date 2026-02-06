@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUITransition",
+  "name": "XWUI Transition Component",
+  "description": "Animation wrapper component for enter/exit transitions. Supports fade, slide, scale, grow, and collapse transition types with customizable duration, easing, directions, and mount/unmount behaviors. Useful for animated content appearance and disappearance.",
+  "path": "animation.transition",
+  "tags": ["animation", "transition", "fade", "slide", "scale", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["fade", "slide", "scale", "grow", "collapse"],
+          "description": "Type of transition animation",
+          "default": "fade"
+        },
+        "duration": {
+          "type": "number",
+          "description": "Animation duration in milliseconds",
+          "default": 300
+        },
+        "easing": {
+          "type": "string",
+          "description": "CSS easing function",
+          "default": "ease-in-out"
+        },
+        "in": {
+          "type": "boolean",
+          "description": "Control visibility (true = enter, false = exit)",
+          "default": true
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["up", "down", "left", "right"],
+          "description": "Direction for slide transitions"
+        },
+        "appear": {
+          "type": "boolean",
+          "description": "Whether to run transition on initial mount",
+          "default": false
+        },
+        "unmountOnExit": {
+          "type": "boolean",
+          "description": "Whether to remove from DOM when exited",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the transition wrapper"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "children": {
+          "description": "Content element or HTML string to animate"
+        },
+        "content": {
+          "description": "Content element or HTML string (alias for children)"
+        }
+      }
+    }
+  }
+}
+

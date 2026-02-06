@@ -1,0 +1,17 @@
+/* ============================================
+   POPOVER LINES - NO LINES
+   ============================================ */
+
+:root[data-lines="none"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-popover-width: var(--border-width-regular, 0px);
+    --border-popover-style: solid;
+    --border-popover-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-popover-none {
+    border-style: var(--border-popover-style, solid);
+    border-width: var(--border-popover-width, var(--border-width-regular, 0px));
+    border-color: var(--border-popover-color, var(--border-medium, var(--border-color)));
+}

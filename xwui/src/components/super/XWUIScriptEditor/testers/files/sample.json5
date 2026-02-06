@@ -1,0 +1,42 @@
+// JSON5 example - supports comments and trailing commas
+{
+  // This is a comment in JSON5
+  name: 'Sample JSON5 Document',
+  version: '1.0.0',
+  description: 'JSON5 allows comments and more flexible syntax',
+  
+  // Numbers can be in various formats
+  integer: 42,
+  float: 3.14159,
+  negative: -10,
+  hex: 0xFF,
+  
+  // Strings can use single quotes
+  'single-quoted': 'This is valid JSON5',
+  "double-quoted": "This is also valid",
+  
+  // Trailing commas are allowed
+  array: [
+    'item1',
+    'item2',
+    'item3', // trailing comma
+  ],
+  
+  // Object with trailing comma
+  object: {
+    key1: 'value1',
+    key2: 'value2', // trailing comma
+  },
+  
+  // Special values
+  nullValue: null,
+  trueValue: true,
+  falseValue: false,
+  
+  // Unquoted keys (when valid identifier)
+  unquotedKey: 'value',
+  'quoted-key-with-dash': 'value',
+}
+
+
+

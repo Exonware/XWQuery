@@ -1,0 +1,150 @@
+/* ============================================
+   BASE UTILITIES - Common utility classes
+   ============================================ */
+
+/* Focus visible styles */
+:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* Disabled state */
+[disabled],
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Screen reader only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ============================================
+   GLOBAL ROUNDNESS APPLICATION
+   Apply border-radius variables to common elements
+   ============================================ */
+
+/* Apply roundness to common interactive elements */
+button {
+    border-radius: var(--radius-button, var(--radius-sm, 6px));
+}
+
+input,
+textarea,
+select {
+    border-radius: var(--radius-input, var(--radius-sm, 6px));
+}
+
+/* Apply roundness to containers and cards */
+.demo-card,
+.card,
+[class*="card"]:not([class*="badge"]),
+.theme-controls,
+[class*="container"]:not(.xwui-console-container):not(.console-container) {
+    border-radius: var(--radius-container, var(--radius-lg, 12px));
+}
+
+/* Apply roundness to photos and images */
+img,
+.photo,
+[class*="photo"],
+[class*="image"]:not([class*="badge"]) {
+    border-radius: var(--radius-photo, var(--radius-md, 8px));
+}
+
+/* Apply roundness to badges and pills */
+.badge,
+[class*="badge"] {
+    border-radius: var(--radius-badge, var(--radius-full, 9999px));
+}
+
+/* Apply roundness to progress bars */
+.progress-bar {
+    border-radius: var(--radius-full, 9999px);
+}
+
+/* Apply roundness to alerts */
+.alert {
+    border-radius: var(--radius-alert, var(--radius-md, 8px));
+}
+
+/* Apply roundness to code blocks */
+.code-block,
+pre {
+    border-radius: var(--radius-code, var(--radius-md, 8px));
+}
+
+/* ============================================
+   CORNER-BASED ROUNDNESS UTILITIES
+   Optional utility classes for directional/corner rounding
+   Components can choose these based on layout (LTR/RTL)
+   ============================================ */
+
+/* Button corner utilities (use --radius-button) */
+.radius-button-pill {
+    border-radius: var(--radius-button, var(--radius-sm, 6px));
+}
+
+/* Outer corners rounded when button is on the left (right side rounded) */
+.radius-button-left-cut {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: var(--radius-button, var(--radius-sm, 6px));
+    border-bottom-right-radius: var(--radius-button, var(--radius-sm, 6px));
+}
+
+/* Outer corners rounded when button is on the right (left side rounded) */
+.radius-button-right-cut {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: var(--radius-button, var(--radius-sm, 6px));
+    border-bottom-left-radius: var(--radius-button, var(--radius-sm, 6px));
+}
+
+/* Container / card corner utilities (use --radius-container) */
+.radius-container-pill {
+    border-radius: var(--radius-container, var(--radius-lg, 12px));
+}
+
+/* Only top corners rounded (bottom flush) */
+.radius-container-top-only {
+    border-top-left-radius: var(--radius-container, var(--radius-lg, 12px));
+    border-top-right-radius: var(--radius-container, var(--radius-lg, 12px));
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* Only bottom corners rounded (top flush) */
+.radius-container-bottom-only {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: var(--radius-container, var(--radius-lg, 12px));
+    border-bottom-right-radius: var(--radius-container, var(--radius-lg, 12px));
+}
+
+/* Outer corners rounded when container is docked to the left */
+.radius-container-left-cut {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: var(--radius-container, var(--radius-lg, 12px));
+    border-bottom-right-radius: var(--radius-container, var(--radius-lg, 12px));
+}
+
+/* Outer corners rounded when container is docked to the right */
+.radius-container-right-cut {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: var(--radius-container, var(--radius-lg, 12px));
+    border-bottom-left-radius: var(--radius-container, var(--radius-lg, 12px));
+}
+

@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-image.schema.json",
+  "title": "XWUIImage Schema",
+  "description": "Schema for XWUIImage component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "lazy": {
+          "type": "boolean",
+          "description": "Whether to lazy load the image",
+          "default": true
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "URL or data URI for placeholder image"
+        },
+        "fallback": {
+          "type": "string",
+          "description": "URL or data URI for fallback image on error"
+        },
+        "aspectRatio": {
+          "type": "string",
+          "description": "Aspect ratio (e.g., '16/9', '1/1')",
+          "pattern": "^\\d+/\\d+$"
+        },
+        "objectFit": {
+          "type": "string",
+          "enum": [
+            "contain",
+            "cover",
+            "fill",
+            "none",
+            "scale-down"
+          ],
+          "description": "How the image should be resized to fit its container",
+          "default": "cover"
+        },
+        "objectPosition": {
+          "type": "string",
+          "description": "Position of the image within its container",
+          "default": "center"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        },
+        "width": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "description": "Image width"
+        },
+        "height": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "description": "Image height"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "type": "string",
+          "description": "Image source URL",
+          "format": "uri"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Alternative text for the image"
+        },
+        "loading": {
+          "type": "string",
+          "enum": [
+            "lazy",
+            "eager"
+          ],
+          "description": "Image loading strategy"
+        }
+      },
+      "required": [
+        "src"
+      ]
+    }
+  },
+  "id": "XWUIImage"
+}

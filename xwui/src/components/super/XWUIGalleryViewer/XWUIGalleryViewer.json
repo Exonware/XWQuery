@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-gallery-viewer.schema.json",
+  "title": "XWUIGalleryViewer Schema",
+  "description": "Schema for XWUIGalleryViewer component",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "additionalProperties": false,
+      "properties": {
+        "layout": {
+          "type": "string",
+          "enum": [
+            "grid",
+            "carousel",
+            "masonry"
+          ],
+          "description": "Gallery layout type",
+          "default": "grid"
+        },
+        "columns": {
+          "type": "number",
+          "description": "Number of columns for grid layout",
+          "default": 4
+        },
+        "gap": {
+          "type": "string",
+          "description": "Gap between items",
+          "default": "1rem"
+        },
+        "thumbnailSize": {
+          "type": "string",
+          "enum": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "description": "Thumbnail size",
+          "default": "medium"
+        },
+        "showLightbox": {
+          "type": "boolean",
+          "description": "Enable lightbox on image click",
+          "default": true
+        },
+        "showPagination": {
+          "type": "boolean",
+          "description": "Show pagination",
+          "default": false
+        },
+        "itemsPerPage": {
+          "type": "number",
+          "description": "Items per page",
+          "default": 20
+        },
+        "aspectRatio": {
+          "type": "string",
+          "enum": [
+            "1:1",
+            "4:3",
+            "16:9",
+            "auto"
+          ],
+          "description": "Aspect ratio for thumbnails",
+          "default": "auto"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "additionalProperties": false,
+      "properties": {
+        "images": {
+          "type": "array",
+          "description": "Array of gallery images",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique image identifier"
+              },
+              "src": {
+                "type": "string",
+                "description": "Image source URL"
+              },
+              "thumbnail": {
+                "type": "string",
+                "description": "Thumbnail image URL"
+              },
+              "alt": {
+                "type": "string",
+                "description": "Alt text"
+              },
+              "title": {
+                "type": "string",
+                "description": "Image title"
+              },
+              "description": {
+                "type": "string",
+                "description": "Image description"
+              },
+              "width": {
+                "type": "number",
+                "description": "Image width"
+              },
+              "height": {
+                "type": "number",
+                "description": "Image height"
+              }
+            },
+            "required": [
+              "id",
+              "src"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "id": "XWUIGalleryViewer"
+}

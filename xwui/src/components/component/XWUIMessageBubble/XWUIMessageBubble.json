@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "isOwn": {
+      "type": "boolean",
+      "default": false
+    },
+    "showAvatar": {
+      "type": "boolean",
+      "default": true
+    },
+    "showTimestamp": {
+      "type": "boolean",
+      "default": true
+    },
+    "showSenderName": {
+      "type": "boolean",
+      "default": true
+    },
+    "maxLength": {
+      "type": "number",
+      "default": 200
+    },
+    "className": {
+      "type": "string"
+    },
+    "message": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "senderId": {
+          "type": "string"
+        },
+        "senderName": {
+          "type": "string"
+        },
+        "senderAvatar": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "content",
+        "timestamp",
+        "senderId"
+      ]
+    }
+  },
+  "required": [
+    "message"
+  ],
+  "id": "XWUIMessageBubble"
+}

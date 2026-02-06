@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIButton Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuibutton-content">
+<!-- Variants -->
+            <div class="button-group">
+                <h3>Variants</h3>
+                <div class="button-row">
+                    <div class="button-wrapper" id="btn-primary"></div>
+                    <div class="button-wrapper" id="btn-secondary"></div>
+                    <div class="button-wrapper" id="btn-success"></div>
+                    <div class="button-wrapper" id="btn-danger"></div>
+                    <div class="button-wrapper" id="btn-warning"></div>
+                    <div class="button-wrapper" id="btn-info"></div>
+                    <div class="button-wrapper" id="btn-outline"></div>
+                    <div class="button-wrapper" id="btn-ghost"></div>
+                </div>
+            </div>
+            
+            <!-- Sizes -->
+            <div class="button-group">
+                <h3>Sizes</h3>
+                <div class="button-row">
+                    <div class="button-wrapper" id="btn-small"></div>
+                    <div class="button-wrapper" id="btn-medium"></div>
+                    <div class="button-wrapper" id="btn-large"></div>
+                </div>
+            </div>
+            
+            <!-- With Icons -->
+            <div class="button-group">
+                <h3>With Icons</h3>
+                <div class="button-row">
+                    <div class="button-wrapper" id="btn-icon-left"></div>
+                    <div class="button-wrapper" id="btn-icon-right"></div>
+                    <div class="button-wrapper" id="btn-icon-only"></div>
+                </div>
+            </div>
+            
+            <!-- Icon Only Buttons -->
+            <div class="button-group">
+                <h3>Icon Only Buttons</h3>
+                <div class="button-row">
+                    <div class="button-wrapper" id="btn-icon-only-primary"></div>
+                    <div class="button-wrapper" id="btn-icon-only-secondary"></div>
+                    <div class="button-wrapper" id="btn-icon-only-success"></div>
+                    <div class="button-wrapper" id="btn-icon-only-danger"></div>
+                    <div class="button-wrapper" id="btn-icon-only-warning"></div>
+                    <div class="button-wrapper" id="btn-icon-only-info"></div>
+                    <div class="button-wrapper" id="btn-icon-only-outline"></div>
+                    <div class="button-wrapper" id="btn-icon-only-ghost"></div>
+                </div>
+                <div class="button-row">
+                    <div class="button-wrapper" id="btn-icon-only-small"></div>
+                    <div class="button-wrapper" id="btn-icon-only-medium"></div>
+                    <div class="button-wrapper" id="btn-icon-only-large"></div>
+                </div>
+            </div>
+            
+            <!-- States -->
+            <div class="button-group">
+                <h3>States</h3>
+                <div class="button-row">
+                    <div class="button-wrapper" id="btn-disabled"></div>
+                    <div class="button-wrapper" id="btn-loading"></div>
+                </div>
+            </div>
+            
+            <!-- Full Width -->
+            <div class="button-group">
+                <h3>Full Width</h3>
+                <div class="button-row">
+                    <div class="button-wrapper" id="btn-full-width" style="width: 100%;"></div>
+                </div>
+            </div>
+            
+            <!-- JSON Config Example -->
+            <div class="button-group">
+                <h3>JSON Config Example</h3>
+                <div class="button-row">
+                    <div class="button-wrapper" id="btn-json"></div>
+                </div>
+            </div>
+            
+            <div class="console-container">
+                <div id="xwui-console"></div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIButton.ts"></script>
+</body>
+</html>
+

@@ -1,0 +1,17 @@
+/* ============================================
+   PAGINATION LINES - NO LINES
+   ============================================ */
+
+:root[data-lines="none"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-pagination-width: var(--border-width-regular, 0px);
+    --border-pagination-style: solid;
+    --border-pagination-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-pagination-none {
+    border-style: var(--border-pagination-style, solid);
+    border-width: var(--border-pagination-width, var(--border-width-regular, 0px));
+    border-color: var(--border-pagination-color, var(--border-medium, var(--border-color)));
+}

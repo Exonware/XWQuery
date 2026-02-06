@@ -1,0 +1,206 @@
+/**
+ * XWUIToast Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/toast/*.css (component-specific border widths)
+ * - Roundness: theme/roundness/toast/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-toast-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.75rem);
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.xwui-toast-top-right {
+    top: var(--spacing-md, 1rem);
+    right: var(--spacing-md, 1rem);
+}
+
+.xwui-toast-top-left {
+    top: var(--spacing-md, 1rem);
+    left: var(--spacing-md, 1rem);
+}
+
+.xwui-toast-top-center {
+    top: var(--spacing-md, 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.xwui-toast-bottom-right {
+    bottom: var(--spacing-md, 1rem);
+    right: var(--spacing-md, 1rem);
+}
+
+.xwui-toast-bottom-left {
+    bottom: var(--spacing-md, 1rem);
+    left: var(--spacing-md, 1rem);
+}
+
+.xwui-toast-bottom-center {
+    bottom: var(--spacing-md, 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Toast */
+.xwui-toast {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm, 0.75rem);
+    min-width: 300px;
+    max-width: 420px;
+    padding: var(--spacing-md, 1rem);
+    background: var(--bg-primary, #ffffff);
+    border-radius: var(--radius-toast, var(--radius-md, 8px));
+    box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+    border: var(--border-toast-width, var(--border-width-regular, 1.5px)) var(--border-toast-style, solid) var(--border-toast-color, var(--border-color, #dee2e6));
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.xwui-toast-container[class*="left"] .xwui-toast {
+    transform: translateX(-100%);
+}
+
+.xwui-toast-container[class*="center"] .xwui-toast {
+    transform: translateY(-20px);
+}
+
+.xwui-toast-visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+}
+
+.xwui-toast-exiting {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.xwui-toast-container[class*="left"] .xwui-toast-exiting {
+    transform: translateX(-100%);
+}
+
+.xwui-toast-container[class*="center"] .xwui-toast-exiting {
+    transform: translateY(-20px);
+}
+
+/* Icon */
+.xwui-toast-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.xwui-toast-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Variants */
+.xwui-toast-info .xwui-toast-icon {
+    color: var(--accent-primary);
+}
+
+.xwui-toast-success .xwui-toast-icon {
+    color: var(--accent-success);
+}
+
+.xwui-toast-warning .xwui-toast-icon {
+    color: var(--accent-warning);
+}
+
+.xwui-toast-error .xwui-toast-icon {
+    color: var(--accent-error);
+}
+
+/* Content */
+.xwui-toast-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-toast-title {
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-toast-message {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #6c757d);
+}
+
+/* Action */
+.xwui-toast-action {
+    margin-top: var(--spacing-sm, 0.5rem);
+    padding: 0;
+    border: none;
+    background: transparent;
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--accent-primary, #4f46e5);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    align-self: flex-start;
+}
+
+.xwui-toast-action:hover {
+    color: var(--accent-hover, #4338ca);
+}
+
+/* Close button */
+.xwui-toast-close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-tertiary, #adb5bd);
+    border-radius: var(--radius-toast, var(--radius-xs, 4px));
+    transition: background 0.2s, color 0.2s;
+}
+
+.xwui-toast-close:hover {
+    background: var(--bg-secondary, #f8f9fa);
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-toast-close svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Dark theme */
+[data-theme="dark"] .xwui-toast {
+    background: var(--bg-elevated, #1e293b);
+    border-color: var(--border-color, #334155);
+}
+
+[data-theme="dark"] .xwui-toast-title {
+    color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .xwui-toast-close:hover {
+    background: var(--bg-primary, #0f172a);
+}
+

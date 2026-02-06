@@ -1,0 +1,61 @@
+/* ============================================
+   SST TYPOGRAPHY - Sst font family
+   ============================================ */
+
+:root[data-font="sst"],
+:root:not([data-font]) {
+    --font-family-base: /* SST - Monotype/Sony universal font */
+        'SST', 'SST Pro', 'SST Arabic', 'SST Thai',
+        /* Latin & Extended Latin */
+        'SST', 'SST Pro',
+        /* Arabic & Persian - SST support */
+        'SST Arabic', 'Noto Sans Arabic', 'Segoe UI', 'Arabic UI Display',
+        'Tahoma', 'Arial Unicode MS',
+        /* Hebrew - Fallback fonts */
+        'Segoe UI', 'Hebrew UI Display', 'Noto Sans Hebrew',
+        'David', 'Arial Hebrew',
+        /* Chinese - Fallback fonts */
+        'Microsoft YaHei', '微软雅黑', 'PingFang SC', 'Hiragino Sans GB',
+        'Noto Sans SC', 'Source Han Sans SC',
+        /* Japanese - Fallback fonts */
+        'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo',
+        'Noto Sans JP', 'Source Han Sans JP',
+        /* Korean - Fallback fonts */
+        'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo',
+        'Nanum Gothic', 'Noto Sans KR', 'Source Han Sans KR',
+        /* Thai - SST support */
+        'SST Thai', 'Noto Sans Thai', 'Sarabun', 'Thonburi',
+        'Leelawadee UI',
+        /* Devanagari - Fallback fonts */
+        'Noto Sans Devanagari', 'Nirmala UI', 'Mangal',
+        /* Bengali - Fallback fonts */
+        'Noto Sans Bengali', 'Vani',
+        /* Tamil - Fallback fonts */
+        'Noto Sans Tamil', 'Latha',
+        /* Telugu - Fallback fonts */
+        'Noto Sans Telugu', 'Gautami',
+        /* Gujarati - Fallback fonts */
+        'Noto Sans Gujarati', 'Shruti',
+        /* Kannada - Fallback fonts */
+        'Noto Sans Kannada', 'Tunga',
+        /* Malayalam - Fallback fonts */
+        'Noto Sans Malayalam', 'Kartika',
+        /* Oriya - Fallback fonts */
+        'Noto Sans Oriya', 'Kalinga',
+        /* Punjabi - Fallback fonts */
+        'Noto Sans Gurmukhi', 'Raavi',
+        /* Cyrillic - SST support (Albanian, Russian, Serbian, etc.) */
+        'SST', 'Noto Sans', 'Noto Sans Cyrillic',
+        'Segoe UI', 'Segoe UI Cyrillic', 'Tahoma',
+        /* Greek - Fallback fonts */
+        'Noto Sans Greek', 'Segoe UI', 'Segoe UI Greek',
+        /* Vietnamese - Fallback fonts */
+        'Noto Sans', 'Segoe UI', 'Segoe UI Vietnamese',
+        /* Fallback to system fonts */
+        system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    --font-family-mono: 'SF Mono', 'Monaco', 'Menlo',
+        'Roboto Mono', 'Consolas', 'Courier New',
+        'Liberation Mono', 'DejaVu Sans Mono', 'Noto Sans Mono', monospace;
+}
+

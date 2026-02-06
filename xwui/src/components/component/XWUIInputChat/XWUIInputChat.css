@@ -1,0 +1,102 @@
+/**
+ * XWUIChatInput Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/pill.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-chatinput {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--spacing-sm, 0.5rem);
+    padding: var(--spacing-sm, 0.75rem);
+    border-top: var(--border-chatinput-width, var(--border-width-regular, 1.5px)) var(--border-chatinput-style, solid) var(--border-chatinput-color, var(--border-color));
+    background: var(--bg-primary);
+}
+
+.xwui-chatinput-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.xwui-chatinput-textarea {
+    flex: 1;
+    padding: var(--spacing-sm, 0.75rem);
+    border: var(--border-input-width, var(--border-width-regular, 1.5px)) var(--border-input-style, solid) var(--border-input-color, var(--border-color));
+    border-radius: var(--radius-input, var(--radius-full, 24px));
+    resize: none;
+    font-family: var(--font-input-family, var(--font-family-base, inherit));
+    font-size: var(--font-size-sm, 0.875rem);
+    line-height: 1.5;
+    overflow-y: auto;
+    transition: border-color 0.2s;
+    min-height: 2.5rem;
+    max-height: 10rem;
+}
+
+.xwui-chatinput-textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+.xwui-chatinput-file-button {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--border-button-width, var(--border-width-regular, 1.5px)) var(--border-button-style, solid) var(--border-button-color, var(--border-color));
+    border-radius: 50%;
+    background: var(--bg-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: var(--font-size-xl, 1.25rem);
+}
+
+.xwui-chatinput-file-button:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-primary);
+}
+
+.xwui-chatinput-file-input {
+    display: none;
+}
+
+.xwui-chatinput-send-button {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    color: var(--text-on-accent);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: var(--font-size-xl, 1.25rem);
+}
+
+.xwui-chatinput-send-button:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+.xwui-chatinput-send-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+

@@ -1,0 +1,24 @@
+/* ============================================
+   VIOLET ACCENT - Violet palette
+   ============================================ */
+
+:root[data-accent="violet"] {
+    /* Accent colors - Violet palette */
+    --accent-primary: #8b5cf6;
+    --accent-hover: #7c3aed;
+    --accent-light: #a78bfa;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 139, 92, 246;
+    --accent-hover-rgb: 124, 58, 237;
+    --accent-light-rgb: 167, 139, 250;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

@@ -1,0 +1,14 @@
+/* ============================================
+   ACCORDION - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-accordion: 6px;
+    /* Fallback: --radius-content → --radius-md → 6px */
+}
+
+/* Utility class for direct application */
+.radius-accordion-subtle {
+    border-radius: var(--radius-accordion, 6px) !important;
+}

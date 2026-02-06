@@ -1,0 +1,136 @@
+{
+  "pages": [
+    {
+      "id": "admin.panel",
+      "name": "Admin Panel",
+      "description": "Main admin dashboard with sidebar navigation, header, and content area",
+      "path": "/admin",
+      "file": "admin/AdminPanel.json",
+      "category": "admin",
+      "tags": ["admin", "dashboard", "navigation"]
+    },
+    {
+      "id": "admin.users.list",
+      "name": "Users List",
+      "description": "List page showing users in a table with filters, search, and pagination",
+      "path": "/admin/users",
+      "file": "admin/UsersList.json",
+      "category": "admin",
+      "tags": ["admin", "list", "table", "users"]
+    },
+    {
+      "id": "admin.users.add",
+      "name": "Add User",
+      "description": "Form page for adding a new user",
+      "path": "/admin/users/add",
+      "file": "admin/UserAdd.json",
+      "category": "admin",
+      "tags": ["admin", "form", "add", "users"]
+    },
+    {
+      "id": "admin.users.edit",
+      "name": "Edit User",
+      "description": "Form page for editing an existing user",
+      "path": "/admin/users/edit/:id",
+      "file": "admin/UserEdit.json",
+      "category": "admin",
+      "tags": ["admin", "form", "edit", "users"]
+    },
+    {
+      "id": "admin.users.detail",
+      "name": "User Detail",
+      "description": "Detail page showing comprehensive user information",
+      "path": "/admin/users/:id",
+      "file": "admin/UserDetail.json",
+      "category": "admin",
+      "tags": ["admin", "detail", "view", "users"]
+    },
+    {
+      "id": "search.global",
+      "name": "Global Search",
+      "description": "Search page with search bar, filters sidebar, and results area",
+      "path": "/search",
+      "file": "search/GlobalSearch.json",
+      "category": "search",
+      "tags": ["search", "filters", "results"]
+    },
+    {
+      "id": "dashboard.main",
+      "name": "Main Dashboard",
+      "description": "Dashboard with grid of widget cards showing statistics and charts",
+      "path": "/dashboard",
+      "file": "dashboard/MainDashboard.json",
+      "category": "dashboard",
+      "tags": ["dashboard", "widgets", "statistics", "charts"]
+    },
+    {
+      "id": "settings.account",
+      "name": "Account Settings",
+      "description": "Settings page with sidebar navigation and form sections",
+      "path": "/settings/account",
+      "file": "settings/AccountSettings.json",
+      "category": "settings",
+      "tags": ["settings", "account", "profile", "preferences"]
+    },
+    {
+      "id": "settings.org",
+      "name": "Organization Settings",
+      "description": "Organization-level settings page with sidebar navigation and form sections",
+      "path": "/settings/organization",
+      "file": "settings/OrgSettings.json",
+      "category": "settings",
+      "tags": ["settings", "organization", "admin"]
+    },
+    {
+      "id": "wizard.user.onboarding",
+      "name": "User Onboarding",
+      "description": "Multi-step wizard for user onboarding process",
+      "path": "/onboarding",
+      "file": "wizard/UserOnboarding.json",
+      "category": "wizard",
+      "tags": ["wizard", "onboarding", "steps", "form"]
+    },
+    {
+      "id": "note.xw",
+      "name": "XW Note",
+      "description": "Notion-like note-taking page with sidebar navigation and meeting card",
+      "path": "/note",
+      "file": "note/XWNote.json",
+      "category": "note",
+      "tags": ["note", "notion", "sidebar", "meeting"]
+    }
+  ],
+  "categories": [
+    {
+      "id": "admin",
+      "name": "Admin",
+      "description": "Administrative pages"
+    },
+    {
+      "id": "search",
+      "name": "Search",
+      "description": "Search and discovery pages"
+    },
+    {
+      "id": "dashboard",
+      "name": "Dashboard",
+      "description": "Dashboard and overview pages"
+    },
+    {
+      "id": "settings",
+      "name": "Settings",
+      "description": "Settings and configuration pages"
+    },
+    {
+      "id": "wizard",
+      "name": "Wizard",
+      "description": "Multi-step wizard pages"
+    },
+    {
+      "id": "note",
+      "name": "Note",
+      "description": "Note-taking and document pages"
+    }
+  ]
+}
+

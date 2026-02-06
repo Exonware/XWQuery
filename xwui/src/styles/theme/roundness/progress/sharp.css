@@ -1,0 +1,14 @@
+/* ============================================
+   PROGRESS - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-progress: 0px;
+    /* Fallback: --radius-feedback → --radius-full → 0px */
+}
+
+/* Utility class for direct application */
+.radius-progress-sharp {
+    border-radius: var(--radius-progress, 0px) !important;
+}

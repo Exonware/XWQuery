@@ -1,0 +1,22 @@
+# bash.out.grammar
+# Bash Output Grammar - Template for generating Bash from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@script = {{#if shebang}}{{shebang}}
+{{/if}}{{#each commands}}{{value}}
+{{/each}}
+
+@simple_command = {{#each assignments}}{{value}} {{/each}}{{#if command}}{{command}}{{/if}}{{#each arguments}} {{value}}{{/each}}
+
+@if_command = if {{condition}}; then
+{{then_body}}{{#each elifs}}
+elif {{condition}}; then
+{{body}}{{/each}}{{#if else}}
+else
+{{else_body}}{{/if}}
+fi
+
+@indent = 4
+@pretty = true
+

@@ -1,0 +1,14 @@
+/* ============================================
+   LABEL - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-label: 4px;
+    /* Fallback: --radius-text → --radius-sm → 4px */
+}
+
+/* Utility class for direct application */
+.radius-label-subtle {
+    border-radius: var(--radius-label, 4px) !important;
+}

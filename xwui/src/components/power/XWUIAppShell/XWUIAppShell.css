@@ -1,0 +1,67 @@
+/**
+ * XWUIAppShell Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-appshell {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.xwui-appshell-rtl {
+    flex-direction: row-reverse;
+}
+
+.xwui-appshell-sidebar {
+    flex-shrink: 0;
+    border-right: var(--border-container-width, var(--border-width-regular, 1.5px)) var(--border-container-style, solid) var(--border-container-color, var(--border-color));
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+.xwui-appshell-rtl .xwui-appshell-sidebar {
+    border-right: none;
+    border-left: var(--border-container-width, var(--border-width-regular, 1.5px)) var(--border-container-style, solid) var(--border-container-color, var(--border-color));
+}
+
+.xwui-appshell-sidebar-collapsed {
+    width: 0 !important;
+    border: none;
+}
+
+.xwui-appshell-main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.xwui-appshell-header {
+    flex-shrink: 0;
+    border-bottom: var(--border-container-width, var(--border-width-regular, 1.5px)) var(--border-container-style, solid) var(--border-container-color, var(--border-color));
+    padding: var(--spacing-md, 1rem);
+}
+
+.xwui-appshell-main {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-md, 1rem);
+    min-height: 0;
+}
+
+.xwui-appshell-footer {
+    flex-shrink: 0;
+    border-top: var(--border-container-width, var(--border-width-regular, 1.5px)) var(--border-container-style, solid) var(--border-container-color, var(--border-color));
+    padding: var(--spacing-md, 1rem);
+}
+

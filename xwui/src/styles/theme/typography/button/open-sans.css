@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON TYPOGRAPHY - OPEN-SANS
+   ============================================ */
+
+:root[data-font="open-sans"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-button-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-button-open-sans {
+    font-family: var(--font-button-family, var(--font-family-base, sans-serif)) !important;
+}

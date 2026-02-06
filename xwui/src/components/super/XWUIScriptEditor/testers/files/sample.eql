@@ -1,0 +1,49 @@
+# EQL (Event Query Language) Examples
+# Security event query language for threat hunting
+
+# Basic event query
+process where process.name == "cmd.exe"
+
+# Sequence queries
+sequence with maxspan=30s
+  [process where process.name == "powershell.exe"]
+  [process where process.name == "cmd.exe"]
+
+# Join queries
+join
+  [file where file.name == "malware.exe"] by host.id
+  [network where network.destination.port == 443] by host.id
+
+# Filtering
+process where 
+  process.name == "notepad.exe" and
+  process.parent.name == "cmd.exe" and
+  process.command_line contains "suspicious"
+
+# Aggregations
+process where process.name == "powershell.exe"
+| stats count() by host.name, user.name
+
+# Time-based queries
+network where 
+  network.destination.ip == "192.168.1.100" and
+  @timestamp >= "2025-01-15T00:00:00Z" and
+  @timestamp <= "2025-01-15T23:59:59Z"
+
+# File operations
+file where 
+  file.path contains "temp" and
+  file.extension == "exe" and
+  file.size > 1000000
+
+# Registry queries
+registry where 
+  registry.path contains "Run" and
+  registry.value contains "suspicious"
+
+# Process chain analysis
+sequence with maxspan=5m
+  [process where process.name == "explorer.exe"]
+  [process where process.parent.name == "explorer.exe"]
+  [network where network.destination.port == 443]
+

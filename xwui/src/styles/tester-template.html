@@ -1,0 +1,62 @@
+<!-- 
+    Template for component tester HTML files
+    Copy this structure to new tester files
+-->
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../styles/app/testers.css">
+    
+    <!-- Component CSS -->
+    <link rel="stylesheet" href="../ComponentName.css">
+</head>
+<body class="tester-page">
+    <!-- Your tester content here -->
+    
+    <script type="module">
+        // Theme toggle (optional)
+        let isDark = false;
+        const toggleTheme = () => {
+            isDark = !isDark;
+            const theme = isDark ? 'dark' : 'light';
+            const colorSheet = document.getElementById('themeColorSheet');
+            if (colorSheet) {
+                colorSheet.href = `../../../styles/theme/colors/${theme}.css`;
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        };
+        
+        // Your component test code here
+    </script>
+</body>
+</html>
+

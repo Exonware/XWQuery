@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIAffix",
+  "name": "XWUI Affix Component",
+  "description": "Affix component that pins an element to the viewport when scrolling. The element becomes fixed when it reaches a specified offset position, maintaining its position relative to the viewport.",
+  "path": "layout.affix",
+  "tags": ["layout", "affix", "sticky", "fixed", "scroll", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "offset": {
+          "type": "number",
+          "description": "Offset in pixels from the top or bottom of the viewport when affixed",
+          "default": 0
+        },
+        "position": {
+          "type": "string",
+          "enum": ["top", "bottom"],
+          "description": "Position where the element should be affixed",
+          "default": "top"
+        },
+        "target": {
+          "description": "Target container element or selector string. Element will be affixed relative to this container. If not provided, uses document.body"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the affix element"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Content to display in the affix element. Can be a string or HTMLElement"
+        }
+      }
+    }
+  }
+}
+

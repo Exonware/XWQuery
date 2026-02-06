@@ -1,0 +1,107 @@
+/**
+ * XWUITypography Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-typography {
+    margin: 0;
+    padding: 0;
+}
+
+/* Variants */
+.xwui-typography-h1 {
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif));
+    font-size: var(--font-size-4xl, 2.5rem);
+    font-weight: var(--font-weight-bold, 700);
+    line-height: 1.2;
+}
+
+.xwui-typography-h2 {
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif));
+    font-size: var(--font-size-3xl, 2rem);
+    font-weight: var(--font-weight-semibold, 600);
+    line-height: 1.3;
+}
+
+.xwui-typography-h3 {
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif));
+    font-size: var(--font-size-2xl, 1.75rem);
+    font-weight: var(--font-weight-semibold, 600);
+    line-height: 1.4;
+}
+
+.xwui-typography-h4 {
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif));
+    font-size: var(--font-size-2xl, 1.5rem);
+    font-weight: var(--font-weight-semibold, 600);
+    line-height: 1.4;
+}
+
+.xwui-typography-h5 {
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif));
+    font-size: var(--font-size-xl, 1.25rem);
+    font-weight: var(--font-weight-semibold, 600);
+    line-height: 1.5;
+}
+
+.xwui-typography-h6 {
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif));
+    font-size: var(--font-size-lg, 1.125rem);
+    font-weight: var(--font-weight-semibold, 600);
+    line-height: 1.5;
+}
+
+.xwui-typography-body {
+    font-family: var(--font-body-family, var(--font-family-base, sans-serif));
+    font-size: var(--font-size-base, 1rem);
+    font-weight: var(--font-weight-normal, 400);
+    line-height: 1.5;
+}
+
+.xwui-typography-caption {
+    font-family: var(--font-caption-family, var(--font-family-base, sans-serif));
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-normal, 400);
+    line-height: 1.4;
+}
+
+.xwui-typography-overline {
+    font-family: var(--font-caption-family, var(--font-family-base, sans-serif));
+    font-size: var(--font-size-xs, 0.75rem);
+    font-weight: var(--font-weight-medium, 500);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Color variants */
+.xwui-typography-primary {
+    color: var(--text-primary);
+}
+
+.xwui-typography-secondary {
+    color: var(--text-secondary);
+}
+
+.xwui-typography-tertiary {
+    color: var(--text-tertiary);
+}
+
+.xwui-typography-error {
+    color: var(--accent-error);
+}
+
+.xwui-typography-success {
+    color: var(--accent-success);
+}
+
+.xwui-typography-warning {
+    color: var(--accent-warning);
+}
+

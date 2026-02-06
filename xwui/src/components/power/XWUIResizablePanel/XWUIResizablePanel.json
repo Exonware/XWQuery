@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "direction": {
+      "type": "string",
+      "enum": [
+        "horizontal",
+        "vertical"
+      ],
+      "default": "horizontal"
+    },
+    "initialSize": {
+      "type": "number",
+      "default": 50,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "minSize": {
+      "type": "number",
+      "default": 10,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "maxSize": {
+      "type": "number",
+      "default": 90,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "dividerSize": {
+      "type": "number",
+      "default": 8
+    },
+    "className": {
+      "type": "string"
+    },
+    "leftPane": {
+      "description": "Left/top pane content as HTML string or HTMLElement"
+    },
+    "rightPane": {
+      "description": "Right/bottom pane content as HTML string or HTMLElement"
+    }
+  },
+  "required": [
+    "leftPane",
+    "rightPane"
+  ],
+  "id": "XWUIResizablePanel"
+}

@@ -1,0 +1,53 @@
+/**
+ * XWUIField Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.5rem);
+    width: 100%;
+}
+
+.xwui-field-input {
+    width: 100%;
+}
+
+.xwui-field-input-error input,
+.xwui-field-input-error select,
+.xwui-field-input-error textarea {
+    border-color: var(--accent-error) !important;
+}
+
+.xwui-field-error {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--accent-error);
+    margin-top: calc(var(--spacing-xs, 0.25rem) * -1);
+}
+
+.xwui-field-hint {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary);
+    margin-top: calc(var(--spacing-xs, 0.25rem) * -1);
+}
+
+/* Size variants */
+.xwui-field-small .xwui-field-error,
+.xwui-field-small .xwui-field-hint {
+    font-size: var(--font-size-xs, 0.6875rem);
+}
+
+.xwui-field-large .xwui-field-error,
+.xwui-field-large .xwui-field-hint {
+    font-size: var(--font-size-sm, 0.8125rem);
+}
+

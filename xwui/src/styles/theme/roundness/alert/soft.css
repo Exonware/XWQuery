@@ -1,0 +1,14 @@
+/* ============================================
+   ALERT - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-alert: 12px;
+    /* Fallback: --radius-feedback → --radius-md → 12px */
+}
+
+/* Utility class for direct application */
+.radius-alert-soft {
+    border-radius: var(--radius-alert, 12px) !important;
+}

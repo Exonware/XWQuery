@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIMentions",
+  "name": "XWUI Mentions Component",
+  "description": "Mentions input component for @ mentions functionality. Extends XWUITextarea with mention detection, autocomplete dropdown, and mention insertion. Supports custom prefixes, split characters, and placement options.",
+  "path": "input.mentions",
+  "tags": ["input", "mentions", "textarea", "autocomplete", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "prefix": {
+          "description": "Prefix character(s) to trigger mentions (string or array of strings)",
+          "default": "@"
+        },
+        "split": {
+          "type": "string",
+          "description": "Character to split mention text",
+          "default": " "
+        },
+        "placement": {
+          "type": "string",
+          "enum": ["top", "bottom"],
+          "description": "Placement of the mentions dropdown",
+          "default": "bottom"
+        },
+        "notFoundContent": {
+          "type": "string",
+          "description": "Text to display when no mentions are found"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the mentions input"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Current textarea value"
+        },
+        "options": {
+          "type": "array",
+          "description": "Array of mention options",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "Mention value"
+              },
+              "label": {
+                "type": "string",
+                "description": "Mention display label"
+              },
+              "key": {
+                "type": "string",
+                "description": "Mention key for filtering"
+              }
+            },
+            "required": ["value", "label"]
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,124 @@
+/**
+ * XWUIFilePreview Component Styles
+ */
+
+.xwui-file-preview {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    width: 100%;
+}
+
+.xwui-file-preview-empty {
+    padding: var(--spacing-md, 1rem);
+    text-align: center;
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-file-preview-single {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md, 1rem);
+    padding: var(--spacing-sm, 0.5rem);
+    border: 1px solid var(--border-color, #dee2e6);
+    border-radius: var(--radius-md, 8px);
+}
+
+.xwui-file-preview-thumbnail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary, #f8f9fa);
+    border-radius: var(--radius-md, 8px);
+    overflow: hidden;
+}
+
+.xwui-file-preview-thumbnail-small {
+    width: 64px;
+    height: 64px;
+}
+
+.xwui-file-preview-thumbnail-medium {
+    width: 96px;
+    height: 96px;
+}
+
+.xwui-file-preview-thumbnail-large {
+    width: 128px;
+    height: 128px;
+}
+
+.xwui-file-preview-icon {
+    font-size: 2rem;
+}
+
+.xwui-file-preview-type {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-file-preview-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-file-preview-name {
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-file-preview-size {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-file-preview-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--spacing-md, 1rem);
+}
+
+.xwui-file-preview-gallery-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+    cursor: pointer;
+}
+
+.xwui-file-preview-gallery-name {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #6c757d);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.xwui-file-preview-dialog-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.xwui-file-preview-iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+}
+
+.xwui-file-preview-unsupported {
+    padding: var(--spacing-lg, 1.5rem);
+    text-align: center;
+}
+
+.xwui-file-preview-unsupported a {
+    color: var(--accent-primary, #4f46e5);
+    text-decoration: none;
+}
+
+.xwui-file-preview-unsupported a:hover {
+    text-decoration: underline;
+}
+

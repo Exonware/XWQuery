@@ -1,0 +1,22 @@
+/**
+ * XWUIInputJson Component Styles
+ */
+
+.xwui-json-input-container {
+    /* Container has no specific styles */
+}
+
+.xwui-json-input-error {
+    color: var(--accent-error, #ff4d4f);
+    font-size: var(--font-size-xs, 12px);
+    margin-bottom: var(--spacing-xs, 4px);
+}
+
+.xwui-json-input-textarea {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.xwui-json-input-error-state {
+    border-color: var(--accent-error, #ff4d4f);
+}
+

@@ -1,0 +1,50 @@
+/**
+ * XWUISplitButton Component Styles
+ * Split button with main action and dropdown
+ */
+
+.xwui-split-button-container {
+    display: inline-block;
+}
+
+.xwui-split-button-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+}
+
+.xwui-split-button-main {
+    display: inline-block;
+}
+
+.xwui-split-button-main button,
+.xwui-split-button-main .xwui-button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+
+.xwui-split-button-divider {
+    width: 1px;
+    height: 100%;
+    background-color: var(--border-color, rgba(0, 0, 0, 0.05));
+    align-self: stretch;
+}
+
+.xwui-split-button-dropdown {
+    display: inline-block;
+}
+
+.xwui-split-button-dropdown button,
+.xwui-split-button-dropdown .xwui-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: var(--spacing-xs, 4px);
+    padding-right: var(--spacing-xs, 4px);
+    min-width: auto;
+}
+
+.xwui-split-button-dropdown-container {
+    position: absolute;
+    z-index: 1000;
+}

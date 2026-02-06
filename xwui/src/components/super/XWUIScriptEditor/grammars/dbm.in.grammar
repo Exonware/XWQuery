@@ -1,0 +1,25 @@
+// dbm.grammar
+// DBM Grammar - Database Manager format
+// Company: eXonware.com
+
+?start: database
+
+database: bucket*
+
+bucket: hash_entry*
+
+hash_entry: key_length value_length key value
+
+key_length: BYTE BYTE
+value_length: BYTE BYTE BYTE BYTE
+key: KEY_BYTES
+value: VALUE_BYTES
+
+BYTE: /[\x00-\xFF]/
+KEY_BYTES: /[\x00-\xFF]*/
+VALUE_BYTES: /[\x00-\xFF]*/
+
+%import common.WS
+
+%ignore WS
+

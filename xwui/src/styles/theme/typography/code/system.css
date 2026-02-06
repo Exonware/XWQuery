@@ -1,0 +1,13 @@
+/* ============================================
+   CODE TYPOGRAPHY - SYSTEM
+   ============================================ */
+
+:root[data-font="system"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-code-family: var(--font-family-mono, monospace);
+}
+
+/* Utility class for direct application */
+.font-code-system {
+    font-family: var(--font-code-family, var(--font-family-base, sans-serif)) !important;
+}

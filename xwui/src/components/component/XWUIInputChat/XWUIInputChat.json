@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "placeholder": {
+      "type": "string",
+      "default": "Type a message..."
+    },
+    "maxRows": {
+      "type": "number",
+      "default": 10
+    },
+    "minRows": {
+      "type": "number",
+      "default": 1
+    },
+    "showFileButton": {
+      "type": "boolean",
+      "default": true
+    },
+    "showSendButton": {
+      "type": "boolean",
+      "default": true
+    },
+    "className": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    }
+  },
+  "id": "XWUIInputChat"
+}

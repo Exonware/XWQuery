@@ -1,0 +1,17 @@
+/* ============================================
+   CAROUSEL LINES - STRONG LINES
+   ============================================ */
+
+:root[data-lines="strong"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-carousel-width: var(--border-width-regular, 2px);
+    --border-carousel-style: solid;
+    --border-carousel-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-carousel-strong {
+    border-style: var(--border-carousel-style, solid);
+    border-width: var(--border-carousel-width, var(--border-width-regular, 2px));
+    border-color: var(--border-carousel-color, var(--border-medium, var(--border-color)));
+}

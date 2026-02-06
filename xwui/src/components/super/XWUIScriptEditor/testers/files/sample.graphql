@@ -1,0 +1,84 @@
+# GraphQL Query Examples
+
+# Query example
+query GetDocument($id: ID!) {
+  document(id: $id) {
+    id
+    name
+    version
+    description
+    metadata {
+      author
+      created
+      tags
+    }
+    database {
+      host
+      port
+      name
+      ssl
+    }
+    items {
+      id
+      name
+      active
+      price
+      categories
+    }
+  }
+}
+
+# Mutation example
+mutation CreateDocument($input: DocumentInput!) {
+  createDocument(input: $input) {
+    id
+    name
+    version
+    metadata {
+      author
+      created
+    }
+  }
+}
+
+# Fragment example
+fragment DocumentFields on Document {
+  id
+  name
+  version
+  description
+}
+
+query GetDocuments {
+  documents {
+    ...DocumentFields
+    items {
+      id
+      name
+      price
+    }
+  }
+}
+
+# Subscription example
+subscription DocumentUpdates {
+  documentUpdated {
+    id
+    name
+    version
+    updatedAt
+  }
+}
+
+# Variables example:
+# {
+#   "id": "123",
+#   "input": {
+#     "name": "New Document",
+#     "version": "1.0.0",
+#     "description": "A new document"
+#   }
+# }
+
+
+

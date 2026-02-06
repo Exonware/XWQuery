@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUILabel",
+  "name": "XWUI Label Component",
+  "description": "Form label component for labeling form inputs. Supports required indicator, disabled state, various sizes, and htmlFor attribute for accessibility.",
+  "path": "form.label",
+  "tags": ["form", "label", "input", "accessibility", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "type": "boolean",
+          "description": "Whether the field is required (shows asterisk)"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the label is disabled"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the label"
+        },
+        "htmlFor": {
+          "type": "string",
+          "description": "HTML for attribute to associate label with input"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the label"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Label text to display"
+        }
+      },
+      "required": ["text"]
+    }
+  }
+}
+

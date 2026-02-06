@@ -1,0 +1,20 @@
+# go.out.grammar
+# Go Output Grammar - Template for generating Go from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@source_file = {{package}}
+{{#each imports}}{{value}}
+{{/each}}{{#each declarations}}{{value}}
+{{/each}}
+
+@package_clause = package {{name}}
+
+@function_decl = func {{name}}{{signature}}{{#if body}} {{body}}{{/if}}
+
+@method_decl = func {{receiver}} {{name}}{{signature}}{{#if body}} {{body}}{{/if}}
+
+@indent = 4
+@pretty = true
+@use_tabs = true
+

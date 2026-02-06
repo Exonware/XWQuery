@@ -1,0 +1,29 @@
+/**
+ * XWUITaskTemplateSelector Component Styles
+ */
+
+.xwui-task-template-selector {
+    display: inline-block;
+}
+
+.xwui-task-template-selector-dialog {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    max-height: 70vh;
+}
+
+.xwui-task-template-selector-search {
+    width: 100%;
+}
+
+.xwui-task-template-selector-categories {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.xwui-task-template-selector-grid {
+    overflow-y: auto;
+    max-height: 50vh;
+}
+

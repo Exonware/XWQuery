@@ -1,0 +1,53 @@
+// dockerfile.grammar
+// Dockerfile Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: dockerfile
+
+dockerfile: instruction*
+
+instruction: FROM | RUN | CMD | LABEL | EXPOSE | ENV | ADD | COPY | ENTRYPOINT | VOLUME | USER | WORKDIR | ARG | ONBUILD | STOPSIGNAL | HEALTHCHECK | SHELL
+
+FROM: "FROM" image [tag] [as_alias]
+
+RUN: "RUN" command
+
+CMD: "CMD" command
+
+LABEL: "LABEL" label_pair+
+
+label_pair: key "=" value
+
+EXPOSE: "EXPOSE" port+
+
+ENV: "ENV" env_pair+
+
+env_pair: key "=" value
+
+ADD: "ADD" source dest
+
+COPY: "COPY" source dest
+
+ENTRYPOINT: "ENTRYPOINT" command
+
+WORKDIR: "WORKDIR" path
+
+// Terminals
+image: IDENTIFIER | IDENTIFIER "/" IDENTIFIER
+tag: ":" IDENTIFIER
+as_alias: "AS" IDENTIFIER
+command: /[^\n]+/
+key: IDENTIFIER
+value: STRING | IDENTIFIER
+port: NUMBER
+source: /[^\s]+/
+dest: /[^\s]+/
+path: /[^\s]+/
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_.-]*/
+STRING: "\"" /[^"]/* "\"" | "'" /[^']/* "'"
+NUMBER: /[0-9]+/
+%import common.WS
+%import common.NEWLINE
+
+%ignore WS
+

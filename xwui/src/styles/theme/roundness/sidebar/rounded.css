@@ -1,0 +1,14 @@
+/* ============================================
+   SIDEBAR - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-sidebar: 8px;
+    /* Fallback: --radius-navigation → --radius-md → 8px */
+}
+
+/* Utility class for direct application */
+.radius-sidebar-rounded {
+    border-radius: var(--radius-sidebar, 8px) !important;
+}

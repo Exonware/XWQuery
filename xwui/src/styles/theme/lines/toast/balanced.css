@@ -1,0 +1,17 @@
+/* ============================================
+   TOAST LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-toast-width: var(--border-width-regular, 1.5px);
+    --border-toast-style: solid;
+    --border-toast-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-toast-balanced {
+    border-style: var(--border-toast-style, solid);
+    border-width: var(--border-toast-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-toast-color, var(--border-medium, var(--border-color)));
+}

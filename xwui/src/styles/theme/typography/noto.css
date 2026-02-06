@@ -1,0 +1,83 @@
+/* ============================================
+   NOTO TYPOGRAPHY - Noto font family
+   ============================================ */
+
+:root[data-font="noto"],
+:root:not([data-font]) {
+    --font-family-base: /* Noto Sans - Google's universal font family */
+        'Noto Sans', 'Noto Sans Display', 'Noto Sans Text',
+        /* Latin & Extended Latin */
+        'Noto Sans', 'Noto Serif',
+        /* Arabic & Persian - Noto has comprehensive support */
+        'Noto Sans Arabic', 'Noto Naskh Arabic', 'Noto Kufi Arabic',
+        'Noto Sans Arabic UI', 'Noto Serif Arabic',
+        /* Hebrew - Noto support */
+        'Noto Sans Hebrew', 'Noto Serif Hebrew',
+        /* Chinese - Noto CJK (Source Han Sans) */
+        'Noto Sans SC', 'Noto Sans TC', 'Noto Sans HK',
+        'Noto Sans CJK SC', 'Noto Sans CJK TC', 'Noto Sans CJK HK',
+        'Source Han Sans SC', 'Source Han Sans TC', 'Source Han Sans HK',
+        'Noto Serif SC', 'Noto Serif TC', 'Noto Serif HK',
+        /* Japanese - Noto CJK */
+        'Noto Sans JP', 'Noto Sans CJK JP',
+        'Source Han Sans JP', 'Noto Serif JP',
+        /* Korean - Noto CJK */
+        'Noto Sans KR', 'Noto Sans CJK KR',
+        'Source Han Sans KR', 'Noto Serif KR',
+        /* Thai - Noto support */
+        'Noto Sans Thai', 'Noto Serif Thai',
+        /* Devanagari (Hindi, Sanskrit) - Noto support */
+        'Noto Sans Devanagari', 'Noto Serif Devanagari',
+        /* Bengali - Noto support */
+        'Noto Sans Bengali', 'Noto Serif Bengali',
+        /* Tamil - Noto support */
+        'Noto Sans Tamil', 'Noto Serif Tamil',
+        /* Telugu - Noto support */
+        'Noto Sans Telugu', 'Noto Serif Telugu',
+        /* Gujarati - Noto support */
+        'Noto Sans Gujarati', 'Noto Serif Gujarati',
+        /* Kannada - Noto support */
+        'Noto Sans Kannada', 'Noto Serif Kannada',
+        /* Malayalam - Noto support */
+        'Noto Sans Malayalam', 'Noto Serif Malayalam',
+        /* Oriya - Noto support */
+        'Noto Sans Oriya', 'Noto Serif Oriya',
+        /* Punjabi - Noto support */
+        'Noto Sans Gurmukhi', 'Noto Serif Gurmukhi',
+        /* Armenian - Noto support */
+        'Noto Sans Armenian', 'Noto Serif Armenian',
+        /* Georgian - Noto support */
+        'Noto Sans Georgian', 'Noto Serif Georgian',
+        /* Mongolian - Noto support */
+        'Noto Sans Mongolian', 'Noto Sans Mongolian UI',
+        /* Tibetan - Noto support */
+        'Noto Sans Tibetan', 'Noto Serif Tibetan',
+        /* Ethiopic - Noto support */
+        'Noto Sans Ethiopic', 'Noto Serif Ethiopic',
+        /* Khmer - Noto support */
+        'Noto Sans Khmer', 'Noto Serif Khmer',
+        /* Lao - Noto support */
+        'Noto Sans Lao', 'Noto Serif Lao',
+        /* Myanmar - Noto support */
+        'Noto Sans Myanmar', 'Noto Serif Myanmar',
+        /* Sinhala - Noto support */
+        'Noto Sans Sinhala', 'Noto Serif Sinhala',
+        /* Cyrillic - Noto support */
+        'Noto Sans', 'Noto Sans Cyrillic', 'Noto Serif',
+        /* Greek - Noto support */
+        'Noto Sans Greek', 'Noto Serif Greek',
+        /* Vietnamese - Noto support */
+        'Noto Sans', 'Noto Serif',
+        /* Cherokee - Noto support */
+        'Noto Sans Cherokee',
+        /* Adlam - Noto support */
+        'Noto Sans Adlam',
+        /* Fallback to system fonts */
+        system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    --font-family-mono: 'Noto Sans Mono', 'Noto Mono',
+        'SF Mono', 'Monaco', 'Menlo',
+        'Roboto Mono', 'Consolas', 'Courier New',
+        'Liberation Mono', 'DejaVu Sans Mono', monospace;
+}
+

@@ -1,0 +1,115 @@
+// TypeScript Example
+// Comprehensive TypeScript code demonstrating various features
+
+interface Metadata {
+    author: string;
+    created: string;
+    tags: string[];
+}
+
+interface Item {
+    id: number;
+    name: string;
+    active: boolean;
+    price: number;
+    categories: string[];
+}
+
+interface DocumentConfig {
+    name: string;
+    version: string;
+    description?: string;
+    metadata?: Metadata;
+    items?: Item[];
+}
+
+class Document {
+    private name: string;
+    private version: string;
+    private description: string;
+    private metadata: Metadata;
+    private items: Item[];
+    
+    constructor(config: DocumentConfig) {
+        this.name = config.name;
+        this.version = config.version;
+        this.description = config.description || '';
+        this.metadata = config.metadata || {
+            author: 'XWUI Team',
+            created: new Date().toISOString(),
+            tags: ['example', 'typescript']
+        };
+        this.items = config.items || [];
+    }
+    
+    addItem(item: Item): void {
+        this.items.push(item);
+    }
+    
+    getActiveItems(): Item[] {
+        return this.items.filter(item => item.active);
+    }
+    
+    getTotalPrice(): number {
+        return this.getActiveItems()
+            .reduce((sum: number, item: Item) => sum + item.price, 0);
+    }
+    
+    toJSON(): string {
+        return JSON.stringify({
+            name: this.name,
+            version: this.version,
+            description: this.description,
+            metadata: this.metadata,
+            items: this.items
+        }, null, 2);
+    }
+}
+
+// Generic functions
+function processItems<T extends Item>(items: T[]): T[] {
+    return items.filter(item => item.active);
+}
+
+// Type guards
+function isActiveItem(item: Item): item is Item & { active: true } {
+    return item.active === true;
+}
+
+// Example usage
+const doc = new Document({
+    name: 'Sample TypeScript Document',
+    version: '1.0.0',
+    description: 'TypeScript code example'
+});
+
+doc.addItem({
+    id: 1,
+    name: 'First Item',
+    active: true,
+    price: 29.99,
+    categories: ['electronics', 'gadgets']
+});
+
+doc.addItem({
+    id: 2,
+    name: 'Second Item',
+    active: false,
+    price: 49.99,
+    categories: ['books', 'education']
+});
+
+// Async/await with types
+async function processDocument(doc: Document): Promise<{ name: string; total: number }> {
+    const activeItems = doc.getActiveItems();
+    const total = doc.getTotalPrice();
+    
+    return {
+        name: doc.name,
+        total: total
+    };
+}
+
+// Export types and class
+export { Document, DocumentConfig, Item, Metadata, processDocument };
+

@@ -1,0 +1,17 @@
+/* ============================================
+   INPUT LINES - STRONG LINES
+   ============================================ */
+
+:root[data-lines="strong"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-input-width: var(--border-width-regular, 2px);
+    --border-input-style: solid;
+    --border-input-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-input-strong {
+    border-style: var(--border-input-style, solid);
+    border-width: var(--border-input-width, var(--border-width-regular, 2px));
+    border-color: var(--border-input-color, var(--border-medium, var(--border-color)));
+}

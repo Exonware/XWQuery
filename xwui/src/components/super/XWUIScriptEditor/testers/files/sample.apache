@@ -1,0 +1,102 @@
+# Apache Configuration Example
+# Comprehensive Apache configuration demonstrating various features
+
+# Server root
+ServerRoot "/etc/apache2"
+
+# Listen on port 80
+Listen 80
+
+# Load modules
+LoadModule rewrite_module modules/mod_rewrite.so
+LoadModule ssl_module modules/mod_ssl.so
+LoadModule headers_module modules/mod_headers.so
+
+# Server settings
+ServerName example.com
+ServerAdmin admin@example.com
+DocumentRoot "/var/www/html"
+
+# Directory settings
+<Directory "/var/www/html">
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>
+
+# Logging
+ErrorLog ${APACHE_LOG_DIR}/error.log
+LogLevel warn
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+# Virtual host for HTTP
+<VirtualHost *:80>
+    ServerName example.com
+    ServerAlias www.example.com
+    DocumentRoot /var/www/html
+    
+    # Security headers
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # API proxy
+    ProxyPass /api/ http://backend.example.com:8080/
+    ProxyPassReverse /api/ http://backend.example.com:8080/
+    ProxyPreserveHost On
+    
+    # Static files
+    Alias /static /var/www/static
+    <Directory "/var/www/static">
+        Options -Indexes
+        AllowOverride None
+        Require all granted
+        ExpiresActive On
+        ExpiresDefault "access plus 30 days"
+    </Directory>
+    
+    # Error pages
+    ErrorDocument 404 /404.html
+    ErrorDocument 500 /500.html
+</VirtualHost>
+
+# Virtual host for HTTPS
+<VirtualHost *:443>
+    ServerName example.com
+    ServerAlias www.example.com
+    DocumentRoot /var/www/html
+    
+    # SSL configuration
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/example.com.crt
+    SSLCertificateKeyFile /etc/ssl/private/example.com.key
+    SSLCertificateChainFile /etc/ssl/certs/example.com-chain.crt
+    
+    # SSL protocols
+    SSLProtocol all -SSLv2 -SSLv3
+    SSLCipherSuite HIGH:!aNULL:!MD5
+    
+    # Security headers
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # API proxy
+    ProxyPass /api/ https://backend.example.com:8443/
+    ProxyPassReverse /api/ https://backend.example.com:8443/
+    
+    # Static files
+    Alias /static /var/www/static
+    <Directory "/var/www/static">
+        Options -Indexes
+        AllowOverride None
+        Require all granted
+    </Directory>
+</VirtualHost>
+
+# Redirect HTTP to HTTPS
+<VirtualHost *:80>
+    ServerName example.com
+    Redirect permanent / https://example.com/
+</VirtualHost>
+

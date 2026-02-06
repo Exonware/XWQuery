@@ -1,0 +1,33 @@
+# LMDB Metadata Example
+# LMDB (Lightning Memory-Mapped Database) is a binary key-value store
+# This file represents LMDB structure and metadata in text form
+
+LMDB Database Structure
+=======================
+
+Database: sample.lmdb
+Environment:
+  - Max databases: 10
+  - Map size: 1 GB
+  - Max readers: 126
+  - Mode: 0644
+
+Database: main
+  Key-Value Pairs:
+    - "user:1" -> {"id": 1, "name": "John Doe", "email": "john@example.com", "active": true}
+    - "user:2" -> {"id": 2, "name": "Jane Smith", "email": "jane@example.com", "active": true}
+    - "user:3" -> {"id": 3, "name": "Bob Johnson", "email": "bob@example.com", "active": false}
+    - "order:1" -> {"id": 1, "userId": 1, "total": 29.99, "status": "completed"}
+    - "order:2" -> {"id": 2, "userId": 2, "total": 49.99, "status": "pending"}
+    - "config:app" -> {"name": "Sample App", "version": "1.0.0", "environment": "production"}
+
+Statistics:
+  - Total keys: 6
+  - Total size: ~2 KB
+  - Last updated: 2025-01-15T10:30:00Z
+
+Metadata:
+  - Author: XWUI Team
+  - Created: 2025-01-15T10:30:00Z
+  - Description: Sample LMDB database with user and order data
+

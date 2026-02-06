@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON TYPOGRAPHY - PLAYFAIR
+   ============================================ */
+
+:root[data-font="playfair"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-button-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-button-playfair {
+    font-family: var(--font-button-family, var(--font-family-base, sans-serif)) !important;
+}

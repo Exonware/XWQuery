@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON TYPOGRAPHY - ROBOTO
+   ============================================ */
+
+:root[data-font="roboto"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-button-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-button-roboto {
+    font-family: var(--font-button-family, var(--font-family-base, sans-serif)) !important;
+}

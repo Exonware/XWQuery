@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-photo-editor.schema.json",
+  "title": "XWUIPhotoEditor Schema",
+  "description": "Schema for XWUIPhotoEditor component",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "additionalProperties": false,
+      "properties": {
+        "width": {
+          "type": "number",
+          "description": "Canvas width",
+          "default": 800
+        },
+        "height": {
+          "type": "number",
+          "description": "Canvas height",
+          "default": 600
+        },
+        "allowCrop": {
+          "type": "boolean",
+          "description": "Allow cropping",
+          "default": true
+        },
+        "allowFilter": {
+          "type": "boolean",
+          "description": "Allow filters",
+          "default": true
+        },
+        "allowAdjustments": {
+          "type": "boolean",
+          "description": "Allow adjustments",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "additionalProperties": false,
+      "properties": {
+        "imageSrc": {
+          "type": "string",
+          "description": "Source URL of the image to edit"
+        }
+      }
+    }
+  },
+  "id": "XWUIPhotoEditor"
+}

@@ -1,0 +1,13 @@
+/* ============================================
+   LABEL TYPOGRAPHY - ROBOTO
+   ============================================ */
+
+:root[data-font="roboto"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-label-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-label-roboto {
+    font-family: var(--font-label-family, var(--font-family-base, sans-serif)) !important;
+}

@@ -1,0 +1,19 @@
+# css.out.grammar
+# CSS Output Grammar - Template for generating CSS from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@stylesheet = {{#each rules}}{{value}}
+{{/each}}
+
+@rule = {{selector}} {
+{{#each declarations}}{{value}}
+{{/each}}}
+
+@selector = {{#each selectors}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@declaration = {{property}}: {{value}}{{#if important}} !important{{/if}};
+
+@indent = 2
+@pretty = true
+

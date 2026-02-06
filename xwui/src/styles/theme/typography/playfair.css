@@ -1,0 +1,24 @@
+/* ============================================
+   PLAYFAIR TYPOGRAPHY - Playfair font family
+   ============================================ */
+
+:root[data-font="playfair"],
+:root:not([data-font]) {
+    --font-family-base: 'Playfair Display',
+                        /* Arabic & Persian serif fallbacks */
+                        'Arabic UI Display', 'Tahoma', 'Noto Sans Arabic',
+                        /* Hebrew serif fallbacks */
+                        'Hebrew UI Display', 'David', 'Noto Sans Hebrew',
+                        /* Chinese serif fallbacks */
+                        'Microsoft YaHei', 'SimHei', 'PingFang SC', 'Noto Sans SC',
+                        /* Japanese serif fallbacks */
+                        'Hiragino Mincho ProN', 'Yu Mincho', 'MS PMincho', 'Noto Serif JP',
+                        /* Korean serif fallbacks */
+                        'Malgun Gothic', 'Nanum Gothic', 'Noto Sans KR',
+                        /* Latin serif fallbacks */
+                        Georgia, 'Times New Roman', serif;
+    --font-family-mono: 'Courier New', 'JetBrains Mono',
+                        'Consolas', 'Monaco', 'Menlo',
+                        'Noto Sans Mono', monospace;
+}
+

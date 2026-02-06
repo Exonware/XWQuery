@@ -1,0 +1,12 @@
+/* ============================================
+   CONTROL - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    --radius-control: 6px;
+}
+
+/* Utility class for direct application */
+.radius-control-rounded {
+    border-radius: var(--radius-control, 6px) !important;
+}

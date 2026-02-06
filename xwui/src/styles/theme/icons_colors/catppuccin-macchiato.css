@@ -1,0 +1,12 @@
+/* ============================================
+   CATPPUCCIN MACCHIATO ICON COLORS - Balanced dark theme
+   ============================================ */
+
+:root[data-icons-colors="catppuccin-macchiato"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #cad3f5;        /* Primary fill color - light text */
+    --icons-color-secondary: #24273a;    /* Secondary/stroke color - dark bg */
+    --icons-color-accent: #8087a2;        /* Accent/rail/marks color - gray */
+    --icons-color-transparent: transparent;
+}
+

@@ -1,0 +1,47 @@
+﻿# promql.out.grammar
+# PromQL Output Grammar - Template for generating PromQL from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} or {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} and {{/if}}{{/each}}
+
+@unless_expr = {{#each terms}}{{value}}{{#if !@last}} unless {{/if}}{{/each}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{/if}}
+
+@compare_op = {{value}}
+
+@additive = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@multiplicative = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@primary = {{value}}
+
+@instant_vector_selector = {{metric}}{{#if labels}}{{{#each labels}}{{name}}="{{value}}"{{#if !@last}}, {{/if}}{{/each}}}{{/if}}
+
+@range_vector_selector = {{metric}}{{#if labels}}{{{#each labels}}{{name}}="{{value}}"{{#if !@last}}, {{/if}}{{/each}}}{{/if}}[{{duration}}]
+
+@label_matcher = {{name}}{{op}}{{value}}
+
+@aggregation = {{function}}({{#if params}}{{params}}{{/if}}{{vector}})
+
+@function_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@function_name = {{value}}
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@duration = {{value}}{{unit}}
+
+@time_unit = {{value}}
+
+@offset = offset {{duration}}
+
+@indent = 0
+@pretty = false

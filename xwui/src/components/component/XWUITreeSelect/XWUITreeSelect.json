@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUITreeSelect",
+  "name": "XWUI Tree Select Component",
+  "description": "Tree select dropdown component that combines Tree and Select functionality. Allows selection from hierarchical options in a dropdown. Supports checkable trees, expand all, icons, and various checked display strategies. Uses XWUITree and XWUIInput internally.",
+  "path": "input.treeselect",
+  "tags": ["input", "tree", "select", "dropdown", "hierarchy", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "treeCheckable": {
+          "type": "boolean",
+          "description": "Whether tree nodes can be checked",
+          "default": false
+        },
+        "treeDefaultExpandAll": {
+          "type": "boolean",
+          "description": "Whether to expand all tree nodes by default",
+          "default": false
+        },
+        "treeIcon": {
+          "type": "boolean",
+          "description": "Whether to show icons in tree",
+          "default": true
+        },
+        "showCheckedStrategy": {
+          "type": "string",
+          "enum": ["SHOW_ALL", "SHOW_PARENT", "SHOW_CHILD"],
+          "description": "Strategy for displaying checked values",
+          "default": "SHOW_CHILD"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the tree select"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "description": "Selected value (string, number, or array for multiple)"
+        },
+        "treeData": {
+          "type": "array",
+          "description": "Tree data structure (XWUITreeNode array)",
+          "items": {
+            "description": "XWUITreeNode (see XWUITree schema for structure)"
+          }
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Placeholder text for the input"
+        }
+      }
+    }
+  }
+}
+

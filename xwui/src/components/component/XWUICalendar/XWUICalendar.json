@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUICalendar",
+  "name": "XWUI Calendar Component",
+  "description": "Full calendar component with month, week, and day views. Supports event display, date selection, navigation, and custom date ranges. Useful for scheduling and date visualization.",
+  "path": "display.calendar",
+  "tags": ["display", "calendar", "date", "events", "scheduling", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "view": {
+          "type": "string",
+          "enum": ["month", "week", "day"],
+          "description": "Calendar view mode",
+          "default": "month"
+        },
+        "firstDayOfWeek": {
+          "type": "number",
+          "enum": [0, 1],
+          "description": "First day of the week (0 = Sunday, 1 = Monday)",
+          "default": 0
+        },
+        "showToday": {
+          "type": "boolean",
+          "description": "Whether to highlight today's date",
+          "default": true
+        },
+        "showNavigation": {
+          "type": "boolean",
+          "description": "Whether to show navigation controls",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the calendar"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "selectedDate": {
+          "description": "Currently selected date"
+        },
+        "events": {
+          "type": "array",
+          "description": "Array of calendar events to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the event"
+              },
+              "date": {
+                "description": "Date of the event"
+              },
+              "title": {
+                "type": "string",
+                "description": "Event title"
+              },
+              "color": {
+                "type": "string",
+                "description": "Color for the event indicator"
+              }
+            },
+            "required": ["id", "date", "title"]
+          }
+        },
+        "minDate": {
+          "description": "Minimum selectable date"
+        },
+        "maxDate": {
+          "description": "Maximum selectable date"
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "allowAddCards": {
+      "type": "boolean",
+      "default": true
+    },
+    "allowReorder": {
+      "type": "boolean",
+      "default": true
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "id": "XWUIKanbanBoard"
+}

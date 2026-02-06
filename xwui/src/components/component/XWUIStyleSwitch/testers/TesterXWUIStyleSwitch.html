@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIStyleSwitch Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <style>
+        body {
+            padding: var(--spacing-lg, 2rem);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .test-section {
+            margin-bottom: var(--spacing-xl, 3rem);
+            padding: var(--spacing-lg, 2rem);
+            background: var(--bg-elevated, #fff);
+            border: 1px solid var(--border-color, #e0e0e0);
+            border-radius: var(--radius-md, 8px);
+        }
+        
+        .test-section h2 {
+            margin-top: 0;
+            margin-bottom: var(--spacing-md, 1rem);
+        }
+        
+        .test-section p {
+            color: var(--text-secondary, #666);
+            margin-bottom: var(--spacing-md, 1rem);
+        }
+        
+        .switch-container {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md, 1rem);
+            padding: var(--spacing-md, 1rem);
+            background: var(--bg-secondary, #f5f5f5);
+            border-radius: var(--radius-sm, 6px);
+        }
+    </style>
+</head>
+<body>
+    <h1>XWUIStyleSwitch Component Tester</h1>
+    
+    <div class="test-section">
+        <h2>Basic Usage</h2>
+        <p>Style switch with default configuration. Automatically creates XWUIStyle instance.</p>
+        <div class="switch-container">
+            <div id="switch-basic"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>With Existing Style Instance</h2>
+        <p>Style switch using a shared XWUIStyle instance.</p>
+        <div class="switch-container">
+            <div id="switch-shared"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Custom Icon Size</h2>
+        <p>Style switch with larger icons (24px).</p>
+        <div class="switch-container">
+            <div id="switch-large-icons"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Medium Size</h2>
+        <p>Style switch with medium size.</p>
+        <div class="switch-container">
+            <div id="switch-medium"></div>
+        </div>
+    </div>
+
+        <script type="module" src="./TesterXWUIStyleSwitch.ts"></script>
+</body>
+</html>
+

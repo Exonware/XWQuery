@@ -1,0 +1,24 @@
+/* ============================================
+   CYAN ACCENT - Cyan palette
+   ============================================ */
+
+:root[data-accent="cyan"] {
+    /* Accent colors - Cyan palette */
+    --accent-primary: #06b6d4;
+    --accent-hover: #0891b2;
+    --accent-light: #22d3ee;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 6, 182, 212;
+    --accent-hover-rgb: 8, 145, 178;
+    --accent-light-rgb: 34, 211, 238;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

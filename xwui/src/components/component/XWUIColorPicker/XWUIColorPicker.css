@@ -1,0 +1,70 @@
+/**
+ * XWUIColorPicker Component Styles
+ */
+
+.xwui-color-picker-container {
+    /* Container has no specific styles */
+}
+
+.xwui-color-picker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.xwui-color-picker-swatch {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border-color, #d9d9d9);
+    border-radius: var(--radius-sm, 4px);
+    cursor: pointer;
+    padding: 0;
+    background: none;
+}
+
+.xwui-color-picker-swatch:hover {
+    border-color: var(--accent-hover, #40a9ff);
+}
+
+.xwui-color-picker-native {
+    display: none;
+}
+
+.xwui-color-picker-popover {
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-color, #d9d9d9);
+    border-radius: var(--radius-sm, 4px);
+    box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.15));
+    padding: var(--spacing-md, 12px);
+    z-index: 1000;
+}
+
+.xwui-color-picker-popover input[type="color"] {
+    width: 100%;
+    height: 40px;
+    border: 1px solid var(--border-color, #d9d9d9);
+    border-radius: var(--radius-sm, 4px);
+    cursor: pointer;
+}
+
+.xwui-color-picker-presets {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.xwui-color-picker-preset {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--border-color, #d9d9d9);
+    border-radius: var(--radius-sm, 4px);
+    cursor: pointer;
+    padding: 0;
+}
+
+.xwui-color-picker-preset:hover {
+    border-color: var(--accent-primary, #1890ff);
+    transform: scale(1.1);
+}
+

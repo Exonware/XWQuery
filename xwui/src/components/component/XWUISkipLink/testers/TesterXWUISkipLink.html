@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUISkipLink Tester</title>
+    
+        <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container" style="position: relative;"></div>
+
+        
+    <template id="tester-xwuiskip-link-content">
+<!-- Skip Link -->
+            <div class="button-group">
+                <h3>Skip Link</h3>
+                <p style="font-size: 0.875rem; color: var(--text-secondary);">
+                    Press Tab to focus the skip link. It will appear at the top when focused.
+                </p>
+                <div id="skiplink-basic"></div>
+            </div>
+            
+            <!-- Target Content -->
+            <div id="main-content" tabindex="-1" style="padding: 2rem; margin-top: 2rem; border: 2px dashed var(--border-color); border-radius: 8px;">
+                <h2>Main Content</h2>
+                <p>This is the target content that the skip link will navigate to.</p>
+                <p>Press Tab to focus the skip link above, then press Enter to skip here.</p>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUISkipLink.ts"></script>
+</body>
+</html>
+

@@ -1,0 +1,91 @@
+{
+  "id": "dashboard.main",
+  "name": "Main Dashboard",
+  "description": "Dashboard with grid of widget cards showing statistics and charts",
+  "path": "/dashboard",
+  "conf_comp": {
+    "pageType": "dashboard",
+    "layout": {
+      "regions": {
+        "main": true
+      },
+      "grid": {
+        "columns": "repeat(3, 1fr)",
+        "rows": "auto",
+        "gap": "1.5rem",
+        "minChildWidth": "300px",
+        "responsive": {
+          "md": {
+            "columns": "repeat(2, 1fr)"
+          },
+          "sm": {
+            "columns": "1fr"
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "title": "Dashboard",
+    "subtitle": "Overview and statistics",
+    "main": [
+      {
+        "component": "XWUICard",
+        "region": "main",
+        "conf_comp": {
+          "variant": "elevated"
+        },
+        "data": {
+          "title": "Total Users",
+          "content": "<div>[XWUIStatistic: 1,234]</div>"
+        }
+      },
+      {
+        "component": "XWUICard",
+        "region": "main",
+        "conf_comp": {
+          "variant": "elevated"
+        },
+        "data": {
+          "title": "Active Sessions",
+          "content": "<div>[XWUIStatistic: 56]</div>"
+        }
+      },
+      {
+        "component": "XWUICard",
+        "region": "main",
+        "conf_comp": {
+          "variant": "elevated"
+        },
+        "data": {
+          "title": "Revenue",
+          "content": "<div>[XWUIStatistic: $12,345]</div>"
+        }
+      },
+      {
+        "component": "XWUICard",
+        "region": "main",
+        "span": 2,
+        "conf_comp": {
+          "variant": "elevated"
+        },
+        "data": {
+          "title": "Activity Chart",
+          "content": "<div>[XWUIChart: Line chart]</div>"
+        }
+      },
+      {
+        "component": "XWUICard",
+        "region": "main",
+        "conf_comp": {
+          "variant": "elevated"
+        },
+        "data": {
+          "title": "Recent Activity",
+          "content": "<div>[XWUIList: Recent items]</div>"
+        }
+      }
+    ]
+  }
+}
+

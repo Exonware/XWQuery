@@ -1,0 +1,13 @@
+/* ============================================
+   BADGE - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-badge: 9999px;
+}
+
+/* Utility class for direct application */
+.radius-badge-subtle {
+    border-radius: var(--radius-badge, 9999px) !important;
+}

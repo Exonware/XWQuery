@@ -1,0 +1,17 @@
+/* ============================================
+   CHIP LINES - NO LINES
+   ============================================ */
+
+:root[data-lines="none"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-chip-width: var(--border-width-regular, 0px);
+    --border-chip-style: solid;
+    --border-chip-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-chip-none {
+    border-style: var(--border-chip-style, solid);
+    border-width: var(--border-chip-width, var(--border-width-regular, 0px));
+    border-color: var(--border-chip-color, var(--border-medium, var(--border-color)));
+}

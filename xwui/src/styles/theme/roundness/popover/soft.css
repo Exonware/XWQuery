@@ -1,0 +1,14 @@
+/* ============================================
+   POPOVER - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-popover: 12px;
+    /* Fallback: --radius-overlay → --radius-md → 12px */
+}
+
+/* Utility class for direct application */
+.radius-popover-soft {
+    border-radius: var(--radius-popover, 12px) !important;
+}

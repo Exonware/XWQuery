@@ -1,0 +1,12 @@
+/* ============================================
+   CUSTOM ICON COLORS - Example: Dark gray, yellow, blue
+   ============================================ */
+
+:root[data-icons-colors="custom"] {
+    /* Example custom icon colors */
+    --icons-color-main: #4b5563;      /* Dark gray instead of black */
+    --icons-color-secondary: #eab308;  /* Yellow instead of white */
+    --icons-color-accent: #4f46e5;    /* Blue instead of gray */
+    --icons-color-transparent: transparent;
+}
+

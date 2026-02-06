@@ -1,0 +1,24 @@
+# csv.out.grammar
+# CSV Output Grammar - Template for generating CSV from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#if header}}{{header}}
+{{/if}}{{#each records}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@header = {{value}}
+
+@record = {{#each fields}}{{value}}{{#if !@last}},{{/if}}{{/each}}
+
+@field = {{#if needs_escape}}"{{value|escape_double_quotes}}"{{else}}{{value}}{{/if}}
+
+@escaped_field = "{{value|escape_double_quotes}}"
+
+@non_escaped_field = {{value}}
+
+@indent = 0
+@pretty = false
+@delimiter = ","
+@quote_char = "\""
+

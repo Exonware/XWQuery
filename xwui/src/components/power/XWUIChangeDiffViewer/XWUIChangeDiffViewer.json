@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "showTimeline": {
+      "type": "boolean",
+      "default": true
+    },
+    "showAvatar": {
+      "type": "boolean",
+      "default": true
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "id": "XWUIChangeDiffViewer"
+}

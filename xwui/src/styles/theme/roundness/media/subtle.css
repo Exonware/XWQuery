@@ -1,0 +1,12 @@
+/* ============================================
+   MEDIA - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    --radius-media: 6px;
+}
+
+/* Utility class for direct application */
+.radius-media-subtle {
+    border-radius: var(--radius-media, 6px) !important;
+}

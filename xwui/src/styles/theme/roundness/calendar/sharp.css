@@ -1,0 +1,14 @@
+/* ============================================
+   CALENDAR - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-calendar: 0px;
+    /* Fallback: --radius-content → --radius-sm → 0px */
+}
+
+/* Utility class for direct application */
+.radius-calendar-sharp {
+    border-radius: var(--radius-calendar, 0px) !important;
+}

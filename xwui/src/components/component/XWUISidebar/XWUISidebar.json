@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUISidebar",
+  "name": "XWUI Sidebar Component",
+  "description": "Sidebar navigation component for displaying navigation menus in a side panel. Supports left/right positioning, collapsible mode, custom widths, header and footer sections. Uses XWUIMenu internally.",
+  "path": "layout.sidebar",
+  "tags": ["layout", "sidebar", "navigation", "menu", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "type": "string",
+          "enum": ["left", "right"],
+          "description": "Position of the sidebar",
+          "default": "left"
+        },
+        "collapsible": {
+          "type": "boolean",
+          "description": "Whether the sidebar can be collapsed",
+          "default": false
+        },
+        "collapsed": {
+          "type": "boolean",
+          "description": "Whether the sidebar is initially collapsed",
+          "default": false
+        },
+        "width": {
+          "type": "string",
+          "description": "Width of the sidebar when expanded (CSS value)",
+          "default": "250px"
+        },
+        "collapsedWidth": {
+          "type": "string",
+          "description": "Width of the sidebar when collapsed (CSS value)",
+          "default": "64px"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the sidebar"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of menu items to display in the sidebar",
+          "items": {
+            "description": "XWUIMenuItem (see XWUIMenu schema for structure)"
+          }
+        },
+        "header": {
+          "description": "Header element or HTML string for the sidebar"
+        },
+        "footer": {
+          "description": "Footer element or HTML string for the sidebar"
+        }
+      },
+      "required": ["items"]
+    }
+  }
+}
+

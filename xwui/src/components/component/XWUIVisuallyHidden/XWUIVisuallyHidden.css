@@ -1,0 +1,45 @@
+/**
+ * XWUIVisuallyHidden Component Styles
+ * Visually hides content while keeping it accessible to screen readers
+ */
+
+.xwui-visually-hidden-container {
+    /* Container has no specific styles */
+}
+
+.xwui-visually-hidden {
+    /* Position the element absolutely to remove it from normal flow */
+    position: absolute !important;
+    
+    /* Make it very small */
+    width: 1px !important;
+    height: 1px !important;
+    
+    /* Hide overflow */
+    overflow: hidden !important;
+    
+    /* Clip the element to make it invisible */
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
+    
+    /* Ensure it doesn't take up space */
+    padding: 0 !important;
+    margin: -1px !important;
+    
+    /* Hide text */
+    white-space: nowrap !important;
+    
+    /* Ensure it's not visible */
+    border: 0 !important;
+    
+    /* Keep it accessible to screen readers */
+    visibility: visible;
+}
+
+/* Alternative approach using modern clip-path */
+@supports (clip-path: inset(50%)) {
+    .xwui-visually-hidden {
+        clip-path: inset(50%);
+    }
+}
+

@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "direction": {
+      "type": "string",
+      "enum": [
+        "ltr",
+        "rtl"
+      ],
+      "default": "ltr"
+    },
+    "className": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "icon": {
+            "description": "Icon as string (emoji/text) or HTMLElement"
+          },
+          "href": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "className": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label"
+        ]
+      }
+    }
+  },
+  "required": [
+    "items"
+  ],
+  "id": "XWUINavigationRail"
+}

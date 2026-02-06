@@ -1,0 +1,14 @@
+/* ============================================
+   HEADINGS - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-headings: 12px;
+    /* Fallback: --radius-heading → --radius-lg → 12px */
+}
+
+/* Utility class for direct application */
+.radius-headings-rounded {
+    border-radius: var(--radius-headings, 12px) !important;
+}

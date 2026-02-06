@@ -1,0 +1,17 @@
+/* ============================================
+   AVATAR LINES - SUBTLE LINES
+   ============================================ */
+
+:root[data-lines="subtle"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-avatar-width: var(--border-width-regular, 1px);
+    --border-avatar-style: solid;
+    --border-avatar-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-avatar-subtle {
+    border-style: var(--border-avatar-style, solid);
+    border-width: var(--border-avatar-width, var(--border-width-regular, 1px));
+    border-color: var(--border-avatar-color, var(--border-medium, var(--border-color)));
+}

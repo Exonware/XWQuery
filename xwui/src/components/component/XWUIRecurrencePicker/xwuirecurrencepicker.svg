@@ -1,0 +1,19 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <rect x="15" y="40" width="70" height="20" rx="3" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <text x="20" y="50" font-family="Arial" font-size="8" fill="var(--icons-color-main, black)">Daily</text>
+  <text x="50" y="50" font-family="Arial" font-size="8" fill="var(--icons-color-accent, gray)">Every</text>
+  <text x="65" y="50" font-family="Arial" font-size="8" fill="var(--icons-color-main, black)">1 day</text>
+  <rect x="15" y="65" width="70" height="25" rx="3" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <circle cx="25" cy="77.5" r="4" class="xwui-icon-fill"/>
+  <text x="25" y="80" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-secondary, white)">M</text>
+  <circle cx="40" cy="77.5" r="4" class="xwui-icon-fill"/>
+  <text x="40" y="80" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-secondary, white)">T</text>
+  <circle cx="55" cy="77.5" r="4" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="1.5"/>
+  <text x="55" y="80" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-main, black)">W</text>
+</svg>
+

@@ -1,0 +1,17 @@
+/* ============================================
+   CAROUSEL LINES - SUBTLE LINES
+   ============================================ */
+
+:root[data-lines="subtle"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-carousel-width: var(--border-width-regular, 1px);
+    --border-carousel-style: solid;
+    --border-carousel-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-carousel-subtle {
+    border-style: var(--border-carousel-style, solid);
+    border-width: var(--border-carousel-width, var(--border-width-regular, 1px));
+    border-color: var(--border-carousel-color, var(--border-medium, var(--border-color)));
+}

@@ -1,0 +1,15 @@
+# zarr.out.grammar
+# Zarr Output Grammar - Template for generating Zarr from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@zarr_array = {{metadata}}{{#each chunks}}{{value}}{{/each}}
+
+@zarr_metadata = {"zarr_format": {{format}}, "shape": {{shape}}, "dtype": "{{dtype}}", "chunk_shape": {{chunk_shape}}, "compressor": {{compressor}}, "fill_value": {{fill_value}}, "order": "{{order}}"}
+
+@chunk = {{key}}{{data}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

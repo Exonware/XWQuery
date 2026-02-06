@@ -1,0 +1,17 @@
+# batch.out.grammar
+# Batch Output Grammar - Template for generating Batch script from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@script = {{#each statements}}{{value}}
+{{/each}}
+
+@command = {{#if @}}{{@}}{{/if}}{{name}}{{#each arguments}} {{value}}{{/each}}
+
+@label = :{{name}}
+
+@if_statement = if {{condition}} {{then_command}}{{#if else}} else {{else_command}}{{/if}}
+
+@indent = 0
+@pretty = false
+

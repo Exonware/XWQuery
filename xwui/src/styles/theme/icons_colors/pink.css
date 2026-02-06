@@ -1,0 +1,12 @@
+/* ============================================
+   PINK ICON COLORS - Vibrant pink theme
+   ============================================ */
+
+:root[data-icons-colors="pink"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #831843;        /* Primary fill color - dark pink text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #ec4899;        /* Accent/rail/marks color - pink */
+    --icons-color-transparent: transparent;
+}
+

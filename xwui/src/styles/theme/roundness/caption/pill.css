@@ -1,0 +1,14 @@
+/* ============================================
+   CAPTION - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-caption: 8px;
+    /* Fallback: --radius-text → --radius-xs → 8px */
+}
+
+/* Utility class for direct application */
+.radius-caption-pill {
+    border-radius: var(--radius-caption, 8px) !important;
+}

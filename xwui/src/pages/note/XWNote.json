@@ -1,0 +1,98 @@
+{
+  "id": "note.xw",
+  "name": "XW Note",
+  "description": "Notion-like note-taking page with sidebar navigation and meeting card",
+  "path": "/note",
+  "conf_comp": {
+    "pageType": "custom",
+    "layout": {
+      "useAppShell": true,
+      "regions": {
+        "header": false,
+        "sidebar": true,
+        "main": true,
+        "footer": false
+      },
+      "appShell": {
+        "sidebarCollapsible": true,
+        "sidebarWidth": "240px",
+        "sidebarCollapsed": false
+      }
+    },
+    "container": {
+      "maxWidth": "none",
+      "center": false,
+      "padding": "0"
+    }
+  },
+  "data": {
+    "title": "XW Note",
+    "sidebar": {
+      "component": "XWUISidebar",
+      "region": "sidebar",
+      "conf_comp": {
+        "position": "left",
+        "width": "240px",
+        "collapsible": true
+      },
+      "data": {
+        "header": "<div style='padding: 12px 16px; display: flex; align-items: center; gap: 8px;'><div style='width: 24px; height: 24px; border-radius: 4px; background: #2383e2; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px;'>N</div><div><div style='font-size: 13px; font-weight: 500;'>Notion</div><div style='font-size: 11px; color: #999;'>Muhammad AlSh...</div></div></div>",
+        "items": [
+          { "id": "search", "label": "Search", "icon": "🔍", "href": "/search" },
+          { "id": "home", "label": "Home", "icon": "🏠", "href": "/" },
+          { "id": "meetings", "label": "Meetings", "icon": "📅", "href": "/meetings" },
+          { "id": "notion-ai", "label": "Notion AI", "icon": "✨", "href": "/ai" },
+          { "id": "inbox", "label": "Inbox", "icon": "📥", "href": "/inbox" },
+          { "id": "sep1", "divider": true },
+          { "id": "favorites", "label": "Favorites", "icon": "⭐", "href": "/favorites", "children": [
+            { "id": "blues-myth", "label": "Blues Myth", "icon": "📄", "href": "/favorites/blues-myth" }
+          ]},
+          { "id": "shared", "label": "Shared", "icon": "👥", "href": "/shared" },
+          { "id": "private", "label": "Private", "icon": "🔒", "href": "/private", "children": [
+            { "id": "nov-19", "label": "@November 19, 2025 12...", "icon": "📄", "href": "/private/nov-19" },
+            { "id": "xwlibs-1", "label": "New XWLibs (1)", "icon": "📄", "href": "/private/xwlibs-1" },
+            { "id": "xwlibs", "label": "New XWLibs", "icon": "📄", "href": "/private/xwlibs" },
+            { "id": "new-page", "label": "New page", "icon": "📄", "href": "/private/new-page" },
+            { "id": "nov-4", "label": "@November 4, 2025 11:...", "icon": "📄", "href": "/private/nov-4" },
+            { "id": "xwlib", "label": "XWLib", "icon": "📄", "href": "/private/xwlib" },
+            { "id": "development", "label": "Development", "icon": "📁", "href": "/private/development" },
+            { "id": "financial", "label": "Personal Financial", "icon": "📁", "href": "/private/financial" },
+            { "id": "creative", "label": "Creative", "icon": "📁", "href": "/private/creative" },
+            { "id": "professional", "label": "Professional", "icon": "📁", "href": "/private/professional" },
+            { "id": "more", "label": "... More", "icon": "⋯", "href": "/private/more" }
+          ]},
+          { "id": "sep2", "divider": true },
+          { "id": "settings", "label": "Settings", "icon": "⚙️", "href": "/settings" },
+          { "id": "marketplace", "label": "Marketplace", "icon": "🛒", "href": "/marketplace" },
+          { "id": "trash", "label": "Trash", "icon": "🗑️", "href": "/trash" }
+        ]
+      }
+    },
+    "main": [
+      {
+        "component": "XWUITypography",
+        "region": "main",
+        "conf_comp": {
+          "variant": "h1",
+          "weight": "bold"
+        },
+        "data": {
+          "content": "@November 19, 2025 12:10 PM"
+        }
+      },
+      {
+        "component": "XWUICard",
+        "region": "main",
+        "conf_comp": {
+          "padding": "large",
+          "variant": "elevated"
+        },
+        "data": {
+          "title": "Meeting @November 19, 2025",
+          "content": "<div style='display: flex; flex-direction: column; gap: 16px;'><div style='display: flex; align-items: center; gap: 12px;'><button style='padding: 8px 16px; border: 1px solid var(--color-border); border-radius: 6px; background: transparent; color: var(--color-text); cursor: pointer;'>📄 Notes</button><span style='color: var(--color-text-secondary);'>Notion AI will summarize the notes and transcript</span></div><button style='padding: 12px 24px; background: #2383e2; color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer;'>🎤 Start transcribing</button><div style='display: flex; align-items: center; gap: 8px;'><span style='font-size: 12px; color: var(--color-text-secondary);'>By starting, you confirm everyone being transcribed has given consent.</span><div style='display: flex; gap: 8px;'><span>🔊</span><span>📹</span></div></div></div>"
+        }
+      }
+    ]
+  }
+}
+

@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIWatermark",
+  "name": "XWUI Watermark Component",
+  "description": "Watermark overlay component for displaying text or image watermarks on content. Supports text watermarks with custom fonts, colors, rotation, gaps, offsets, and image watermarks. Useful for branding and content protection.",
+  "path": "overlay.watermark",
+  "tags": ["overlay", "watermark", "branding", "protection", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Watermark text content (string or array of strings for multi-line)"
+        },
+        "gap": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "Gap between watermarks as [x, y] in pixels"
+        },
+        "offset": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "Offset of first watermark as [x, y] in pixels"
+        },
+        "rotate": {
+          "type": "number",
+          "description": "Rotation angle in degrees",
+          "default": -22
+        },
+        "zIndex": {
+          "type": "number",
+          "description": "Z-index for the watermark overlay"
+        },
+        "font": {
+          "type": "object",
+          "description": "Font styling options",
+          "properties": {
+            "color": {
+              "type": "string",
+              "description": "Text color"
+            },
+            "fontSize": {
+              "type": "string",
+              "description": "Font size (CSS value)"
+            },
+            "fontWeight": {
+              "type": "string",
+              "description": "Font weight (CSS value)"
+            },
+            "fontFamily": {
+              "type": "string",
+              "description": "Font family (CSS value)"
+            }
+          }
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the watermark"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "image": {
+          "type": "string",
+          "description": "Image URL for image watermark (alternative to text content)"
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-bottom-navigation.schema.json",
+  "title": "XWUIBottomNavigation Schema",
+  "description": "Schema for XWUIBottomNavigation component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": [
+            "default",
+            "elevated"
+          ],
+          "description": "Navigation variant style",
+          "default": "default"
+        },
+        "showLabels": {
+          "type": "boolean",
+          "description": "Whether to show labels below icons",
+          "default": true
+        },
+        "fixed": {
+          "type": "boolean",
+          "description": "Whether to fix navigation to bottom of viewport",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Navigation items",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              },
+              "badge": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "description": "Badge value to display"
+              },
+              "disabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        "activeId": {
+          "type": "string",
+          "description": "ID of currently active item"
+        }
+      },
+      "required": [
+        "items"
+      ]
+    }
+  },
+  "id": "XWUIBottomNavigation"
+}

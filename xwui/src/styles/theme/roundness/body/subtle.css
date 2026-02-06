@@ -1,0 +1,14 @@
+/* ============================================
+   BODY - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-body: 6px;
+    /* Fallback: --radius-text → --radius-base → 6px */
+}
+
+/* Utility class for direct application */
+.radius-body-subtle {
+    border-radius: var(--radius-body, 6px) !important;
+}

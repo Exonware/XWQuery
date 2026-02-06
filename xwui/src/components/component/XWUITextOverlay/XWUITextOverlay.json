@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwtextoverlay.schema.json",
+  "title": "XWUITextOverlay Schema",
+  "description": "Schema for XWUITextOverlay component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "defaultFontSize": {
+          "type": "number",
+          "description": "Default font size in pixels",
+          "default": 24,
+          "minimum": 8,
+          "maximum": 200
+        },
+        "defaultFontFamily": {
+          "type": "string",
+          "description": "Default font family",
+          "default": "Arial"
+        },
+        "defaultColor": {
+          "type": "string",
+          "description": "Default text color",
+          "default": "#000000"
+        },
+        "canvasElement": {
+          "description": "HTMLElement or selector string for canvas element"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "overlays": {
+          "type": "array",
+          "description": "Array of text overlays",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique overlay identifier"
+              },
+              "text": {
+                "type": "string",
+                "description": "Text content"
+              },
+              "x": {
+                "type": "number",
+                "description": "X position"
+              },
+              "y": {
+                "type": "number",
+                "description": "Y position"
+              },
+              "fontSize": {
+                "type": "number",
+                "description": "Font size in pixels",
+                "minimum": 8,
+                "maximum": 200
+              },
+              "fontFamily": {
+                "type": "string",
+                "description": "Font family"
+              },
+              "color": {
+                "type": "string",
+                "description": "Text color"
+              },
+              "alignment": {
+                "type": "string",
+                "enum": [
+                  "left",
+                  "center",
+                  "right"
+                ],
+                "description": "Text alignment",
+                "default": "left"
+              },
+              "rotation": {
+                "type": "number",
+                "description": "Rotation in degrees"
+              },
+              "style": {
+                "type": "object",
+                "properties": {
+                  "bold": {
+                    "type": "boolean",
+                    "description": "Bold text"
+                  },
+                  "italic": {
+                    "type": "boolean",
+                    "description": "Italic text"
+                  },
+                  "underline": {
+                    "type": "boolean",
+                    "description": "Underline text"
+                  },
+                  "outline": {
+                    "type": "boolean",
+                    "description": "Text outline"
+                  },
+                  "shadow": {
+                    "type": "boolean",
+                    "description": "Text shadow"
+                  }
+                }
+              },
+              "zIndex": {
+                "type": "number",
+                "description": "Z-index for layering"
+              }
+            },
+            "required": [
+              "id",
+              "text",
+              "x",
+              "y",
+              "fontSize",
+              "fontFamily",
+              "color",
+              "alignment"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "id": "XWUITextOverlay"
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUISegmentedControl",
+  "name": "XWUI Segmented Control Component",
+  "description": "Segmented button control component for single selection from multiple options. Displays options as connected segments with a sliding indicator. Supports icons, disabled states, and block layout.",
+  "path": "input.segmentedcontrol",
+  "tags": ["input", "segmented", "control", "selection", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "options": {
+          "type": "array",
+          "description": "Array of options (strings or SegmentedOption objects)",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "description": "Option label"
+                  },
+                  "value": {
+                    "description": "Option value (string or number)"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "description": "SVG icon HTML string"
+                  },
+                  "disabled": {
+                    "type": "boolean",
+                    "description": "Whether the option is disabled"
+                  }
+                },
+                "required": ["label", "value"]
+              }
+            ]
+          }
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the segmented control",
+          "default": "medium"
+        },
+        "block": {
+          "type": "boolean",
+          "description": "Whether the control should take full width",
+          "default": false
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the entire control is disabled",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the segmented control"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "description": "Selected option value (string or number)"
+        }
+      }
+    }
+  }
+}
+

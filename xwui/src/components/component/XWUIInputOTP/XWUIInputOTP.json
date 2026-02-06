@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIInputOTP",
+  "name": "XWUI Input OTP Component",
+  "description": "One-time password input component with multiple digit fields. Automatically moves focus between fields and supports text, number, and password input types. Useful for verification codes and OTP entry.",
+  "path": "input.inputotp",
+  "tags": ["input", "otp", "password", "verification", "code", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "length": {
+          "type": "number",
+          "description": "Number of OTP input fields",
+          "default": 6
+        },
+        "type": {
+          "type": "string",
+          "enum": ["text", "number", "password"],
+          "description": "Input type for the OTP fields",
+          "default": "text"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the OTP input fields",
+          "default": "medium"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the OTP input"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Current OTP value"
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-video-recorder.schema.json",
+  "title": "XWUIVideoRecorder Schema",
+  "description": "Schema for XWUIVideoRecorder component",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "additionalProperties": false,
+      "properties": {
+        "maxDuration": {
+          "type": "number",
+          "description": "Maximum recording duration in seconds"
+        },
+        "showPreview": {
+          "type": "boolean",
+          "description": "Show video preview",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "additionalProperties": false,
+      "properties": {
+        "recordedBlob": {
+          "type": "object",
+          "description": "Recorded video blob"
+        },
+        "recordedUrl": {
+          "type": "string",
+          "description": "URL of recorded video"
+        }
+      }
+    }
+  },
+  "id": "XWUIVideoRecorder"
+}

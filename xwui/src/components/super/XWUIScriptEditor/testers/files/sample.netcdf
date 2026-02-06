@@ -1,0 +1,39 @@
+# NetCDF Metadata Example
+# NetCDF (Network Common Data Form) is a binary format
+# This file represents NetCDF structure and metadata in text form
+
+netcdf sample {
+dimensions:
+    time = 100 ;
+    lat = 200 ;
+    lon = 50 ;
+variables:
+    double temperature(time, lat, lon) ;
+        temperature:long_name = "Air Temperature" ;
+        temperature:units = "celsius" ;
+        temperature:_FillValue = -9999.0 ;
+        temperature:description = "3D temperature field" ;
+    double pressure(time, lat, lon) ;
+        pressure:long_name = "Atmospheric Pressure" ;
+        pressure:units = "Pa" ;
+        pressure:_FillValue = -9999.0 ;
+    double time(time) ;
+        time:long_name = "Time" ;
+        time:units = "seconds since 2025-01-15 00:00:00" ;
+    double lat(lat) ;
+        lat:long_name = "Latitude" ;
+        lat:units = "degrees_north" ;
+    double lon(lon) ;
+        lon:long_name = "Longitude" ;
+        lon:units = "degrees_east" ;
+
+// global attributes:
+        :title = "Sample NetCDF File" ;
+        :institution = "XWUI Team" ;
+        :source = "Sample data generator" ;
+        :history = "Created 2025-01-15T10:30:00Z" ;
+        :references = "https://www.unidata.ucar.edu/software/netcdf/" ;
+        :comment = "Sample NetCDF file demonstrating structure" ;
+        :Conventions = "CF-1.6" ;
+}
+

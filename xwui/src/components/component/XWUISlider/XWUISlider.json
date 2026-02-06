@@ -1,0 +1,299 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUISlider",
+  "name": "XWUI Slider Component",
+  "description": "Production-quality range slider component with single or dual handles. Features: performance optimized, value labels, icons, thumb customization (emojis/shapes/images), range slider, linked sliders, steppers, non-linear scale, track options, smooth animations.",
+  "path": "input.slider",
+  "tags": ["input", "slider", "range", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "min": {
+          "type": "number",
+          "description": "Minimum value",
+          "default": 0
+        },
+        "max": {
+          "type": "number",
+          "description": "Maximum value",
+          "default": 100
+        },
+        "step": {
+          "type": ["number", "null"],
+          "description": "Step value for increments. Set to null to restrict to marks only"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the slider is disabled",
+          "default": false
+        },
+        "orientation": {
+          "type": "string",
+          "enum": ["horizontal", "vertical"],
+          "description": "Orientation of the slider",
+          "default": "horizontal"
+        },
+        "color": {
+          "type": "string",
+          "enum": ["primary", "secondary", "success", "warning", "error", "info"],
+          "description": "Color variant of the slider",
+          "default": "primary"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the slider",
+          "default": "medium"
+        },
+        "valueLabelDisplay": {
+          "type": "string",
+          "enum": ["off", "auto", "on"],
+          "description": "Control when the value label is displayed. 'off' = never, 'auto' = on hover/drag, 'on' = always visible",
+          "default": "auto"
+        },
+        "valueLabelFormat": {
+          "type": "object",
+          "description": "Function reference for formatting value labels (not serializable in JSON)",
+          "additionalProperties": false
+        },
+        "marks": {
+          "oneOf": [
+            {
+              "type": "boolean",
+              "description": "If true, automatically generate marks based on step"
+            },
+            {
+              "type": "array",
+              "description": "Array of mark objects to display",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "description": "Value position for the mark"
+                  },
+                  "label": {
+                    "type": "string",
+                    "description": "Label text for the mark"
+                  }
+                },
+                "required": ["value"]
+              }
+            }
+          ]
+        },
+        "markLabelDisplay": {
+          "type": "string",
+          "enum": ["on", "off"],
+          "description": "Whether to show labels on marks",
+          "default": "on"
+        },
+        "track": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": ["normal", "inverted"],
+              "description": "Track display mode"
+            },
+            {
+              "type": "boolean",
+              "enum": [false],
+              "description": "Hide the track"
+            }
+          ],
+          "default": "normal"
+        },
+        "startIcon": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "HTML string or icon identifier for start icon"
+            },
+            {
+              "type": "object",
+              "description": "HTMLElement reference (not serializable in JSON)",
+              "additionalProperties": false
+            }
+          ]
+        },
+        "endIcon": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "HTML string or icon identifier for end icon"
+            },
+            {
+              "type": "object",
+              "description": "HTMLElement reference (not serializable in JSON)",
+              "additionalProperties": false
+            }
+          ]
+        },
+        "thumbContent": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Emoji or HTML string for thumb content (single slider or both thumbs)"
+            },
+            {
+              "type": "array",
+              "description": "Array of thumb content for range slider [minThumb, maxThumb]",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "description": "Emoji or HTML string"
+                  },
+                  {
+                    "type": "object",
+                    "description": "HTMLElement reference or thumb content object",
+                    "additionalProperties": true
+                  }
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 2
+            },
+            {
+              "type": "object",
+              "description": "Thumb content configuration object or HTMLElement reference",
+              "additionalProperties": true
+            }
+          ],
+          "description": "Custom content for slider thumbs (emojis, shapes, images). Can be string, HTMLElement, or object with emoji/shape/image/svg properties"
+        },
+        "minDistance": {
+          "type": "number",
+          "description": "Minimum distance between thumbs for range slider",
+          "minimum": 0
+        },
+        "disableSwap": {
+          "type": "boolean",
+          "description": "Disable thumb swapping on hover in range slider",
+          "default": false
+        },
+        "scale": {
+          "type": "object",
+          "description": "Function reference for non-linear scale transformation (not serializable in JSON)",
+          "additionalProperties": false
+        },
+        "animateOnSet": {
+          "type": "boolean",
+          "description": "Animate when value is set programmatically",
+          "default": true
+        },
+        "animationDuration": {
+          "type": "number",
+          "description": "Animation duration in milliseconds",
+          "default": 300,
+          "minimum": 0
+        },
+        "linkedSliders": {
+          "type": "array",
+          "description": "Array of linked slider configurations (not fully serializable - slider references)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "slider": {
+                "type": "object",
+                "description": "Reference to another XWUISlider instance (not serializable)"
+              },
+              "ratio": {
+                "type": "number",
+                "description": "Ratio to apply when linking (default: 1)"
+              },
+              "invert": {
+                "type": "boolean",
+                "description": "Invert the relationship between sliders",
+                "default": false
+              }
+            }
+          }
+        },
+        "showSteppers": {
+          "type": "boolean",
+          "description": "Show increment/decrement buttons",
+          "default": false
+        },
+        "shiftStep": {
+          "type": "number",
+          "description": "Step size when Shift+Arrow is pressed",
+          "minimum": 0
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the slider"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": "number",
+              "description": "Single value for single slider"
+            },
+            {
+              "type": "array",
+              "description": "Range value [min, max] for range slider",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          ]
+        },
+        "label": {
+          "type": "string",
+          "description": "Label text for the slider"
+        },
+        "ariaLabel": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Static ARIA label for the slider"
+            },
+            {
+              "type": "object",
+              "description": "Function reference for dynamic ARIA label (not serializable in JSON)",
+              "additionalProperties": false
+            }
+          ]
+        },
+        "ariaValueText": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Static ARIA value text"
+            },
+            {
+              "type": "object",
+              "description": "Function reference for dynamic ARIA value text (not serializable in JSON)",
+              "additionalProperties": false
+            }
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "HTML name attribute for form submission"
+        },
+        "id": {
+          "type": "string",
+          "description": "HTML id attribute for the slider"
+        }
+      }
+    }
+  }
+}

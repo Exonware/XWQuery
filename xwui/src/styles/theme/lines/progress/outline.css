@@ -1,0 +1,17 @@
+/* ============================================
+   PROGRESS LINES - OUTLINE LINES
+   ============================================ */
+
+:root[data-lines="outline"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-progress-width: var(--border-width-regular, 2px);
+    --border-progress-style: solid;
+    --border-progress-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-progress-outline {
+    border-style: var(--border-progress-style, solid);
+    border-width: var(--border-progress-width, var(--border-width-regular, 2px));
+    border-color: var(--border-progress-color, var(--border-medium, var(--border-color)));
+}

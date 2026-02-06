@@ -1,0 +1,115 @@
+// LINQ Grammar for Lark  
+// Language Integrated Query (C#/VB.NET)
+// Simplified comprehension syntax
+
+?start: query
+
+query: from_clause query_body
+
+from_clause: FROM IDENTIFIER IN expression
+
+query_body: (query_clause)+ select_or_group
+
+query_clause: from_clause
+            | let_clause
+            | where_clause
+            | join_clause
+            | orderby_clause
+
+let_clause: LET IDENTIFIER "=" expression
+
+where_clause: WHERE expression
+
+join_clause: JOIN IDENTIFIER IN expression ON expression EQUALS expression [INTO IDENTIFIER]
+
+orderby_clause: ORDERBY ordering_list
+
+ordering_list: ordering ("," ordering)*
+
+ordering: expression [ASCENDING | DESCENDING]
+
+select_or_group: select_clause
+               | group_clause
+
+select_clause: SELECT expression
+
+group_clause: GROUP expression BY expression [INTO IDENTIFIER]
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr ("||" and_expr)*
+
+and_expr: not_expr ("&&" not_expr)*
+
+not_expr: "!"? comparison
+
+comparison: additive [compare_op additive]
+
+compare_op: "==" | "!=" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | "/" | "%") unary)*
+
+unary: ("+" | "-" | "!")? primary
+
+primary: literal
+       | IDENTIFIER
+       | member_access
+       | method_call
+       | lambda_expr
+       | new_expr
+       | "(" expression ")"
+
+member_access: IDENTIFIER ("." IDENTIFIER)+
+
+method_call: IDENTIFIER "(" [arg_list] ")"
+
+lambda_expr: IDENTIFIER "=>" expression
+           | "(" param_list ")" "=>" expression
+
+param_list: IDENTIFIER ("," IDENTIFIER)*
+
+new_expr: NEW "{" [property_init ("," property_init)*] "}"
+        | NEW IDENTIFIER "{" [property_init ("," property_init)*] "}"
+
+property_init: IDENTIFIER "=" expression
+
+arg_list: expression ("," expression)*
+
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+// Keywords
+FROM: "from"
+SELECT: "select"
+WHERE: "where"
+LET: "let"
+JOIN: "join"
+IN: "in"
+ON: "on"
+EQUALS: "equals"
+INTO: "into"
+GROUP: "group"
+BY: "by"
+ORDERBY: "orderby"
+ASCENDING: "ascending"
+DESCENDING: "descending"
+NEW: "new"
+
+BOOLEAN_LITERAL: "true" | "false"
+
+NULL: "null"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /@"[^"]*"/  // C# verbatim strings
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+%ignore CPP_COMMENT
+%ignore C_COMMENT
+

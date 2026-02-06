@@ -1,0 +1,18 @@
+/* ============================================
+   GLASS STYLE - Spacing System
+   ============================================ */
+
+:root[data-style="glass"] {
+    /* Glass spacing unit: 4px base (same as modern) */
+    --spacing-unit: 4px;
+    
+    /* Spacing scale */
+    --spacing-xs: calc(var(--spacing-unit) * 1);   /* 4px */
+    --spacing-sm: calc(var(--spacing-unit) * 2);   /* 8px */
+    --spacing-md: calc(var(--spacing-unit) * 4);    /* 16px */
+    --spacing-lg: calc(var(--spacing-unit) * 6);    /* 24px */
+    --spacing-xl: calc(var(--spacing-unit) * 8);    /* 32px */
+    --spacing-2xl: calc(var(--spacing-unit) * 12); /* 48px */
+    --spacing-3xl: calc(var(--spacing-unit) * 16);  /* 64px */
+}
+

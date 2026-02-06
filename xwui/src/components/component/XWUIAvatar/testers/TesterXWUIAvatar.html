@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIAvatar Component Tester</title>
+    
+        <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuiavatar-content">
+<!-- Sizes -->
+            <div class="button-group">
+                <h3>Sizes</h3>
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div id="avatar-xs"></div>
+                    <div id="avatar-small"></div>
+                    <div id="avatar-medium"></div>
+                    <div id="avatar-large"></div>
+                    <div id="avatar-xl"></div>
+                </div>
+            </div>
+            
+            <!-- Shapes -->
+            <div class="button-group">
+                <h3>Shapes</h3>
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div id="avatar-circle"></div>
+                    <div id="avatar-square"></div>
+                </div>
+            </div>
+            
+            <!-- With Image -->
+            <div class="button-group">
+                <h3>With Image</h3>
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div id="avatar-image-1"></div>
+                    <div id="avatar-image-2"></div>
+                    <div id="avatar-image-3"></div>
+                </div>
+            </div>
+            
+            <!-- With Initials -->
+            <div class="button-group">
+                <h3>With Initials (from name)</h3>
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div id="avatar-initials-1"></div>
+                    <div id="avatar-initials-2"></div>
+                    <div id="avatar-initials-3"></div>
+                    <div id="avatar-initials-4"></div>
+                </div>
+            </div>
+            
+            <!-- With Status -->
+            <div class="button-group">
+                <h3>With Status Indicator</h3>
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div id="avatar-online"></div>
+                    <div id="avatar-offline"></div>
+                    <div id="avatar-away"></div>
+                    <div id="avatar-busy"></div>
+                </div>
+            </div>
+            
+            <!-- Bordered -->
+            <div class="button-group">
+                <h3>Bordered</h3>
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div id="avatar-bordered-1"></div>
+                    <div id="avatar-bordered-2"></div>
+                </div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIAvatar.ts"></script>
+</body>
+</html>
+

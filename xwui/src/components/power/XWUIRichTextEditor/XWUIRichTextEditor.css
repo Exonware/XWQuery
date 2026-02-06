@@ -1,0 +1,51 @@
+/**
+ * XWUIRichTextEditor Component Styles
+ */
+
+.xwui-rich-text-editor-container {
+    /* Container has no specific styles */
+}
+
+.xwui-rich-text-editor {
+    border: 1px solid var(--border-color, #d9d9d9);
+    border-radius: var(--radius-sm, 4px);
+    background: var(--bg-primary, #ffffff);
+}
+
+.xwui-rich-text-editor-toolbar {
+    display: flex;
+    gap: var(--spacing-xs, 4px);
+    padding: var(--spacing-sm, 8px);
+    border-bottom: 1px solid var(--border-light, #e8e8e8);
+    background-color: var(--bg-secondary, #fafafa);
+}
+
+.xwui-rich-text-editor-toolbar-btn {
+    padding: 4px 8px;
+    border: 1px solid var(--border-color, #d9d9d9);
+    border-radius: var(--radius-sm, 4px);
+    background: var(--bg-primary, #ffffff);
+    cursor: pointer;
+    font-size: var(--font-size-sm, 14px);
+}
+
+.xwui-rich-text-editor-toolbar-btn:hover {
+    background-color: var(--bg-hover, #f5f5f5);
+}
+
+.xwui-rich-text-editor-content {
+    min-height: 200px;
+    padding: 12px;
+    outline: none;
+}
+
+.xwui-rich-text-editor-content[data-placeholder]:empty::before {
+    content: attr(data-placeholder);
+    color: var(--text-tertiary, #bfbfbf);
+}
+
+.xwui-rich-text-editor-content[contenteditable="false"] {
+    background-color: var(--bg-secondary, #f5f5f5);
+    cursor: not-allowed;
+}
+

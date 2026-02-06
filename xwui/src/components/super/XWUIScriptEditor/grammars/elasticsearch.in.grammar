@@ -1,0 +1,125 @@
+// Elasticsearch DSL Grammar for Lark
+// Elasticsearch Query DSL (JSON-based)
+
+?start: query
+
+query: match_all_query
+     | match_query
+     | term_query
+     | terms_query
+     | range_query
+     | bool_query
+     | multi_match_query
+     | query_string_query
+     | fuzzy_query
+     | prefix_query
+     | wildcard_query
+     | exists_query
+     | nested_query
+     | aggregation_query
+
+// Match queries
+match_all_query: "{" "\"match_all\"" ":" "{" "}" "}"
+
+match_query: "{" "\"match\"" ":" "{" field_match "}" "}"
+
+field_match: STRING ":" (STRING | match_params)
+
+match_params: "{" "\"query\"" ":" STRING ["," match_options] "}"
+
+match_options: match_option ("," match_option)*
+
+match_option: "\"operator\"" ":" ("\"and\"" | "\"or\"")
+            | "\"fuzziness\"" ":" (STRING | NUMBER)
+            | "\"prefix_length\"" ":" NUMBER
+            | "\"analyzer\"" ":" STRING
+
+// Term queries
+term_query: "{" "\"term\"" ":" "{" field_value "}" "}"
+
+field_value: STRING ":" value
+
+terms_query: "{" "\"terms\"" ":" "{" STRING ":" "[" value ("," value)* "]" "}" "}"
+
+// Range query
+range_query: "{" "\"range\"" ":" "{" STRING ":" "{" range_condition ("," range_condition)* "}" "}" "}"
+
+range_condition: range_op ":" value
+
+range_op: "\"gt\"" | "\"gte\"" | "\"lt\"" | "\"lte\""
+
+// Bool query
+bool_query: "{" "\"bool\"" ":" "{" bool_clauses "}" "}"
+
+bool_clauses: bool_clause ("," bool_clause)*
+
+bool_clause: "\"must\"" ":" query_array
+           | "\"filter\"" ":" query_array
+           | "\"should\"" ":" query_array
+           | "\"must_not\"" ":" query_array
+           | "\"minimum_should_match\"" ":" NUMBER
+
+query_array: "[" query ("," query)* "]"
+           | query
+
+// Multi-match query
+multi_match_query: "{" "\"multi_match\"" ":" "{" multi_match_params "}" "}"
+
+multi_match_params: "\"query\"" ":" STRING "," "\"fields\"" ":" "[" STRING ("," STRING)* "]" ["," match_options]
+
+// Query string
+query_string_query: "{" "\"query_string\"" ":" "{" "\"query\"" ":" STRING ["," query_string_options] "}" "}"
+
+query_string_options: query_string_option ("," query_string_option)*
+
+query_string_option: "\"default_field\"" ":" STRING
+                   | "\"default_operator\"" ":" ("\"AND\"" | "\"OR\"")
+                   | "\"analyzer\"" ":" STRING
+
+// Fuzzy query
+fuzzy_query: "{" "\"fuzzy\"" ":" "{" STRING ":" "{" "\"value\"" ":" STRING ["," fuzzy_options] "}" "}" "}"
+
+fuzzy_options: fuzzy_option ("," fuzzy_option)*
+
+fuzzy_option: "\"fuzziness\"" ":" (STRING | NUMBER)
+            | "\"prefix_length\"" ":" NUMBER
+
+// Prefix query
+prefix_query: "{" "\"prefix\"" ":" "{" STRING ":" STRING "}" "}"
+
+// Wildcard query
+wildcard_query: "{" "\"wildcard\"" ":" "{" STRING ":" STRING "}" "}"
+
+// Exists query
+exists_query: "{" "\"exists\"" ":" "{" "\"field\"" ":" STRING "}" "}"
+
+// Nested query
+nested_query: "{" "\"nested\"" ":" "{" "\"path\"" ":" STRING "," "\"query\"" ":" query "}" "}"
+
+// Aggregation
+aggregation_query: "{" "\"aggs\"" ":" "{" agg_definition ("," agg_definition)* "}" "}"
+
+agg_definition: STRING ":" "{" agg_type ":" agg_params "}"
+
+agg_type: "\"terms\"" | "\"date_histogram\"" | "\"histogram\"" | "\"range\""
+        | "\"sum\"" | "\"avg\"" | "\"min\"" | "\"max\"" | "\"stats\"" | "\"cardinality\""
+
+agg_params: "{" agg_param ("," agg_param)* "}"
+
+agg_param: STRING ":" value
+
+// Values
+value: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+BOOLEAN_LITERAL: "true" | "false"
+
+NULL: "null"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+

@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIAccordion",
+  "name": "XWUI Accordion Component",
+  "description": "Accordion component with multiple collapsible sections. Supports single or multiple open modes, custom animations, and bordered/flush styles. Uses XWUICollapse internally for smooth expand/collapse animations.",
+  "path": "display.accordion",
+  "tags": ["display", "accordion", "collapse", "expand", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["single", "multiple"],
+          "description": "Accordion mode: single allows only one open item, multiple allows any number",
+          "default": "single"
+        },
+        "defaultExpanded": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of item IDs that should be expanded initially",
+          "default": []
+        },
+        "duration": {
+          "type": "number",
+          "description": "Animation duration in milliseconds",
+          "default": 200
+        },
+        "easing": {
+          "type": "string",
+          "description": "CSS easing function for animations",
+          "default": "ease-out"
+        },
+        "bordered": {
+          "type": "boolean",
+          "description": "Whether to show borders around accordion items",
+          "default": true
+        },
+        "flush": {
+          "type": "boolean",
+          "description": "Whether to remove outer borders (flush style)",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the accordion container"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of accordion items to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the accordion item"
+              },
+              "title": {
+                "description": "Title text or HTML element for the accordion item header"
+              },
+              "content": {
+                "description": "Content text or HTML element for the accordion item body"
+              },
+              "disabled": {
+                "type": "boolean",
+                "description": "Whether the accordion item is disabled"
+              },
+              "icon": {
+                "type": "string",
+                "description": "SVG icon HTML string to display in the item header"
+              }
+            },
+            "required": ["id", "title", "content"]
+          }
+        }
+      },
+      "required": ["items"]
+    }
+  }
+}
+

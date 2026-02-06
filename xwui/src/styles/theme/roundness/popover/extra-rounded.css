@@ -1,0 +1,14 @@
+/* ============================================
+   POPOVER - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-popover: 24px;
+    /* Fallback: --radius-overlay → --radius-md → 24px */
+}
+
+/* Utility class for direct application */
+.radius-popover-extra-rounded {
+    border-radius: var(--radius-popover, 24px) !important;
+}

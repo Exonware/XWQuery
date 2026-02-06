@@ -1,0 +1,94 @@
+/**
+ * XWUIForm Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-form {
+    width: 100%;
+}
+
+/* Layout variants */
+.xwui-form-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg, 1.5rem);
+}
+
+.xwui-form-horizontal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg, 1.5rem);
+}
+
+.xwui-form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md, 1rem);
+    align-items: flex-end;
+}
+
+/* Form field */
+.xwui-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-form-horizontal .xwui-form-field {
+    flex-direction: row;
+    align-items: center;
+}
+
+.xwui-form-inline .xwui-form-field {
+    flex-direction: column;
+    min-width: 200px;
+}
+
+/* Label wrapper (for horizontal layout) */
+.xwui-form-label-wrapper {
+    flex-shrink: 0;
+    text-align: right;
+    padding-right: var(--spacing-md, 1rem);
+}
+
+.xwui-form-label {
+    font-weight: var(--font-weight-medium, 500);
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-primary);
+}
+
+.xwui-form-required {
+    color: var(--accent-error);
+}
+
+/* Control wrapper */
+.xwui-form-control-wrapper {
+    flex: 1;
+}
+
+.xwui-form-horizontal .xwui-form-control-wrapper {
+    flex: 1;
+}
+
+/* Error state */
+.xwui-form-error {
+    border-color: var(--accent-error) !important;
+}
+
+/* Size variants */
+.xwui-form-small .xwui-form-label {
+    font-size: var(--font-size-xs, 0.75rem);
+}
+
+.xwui-form-large .xwui-form-label {
+    font-size: var(--font-size-base, 1rem);
+}
+

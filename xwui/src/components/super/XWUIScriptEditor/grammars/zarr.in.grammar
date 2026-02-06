@@ -1,0 +1,23 @@
+// zarr.grammar
+// Zarr Grammar - Chunked, compressed, N-dimensional arrays
+// Company: eXonware.com
+
+?start: zarr_array
+
+zarr_array: zarr_metadata chunk*
+
+zarr_metadata: "{" zarr_format shape dtype chunk_shape compressor fill_value order "}"
+
+chunk: chunk_key chunk_data
+
+chunk_key: STRING
+
+chunk_data: BYTE*
+
+// Terminals
+STRING: "\"" /[^"]/* "\""
+BYTE: /[\x00-\xFF]*/
+%import common.WS
+
+%ignore WS
+

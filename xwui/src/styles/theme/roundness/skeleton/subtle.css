@@ -1,0 +1,14 @@
+/* ============================================
+   SKELETON - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-skeleton: 4px;
+    /* Fallback: --radius-feedback → --radius-sm → 4px */
+}
+
+/* Utility class for direct application */
+.radius-skeleton-subtle {
+    border-radius: var(--radius-skeleton, 4px) !important;
+}

@@ -1,0 +1,60 @@
+/**
+ * XWUIRecurrencePicker Component Styles
+ */
+
+.xwui-recurrence-picker {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    padding: var(--spacing-md, 1rem);
+}
+
+.xwui-recurrence-picker-label {
+    display: block;
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+    margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-recurrence-picker-type,
+.xwui-recurrence-picker-interval {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-recurrence-picker-interval {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-recurrence-picker-unit {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-recurrence-picker-days {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-recurrence-picker-days-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-recurrence-picker-day-of-month {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-recurrence-picker-preview {
+    margin-top: var(--spacing-sm, 0.5rem);
+}
+

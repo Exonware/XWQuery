@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIScriptEditor Component Tester</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    
+    
+    
+        <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuiscript-editor-content">
+<div class="test-controls" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div class="test-control-group">
+                <label for="contentInput">Content:</label>
+                <textarea id="contentInput" placeholder="Enter code content...">{ "config": { "uid": "f-event-reg-05" } }</textarea>
+            </div>
+            
+            <div class="test-control-group">
+                <label for="grammarSelect">Grammar:</label>
+                <select id="grammarSelect">
+                    <option value="json" selected>JSON</option>
+                    <optgroup label="Web Technologies">
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="typescript">TypeScript</option>
+                        <option value="xml">XML</option>
+                    </optgroup>
+                    <optgroup label="Programming Languages">
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C++</option>
+                        <option value="c">C</option>
+                        <option value="csharp">C#</option>
+                        <option value="go">Go</option>
+                        <option value="rust">Rust</option>
+                        <option value="php">PHP</option>
+                        <option value="ruby">Ruby</option>
+                    </optgroup>
+                    <optgroup label="Data Formats">
+                        <option value="yaml">YAML</option>
+                        <option value="toml">TOML</option>
+                        <option value="ini">INI</option>
+                        <option value="csv">CSV</option>
+                    </optgroup>
+                    <optgroup label="Markup & Documentation">
+                        <option value="markdown">Markdown</option>
+                        <option value="latex">LaTeX</option>
+                    </optgroup>
+                    <optgroup label="Query Languages">
+                        <option value="sql">SQL</option>
+                        <option value="graphql">GraphQL</option>
+                    </optgroup>
+                    <optgroup label="Configuration">
+                        <option value="dockerfile">Dockerfile</option>
+                        <option value="makefile">Makefile</option>
+                    </optgroup>
+                    <optgroup label="Shell & Scripting">
+                        <option value="bash">Bash</option>
+                        <option value="powershell">PowerShell</option>
+                        <option value="shell">Shell</option>
+                    </optgroup>
+                    <option value="text">Plain Text</option>
+                </select>
+            </div>
+            
+            <div class="test-control-group">
+                <label for="engineSelect">Engine:</label>
+                <select id="engineSelect">
+                    <option value="monaco" selected>Monaco</option>
+                    <option value="codemirror6">CodeMirror 6</option>
+                    <option value="ace">Ace Editor</option>
+                    <option value="highlightjs">Highlight.js</option>
+                    <option value="orion">Orion</option>
+                    <option value="ckeditor-code">CKEditor Code</option>
+                </select>
+            </div>
+            
+            <div class="test-control-group">
+                <label for="modeSelect">Mode:</label>
+                <select id="modeSelect">
+                    <option value="edit" selected>Edit</option>
+                    <option value="view">View</option>
+                </select>
+            </div>
+            
+            <div class="test-control-group">
+                <label for="heightInput">Height:</label>
+                <input type="text" id="heightInput" value="70vh" placeholder="e.g., 70vh, 500px">
+            </div>
+            
+        </div>
+        
+        <div class="button-group" style="margin-bottom: 20px;">
+            <button id="applyButton" class="test-button primary">Apply Changes</button>
+            <button id="getContentButton" class="test-button">Get Content</button>
+            <button id="reinitButton" class="test-button">Reinitialize</button>
+        </div>
+        
+        <div class="test-area" style="min-height: 600px; padding: 20px;">
+            <div id="scriptEditorContainer"></div>
+        </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIScriptEditor.ts"></script>
+</body>
+</html>
+

@@ -1,0 +1,12 @@
+/* ============================================
+   FEEDBACK - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    --radius-feedback: 3px;
+}
+
+/* Utility class for direct application */
+.radius-feedback-minimal {
+    border-radius: var(--radius-feedback, 3px) !important;
+}

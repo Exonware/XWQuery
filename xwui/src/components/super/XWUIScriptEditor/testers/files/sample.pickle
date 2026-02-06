@@ -1,0 +1,56 @@
+# Python Pickle Example
+# Note: Pickle is binary, but this shows the Python object structure
+# In actual Pickle, this would be binary-encoded Python objects
+
+# Python code that would create this pickle:
+"""
+import pickle
+
+data = {
+    'name': 'Sample Pickle Document',
+    'version': '1.0.0',
+    'description': 'Python object serialization',
+    'metadata': {
+        'author': 'XWUI Team',
+        'created': '2025-01-15T10:30:00Z',
+        'tags': ['example', 'pickle', 'python']
+    },
+    'configuration': {
+        'database': {
+            'host': 'localhost',
+            'port': 5432,
+            'name': 'example_db',
+            'ssl': True
+        }
+    },
+    'items': [
+        {
+            'id': 1,
+            'name': 'First Item',
+            'active': True,
+            'price': 29.99,
+            'categories': ['electronics', 'gadgets']
+        },
+        {
+            'id': 2,
+            'name': 'Second Item',
+            'active': False,
+            'price': 49.99,
+            'categories': ['books', 'education']
+        }
+    ],
+    'numbers': [1, 2, 3, 4, 5],
+    'none_value': None
+}
+
+# Serialize to pickle
+with open('sample.pickle', 'wb') as f:
+    pickle.dump(data, f)
+"""
+
+# Pickle format (binary representation shown as text):
+# Protocol version, object type markers, data bytes
+# This is a conceptual representation
+
+
+

@@ -1,0 +1,9 @@
+/**
+ * XWUIHoverCard Component Styles
+ * Inherits from XWUIPopover
+ */
+
+.xwui-hover-card-container {
+    /* Container has no specific styles - inherits from XWUIPopover */
+}
+

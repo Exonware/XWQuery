@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIStack",
+  "name": "XWUI Stack Component",
+  "description": "Stack layout component (vertical flex with spacing). Provides consistent spacing between stacked items. Supports row and column directions, alignment, justification, wrapping, and spacing/gap. Useful for vertical layouts with consistent spacing.",
+  "path": "layout.stack",
+  "tags": ["layout", "stack", "vertical", "spacing", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "type": "string",
+          "enum": ["row", "column"],
+          "description": "Stack direction",
+          "default": "column"
+        },
+        "align": {
+          "type": "string",
+          "enum": ["flex-start", "flex-end", "center", "stretch", "baseline"],
+          "description": "CSS align-items value"
+        },
+        "justify": {
+          "type": "string",
+          "enum": ["flex-start", "flex-end", "center", "space-between", "space-around", "space-evenly"],
+          "description": "CSS justify-content value"
+        },
+        "wrap": {
+          "type": "boolean",
+          "description": "Whether items should wrap",
+          "default": false
+        },
+        "spacing": {
+          "description": "Spacing between stacked items (string or number)"
+        },
+        "gap": {
+          "description": "Gap between items (alias for spacing, string or number)"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the stack container"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of items (strings or HTMLElements) to display in the stack"
+        }
+      }
+    }
+  }
+}
+

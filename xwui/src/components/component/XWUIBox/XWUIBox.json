@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIBox",
+  "name": "XWUI Box Component",
+  "description": "Basic layout container component with flexible styling options. Can be used as a generic container with customizable props including padding, margin, width, height, display type, and custom HTML element. Useful for creating flexible layout containers.",
+  "path": "layout.box",
+  "tags": ["layout", "box", "container", "flexible", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "as": {
+          "type": "string",
+          "description": "HTML element tag name to render (e.g., 'div', 'section', 'article')",
+          "default": "div"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the box"
+        },
+        "padding": {
+          "description": "Padding value (string or number)"
+        },
+        "margin": {
+          "description": "Margin value (string or number)"
+        },
+        "width": {
+          "description": "Width value (string or number)"
+        },
+        "height": {
+          "description": "Height value (string or number)"
+        },
+        "display": {
+          "type": "string",
+          "enum": ["block", "flex", "inline", "inline-block", "inline-flex", "grid", "none"],
+          "description": "CSS display property value"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Content element or HTML string to display in the box"
+        },
+        "children": {
+          "description": "Children element or HTML string (alias for content)"
+        }
+      }
+    }
+  }
+}
+

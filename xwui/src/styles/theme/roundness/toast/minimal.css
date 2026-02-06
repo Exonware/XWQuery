@@ -1,0 +1,14 @@
+/* ============================================
+   TOAST - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-toast: 3px;
+    /* Fallback: --radius-overlay → --radius-md → 3px */
+}
+
+/* Utility class for direct application */
+.radius-toast-minimal {
+    border-radius: var(--radius-toast, 3px) !important;
+}

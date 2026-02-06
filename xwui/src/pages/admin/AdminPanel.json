@@ -1,0 +1,72 @@
+{
+  "id": "admin.panel",
+  "name": "Admin Panel",
+  "description": "Main admin dashboard with sidebar navigation, header, and content area",
+  "path": "/admin",
+  "conf_comp": {
+    "pageType": "admin",
+    "layout": {
+      "useAppShell": true,
+      "regions": {
+        "header": true,
+        "sidebar": true,
+        "main": true,
+        "footer": true
+      },
+      "appShell": {
+        "sidebarCollapsible": true,
+        "sidebarWidth": "280px",
+        "sidebarCollapsed": false
+      }
+    }
+  },
+  "data": {
+    "title": "Admin Panel",
+    "subtitle": "System Administration",
+    "header": {
+      "component": "XWUIAppBar",
+      "region": "header",
+      "conf_comp": {
+        "title": "Admin Panel"
+      },
+      "data": {}
+    },
+    "sidebar": {
+      "component": "XWUINavigationRail",
+      "region": "sidebar",
+      "conf_comp": {},
+      "data": {
+        "items": [
+          { "label": "Dashboard", "icon": "home", "path": "/admin" },
+          { "label": "Users", "icon": "users", "path": "/admin/users" },
+          { "label": "Settings", "icon": "settings", "path": "/admin/settings" }
+        ]
+      }
+    },
+    "main": [
+      {
+        "component": "XWUIGrid",
+        "region": "main",
+        "gridArea": "main",
+        "conf_comp": {
+          "columns": "repeat(3, 1fr)",
+          "gap": "1rem"
+        },
+        "data": {
+          "children": []
+        }
+      }
+    ],
+    "footer": {
+      "component": "XWUITypography",
+      "region": "footer",
+      "conf_comp": {
+        "variant": "body2"
+      },
+      "data": {
+        "content": "© 2025 Admin Panel"
+      }
+    }
+  }
+}
+

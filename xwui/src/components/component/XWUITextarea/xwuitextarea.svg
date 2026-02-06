@@ -1,0 +1,16 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Textarea with white interior and darker border -->
+  <rect x="10" y="25" width="80" height="50" rx="4" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2.5"/>
+  <!-- Multiple text lines to show multiline -->
+  <line x1="18" y1="38" x2="78" y2="38" class="xwui-icon-fill" stroke-width="2" stroke-linecap="round"/>
+  <line x1="18" y1="48" x2="78" y2="48" class="xwui-icon-fill" stroke-width="2" stroke-linecap="round"/>
+  <line x1="18" y1="58" x2="65" y2="58" class="xwui-icon-fill" stroke-width="2" stroke-linecap="round"/>
+  <line x1="18" y1="68" x2="72" y2="68" class="xwui-icon-fill" stroke-width="2" stroke-linecap="round"/>
+  <!-- Text cursor -->
+  <line x1="69" y1="62" x2="69" y2="74" class="xwui-icon-fill" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,17 @@
+/* ============================================
+   TABLE LINES - NO LINES
+   ============================================ */
+
+:root[data-lines="none"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-table-width: var(--border-width-regular, 0px);
+    --border-table-style: solid;
+    --border-table-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-table-none {
+    border-style: var(--border-table-style, solid);
+    border-width: var(--border-table-width, var(--border-width-regular, 0px));
+    border-color: var(--border-table-color, var(--border-medium, var(--border-color)));
+}

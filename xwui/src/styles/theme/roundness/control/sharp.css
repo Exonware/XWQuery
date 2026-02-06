@@ -1,0 +1,12 @@
+/* ============================================
+   CONTROL - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    --radius-control: 0px;
+}
+
+/* Utility class for direct application */
+.radius-control-sharp {
+    border-radius: var(--radius-control, 0px) !important;
+}

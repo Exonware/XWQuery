@@ -1,0 +1,17 @@
+/* ============================================
+   CONTAINER LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-container-width: var(--border-width-regular, 1.5px);
+    --border-container-style: solid;
+    --border-container-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-container-balanced {
+    border-style: var(--border-container-style, solid);
+    border-width: var(--border-container-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-container-color, var(--border-medium, var(--border-color)));
+}

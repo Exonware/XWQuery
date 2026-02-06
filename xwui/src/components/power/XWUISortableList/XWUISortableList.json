@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "itemClassName": {
+      "type": "string"
+    },
+    "draggingClassName": {
+      "type": "string",
+      "default": "xwui-sortable-list-item-dragging"
+    },
+    "className": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "description": "Array of items to display"
+    },
+    "renderItem": {
+      "description": "Function to render each item (not serializable)"
+    }
+  },
+  "required": [
+    "items",
+    "renderItem"
+  ],
+  "id": "XWUISortableList"
+}

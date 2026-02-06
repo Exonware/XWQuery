@@ -1,0 +1,39 @@
+/**
+ * XWUIBackToTop Component Styles
+ */
+
+.xwui-back-to-top-container {
+    /* Container has no specific styles */
+}
+
+.xwui-back-to-top {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--accent-primary, #1890ff);
+    color: var(--text-inverse, #ffffff);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.15));
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 1000;
+}
+
+.xwui-back-to-top:hover {
+    background-color: var(--accent-hover, #40a9ff);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.2));
+}
+
+.xwui-back-to-top:active {
+    transform: translateY(0);
+}
+
+.xwui-back-to-top svg {
+    width: 20px;
+    height: 20px;
+}
+

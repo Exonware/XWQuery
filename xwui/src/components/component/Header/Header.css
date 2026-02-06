@@ -1,0 +1,167 @@
+/**
+ * Header Component - Structural Styles Only
+ * Colors and theming are in theme_*.css files
+ */
+
+.header-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    transition: background-color 0.3s ease;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+
+.header-logo-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    opacity: 0.9;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.header-toggle-btn:hover {
+    transform: translateY(-1px);
+}
+
+.header-toggle-btn:active {
+    transform: translateY(0);
+}
+
+.header-toggle-btn.active {
+    opacity: 0.6;
+}
+
+.header-toggle-btn.active .toggle-icon {
+    opacity: 0.5;
+}
+
+.toggle-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.toggle-text {
+    font-size: 12px;
+}
+
+.theme-picker,
+.theme-switcher,
+.language-picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.theme-picker:hover,
+.theme-switcher:hover,
+.language-picker:hover {
+    transform: translateY(-1px);
+}
+
+.theme-picker:active,
+.theme-switcher:active,
+.language-picker:active {
+    transform: translateY(0);
+}
+
+.theme-switcher-icon {
+    font-size: 16px;
+}
+
+.theme-picker select,
+.language-picker select {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    appearance: none;
+}
+
+.theme-picker select option,
+.language-picker select option {
+    background: var(--control-bg);
+}
+
+/* User Profile Styles */
+.header-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #e0e0e0);
+    background: var(--bg-secondary, #f5f5f5);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.header-user-profile:hover {
+    background: var(--bg-tertiary, #e8e8e8);
+    transform: translateY(-1px);
+}
+
+.user-profile-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.user-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.user-profile-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary, #000);
+    line-height: 1.2;
+}
+
+.user-profile-role {
+    font-size: 12px;
+    color: var(--text-secondary, #666);
+    line-height: 1.2;
+}

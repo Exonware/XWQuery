@@ -1,0 +1,25 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Timeline line -->
+  <line x1="25" y1="20" x2="25" y2="80" class="xwui-icon-fill" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Timeline item 1 -->
+  <circle cx="25" cy="25" r="6" class="xwui-icon-fill"/>
+  <rect x="35" y="20" width="50" height="12" rx="2" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="1.5"/>
+  <text x="40" y="29" font-family="Arial" font-size="8" fill="var(--icons-color-main, black)">Event 1</text>
+  
+  <!-- Timeline item 2 -->
+  <circle cx="25" cy="45" r="6" class="xwui-icon-fill"/>
+  <rect x="35" y="40" width="50" height="12" rx="2" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="1.5"/>
+  <text x="40" y="49" font-family="Arial" font-size="8" fill="var(--icons-color-main, black)">Event 2</text>
+  
+  <!-- Timeline item 3 -->
+  <circle cx="25" cy="65" r="6" class="xwui-icon-fill"/>
+  <rect x="35" y="60" width="50" height="12" rx="2" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="1.5"/>
+  <text x="40" y="69" font-family="Arial" font-size="8" fill="var(--icons-color-main, black)">Event 3</text>
+</svg>
+

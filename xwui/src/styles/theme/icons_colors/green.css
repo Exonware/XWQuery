@@ -1,0 +1,12 @@
+/* ============================================
+   GREEN ICON COLORS - Fresh green theme
+   ============================================ */
+
+:root[data-icons-colors="green"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #14532d;        /* Primary fill color - dark green text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #16a34a;        /* Accent/rail/marks color - green */
+    --icons-color-transparent: transparent;
+}
+

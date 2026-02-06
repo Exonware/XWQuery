@@ -1,0 +1,75 @@
+# mermaid.out.grammar
+# Mermaid Output Grammar - Template for generating Mermaid diagrams from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@diagram = {{value}}
+
+@graph = graph {{#if direction}}{{direction}}{{/if}}
+{{#each statements}}{{value}}
+{{/each}}
+
+@flowchart = flowchart {{#if direction}}{{direction}}{{/if}}
+{{#each statements}}{{value}}
+{{/each}}
+
+@node_statement = {{id}}{{#if text}} {{text}}{{/if}}{{#if style}} :::{{style}}{{/if}}
+
+@edge_statement = {{from}} {{operator}} {{to}}{{#if text}} |{{text}}|{{/if}}{{#if style}} :::{{style}}{{/if}}
+
+@subgraph_statement = subgraph {{id}}
+{{#each statements}}{{value}}
+{{/each}}end
+
+@sequence_diagram = sequenceDiagram
+{{#each statements}}{{value}}
+{{/each}}
+
+@participant = participant {{name}}{{#if alias}} as {{alias}}{{/if}}
+
+@message = {{from}} {{arrow}} {{to}}: {{text}}
+
+@class_diagram = classDiagram
+{{#each statements}}{{value}}
+{{/each}}
+
+@class_def = class {{name}} {
+{{#each members}}{{value}}
+{{/each}}}
+
+@relationship = {{from}} {{type}} {{to}}{{#if label}} : {{label}}{{/if}}
+
+@state_diagram = stateDiagram-v2
+{{#each statements}}{{value}}
+{{/each}}
+
+@state_def = state {{name}}{{#if alias}} as {{alias}}{{/if}}{{#if body}} {
+{{#each statements}}{{value}}
+{{/each}}}{{/if}}
+
+@er_diagram = erDiagram
+{{#each statements}}{{value}}
+{{/each}}
+
+@entity_def = {{name}} {
+{{#each attributes}}{{value}}
+{{/each}}}
+
+@gantt_chart = gantt
+{{#each config}}{{value}}
+{{/each}}{{#each sections}}{{value}}
+{{/each}}
+
+@pie_chart = pie{{#if title}} title {{title}}{{/if}}
+{{#each items}}"{{label}}": {{value}}
+{{/each}}
+
+@gitgraph = gitgraph
+{{#each commits}}{{value}}
+{{/each}}
+
+@commit = commit{{#if type}} {{type}}{{/if}}{{#if id}} {{id}}{{/if}}{{#if msg}} {{msg}}{{/if}}
+
+@indent = 2
+@pretty = true
+

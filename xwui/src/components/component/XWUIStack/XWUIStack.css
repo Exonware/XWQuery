@@ -1,0 +1,16 @@
+/**
+ * XWUIStack Component Styles
+ */
+
+.xwui-stack-wrapper {
+    /* Wrapper has no specific styles */
+}
+
+.xwui-stack {
+    box-sizing: border-box;
+}
+
+.xwui-stack-item {
+    /* Item inherits flex properties */
+}
+

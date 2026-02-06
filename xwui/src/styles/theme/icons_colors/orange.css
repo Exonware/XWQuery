@@ -1,0 +1,12 @@
+/* ============================================
+   ORANGE ICON COLORS - Vibrant orange theme
+   ============================================ */
+
+:root[data-icons-colors="orange"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #7c2d12;        /* Primary fill color - dark orange text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #ea580c;        /* Accent/rail/marks color - orange */
+    --icons-color-transparent: transparent;
+}
+

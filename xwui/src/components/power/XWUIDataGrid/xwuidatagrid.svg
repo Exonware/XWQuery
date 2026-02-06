@@ -1,0 +1,18 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <rect x="10" y="15" width="80" height="70" rx="3" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <rect x="10" y="15" width="80" height="12" class="xwui-icon-fill"/>
+  <line x1="30" y1="15" x2="30" y2="85" class="xwui-icon-accent" stroke-width="1"/>
+  <line x1="55" y1="15" x2="55" y2="85" class="xwui-icon-accent" stroke-width="1"/>
+  <line x1="10" y1="27" x2="90" y2="27" class="xwui-icon-accent" stroke-width="1"/>
+  <line x1="10" y1="42" x2="90" y2="42" class="xwui-icon-accent" stroke-width="1"/>
+  <line x1="10" y1="57" x2="90" y2="57" class="xwui-icon-accent" stroke-width="1"/>
+  <text x="20" y="24" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-secondary, white)">Col1</text>
+  <text x="42.5" y="24" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-secondary, white)">Col2</text>
+  <text x="72.5" y="24" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-secondary, white)">Col3</text>
+</svg>
+

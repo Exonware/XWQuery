@@ -1,0 +1,12 @@
+/* ============================================
+   MEDIA - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    --radius-media: 12px;
+}
+
+/* Utility class for direct application */
+.radius-media-soft {
+    border-radius: var(--radius-media, 12px) !important;
+}

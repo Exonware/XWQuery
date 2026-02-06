@@ -1,0 +1,99 @@
+{
+  "shortcuts": {
+    "file": {
+      "Ctrl+C": { "action": "copy", "description": "Copy" },
+      "Ctrl+X": { "action": "cut", "description": "Cut" },
+      "Ctrl+V": { "action": "paste", "description": "Paste" },
+      "Ctrl+Z": { "action": "undo", "description": "Undo" },
+      "Ctrl+Y": { "action": "redo", "description": "Redo" },
+      "Ctrl+Shift+Z": { "action": "redo", "description": "Redo" },
+      "Ctrl+A": { "action": "selectAll", "description": "Select All" },
+      "Ctrl+D": { "action": "duplicate", "description": "Duplicate" },
+      "Ctrl+S": { "action": "save", "description": "Save" },
+      "Ctrl+Shift+S": { "action": "saveAs", "description": "Save As" },
+      "Ctrl+N": { "action": "newFile", "description": "New File" },
+      "Ctrl+O": { "action": "openFile", "description": "Open File" },
+      "Ctrl+P": { "action": "commandPalette", "description": "Command Palette / Search" },
+      "Delete": { "action": "deleteSelection", "description": "Delete Selection" },
+      "Backspace": { "action": "deleteBackwards", "description": "Delete Backwards" },
+      "Ctrl+F": { "action": "find", "description": "Find" },
+      "Ctrl+G": { "action": "findNext", "description": "Find Next" },
+      "Ctrl+Shift+G": { "action": "findPrevious", "description": "Find Previous" }
+    },
+    "navigation": {
+      "Space+Drag": { "action": "pan", "description": "Pan", "type": "mouse" },
+      "Middle Mouse Drag": { "action": "pan", "description": "Pan", "type": "mouse" },
+      "Mouse Wheel": { "action": "zoom", "description": "Zoom", "type": "mouse" },
+      "Ctrl+Mouse Wheel": { "action": "precisionZoom", "description": "Precision Zoom", "type": "mouse" },
+      "Shift+Mouse Wheel": { "action": "horizontalPan", "description": "Horizontal Pan", "type": "mouse" },
+      "Right Mouse Drag": { "action": "contextPan", "description": "Context Pan", "type": "mouse" },
+      "Alt+Left Mouse Drag": { "action": "orbit", "description": "Orbit (3D)", "type": "mouse", "mode": "3d" },
+      "Alt+Right Mouse Drag": { "action": "dollyZoom", "description": "Dolly Zoom", "type": "mouse", "mode": "3d" },
+      "Alt+Middle Mouse Drag": { "action": "pan", "description": "Pan", "type": "mouse" },
+      "F": { "action": "frameSelected", "description": "Frame Selected" },
+      "Shift+F": { "action": "focusAndFollow", "description": "Focus & Follow" },
+      "Home": { "action": "frameAll", "description": "Frame All" }
+    },
+    "transform": {
+      "W": { "action": "move", "description": "Move" },
+      "E": { "action": "rotate", "description": "Rotate" },
+      "R": { "action": "scale", "description": "Scale" },
+      "T": { "action": "transformPivot", "description": "Transform Pivot" },
+      "Ctrl+Drag": { "action": "snapMove", "description": "Snap Move", "type": "mouse" },
+      "Shift+Drag": { "action": "constrainedMove", "description": "Constrained Move", "type": "mouse" },
+      "Ctrl+Shift+Drag": { "action": "duplicateAndMove", "description": "Duplicate + Move", "type": "mouse" }
+    },
+    "viewport": {
+      "G": { "action": "toggleGrid", "description": "Toggle Grid" },
+      "Ctrl+'": { "action": "increaseGridSize", "description": "Increase Grid Size" },
+      "Ctrl+/": { "action": "decreaseGridSize", "description": "Decrease Grid Size" },
+      "Ctrl+;": { "action": "toggleSnap", "description": "Toggle Snap" },
+      "Shift+S": { "action": "snapSelectionToGrid", "description": "Snap Selection to Grid" },
+      "Ctrl+Shift+H": { "action": "toggleHandles", "description": "Toggle Handles" },
+      "H": { "action": "hideSelected", "description": "Hide Selected" },
+      "Shift+H": { "action": "unhideAll", "description": "Unhide All" }
+    },
+    "layer": {
+      "Ctrl+Shift+N": { "action": "newLayer", "description": "New Layer" },
+      "Ctrl+L": { "action": "lockLayer", "description": "Lock Layer" },
+      "Ctrl+Shift+L": { "action": "unlockAll", "description": "Unlock All" },
+      "Ctrl+ArrowUp": { "action": "moveLayerUp", "description": "Move Layer Up" },
+      "Ctrl+ArrowDown": { "action": "moveLayerDown", "description": "Move Layer Down" },
+      "Ctrl+G": { "action": "group", "description": "Group" },
+      "Ctrl+Shift+G": { "action": "ungroup", "description": "Ungroup" }
+    },
+    "camera": {
+      "W": { "action": "flyForward", "description": "Fly Forward", "mode": "3d" },
+      "A": { "action": "flyLeft", "description": "Fly Left", "mode": "3d" },
+      "S": { "action": "flyBackward", "description": "Fly Backward", "mode": "3d" },
+      "D": { "action": "flyRight", "description": "Fly Right", "mode": "3d" },
+      "Q": { "action": "flyDown", "description": "Down", "mode": "3d" },
+      "E": { "action": "flyUp", "description": "Up", "mode": "3d" },
+      "Shift+W": { "action": "fastFly", "description": "Fast Fly", "mode": "3d" },
+      "Shift+A": { "action": "fastFly", "description": "Fast Fly", "mode": "3d" },
+      "Shift+S": { "action": "fastFly", "description": "Fast Fly", "mode": "3d" },
+      "Shift+D": { "action": "fastFly", "description": "Fast Fly", "mode": "3d" },
+      "Ctrl+W": { "action": "slowFly", "description": "Slow Fly", "mode": "3d" },
+      "Ctrl+A": { "action": "slowFly", "description": "Slow Fly", "mode": "3d" },
+      "Ctrl+S": { "action": "slowFly", "description": "Slow Fly", "mode": "3d" },
+      "Ctrl+D": { "action": "slowFly", "description": "Slow Fly", "mode": "3d" },
+      "Ctrl+1": { "action": "savedCamera1", "description": "Saved Camera Position 1", "mode": "3d" },
+      "Ctrl+2": { "action": "savedCamera2", "description": "Saved Camera Position 2", "mode": "3d" },
+      "Ctrl+3": { "action": "savedCamera3", "description": "Saved Camera Position 3", "mode": "3d" },
+      "1": { "action": "cameraProjectionPerspective", "description": "Perspective", "mode": "3d" },
+      "2": { "action": "cameraProjectionOrthographic", "description": "Orthographic", "mode": "3d" },
+      "3": { "action": "cameraProjectionIsometric", "description": "Isometric", "mode": "3d" }
+    },
+    "drawing": {
+      "B": { "action": "brush", "description": "Brush" },
+      "P": { "action": "pen", "description": "Pen" },
+      "I": { "action": "eyedropper", "description": "Eyedropper" },
+      "O": { "action": "oval", "description": "Oval" },
+      "M": { "action": "marquee", "description": "Marquee" },
+      "K": { "action": "knife", "description": "Knife / Cut Path" },
+      "Ctrl+Click": { "action": "addToSelection", "description": "Add to Selection", "type": "mouse" },
+      "Shift+Click": { "action": "rangeSelection", "description": "Range Selection", "type": "mouse" }
+    }
+  }
+}
+

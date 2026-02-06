@@ -1,0 +1,17 @@
+/* ============================================
+   TOAST LINES - STRONG LINES
+   ============================================ */
+
+:root[data-lines="strong"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-toast-width: var(--border-width-regular, 2px);
+    --border-toast-style: solid;
+    --border-toast-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-toast-strong {
+    border-style: var(--border-toast-style, solid);
+    border-width: var(--border-toast-width, var(--border-width-regular, 2px));
+    border-color: var(--border-toast-color, var(--border-medium, var(--border-color)));
+}

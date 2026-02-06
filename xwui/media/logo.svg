@@ -1,0 +1,40 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .stroke-main {
+        fill: none;
+        stroke: #00FF00;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 24px;
+      }
+      .fill-main {
+        fill: #00FF00;
+        stroke: none;
+      }
+    </style>
+  </defs>
+
+  <!-- Governance Shield: Represents protection and framework -->
+  <path class="stroke-main" d="M256,480c0,0,176-80,176-256V96L256,32L80,96v128C80,400,256,480,256,480Z"/>
+
+  <!-- Machine-Readable Document: The central policy core -->
+  <rect class="stroke-main" x="170" y="170" width="172" height="190" rx="16"/>
+
+  <!-- Data/Code Lines: Abstract representation of structured policy -->
+  <line class="stroke-main" x1="220" y1="235" x2="292" y2="235"/>
+  <line class="stroke-main" x1="220" y1="295" x2="292" y2="295"/>
+
+  <!-- AI Circuitry: Connecting the policy to the governance framework -->
+  <!-- Top Node -->
+  <line class="stroke-main" x1="256" y1="170" x2="256" y2="125"/>
+  <circle class="fill-main" cx="256" cy="115" r="14"/>
+
+  <!-- Left Circuit Path -->
+  <path class="stroke-main" d="M170,265H135"/>
+  <circle class="fill-main" cx="120" cy="265" r="14"/>
+
+  <!-- Right Circuit Path -->
+  <path class="stroke-main" d="M342,265H377"/>
+  <circle class="fill-main" cx="392" cy="265" r="14"/>
+</svg>

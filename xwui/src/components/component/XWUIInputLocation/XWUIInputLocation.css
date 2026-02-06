@@ -1,0 +1,47 @@
+/**
+ * XWUIInputLocation Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/rounded.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-locationinput {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+}
+
+.xwui-locationinput-input-wrapper {
+    width: 100%;
+}
+
+.xwui-locationinput-input {
+    width: 100%;
+    padding: var(--spacing-sm, 0.75rem);
+    border: var(--border-input-width, var(--border-width-regular, 1.5px)) var(--border-input-style, solid) var(--border-input-color, var(--border-color));
+    border-radius: var(--radius-input, var(--radius-sm, 6px));
+    font-family: var(--font-input-family, var(--font-family-base, inherit));
+    font-size: var(--font-size-sm, 0.875rem);
+    transition: border-color 0.2s;
+}
+
+.xwui-locationinput-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+.xwui-locationinput-map {
+    width: 100%;
+    border: var(--border-map-width, var(--border-width-regular, 1.5px)) var(--border-map-style, solid) var(--border-map-color, var(--border-color));
+    border-radius: var(--radius-map, var(--radius-md, 8px));
+    overflow: hidden;
+}
+

@@ -1,0 +1,35 @@
+{
+  "root": "dist",
+  "preservation": {
+    "api": {
+      "folder_structure": true,
+      "ts_js": true,
+      "ext": ["html", "js", "css", "svg", "json"]
+    },
+    "app": {
+      "folder_structure": true,
+      "ts_js": true,
+      "ext": ["html", "js", "css", "svg", "json"]
+    },
+    "pages": {
+      "folder_structure": true,
+      "ts_js": true,
+      "ext": ["html", "js", "css", "svg", "json"]
+    },
+    "styles": {
+      "folder_structure": true,
+      "ts_js": true,
+      "ext": ["html", "js", "css", "svg", "json"]
+    },
+    "tailwind": {
+      "folder_structure": true,
+      "ts_js": true,
+      "ext": ["html", "js", "css", "svg", "json"]
+    },
+    "components": {
+      "folder_structure": true,
+      "ts_js": true,
+      "ext": ["html", "js", "css", "svg", "json"]
+    }
+  }
+}

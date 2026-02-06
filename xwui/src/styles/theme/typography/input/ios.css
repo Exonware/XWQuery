@@ -1,0 +1,13 @@
+/* ============================================
+   INPUT TYPOGRAPHY - IOS
+   ============================================ */
+
+:root[data-font="ios"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-input-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-input-ios {
+    font-family: var(--font-input-family, var(--font-family-base, sans-serif)) !important;
+}

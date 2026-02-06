@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIDataGrid Tester</title>
+    
+    <style>
+        .tester-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .test-section {
+            margin-bottom: 3rem;
+        }
+        .test-section h2 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .test-container {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            background: var(--bg-primary);
+        }
+    </style>
+        <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuidata-grid-content">
+<div class="test-section">
+            <h2>Basic DataGrid</h2>
+            <div id="datagrid-basic" class="test-container"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>DataGrid with Custom Renderers</h2>
+            <div id="datagrid-custom" class="test-container"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>DataGrid with Sorting</h2>
+            <div id="datagrid-sortable" class="test-container"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>DataGrid with Selection</h2>
+            <div id="datagrid-selectable" class="test-container"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>DataGrid with Pagination</h2>
+            <div id="datagrid-pagination" class="test-container"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>DataGrid - All Features</h2>
+            <div id="datagrid-full" class="test-container"></div>
+        </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIDataGrid.ts"></script>
+</body>
+</html>
+

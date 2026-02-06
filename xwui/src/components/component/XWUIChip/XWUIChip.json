@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIChip",
+  "name": "XWUI Chip Component",
+  "description": "Chip/tag component for displaying labels, categories, or removable items. Supports various variants, sizes, closable and clickable states, and icons/avatars.",
+  "path": "display.chip",
+  "tags": ["display", "chip", "tag", "label", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["default", "primary", "success", "warning", "error"],
+          "description": "Color variant of the chip",
+          "default": "default"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the chip",
+          "default": "medium"
+        },
+        "closable": {
+          "type": "boolean",
+          "description": "Whether the chip can be closed/removed",
+          "default": false
+        },
+        "clickable": {
+          "type": "boolean",
+          "description": "Whether the chip is clickable",
+          "default": false
+        },
+        "avatar": {
+          "description": "Avatar element or HTML string to display in the chip"
+        },
+        "icon": {
+          "type": "string",
+          "description": "SVG icon HTML string to display in the chip"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the chip"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Label text to display in the chip"
+        }
+      },
+      "required": ["label"]
+    }
+  }
+}
+

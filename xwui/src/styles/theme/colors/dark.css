@@ -1,0 +1,64 @@
+/* ============================================
+   DARK COLOR THEME - Deep dark gray (avoiding pure black for better readability)
+   @primary: #0d1117
+   @secondary: #161b22
+   @text: #c9d1d9
+   ============================================ */
+
+:root[data-theme="dark"] {
+    /* Background colors - Using dark gray instead of pure black for better readability */
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-tertiary: #21262d;
+    --bg-app: #0d1117;
+    --bg-elevated: #161b22;
+    --bg-hover: #21262d;
+    --bg-active: #30363d;
+    
+    /* Text colors - Improved contrast for better visibility */
+    --text-primary: #e6edf3;
+    --text-secondary: #c9d1d9;
+    --text-tertiary: #8b949e;
+    --text-inverse: #0d1117;
+    
+    /* Border colors */
+    --border-color: rgba(255, 255, 255, 0.05);
+    --border-light: rgba(255, 255, 255, 0.03);
+    --border-medium: rgba(255, 255, 255, 0.05);
+    --border-strong: rgba(255, 255, 255, 0.08);
+    
+    /* Control colors - Improved contrast */
+    --control-bg: #161b22;
+    --control-bg-hover: #21262d;
+    --control-bg-active: #30363d;
+    --control-border: #30363d;
+    --control-text: #e6edf3;
+    --control-text-secondary: #c9d1d9;
+    --control-active: #58a6ff;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #fbbf24;
+    --status-before-start-border: #f59e0b;
+    --status-before-start-hover: #f59e0b;
+    --status-processing: #60a5fa;
+    --status-processing-border: #3b82f6;
+    --status-processing-hover: #3b82f6;
+    --status-processing-text: #ffffff;
+    --status-error: #f87171;
+    --status-error-border: #ef4444;
+    --status-error-hover: #ef4444;
+    --status-error-text: #ffffff;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+    
+    /* Skeleton loader color - lighter for better visibility on dark background */
+    --skeleton-bg: #3a3a3a;
+}
+

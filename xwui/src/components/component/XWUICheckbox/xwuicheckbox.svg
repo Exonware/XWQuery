@@ -1,0 +1,17 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Checkbox 1 - Unchecked with label -->
+  <rect x="15" y="20" width="18" height="18" rx="3" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <text x="40" y="33" font-family="Arial" font-size="11" fill="var(--icons-color-main, black)">Option 1</text>
+  <!-- Checkbox 2 - Checked with label -->
+  <rect x="15" y="45" width="18" height="18" rx="3" class="xwui-icon-fill"/>
+  <path d="M 20 50 L 24 54 L 30 46" stroke="var(--icons-color-secondary, white)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="40" y="58" font-family="Arial" font-size="11" fill="var(--icons-color-main, black)">Option 2</text>
+  <!-- Checkbox 3 - Unchecked with label -->
+  <rect x="15" y="70" width="18" height="18" rx="3" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <text x="40" y="83" font-family="Arial" font-size="11" fill="var(--icons-color-main, black)">Option 3</text>
+</svg>

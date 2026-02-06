@@ -1,0 +1,12 @@
+/* ============================================
+   CONTROL - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    --radius-control: 4px;
+}
+
+/* Utility class for direct application */
+.radius-control-subtle {
+    border-radius: var(--radius-control, 4px) !important;
+}

@@ -1,0 +1,151 @@
+// iceberg.grammar
+// Apache Iceberg Grammar - Table Format Specification
+// Based on Apache Iceberg specification
+// Company: eXonware.com
+
+?start: iceberg_spec
+
+iceberg_spec: format_version table_metadata
+
+format_version: "format-version:" NUMBER
+
+table_metadata: metadata_block+
+
+metadata_block: table_metadata_v1 | table_metadata_v2
+
+table_metadata_v1: "{" table_metadata_fields "}"
+
+table_metadata_fields: uuid? location? last_updated_ms? last_column_id? schema? current_schema_id? schemas? partition_spec? default_spec_id? partition_specs? properties? current_snapshot_id? snapshots? snapshot_log? metadata_log? sort_order? default_sort_order_id? sort_orders? refs?
+
+uuid: "\"uuid\":" GUID
+
+GUID: /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
+
+location: "\"location\":" STRING
+
+last_updated_ms: "\"last-updated-ms\":" NUMBER
+
+last_column_id: "\"last-column-id\":" NUMBER
+
+schema: "\"schema\":" schema_object
+
+schema_object: "{" schema_fields "}"
+
+schema_fields: type? schema_id? fields? identifier_field_ids?
+
+type: "\"type\":" STRING
+
+schema_id: "\"schema-id\":" NUMBER
+
+fields: "\"fields\":" "[" (field ("," field)*)? "]"
+
+field: "{" field_properties "}"
+
+field_properties: id? name? type? required? doc? initial_default? write_default?
+
+id: "\"id\":" NUMBER
+
+name: "\"name\":" STRING
+
+required: "\"required\":" boolean
+
+boolean: "true" | "false"
+
+doc: "\"doc\":" STRING
+
+initial_default: "\"initial-default\":" value
+
+write_default: "\"write-default\":" value
+
+value: STRING | NUMBER | boolean | "null"
+
+current_schema_id: "\"current-schema-id\":" NUMBER
+
+schemas: "\"schemas\":" "[" (schema_object ("," schema_object)*)? "]"
+
+partition_spec: "\"partition-spec\":" "[" (partition_field ("," partition_field)*)? "]"
+
+partition_field: "{" partition_field_properties "}"
+
+partition_field_properties: field_id? name? transform?
+
+field_id: "\"field-id\":" NUMBER
+
+transform: "\"transform\":" STRING
+
+default_spec_id: "\"default-spec-id\":" NUMBER
+
+partition_specs: "\"partition-specs\":" "[" (partition_spec ("," partition_spec)*)? "]"
+
+properties: "\"properties\":" "{" (property_entry ("," property_entry)*)? "}"
+
+property_entry: STRING ":" STRING
+
+current_snapshot_id: "\"current-snapshot-id\":" NUMBER
+
+snapshots: "\"snapshots\":" "[" (snapshot ("," snapshot)*)? "]"
+
+snapshot: "{" snapshot_fields "}"
+
+snapshot_fields: snapshot_id? sequence_number? timestamp_ms? manifest_list? summary? schema_id?
+
+snapshot_id: "\"snapshot-id\":" NUMBER
+
+sequence_number: "\"sequence-number\":" NUMBER
+
+timestamp_ms: "\"timestamp-ms\":" NUMBER
+
+manifest_list: "\"manifest-list\":" STRING
+
+summary: "\"summary\":" "{" (summary_entry ("," summary_entry)*)? "}"
+
+summary_entry: STRING ":" STRING
+
+snapshot_log: "\"snapshot-log\":" "[" (snapshot_log_entry ("," snapshot_log_entry)*)? "]"
+
+snapshot_log_entry: "{" snapshot_id timestamp_ms "}"
+
+metadata_log: "\"metadata-log\":" "[" (metadata_log_entry ("," metadata_log_entry)*)? "]"
+
+metadata_log_entry: "{" timestamp_ms metadata_file "}"
+
+metadata_file: "\"metadata-file\":" STRING
+
+sort_order: "\"sort-order\":" "[" (sort_field ("," sort_field)*)? "]"
+
+sort_field: "{" sort_field_properties "}"
+
+sort_field_properties: field_id? direction? null_order?
+
+direction: "\"direction\":" STRING
+
+null_order: "\"null-order\":" STRING
+
+default_sort_order_id: "\"default-sort-order-id\":" NUMBER
+
+sort_orders: "\"sort-orders\":" "[" (sort_order ("," sort_order)*)? "]"
+
+refs: "\"refs\":" "{" (ref_entry ("," ref_entry)*)? "}"
+
+ref_entry: STRING ":" ref_object
+
+ref_object: "{" snapshot_id? type? min_snapshots_to_keep? max_snapshot_age_ms? max_ref_age_ms? }
+
+type: "\"type\":" STRING
+
+min_snapshots_to_keep: "\"min-snapshots-to-keep\":" NUMBER
+
+max_snapshot_age_ms: "\"max-snapshot-age-ms\":" NUMBER
+
+max_ref_age_ms: "\"max-ref-age-ms\":" NUMBER
+
+table_metadata_v2: "{" table_metadata_fields "}"
+
+NUMBER: /[0-9]+/
+
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+
+%import common.WS
+
+%ignore WS
+

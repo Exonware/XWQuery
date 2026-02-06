@@ -1,0 +1,107 @@
+/**
+ * XWUIBreadcrumbs Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-breadcrumbs {
+    width: 100%;
+}
+
+.xwui-breadcrumbs-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.xwui-breadcrumbs-item {
+    display: flex;
+    align-items: center;
+}
+
+/* Link */
+.xwui-breadcrumbs-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.375rem);
+    color: var(--text-secondary, #6c757d);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.xwui-breadcrumbs-link:hover {
+    color: var(--accent-primary, #4f46e5);
+}
+
+/* Current */
+.xwui-breadcrumbs-current {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.375rem);
+    color: var(--text-primary, #212529);
+    font-weight: var(--font-weight-medium, 500);
+}
+
+/* Ellipsis */
+.xwui-breadcrumbs-ellipsis {
+    color: var(--text-secondary, #6c757d);
+    padding: 0 var(--spacing-xs, 0.25rem);
+}
+
+/* Icon */
+.xwui-breadcrumbs-icon {
+    display: flex;
+    align-items: center;
+}
+
+.xwui-breadcrumbs-icon svg {
+    width: 1em;
+    height: 1em;
+}
+
+/* Separator */
+.xwui-breadcrumbs-separator {
+    display: flex;
+    align-items: center;
+    margin: 0 var(--spacing-sm, 0.5rem);
+    color: var(--text-tertiary, #adb5bd);
+}
+
+.xwui-breadcrumbs-separator svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Size variants */
+.xwui-breadcrumbs-small {
+    font-size: var(--font-size-sm, 0.8125rem);
+}
+
+.xwui-breadcrumbs-small .xwui-breadcrumbs-separator svg {
+    width: 14px;
+    height: 14px;
+}
+
+.xwui-breadcrumbs-medium {
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-breadcrumbs-large {
+    font-size: var(--font-size-base, 1rem);
+}
+
+.xwui-breadcrumbs-large .xwui-breadcrumbs-separator svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

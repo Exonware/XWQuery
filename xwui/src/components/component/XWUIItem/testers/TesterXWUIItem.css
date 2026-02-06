@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+.tester-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.test-header {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+.test-header h1 {
+    margin: 0 0 10px 0;
+    color: var(--text-primary);
+}
+.test-header p {
+    margin: 5px 0;
+    color: var(--text-secondary);
+}
+.test-area {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-primary);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.test-item-container {
+    margin-bottom: 16px;
+}
+.test-item-container:last-child {
+    margin-bottom: 0;
+}
+.example-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+.example-section h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+.example-json {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    color: var(--text-primary);
+}
+.example-render {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+}
+.status {
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 4px;
+    background: var(--bg-secondary);
+}
+.status.success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-success);
+}
+.status.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--accent-error);
+}
+.console-container {
+    margin-top: 20px;
+    height: 400px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-primary);
+}
+
+

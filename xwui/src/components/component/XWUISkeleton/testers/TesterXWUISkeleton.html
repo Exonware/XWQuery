@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUISkeleton Component Tester</title>
+    
+        <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuiskeleton-content">
+<!-- Variants -->
+            <div class="button-group">
+                <h3>Variants</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div><label>Text:</label><div id="skeleton-text"></div></div>
+                    <div><label>Circular:</label><div id="skeleton-circular"></div></div>
+                    <div><label>Rectangular:</label><div id="skeleton-rectangular"></div></div>
+                    <div><label>Rounded:</label><div id="skeleton-rounded"></div></div>
+                </div>
+            </div>
+            
+            <!-- Animations -->
+            <div class="button-group">
+                <h3>Animation Variants</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div><label>Pulse (default):</label><div id="skeleton-pulse"></div></div>
+                    <div><label>Wave:</label><div id="skeleton-wave"></div></div>
+                    <div><label>None:</label><div id="skeleton-none"></div></div>
+                </div>
+            </div>
+            
+            <!-- Multiple Lines -->
+            <div class="button-group">
+                <h3>Multiple Lines</h3>
+                <div style="max-width: 400px;">
+                    <div><label>4 lines (last line 70% width):</label><div id="skeleton-lines"></div></div>
+                    <div style="margin-top: 1rem;"><label>8 lines:</label><div id="skeleton-lines-8"></div></div>
+                </div>
+            </div>
+            
+            <!-- Line Height Customization -->
+            <div class="button-group">
+                <h3>Line Height Customization</h3>
+                <div style="max-width: 400px;">
+                    <div><label>Default (1rem):</label><div id="skeleton-lineheight-default"></div></div>
+                    <div style="margin-top: 1rem;"><label>Custom (1.5rem):</label><div id="skeleton-lineheight-custom"></div></div>
+                    <div style="margin-top: 1rem;"><label>Compact (0.8rem):</label><div id="skeleton-lineheight-compact"></div></div>
+                </div>
+            </div>
+            
+            <!-- Custom Dimensions -->
+            <div class="button-group">
+                <h3>Custom Dimensions</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div><label>Numeric (200px × 100px):</label><div id="skeleton-custom-1"></div></div>
+                    <div><label>Percentage (50% × 60px):</label><div id="skeleton-custom-2"></div></div>
+                    <div><label>Mixed (100% × 80px):</label><div id="skeleton-custom-3"></div></div>
+                </div>
+            </div>
+            
+            <!-- Presets: UI Components -->
+            <div class="button-group">
+                <h3>Presets: UI Components</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div><label>Button:</label><div id="skeleton-preset-button"></div></div>
+                    <div><label>Input:</label><div id="skeleton-preset-input"></div></div>
+                    <div><label>Textarea:</label><div id="skeleton-preset-textarea"></div></div>
+                    <div><label>Select:</label><div id="skeleton-preset-select"></div></div>
+                    <div><label>Checkbox:</label><div id="skeleton-preset-checkbox"></div></div>
+                    <div><label>Radio:</label><div id="skeleton-preset-radio"></div></div>
+                    <div><label>Badge:</label><div id="skeleton-preset-badge"></div></div>
+                    <div><label>Avatar:</label><div id="skeleton-preset-avatar"></div></div>
+                </div>
+            </div>
+            
+            <!-- Presets: Layout Components -->
+            <div class="button-group">
+                <h3>Presets: Layout Components</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div><label>Header:</label><div id="skeleton-preset-header"></div></div>
+                    <div><label>Footer:</label><div id="skeleton-preset-footer"></div></div>
+                    <div style="display: flex; gap: 1rem;">
+                        <div style="flex: 1;"><label>Sidebar:</label><div id="skeleton-preset-sidebar" style="height: 200px;"></div></div>
+                        <div style="flex: 2;"><label>Content Area:</label><div id="skeleton-preset-content" style="height: 200px;"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Presets: Content Components -->
+            <div class="button-group">
+                <h3>Presets: Content Components</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div><label>Article (8 lines):</label><div id="skeleton-preset-article" style="max-width: 600px;"></div></div>
+                    <div><label>List (4 lines):</label><div id="skeleton-preset-list" style="max-width: 400px;"></div></div>
+                    <div><label>Menu (6 lines):</label><div id="skeleton-preset-menu" style="max-width: 200px;"></div></div>
+                    <div><label>Table (5 lines):</label><div id="skeleton-preset-table" style="max-width: 500px;"></div></div>
+                    <div><label>Code (10 lines, 1.2rem line height):</label><div id="skeleton-preset-code" style="max-width: 500px;"></div></div>
+                </div>
+            </div>
+            
+            <!-- Presets: Media Components -->
+            <div class="button-group">
+                <h3>Presets: Media Components</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div><label>Image:</label><div id="skeleton-preset-image" style="max-width: 400px;"></div></div>
+                    <div><label>Video:</label><div id="skeleton-preset-video" style="max-width: 500px;"></div></div>
+                    <div><label>Chart:</label><div id="skeleton-preset-chart" style="max-width: 500px;"></div></div>
+                    <div><label>Card:</label><div id="skeleton-preset-card" style="max-width: 400px;"></div></div>
+                </div>
+            </div>
+            
+            <!-- Presets: Form Components -->
+            <div class="button-group">
+                <h3>Presets: Form Components</h3>
+                <div style="max-width: 400px;">
+                    <div id="skeleton-preset-form"></div>
+                </div>
+            </div>
+            
+            <!-- Custom ClassName -->
+            <div class="button-group">
+                <h3>Custom ClassName</h3>
+                <div style="max-width: 400px;">
+                    <div><label>With custom class:</label><div id="skeleton-custom-class"></div></div>
+                </div>
+            </div>
+            
+            <!-- Card Skeleton Composition -->
+            <div class="button-group">
+                <h3>Card Skeleton Composition</h3>
+                <div id="skeleton-card" style="max-width: 400px;"></div>
+            </div>
+            
+            <!-- Real-world Examples -->
+            <div class="button-group">
+                <h3>Real-world Examples</h3>
+                <div style="display: flex; flex-direction: column; gap: 2rem;">
+                    <!-- User Profile Card -->
+                    <div>
+                        <label>User Profile Card:</label>
+                        <div id="skeleton-profile-card" style="max-width: 400px; margin-top: 0.5rem;"></div>
+                    </div>
+                    
+                    <!-- Dashboard Layout -->
+                    <div>
+                        <label>Dashboard Layout:</label>
+                        <div id="skeleton-dashboard" style="margin-top: 0.5rem;"></div>
+                    </div>
+                    
+                    <!-- Product List -->
+                    <div>
+                        <label>Product List:</label>
+                        <div id="skeleton-product-list" style="margin-top: 0.5rem;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Method Demonstrations -->
+            <div class="button-group">
+                <h3>Method Demonstrations</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div>
+                        <label>setLoading() Method:</label>
+                        <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
+                            <div id="skeleton-method-loading" style="flex: 1;"></div>
+                            <button id="btn-toggle-loading" style="padding: 0.5rem 1rem;">Toggle Loading</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label>getElement() Method:</label>
+                        <div id="skeleton-method-element" style="margin-top: 0.5rem;"></div>
+                        <div id="skeleton-method-info" style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-secondary);"></div>
+                    </div>
+                </div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUISkeleton.ts"></script>
+</body>
+</html>
+

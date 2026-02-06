@@ -1,0 +1,13 @@
+/* ============================================
+   INPUT TYPOGRAPHY - GEIST
+   ============================================ */
+
+:root[data-font="geist"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-input-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-input-geist {
+    font-family: var(--font-input-family, var(--font-family-base, sans-serif)) !important;
+}

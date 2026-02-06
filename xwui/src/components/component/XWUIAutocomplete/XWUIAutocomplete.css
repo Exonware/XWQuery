@@ -1,0 +1,53 @@
+/**
+ * XWUIAutocomplete Component Styles
+ */
+
+.xwui-autocomplete-container {
+    position: relative;
+}
+
+.xwui-autocomplete {
+    position: relative;
+}
+
+.xwui-autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: var(--spacing-xs, 4px);
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-color, #d9d9d9);
+    border-radius: var(--radius-sm, 4px);
+    box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.15));
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.xwui-autocomplete-option {
+    padding: var(--spacing-sm, 8px) 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.xwui-autocomplete-option:hover {
+    background-color: var(--bg-hover, #f5f5f5);
+}
+
+.xwui-autocomplete-option-selected {
+    background-color: var(--bg-active, #e6f7ff);
+}
+
+.xwui-autocomplete-option-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.xwui-autocomplete-empty,
+.xwui-autocomplete-loading {
+    padding: var(--spacing-sm, 8px) 12px;
+    text-align: center;
+    color: var(--text-tertiary, #999);
+}
+

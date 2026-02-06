@@ -1,0 +1,73 @@
+﻿# hiveql.out.grammar
+# HiveQL Output Grammar - Template for generating HiveQL from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@statement = {{value}}
+
+@select_stmt = SELECT {{select_list}}{{#if from}} {{from}}{{/if}}{{#if where}} {{where}}{{/if}}{{#if group_by}} {{group_by}}{{/if}}{{#if having}} {{having}}{{/if}}{{#if order_by}} {{order_by}}{{/if}}{{#if limit}} {{limit}}{{/if}}{{#if distribute_by}} {{distribute_by}}{{/if}}{{#if sort_by}} {{sort_by}}{{/if}}{{#if cluster_by}} {{cluster_by}}{{/if}}
+
+@select_list = {{#if wildcard}}*{{else}}{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}}
+
+@select_item = {{expression}}{{#if alias}} AS {{alias}}{{/if}}
+
+@from_clause = FROM {{table}}{{#each joins}} {{value}}{{/each}}{{#if sample}} {{sample}}{{/if}}
+
+@table_ref = {{name}}{{#if alias}} AS {{alias}}{{/if}}
+
+@join_clause = {{#if type}}{{type}} {{/if}}JOIN {{table}}{{#if alias}} AS {{alias}}{{/if}} ON {{condition}}
+
+@join_type = {{value}}
+
+@tablesample = TABLESAMPLE (BUCKET {{number}} OUT OF {{total}} ON {{column}})
+
+@where_clause = WHERE {{expression}}
+
+@group_by_clause = GROUP BY {{#each expressions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@having_clause = HAVING {{expression}}
+
+@order_by_clause = ORDER BY {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@order_item = {{expression}}{{#if direction}} {{direction}}{{/if}}
+
+@distribute_by = DISTRIBUTE BY {{#each expressions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@sort_by = SORT BY {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@cluster_by = CLUSTER BY {{#each expressions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@limit_clause = LIMIT {{value}}
+
+@insert_stmt = INSERT{{#if overwrite}} OVERWRITE{{else}} INTO{{/if}} TABLE {{table}}{{#if partition}} {{partition}}{{/if}} {{select}}{{#if values}} VALUES {{#each rows}}({{values}}){{#if !@last}}, {{/if}}{{/each}}{{/if}}
+
+@partition_spec = ({{#each columns}}{{name}}={{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@partition_col = {{name}}={{value}}
+
+@row_value = ({{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@create_stmt = CREATE TABLE{{#if if_not_exists}} IF NOT EXISTS{{/if}} {{table}} ({{#each columns}}{{value}}{{#if !@last}}, {{/if}}{{/each}}){{#if partitioned}} {{partitioned}}{{/if}}{{#if row_format}} {{row_format}}{{/if}}{{#if stored_as}} {{stored_as}}{{/if}}{{#if location}} {{location}}{{/if}}
+
+@column_def = {{name}} {{type}}{{#if comment}} COMMENT {{comment}}{{/if}}
+
+@partitioned_by = PARTITIONED BY ({{#each columns}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@row_format = ROW FORMAT DELIMITED{{#if fields}} FIELDS TERMINATED BY {{fields}}{{/if}}{{#if lines}} LINES TERMINATED BY {{lines}}{{/if}}
+
+@stored_as = STORED AS {{format}}
+
+@file_format = {{value}}
+
+@location = LOCATION {{path}}
+
+@load_stmt = LOAD DATA{{#if local}} LOCAL{{/if}} INPATH {{path}}{{#if overwrite}} OVERWRITE{{/if}} INTO TABLE {{table}}{{#if partition}} {{partition}}{{/if}}
+
+@alter_stmt = ALTER TABLE {{table}} {{action}}
+
+@alter_action = {{value}}
+
+@expression = {{value}}
+
+@indent = 2
+@pretty = true

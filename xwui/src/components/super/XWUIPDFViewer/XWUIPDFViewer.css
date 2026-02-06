@@ -1,0 +1,130 @@
+/**
+ * XWUIPDFViewer Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ */
+
+.xwui-pdf-viewer-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.xwui-pdf-viewer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary, #ffffff);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-md, 8px);
+}
+
+/* Toolbar */
+.xwui-pdf-viewer-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.5rem);
+    padding: var(--spacing-sm, 0.75rem);
+    border-bottom: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    background: var(--bg-secondary, #f8f9fa);
+}
+
+.xwui-pdf-viewer-toolbar-btn {
+    padding: var(--spacing-xs, 0.375rem) var(--spacing-sm, 0.75rem);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-sm, 4px);
+    background: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #212529);
+    cursor: pointer;
+    font-size: var(--font-size-base, 1rem);
+    transition: all 0.2s ease;
+}
+
+.xwui-pdf-viewer-toolbar-btn:hover {
+    background: var(--bg-hover, #f8f9fa);
+    border-color: var(--border-medium, #ced4da);
+}
+
+.xwui-pdf-viewer-toolbar-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.xwui-pdf-viewer-page-input {
+    width: 4rem;
+    padding: var(--spacing-xs, 0.375rem);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-sm, 4px);
+    background: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #212529);
+    font-size: var(--font-size-sm, 0.875rem);
+    text-align: center;
+}
+
+.xwui-pdf-viewer-page-label {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #6c757d);
+    padding: 0 var(--spacing-xs, 0.5rem);
+}
+
+.xwui-pdf-viewer-zoom-label {
+    min-width: 4rem;
+    text-align: center;
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-primary, #212529);
+    padding: 0 var(--spacing-sm, 0.75rem);
+}
+
+/* Content */
+.xwui-pdf-viewer-content {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+/* Thumbnails */
+.xwui-pdf-viewer-thumbnails {
+    width: 200px;
+    overflow-y: auto;
+    border-right: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    background: var(--bg-secondary, #f8f9fa);
+    padding: var(--spacing-sm, 0.75rem);
+}
+
+/* Main Viewer */
+.xwui-pdf-viewer-main {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md, 1rem);
+    background: var(--bg-secondary, #f8f9fa);
+}
+
+.xwui-pdf-viewer-canvas-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.xwui-pdf-viewer-canvas {
+    max-width: 100%;
+    box-shadow: var(--shadow-lg, 0 10px 15px rgba(0, 0, 0, 0.1));
+    background: var(--bg-primary, #ffffff);
+}
+
+.xwui-pdf-viewer-error {
+    padding: var(--spacing-md, 1rem);
+    text-align: center;
+    color: var(--text-error, #dc2626);
+    font-size: var(--font-size-base, 1rem);
+}
+

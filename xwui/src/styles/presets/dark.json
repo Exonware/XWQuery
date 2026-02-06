@@ -1,0 +1,13 @@
+{
+  "brand": "xwui",
+  "style": "modern",
+  "color": "dark",
+  "accent": "blue",
+  "lines": "balanced",
+  "roundness": "rounded",
+  "font": "inter",
+  "icons": "material-icons",
+  "icons_colors": "default",
+  "emojis": "apple"
+}
+

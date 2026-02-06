@@ -1,0 +1,14 @@
+/* ============================================
+   CODE - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-code: 12px;
+    /* Fallback: --radius-content → --radius-md → 12px */
+}
+
+/* Utility class for direct application */
+.radius-code-soft {
+    border-radius: var(--radius-code, 12px) !important;
+}

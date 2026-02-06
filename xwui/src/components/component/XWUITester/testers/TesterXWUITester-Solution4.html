@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUITester - Solution 4: Skeleton Loaders</title>
+    <style>
+        .timer-text {
+            position: fixed;
+            top: var(--spacing-md, 1rem);
+            right: var(--spacing-md, 1rem);
+            background: var(--bg-elevated, #ffffff);
+            padding: var(--spacing-xs, 0.5rem) var(--spacing-sm, 0.75rem);
+            border-radius: var(--radius-md, 8px);
+            color: var(--text-secondary, #6c757d);
+            font-size: var(--font-size-sm, 0.875rem);
+            font-weight: 500;
+            box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer-text" id="timer-text">0.00s</div>
+    <div id="tester-container"></div>
+
+        <script type="module" src="./TesterXWUITester-Solution4.ts"></script>
+</body>
+</html>
+

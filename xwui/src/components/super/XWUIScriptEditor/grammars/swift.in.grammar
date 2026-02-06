@@ -1,0 +1,38 @@
+// swift.grammar
+// Swift Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: top_level_decl
+
+top_level_decl: statement*
+
+statement: declaration | expression | control_flow
+
+declaration: import_declaration | constant_declaration | variable_declaration | function_declaration | class_declaration | struct_declaration | enum_declaration | protocol_declaration
+
+import_declaration: "import" [module_kind] import_path
+
+constant_declaration: ["let"] IDENTIFIER [type_annotation] "=" expression
+
+variable_declaration: ["var"] IDENTIFIER [type_annotation] ["=" expression]
+
+function_declaration: "func" IDENTIFIER [generic_parameter_clause] function_signature [function_body]
+
+class_declaration: ["class"] IDENTIFIER [generic_parameter_clause] [type_inheritance_clause] class_body
+
+struct_declaration: ["struct"] IDENTIFIER [generic_parameter_clause] [type_inheritance_clause] struct_body
+
+enum_declaration: ["enum"] IDENTIFIER [generic_parameter_clause] [type_inheritance_clause] enum_body
+
+protocol_declaration: "protocol" IDENTIFIER [type_inheritance_clause] protocol_body
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

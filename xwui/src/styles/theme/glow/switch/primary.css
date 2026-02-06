@@ -1,0 +1,16 @@
+/* ============================================
+   SWITCH - PRIMARY GLOW
+   ============================================ */
+
+:root[data-glow="primary"] {
+    /* Switch glows */
+    --glow-switch-thumb-hover: 0 3px 6px color-mix(in srgb, var(--accent-primary) 25%, transparent), 0 2px 3px color-mix(in srgb, var(--accent-primary) 15%, transparent);
+    --glow-switch-thumb-focus: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 20%, transparent), 0 2px 4px color-mix(in srgb, var(--accent-primary) 30%, transparent);
+    --glow-switch-track-checked: 0 0 4px color-mix(in srgb, var(--accent-primary) 30%, transparent);
+}
+
+/* Utility class for direct application */
+.glow-switch-primary {
+    box-shadow: var(--glow-switch-thumb-hover) !important;
+}
+

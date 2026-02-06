@@ -1,0 +1,14 @@
+/* ============================================
+   HEADINGS - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-headings: 4px;
+    /* Fallback: --radius-heading → --radius-lg → 4px */
+}
+
+/* Utility class for direct application */
+.radius-headings-minimal {
+    border-radius: var(--radius-headings, 4px) !important;
+}

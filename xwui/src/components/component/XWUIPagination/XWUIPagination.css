@@ -1,0 +1,162 @@
+/**
+ * XWUIPagination Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/pagination/*.css (component-specific border widths)
+ * - Roundness: theme/roundness/pagination/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-pagination {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.xwui-pagination-list {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.25rem);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.xwui-pagination-total {
+    margin-right: var(--spacing-sm, 0.5rem);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+/* Buttons */
+.xwui-pagination-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 var(--spacing-sm, 0.5rem);
+    border: var(--border-pagination-width, var(--border-width-regular, 1.5px)) var(--border-pagination-style, solid) var(--border-pagination-color, var(--border-color));
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: var(--radius-pagination, var(--radius-sm, 6px));
+    cursor: pointer;
+    font-size: var(--font-size-sm, 0.875rem);
+    transition: all 0.2s;
+}
+
+.xwui-pagination-button:hover:not(:disabled) {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.xwui-pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.xwui-pagination-button-active {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--text-inverse);
+}
+
+.xwui-pagination-button-active:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+
+/* Ellipsis */
+.xwui-pagination-ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    color: var(--text-secondary);
+}
+
+/* Size variants */
+.xwui-pagination-small .xwui-pagination-button {
+    min-width: 28px;
+    height: 28px;
+    font-size: var(--font-size-sm, 0.8125rem);
+}
+
+.xwui-pagination-large .xwui-pagination-button {
+    min-width: 36px;
+    height: 36px;
+    font-size: var(--font-size-base, 0.9375rem);
+}
+
+/* Simple mode */
+.xwui-pagination-simple-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.xwui-pagination-simple-input {
+    width: 50px;
+    height: 32px;
+    padding: 0 var(--spacing-sm, 0.5rem);
+    border: var(--border-pagination-width, var(--border-width-regular, 1.5px)) var(--border-pagination-style, solid) var(--border-pagination-color, var(--border-color));
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: var(--radius-pagination, var(--radius-sm, 6px));
+    text-align: center;
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-pagination-simple-separator {
+    color: var(--text-secondary);
+}
+
+.xwui-pagination-simple-total {
+    color: var(--text-secondary);
+}
+
+/* Size changer */
+.xwui-pagination-size-changer {
+    margin-left: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-pagination-size-select {
+    padding: var(--spacing-xs, 0.375rem) var(--spacing-sm, 0.75rem);
+    border: var(--border-pagination-width, var(--border-width-regular, 1.5px)) var(--border-pagination-style, solid) var(--border-pagination-color, var(--border-color));
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: var(--radius-pagination, var(--radius-sm, 6px));
+    font-size: var(--font-size-sm, 0.875rem);
+    cursor: pointer;
+}
+
+/* Quick jumper */
+.xwui-pagination-jumper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: var(--spacing-sm, 0.5rem);
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary);
+}
+
+.xwui-pagination-jumper-input {
+    width: 50px;
+    height: 32px;
+    padding: 0 var(--spacing-sm, 0.5rem);
+    border: var(--border-pagination-width, var(--border-width-regular, 1.5px)) var(--border-pagination-style, solid) var(--border-pagination-color, var(--border-color));
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: var(--radius-pagination, var(--radius-sm, 6px));
+    text-align: center;
+    font-size: var(--font-size-sm, 0.875rem);
+}
+

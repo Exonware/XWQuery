@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-audio-editor.schema.json",
+  "title": "XWUIAudioEditor Schema",
+  "description": "Schema for XWUIAudioEditor component",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "additionalProperties": false,
+      "properties": {
+        "allowTrim": {
+          "type": "boolean",
+          "description": "Allow trimming audio",
+          "default": true
+        },
+        "allowFade": {
+          "type": "boolean",
+          "description": "Allow fade in/out",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "additionalProperties": false,
+      "properties": {
+        "audioSrc": {
+          "type": "string",
+          "description": "Source URL of the audio to edit"
+        }
+      }
+    }
+  },
+  "id": "XWUIAudioEditor"
+}

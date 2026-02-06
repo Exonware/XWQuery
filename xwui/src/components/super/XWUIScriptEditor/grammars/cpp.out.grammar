@@ -1,0 +1,17 @@
+# cpp.out.grammar
+# C++ Output Grammar - Template for generating C++ from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@translation_unit = {{#each declarations}}{{value}}
+{{/each}}
+
+@function_def = {{#if attributes}}{{attributes}} {{/if}}{{#if specifiers}}{{specifiers}} {{/if}}{{declarator}} {{body}}
+
+@class_def = {{#if attributes}}{{attributes}} {{/if}}{{keyword}} {{name}}{{#if bases}} {{bases}}{{/if}} {
+{{#each body}}{{value}}
+{{/each}}}
+
+@indent = 4
+@pretty = true
+

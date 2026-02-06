@@ -1,0 +1,122 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\title{Sample LaTeX Document}
+\author{XWUI Team}
+\date{January 15, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This is a comprehensive LaTeX example demonstrating various LaTeX features including sections, equations, tables, code listings, and more.
+\end{abstract}
+
+\section{Introduction}
+
+This document demonstrates various LaTeX features and capabilities. LaTeX is a high-quality typesetting system designed for the production of technical and scientific documentation.
+
+\subsection{Text Formatting}
+
+You can use \textbf{bold text}, \textit{italic text}, and \texttt{monospace text}. You can also combine them: \textbf{\textit{bold and italic}}.
+
+\subsection{Lists}
+
+\subsubsection{Unordered List}
+
+\begin{itemize}
+    \item First item
+    \item Second item
+    \begin{itemize}
+        \item Nested item
+        \item Another nested item
+    \end{itemize}
+    \item Third item
+\end{itemize}
+
+\subsubsection{Ordered List}
+
+\begin{enumerate}
+    \item First item
+    \item Second item
+    \begin{enumerate}
+        \item Nested numbered item
+        \item Another nested item
+    \end{enumerate}
+    \item Third item
+\end{enumerate}
+
+\section{Mathematics}
+
+\subsection{Inline Math}
+
+The quadratic formula is $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$.
+
+\subsection{Display Math}
+
+The Pythagorean theorem:
+\[
+a^2 + b^2 = c^2
+\]
+
+Euler's identity:
+\[
+e^{i\pi} + 1 = 0
+\]
+
+Integral:
+\[
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+\]
+
+\section{Tables}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|r|}
+\hline
+\textbf{Item ID} & \textbf{Name} & \textbf{Price} \\
+\hline
+1 & First Item & \$29.99 \\
+2 & Second Item & \$49.99 \\
+3 & Third Item & \$19.99 \\
+\hline
+\end{tabular}
+\caption{Sample Table}
+\label{tab:sample}
+\end{table}
+
+\section{Code Listings}
+
+\begin{lstlisting}[language=Python, caption=Python Example]
+def calculate_total(items):
+    return sum(item.price for item in items if item.active)
+
+items = [
+    {'name': 'Item 1', 'price': 29.99, 'active': True},
+    {'name': 'Item 2', 'price': 49.99, 'active': False}
+]
+
+total = calculate_total(items)
+print(f"Total: ${total:.2f}")
+\end{lstlisting}
+
+\section{References}
+
+As shown in Table~\ref{tab:sample}, we can reference tables. We can also cite references\cite{example}.
+
+\begin{thebibliography}{9}
+\bibitem{example}
+Example Reference. \textit{Example Journal}, 2025.
+\end{thebibliography}
+
+\end{document}
+

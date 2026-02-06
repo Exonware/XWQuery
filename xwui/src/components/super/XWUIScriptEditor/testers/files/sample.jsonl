@@ -1,0 +1,9 @@
+{"timestamp": "2025-01-15T10:00:00Z", "level": "info", "message": "Application started", "service": "api"}
+{"timestamp": "2025-01-15T10:00:15Z", "level": "debug", "message": "Database connection established", "service": "db", "duration_ms": 45}
+{"timestamp": "2025-01-15T10:00:30Z", "level": "info", "message": "User logged in", "service": "auth", "user_id": 12345, "ip": "192.168.1.100"}
+{"timestamp": "2025-01-15T10:01:00Z", "level": "warn", "message": "High memory usage detected", "service": "monitor", "memory_mb": 2048, "threshold_mb": 2000}
+{"timestamp": "2025-01-15T10:01:30Z", "level": "error", "message": "Failed to process request", "service": "api", "error": "Connection timeout", "request_id": "req-abc123"}
+{"timestamp": "2025-01-15T10:02:00Z", "level": "info", "message": "Cache updated", "service": "cache", "keys_updated": 150, "duration_ms": 12}
+
+
+

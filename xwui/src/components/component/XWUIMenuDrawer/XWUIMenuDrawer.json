@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIMenuDrawer",
+  "name": "XWUI Drawer Component",
+  "description": "Drawer (side sheet) component that slides in from edges of the screen. Supports placement from all four sides (left, right, top, bottom), various sizes, backdrop mask, and close behaviors. Useful for navigation, settings, and secondary content.",
+  "path": "overlay.drawer",
+  "tags": [
+    "overlay",
+    "drawer",
+    "side-sheet",
+    "panel",
+    "navigation",
+    "desktop",
+    "mobile",
+    "tablet"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "placement": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "description": "Side from which the drawer slides in",
+          "default": "right"
+        },
+        "size": {
+          "type": "string",
+          "enum": [
+            "small",
+            "medium",
+            "large",
+            "full"
+          ],
+          "description": "Size of the drawer",
+          "default": "medium"
+        },
+        "closable": {
+          "type": "boolean",
+          "description": "Whether to show close button",
+          "default": true
+        },
+        "closeOnBackdrop": {
+          "type": "boolean",
+          "description": "Whether clicking the backdrop closes the drawer",
+          "default": true
+        },
+        "closeOnEscape": {
+          "type": "boolean",
+          "description": "Whether pressing Escape closes the drawer",
+          "default": true
+        },
+        "mask": {
+          "type": "boolean",
+          "description": "Whether to show backdrop mask",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the drawer"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title text for the drawer header"
+        },
+        "content": {
+          "description": "Content element or HTML string for the drawer body"
+        },
+        "footer": {
+          "description": "Footer element for the drawer"
+        }
+      }
+    }
+  }
+}

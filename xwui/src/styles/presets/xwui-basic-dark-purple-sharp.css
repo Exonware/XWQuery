@@ -1,0 +1,16 @@
+/* ============================================
+   PRESET: XWUI Basic Dark Purple Sharp
+   Complete theme preset for quick loading
+   ============================================ */
+
+@import '../base/reset.css';
+@import '../base/typography.css';
+@import '../base/utilities.css';
+@import '../brand/xwui/brand.css';
+@import '../style/basic/spacing.css';
+@import '../style/basic/shadows.css';
+@import '../theme/colors/dark.css';
+@import '../theme/accents/purple.css';
+@import '../theme/roundness/sharp.css';
+@import '../theme/typography/system.css';
+

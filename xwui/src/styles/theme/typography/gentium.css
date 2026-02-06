@@ -1,0 +1,59 @@
+/* ============================================
+   GENTIUM TYPOGRAPHY - Gentium font family
+   ============================================ */
+
+:root[data-font="gentium"],
+:root:not([data-font]) {
+    --font-family-base: /* Gentium - comprehensive serif font */
+        'Gentium', 'Gentium Plus', 'Gentium Basic',
+        /* Latin & Extended Latin */
+        'Gentium', 'Gentium Plus', 'Gentium Basic',
+        /* Greek - Gentium support */
+        'Gentium', 'Gentium Plus', 'Gentium Basic',
+        /* Cyrillic - Gentium support */
+        'Gentium', 'Gentium Plus', 'Gentium Basic',
+        /* International Phonetic Alphabet - Gentium support */
+        'Gentium', 'Gentium Plus', 'Gentium Basic',
+        /* Arabic & Persian - Fallback fonts */
+        'Noto Serif Arabic', 'Noto Naskh Arabic',
+        'Segoe UI', 'Arabic UI Display', 'Tahoma', 'Arial Unicode MS',
+        /* Hebrew - Fallback fonts */
+        'Noto Serif Hebrew', 'Segoe UI', 'Hebrew UI Display',
+        'David', 'Arial Hebrew',
+        /* Chinese - Fallback fonts */
+        'Noto Serif SC', 'Noto Serif TC', 'Noto Serif HK',
+        'Source Han Serif SC', 'Source Han Serif TC', 'Source Han Serif HK',
+        'Microsoft YaHei', '微软雅黑', 'SimSun', '宋体',
+        /* Japanese - Fallback fonts */
+        'Noto Serif JP', 'Source Han Serif JP',
+        'Hiragino Mincho ProN', 'Yu Mincho', 'MS PMincho',
+        /* Korean - Fallback fonts */
+        'Noto Serif KR', 'Source Han Serif KR',
+        'Nanum Myeongjo', 'AppleMyungjo',
+        /* Thai - Fallback fonts */
+        'Noto Serif Thai', 'Sarabun',
+        /* Devanagari - Fallback fonts */
+        'Noto Serif Devanagari', 'Nirmala UI',
+        /* Bengali - Fallback fonts */
+        'Noto Serif Bengali',
+        /* Tamil - Fallback fonts */
+        'Noto Serif Tamil',
+        /* Telugu - Fallback fonts */
+        'Noto Serif Telugu',
+        /* Gujarati - Fallback fonts */
+        'Noto Serif Gujarati',
+        /* Kannada - Fallback fonts */
+        'Noto Serif Kannada',
+        /* Malayalam - Fallback fonts */
+        'Noto Serif Malayalam',
+        /* Oriya - Fallback fonts */
+        'Noto Serif Oriya',
+        /* Punjabi - Fallback fonts */
+        'Noto Serif Gurmukhi',
+        /* Fallback to serif system fonts */
+        Georgia, 'Times New Roman', 'Times', serif;
+    --font-family-mono: 'SF Mono', 'Monaco', 'Menlo',
+        'Roboto Mono', 'Consolas', 'Courier New',
+        'Liberation Mono', 'DejaVu Sans Mono', 'Noto Sans Mono', monospace;
+}
+

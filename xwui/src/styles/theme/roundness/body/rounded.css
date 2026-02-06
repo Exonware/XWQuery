@@ -1,0 +1,14 @@
+/* ============================================
+   BODY - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-body: 8px;
+    /* Fallback: --radius-text → --radius-base → 8px */
+}
+
+/* Utility class for direct application */
+.radius-body-rounded {
+    border-radius: var(--radius-body, 8px) !important;
+}

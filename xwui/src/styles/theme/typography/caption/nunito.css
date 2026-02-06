@@ -1,0 +1,13 @@
+/* ============================================
+   CAPTION TYPOGRAPHY - NUNITO
+   ============================================ */
+
+:root[data-font="nunito"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-caption-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-caption-nunito {
+    font-family: var(--font-caption-family, var(--font-family-base, sans-serif)) !important;
+}

@@ -1,0 +1,129 @@
+# PowerShell Script Example
+# Comprehensive PowerShell script demonstrating various features
+
+# Script metadata
+$ScriptName = "sample.ps1"
+$Version = "1.0.0"
+$Author = "XWUI Team"
+
+# Functions
+function Write-Header {
+    param([string]$Text)
+    Write-Host "==========================================" -ForegroundColor Cyan
+    Write-Host "  $Text" -ForegroundColor Cyan
+    Write-Host "==========================================" -ForegroundColor Cyan
+}
+
+function Write-Success {
+    param([string]$Message)
+    Write-Host "✓ $Message" -ForegroundColor Green
+}
+
+function Write-Error {
+    param([string]$Message)
+    Write-Host "✗ $Message" -ForegroundColor Red
+}
+
+function Write-Warning {
+    param([string]$Message)
+    Write-Host "⚠ $Message" -ForegroundColor Yellow
+}
+
+# Item class
+class Item {
+    [int]$Id
+    [string]$Name
+    [bool]$Active
+    [double]$Price
+    [string[]]$Categories
+    
+    Item([int]$id, [string]$name, [bool]$active, [double]$price, [string[]]$categories) {
+        $this.Id = $id
+        $this.Name = $name
+        $this.Active = $active
+        $this.Price = $price
+        $this.Categories = $categories
+    }
+}
+
+# Document class
+class Document {
+    [string]$Name
+    [string]$Version
+    [string]$Description
+    [Item[]]$Items
+    
+    Document([string]$name, [string]$version, [string]$description) {
+        $this.Name = $name
+        $this.Version = $version
+        $this.Description = $description
+        $this.Items = @()
+    }
+    
+    [void]AddItem([Item]$item) {
+        $this.Items += $item
+    }
+    
+    [Item[]]GetActiveItems() {
+        return $this.Items | Where-Object { $_.Active -eq $true }
+    }
+    
+    [double]GetTotalPrice() {
+        $activeItems = $this.GetActiveItems()
+        return ($activeItems | Measure-Object -Property Price -Sum).Sum
+    }
+}
+
+# Main function
+function Main {
+    Write-Header "Sample PowerShell Script"
+    Write-Host "Version: $Version"
+    Write-Host "Author: $Author"
+    Write-Host ""
+    
+    # Create document
+    $doc = [Document]::new(
+        "Sample PowerShell Document",
+        "1.0.0",
+        "PowerShell code example"
+    )
+    
+    # Add items
+    $doc.AddItem([Item]::new(1, "First Item", $true, 29.99, @("electronics", "gadgets")))
+    $doc.AddItem([Item]::new(2, "Second Item", $false, 49.99, @("books", "education")))
+    $doc.AddItem([Item]::new(3, "Third Item", $true, 19.99, @("tools", "hardware")))
+    
+    # Display results
+    Write-Header "Document Information"
+    Write-Host "Name: $($doc.Name)"
+    Write-Host "Version: $($doc.Version)"
+    Write-Host "Active items: $($doc.GetActiveItems().Count)"
+    Write-Host "Total price: `$$([math]::Round($doc.GetTotalPrice(), 2))"
+    
+    # Check dependencies
+    Write-Header "Checking Dependencies"
+    if (Get-Command git -ErrorAction SilentlyContinue) {
+        Write-Success "Git is installed"
+    } else {
+        Write-Error "Git is not installed"
+    }
+    
+    if (Get-Command node -ErrorAction SilentlyContinue) {
+        Write-Success "Node.js is installed"
+    } else {
+        Write-Warning "Node.js is not installed"
+    }
+    
+    Write-Header "Script Complete"
+}
+
+# Error handling
+$ErrorActionPreference = "Stop"
+trap {
+    Write-Error "Script failed: $_"
+    exit 1
+}
+
+# Run main function
+Main
+

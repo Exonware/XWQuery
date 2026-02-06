@@ -1,0 +1,17 @@
+/* ============================================
+   ALERT LINES - SUBTLE LINES
+   ============================================ */
+
+:root[data-lines="subtle"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-alert-width: var(--border-width-regular, 1px);
+    --border-alert-style: solid;
+    --border-alert-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-alert-subtle {
+    border-style: var(--border-alert-style, solid);
+    border-width: var(--border-alert-width, var(--border-width-regular, 1px));
+    border-color: var(--border-alert-color, var(--border-medium, var(--border-color)));
+}

@@ -1,0 +1,38 @@
+// latex.grammar
+// LaTeX Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: document
+
+document: "\\documentclass" "[" options "]" "{" class_name "}" preamble? "\\begin{document}" content "\\end{document}"
+
+preamble: preamble_command*
+
+preamble_command: "\\usepackage" "[" options "]" "{" package_name "}" | "\\newcommand" | "\\newenvironment"
+
+content: element*
+
+element: command | environment | text | math
+
+command: "\\" command_name [arguments]
+
+arguments: "{" content "}" | "[" content "]"
+
+environment: "\\begin{" environment_name "}" content "\\end{" environment_name "}"
+
+math: "$" math_content "$" | "\\[" math_content "\\]"
+
+text: TEXT_CONTENT
+
+// Terminals
+command_name: /[a-zA-Z]+/
+environment_name: /[a-zA-Z]+/
+package_name: /[a-zA-Z0-9-]+/
+class_name: /[a-zA-Z]+/
+TEXT_CONTENT: /[^\\$]+/
+math_content: /[^$\\]+/
+
+%import common.WS
+
+%ignore WS
+

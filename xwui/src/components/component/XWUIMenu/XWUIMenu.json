@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIMenu",
+  "name": "XWUI Menu Component",
+  "description": "Navigation menu component for displaying hierarchical menu items. Supports horizontal and vertical modes, light/dark themes, nested menus, icons, and selection states. Uses XWUIItemGroup internally.",
+  "path": "navigation.menu",
+  "tags": ["navigation", "menu", "items", "hierarchy", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["horizontal", "vertical"],
+          "description": "Layout mode of the menu",
+          "default": "vertical"
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["light", "dark"],
+          "description": "Theme of the menu"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the menu items"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the menu"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of menu items to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the menu item"
+              },
+              "label": {
+                "type": "string",
+                "description": "Label text for the menu item"
+              },
+              "icon": {
+                "type": "string",
+                "description": "SVG icon HTML string for the menu item"
+              },
+              "href": {
+                "type": "string",
+                "description": "URL link for the menu item"
+              },
+              "children": {
+                "type": "array",
+                "description": "Nested menu items (recursive structure)",
+                "items": {
+                  "description": "XWUIMenuItem (recursive)"
+                }
+              },
+              "disabled": {
+                "type": "boolean",
+                "description": "Whether the menu item is disabled"
+              },
+              "divider": {
+                "type": "boolean",
+                "description": "Whether this item is a divider/separator"
+              }
+            },
+            "required": ["id", "label"]
+          }
+        },
+        "selected": {
+          "type": "string",
+          "description": "ID of the currently selected menu item"
+        }
+      },
+      "required": ["items"]
+    }
+  }
+}
+

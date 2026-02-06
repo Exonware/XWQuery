@@ -1,0 +1,13 @@
+/* ============================================
+   BADGE - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-badge: 9999px;
+}
+
+/* Utility class for direct application */
+.radius-badge-pill {
+    border-radius: var(--radius-badge, 9999px) !important;
+}

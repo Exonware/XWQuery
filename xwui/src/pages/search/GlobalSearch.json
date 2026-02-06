@@ -1,0 +1,78 @@
+{
+  "id": "search.global",
+  "name": "Global Search",
+  "description": "Search page with search bar, filters sidebar, and results area",
+  "path": "/search",
+  "conf_comp": {
+    "pageType": "search",
+    "layout": {
+      "regions": {
+        "header": true,
+        "sidebar": true,
+        "main": true
+      },
+      "grid": {
+        "columns": "250px 1fr",
+        "rows": "auto 1fr",
+        "areas": "\"header header\" \"sidebar main\"",
+        "gap": "1rem"
+      }
+    }
+  },
+  "data": {
+    "title": "Global Search",
+    "subtitle": "Search across all content",
+    "header": {
+      "component": "XWUICard",
+      "region": "header",
+      "gridArea": "header",
+      "conf_comp": {
+        "variant": "outlined"
+      },
+      "data": {
+        "content": "<div>[XWUIInput: Search query] [XWUIButton: Search] [XWUIButton: Advanced Filters]</div>"
+      }
+    },
+    "sidebar": {
+      "component": "XWUIFilters",
+      "region": "sidebar",
+      "gridArea": "sidebar",
+      "conf_comp": {
+        "variant": "outlined"
+      },
+      "data": {
+        "filters": [
+          {
+            "component": "XWUISelect",
+            "conf_comp": { "label": "Type" },
+            "data": {
+              "options": [
+                { "value": "all", "label": "All" },
+                { "value": "users", "label": "Users" },
+                { "value": "documents", "label": "Documents" }
+              ]
+            }
+          },
+          {
+            "component": "XWUIDateRangePicker",
+            "conf_comp": { "label": "Date Range" },
+            "data": {}
+          }
+        ]
+      }
+    },
+    "main": {
+      "component": "XWUIList",
+      "region": "main",
+      "gridArea": "main",
+      "conf_comp": {
+        "variant": "outlined"
+      },
+      "data": {
+        "items": []
+      },
+      "targetId": "search-results"
+    }
+  }
+}
+

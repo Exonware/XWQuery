@@ -1,0 +1,50 @@
+// JSON Query Examples
+// JSON Query is a query language for JSON documents
+
+// Basic selection
+$.users[*].name
+$.users[0].email
+$.config.database.host
+
+// Filtering
+$.items[?(@.active == true)]
+$.items[?(@.price > 20 && @.price < 50)]
+$.users[?(@.age >= 18 && @.age <= 65)]
+
+// Array operations
+$.items[*].{name: name, price: price}
+$.items[0:5]
+$.items[-3:]
+
+// Nested queries
+$.orders[*].items[*].{name: name, quantity: quantity}
+$.users[*].orders[*].total
+
+// Aggregations
+$.items[*].price | max(@)
+$.items[*].price | min(@)
+$.items[*].price | sum(@)
+$.items[*].price | avg(@)
+
+// Complex queries
+$.users[?(@.active == true)].{
+  name: name,
+  email: email,
+  orders: orders[*].{
+    id: id,
+    total: total,
+    date: date
+  }
+}
+
+// Path expressions
+$..name
+$..[?(@.active == true)]
+$..price
+
+// Conditional expressions
+$.items[*].{
+  name: name,
+  status: price > 50 ? "expensive" : "affordable"
+}
+

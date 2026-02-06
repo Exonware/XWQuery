@@ -1,0 +1,13 @@
+/* ============================================
+   INPUT - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-input: 0px;
+}
+
+/* Utility class for direct application */
+.radius-input-sharp {
+    border-radius: var(--radius-input, 0px) !important;
+}

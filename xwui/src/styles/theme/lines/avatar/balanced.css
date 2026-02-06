@@ -1,0 +1,17 @@
+/* ============================================
+   AVATAR LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-avatar-width: var(--border-width-regular, 1.5px);
+    --border-avatar-style: solid;
+    --border-avatar-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-avatar-balanced {
+    border-style: var(--border-avatar-style, solid);
+    border-width: var(--border-avatar-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-avatar-color, var(--border-medium, var(--border-color)));
+}

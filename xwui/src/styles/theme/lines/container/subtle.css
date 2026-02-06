@@ -1,0 +1,17 @@
+/* ============================================
+   CONTAINER LINES - SUBTLE LINES
+   ============================================ */
+
+:root[data-lines="subtle"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-container-width: var(--border-width-regular, 1px);
+    --border-container-style: solid;
+    --border-container-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-container-subtle {
+    border-style: var(--border-container-style, solid);
+    border-width: var(--border-container-width, var(--border-width-regular, 1px));
+    border-color: var(--border-container-color, var(--border-medium, var(--border-color)));
+}

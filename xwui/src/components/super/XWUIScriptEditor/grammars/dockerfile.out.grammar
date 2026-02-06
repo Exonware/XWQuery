@@ -1,0 +1,23 @@
+# dockerfile.out.grammar
+# Dockerfile Output Grammar - Template for generating Dockerfile from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@dockerfile = {{#each instructions}}{{value}}
+{{/each}}
+
+@FROM = FROM {{image}}{{#if tag}} {{tag}}{{/if}}{{#if alias}} AS {{alias}}{{/if}}
+
+@RUN = RUN {{command}}
+
+@CMD = CMD {{command}}
+
+@LABEL = LABEL {{#each pairs}}{{key}}={{value}}{{#if !@last}} {{/if}}{{/each}}
+
+@EXPOSE = EXPOSE {{#each ports}}{{value}}{{#if !@last}} {{/if}}{{/each}}
+
+@ENV = ENV {{#each pairs}}{{key}}={{value}}{{#if !@last}} {{/if}}{{/each}}
+
+@indent = 0
+@pretty = false
+

@@ -1,0 +1,14 @@
+/* ============================================
+   TABLE - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-table: 4px;
+    /* Fallback: --radius-content → --radius-xs → 4px */
+}
+
+/* Utility class for direct application */
+.radius-table-rounded {
+    border-radius: var(--radius-table, 4px) !important;
+}

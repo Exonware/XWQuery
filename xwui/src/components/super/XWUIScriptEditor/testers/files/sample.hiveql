@@ -1,0 +1,88 @@
+-- HiveQL Examples
+-- SQL-like language for Apache Hive
+
+-- Basic SELECT
+SELECT * FROM users WHERE age > 25;
+
+-- Create table
+CREATE TABLE users (
+    id INT,
+    name STRING,
+    email STRING,
+    age INT,
+    created_date DATE
+)
+STORED AS PARQUET
+LOCATION '/user/hive/warehouse/users';
+
+-- Load data
+LOAD DATA INPATH '/data/users.csv'
+INTO TABLE users;
+
+-- Aggregations
+SELECT 
+    category,
+    COUNT(*) as count,
+    SUM(price) as total,
+    AVG(price) as avg_price
+FROM items
+WHERE active = true
+GROUP BY category;
+
+-- Joins
+SELECT 
+    u.name,
+    o.total,
+    o.date
+FROM users u
+JOIN orders o ON u.id = o.user_id
+WHERE o.status = 'completed';
+
+-- Window functions
+SELECT 
+    name,
+    total,
+    ROW_NUMBER() OVER (PARTITION BY category ORDER BY total DESC) as rank,
+    SUM(total) OVER (PARTITION BY category) as category_total
+FROM orders;
+
+-- Partitioning
+SELECT 
+    date,
+    category,
+    SUM(revenue) as daily_revenue
+FROM sales
+WHERE date >= '2025-01-01'
+GROUP BY date, category;
+
+-- Bucketing
+CREATE TABLE sales_bucketed (
+    id INT,
+    date DATE,
+    amount DECIMAL(10,2)
+)
+CLUSTERED BY (id) INTO 4 BUCKETS
+STORED AS PARQUET;
+
+-- Complex queries
+SELECT 
+    u.name,
+    COUNT(o.id) as order_count,
+    SUM(o.total) as total_spent,
+    AVG(o.total) as avg_order_value
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+WHERE u.active = true
+GROUP BY u.name
+HAVING COUNT(o.id) > 5
+ORDER BY total_spent DESC
+LIMIT 10;
+
+-- Subqueries
+SELECT * FROM users
+WHERE id IN (
+    SELECT DISTINCT user_id 
+    FROM orders 
+    WHERE total > 1000
+);
+

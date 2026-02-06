@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewer Component Tester</title>
+    
+        <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-viewer-content">
+<div class="test-controls">
+            <label style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="showUploadToggle" checked style="width: 18px; height: 18px; cursor: pointer;">
+                Show Upload Button
+            </label>
+            <button id="reinitButton" class="test-button">Reinitialize Viewer</button>
+        </div>
+        
+        <div class="test-area" style="height: 700px;">
+            <div class="viewer-container" style="height: 100%; padding: 20px;">
+                <div class="viewer-file-controls" style="margin-bottom: 15px;">
+                    <input type="file" id="fileInput" accept=".json" />
+                    <label for="fileInput" class="file-label">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        Upload JSON File
+                    </label>
+                    <span id="fileName" class="file-name"></span>
+                </div>
+                <div class="viewer-content-area">
+                    <div class="monaco-tabs">
+                        <div class="monaco-tab active" data-tab="json">JSON</div>
+                        <div class="monaco-tab" data-tab="html">HTML</div>
+                        <div class="monaco-tab" data-tab="view">VIEW</div>
+                    </div>
+                    
+                    <div id="jsonTab" class="tab-content active">
+                        <div id="jsonEditorContainer" class="monaco-editor-container"></div>
+                        <textarea id="jsonInput" placeholder="Paste your JSON here..."></textarea>
+                    </div>
+                    
+                    <div id="htmlTab" class="tab-content">
+                        <div id="htmlEditorContainer" class="monaco-editor-container" style="display: none;"></div>
+                        <textarea id="htmlCode" readonly placeholder="HTML code will appear here..."></textarea>
+                    </div>
+                    
+                    <div id="viewTab" class="tab-content">
+                        <div id="viewContent"></div>
+                    </div>
+                </div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterViewer.ts"></script>
+</body>
+</html>
+

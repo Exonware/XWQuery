@@ -1,0 +1,14 @@
+/* ============================================
+   HEADINGS - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-headings: 16px;
+    /* Fallback: --radius-heading → --radius-lg → 16px */
+}
+
+/* Utility class for direct application */
+.radius-headings-soft {
+    border-radius: var(--radius-headings, 16px) !important;
+}

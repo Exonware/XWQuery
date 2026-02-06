@@ -1,0 +1,47 @@
+/**
+ * XWUIActivityFilter Component Styles
+ */
+
+.xwui-activity-filter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    width: 100%;
+}
+
+.xwui-activity-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+    padding: var(--spacing-sm, 0.5rem);
+    background: var(--bg-secondary, #f8f9fa);
+    border-radius: var(--radius-md, 8px);
+    flex-wrap: wrap;
+}
+
+.xwui-activity-filter-search {
+    flex: 1;
+    min-width: 200px;
+}
+
+.xwui-activity-filter-type,
+.xwui-activity-filter-date {
+    flex: 0 0 auto;
+}
+
+.xwui-activity-filter-chips {
+    display: flex;
+    gap: var(--spacing-xs, 0.25rem);
+    flex-wrap: wrap;
+}
+
+.xwui-activity-filter-tabs {
+    border-bottom: 1px solid var(--border-color, #dee2e6);
+}
+
+.xwui-activity-filter-thread {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 600px;
+}
+

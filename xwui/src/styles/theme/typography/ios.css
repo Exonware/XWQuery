@@ -1,0 +1,37 @@
+/* ============================================
+   IOS TYPOGRAPHY - Ios font family
+   ============================================ */
+
+:root[data-font="ios"],
+:root:not([data-font]) {
+    --font-family-base: /* iOS/macOS San Francisco fonts */
+        -apple-system, BlinkMacSystemFont,
+        'SF Pro Display', 'SF Pro Text', 'SF Pro Rounded',
+        'SF Mono', 'SF Compact', 'SF Compact Rounded',
+        /* Arabic & Persian - iOS supports these natively */
+        'Arabic UI Display', 'Arabic UI Text', 'Geeza Pro', 'KufiStandardGK',
+        /* Hebrew - iOS native */
+        'Hebrew UI Display', 'Hebrew UI Text', 'Helvetica Hebrew',
+        /* Chinese - iOS native fonts */
+        'PingFang SC', 'PingFang TC', 'PingFang HK',
+        'Hiragino Sans GB', 'STHeiti', 'STSong', 'STKaiti', 'STFangsong',
+        'Heiti SC', 'Heiti TC', 'Kaiti SC', 'Kaiti TC',
+        /* Japanese - iOS native */
+        'Hiragino Kaku Gothic ProN', 'Hiragino Kaku Gothic Pro', 'Hiragino Mincho ProN',
+        'Hiragino Mincho Pro', 'Yu Gothic', 'Yu Mincho', 'Osaka',
+        /* Korean - iOS native */
+        'Apple SD Gothic Neo', 'AppleGothic', 'AppleMyungjo',
+        /* Thai - iOS native */
+        'Thonburi', 'Sathu',
+        /* Devanagari - iOS native */
+        'Kohinoor Devanagari', 'Kohinoor Telugu',
+        /* Cyrillic - iOS native */
+        'Helvetica Neue Cyrillic',
+        /* Vietnamese - iOS native */
+        'Helvetica Neue Vietnamese',
+        /* Fallback to system fonts */
+        system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-family-mono: 'SF Mono', 'Monaco', 'Menlo', 'Courier New',
+        'Consolas', 'Liberation Mono', monospace;
+}
+

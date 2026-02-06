@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIPickerDate",
+  "name": "XWUI Picker Date Component",
+  "description": "Date picker popup component - the calendar overlay/popup part for date selection. This is the picker component that displays a calendar for selecting dates. Extends XWUIPicker base class. Typically used with XWUIInputDate or standalone.",
+  "path": "picker.date",
+  "tags": ["picker", "date", "calendar", "popup", "overlay", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "type": "string",
+          "description": "Date format string for display (e.g., 'YYYY-MM-DD')",
+          "default": "YYYY-MM-DD"
+        },
+        "placement": {
+          "type": "string",
+          "enum": ["bottom", "top", "left", "right", "bottom-start", "bottom-end", "top-start", "top-end"],
+          "description": "Placement of the picker relative to trigger element",
+          "default": "bottom"
+        },
+        "offset": {
+          "type": "number",
+          "description": "Distance in pixels from trigger element",
+          "default": 8
+        },
+        "closeOnClickOutside": {
+          "type": "boolean",
+          "description": "Whether to close picker when clicking outside",
+          "default": true
+        },
+        "closeOnEscape": {
+          "type": "boolean",
+          "description": "Whether to close picker on Escape key",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "description": "Selected date value (Date object or string)"
+        },
+        "minDate": {
+          "description": "Minimum selectable date"
+        },
+        "maxDate": {
+          "description": "Maximum selectable date"
+        }
+      }
+    }
+  }
+}
+

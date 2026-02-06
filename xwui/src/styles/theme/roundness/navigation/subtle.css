@@ -1,0 +1,13 @@
+/* ============================================
+   NAVIGATION - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-navigation: 4px;
+}
+
+/* Utility class for direct application */
+.radius-navigation-subtle {
+    border-radius: var(--radius-navigation, 4px) !important;
+}

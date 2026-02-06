@@ -1,0 +1,14 @@
+/* ============================================
+   CAPTION - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-caption: 4px;
+    /* Fallback: --radius-text → --radius-xs → 4px */
+}
+
+/* Utility class for direct application */
+.radius-caption-rounded {
+    border-radius: var(--radius-caption, 4px) !important;
+}

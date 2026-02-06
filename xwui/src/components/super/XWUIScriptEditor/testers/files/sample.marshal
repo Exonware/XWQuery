@@ -1,0 +1,49 @@
+# Python Marshal Example
+# Note: Marshal is binary, but this shows the Python object structure
+# Marshal is faster than Pickle but less secure and Python-version specific
+
+# Python code that would create this marshal:
+"""
+import marshal
+
+data = {
+    'name': 'Sample Marshal Document',
+    'version': '1.0.0',
+    'description': 'Python fast serialization',
+    'metadata': {
+        'author': 'XWUI Team',
+        'created': '2025-01-15T10:30:00Z',
+        'tags': ['example', 'marshal', 'python']
+    },
+    'configuration': {
+        'database': {
+            'host': 'localhost',
+            'port': 5432,
+            'name': 'example_db',
+            'ssl': True
+        }
+    },
+    'items': [
+        {
+            'id': 1,
+            'name': 'First Item',
+            'active': True,
+            'price': 29.99,
+            'categories': ['electronics', 'gadgets']
+        }
+    ],
+    'numbers': [1, 2, 3, 4, 5],
+    'none_value': None
+}
+
+# Serialize to marshal
+with open('sample.marshal', 'wb') as f:
+    marshal.dump(data, f)
+"""
+
+# Marshal format (binary representation):
+# Version byte, type codes, data bytes
+# Supports: None, True, False, integers, floats, strings, tuples, lists, dicts, code objects
+
+
+

@@ -1,0 +1,302 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "TestersIndex",
+  "description": "Component index page that dynamically lists all XWUI components and their available testers with search and filtering capabilities",
+  "meta": {
+    "component": {
+      "id": "testers-index",
+      "name": "TestersIndex",
+      "displayName": "XWUI Components - Testers Index",
+      "description": "Dynamic listing of all XWUI components and their available testers. Provides search functionality, component statistics, and navigation to individual component tester pages.",
+      "category": "utility",
+      "version": "1.0.0"
+    },
+    "input": {
+      "description": "Input data required for the component index",
+      "rules": [
+        "Must receive a components manifest array",
+        "Each component object must have: name, path, hasTesters (boolean), testers (array)",
+        "Each tester object must have: name, filename, path, relativePath",
+        "Manifest can be provided via build-time generation or runtime API call"
+      ],
+      "properties": {
+        "components": {
+          "type": "array",
+          "description": "Array of component objects with their tester information",
+          "items": {
+            "type": "object",
+            "required": ["name", "path", "hasTesters", "testers"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Component name (e.g., 'XWUIButton')"
+              },
+              "path": {
+                "type": "string",
+                "description": "Component directory path (e.g., 'XWUIButton')"
+              },
+              "hasTesters": {
+                "type": "boolean",
+                "description": "Whether the component has any tester files"
+              },
+              "testers": {
+                "type": "array",
+                "description": "Array of tester file objects",
+                "items": {
+                  "type": "object",
+                  "required": ["name", "filename", "path", "relativePath"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Tester name (e.g., 'Default', 'Three-ways')"
+                    },
+                    "filename": {
+                      "type": "string",
+                      "description": "Tester HTML filename (e.g., 'TesterXWUIButton.html')"
+                    },
+                    "path": {
+                      "type": "string",
+                      "description": "Absolute file system path to tester file"
+                    },
+                    "relativePath": {
+                      "type": "string",
+                      "description": "Relative path from testers directory (e.g., 'XWUIButton/testers/TesterXWUIButton.html')"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "output": {
+      "description": "Output produced by the component index",
+      "rules": [
+        "Renders a searchable grid of component cards",
+        "Each card displays: component name, description, tester count, and tester links",
+        "Provides real-time statistics: total components, components with testers, total testers",
+        "Generates navigation links to individual tester HTML files",
+        "Supports filtering by component name, tester name, or description"
+      ],
+      "properties": {
+        "renderedHTML": {
+          "type": "string",
+          "description": "Fully rendered HTML page with component grid"
+        },
+        "statistics": {
+          "type": "object",
+          "description": "Component statistics displayed on the page",
+          "properties": {
+            "totalComponents": {
+              "type": "number",
+              "description": "Total number of components"
+            },
+            "componentsWithTesters": {
+              "type": "number",
+              "description": "Number of components that have at least one tester"
+            },
+            "totalTesters": {
+              "type": "number",
+              "description": "Total number of tester files across all components"
+            },
+            "filteredCount": {
+              "type": "number",
+              "description": "Number of components currently visible after filtering"
+            }
+          }
+        },
+        "componentCards": {
+          "type": "array",
+          "description": "Array of rendered component card elements",
+          "items": {
+            "type": "object",
+            "properties": {
+              "componentName": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "testerCount": {
+                "type": "number"
+              },
+              "testerLinks": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "actions": {
+      "description": "User actions supported by the component index",
+      "rules": [
+        "Search input filters components in real-time",
+        "Clicking tester links opens tester pages in new tabs",
+        "Search matches component names, tester names, filenames, and descriptions",
+        "Empty search shows all components",
+        "Case-insensitive search matching"
+      ],
+      "properties": {
+        "search": {
+          "type": "object",
+          "description": "Search/filter action",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Search query string (case-insensitive)"
+            },
+            "matches": {
+              "type": "array",
+              "description": "Array of match types: 'name', 'tester', 'description'"
+            }
+          }
+        },
+        "navigate": {
+          "type": "object",
+          "description": "Navigation action to tester pages",
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": ["_blank", "_self"],
+              "default": "_blank",
+              "description": "Target window for navigation"
+            },
+            "relativePath": {
+              "type": "string",
+              "description": "Relative path to tester HTML file"
+            }
+          }
+        },
+        "filter": {
+          "type": "object",
+          "description": "Filter action for component list",
+          "properties": {
+            "criteria": {
+              "type": "string",
+              "description": "Filter criteria applied"
+            },
+            "resultCount": {
+              "type": "number",
+              "description": "Number of components matching filter"
+            }
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "description": "External dependencies required by the component",
+      "rules": [
+        "Requires XWUI base styles and theme files",
+        "Requires app-specific testers.css stylesheet",
+        "Requires components manifest data (generated at build time or loaded at runtime)"
+      ],
+      "properties": {
+        "stylesheets": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "Path to required stylesheet"
+          },
+          "default": [
+            "../../styles/base/reset.css",
+            "../../styles/base/typography.css",
+            "../../styles/base/utilities.css",
+            "../../styles/brand/xwui/brand.css",
+            "../../styles/style/modern/spacing.css",
+            "../../styles/style/modern/shadows.css",
+            "../../styles/theme/colors/light.css",
+            "../../styles/theme/accents/blue.css",
+            "../../styles/theme/roundness/rounded.css",
+            "../../styles/theme/typography/inter.css",
+            "../../styles/app/testers.css"
+          ]
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "manifest": {
+              "type": "string",
+              "description": "Path to components manifest JSON file or inline data",
+              "default": "manifest.json"
+            }
+          }
+        }
+      }
+    },
+    "configuration": {
+      "description": "Configuration options for the component index",
+      "properties": {
+        "maxWidth": {
+          "type": "string",
+          "default": "1400px",
+          "description": "Maximum width of the index container"
+        },
+        "gridColumns": {
+          "type": "string",
+          "default": "repeat(auto-fill, minmax(300px, 1fr))",
+          "description": "CSS grid template columns for component cards"
+        },
+        "enableSearch": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable search/filter functionality"
+        },
+        "showStats": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show component statistics"
+        },
+        "defaultTheme": {
+          "type": "object",
+          "properties": {
+            "brand": {
+              "type": "string",
+              "default": "xwui"
+            },
+            "style": {
+              "type": "string",
+              "default": "modern"
+            },
+            "theme": {
+              "type": "string",
+              "default": "light"
+            },
+            "accent": {
+              "type": "string",
+              "default": "blue"
+            },
+            "roundness": {
+              "type": "string",
+              "default": "rounded"
+            },
+            "font": {
+              "type": "string",
+              "default": "inter"
+            }
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "components": {
+      "type": "array",
+      "description": "Components manifest array (injected at build time)"
+    }
+  }
+}
+

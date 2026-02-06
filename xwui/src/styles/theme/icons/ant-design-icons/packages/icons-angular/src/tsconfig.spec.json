@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec",
+    "baseUrl": "./",
+    "types": ["vitest/globals"],
+    "paths": {
+      "@ant-design/icons-angular": ["./public_api.ts"],
+      "@ant-design/icons-angular/icons": ["./icons/public_api.ts"]
+    }
+  },
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
+}

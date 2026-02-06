@@ -1,0 +1,14 @@
+/* ============================================
+   PHOTO - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-photo: 16px;
+    /* Fallback: --radius-media → --radius-md → 16px */
+}
+
+/* Utility class for direct application */
+.radius-photo-pill {
+    border-radius: var(--radius-photo, 16px) !important;
+}

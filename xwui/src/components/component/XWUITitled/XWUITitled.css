@@ -1,0 +1,56 @@
+/**
+ * XWUITitled Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-titled {
+    display: flex;
+    gap: var(--spacing-md, 1rem);
+    align-items: flex-start;
+}
+
+.xwui-titled-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-titled-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-titled-title {
+    margin: 0;
+    font-size: var(--font-size-lg, 1.125rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+    line-height: 1.4;
+}
+
+.xwui-titled-subtitle {
+    margin: 0;
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #6c757d);
+    line-height: 1.4;
+}
+
+.xwui-titled-body {
+    margin-top: var(--spacing-xs, 0.25rem);
+    color: var(--text-primary, #212529);
+    font-size: var(--font-size-base, 1rem);
+    line-height: 1.5;
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

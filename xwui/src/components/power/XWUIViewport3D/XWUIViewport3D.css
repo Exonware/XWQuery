@@ -1,0 +1,72 @@
+/**
+ * XWUIViewport3D Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Roundness: theme/roundness/*.css
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-viewport3d {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-secondary, #f5f5f5);
+    touch-action: none;
+}
+
+.xwui-viewport3d-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+}
+
+.xwui-viewport3d-nav-container {
+    pointer-events: none;
+}
+
+/* Make nav wrapper non-blocking */
+.xwui-viewport3d-nav-container .xwui-nav {
+    pointer-events: none;
+}
+
+/* Make all interactive elements clickable */
+.xwui-viewport3d-nav-container .xwui-nav-controls,
+.xwui-viewport3d-nav-container .xwui-nav-search-container,
+.xwui-viewport3d-nav-container button,
+.xwui-viewport3d-nav-container input,
+.xwui-viewport3d-nav-container .xwui-button,
+.xwui-viewport3d-nav-container .xwui-nav-control-btn {
+    pointer-events: auto;
+}
+
+.xwui-viewport3d-renderer-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.xwui-viewport3d-renderer-container canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.xwui-viewport3d-nav-container {
+    z-index: 100 !important;
+    pointer-events: none !important;
+}
+
+.xwui-viewport3d-nav-container .xwui-nav-controls {
+    z-index: 101 !important;
+    pointer-events: auto !important;
+    position: relative !important;
+}
+

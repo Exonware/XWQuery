@@ -1,0 +1,79 @@
+/**
+ * XWUITooltip Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/tooltip/*.css (component-specific border widths)
+ * - Roundness: theme/roundness/tooltip/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-tooltip {
+    position: fixed;
+    z-index: 9999;
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-sm, 0.75rem);
+    font-size: var(--font-size-sm, 0.8125rem);
+    color: var(--text-inverse);
+    background: var(--text-primary);
+    border-radius: var(--radius-tooltip, var(--radius-sm, 6px));
+    box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+    max-width: 250px;
+    word-wrap: break-word;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    pointer-events: none;
+}
+
+.xwui-tooltip-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Arrow */
+.xwui-tooltip-arrow::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: inherit;
+    transform: rotate(45deg);
+}
+
+.xwui-tooltip-top.xwui-tooltip-arrow::before {
+    bottom: -4px;
+    left: 50%;
+    margin-left: -4px;
+}
+
+.xwui-tooltip-bottom.xwui-tooltip-arrow::before {
+    top: -4px;
+    left: 50%;
+    margin-left: -4px;
+}
+
+.xwui-tooltip-left.xwui-tooltip-arrow::before {
+    right: -4px;
+    top: 50%;
+    margin-top: -4px;
+}
+
+.xwui-tooltip-right.xwui-tooltip-arrow::before {
+    left: -4px;
+    top: 50%;
+    margin-top: -4px;
+}
+
+/* Light variant */
+.xwui-tooltip-light {
+    color: var(--text-primary, #212529);
+    background: var(--bg-primary, #ffffff);
+    border: var(--border-tooltip-width, var(--border-width-regular, 1.5px)) var(--border-tooltip-style, solid) var(--border-tooltip-color, var(--border-color, #dee2e6));
+}
+
+/* Dark theme already looks good */
+

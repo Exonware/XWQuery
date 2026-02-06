@@ -1,0 +1,17 @@
+/* ============================================
+   POPOVER LINES - SUBTLE LINES
+   ============================================ */
+
+:root[data-lines="subtle"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-popover-width: var(--border-width-regular, 1px);
+    --border-popover-style: solid;
+    --border-popover-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-popover-subtle {
+    border-style: var(--border-popover-style, solid);
+    border-width: var(--border-popover-width, var(--border-width-regular, 1px));
+    border-color: var(--border-popover-color, var(--border-medium, var(--border-color)));
+}

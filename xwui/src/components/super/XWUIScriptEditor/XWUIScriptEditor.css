@@ -1,0 +1,174 @@
+/**
+ * XWUIScriptEditor Component - Structural Styles Only
+ * Colors and theming are in theme_*.css files
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/rounded.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-script-editor-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.xwui-script-editor-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl, 20px);
+    gap: var(--spacing-xl, 20px);
+    flex-wrap: wrap;
+}
+
+.xwui-script-editor-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.xwui-script-editor-label {
+    font-size: var(--font-size-sm, 13px);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-secondary);
+}
+
+.xwui-script-editor-select {
+    padding: var(--spacing-xs, 8px) var(--spacing-sm, 12px);
+    border-radius: var(--radius-input, var(--radius-sm, 6px));
+    border: var(--border-input-width, var(--border-width-regular, 1.5px)) var(--border-input-style, solid) var(--border-input-color, var(--border-color));
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: var(--font-size-sm, 14px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 200px;
+}
+
+.xwui-script-editor-select:hover {
+    border-color: var(--accent-primary);
+}
+
+.xwui-script-editor-select:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-xs, 0 0 0 3px rgba(var(--accent-primary-rgb), 0.1));
+}
+
+.xwui-script-editor-theme-switch {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 8px);
+    color: var(--text-secondary);
+}
+
+.xwui-script-editor-theme-toggle {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    height: 24px;
+    width: 44px;
+    border: var(--border-control-width, var(--border-width-thick, 2px)) var(--border-control-style, solid) var(--border-control-color, var(--border-color));
+    border-radius: var(--radius-control, 9999px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--bg-secondary);
+}
+
+.xwui-script-editor-theme-toggle:hover {
+    border-color: var(--accent-primary);
+}
+
+.xwui-script-editor-theme-toggle.active {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.xwui-script-editor-theme-toggle-knob {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.2));
+    transform: translateX(0);
+    transition: transform 0.2s ease;
+}
+
+.xwui-script-editor-theme-toggle.active .xwui-script-editor-theme-toggle-knob {
+    transform: translateX(20px);
+}
+
+.xwui-script-editor-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0;
+    overflow-x: auto;
+}
+
+.xwui-script-editor-tab-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 8px);
+    padding: var(--spacing-sm, 12px) var(--spacing-lg, 24px);
+    border: none;
+    border-bottom: var(--border-tab-width, var(--border-width-thick, 2px)) var(--border-tab-style, solid) transparent;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm, 14px);
+    font-weight: var(--font-weight-medium, 500);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.xwui-script-editor-tab-btn:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.xwui-script-editor-tab-btn.active {
+    border-bottom-color: var(--accent-primary);
+    color: var(--accent-primary);
+    background: var(--bg-secondary);
+}
+
+.xwui-script-editor-content {
+    flex: 1;
+    position: relative;
+    background: var(--bg-primary);
+    border-radius: 0 0 var(--radius-code, var(--radius-md, 8px)) var(--radius-code, var(--radius-md, 8px));
+    overflow: hidden;
+}
+
+.xwui-script-editor-pane {
+    width: 100%;
+    height: 100%;
+}
+
+.xwui-script-editor-pane.hidden {
+    display: none;
+}
+
+#xwui-script-editor-monaco-container,
+#xwui-script-editor-codemirror-container,
+#xwui-script-editor-ace-container {
+    width: 100%;
+}
+
+#xwui-script-editor-codemirror-container .cm-editor {
+    height: 100%;
+}
+
+#xwui-script-editor-ace-container {
+    font-size: var(--font-size-sm, 14px);
+}
+

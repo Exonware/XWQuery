@@ -1,0 +1,40 @@
+﻿# datalog.out.grammar
+# Datalog Output Grammar - Template for generating Datalog from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@program = {{#each items}}{{value}}
+{{/each}}
+
+@rule = {{head}} :- {{body}}.
+
+@fact = {{atom}}.
+
+@query = ?- {{body}}.
+
+@head = {{atom}}
+
+@body = {{#each literals}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@literal = {{#if negated}}not {{/if}}{{atom}}
+
+@atom = {{predicate}}{{#if terms}}({{terms}}){{/if}}
+
+@predicate_name = {{value}}
+
+@term_list = {{#each terms}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@term = {{value}}
+
+@variable = {{value}}
+
+@constant = {{value}}
+
+@compound_term = {{functor}}({{terms}})
+
+@functor = {{value}}
+
+@list_term = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if tail}}| {{tail}}{{/if}}]
+
+@indent = 2
+@pretty = true

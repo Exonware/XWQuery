@@ -1,0 +1,1117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "XWUI Styles Configuration Schema",
+  "type": "object",
+  "description": "Comprehensive schema for XWUI theme configuration. Includes global options and shape-specific overrides for lines, roundness, glow, and typography.",
+  "properties": {
+    "brand": {
+      "type": "string",
+      "description": "Brand identity (logos, colors, etc.)",
+      "enum": [
+        "xwui"
+      ],
+      "default": "xwui",
+      "examples": [
+        "xwui"
+      ]
+    },
+    "style": {
+      "type": "string",
+      "description": "Visual style system (shadows, spacing, etc.)",
+      "enum": [
+        "basic",
+        "glass",
+        "modern"
+      ],
+      "default": "modern",
+      "examples": [
+        "basic",
+        "glass",
+        "modern"
+      ]
+    },
+    "color": {
+      "type": "string",
+      "description": "Color theme (light, dark, etc.)",
+      "enum": [
+        "amber",
+        "blue",
+        "catppuccin-frappe",
+        "catppuccin-macchiato",
+        "catppuccin-mocha",
+        "cyan",
+        "dark",
+        "dracula",
+        "emerald",
+        "green",
+        "indigo",
+        "light",
+        "lime",
+        "night",
+        "nord",
+        "one-dark",
+        "orange",
+        "pink",
+        "purple",
+        "red",
+        "rose",
+        "silver",
+        "sky",
+        "slate",
+        "solarized-dark",
+        "teal",
+        "violet"
+      ],
+      "default": "light",
+      "examples": [
+        "amber",
+        "blue",
+        "catppuccin-frappe"
+      ]
+    },
+    "accent": {
+      "type": "string",
+      "description": "Accent color palette",
+      "enum": [
+        "amber",
+        "blue",
+        "cyan",
+        "emerald",
+        "green",
+        "indigo",
+        "lime",
+        "orange",
+        "pink",
+        "purple",
+        "red",
+        "rose",
+        "sky",
+        "teal",
+        "violet",
+        "yellow"
+      ],
+      "default": "blue",
+      "examples": [
+        "amber",
+        "blue",
+        "cyan"
+      ]
+    },
+    "lines": {
+      "type": "object",
+      "description": "Border lines configuration with global preset and shape-specific overrides",
+      "properties": {
+        "preset": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Global lines preset (applies to all shapes unless overridden)"
+            }
+          ]
+        },
+        "accordion": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for accordion component (overrides global preset)"
+            }
+          ]
+        },
+        "alert": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for alert component (overrides global preset)"
+            }
+          ]
+        },
+        "avatar": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for avatar component (overrides global preset)"
+            }
+          ]
+        },
+        "badge": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for badge component (overrides global preset)"
+            }
+          ]
+        },
+        "body": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for body component (overrides global preset)"
+            }
+          ]
+        },
+        "button": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for button component (overrides global preset)"
+            }
+          ]
+        },
+        "calendar": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for calendar component (overrides global preset)"
+            }
+          ]
+        },
+        "caption": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for caption component (overrides global preset)"
+            }
+          ]
+        },
+        "carousel": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for carousel component (overrides global preset)"
+            }
+          ]
+        },
+        "chip": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for chip component (overrides global preset)"
+            }
+          ]
+        },
+        "code": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for code component (overrides global preset)"
+            }
+          ]
+        },
+        "container": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for container component (overrides global preset)"
+            }
+          ]
+        },
+        "content": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for content component (overrides global preset)"
+            }
+          ]
+        },
+        "control": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for control component (overrides global preset)"
+            }
+          ]
+        },
+        "dialog": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for dialog component (overrides global preset)"
+            }
+          ]
+        },
+        "feedback": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for feedback component (overrides global preset)"
+            }
+          ]
+        },
+        "headings": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for headings component (overrides global preset)"
+            }
+          ]
+        },
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for input component (overrides global preset)"
+            }
+          ]
+        },
+        "label": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for label component (overrides global preset)"
+            }
+          ]
+        },
+        "media": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for media component (overrides global preset)"
+            }
+          ]
+        },
+        "menu": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for menu component (overrides global preset)"
+            }
+          ]
+        },
+        "navigation": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for navigation component (overrides global preset)"
+            }
+          ]
+        },
+        "overlay": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for overlay component (overrides global preset)"
+            }
+          ]
+        },
+        "pagination": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for pagination component (overrides global preset)"
+            }
+          ]
+        },
+        "photo": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for photo component (overrides global preset)"
+            }
+          ]
+        },
+        "popover": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for popover component (overrides global preset)"
+            }
+          ]
+        },
+        "progress": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for progress component (overrides global preset)"
+            }
+          ]
+        },
+        "sidebar": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for sidebar component (overrides global preset)"
+            }
+          ]
+        },
+        "skeleton": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for skeleton component (overrides global preset)"
+            }
+          ]
+        },
+        "tab": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for tab component (overrides global preset)"
+            }
+          ]
+        },
+        "table": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for table component (overrides global preset)"
+            }
+          ]
+        },
+        "toast": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for toast component (overrides global preset)"
+            }
+          ]
+        },
+        "tooltip": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/linesPreset"
+            },
+            {
+              "description": "Lines preset for tooltip component (overrides global preset)"
+            }
+          ]
+        }
+      },
+      "default": {
+        "preset": "balanced"
+      }
+    },
+    "roundness": {
+      "type": "object",
+      "description": "Border radius configuration with global preset and shape-specific overrides",
+      "properties": {
+        "preset": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Global roundness preset (applies to all shapes unless overridden)"
+            }
+          ]
+        },
+        "accordion": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for accordion component (overrides global preset)"
+            }
+          ]
+        },
+        "alert": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for alert component (overrides global preset)"
+            }
+          ]
+        },
+        "avatar": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for avatar component (overrides global preset)"
+            }
+          ]
+        },
+        "badge": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for badge component (overrides global preset)"
+            }
+          ]
+        },
+        "body": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for body component (overrides global preset)"
+            }
+          ]
+        },
+        "button": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for button component (overrides global preset)"
+            }
+          ]
+        },
+        "calendar": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for calendar component (overrides global preset)"
+            }
+          ]
+        },
+        "caption": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for caption component (overrides global preset)"
+            }
+          ]
+        },
+        "carousel": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for carousel component (overrides global preset)"
+            }
+          ]
+        },
+        "chip": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for chip component (overrides global preset)"
+            }
+          ]
+        },
+        "code": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for code component (overrides global preset)"
+            }
+          ]
+        },
+        "container": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for container component (overrides global preset)"
+            }
+          ]
+        },
+        "content": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for content component (overrides global preset)"
+            }
+          ]
+        },
+        "control": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for control component (overrides global preset)"
+            }
+          ]
+        },
+        "dialog": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for dialog component (overrides global preset)"
+            }
+          ]
+        },
+        "feedback": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for feedback component (overrides global preset)"
+            }
+          ]
+        },
+        "headings": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for headings component (overrides global preset)"
+            }
+          ]
+        },
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for input component (overrides global preset)"
+            }
+          ]
+        },
+        "label": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for label component (overrides global preset)"
+            }
+          ]
+        },
+        "media": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for media component (overrides global preset)"
+            }
+          ]
+        },
+        "menu": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for menu component (overrides global preset)"
+            }
+          ]
+        },
+        "navigation": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for navigation component (overrides global preset)"
+            }
+          ]
+        },
+        "overlay": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for overlay component (overrides global preset)"
+            }
+          ]
+        },
+        "pagination": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for pagination component (overrides global preset)"
+            }
+          ]
+        },
+        "photo": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for photo component (overrides global preset)"
+            }
+          ]
+        },
+        "popover": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for popover component (overrides global preset)"
+            }
+          ]
+        },
+        "progress": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for progress component (overrides global preset)"
+            }
+          ]
+        },
+        "sidebar": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for sidebar component (overrides global preset)"
+            }
+          ]
+        },
+        "skeleton": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for skeleton component (overrides global preset)"
+            }
+          ]
+        },
+        "slider": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for slider component (overrides global preset)"
+            }
+          ]
+        },
+        "tab": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for tab component (overrides global preset)"
+            }
+          ]
+        },
+        "table": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for table component (overrides global preset)"
+            }
+          ]
+        },
+        "toast": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for toast component (overrides global preset)"
+            }
+          ]
+        },
+        "tooltip": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/roundnessPreset"
+            },
+            {
+              "description": "Roundness preset for tooltip component (overrides global preset)"
+            }
+          ]
+        }
+      },
+      "default": {
+        "preset": "rounded"
+      }
+    },
+    "glow": {
+      "type": "object",
+      "description": "Glow effects configuration with global preset and component-specific overrides",
+      "properties": {
+        "preset": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/glowPreset"
+            },
+            {
+              "description": "Global glow preset (applies to all components unless overridden)"
+            }
+          ]
+        },
+        "button": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/glowPreset"
+            },
+            {
+              "description": "Glow preset for button component (overrides global preset)"
+            }
+          ]
+        },
+        "slider": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/glowPreset"
+            },
+            {
+              "description": "Glow preset for slider component (overrides global preset)"
+            }
+          ]
+        },
+        "switch": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/glowPreset"
+            },
+            {
+              "description": "Glow preset for switch component (overrides global preset)"
+            }
+          ]
+        }
+      },
+      "default": {
+        "preset": "none"
+      }
+    },
+    "font": {
+      "type": "object",
+      "description": "Typography font family configuration with global preset and shape-specific overrides",
+      "properties": {
+        "preset": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fontPreset"
+            },
+            {
+              "description": "Global font preset (applies to all shapes unless overridden)"
+            }
+          ]
+        },
+        "body": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fontPreset"
+            },
+            {
+              "description": "Font preset for body component (overrides global preset)"
+            }
+          ]
+        },
+        "button": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fontPreset"
+            },
+            {
+              "description": "Font preset for button component (overrides global preset)"
+            }
+          ]
+        },
+        "caption": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fontPreset"
+            },
+            {
+              "description": "Font preset for caption component (overrides global preset)"
+            }
+          ]
+        },
+        "code": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fontPreset"
+            },
+            {
+              "description": "Font preset for code component (overrides global preset)"
+            }
+          ]
+        },
+        "headings": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fontPreset"
+            },
+            {
+              "description": "Font preset for headings component (overrides global preset)"
+            }
+          ]
+        },
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fontPreset"
+            },
+            {
+              "description": "Font preset for input component (overrides global preset)"
+            }
+          ]
+        },
+        "label": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fontPreset"
+            },
+            {
+              "description": "Font preset for label component (overrides global preset)"
+            }
+          ]
+        }
+      },
+      "default": {
+        "preset": "inter"
+      }
+    },
+    "icons": {
+      "type": "string",
+      "description": "Icon set",
+      "enum": [
+        "ant-design-icons",
+        "bootstrap-icons",
+        "feather",
+        "font-awesome",
+        "heroicons",
+        "heroicons",
+        "material-icons",
+        "primeicons",
+        "radix-icons",
+        "react-icons",
+        "tabler-icons"
+      ],
+      "default": "material-icons",
+      "examples": [
+        "ant-design-icons",
+        "bootstrap-icons",
+        "feather"
+      ]
+    },
+    "icons_colors": {
+      "type": "string",
+      "description": "Icon colors",
+      "enum": [
+        "amber",
+        "blue",
+        "catppuccin-frappe",
+        "catppuccin-macchiato",
+        "catppuccin-mocha",
+        "custom",
+        "cyan",
+        "dark",
+        "default",
+        "dracula",
+        "emerald",
+        "green",
+        "indigo",
+        "light",
+        "lime",
+        "night",
+        "nord",
+        "one-dark",
+        "orange",
+        "pink",
+        "purple",
+        "red",
+        "rose",
+        "silver",
+        "sky",
+        "slate",
+        "solarized-dark",
+        "teal",
+        "violet"
+      ],
+      "default": "default",
+      "examples": [
+        "amber",
+        "blue",
+        "catppuccin-frappe"
+      ]
+    },
+    "emojis": {
+      "type": "string",
+      "description": "Emoji set",
+      "enum": [
+        "apple",
+        "google",
+        "twitter"
+      ],
+      "default": "apple",
+      "examples": [
+        "apple",
+        "google",
+        "twitter"
+      ]
+    }
+  },
+  "$defs": {
+    "linesPreset": {
+      "type": "string",
+      "description": "Lines preset option",
+      "enum": [
+        "balanced",
+        "none",
+        "outline",
+        "strong",
+        "subtle"
+      ],
+      "default": "balanced",
+      "examples": [
+        "balanced",
+        "none",
+        "outline"
+      ]
+    },
+    "roundnessPreset": {
+      "type": "string",
+      "description": "Roundness preset option",
+      "enum": [
+        "extra-rounded",
+        "minimal",
+        "pill",
+        "rounded",
+        "sharp",
+        "soft",
+        "subtle"
+      ],
+      "default": "rounded",
+      "examples": [
+        "extra-rounded",
+        "minimal",
+        "pill"
+      ]
+    },
+    "glowPreset": {
+      "type": "string",
+      "description": "Glow preset option",
+      "enum": [
+        "error",
+        "none",
+        "primary",
+        "strong",
+        "subtle",
+        "success",
+        "warning"
+      ],
+      "default": "none",
+      "examples": [
+        "error",
+        "none",
+        "primary"
+      ]
+    },
+    "fontPreset": {
+      "type": "string",
+      "description": "Font preset option",
+      "enum": [
+        "android",
+        "arial-unicode",
+        "chinese-os",
+        "geist",
+        "gentium",
+        "helvetica-world",
+        "inter",
+        "ios",
+        "lato",
+        "linux",
+        "montserrat",
+        "noto",
+        "nunito",
+        "open-sans",
+        "playfair",
+        "poppins",
+        "raleway",
+        "roboto",
+        "source-sans",
+        "sst",
+        "system",
+        "windows"
+      ],
+      "default": "inter",
+      "examples": [
+        "android",
+        "arial-unicode",
+        "chinese-os"
+      ]
+    }
+  }
+}

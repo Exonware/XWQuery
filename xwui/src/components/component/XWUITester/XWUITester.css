@@ -1,0 +1,277 @@
+/* XWUITester Component Styles */
+
+.tester-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-lg, 2rem);
+}
+
+.test-header {
+    margin-bottom: var(--spacing-lg, 2rem);
+}
+
+.test-header-content {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md, 1rem);
+    position: relative;
+}
+
+.test-header-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    min-height: 64px;
+    background: var(--color-surface-elevated, var(--color-surface));
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md, 8px);
+    padding: var(--spacing-sm, 0.5rem);
+}
+
+.test-header-icon img.test-component-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.test-header-text {
+    flex: 1;
+}
+
+.test-header h1 {
+    margin: 0 0 var(--spacing-sm, 0.5rem) 0;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.test-header p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* Settings button is now using XWUIButton, so we just need to ensure proper positioning */
+.test-header-content {
+    position: relative;
+}
+
+/* Ensure the button container is properly positioned */
+.test-header-content > div:last-child {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* Remove margin from button containers */
+.xwui-button-container {
+    margin: 0 !important;
+}
+
+.test-controls {
+    margin-bottom: var(--spacing-lg, 2rem);
+    padding: var(--spacing-md, 1rem);
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+.test-area {
+    margin-bottom: var(--spacing-lg, 2rem);
+}
+
+.status {
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+    border-radius: var(--radius-md, 8px);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status.success {
+    background-color: var(--success-bg, #d4edda);
+    color: var(--success-text, #155724);
+    border: 1px solid var(--success-border, #c3e6cb);
+}
+
+.status.error {
+    background-color: var(--error-bg, #f8d7da);
+    color: var(--error-text, #721c24);
+    border: 1px solid var(--error-border, #f5c6cb);
+}
+
+.status.info {
+    background-color: var(--info-bg, #d1ecf1);
+    color: var(--info-text, #0c5460);
+    border: 1px solid var(--info-border, #bee5eb);
+}
+
+.test-controls-wrapper {
+    display: flex;
+    gap: var(--spacing-sm, 0.5rem);
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.test-control-btn {
+    padding: var(--spacing-xs, 0.5rem) var(--spacing-md, 1rem);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md, 8px);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.test-control-btn:hover {
+    background: var(--bg-secondary, #f5f5f5);
+    border-color: var(--accent-color, #007bff);
+    color: var(--accent-color, #007bff);
+}
+
+.test-control-btn:active {
+    transform: scale(0.98);
+}
+
+/* Platform Viewport Simulation */
+.platform-viewport-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    pointer-events: none;
+}
+
+.platform-viewport-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 2px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    overflow: hidden;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.platform-viewport-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    border-radius: 8px 8px 0 0;
+    flex-shrink: 0;
+}
+
+.platform-viewport-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.platform-viewport-close:hover {
+    background: #e0e0e0;
+}
+
+.platform-viewport-scroll {
+    width: 100%;
+    flex: 1;
+    overflow: auto;
+}
+
+.platform-viewport-content {
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+/* Settings drawer tabs styling */
+/* Make drawer body not scroll when it contains tabs - let tabs handle scrolling */
+.xwui-menu-drawer .xwui-drawer-body.xwui-drawer-body-with-tabs {
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+    height: 100% !important;
+}
+
+/* Enable scrolling on the first div (tabs container) under drawer body */
+.xwui-menu-drawer .xwui-drawer-body.xwui-drawer-body-with-tabs > div:first-child {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+}
+
+.xwui-menu-drawer .xwui-tabs {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
+    flex: 1 1 auto !important;
+}
+
+.xwui-menu-drawer .xwui-tabs-list {
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+}
+
+.xwui-menu-drawer .xwui-tabs-content {
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative;
+    height: 0 !important; /* Force flex to calculate height */
+}
+
+.xwui-menu-drawer .xwui-tab-panel {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: var(--spacing-md, 1rem) !important;
+    box-sizing: border-box !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    display: block !important;
+    height: 100% !important;
+}
+
+.xwui-menu-drawer .xwui-tab-panel[hidden] {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    flex: 0 0 0 !important;
+}
+
+.xwui-menu-drawer .xwui-tab-panel:not([hidden]) {
+    display: block !important;
+}
+

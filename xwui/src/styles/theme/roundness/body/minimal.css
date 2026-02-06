@@ -1,0 +1,14 @@
+/* ============================================
+   BODY - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-body: 3px;
+    /* Fallback: --radius-text → --radius-base → 3px */
+}
+
+/* Utility class for direct application */
+.radius-body-minimal {
+    border-radius: var(--radius-body, 3px) !important;
+}

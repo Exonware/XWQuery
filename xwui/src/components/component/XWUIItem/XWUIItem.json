@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIItem",
+  "name": "XWUI Item Component",
+  "description": "Flexible item component that converts JSON configuration into HTML. Supports multiple content sections (primary, secondary, tertiary, avatar), various item types (card, row, banner, search, chat_bubble), sizes, status indicators, and interactive features. This is a foundational component used by many other XWUI components.",
+  "path": "display.item",
+  "tags": ["display", "item", "card", "row", "flexible", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "item_type": {
+          "type": "string",
+          "enum": ["card", "row", "banner", "search", "chat_bubble"],
+          "description": "Type of item layout"
+        },
+        "item_size": {
+          "type": "string",
+          "enum": ["xs", "s", "m", "l", "xl"],
+          "description": "Size of the item"
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["ltr", "rtl"],
+          "description": "Text direction"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the item"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component. This should be an ItemConfig object following the XWUIItem schema.",
+      "additionalProperties": true,
+      "description": "Item configuration object (see XWUIItem.schema.json for full structure)"
+    }
+  }
+}

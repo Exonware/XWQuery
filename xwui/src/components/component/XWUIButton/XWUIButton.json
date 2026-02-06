@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIButton",
+  "name": "XWUI Button Component",
+  "description": "Button component with various styles, sizes, and states. Uses XWUIItem internally for flexible styling. Supports icons, loading states, and multiple variants (primary, secondary, success, danger, warning, info, outline, ghost).",
+  "path": "input.buttons",
+  "tags": ["input", "button", "desktop", "mobile", "tablet", "click", "action"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["primary", "secondary", "success", "danger", "warning", "info", "outline", "ghost"],
+          "description": "Button style variant",
+          "default": "primary"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Button size",
+          "default": "medium"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the button is disabled",
+          "default": false
+        },
+        "loading": {
+          "type": "boolean",
+          "description": "Whether the button is in loading state",
+          "default": false
+        },
+        "icon": {
+          "type": "string",
+          "description": "SVG icon HTML string or icon name to display in the button"
+        },
+        "iconPosition": {
+          "type": "string",
+          "enum": ["left", "right"],
+          "description": "Position of the icon relative to text",
+          "default": "left"
+        },
+        "fullWidth": {
+          "type": "boolean",
+          "description": "Whether the button should take full width of container",
+          "default": false
+        },
+        "type": {
+          "type": "string",
+          "enum": ["button", "submit", "reset"],
+          "description": "HTML button type attribute",
+          "default": "button"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Button text/label to display"
+        },
+        "label": {
+          "type": "string",
+          "description": "Alias for text property"
+        }
+      }
+    }
+  }
+}
+

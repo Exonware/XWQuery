@@ -1,0 +1,13 @@
+/**
+ * XWUICopyButton Component Styles
+ * Copy button with feedback
+ */
+
+.xwui-copy-button-container {
+    display: inline-block;
+}
+
+.xwui-copy-button-wrapper {
+    display: inline-block;
+}
+

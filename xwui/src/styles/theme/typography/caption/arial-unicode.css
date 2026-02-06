@@ -1,0 +1,13 @@
+/* ============================================
+   CAPTION TYPOGRAPHY - ARIAL-UNICODE
+   ============================================ */
+
+:root[data-font="arial-unicode"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-caption-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-caption-arial-unicode {
+    font-family: var(--font-caption-family, var(--font-family-base, sans-serif)) !important;
+}

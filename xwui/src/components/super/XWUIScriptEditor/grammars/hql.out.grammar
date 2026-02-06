@@ -1,0 +1,83 @@
+﻿# hql.out.grammar
+# HQL Output Grammar - Template for generating HQL from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@statement = {{value}}
+
+@select_stmt = SELECT{{#if distinct}} DISTINCT{{/if}} {{select_list}}{{#if from}} {{from}}{{/if}}{{#if where}} {{where}}{{/if}}{{#if group_by}} {{group_by}}{{/if}}{{#if having}} {{having}}{{/if}}{{#if order_by}} {{order_by}}{{/if}}
+
+@select_list = {{#if object}}OBJECT({{name}}){{else}}{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}}
+
+@select_item = {{expression}}{{#if alias}} AS {{alias}}{{/if}}
+
+@from_clause = FROM {{#each sources}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#each joins}} {{value}}{{/each}}
+
+@from_source = {{entity}}{{#if alias}} AS {{alias}}{{/if}}
+
+@entity_name = {{value}}
+
+@join_clause = {{#if type}}{{type}} {{/if}}JOIN{{#if fetch}} FETCH{{/if}} {{path}}{{#if alias}} AS {{alias}}{{/if}}{{#if with}} WITH {{condition}}{{/if}}
+
+@join_type = {{value}}
+
+@where_clause = WHERE {{expression}}
+
+@group_by_clause = GROUP BY {{#each expressions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@having_clause = HAVING {{expression}}
+
+@order_by_clause = ORDER BY {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@order_item = {{expression}}{{#if direction}} {{direction}}{{/if}}
+
+@update_stmt = UPDATE{{#if versioned}} VERSIONED{{/if}} {{entity}}{{#if alias}} AS {{alias}}{{/if}} SET {{#each assignments}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if where}} {{where}}{{/if}}{{#if condition}} IF {{condition}}{{/if}}
+
+@assignment = {{path}} = {{value}}
+
+@delete_stmt = DELETE{{#if from}} FROM{{/if}} {{entity}}{{#if alias}} AS {{alias}}{{/if}}{{#if where}} {{where}}{{/if}}
+
+@insert_stmt = INSERT INTO {{entity}} {{select}}
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} OR {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} AND {{/if}}{{/each}}
+
+@not_expr = {{#if negated}}NOT {{/if}}{{comparison}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{else}}{{#if like}} LIKE {{pattern}}{{#if escape}} ESCAPE {{escape}}{{/if}}{{else}}{{#if in}} IN {{list}}{{else}}{{#if in_select}} IN ({{select}}){{else}}{{#if between}} BETWEEN {{left}} AND {{right}}{{else}}{{#if is_null}} IS NULL{{else}}{{#if is_not_null}} IS NOT NULL{{else}}{{#if is_empty}} IS EMPTY{{else}}{{#if is_not_empty}} IS NOT EMPTY{{else}}{{#if member_of}} MEMBER OF {{path}}{{else}}{{#if instanceof}} INSTANCEOF {{type}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}
+
+@compare_op = {{value}}
+
+@additive = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@multiplicative = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@primary = {{value}}
+
+@function_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@function_name = {{value}}
+
+@aggregate_func = {{value}}
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@parameter = {{#if named}}:{{name}}{{else}}?{{#if number}}{{number}}{{/if}}{{/if}}
+
+@collection_expr = {{value}}
+
+@value_list = ({{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@type_name = {{value}}
+
+@literal = {{value}}
+
+@path = {{#each parts}}{{value}}{{#if !@last}}.{{/if}}{{/each}}
+
+@indent = 2
+@pretty = true

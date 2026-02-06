@@ -1,0 +1,13 @@
+/* ============================================
+   NAVIGATION - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-navigation: 2px;
+}
+
+/* Utility class for direct application */
+.radius-navigation-minimal {
+    border-radius: var(--radius-navigation, 2px) !important;
+}

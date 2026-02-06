@@ -1,0 +1,42 @@
+/**
+ * XWUIApprovalWorkflow Component Styles
+ */
+
+.xwui-approval-workflow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg, 1.5rem);
+    padding: var(--spacing-md, 1rem);
+}
+
+.xwui-approval-workflow-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    padding: var(--spacing-md, 1rem);
+    background: var(--bg-secondary, #f8f9fa);
+    border-radius: var(--radius-md, 8px);
+}
+
+.xwui-approval-workflow-comment {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-approval-workflow-label {
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-approval-workflow-buttons {
+    display: flex;
+    gap: var(--spacing-sm, 0.5rem);
+    justify-content: flex-end;
+}
+
+.xwui-approval-workflow-history {
+    margin-top: var(--spacing-md, 1rem);
+}
+

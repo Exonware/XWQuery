@@ -1,0 +1,132 @@
+/**
+ * XWUIMenu Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/menu/*.css (component-specific border widths)
+ * - Roundness: theme/roundness/menu/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-menu {
+    width: 100%;
+}
+
+.xwui-menu-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+}
+
+.xwui-menu-vertical .xwui-menu-list {
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+/* Menu item */
+.xwui-menu-item {
+    position: relative;
+}
+
+.xwui-menu-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+    padding: var(--spacing-sm, 0.625rem) var(--spacing-md, 1rem);
+    border-radius: var(--radius-menu, var(--radius-sm, 6px));
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.xwui-menu-link:hover:not(.xwui-menu-item-disabled .xwui-menu-link) {
+    background: var(--bg-secondary);
+}
+
+.xwui-menu-item-selected .xwui-menu-link {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+}
+
+.xwui-menu-item-disabled .xwui-menu-link {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.xwui-menu-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.xwui-menu-icon svg {
+    width: 1em;
+    height: 1em;
+}
+
+.xwui-menu-label {
+    flex: 1;
+}
+
+.xwui-menu-arrow {
+    margin-left: auto;
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+/* Submenu */
+.xwui-menu-submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: var(--bg-primary);
+    border: var(--border-menu-width, var(--border-width-regular, 1.5px)) var(--border-menu-style, solid) var(--border-menu-color, var(--border-color));
+    border-radius: var(--radius-menu, var(--radius-md, 8px));
+    box-shadow: var(--shadow-lg);
+    list-style: none;
+    padding: var(--spacing-sm, 0.5rem);
+    margin: 0;
+    z-index: 1000;
+}
+
+.xwui-menu-item:hover .xwui-menu-submenu {
+    display: block;
+}
+
+.xwui-menu-vertical .xwui-menu-submenu {
+    position: static;
+    margin-top: var(--spacing-xs, 0.25rem);
+    margin-left: var(--spacing-md, 1rem);
+    box-shadow: none;
+    border: none;
+    border-left: 2px solid var(--border-color);
+}
+
+/* Divider */
+.xwui-menu-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: var(--spacing-sm, 0.5rem) 0;
+    list-style: none;
+}
+
+/* Size variants */
+.xwui-menu-small .xwui-menu-link {
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-sm, 0.75rem);
+    font-size: var(--font-size-sm, 0.8125rem);
+}
+
+.xwui-menu-large .xwui-menu-link {
+    padding: var(--spacing-sm, 0.75rem) var(--spacing-lg, 1.25rem);
+    font-size: var(--font-size-base, 0.9375rem);
+}
+

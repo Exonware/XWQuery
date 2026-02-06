@@ -1,0 +1,89 @@
+/**
+ * XWUINativeSelect Component Styles
+ * Native select wrapper
+ */
+
+.xwui-native-select-container {
+    display: inline-block;
+}
+
+.xwui-native-select-container.xwui-native-select-full-width {
+    width: 100%;
+}
+
+.xwui-native-select-label {
+    display: block;
+    margin-bottom: var(--spacing-xs, 4px);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.xwui-native-select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.xwui-native-select-wrapper.xwui-native-select-small .xwui-native-select {
+    padding: var(--spacing-xs, 4px) var(--spacing-sm, 8px);
+    font-size: 0.875rem;
+}
+
+.xwui-native-select-wrapper.xwui-native-select-medium .xwui-native-select {
+    padding: var(--spacing-sm, 8px) var(--spacing-md, 16px);
+    font-size: 1rem;
+}
+
+.xwui-native-select-wrapper.xwui-native-select-large .xwui-native-select {
+    padding: var(--spacing-md, 16px) var(--spacing-lg, 24px);
+    font-size: 1.125rem;
+}
+
+.xwui-native-select {
+    width: 100%;
+    border: 1px solid var(--border-color, #dee2e6);
+    border-radius: var(--radius-sm, 6px);
+    background-color: var(--bg-primary, #ffffff);
+    color: var(--text-primary);
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.xwui-native-select:hover:not(:disabled) {
+    border-color: var(--border-strong, rgba(0, 0, 0, 0.08));
+}
+
+.xwui-native-select:focus {
+    outline: none;
+    border-color: var(--accent-primary, #4f46e5);
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
+
+.xwui-native-select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: var(--bg-tertiary, #f1f3f5);
+}
+
+.xwui-native-select-wrapper.xwui-native-select-error .xwui-native-select {
+    border-color: var(--status-error, #f44336);
+}
+
+.xwui-native-select-wrapper.xwui-native-select-error .xwui-native-select:focus {
+    border-color: var(--status-error, #f44336);
+    box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.1);
+}
+
+.xwui-native-select-helper-text {
+    margin-top: var(--spacing-xs, 4px);
+    font-size: 0.75rem;
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-native-select-error-text {
+    margin-top: var(--spacing-xs, 4px);
+    font-size: 0.75rem;
+    color: var(--status-error, #f44336);
+}
+

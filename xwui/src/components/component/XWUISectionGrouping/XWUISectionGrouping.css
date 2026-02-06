@@ -1,0 +1,51 @@
+/**
+ * XWUISectionGrouping Component Styles
+ */
+
+.xwui-section-grouping {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    width: 100%;
+}
+
+.xwui-section-grouping-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-section-grouping-count {
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-normal, 400);
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-section-grouping-section {
+    border: 1px solid var(--border-color, #dee2e6);
+    border-radius: var(--radius-md, 8px);
+    overflow: hidden;
+}
+
+.xwui-section-grouping-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+    background: var(--bg-secondary, #f8f9fa);
+    border-bottom: 1px solid var(--border-color, #dee2e6);
+}
+
+.xwui-section-grouping-section-title {
+    margin: 0;
+    font-size: var(--font-size-base, 1rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-section-grouping-content {
+    padding: var(--spacing-md, 1rem);
+}
+

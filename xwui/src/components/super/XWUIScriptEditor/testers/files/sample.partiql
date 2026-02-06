@@ -1,0 +1,79 @@
+-- PartiQL Examples
+-- SQL-compatible query language for semi-structured data
+
+-- Basic SELECT
+SELECT * FROM users WHERE age > 25;
+
+-- Querying nested structures
+SELECT 
+    name,
+    address.city,
+    address.zipcode
+FROM users
+WHERE address.country = 'US';
+
+-- Array operations
+SELECT 
+    name,
+    orders[0].total as first_order_total,
+    orders[*].total as all_order_totals
+FROM users;
+
+-- Unnesting arrays
+SELECT 
+    u.name,
+    o.total,
+    o.date
+FROM users u,
+     UNNEST(u.orders) AS o
+WHERE o.total > 100;
+
+-- Joins
+SELECT 
+    u.name,
+    o.total,
+    o.date
+FROM users u
+JOIN orders o ON u.id = o.userId
+WHERE o.status = 'completed';
+
+-- Aggregations
+SELECT 
+    category,
+    COUNT(*) as count,
+    SUM(price) as total,
+    AVG(price) as avg_price
+FROM items
+WHERE active = true
+GROUP BY category;
+
+-- Window functions
+SELECT 
+    name,
+    total,
+    ROW_NUMBER() OVER (PARTITION BY category ORDER BY total DESC) as rank
+FROM orders;
+
+-- Complex nested queries
+SELECT 
+    name,
+    (SELECT COUNT(*) FROM orders WHERE userId = users.id) as order_count,
+    (SELECT SUM(total) FROM orders WHERE userId = users.id) as total_spent
+FROM users;
+
+-- PIVOT operations
+SELECT * FROM (
+    SELECT category, month, revenue
+    FROM sales
+)
+PIVOT (
+    SUM(revenue) FOR month IN ('Jan', 'Feb', 'Mar', 'Apr')
+);
+
+-- Handling missing fields
+SELECT 
+    name,
+    COALESCE(email, 'no-email') as email,
+    address.city ?? 'unknown' as city
+FROM users;
+

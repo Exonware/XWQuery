@@ -1,0 +1,12 @@
+/* ============================================
+   FEEDBACK - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    --radius-feedback: 6px;
+}
+
+/* Utility class for direct application */
+.radius-feedback-subtle {
+    border-radius: var(--radius-feedback, 6px) !important;
+}

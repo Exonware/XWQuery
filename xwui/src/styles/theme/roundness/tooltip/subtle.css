@@ -1,0 +1,14 @@
+/* ============================================
+   TOOLTIP - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-tooltip: 4px;
+    /* Fallback: --radius-overlay → --radius-sm → 4px */
+}
+
+/* Utility class for direct application */
+.radius-tooltip-subtle {
+    border-radius: var(--radius-tooltip, 4px) !important;
+}

@@ -1,0 +1,13 @@
+/* ============================================
+   BODY TYPOGRAPHY - INTER
+   ============================================ */
+
+:root[data-font="inter"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-body-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-body-inter {
+    font-family: var(--font-body-family, var(--font-family-base, sans-serif)) !important;
+}

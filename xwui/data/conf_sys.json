@@ -1,0 +1,29 @@
+{
+  "locale": "en-US",
+  "timezone": "UTC",
+  "formats": {
+    "date": "YYYY-MM-DD",
+    "time": "HH:mm:ss",
+    "datetime": "YYYY-MM-DD HH:mm:ss",
+    "currency": {
+      "defaultSymbol": "$",
+      "defaultDecimals": 2
+    },
+    "number": {
+      "defaultDecimals": 2,
+      "useGrouping": true
+    },
+    "percentage": {
+      "defaultDecimals": 1
+    },
+    "fileSize": {
+      "defaultUnit": "auto",
+      "defaultDecimals": 2
+    },
+    "duration": {
+      "defaultUnit": "auto",
+      "defaultFormat": "short"
+    }
+  }
+}
+

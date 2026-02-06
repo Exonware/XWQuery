@@ -1,0 +1,14 @@
+/* ============================================
+   CALENDAR - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-calendar: 12px;
+    /* Fallback: --radius-content → --radius-sm → 12px */
+}
+
+/* Utility class for direct application */
+.radius-calendar-pill {
+    border-radius: var(--radius-calendar, 12px) !important;
+}

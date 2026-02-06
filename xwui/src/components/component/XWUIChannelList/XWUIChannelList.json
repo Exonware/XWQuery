@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwchannellist.schema.json",
+  "title": "XWUIChannelList Schema",
+  "description": "Schema for XWUIChannelList component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "showSearch": {
+          "type": "boolean",
+          "description": "Whether to show search input",
+          "default": true
+        },
+        "showUnreadCount": {
+          "type": "boolean",
+          "description": "Whether to show unread message count",
+          "default": true
+        },
+        "showLastMessage": {
+          "type": "boolean",
+          "description": "Whether to show last message preview",
+          "default": true
+        },
+        "showOnlineStatus": {
+          "type": "boolean",
+          "description": "Whether to show online status indicator",
+          "default": true
+        },
+        "groupBy": {
+          "type": "string",
+          "enum": [
+            "none",
+            "favorites",
+            "unread",
+            "status"
+          ],
+          "description": "How to group channels",
+          "default": "none"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "channels": {
+          "type": "array",
+          "description": "Array of channel objects",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique channel identifier"
+              },
+              "name": {
+                "type": "string",
+                "description": "Channel name"
+              },
+              "icon": {
+                "type": "string",
+                "description": "Icon HTML or emoji"
+              },
+              "avatarUrl": {
+                "type": "string",
+                "description": "Channel avatar image URL"
+              },
+              "lastMessage": {
+                "type": "string",
+                "description": "Last message preview"
+              },
+              "lastMessageTime": {
+                "type": "string",
+                "description": "Last message timestamp"
+              },
+              "unreadCount": {
+                "type": "number",
+                "description": "Number of unread messages",
+                "minimum": 0
+              },
+              "isOnline": {
+                "type": "boolean",
+                "description": "Whether channel is online/active"
+              },
+              "isMuted": {
+                "type": "boolean",
+                "description": "Whether channel is muted"
+              },
+              "isArchived": {
+                "type": "boolean",
+                "description": "Whether channel is archived"
+              },
+              "isFavorite": {
+                "type": "boolean",
+                "description": "Whether channel is favorited"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        "selectedChannelId": {
+          "type": "string",
+          "description": "Currently selected channel ID"
+        },
+        "searchQuery": {
+          "type": "string",
+          "description": "Search query string"
+        }
+      }
+    }
+  },
+  "id": "XWUIChannelList"
+}

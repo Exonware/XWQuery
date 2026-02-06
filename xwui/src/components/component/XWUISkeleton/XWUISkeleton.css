@@ -1,0 +1,222 @@
+/**
+ * XWUISkeleton Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Roundness: theme/roundness/skeleton/*.css (component-specific roundness)
+ */
+
+.xwui-skeleton-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-skeleton {
+    /* Use dedicated skeleton color variable for theme-aware contrast */
+    /* Falls back to bg-active, then to a medium gray */
+    background: var(--skeleton-bg, var(--bg-active, #d0d0d0));
+}
+
+/* Variants */
+.xwui-skeleton-text {
+    border-radius: var(--radius-skeleton, var(--radius-xs, 4px));
+}
+
+.xwui-skeleton-circular {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.xwui-skeleton-rectangular {
+    border-radius: 0;
+    width: 100%;
+    height: 120px;
+}
+
+.xwui-skeleton-rounded {
+    border-radius: var(--radius-skeleton, var(--radius-md, 8px));
+    width: 100%;
+    height: 120px;
+}
+
+/* Pulse animation */
+.xwui-skeleton-pulse {
+    animation: xwui-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes xwui-skeleton-pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Wave animation */
+.xwui-skeleton-wave {
+    position: relative;
+    overflow: hidden;
+}
+
+.xwui-skeleton-wave::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--bg-elevated),
+        transparent
+    );
+    animation: xwui-skeleton-wave 1.5s linear infinite;
+}
+
+@keyframes xwui-skeleton-wave {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* No animation */
+.xwui-skeleton-none {
+    animation: none;
+}
+
+/* Preset compositions */
+.xwui-skeleton-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-skeleton-avatar-text {
+    display: flex;
+    gap: var(--spacing-md, 1rem);
+    align-items: center;
+}
+
+/* Preset-specific compositions */
+.xwui-skeleton-preset-button {
+    display: inline-flex;
+}
+
+.xwui-skeleton-preset-table {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.5rem);
+}
+
+.xwui-skeleton-preset-article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-skeleton-preset-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-skeleton-preset-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-skeleton-preset-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+}
+
+.xwui-skeleton-preset-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md, 1rem);
+}
+
+.xwui-skeleton-preset-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.75rem);
+    padding: var(--spacing-md, 1rem);
+}
+
+.xwui-skeleton-preset-footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-skeleton-preset-menu {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.5rem);
+}
+
+.xwui-skeleton-preset-avatar {
+    display: inline-flex;
+}
+
+.xwui-skeleton-preset-image {
+    display: block;
+}
+
+.xwui-skeleton-preset-video {
+    display: block;
+    aspect-ratio: 16 / 9;
+}
+
+.xwui-skeleton-preset-chart {
+    display: block;
+}
+
+.xwui-skeleton-preset-code {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.5rem);
+    font-family: monospace;
+}
+
+.xwui-skeleton-preset-badge {
+    display: inline-flex;
+}
+
+.xwui-skeleton-preset-input {
+    display: block;
+}
+
+.xwui-skeleton-preset-textarea {
+    display: block;
+}
+
+.xwui-skeleton-preset-select {
+    display: block;
+}
+
+.xwui-skeleton-preset-checkbox {
+    display: inline-flex;
+}
+
+.xwui-skeleton-preset-radio {
+    display: inline-flex;
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

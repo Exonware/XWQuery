@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-button: 2px;
+}
+
+/* Utility class for direct application */
+.radius-button-minimal {
+    border-radius: var(--radius-button, 2px) !important;
+}

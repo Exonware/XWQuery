@@ -1,0 +1,24 @@
+/* ============================================
+   PINK ACCENT - Pink palette
+   ============================================ */
+
+:root[data-accent="pink"] {
+    /* Accent colors - Pink palette */
+    --accent-primary: #ec4899;
+    --accent-hover: #db2777;
+    --accent-light: #f472b6;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 236, 72, 153;
+    --accent-hover-rgb: 219, 39, 119;
+    --accent-light-rgb: 244, 114, 182;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

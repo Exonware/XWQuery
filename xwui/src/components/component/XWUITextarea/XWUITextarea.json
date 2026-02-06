@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUITextarea",
+  "name": "XWUI Textarea Component",
+  "description": "Multi-line text input component with auto-resize option. Supports various sizes, variants, disabled/readonly states, error states, and auto-resizing based on content. Useful for longer text input in forms.",
+  "path": "input.textarea",
+  "tags": ["input", "textarea", "text", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the textarea",
+          "default": "medium"
+        },
+        "variant": {
+          "type": "string",
+          "enum": ["outlined", "filled"],
+          "description": "Visual variant of the textarea",
+          "default": "outlined"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the textarea is disabled",
+          "default": false
+        },
+        "readonly": {
+          "type": "boolean",
+          "description": "Whether the textarea is readonly",
+          "default": false
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether the textarea is required",
+          "default": false
+        },
+        "error": {
+          "type": "boolean",
+          "description": "Whether the textarea is in error state",
+          "default": false
+        },
+        "fullWidth": {
+          "type": "boolean",
+          "description": "Whether the textarea should take full width",
+          "default": false
+        },
+        "autoResize": {
+          "type": "boolean",
+          "description": "Whether the textarea should automatically resize based on content",
+          "default": false
+        },
+        "minRows": {
+          "type": "number",
+          "description": "Minimum number of visible rows"
+        },
+        "maxRows": {
+          "type": "number",
+          "description": "Maximum number of visible rows (for auto-resize)"
+        },
+        "resize": {
+          "type": "string",
+          "enum": ["none", "vertical", "horizontal", "both"],
+          "description": "CSS resize property value",
+          "default": "vertical"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the textarea"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Current textarea value"
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Placeholder text for the textarea"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label text for the textarea"
+        },
+        "helperText": {
+          "type": "string",
+          "description": "Helper text to display below the textarea"
+        },
+        "errorText": {
+          "type": "string",
+          "description": "Error text to display when in error state"
+        },
+        "name": {
+          "type": "string",
+          "description": "HTML name attribute for form submission"
+        },
+        "id": {
+          "type": "string",
+          "description": "HTML id attribute for the textarea"
+        }
+      }
+    }
+  }
+}
+

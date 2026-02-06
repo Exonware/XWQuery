@@ -1,0 +1,15 @@
+# ubjson.out.grammar
+# UBJSON Output Grammar - Template for generating UBJSON from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@value = {{type_marker}}{{value_data}}
+
+@type_marker = {{value}}
+
+@value_data = {{value}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

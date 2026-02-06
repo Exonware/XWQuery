@@ -1,0 +1,56 @@
+{
+  "name": "Sample JSON Document",
+  "version": "1.0.0",
+  "description": "A comprehensive JSON example with various data types",
+  "metadata": {
+    "author": "XWUI Team",
+    "created": "2025-01-15T10:30:00Z",
+    "tags": ["example", "json", "data"]
+  },
+  "configuration": {
+    "database": {
+      "host": "localhost",
+      "port": 5432,
+      "name": "example_db",
+      "ssl": true
+    },
+    "features": {
+      "authentication": true,
+      "caching": false,
+      "logging": {
+        "level": "info",
+        "format": "json"
+      }
+    }
+  },
+  "items": [
+    {
+      "id": 1,
+      "name": "First Item",
+      "active": true,
+      "price": 29.99,
+      "categories": ["electronics", "gadgets"]
+    },
+    {
+      "id": 2,
+      "name": "Second Item",
+      "active": false,
+      "price": 49.99,
+      "categories": ["books", "education"]
+    }
+  ],
+  "nested": {
+    "level1": {
+      "level2": {
+        "level3": {
+          "value": "Deep nesting example",
+          "array": [1, 2, 3, 4, 5],
+          "nullValue": null
+        }
+      }
+    }
+  }
+}
+
+
+

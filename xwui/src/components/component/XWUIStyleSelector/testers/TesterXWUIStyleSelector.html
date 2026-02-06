@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIStyleSelector Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuistyle-selector-content">
+<!-- Dialog container for style selector (hidden initially) -->
+        <div id="dialog-container" style="display: none;"></div>
+        <div id="style-selector-container" style="display: none;"></div>
+
+        <div class="components-demo">
+            <!-- Buttons Card -->
+            <div class="demo-card">
+                <h3>XWUIButton Component</h3>
+                <div class="button-group">
+                    <div id="btn-primary"></div>
+                    <div id="btn-secondary"></div>
+                    <div id="btn-success"></div>
+                    <div id="btn-danger"></div>
+                    <div id="btn-warning"></div>
+                    <div id="btn-info"></div>
+                    <div id="btn-outline"></div>
+                    <div id="btn-ghost"></div>
+                </div>
+                <div style="margin-top: 16px;">
+                    <h4>Sizes:</h4>
+                    <div class="button-group">
+                        <div id="btn-small"></div>
+                        <div id="btn-medium"></div>
+                        <div id="btn-large"></div>
+                    </div>
+                </div>
+                <div style="margin-top: 16px;">
+                    <h4>States:</h4>
+                    <div class="button-group">
+                        <div id="btn-loading"></div>
+                        <div id="btn-disabled"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Inputs Card -->
+            <div class="demo-card">
+                <h3>Form Inputs</h3>
+                <div class="input-group">
+                    <label for="demo-text-input">Text Input</label>
+                    <input type="text" id="demo-text-input" name="demo-text-input" placeholder="Enter text...">
+                </div>
+                <div class="input-group">
+                    <label for="demo-select">Select</label>
+                    <select id="demo-select" name="demo-select" aria-label="Demo select dropdown" title="Demo select dropdown">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="demo-textarea">Textarea</label>
+                    <textarea id="demo-textarea" name="demo-textarea" placeholder="Enter text..."></textarea>
+                </div>
+            </div>
+
+            <!-- Badges Card -->
+            <div class="demo-card">
+                <h3>XWUIBadge Component</h3>
+                <div style="display: flex; gap: var(--spacing-sm, 0.5rem); flex-wrap: wrap; align-items: center;">
+                    <div id="badge-default"></div>
+                    <div id="badge-primary"></div>
+                    <div id="badge-success"></div>
+                    <div id="badge-warning"></div>
+                    <div id="badge-error"></div>
+                </div>
+            </div>
+
+            <!-- Alerts Card -->
+            <div class="demo-card">
+                <h3>XWUIAlert Component</h3>
+                <div id="alert-info"></div>
+                <div id="alert-success" style="margin-top: var(--spacing-sm, 0.5rem);"></div>
+                <div id="alert-warning" style="margin-top: var(--spacing-sm, 0.5rem);"></div>
+                <div id="alert-error" style="margin-top: var(--spacing-sm, 0.5rem);"></div>
+            </div>
+            
+            <!-- Cards Card -->
+            <div class="demo-card">
+                <h3>XWUICard Component</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-md, 1rem);">
+                    <div id="card-1"></div>
+                    <div id="card-2"></div>
+                </div>
+            </div>
+            
+            <!-- Inputs Card -->
+            <div class="demo-card">
+                <h3>XWUIInput Component</h3>
+                <div id="input-text" style="margin-bottom: var(--spacing-sm, 0.5rem);"></div>
+                <div id="input-email" style="margin-bottom: var(--spacing-sm, 0.5rem);"></div>
+                <div id="input-password"></div>
+            </div>
+
+            <!-- Progress Card -->
+            <div class="demo-card">
+                <h3>Progress Bars</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%"></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%"></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%"></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <!-- Status Indicators Card -->
+            <div class="demo-card">
+                <h3>Status Indicators</h3>
+                <div style="margin-bottom: 8px;">
+                    <span class="status-indicator online"></span>
+                    <span>Online</span>
+                </div>
+                <div style="margin-bottom: 8px;">
+                    <span class="status-indicator offline"></span>
+                    <span>Offline</span>
+                </div>
+                <div style="margin-bottom: 8px;">
+                    <span class="status-indicator warning"></span>
+                    <span>Warning</span>
+                </div>
+            </div>
+
+            <!-- Code Block Card -->
+            <div class="demo-card">
+                <h3>Code Block</h3>
+                <div class="code-block">
+function example() {
+    const message = "Hello, World";
+    console.log(message);
+    return true;
+}
+                </div>
+            </div>
+        </div>
+
+        <!-- Console Demo -->
+        <div class="demo-card">
+            <h3>Console Component</h3>
+            <div class="console-container" id="consoleContainer" style="height: 300px; border: 1px solid var(--border-color, #dee2e6); border-radius: 8px; overflow: hidden; background: var(--bg-elevated, #ffffff);"></div>
+        </div>
+
+        <!-- JSON Configuration Example -->
+        <div class="demo-card">
+            <h3>JSON Configuration Example</h3>
+            <div class="json-config" id="jsonConfigDisplay"></div>
+        </div>
+        </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIStyleSelector.ts"></script>
+</body>
+</html>
+

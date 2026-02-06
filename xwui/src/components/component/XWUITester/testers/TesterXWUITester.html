@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUITester Component Tester</title>
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuitester-content">
+<div class="button-group">
+                <h3>Test Top Drawer</h3>
+                <div class="button-row">
+                    <button class="test-button primary" id="btn-top">TOP</button>
+                </div>
+                <p>Click the TOP button above to test the top drawer functionality. The drawer should slide down from the top.</p>
+            </div>
+            
+            <div class="button-group">
+                <h3>Test Component: XWUIButton</h3>
+                <p>This tester demonstrates XWUITester functionality by testing an XWUIButton component.</p>
+                <p>Use the controls above to:</p>
+                <ul style="margin-left: var(--spacing-md, 1rem);">
+                    <li><strong>Style Selector:</strong> Change theme, accent, roundness, and other style properties</li>
+                    <li><strong>System Settings:</strong> View and edit system configuration</li>
+                    <li><strong>User Settings:</strong> View and edit user configuration</li>
+                    <li><strong>Component Settings:</strong> View and edit component configuration</li>
+                    <li><strong>Component Data:</strong> View and edit component data</li>
+                    <li><strong>Platform Selector:</strong> Switch between desktop, tablet, and mobile viewports (opens top drawer)</li>
+                </ul>
+            </div>
+            
+            <div class="button-group">
+                <h3>Test Button Instances</h3>
+                <div class="button-row" id="button-test-area">
+                    <!-- Buttons will be added here -->
+                </div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUITester.ts"></script>
+</body>
+</html>
+

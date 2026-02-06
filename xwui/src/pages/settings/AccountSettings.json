@@ -1,0 +1,73 @@
+{
+  "id": "settings.account",
+  "name": "Account Settings",
+  "description": "Settings page with sidebar navigation and form sections",
+  "path": "/settings/account",
+  "conf_comp": {
+    "pageType": "settings",
+    "container": {
+      "maxWidth": "1200px",
+      "center": true
+    },
+    "layout": {
+      "regions": {
+        "sidebar": true,
+        "main": true
+      },
+      "grid": {
+        "columns": "250px 1fr",
+        "gap": "2rem"
+      }
+    }
+  },
+  "data": {
+    "title": "Account Settings",
+    "subtitle": "Manage your account preferences",
+    "sidebar": {
+      "component": "XWUITabs",
+      "region": "sidebar",
+      "gridArea": "sidebar",
+      "conf_comp": {
+        "orientation": "vertical",
+        "variant": "outlined"
+      },
+      "data": {
+        "tabs": [
+          { "label": "Profile", "value": "profile" },
+          { "label": "Security", "value": "security" },
+          { "label": "Notifications", "value": "notifications" },
+          { "label": "Preferences", "value": "preferences" }
+        ]
+      }
+    },
+    "main": {
+      "component": "XWUIForm",
+      "region": "main",
+      "gridArea": "main",
+      "conf_comp": {
+        "variant": "outlined"
+      },
+      "data": {
+        "fields": [
+          {
+            "component": "XWUIInput",
+            "conf_comp": { "label": "Full Name", "required": true },
+            "data": { "value": "" }
+          },
+          {
+            "component": "XWUIInput",
+            "conf_comp": { "label": "Email", "type": "email", "required": true },
+            "data": { "value": "" }
+          },
+          {
+            "component": "XWUIInput",
+            "conf_comp": { "label": "Phone", "type": "tel" },
+            "data": { "value": "" }
+          }
+        ]
+      },
+      "targetId": "account-settings-form"
+    }
+  }
+}
+

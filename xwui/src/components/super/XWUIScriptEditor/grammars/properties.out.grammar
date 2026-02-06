@@ -1,0 +1,18 @@
+# properties.out.grammar
+# Properties Output Grammar - Template for generating Properties files from AST
+# Java Properties File Format
+# Company: eXonware.com
+# Version: 1.0
+
+@properties = {{#each items}}{{value}}
+{{/each}}
+
+@property = {{key}}={{value}}
+
+@comment = #{{value}}
+
+@blank_line = 
+
+@indent = 0
+@pretty = false
+

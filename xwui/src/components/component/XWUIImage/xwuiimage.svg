@@ -1,0 +1,13 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <rect x="20" y="25" width="60" height="50" rx="3" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2.5"/>
+  <rect x="25" y="30" width="25" height="20" rx="2" class="xwui-icon-fill"/>
+  <rect x="55" y="30" width="20" height="15" rx="2" class="xwui-icon-accent"/>
+  <rect x="55" y="50" width="20" height="20" rx="2" class="xwui-icon-fill"/>
+  <rect x="25" y="55" width="25" height="15" rx="2" class="xwui-icon-accent"/>
+</svg>
+

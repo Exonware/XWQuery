@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-split-button.schema.json",
+  "title": "XWUISplitButton Schema",
+  "description": "Schema for XWUISplitButton component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "secondary",
+            "success",
+            "danger",
+            "warning",
+            "info",
+            "outline",
+            "ghost"
+          ],
+          "description": "Button style variant",
+          "default": "primary"
+        },
+        "size": {
+          "type": "string",
+          "enum": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "description": "Button size",
+          "default": "medium"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the button is disabled",
+          "default": false
+        },
+        "loading": {
+          "type": "boolean",
+          "description": "Whether the button is in loading state",
+          "default": false
+        },
+        "dropdownPlacement": {
+          "type": "string",
+          "enum": [
+            "bottom",
+            "top",
+            "left",
+            "right"
+          ],
+          "description": "Dropdown menu placement",
+          "default": "bottom"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Main button label text"
+        },
+        "text": {
+          "type": "string",
+          "description": "Alias for label"
+        },
+        "items": {
+          "type": "array",
+          "description": "Dropdown menu items",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              },
+              "disabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    }
+  },
+  "id": "XWUISplitButton"
+}

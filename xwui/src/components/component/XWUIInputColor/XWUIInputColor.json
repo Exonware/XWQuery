@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIInputColor",
+  "name": "XWUI Input Color Component",
+  "description": "Color input component combining XWUIInput with XWUIPickerColor. Provides a text input field with a color swatch and color picker popup for color selection. Supports full view (inline picker) and minimized view (popup picker).",
+  "path": "input.color",
+  "tags": ["input", "color", "picker", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "type": "string",
+          "enum": ["hex", "rgb", "hsl"],
+          "description": "Color format for output",
+          "default": "hex"
+        },
+        "presets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of preset color values (hex codes) to display in picker"
+        },
+        "view": {
+          "type": "string",
+          "enum": ["full", "minimized"],
+          "description": "View mode: 'full' shows picker inline, 'minimized' shows picker as popup",
+          "default": "minimized"
+        },
+        "showIcon": {
+          "type": "boolean",
+          "description": "Whether to show color picker icon",
+          "default": true
+        },
+        "iconName": {
+          "type": "string",
+          "description": "Icon name for the color picker icon",
+          "default": "color-picker"
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Placeholder text for the input field",
+          "default": "#000000"
+        },
+        "readonly": {
+          "type": "boolean",
+          "description": "Whether the input is read-only (allows manual color entry if false)",
+          "default": false
+        },
+        "clearable": {
+          "type": "boolean",
+          "description": "Whether to show clear button",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Selected color value (hex, rgb, or hsl string)"
+        }
+      }
+    }
+  }
+}
+

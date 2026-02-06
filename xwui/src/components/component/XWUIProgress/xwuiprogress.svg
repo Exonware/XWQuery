@@ -1,0 +1,14 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Progress bar background -->
+  <rect x="10" y="40" width="80" height="20" rx="10" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <!-- Progress bar fill (60%) -->
+  <rect x="10" y="40" width="48" height="20" rx="10" class="xwui-icon-fill"/>
+  <!-- Progress percentage text -->
+  <text x="50" y="54" font-family="Arial" font-size="11" text-anchor="middle" fill="var(--icons-color-secondary, white)">60%</text>
+</svg>
+

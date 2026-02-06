@@ -1,0 +1,48 @@
+// css.grammar
+// CSS Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: stylesheet
+
+stylesheet: rule*
+
+rule: selector_group "{" declaration_list "}"
+
+selector_group: selector ("," selector)*
+
+selector: simple_selector (combinator simple_selector)*
+
+simple_selector: element_name? [id_selector] [class_selector*] [attribute_selector*] [pseudo_selector*]
+
+element_name: IDENTIFIER
+
+id_selector: "#" IDENTIFIER
+
+class_selector: "." IDENTIFIER
+
+attribute_selector: "[" IDENTIFIER [("=" | "~=" | "|=" | "^=" | "$=" | "*=") attribute_value] "]"
+
+pseudo_selector: ":" IDENTIFIER ["(" [argument] ")"]
+
+combinator: " " | ">" | "+" | "~"
+
+declaration_list: declaration*
+
+declaration: property ":" value [important] ";"
+
+property: IDENTIFIER
+
+value: term (operator term)*
+
+term: number | dimension | percentage | string | identifier | uri | function | hexcolor
+
+important: "!" "important"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_-][a-zA-Z0-9_-]*/
+STRING: "\"" /[^"]/* "\"" | "'" /[^']/* "'"
+%import common.SIGNED_NUMBER
+%import common.WS
+
+%ignore WS
+

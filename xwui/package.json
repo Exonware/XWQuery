@@ -1,0 +1,49 @@
+{
+  "name": "international-standards-viewer",
+  "version": "1.0.3",
+  "description": "International Standards Viewer - Convert JSON standards to Markdown and view them",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run generate:styles:async && npm run generate:component-index && tsc && npm run copy-assets",
+    "build:vite": "npm run generate:styles:async && npm run generate:component-index && vite build && npm run copy-assets",
+    "build:vite:clean": "npm run clean:force && npm run build:vite",
+    "generate:theme-manifest:async": "npx --yes tsx tools/generate-manifest-async.ts",
+    "generate:component-index:async": "npx --yes tsx tools/generate-component-index-async.ts",
+    "generate:styles:async": "npm run generate:manifest:async && npm run generate:schema:async",
+    "generate:manifest:async": "npx --yes tsx tools/generate-manifest-async.ts",
+    "generate:css:async": "npx --yes tsx tools/generate-css-async.ts",
+    "generate:schema:async": "npx --yes tsx tools/generate-schema-async.ts",
+    "preview": "vite preview",
+    "copy-assets": "npm run copy-css && npm run copy-json && npm run copy-app-styles && npm run copy-sample-files",
+    "copy-css": "if not exist dist\\components\\DocumentViewer (mkdir dist\\components\\DocumentViewer) && if exist src\\components\\DocumentViewer\\DocumentViewer.css (copy /Y src\\components\\DocumentViewer\\DocumentViewer.css dist\\components\\DocumentViewer\\DocumentViewer.css) && if not exist dist\\components\\XWUIItem (mkdir dist\\components\\XWUIItem) && if exist src\\components\\XWUIItem\\XWUIItem.css (copy /Y src\\components\\XWUIItem\\XWUIItem.css dist\\components\\XWUIItem\\XWUIItem.css) && if not exist dist\\components\\XWUIConsole (mkdir dist\\components\\XWUIConsole) && if exist src\\components\\XWUIConsole\\XWUIConsole.css (copy /Y src\\components\\XWUIConsole\\XWUIConsole.css dist\\components\\XWUIConsole\\XWUIConsole.css) && if not exist dist\\components\\XWUIStyleSelector (mkdir dist\\components\\XWUIStyleSelector) && if exist src\\components\\XWUIStyleSelector\\XWUIStyleSelector.css (copy /Y src\\components\\XWUIStyleSelector\\XWUIStyleSelector.css dist\\components\\XWUIStyleSelector\\XWUIStyleSelector.css) && if not exist dist\\components\\XWUIButton (mkdir dist\\components\\XWUIButton) && if exist src\\components\\XWUIButton\\XWUIButton.css (copy /Y src\\components\\XWUIButton\\XWUIButton.css dist\\components\\XWUIButton\\XWUIButton.css) && if not exist dist\\components\\XWUIScriptEditor (mkdir dist\\components\\XWUIScriptEditor) && if exist src\\components\\XWUIScriptEditor\\XWUIScriptEditor.css (copy /Y src\\components\\XWUIScriptEditor\\XWUIScriptEditor.css dist\\components\\XWUIScriptEditor\\XWUIScriptEditor.css)",
+    "copy-json": "if not exist dist\\data (mkdir dist\\data) && if exist data\\conf_sys.json (copy /Y data\\conf_sys.json dist\\data\\conf_sys.json) && if exist data\\conf_usr.json (copy /Y data\\conf_usr.json dist\\data\\conf_usr.json) && if exist data\\conf_sys.schema.json (copy /Y data\\conf_sys.schema.json dist\\data\\conf_sys.schema.json) && if exist data\\conf_usr.schema.json (copy /Y data\\conf_usr.schema.json dist\\data\\conf_usr.schema.json) && if not exist dist\\components\\XWUIConsole (mkdir dist\\components\\XWUIConsole) && if exist src\\components\\XWUIConsole\\XWUIConsole.schema.json (copy /Y src\\components\\XWUIConsole\\XWUIConsole.schema.json dist\\components\\XWUIConsole\\XWUIConsole.schema.json) && if not exist dist\\components\\XWUIStyleSelector (mkdir dist\\components\\XWUIStyleSelector) && if exist src\\components\\XWUIStyleSelector\\XWUIStyleSelector.schema.json (copy /Y src\\components\\XWUIStyleSelector\\XWUIStyleSelector.schema.json dist\\components\\XWUIStyleSelector\\XWUIStyleSelector.schema.json) && if not exist dist\\components\\XWUIButton (mkdir dist\\components\\XWUIButton) && if exist src\\components\\XWUIButton\\XWUIButton.schema.json (copy /Y src\\components\\XWUIButton\\XWUIButton.schema.json dist\\components\\XWUIButton\\XWUIButton.schema.json) && if not exist dist\\components\\XWUIScriptEditor (mkdir dist\\components\\XWUIScriptEditor) && if exist src\\components\\XWUIScriptEditor\\XWUIScriptEditor.schema.json (copy /Y src\\components\\XWUIScriptEditor\\XWUIScriptEditor.schema.json dist\\components\\XWUIScriptEditor\\XWUIScriptEditor.schema.json) && if not exist dist\\styles (mkdir dist\\styles) && if exist src\\styles\\styles.schema.json (copy /Y src\\styles\\styles.schema.json dist\\styles\\styles.schema.json) && if exist src\\styles\\styles.data.json (copy /Y src\\styles\\styles.data.json dist\\styles\\styles.data.json)",
+    "copy-app-styles": "if not exist dist\\app (mkdir dist\\app) && if not exist dist\\app\\styles (mkdir dist\\app\\styles) && if exist src\\app\\styles\\base.css (copy /Y src\\app\\styles\\base.css dist\\app\\styles\\base.css) && if exist src\\app\\styles\\testers.css (copy /Y src\\app\\styles\\testers.css dist\\app\\styles\\testers.css) && if exist src\\app\\styles\\theme_light.css (copy /Y src\\app\\styles\\theme_light.css dist\\app\\styles\\theme_light.css) && if exist src\\app\\styles\\theme_dark.css (copy /Y src\\app\\styles\\theme_dark.css dist\\app\\styles\\theme_dark.css) && if exist src\\app\\styles\\theme_night.css (copy /Y src\\app\\styles\\theme_night.css dist\\app\\styles\\theme_night.css) && if exist src\\app\\styles\\theme_silver.css (copy /Y src\\app\\styles\\theme_silver.css dist\\app\\styles\\theme_silver.css)",
+    "copy-sample-files": "powershell -ExecutionPolicy Bypass -Command \"if (-not (Test-Path 'dist\\components\\XWUIScriptEditor\\testers')) { New-Item -ItemType Directory -Force -Path 'dist\\components\\XWUIScriptEditor\\testers' | Out-Null }; if (-not (Test-Path 'dist\\components\\XWUIScriptEditor\\testers\\files')) { New-Item -ItemType Directory -Force -Path 'dist\\components\\XWUIScriptEditor\\testers\\files' | Out-Null }; if (Test-Path 'src\\components\\XWUIScriptEditor\\testers\\files') { Copy-Item -Path 'src\\components\\XWUIScriptEditor\\testers\\files\\*' -Destination 'dist\\components\\XWUIScriptEditor\\testers\\files\\' -Recurse -Force }\"",
+    "watch": "tsc --watch",
+    "clean": "rmdir /s /q dist 2>nul || rmdir dist 2>nul || true",
+    "clean:force": "powershell -ExecutionPolicy Bypass -Command \"if (Test-Path 'dist') { Remove-Item -Path 'dist' -Recurse -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 1; if (Test-Path 'dist') { Write-Warning 'Some files may still be locked. Try closing file explorers, IDEs, or waiting for OneDrive to finish syncing.' } }\"",
+    "generate:manifest": "npx --yes tsx src/styles/generators/manifest-generator.ts",
+    "generate:styles": "npm run generate:manifest && npm run generate:css && npm run generate:schema",
+    "generate:component-index": "npx --yes tsx tools/generate-component-index.ts",
+    "generate:css": "npx --yes tsx src/styles/generators/unified-generator.ts",
+    "generate:schema": "npx --yes tsx src/styles/generators/schema-generator.ts",
+    "generate:theme-manifest": "node --loader ts-node/esm src/styles/manifest-generator.ts 2>/dev/null || (npx --yes tsx src/styles/manifest-generator.ts)",
+    "generate:roundness": "npx --yes tsx src/styles/roundness-generator.ts"
+  },
+  "dependencies": {
+    "glob": "^13.0.0",
+    "monaco-editor": "^0.55.1",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
+    "@types/node": "^24.10.1",
+    "@types/three": "^0.169.0",
+    "autoprefixer": "^10.4.22",
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4"
+  }
+}

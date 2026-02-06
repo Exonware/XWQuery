@@ -1,0 +1,23 @@
+/* ============================================
+   SLIDER - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Slider track/rail roundness */
+    --radius-slider-track: 0px;
+    /* Fallback: --radius-control → --radius-sm → 0px */
+    
+    /* Slider thumb roundness (defaults to circular/50%) */
+    --radius-slider-thumb: 50%;
+    /* Thumbs are typically circular, but can be customized */
+}
+
+/* Utility classes for direct application */
+.radius-slider-track-sharp {
+    border-radius: var(--radius-slider-track, 0px) !important;
+}
+
+.radius-slider-thumb-sharp {
+    border-radius: var(--radius-slider-thumb, 50%) !important;
+}
+

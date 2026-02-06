@@ -1,0 +1,111 @@
+// Apache Avro Schema Example
+{
+  "type": "record",
+  "name": "Document",
+  "namespace": "example",
+  "doc": "Sample Avro schema document",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "Document name"
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "default": "1.0.0"
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "metadata",
+      "type": {
+        "type": "record",
+        "name": "Metadata",
+        "fields": [
+          {
+            "name": "author",
+            "type": "string"
+          },
+          {
+            "name": "created",
+            "type": "string"
+          },
+          {
+            "name": "tags",
+            "type": {
+              "type": "array",
+              "items": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "database",
+      "type": {
+        "type": "record",
+        "name": "DatabaseConfig",
+        "fields": [
+          {
+            "name": "host",
+            "type": "string"
+          },
+          {
+            "name": "port",
+            "type": "int"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "ssl",
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    {
+      "name": "items",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "Item",
+          "fields": [
+            {
+              "name": "id",
+              "type": "int"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "active",
+              "type": "boolean"
+            },
+            {
+              "name": "price",
+              "type": "double"
+            },
+            {
+              "name": "categories",
+              "type": {
+                "type": "array",
+                "items": "string"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+
+
+

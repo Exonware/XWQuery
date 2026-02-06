@@ -1,0 +1,13 @@
+/* ============================================
+   CAPTION TYPOGRAPHY - CHINESE-OS
+   ============================================ */
+
+:root[data-font="chinese-os"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-caption-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-caption-chinese-os {
+    font-family: var(--font-caption-family, var(--font-family-base, sans-serif)) !important;
+}

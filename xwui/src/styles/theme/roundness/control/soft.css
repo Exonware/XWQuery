@@ -1,0 +1,12 @@
+/* ============================================
+   CONTROL - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    --radius-control: 8px;
+}
+
+/* Utility class for direct application */
+.radius-control-soft {
+    border-radius: var(--radius-control, 8px) !important;
+}

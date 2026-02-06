@@ -1,0 +1,73 @@
+﻿# mongodb.out.grammar
+# MongoDB Output Grammar - Template for generating MongoDB Query Language from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@query = {{value}}
+
+@find_query = db.{{collection}}.find({{#if filter}}{{filter}}{{/if}}){{#if projection}}{{projection}}{{/if}}
+
+@aggregate_query = db.{{collection}}.aggregate([{{stages}}])
+
+@insert_query = db.{{collection}}.{{method}}({{#each documents}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@update_query = db.{{collection}}.{{method}}({{filter}}, {{update}})
+
+@delete_query = db.{{collection}}.{{method}}({{filter}})
+
+@count_query = db.{{collection}}.countDocuments({{#if filter}}{{filter}}{{/if}})
+
+@collection = {{value}}
+
+@filter_doc = {{{#each filters}}{{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@field_filter = {{path}}: {{value}}
+
+@field_path = {{value}}
+
+@operator_expr = {{{operator}}: {{value}}}}
+
+@operator = {{value}}
+
+@projection = .project({{{#each fields}}{{value}}{{#if !@last}}, {{/if}}{{/each}}})
+
+@project_fields = {{#each fields}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@project_field = {{path}}: {{value}}
+
+@pipeline_stages = {{#each stages}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@pipeline_stage = {{{op}}: {{value}}}}
+
+@stage_op = {{value}}
+
+@stage_value = {{value}}
+
+@insert_method = {{value}}
+
+@document = {{{#each fields}}{{path}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@document_field = {{path}}: {{value}}
+
+@update_method = {{value}}
+
+@update_doc = {{{operator}}: {{{#each fields}}{{path}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}}}
+
+@update_operator = {{value}}
+
+@delete_method = {{value}}
+
+@value = {{value}}
+
+@object_literal = {{{#each pairs}}{{key}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@object_pair = {{key}}: {{value}}
+
+@array_literal = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@objectid = ObjectId({{value}})
+
+@date_literal = {{#if iso}}ISODate({{value}}){{else}}new Date({{#if value}}{{value}}{{/if}}){{/if}}
+
+@indent = 2
+@pretty = true

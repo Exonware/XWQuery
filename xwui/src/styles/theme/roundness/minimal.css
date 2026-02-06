@@ -1,0 +1,45 @@
+/* ============================================
+   Minimal ROUNDNESS - Border radius scale
+   ============================================ */
+
+:root[data-roundness="minimal"],
+:root:not([data-roundness]) {
+    --radius-xs: 1px;
+    --radius-sm: 2px;
+    --radius-md: 3px;
+    --radius-lg: 4px;
+    --radius-xl: 6px;
+    --radius-2xl: 8px;
+    --radius-full: 9999px;
+    
+    /* Granular roundness controls (defaults) */
+    --radius-accordion: var(--radius-md, 3px);
+    --radius-alert: var(--radius-md, 3px);
+    --radius-avatar: var(--radius-sm, 2px);
+    --radius-badge: var(--radius-full, 9999px);
+    --radius-body: var(--radius-base, 3px);
+    --radius-button: var(--radius-sm, 2px);
+    --radius-calendar: var(--radius-sm, 2px);
+    --radius-caption: var(--radius-xs, 1px);
+    --radius-carousel: var(--radius-md, 3px);
+    --radius-chip: var(--radius-full, 9999px);
+    --radius-code: var(--radius-md, 3px);
+    --radius-container: var(--radius-lg, 4px);
+    --radius-dialog: var(--radius-lg, 4px);
+    --radius-headings: var(--radius-lg, 4px);
+    --radius-input: var(--radius-sm, 2px);
+    --radius-label: var(--radius-sm, 2px);
+    --radius-menu: var(--radius-md, 3px);
+    --radius-navigation: var(--radius-sm, 2px);
+    --radius-pagination: var(--radius-sm, 2px);
+    --radius-photo: var(--radius-md, 3px);
+    --radius-popover: var(--radius-md, 3px);
+    --radius-progress: var(--radius-full, 9999px);
+    --radius-sidebar: var(--radius-md, 3px);
+    --radius-skeleton: var(--radius-sm, 2px);
+    --radius-tab: var(--radius-sm, 2px);
+    --radius-table: var(--radius-xs, 1px);
+    --radius-toast: var(--radius-md, 3px);
+    --radius-tooltip: var(--radius-sm, 2px);
+}
+

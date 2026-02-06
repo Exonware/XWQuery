@@ -1,0 +1,42 @@
+// FlatBuffers Schema Example
+namespace Example;
+
+table Metadata {
+  author: string;
+  created: string;
+  tags: [string];
+}
+
+table DatabaseConfig {
+  host: string;
+  port: uint16;
+  name: string;
+  ssl: bool;
+}
+
+table Item {
+  id: uint32;
+  name: string;
+  active: bool;
+  price: double;
+  categories: [string];
+}
+
+table Document {
+  name: string;
+  version: string;
+  description: string (deprecated);
+  metadata: Metadata;
+  database: DatabaseConfig;
+  items: [Item];
+}
+
+root_type Document;
+
+// Usage example:
+// flatc --cpp sample.fbs
+// flatc --java sample.fbs
+// flatc --python sample.fbs
+
+
+

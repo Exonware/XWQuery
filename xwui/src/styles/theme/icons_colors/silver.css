@@ -1,0 +1,12 @@
+/* ============================================
+   SILVER ICON COLORS - Metallic silver theme
+   ============================================ */
+
+:root[data-icons-colors="silver"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #525252;        /* Primary fill color - dark gray text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #a3a3a3;        /* Accent/rail/marks color - silver */
+    --icons-color-transparent: transparent;
+}
+

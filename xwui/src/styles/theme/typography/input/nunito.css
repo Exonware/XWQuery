@@ -1,0 +1,13 @@
+/* ============================================
+   INPUT TYPOGRAPHY - NUNITO
+   ============================================ */
+
+:root[data-font="nunito"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-input-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-input-nunito {
+    font-family: var(--font-input-family, var(--font-family-base, sans-serif)) !important;
+}

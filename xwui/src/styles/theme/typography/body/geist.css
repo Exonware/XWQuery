@@ -1,0 +1,13 @@
+/* ============================================
+   BODY TYPOGRAPHY - GEIST
+   ============================================ */
+
+:root[data-font="geist"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-body-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-body-geist {
+    font-family: var(--font-body-family, var(--font-family-base, sans-serif)) !important;
+}

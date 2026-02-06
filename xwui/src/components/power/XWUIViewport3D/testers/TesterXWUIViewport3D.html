@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIViewport3D Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- Component CSS -->
+    
+    <!-- Tester Styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+</head>
+<body>
+    <div id="tester-container"></div>
+    
+        
+    <template id="tester-xwuiviewport3-d-content">
+<div style="display: flex; flex-direction: column; gap: 1rem; height: 100%;">
+                <div style="flex: 1; min-height: 600px; border: 1px solid var(--border-color, #dee2e6); border-radius: var(--radius-md, 8px); overflow: hidden;">
+                    <div id="viewport3d-1" style="width: 100%; height: 100%; min-height: 600px;"></div>
+                </div>
+                <div style="padding: 1rem; background: var(--bg-secondary, #f5f5f5); border-radius: var(--radius-md, 8px);">
+                    <h3>Instructions</h3>
+                    <ul style="margin: 0; padding-left: 1.5rem;">
+                        <li>Drag the cubes to move them in 3D space</li>
+                        <li>Right-click or Ctrl+drag to rotate the view</li>
+                        <li>Use navigation controls (bottom-right) for pan, zoom, and rotation</li>
+                        <li>Keyboard shortcuts: Arrow keys (pan), +/- (zoom), Ctrl+0 (reset)</li>
+                        <li>Mouse wheel: Zoom in/out</li>
+                        <li>Touch, two-finger rotate (on touch devices)</li>
+                    </ul>
+                </div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIViewport3D.ts"></script>
+</body>
+</html>
+

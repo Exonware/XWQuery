@@ -1,0 +1,13 @@
+/* ============================================
+   CONTAINER - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-container: 32px;
+}
+
+/* Utility class for direct application */
+.radius-container-extra-rounded {
+    border-radius: var(--radius-container, 32px) !important;
+}

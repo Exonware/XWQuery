@@ -1,0 +1,68 @@
+<!-- XML Query Examples -->
+<!-- Generic XML query syntax -->
+
+<!-- Basic selection -->
+/bookstore/book
+/bookstore/book[1]
+/bookstore/book[@category='fiction']
+
+<!-- All books -->
+//book
+
+<!-- Filtering -->
+//book[price > 35]
+//book[author='John Doe']
+//book[@category='fiction' and price < 30]
+
+<!-- Selecting attributes -->
+//book/@category
+//book[@category='fiction']/@category
+
+<!-- Text content -->
+//book/title/text()
+//book[price > 35]/title
+
+<!-- Multiple conditions -->
+//book[price > 20 and price < 50]
+//book[author='John Doe' or author='Jane Smith']
+
+<!-- Functions -->
+//book[contains(title, 'XML')]
+//book[starts-with(title, 'Learning')]
+//book[string-length(title) > 30]
+
+<!-- Aggregations -->
+count(//book)
+sum(//book/price)
+avg(//book/price)
+max(//book/price)
+min(//book/price)
+
+<!-- Grouping -->
+for $book in //book
+group by $category := $book/@category
+return <category name="{$category}">
+    {count($book)} books
+</category>
+
+<!-- Joins -->
+for $book in //book,
+    $author in //author
+where $book/author = $author/name
+return <book-author>
+    {$book/title}
+    {$author/bio}
+</book-author>
+
+<!-- Construction -->
+<results>
+    {
+        for $book in //book
+        where $book/price > 30
+        return <expensive-book>
+            {$book/title}
+            <price>{$book/price}</price>
+        </expensive-book>
+    }
+</results>
+

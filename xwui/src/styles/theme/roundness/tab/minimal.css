@@ -1,0 +1,14 @@
+/* ============================================
+   TAB - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-tab: 2px;
+    /* Fallback: --radius-navigation → --radius-sm → 2px */
+}
+
+/* Utility class for direct application */
+.radius-tab-minimal {
+    border-radius: var(--radius-tab, 2px) !important;
+}

@@ -1,0 +1,44 @@
+/**
+ * XWUILabel Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-label {
+    display: inline-block;
+    font-weight: var(--font-weight-medium, 500);
+    font-family: var(--font-label-family, var(--font-family-base, sans-serif));
+    margin-bottom: var(--spacing-xs, 0.375rem);
+    transition: color 0.2s;
+}
+
+.xwui-label-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Size variants */
+.xwui-label-small {
+    font-size: var(--font-size-xs, 0.75rem);
+}
+
+.xwui-label-medium {
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-label-large {
+    font-size: var(--font-size-base, 1rem);
+}
+
+/* Required indicator */
+.xwui-label-required {
+    color: var(--accent-error);
+    font-weight: var(--font-weight-semibold, 600);
+}
+

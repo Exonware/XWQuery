@@ -1,0 +1,24 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Form container -->
+  <rect x="10" y="15" width="80" height="70" rx="4" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <!-- Form title -->
+  <text x="15" y="28" font-family="Arial" font-size="10" font-weight="bold" fill="var(--icons-color-main, black)">Form Title</text>
+  <!-- Input field 1 -->
+  <rect x="15" y="35" width="70" height="8" rx="2" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="1.5"/>
+  <line x1="18" y1="40" x2="78" y2="40" class="xwui-icon-accent" stroke-width="1" stroke-linecap="round"/>
+  <!-- Input field 2 -->
+  <rect x="15" y="48" width="70" height="8" rx="2" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="1.5"/>
+  <line x1="18" y1="53" x2="78" y2="53" class="xwui-icon-accent" stroke-width="1" stroke-linecap="round"/>
+  <!-- Select field -->
+  <rect x="15" y="61" width="70" height="8" rx="2" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="1.5"/>
+  <polygon points="78,59 82,63 78,67" class="xwui-icon-fill"/>
+  <!-- Submit button -->
+  <rect x="60" y="75" width="25" height="8" rx="2" class="xwui-icon-fill"/>
+  <text x="72.5" y="81" font-family="Arial" font-size="7" text-anchor="middle" fill="var(--icons-color-secondary, white)">Submit</text>
+</svg>
+

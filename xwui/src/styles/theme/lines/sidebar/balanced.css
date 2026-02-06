@@ -1,0 +1,17 @@
+/* ============================================
+   SIDEBAR LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-sidebar-width: var(--border-width-regular, 1.5px);
+    --border-sidebar-style: solid;
+    --border-sidebar-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-sidebar-balanced {
+    border-style: var(--border-sidebar-style, solid);
+    border-width: var(--border-sidebar-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-sidebar-color, var(--border-medium, var(--border-color)));
+}

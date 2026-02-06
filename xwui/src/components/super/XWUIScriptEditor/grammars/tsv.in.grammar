@@ -1,0 +1,22 @@
+// tsv.grammar
+// TSV Grammar - Tab-Separated Values
+// Company: eXonware.com
+
+?start: document
+
+document: header? record*
+
+header: record
+
+record: field ("\t" field)* NEWLINE
+
+field: FIELD_CONTENT
+
+// Terminals
+FIELD_CONTENT: /[^\t\n\r]+/
+NEWLINE: /\r?\n/
+
+%import common.WS
+
+%ignore WS
+

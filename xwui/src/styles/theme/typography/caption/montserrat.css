@@ -1,0 +1,13 @@
+/* ============================================
+   CAPTION TYPOGRAPHY - MONTSERRAT
+   ============================================ */
+
+:root[data-font="montserrat"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-caption-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-caption-montserrat {
+    font-family: var(--font-caption-family, var(--font-family-base, sans-serif)) !important;
+}

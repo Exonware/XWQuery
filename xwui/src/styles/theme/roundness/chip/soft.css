@@ -1,0 +1,14 @@
+/* ============================================
+   CHIP - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-chip: 9999px;
+    /* Fallback: --radius-badge → --radius-full → 9999px */
+}
+
+/* Utility class for direct application */
+.radius-chip-soft {
+    border-radius: var(--radius-chip, 9999px) !important;
+}

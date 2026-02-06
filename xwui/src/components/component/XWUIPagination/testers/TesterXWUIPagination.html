@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIPagination Component Tester</title>
+    
+        <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuipagination-content">
+<!-- Basic -->
+            <div class="button-group">
+                <h3>Basic Pagination</h3>
+                <div id="pagination-basic"></div>
+            </div>
+            
+            <!-- With Total -->
+            <div class="button-group">
+                <h3>With Total Info</h3>
+                <div id="pagination-total"></div>
+            </div>
+            
+            <!-- With Size Changer -->
+            <div class="button-group">
+                <h3>With Size Changer</h3>
+                <div id="pagination-size"></div>
+            </div>
+            
+            <!-- With Quick Jumper -->
+            <div class="button-group">
+                <h3>With Quick Jumper</h3>
+                <div id="pagination-jumper"></div>
+            </div>
+            
+            <!-- Full Featured -->
+            <div class="button-group">
+                <h3>Full Featured</h3>
+                <div id="pagination-full"></div>
+            </div>
+            
+            <!-- Simple Mode -->
+            <div class="button-group">
+                <h3>Simple Mode</h3>
+                <div id="pagination-simple"></div>
+            </div>
+            
+            <!-- Sizes -->
+            <div class="button-group">
+                <h3>Size Variants</h3>
+                <div id="pagination-small"></div>
+                <div id="pagination-medium" style="margin-top: 1rem;"></div>
+                <div id="pagination-large" style="margin-top: 1rem;"></div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIPagination.ts"></script>
+</body>
+</html>
+

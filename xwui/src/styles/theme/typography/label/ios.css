@@ -1,0 +1,13 @@
+/* ============================================
+   LABEL TYPOGRAPHY - IOS
+   ============================================ */
+
+:root[data-font="ios"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-label-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-label-ios {
+    font-family: var(--font-label-family, var(--font-family-base, sans-serif)) !important;
+}

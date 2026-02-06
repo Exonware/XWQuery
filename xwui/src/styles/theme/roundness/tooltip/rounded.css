@@ -1,0 +1,14 @@
+/* ============================================
+   TOOLTIP - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-tooltip: 6px;
+    /* Fallback: --radius-overlay → --radius-sm → 6px */
+}
+
+/* Utility class for direct application */
+.radius-tooltip-rounded {
+    border-radius: var(--radius-tooltip, 6px) !important;
+}

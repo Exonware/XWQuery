@@ -1,0 +1,55 @@
+# LogQL (Grafana Loki Query Language) Examples
+# Query language for log aggregation
+
+# Basic log queries
+{job="api"} |= "error"
+{job="api"} | json | status >= 400
+
+# Label filters
+{job="api", environment="production"}
+{job=~"api|web", level="error"}
+
+# Line filters
+{job="api"} |= "timeout"
+{job="api"} != "healthcheck"
+{job="api"} |~ "error|exception"
+{job="api"} !~ "debug|trace"
+
+# JSON parsing
+{job="api"} | json | status >= 400
+{job="api"} | json | request.method="POST"
+
+# Logfmt parsing
+{job="api"} | logfmt | status >= 400
+{job="api"} | logfmt | duration > 1s
+
+# Regex parsing
+{job="api"} | regexp "(?P<ip>\\d+\\.\\d+\\.\\d+\\.\\d+)" | ip="192.168.1.1"
+
+# Aggregations
+sum(count_over_time({job="api"}[5m]))
+avg(rate({job="api"} | json | duration[5m]))
+max_over_time({job="api"} | json | duration[1h])
+
+# Range aggregations
+rate({job="api"}[5m])
+increase({job="api"}[1h])
+count_over_time({job="api"}[5m])
+
+# Grouping
+sum by (level) (count_over_time({job="api"}[5m]))
+sum by (method, status) (rate({job="api"} | json [5m]))
+
+# Binary operations
+{job="api"} | json | duration > 1s and status >= 400
+{job="api"} | json | method="POST" or method="PUT"
+
+# Functions
+label_replace(
+  {job="api"},
+  "service",
+  "$1",
+  "job",
+  "(.*)-api"
+)
+

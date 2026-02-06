@@ -1,0 +1,13 @@
+/* ============================================
+   CONTAINER - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-container: 4px;
+}
+
+/* Utility class for direct application */
+.radius-container-minimal {
+    border-radius: var(--radius-container, 4px) !important;
+}

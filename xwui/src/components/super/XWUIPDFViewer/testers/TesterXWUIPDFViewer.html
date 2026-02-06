@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIPDFViewer Tester</title>
+    
+    <style>
+        .pdf-container {
+            height: 600px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+    </style>
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuipdfviewer-content">
+<!-- Basic PDF Viewer -->
+            <div class="button-group">
+                <h3>Basic PDF Viewer</h3>
+                <p>Note: PDF.js will be loaded from CDN. Provide a PDF URL to test.</p>
+                <div id="pdf-viewer-basic" class="pdf-container"></div>
+            </div>
+            
+            <!-- With Thumbnails -->
+            <div class="button-group">
+                <h3>With Thumbnails</h3>
+                <div id="pdf-viewer-thumbnails" class="pdf-container"></div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIPDFViewer.ts"></script>
+</body>
+</html>
+

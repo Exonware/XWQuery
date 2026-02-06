@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIButtonGroup",
+  "name": "XWUI Button Group Component",
+  "description": "Group of buttons displayed together with consistent styling. Supports horizontal and vertical orientations, selection states, and custom variants. Uses XWUIButton components internally.",
+  "path": "input.buttongroup",
+  "tags": ["input", "button", "group", "selection", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["default", "outlined", "text"],
+          "description": "Visual variant of the button group",
+          "default": "default"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the buttons in the group",
+          "default": "medium"
+        },
+        "orientation": {
+          "type": "string",
+          "enum": ["horizontal", "vertical"],
+          "description": "Layout orientation of the button group",
+          "default": "horizontal"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the button group"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "buttons": {
+          "type": "array",
+          "description": "Array of button items to display in the group",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the button"
+              },
+              "label": {
+                "type": "string",
+                "description": "Button label text"
+              },
+              "icon": {
+                "type": "string",
+                "description": "SVG icon HTML string for the button"
+              },
+              "disabled": {
+                "type": "boolean",
+                "description": "Whether the button is disabled"
+              }
+            },
+            "required": ["id", "label"]
+          }
+        },
+        "selected": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of selected button IDs"
+        }
+      },
+      "required": ["buttons"]
+    }
+  }
+}
+

@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-button: 16px;
+}
+
+/* Utility class for direct application */
+.radius-button-extra-rounded {
+    border-radius: var(--radius-button, 16px) !important;
+}

@@ -1,0 +1,12 @@
+/* ============================================
+   FEEDBACK - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    --radius-feedback: 12px;
+}
+
+/* Utility class for direct application */
+.radius-feedback-soft {
+    border-radius: var(--radius-feedback, 12px) !important;
+}

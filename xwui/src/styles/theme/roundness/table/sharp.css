@@ -1,0 +1,14 @@
+/* ============================================
+   TABLE - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-table: 0px;
+    /* Fallback: --radius-content → --radius-xs → 0px */
+}
+
+/* Utility class for direct application */
+.radius-table-sharp {
+    border-radius: var(--radius-table, 0px) !important;
+}

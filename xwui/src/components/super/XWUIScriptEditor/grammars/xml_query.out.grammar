@@ -1,0 +1,53 @@
+﻿# xml_query.out.grammar
+# XML Query Output Grammar - Template for generating XML Query from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@query_expr = {{value}}
+
+@for_expr = for {{var}} in {{source}} return {{return}}
+
+@path_expr = {{#if absolute}}/{{else}}{{#if descendant}}//{{/if}}{{/if}}{{#each steps}}{{value}}{{#if !@last}}/{{/if}}{{/each}}
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} or {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} and {{/if}}{{/each}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{/if}}
+
+@compare_op = {{value}}
+
+@additive = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@multiplicative = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@primary = {{value}}
+
+@function_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@literal = {{value}}
+
+@variable = ${{name}}
+
+@step = {{#if axis}}{{axis}}::{{/if}}{{test}}{{#each predicates}}{{value}}{{/each}}
+
+@axis_specifier = {{#if at}}@{{else}}{{name}}::{{/if}}
+
+@axis_name = {{value}}
+
+@node_test = {{value}}
+
+@node_type = {{value}}
+
+@predicate = [{{expression}}]
+
+@predicate_expr = {{value}}
+
+@indent = 2
+@pretty = true

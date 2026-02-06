@@ -1,0 +1,47 @@
+// graphdb.grammar
+// GraphDB Grammar - Graph database format (Neo4j, Dgraph)
+// Company: eXonware.com
+
+?start: graph_database
+
+graph_database: node* relationship* property*
+
+node: node_id labels properties
+
+relationship: relationship_id start_node end_node type properties
+
+property: entity_id key value
+
+node_id: INT64
+
+relationship_id: INT64
+
+entity_id: INT64
+
+labels: label*
+
+label: STRING
+
+type: STRING
+
+properties: property_pair*
+
+property_pair: key ":" value
+
+key: STRING
+
+value: value_type
+
+value_type: STRING | NUMBER | BOOLEAN | NULL
+
+// Terminals
+INT64: /[\x00-\xFF]{8}/
+STRING: "\"" /[^"]/* "\""
+NUMBER: /[0-9]+(\.[0-9]+)?/
+BOOLEAN: "true" | "false"
+NULL: "null"
+
+%import common.WS
+
+%ignore WS
+

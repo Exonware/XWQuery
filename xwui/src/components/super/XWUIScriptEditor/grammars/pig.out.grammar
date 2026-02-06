@@ -1,0 +1,38 @@
+﻿# pig.out.grammar
+# Pig Output Grammar - Template for generating Pig Latin from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@statement_list = {{#each statements}}{{value}}
+{{/each}}
+
+@statement = {{value}}
+
+@load_stmt = {{var}} = LOAD '{{path}}'{{#if using}} USING {{using}}{{/if}}{{#if schema}} AS {{schema}}{{/if}};
+
+@store_stmt = STORE {{var}} INTO '{{path}}'{{#if using}} USING {{using}}{{/if}};
+
+@foreach_stmt = {{var}} = FOREACH {{source}} GENERATE {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}};
+
+@generate_list = {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@generate_item = {{expression}}{{#if alias}} AS {{alias}}{{/if}}
+
+@filter_stmt = {{var}} = FILTER {{source}} BY {{condition}};
+
+@group_stmt = {{var}} = GROUP {{source}} BY {{#each keys}}{{value}}{{#if !@last}}, {{/if}}{{/each}};
+
+@join_stmt = {{var}} = JOIN {{left}} BY {{left_key}}, {{right}} BY {{right_key}};
+
+@order_stmt = {{var}} = ORDER {{source}} BY {{#each keys}}{{value}}{{#if !@last}}, {{/if}}{{/each}};
+
+@limit_stmt = {{var}} = LIMIT {{source}} {{number}};
+
+@distinct_stmt = {{var}} = DISTINCT {{source}};
+
+@assignment_stmt = {{var}} = {{expression}};
+
+@expression = {{value}}
+
+@indent = 2
+@pretty = true

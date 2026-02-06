@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-media-query.schema.json",
+  "title": "XWUIMediaQuery Schema",
+  "description": "Schema for XWUIMediaQuery component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Media query string (e.g., '(max-width: 768px)')",
+          "examples": [
+            "(max-width: 768px)",
+            "(min-width: 1024px)",
+            "(orientation: portrait)"
+          ]
+        },
+        "matches": {
+          "type": "boolean",
+          "description": "Initial matches state (automatically set)"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "description": "HTMLElement"
+            }
+          ],
+          "description": "Content to show/hide based on media query"
+        }
+      }
+    }
+  },
+  "id": "XWUIMediaQuery"
+}

@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwconsole-conf-usr.schema.json",
+  "title": "XWUIConsole User Configuration Schema",
+  "description": "Schema for user-level configuration (user preferences, visual formats only)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "locale": {
+      "type": "string",
+      "description": "User's preferred locale (overrides system default)",
+      "examples": ["en-US", "de-DE", "ar-SA", "fr-FR", "es-ES"]
+    },
+    "timezone": {
+      "type": "string",
+      "description": "User's preferred timezone (overrides system default)",
+      "examples": ["UTC", "America/New_York", "Europe/London", "Asia/Dubai"]
+    },
+    "formats": {
+      "type": "object",
+      "description": "User's preferred format configurations (overrides system defaults)",
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "type": "string",
+          "description": "User's preferred date format pattern",
+          "examples": ["YYYY-MM-DD", "MM/DD/YYYY", "DD.MM.YYYY", "DD/MM/YYYY"]
+        },
+        "time": {
+          "type": "string",
+          "description": "User's preferred time format pattern",
+          "examples": ["HH:mm:ss", "hh:mm:ss A", "HH:mm:ss.SSS"]
+        },
+        "datetime": {
+          "type": "string",
+          "description": "User's preferred datetime format pattern",
+          "examples": ["YYYY-MM-DD HH:mm:ss", "MM/DD/YYYY hh:mm:ss A"]
+        },
+        "currency": {
+          "type": "object",
+          "description": "User's preferred currency format settings",
+          "additionalProperties": false,
+          "properties": {
+            "defaultSymbol": {
+              "type": "string",
+              "description": "User's preferred currency symbol",
+              "examples": ["$", "€", "£", "¥", "₹"]
+            },
+            "defaultDecimals": {
+              "type": "number",
+              "description": "User's preferred number of decimal places for currency",
+              "minimum": 0,
+              "maximum": 10
+            }
+          }
+        },
+        "number": {
+          "type": "object",
+          "description": "User's preferred number format settings",
+          "additionalProperties": false,
+          "properties": {
+            "defaultDecimals": {
+              "type": "number",
+              "description": "User's preferred number of decimal places",
+              "minimum": 0,
+              "maximum": 10
+            },
+            "useGrouping": {
+              "type": "boolean",
+              "description": "User's preference for thousand separators"
+            }
+          }
+        },
+        "percentage": {
+          "type": "object",
+          "description": "User's preferred percentage format settings",
+          "additionalProperties": false,
+          "properties": {
+            "defaultDecimals": {
+              "type": "number",
+              "description": "User's preferred number of decimal places for percentages",
+              "minimum": 0,
+              "maximum": 10
+            }
+          }
+        },
+        "fileSize": {
+          "type": "object",
+          "description": "User's preferred file size format settings",
+          "additionalProperties": false,
+          "properties": {
+            "defaultUnit": {
+              "type": "string",
+              "enum": ["bytes", "auto"],
+              "description": "User's preferred unit for file size display"
+            },
+            "defaultDecimals": {
+              "type": "number",
+              "description": "User's preferred number of decimal places for file sizes",
+              "minimum": 0,
+              "maximum": 10
+            }
+          }
+        },
+        "duration": {
+          "type": "object",
+          "description": "User's preferred duration format settings",
+          "additionalProperties": false,
+          "properties": {
+            "defaultUnit": {
+              "type": "string",
+              "enum": ["seconds", "minutes", "hours", "auto"],
+              "description": "User's preferred unit for duration display"
+            },
+            "defaultFormat": {
+              "type": "string",
+              "enum": ["short", "long"],
+              "description": "User's preferred format style"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

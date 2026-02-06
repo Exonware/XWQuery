@@ -1,0 +1,54 @@
+// cbor.grammar
+// CBOR Grammar - Concise Binary Object Representation
+// Based on RFC 8949
+// Company: eXonware.com
+
+?start: data_item
+
+data_item: unsigned_integer
+          | negative_integer
+          | byte_string
+          | text_string
+          | array
+          | map
+          | tag
+          | simple_value
+          | floating_point
+
+unsigned_integer: UINT_MAJOR_TYPE UINT_VALUE
+negative_integer: NEG_INT_MAJOR_TYPE NEG_INT_VALUE
+byte_string: BYTE_STRING_MAJOR_TYPE BYTE_STRING_LENGTH BYTE_STRING_DATA
+text_string: TEXT_STRING_MAJOR_TYPE TEXT_STRING_LENGTH TEXT_STRING_DATA
+array: ARRAY_MAJOR_TYPE ARRAY_LENGTH data_item*
+map: MAP_MAJOR_TYPE MAP_LENGTH (data_item data_item)*
+tag: TAG_MAJOR_TYPE TAG_VALUE data_item
+simple_value: SIMPLE_MAJOR_TYPE SIMPLE_VALUE
+floating_point: FLOAT_MAJOR_TYPE FLOAT_VALUE
+
+// Major types
+UINT_MAJOR_TYPE: /[\x00-\x17]|[\x18-\x1B]/
+NEG_INT_MAJOR_TYPE: /[\x20-\x37]|[\x38-\x3B]/
+BYTE_STRING_MAJOR_TYPE: /[\x40-\x57]|[\x58-\x5B]/
+TEXT_STRING_MAJOR_TYPE: /[\x60-\x77]|[\x78-\x7B]/
+ARRAY_MAJOR_TYPE: /[\x80-\x97]|[\x98-\x9B]/
+MAP_MAJOR_TYPE: /[\xA0-\xB7]|[\xB8-\xBB]/
+TAG_MAJOR_TYPE: /[\xC0-\xD7]|[\xD8-\xDB]/
+FLOAT_MAJOR_TYPE: /[\xE0-\xF3]|[\xF4-\xF7]/
+SIMPLE_MAJOR_TYPE: /[\xE0-\xF3]|[\xF4-\xF7]/
+
+UINT_VALUE: /[\x00-\xFF]*/
+NEG_INT_VALUE: /[\x00-\xFF]*/
+BYTE_STRING_LENGTH: /[\x00-\xFF]*/
+BYTE_STRING_DATA: /[\x00-\xFF]*/
+TEXT_STRING_LENGTH: /[\x00-\xFF]*/
+TEXT_STRING_DATA: /[^\x00]*/
+ARRAY_LENGTH: /[\x00-\xFF]*/
+MAP_LENGTH: /[\x00-\xFF]*/
+TAG_VALUE: /[\x00-\xFF]*/
+SIMPLE_VALUE: /[\x00-\xFF]/
+FLOAT_VALUE: /[\x00-\xFF]*/
+
+%import common.WS
+
+%ignore WS
+

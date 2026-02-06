@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUITour",
+  "name": "XWUI Tour Component",
+  "description": "Step-by-step guide/tour component for onboarding and feature discovery. Displays a series of steps highlighting different parts of the interface. Supports mask overlay, custom placements, and navigation. Uses XWUIPortal internally.",
+  "path": "overlay.tour",
+  "tags": ["overlay", "tour", "guide", "onboarding", "walkthrough", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "steps": {
+          "type": "array",
+          "description": "Array of tour steps",
+          "items": {
+            "type": "object",
+            "properties": {
+              "target": {
+                "description": "Target element or selector string to highlight"
+              },
+              "title": {
+                "type": "string",
+                "description": "Step title text"
+              },
+              "description": {
+                "type": "string",
+                "description": "Step description text"
+              },
+              "placement": {
+                "type": "string",
+                "enum": ["top", "bottom", "left", "right"],
+                "description": "Placement of the step popover relative to target"
+              }
+            },
+            "required": ["target", "title", "description"]
+          }
+        },
+        "current": {
+          "type": "number",
+          "description": "Current step index (0-based)"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["default", "primary"],
+          "description": "Visual type of the tour",
+          "default": "default"
+        },
+        "mask": {
+          "type": "boolean",
+          "description": "Whether to show mask overlay highlighting target",
+          "default": true
+        },
+        "scrollIntoViewOptions": {
+          "type": "object",
+          "description": "Options for scrolling target into view"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the tour"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "open": {
+          "type": "boolean",
+          "description": "Whether the tour is currently open",
+          "default": false
+        }
+      }
+    }
+  }
+}
+

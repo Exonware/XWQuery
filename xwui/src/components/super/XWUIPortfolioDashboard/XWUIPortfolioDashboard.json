@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "showKPIs": {
+      "type": "boolean",
+      "default": true
+    },
+    "showCharts": {
+      "type": "boolean",
+      "default": true
+    },
+    "showProjects": {
+      "type": "boolean",
+      "default": true
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "id": "XWUIPortfolioDashboard"
+}

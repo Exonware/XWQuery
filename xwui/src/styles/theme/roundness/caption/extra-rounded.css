@@ -1,0 +1,14 @@
+/* ============================================
+   CAPTION - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-caption: 12px;
+    /* Fallback: --radius-text → --radius-xs → 12px */
+}
+
+/* Utility class for direct application */
+.radius-caption-extra-rounded {
+    border-radius: var(--radius-caption, 12px) !important;
+}

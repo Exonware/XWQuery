@@ -1,0 +1,49 @@
+# thrift.out.grammar
+# Thrift Output Grammar - Template for generating Thrift IDL from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#each headers}}{{value}}
+{{/each}}
+{{#each definitions}}{{value}}
+{{/each}}
+
+@include = include "{{value}}"
+
+@cpp_include = cpp_include "{{value}}"
+
+@namespace = namespace {{scope}} {{name}}
+
+@const = const {{type}} {{name}} = {{value}}
+
+@typedef = typedef {{type}} {{name}}
+
+@enum = enum {{name}} {
+{{#each values}}{{value}}
+{{/each}}}
+
+@enum_value = {{name}} = {{value}}{{#if trailing_comma}},{{/if}}
+
+@struct = struct {{name}} {
+{{#each fields}}{{value}}
+{{/each}}}
+
+@union = union {{name}} {
+{{#each fields}}{{value}}
+{{/each}}}
+
+@exception = exception {{name}} {
+{{#each fields}}{{value}}
+{{/each}}}
+
+@service = service {{name}}{{#if extends}} extends {{extends}}{{/if}} {
+{{#each functions}}{{value}}
+{{/each}}}
+
+@function = {{#if oneway}}oneway {{/if}}{{type}} {{name}}({{#each params}}{{value}}{{#if !@last}}, {{/if}}{{/each}}){{#if throws}} throws ({{#each exceptions}}{{value}}{{#if !@last}}, {{/if}}{{/each}}){{/if}}{{#if trailing_comma}},{{/if}}
+
+@field = {{#if id}}{{id}}: {{/if}}{{#if req}}{{req}} {{/if}}{{type}} {{name}}{{#if value}} = {{value}}{{/if}}{{#if trailing_comma}},{{/if}}
+
+@indent = 2
+@pretty = true
+

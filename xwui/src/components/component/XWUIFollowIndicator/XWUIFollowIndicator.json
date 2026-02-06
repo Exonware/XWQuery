@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "variant": {
+      "type": "string",
+      "enum": [
+        "button",
+        "switch",
+        "icon"
+      ],
+      "default": "button"
+    },
+    "size": {
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium"
+    },
+    "showNotificationCount": {
+      "type": "boolean",
+      "default": false
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "id": "XWUIFollowIndicator"
+}

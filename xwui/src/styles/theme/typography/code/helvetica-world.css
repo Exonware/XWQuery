@@ -1,0 +1,13 @@
+/* ============================================
+   CODE TYPOGRAPHY - HELVETICA-WORLD
+   ============================================ */
+
+:root[data-font="helvetica-world"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-code-family: var(--font-family-mono, monospace);
+}
+
+/* Utility class for direct application */
+.font-code-helvetica-world {
+    font-family: var(--font-code-family, var(--font-family-base, sans-serif)) !important;
+}

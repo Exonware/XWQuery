@@ -1,0 +1,48 @@
+# CBOR (Concise Binary Object Representation) Example
+# Note: CBOR is binary, but this shows the logical structure
+# In actual CBOR, this would be binary-encoded per IETF RFC 8949
+
+{
+  "name": "Sample CBOR Document",
+  "version": "1.0.0",
+  "description": "IETF standard binary format",
+  "metadata": {
+    "author": "XWUI Team",
+    "created": "2025-01-15T10:30:00Z",
+    "tags": ["example", "cbor", "ietf"]
+  },
+  "configuration": {
+    "database": {
+      "host": "localhost",
+      "port": 5432,
+      "name": "example_db",
+      "ssl": true
+    }
+  },
+  "items": [
+    {
+      "id": 1,
+      "name": "First Item",
+      "active": true,
+      "price": 29.99,
+      "categories": ["electronics", "gadgets"]
+    },
+    {
+      "id": 2,
+      "name": "Second Item",
+      "active": false,
+      "price": 49.99,
+      "categories": ["books", "education"]
+    }
+  ],
+  "binary_data": "SGVsbG8gV29ybGQ=",  # Base64 encoded
+  "numbers": [1, 2, 3, 4, 5],
+  "null_value": null,
+  "tagged_values": {
+    "timestamp": 1420070400,
+    "bigint": 9007199254740991
+  }
+}
+
+
+

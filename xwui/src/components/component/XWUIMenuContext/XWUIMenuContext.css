@@ -1,0 +1,10 @@
+/**
+ * XWUIMenuContext Component Styles
+ * Uses XWUIMenuDropdown styles
+ * 
+ * Style Dependencies:
+ * - Same as XWUIMenuDropdown component
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ */
+

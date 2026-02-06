@@ -1,0 +1,17 @@
+/* ============================================
+   ALERT LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-alert-width: var(--border-width-regular, 1.5px);
+    --border-alert-style: solid;
+    --border-alert-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-alert-balanced {
+    border-style: var(--border-alert-style, solid);
+    border-width: var(--border-alert-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-alert-color, var(--border-medium, var(--border-color)));
+}

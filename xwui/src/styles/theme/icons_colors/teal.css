@@ -1,0 +1,12 @@
+/* ============================================
+   TEAL ICON COLORS - Fresh teal theme
+   ============================================ */
+
+:root[data-icons-colors="teal"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #134e4a;        /* Primary fill color - dark teal text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #14b8a6;        /* Accent/rail/marks color - teal */
+    --icons-color-transparent: transparent;
+}
+

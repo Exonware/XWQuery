@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwdebugtoolbar.schema.json",
+  "title": "XWUIDebugToolbar Schema",
+  "description": "Schema for XWUIDebugToolbar component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "showVariables": {
+          "type": "boolean",
+          "description": "Whether to show variables panel",
+          "default": true
+        },
+        "showCallStack": {
+          "type": "boolean",
+          "description": "Whether to show call stack panel",
+          "default": true
+        },
+        "showBreakpoints": {
+          "type": "boolean",
+          "description": "Whether to show breakpoints panel",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "isRunning": {
+          "type": "boolean",
+          "description": "Whether debugging is running",
+          "default": false
+        },
+        "isPaused": {
+          "type": "boolean",
+          "description": "Whether debugging is paused",
+          "default": false
+        },
+        "breakpoints": {
+          "type": "array",
+          "description": "Array of breakpoints",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique breakpoint identifier"
+              },
+              "line": {
+                "type": "number",
+                "description": "Line number",
+                "minimum": 1
+              },
+              "file": {
+                "type": "string",
+                "description": "File path"
+              },
+              "condition": {
+                "type": "string",
+                "description": "Conditional breakpoint condition"
+              },
+              "hitCount": {
+                "type": "number",
+                "description": "Number of times breakpoint was hit",
+                "minimum": 0
+              },
+              "enabled": {
+                "type": "boolean",
+                "description": "Whether breakpoint is enabled",
+                "default": true
+              }
+            },
+            "required": [
+              "id",
+              "line",
+              "file",
+              "enabled"
+            ]
+          }
+        },
+        "variables": {
+          "type": "array",
+          "description": "Array of variables",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Variable name"
+              },
+              "value": {
+                "description": "Variable value"
+              },
+              "type": {
+                "type": "string",
+                "description": "Variable type"
+              },
+              "scope": {
+                "type": "string",
+                "description": "Variable scope"
+              }
+            },
+            "required": [
+              "name",
+              "value"
+            ]
+          }
+        },
+        "callStack": {
+          "type": "array",
+          "description": "Call stack frames",
+          "items": {
+            "type": "object",
+            "properties": {
+              "file": {
+                "type": "string",
+                "description": "File path"
+              },
+              "line": {
+                "type": "number",
+                "description": "Line number",
+                "minimum": 1
+              },
+              "function": {
+                "type": "string",
+                "description": "Function name"
+              }
+            },
+            "required": [
+              "file",
+              "line",
+              "function"
+            ]
+          }
+        },
+        "currentLine": {
+          "type": "number",
+          "description": "Current execution line",
+          "minimum": 1
+        },
+        "currentFile": {
+          "type": "string",
+          "description": "Current execution file"
+        }
+      }
+    }
+  },
+  "id": "XWUIDebugToolbar"
+}

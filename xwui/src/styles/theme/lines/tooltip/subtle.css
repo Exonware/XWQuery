@@ -1,0 +1,17 @@
+/* ============================================
+   TOOLTIP LINES - SUBTLE LINES
+   ============================================ */
+
+:root[data-lines="subtle"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-tooltip-width: var(--border-width-regular, 1px);
+    --border-tooltip-style: solid;
+    --border-tooltip-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-tooltip-subtle {
+    border-style: var(--border-tooltip-style, solid);
+    border-width: var(--border-tooltip-width, var(--border-width-regular, 1px));
+    border-color: var(--border-tooltip-color, var(--border-medium, var(--border-color)));
+}

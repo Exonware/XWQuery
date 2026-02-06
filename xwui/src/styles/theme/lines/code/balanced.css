@@ -1,0 +1,17 @@
+/* ============================================
+   CODE LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-code-width: var(--border-width-regular, 1.5px);
+    --border-code-style: solid;
+    --border-code-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-code-balanced {
+    border-style: var(--border-code-style, solid);
+    border-width: var(--border-code-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-code-color, var(--border-medium, var(--border-color)));
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIBrightness",
+  "name": "XWUI Brightness Component",
+  "description": "Controls the brightness of components with a scroll-based slider control. Supports showing/hiding the controller and positioning it at different locations (up, down, middle, left, right). Uses XWUISlider internally for the brightness adjustment control.",
+  "path": "utility.brightness",
+  "tags": ["utility", "brightness", "control", "accessibility", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "showController": {
+          "type": "boolean",
+          "description": "Whether to show the brightness controller slider",
+          "default": true
+        },
+        "controlPosition": {
+          "type": "string",
+          "enum": ["up", "down", "middle", "left", "right"],
+          "description": "Position of the brightness controller",
+          "default": "right"
+        },
+        "minBrightness": {
+          "type": "number",
+          "description": "Minimum brightness value (0-100)",
+          "default": 0
+        },
+        "maxBrightness": {
+          "type": "number",
+          "description": "Maximum brightness value (0-100)",
+          "default": 100
+        },
+        "defaultBrightness": {
+          "type": "number",
+          "description": "Default brightness value (0-100)",
+          "default": 100
+        },
+        "step": {
+          "type": "number",
+          "description": "Step value for brightness increments",
+          "default": 1
+        },
+        "targetSelector": {
+          "type": "string",
+          "description": "CSS selector for elements to apply brightness to (default: applies to entire viewport)"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the brightness component"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "brightness": {
+          "type": "number",
+          "description": "Current brightness value (0-100)"
+        }
+      }
+    }
+  }
+}
+

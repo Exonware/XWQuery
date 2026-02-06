@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "XWUIStyle Component Schema",
+  "type": "object",
+  "description": "XWUIStyle component configuration. Theme options are dynamically loaded from styles.data.json and validated against styles.schema.json",
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "description": "Component configuration",
+      "properties": {
+        "basePath": {
+          "type": "string",
+          "description": "Base path to styles directory"
+        },
+        "brand": {
+          "$ref": "../../styles/styles.schema.json#/properties/brand"
+        },
+        "style": {
+          "$ref": "../../styles/styles.schema.json#/properties/style"
+        },
+        "color": {
+          "$ref": "../../styles/styles.schema.json#/properties/color"
+        },
+        "accent": {
+          "$ref": "../../styles/styles.schema.json#/properties/accent"
+        },
+        "lines": {
+          "$ref": "../../styles/styles.schema.json#/properties/lines"
+        },
+        "roundness": {
+          "$ref": "../../styles/styles.schema.json#/properties/roundness"
+        },
+        "font": {
+          "$ref": "../../styles/styles.schema.json#/properties/font"
+        },
+        "icons": {
+          "$ref": "../../styles/styles.schema.json#/properties/icons"
+        },
+        "emojis": {
+          "$ref": "../../styles/styles.schema.json#/properties/emojis"
+        },
+        "autoLoad": {
+          "type": "boolean",
+          "description": "Automatically load theme on initialization",
+          "default": true
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "description": "Theme data (highest priority - overrides all configs). Uses the same structure as conf_comp but with higher precedence.",
+      "properties": {
+        "brand": {
+          "$ref": "../../styles/styles.schema.json#/properties/brand"
+        },
+        "style": {
+          "$ref": "../../styles/styles.schema.json#/properties/style"
+        },
+        "color": {
+          "$ref": "../../styles/styles.schema.json#/properties/color"
+        },
+        "accent": {
+          "$ref": "../../styles/styles.schema.json#/properties/accent"
+        },
+        "lines": {
+          "$ref": "../../styles/styles.schema.json#/properties/lines"
+        },
+        "roundness": {
+          "$ref": "../../styles/styles.schema.json#/properties/roundness"
+        },
+        "font": {
+          "$ref": "../../styles/styles.schema.json#/properties/font"
+        },
+        "icons": {
+          "$ref": "../../styles/styles.schema.json#/properties/icons"
+        },
+        "emojis": {
+          "$ref": "../../styles/styles.schema.json#/properties/emojis"
+        }
+      }
+    }
+  },
+  "id": "XWUIStyle"
+}

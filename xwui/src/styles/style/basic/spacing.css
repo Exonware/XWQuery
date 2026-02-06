@@ -1,0 +1,18 @@
+/* ============================================
+   BASIC STYLE - Spacing System
+   ============================================ */
+
+:root[data-style="basic"] {
+    /* Basic spacing unit: 8px base */
+    --spacing-unit: 8px;
+    
+    /* Spacing scale */
+    --spacing-xs: calc(var(--spacing-unit) * 0.5);  /* 4px */
+    --spacing-sm: calc(var(--spacing-unit) * 1);    /* 8px */
+    --spacing-md: calc(var(--spacing-unit) * 2);     /* 16px */
+    --spacing-lg: calc(var(--spacing-unit) * 3);    /* 24px */
+    --spacing-xl: calc(var(--spacing-unit) * 4);    /* 32px */
+    --spacing-2xl: calc(var(--spacing-unit) * 6);   /* 48px */
+    --spacing-3xl: calc(var(--spacing-unit) * 8);   /* 64px */
+}
+

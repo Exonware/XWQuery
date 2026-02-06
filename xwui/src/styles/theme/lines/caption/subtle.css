@@ -1,0 +1,17 @@
+/* ============================================
+   CAPTION LINES - SUBTLE LINES
+   ============================================ */
+
+:root[data-lines="subtle"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-caption-width: var(--border-width-regular, 1px);
+    --border-caption-style: solid;
+    --border-caption-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-caption-subtle {
+    border-style: var(--border-caption-style, solid);
+    border-width: var(--border-caption-width, var(--border-width-regular, 1px));
+    border-color: var(--border-caption-color, var(--border-medium, var(--border-color)));
+}

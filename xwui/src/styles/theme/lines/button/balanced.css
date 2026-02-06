@@ -1,0 +1,17 @@
+/* ============================================
+   BUTTON LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-button-width: var(--border-width-regular, 1.5px);
+    --border-button-style: solid;
+    --border-button-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-button-balanced {
+    border-style: var(--border-button-style, solid);
+    border-width: var(--border-button-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-button-color, var(--border-medium, var(--border-color)));
+}

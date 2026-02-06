@@ -1,0 +1,17 @@
+# feather.out.grammar
+# Feather Output Grammar - Template for generating Feather from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@feather_file = {{magic}}{{metadata}}{{footer}}
+
+@magic_bytes = ARROW1
+
+@metadata = {{length}}{{body}}
+
+@footer = {{length}}{{body}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

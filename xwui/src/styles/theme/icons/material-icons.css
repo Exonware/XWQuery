@@ -1,0 +1,51 @@
+/* ============================================
+   MATERIAL ICONS - Google Material Icons
+   @default: true
+   ============================================ */
+
+:root[data-icons="material-icons"],
+:root:not([data-icons]) {
+    /* Material Icons font family */
+    --icon-font-family: 'Material Icons';
+    --icon-font-weight: normal;
+    --icon-font-style: normal;
+    --icon-font-size: 24px;
+    --icon-line-height: 1;
+    --icon-letter-spacing: normal;
+    --icon-text-transform: none;
+    --icon-display: inline-block;
+    --icon-white-space: nowrap;
+    --icon-word-wrap: normal;
+    --icon-direction: ltr;
+    --icon-font-feature-settings: 'liga';
+    --icon-font-variation-settings: normal;
+    
+    /* Icon sizes */
+    --icon-size-xs: 12px;
+    --icon-size-sm: 16px;
+    --icon-size-md: 24px;
+    --icon-size-lg: 32px;
+    --icon-size-xl: 40px;
+    --icon-size-2xl: 48px;
+}
+
+/* Material Icons base class */
+.material-icons {
+    font-family: var(--icon-font-family, 'Material Icons');
+    font-weight: var(--icon-font-weight, normal);
+    font-style: var(--icon-font-style, normal);
+    font-size: var(--icon-size-md, 24px);
+    line-height: var(--icon-line-height, 1);
+    letter-spacing: var(--icon-letter-spacing, normal);
+    text-transform: var(--icon-text-transform, none);
+    display: var(--icon-display, inline-block);
+    white-space: var(--icon-white-space, nowrap);
+    word-wrap: var(--icon-word-wrap, normal);
+    direction: var(--icon-direction, ltr);
+    font-feature-settings: var(--icon-font-feature-settings, 'liga');
+    font-variation-settings: var(--icon-font-variation-settings, normal);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+}
+

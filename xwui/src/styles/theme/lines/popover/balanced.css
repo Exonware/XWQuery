@@ -1,0 +1,17 @@
+/* ============================================
+   POPOVER LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-popover-width: var(--border-width-regular, 1.5px);
+    --border-popover-style: solid;
+    --border-popover-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-popover-balanced {
+    border-style: var(--border-popover-style, solid);
+    border-width: var(--border-popover-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-popover-color, var(--border-medium, var(--border-color)));
+}

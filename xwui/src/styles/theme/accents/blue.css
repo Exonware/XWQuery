@@ -1,0 +1,29 @@
+/* ============================================
+   BLUE ACCENT - Modern blue palette
+   @default: true
+   @primary: #4f46e5
+   @hover: #4338ca
+   @light: #6366f1
+   ============================================ */
+
+:root[data-accent="blue"],
+:root:not([data-accent]) {
+    /* Accent colors - Modern blue palette */
+    --accent-primary: #4f46e5;
+    --accent-hover: #4338ca;
+    --accent-light: #6366f1;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 79, 70, 229;
+    --accent-hover-rgb: 67, 56, 202;
+    --accent-light-rgb: 99, 102, 241;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

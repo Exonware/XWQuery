@@ -1,0 +1,103 @@
+﻿# cql.out.grammar
+# CQL Output Grammar - Template for generating CQL from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@statement = {{value}}
+
+@select_stmt = SELECT{{#if json}} JSON{{/if}}{{#if distinct}} DISTINCT{{/if}} {{select_list}} {{from}}{{#if where}} {{where}}{{/if}}{{#if order}} {{order}}{{/if}}{{#if limit}} {{limit}}{{/if}}{{#if allow_filtering}} ALLOW FILTERING{{/if}}
+
+@select_list = {{#if wildcard}}*{{else}}{{#if count}}COUNT(*){{else}}{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}}{{/if}}
+
+@select_item = {{expression}}{{#if alias}} AS {{alias}}{{/if}}
+
+@from_clause = FROM {{table}}
+
+@where_clause = WHERE {{#each relations}}{{value}}{{#if !@last}} AND {{/if}}{{/each}}
+
+@relation = {{column}} {{op}} {{value}}
+
+@compare_op = {{value}}
+
+@order_clause = ORDER BY {{column}}{{#if direction}} {{direction}}{{/if}}
+
+@limit_clause = LIMIT {{value}}
+
+@insert_stmt = INSERT INTO {{table}}{{#if columns}} ({{columns}}){{/if}}{{#if json}} JSON {{json_string}}{{else}} VALUES {{values}}{{#if if_not_exists}} IF NOT EXISTS{{/if}}{{#if using}} {{using}}{{/if}}{{/if}}
+
+@column_list = {{#each columns}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@value_tuple = ({{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@using_clause = {{#if timestamp}}TIMESTAMP {{timestamp}}{{else}}TTL {{ttl}}{{/if}}
+
+@update_stmt = UPDATE {{table}}{{#if using}} {{using}}{{/if}} SET {{#each assignments}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if where}} {{where}}{{/if}}{{#if condition}} IF {{condition}}{{/if}}
+
+@assignment = {{column}} = {{value}}
+
+@condition_list = {{#each conditions}}{{column}} {{op}} {{value}}{{#if !@last}} AND {{/if}}{{/each}}
+
+@delete_stmt = DELETE{{#if columns}} {{columns}}{{/if}} FROM {{table}}{{#if using}} {{using}}{{/if}}{{#if where}} {{where}}{{/if}}{{#if if_exists}} IF EXISTS{{else}}{{#if condition}} IF {{condition}}{{/if}}{{/if}}
+
+@create_stmt = CREATE TABLE{{#if if_not_exists}} IF NOT EXISTS{{/if}} {{table}} ({{definition}}){{#if options}} WITH {{options}}{{/if}}
+
+@table_definition = {{#each columns}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if primary_key}}, PRIMARY KEY {{primary_key}}{{/if}}
+
+@column_def = {{name}} {{type}}{{#if static}} STATIC{{/if}}{{#if primary_key}} PRIMARY KEY{{/if}}
+
+@primary_key_def = {{#if partition_only}}{{partition}}{{else}}({{partition}}{{#if clustering}}, {{clustering}}{{/if}}){{/if}}
+
+@partition_key = {{#if single}}{{value}}{{else}}({{#each columns}}{{value}}{{#if !@last}}, {{/if}}{{/each}}){{/if}}
+
+@clustering_columns = {{#each columns}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@table_options = {{#each options}}{{value}}{{#if !@last}} AND {{/if}}{{/each}}
+
+@table_option = {{value}}
+
+@alter_stmt = ALTER TABLE {{table}} {{action}}
+
+@alter_action = {{value}}
+
+@drop_stmt = DROP TABLE{{#if if_exists}} IF EXISTS{{/if}} {{table}}
+
+@truncate_stmt = TRUNCATE{{#if table}} TABLE{{/if}} {{table}}
+
+@use_stmt = USE {{keyspace}}
+
+@expression = {{value}}
+
+@additive = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@multiplicative = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@term = {{value}}
+
+@function_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@collection_literal = {{value}}
+
+@map_entry = {{key}}: {{value}}
+
+@uuid_literal = {{value}}
+
+@value_list = ({{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@table_name = {{#if keyspace}}{{keyspace}}.{{/if}}{{name}}
+
+@keyspace_name = {{value}}
+
+@column_name = {{value}}
+
+@literal = {{value}}
+
+@data_type = {{value}}
+
+@collection_type = {{value}}
+
+@indent = 2
+@pretty = true

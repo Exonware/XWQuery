@@ -1,0 +1,55 @@
+# Zarr Metadata Example
+# Zarr is a chunked, compressed, N-dimensional array format
+# This file represents Zarr structure and metadata in text form
+
+Zarr Array Structure
+====================
+
+Path: sample.zarr
+Format: 2
+Zarr version: 2.10.0
+
+Array Metadata (.zarray):
+{
+  "zarr_format": 2,
+  "shape": [100, 200, 50],
+  "chunks": [10, 20, 10],
+  "dtype": "<f8",
+  "compressor": {
+    "id": "blosc",
+    "cname": "lz4",
+    "clevel": 5,
+    "shuffle": 1,
+    "blocksize": 0
+  },
+  "fill_value": null,
+  "order": "C"
+}
+
+Attributes (.zattrs):
+{
+  "author": "XWUI Team",
+  "created": "2025-01-15T10:30:00Z",
+  "description": "Sample Zarr array with 3D temperature data",
+  "units": "celsius",
+  "dimensions": ["time", "latitude", "longitude"]
+}
+
+Group Metadata (.zgroup):
+{
+  "zarr_format": 2
+}
+
+Chunk Structure:
+  - 0.0.0: chunks/0.0.0 (compressed)
+  - 0.0.1: chunks/0.0.1 (compressed)
+  - 0.0.2: chunks/0.0.2 (compressed)
+  - ... (total chunks: 1000)
+
+Statistics:
+  - Shape: (100, 200, 50)
+  - Chunks: (10, 20, 10)
+  - Total elements: 1,000,000
+  - Data type: float64
+  - Compression: Blosc (lz4, level 5)
+

@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON TYPOGRAPHY - LATO
+   ============================================ */
+
+:root[data-font="lato"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-button-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-button-lato {
+    font-family: var(--font-button-family, var(--font-family-base, sans-serif)) !important;
+}

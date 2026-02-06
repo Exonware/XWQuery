@@ -1,0 +1,26 @@
+/* ============================================
+   TWITTER EMOJIS - Twemoji (Twitter Emoji)
+   @default: false
+   ============================================ */
+
+:root[data-emojis="twitter"] {
+    /* Twemoji uses images, so we define size variables */
+    --emoji-size-xs: 12px;
+    --emoji-size-sm: 16px;
+    --emoji-size-md: 20px;
+    --emoji-size-lg: 24px;
+    --emoji-size-xl: 32px;
+    --emoji-size-2xl: 40px;
+    
+    /* Twemoji CDN base URL */
+    --emoji-cdn-url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/';
+}
+
+/* Twemoji base class */
+.emoji {
+    width: var(--emoji-size-md, 20px);
+    height: var(--emoji-size-md, 20px);
+    display: inline-block;
+    vertical-align: middle;
+}
+

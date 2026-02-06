@@ -1,0 +1,58 @@
+/* ============================================
+   PINK COLOR THEME - Soft pink theme
+   ============================================ */
+
+:root[data-theme="pink"] {
+    /* Background colors */
+    --bg-primary: #fdf2f8;
+    --bg-secondary: #fce7f3;
+    --bg-tertiary: #fbcfe8;
+    --bg-app: #fdf2f8;
+    --bg-elevated: #ffffff;
+    --bg-hover: #fce7f3;
+    --bg-active: #fbcfe8;
+    
+    /* Text colors */
+    --text-primary: #831843;
+    --text-secondary: #db2777;
+    --text-tertiary: #ec4899;
+    --text-inverse: #ffffff;
+    
+    /* Border colors */
+    --border-color: rgba(236, 72, 153, 0.2);
+    --border-light: rgba(236, 72, 153, 0.1);
+    --border-medium: rgba(236, 72, 153, 0.2);
+    --border-strong: rgba(236, 72, 153, 0.3);
+    
+    /* Control colors */
+    --control-bg: #ffffff;
+    --control-bg-hover: #fce7f3;
+    --control-bg-active: #fbcfe8;
+    --control-border: #f9a8d4;
+    --control-text: #831843;
+    --control-text-secondary: #db2777;
+    --control-active: #be185d;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #fbbf24;
+    --status-before-start-border: #f59e0b;
+    --status-before-start-hover: #f59e0b;
+    --status-processing: #db2777;
+    --status-processing-border: #be185d;
+    --status-processing-hover: #be185d;
+    --status-processing-text: #ffffff;
+    --status-error: #ef4444;
+    --status-error-border: #dc2626;
+    --status-error-hover: #dc2626;
+    --status-error-text: #ffffff;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

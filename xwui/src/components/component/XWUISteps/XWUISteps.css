@@ -1,0 +1,154 @@
+/**
+ * XWUISteps Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-steps {
+    display: flex;
+    width: 100%;
+}
+
+.xwui-steps-horizontal {
+    flex-direction: row;
+}
+
+.xwui-steps-vertical {
+    flex-direction: column;
+}
+
+/* Step */
+.xwui-step {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-steps-vertical .xwui-step {
+    flex-direction: row;
+    flex: none;
+    margin-bottom: var(--spacing-md, 1rem);
+}
+
+/* Icon */
+.xwui-step-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: var(--border-navigation-width, var(--border-width-thick, 2px)) var(--border-navigation-style, solid) var(--border-navigation-color, var(--border-color));
+    background: var(--bg-primary);
+    font-weight: var(--font-weight-semibold, 600);
+    transition: all 0.2s;
+}
+
+.xwui-step-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Status variants */
+.xwui-step-wait .xwui-step-icon {
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+.xwui-step-process .xwui-step-icon {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--text-inverse);
+}
+
+.xwui-step-finish .xwui-step-icon {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--text-inverse);
+}
+
+.xwui-step-error .xwui-step-icon {
+    background: var(--accent-error);
+    border-color: var(--accent-error);
+    color: var(--text-inverse);
+}
+
+/* Content */
+.xwui-step-content {
+    flex: 1;
+    padding-top: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-step-title {
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-step-wait .xwui-step-title {
+    color: var(--text-secondary);
+}
+
+.xwui-step-description {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary);
+}
+
+/* Tail (connector) */
+.xwui-step-tail {
+    position: absolute;
+    background: var(--border-color);
+    transition: background 0.2s;
+}
+
+.xwui-steps-horizontal .xwui-step-tail {
+    top: 16px;
+    left: calc(32px + 0.75rem);
+    right: 0;
+    height: 2px;
+}
+
+.xwui-steps-vertical .xwui-step-tail {
+    top: calc(32px + 0.75rem);
+    left: 16px;
+    bottom: -1rem;
+    width: 2px;
+}
+
+.xwui-step-tail-active {
+    background: var(--accent-primary);
+}
+
+/* Size variants */
+.xwui-steps-small .xwui-step-icon {
+    width: 24px;
+    height: 24px;
+    font-size: var(--font-size-xs, 0.75rem);
+}
+
+.xwui-steps-small .xwui-step-icon svg {
+    width: 14px;
+    height: 14px;
+}
+
+.xwui-steps-large .xwui-step-icon {
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-base, 1rem);
+}
+
+.xwui-steps-large .xwui-step-icon svg {
+    width: 22px;
+    height: 22px;
+}
+

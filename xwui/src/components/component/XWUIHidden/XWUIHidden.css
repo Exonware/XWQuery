@@ -1,0 +1,139 @@
+/**
+ * XWUIHidden Component Styles
+ * Show/hide based on breakpoints
+ */
+
+.xwui-hidden-container {
+    /* Base container */
+}
+
+.xwui-hidden-wrapper {
+    /* Wrapper for content */
+}
+
+/* CSS-based hiding (when implementation is 'css') */
+@media (max-width: 639px) {
+    .xwui-hidden-below-sm {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .xwui-hidden-below-md {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1023px) {
+    .xwui-hidden-below-lg {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1279px) {
+    .xwui-hidden-below-xl {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1535px) {
+    .xwui-hidden-below-2xl {
+        display: none !important;
+    }
+}
+
+@media (min-width: 640px) {
+    .xwui-hidden-above-xs {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .xwui-hidden-above-sm {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .xwui-hidden-above-md {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    .xwui-hidden-above-lg {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1536px) {
+    .xwui-hidden-above-xl {
+        display: none !important;
+    }
+}
+
+/* Only show at specific breakpoints */
+.xwui-hidden-only-xs {
+    display: none !important;
+}
+
+@media (min-width: 640px) {
+    .xwui-hidden-only-xs {
+        display: block !important;
+    }
+    
+    .xwui-hidden-only-sm {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .xwui-hidden-only-xs,
+    .xwui-hidden-only-sm {
+        display: none !important;
+    }
+    
+    .xwui-hidden-only-md {
+        display: block !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .xwui-hidden-only-xs,
+    .xwui-hidden-only-sm,
+    .xwui-hidden-only-md {
+        display: none !important;
+    }
+    
+    .xwui-hidden-only-lg {
+        display: block !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    .xwui-hidden-only-xs,
+    .xwui-hidden-only-sm,
+    .xwui-hidden-only-md,
+    .xwui-hidden-only-lg {
+        display: none !important;
+    }
+    
+    .xwui-hidden-only-xl {
+        display: block !important;
+    }
+}
+
+@media (min-width: 1536px) {
+    .xwui-hidden-only-xs,
+    .xwui-hidden-only-sm,
+    .xwui-hidden-only-md,
+    .xwui-hidden-only-lg,
+    .xwui-hidden-only-xl {
+        display: none !important;
+    }
+    
+    .xwui-hidden-only-2xl {
+        display: block !important;
+    }
+}
+

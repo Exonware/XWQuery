@@ -1,0 +1,370 @@
+/**
+ * XWUISwitch Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Roundness: theme/roundness/rounded.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.75rem);
+    cursor: pointer;
+    user-select: none;
+}
+
+.xwui-switch-label-start {
+    flex-direction: row-reverse;
+}
+
+.xwui-switch-disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Hidden input */
+.xwui-switch-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Track */
+.xwui-switch-track {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: var(--radius-control, 999px);
+    background: var(--xwui-switch-unchecked-bg, var(--border-color, #dee2e6));
+    transition: background 0.2s ease, border-color 0.2s ease;
+    border: 1px solid transparent;
+}
+
+/* Track with custom content (no thumb) */
+.xwui-switch-track-content {
+    justify-content: space-between;
+    padding: 2px 4px;
+}
+
+/* Thumb - Clear circle styling matching slider tooltip */
+.xwui-switch-thumb {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--text-inverse, #ffffff);
+    border: 2px solid var(--border-color, #dee2e6);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Size variants */
+.xwui-switch-small .xwui-switch-track {
+    width: 32px;
+    height: 18px;
+}
+
+.xwui-switch-small .xwui-switch-thumb {
+    width: 14px;
+    height: 14px;
+    left: 2px;
+}
+
+.xwui-switch-small .xwui-switch-input:checked + .xwui-switch-track .xwui-switch-thumb {
+    transform: translateX(14px);
+}
+
+.xwui-switch-medium .xwui-switch-track {
+    width: 44px;
+    height: 24px;
+}
+
+.xwui-switch-medium .xwui-switch-thumb {
+    width: 20px;
+    height: 20px;
+    left: 2px;
+}
+
+.xwui-switch-medium .xwui-switch-input:checked + .xwui-switch-track .xwui-switch-thumb {
+    transform: translateX(20px);
+}
+
+.xwui-switch-medium .xwui-switch-input:checked + .xwui-switch-track-content .xwui-switch-content-checked {
+    right: 4px;
+}
+
+.xwui-switch-large .xwui-switch-track {
+    width: 56px;
+    height: 30px;
+}
+
+.xwui-switch-large .xwui-switch-thumb {
+    width: 26px;
+    height: 26px;
+    left: 2px;
+}
+
+.xwui-switch-large .xwui-switch-input:checked + .xwui-switch-track .xwui-switch-thumb {
+    transform: translateX(26px);
+}
+
+.xwui-switch-large .xwui-switch-input:checked + .xwui-switch-track-content .xwui-switch-content-checked {
+    right: 4px;
+}
+
+/* Checked state */
+.xwui-switch-input:checked + .xwui-switch-track {
+    background: var(--xwui-switch-checked-bg, var(--accent-primary, #4f46e5));
+    box-shadow: var(--glow-switch-track-checked, none);
+}
+
+.xwui-switch-input:checked + .xwui-switch-track .xwui-switch-thumb {
+    background: var(--xwui-switch-checked-thumb, var(--text-inverse, #ffffff));
+    border-color: var(--xwui-switch-checked-thumb-border, var(--accent-primary, #4f46e5));
+    box-shadow: var(--glow-switch-thumb-hover, 0 2px 6px rgba(79, 70, 229, 0.3), 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+/* Focus state */
+.xwui-switch-input:focus-visible + .xwui-switch-track {
+    outline: 2px solid var(--accent-primary, #4f46e5);
+    outline-offset: 2px;
+}
+
+.xwui-switch-input:focus-visible + .xwui-switch-track .xwui-switch-thumb {
+    box-shadow: var(--glow-switch-thumb-focus, 0 0 0 3px rgba(79, 70, 229, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.08));
+}
+
+/* Hover state */
+.xwui-switch:hover .xwui-switch-track {
+    background: var(--border-strong, #adb5bd);
+}
+
+.xwui-switch:hover .xwui-switch-track .xwui-switch-thumb {
+    box-shadow: var(--glow-switch-thumb-hover, 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 3px rgba(0, 0, 0, 0.1));
+}
+
+.xwui-switch:hover .xwui-switch-input:checked + .xwui-switch-track {
+    background: var(--accent-hover, #4338ca);
+    box-shadow: var(--glow-switch-track-checked, none);
+}
+
+.xwui-switch:hover .xwui-switch-input:checked + .xwui-switch-track .xwui-switch-thumb {
+    box-shadow: var(--glow-switch-thumb-hover, 0 3px 8px rgba(79, 70, 229, 0.4), 0 2px 4px rgba(0, 0, 0, 0.12));
+}
+
+/* Color variants */
+.xwui-switch-success .xwui-switch-input:checked + .xwui-switch-track {
+    background: var(--accent-success, #10b981);
+}
+
+.xwui-switch-success .xwui-switch-input:checked + .xwui-switch-track .xwui-switch-thumb {
+    border-color: var(--accent-success, #10b981);
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.xwui-switch-success:hover .xwui-switch-input:checked + .xwui-switch-track {
+    background: var(--accent-success-hover, #059669);
+}
+
+.xwui-switch-success:hover .xwui-switch-input:checked + .xwui-switch-track .xwui-switch-thumb {
+    box-shadow: 0 3px 8px rgba(16, 185, 129, 0.4), 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.xwui-switch-warning .xwui-switch-input:checked + .xwui-switch-track {
+    background: var(--accent-warning, #f59e0b);
+}
+
+.xwui-switch-warning .xwui-switch-input:checked + .xwui-switch-track .xwui-switch-thumb {
+    border-color: var(--accent-warning, #f59e0b);
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.xwui-switch-error .xwui-switch-input:checked + .xwui-switch-track {
+    background: var(--accent-error, #ef4444);
+}
+
+.xwui-switch-error .xwui-switch-input:checked + .xwui-switch-track .xwui-switch-thumb {
+    border-color: var(--accent-error, #ef4444);
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom content (icons, emojis, text) */
+.xwui-switch-content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    font-weight: 600;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    user-select: none;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.xwui-switch-content-unchecked {
+    opacity: 1;
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.xwui-switch-content-checked {
+    opacity: 0;
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.xwui-switch-input:checked + .xwui-switch-track .xwui-switch-content-unchecked {
+    opacity: 0;
+}
+
+.xwui-switch-input:checked + .xwui-switch-track .xwui-switch-content-checked {
+    opacity: 1;
+    position: absolute;
+    right: 4px;
+    transform: translateY(-50%);
+}
+
+/* Size adjustments for custom content */
+.xwui-switch-small .xwui-switch-content {
+    font-size: 10px;
+    min-width: 14px;
+}
+
+.xwui-switch-medium .xwui-switch-content {
+    font-size: 12px;
+    min-width: 18px;
+}
+
+.xwui-switch-large .xwui-switch-content {
+    font-size: 14px;
+    min-width: 22px;
+}
+
+/* Text content */
+.xwui-switch-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xxs, 0.125rem);
+}
+
+.xwui-switch-label {
+    font-size: var(--font-size-base, 0.9375rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+    line-height: 1.4;
+}
+
+.xwui-switch-description {
+    font-size: var(--font-size-sm, 0.8125rem);
+    color: var(--text-secondary, #6c757d);
+    line-height: 1.4;
+}
+
+/* Multi-state switch */
+.xwui-switch-multi {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.75rem);
+    position: relative; /* For tooltip positioning */
+}
+
+.xwui-switch-track-multi {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px;
+    border-radius: var(--radius-control, 999px);
+    background: var(--border-color, #dee2e6);
+    border: 1px solid var(--border-strong, #adb5bd);
+    transition: background 0.2s ease;
+}
+
+.xwui-switch-option {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border: none;
+    border-radius: var(--radius-control, 999px);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-secondary, #6c757d);
+    min-width: 36px;
+    min-height: 36px;
+}
+
+.xwui-switch-option:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-switch-option-selected {
+    background: var(--accent-primary, #4f46e5);
+    color: var(--text-inverse, #ffffff);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.xwui-switch-option:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.xwui-switch-option-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Size variants for multi-state */
+.xwui-switch-small .xwui-switch-option {
+    padding: 4px 8px;
+    min-width: 28px;
+    min-height: 28px;
+    font-size: var(--font-size-sm, 0.8125rem);
+}
+
+.xwui-switch-small .xwui-switch-option-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.xwui-switch-medium .xwui-switch-option {
+    padding: 6px 10px;
+    min-width: 36px;
+    min-height: 36px;
+    font-size: var(--font-size-base, 0.9375rem);
+}
+
+.xwui-switch-medium .xwui-switch-option-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.xwui-switch-large .xwui-switch-option {
+    padding: 8px 14px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: var(--font-size-lg, 1.0625rem);
+}
+
+.xwui-switch-large .xwui-switch-option-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

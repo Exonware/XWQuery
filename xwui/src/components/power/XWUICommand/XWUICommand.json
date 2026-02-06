@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUICommand",
+  "name": "XWUI Command Component",
+  "description": "Command palette/command menu component for quick actions and navigation. Features searchable command list with keyboard navigation. Supports icons, descriptions, and keywords for filtering. Uses XWUIInput and XWUIList internally.",
+  "path": "input.command",
+  "tags": ["input", "command", "palette", "menu", "search", "keyboard", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "placeholder": {
+          "type": "string",
+          "description": "Placeholder text for the search input"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the command component"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of command items to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the command"
+              },
+              "label": {
+                "type": "string",
+                "description": "Command label text"
+              },
+              "description": {
+                "type": "string",
+                "description": "Command description text"
+              },
+              "icon": {
+                "type": "string",
+                "description": "SVG icon HTML string for the command"
+              },
+              "keywords": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Keywords for search filtering"
+              },
+              "action": {
+                "description": "Action function to execute (not serializable in JSON)"
+              }
+            },
+            "required": ["id", "label"]
+          }
+        }
+      },
+      "required": ["items"]
+    }
+  }
+}
+

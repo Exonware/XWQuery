@@ -1,0 +1,17 @@
+/* ============================================
+   CALENDAR LINES - STRONG LINES
+   ============================================ */
+
+:root[data-lines="strong"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-calendar-width: var(--border-width-regular, 2px);
+    --border-calendar-style: solid;
+    --border-calendar-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-calendar-strong {
+    border-style: var(--border-calendar-style, solid);
+    border-width: var(--border-calendar-width, var(--border-width-regular, 2px));
+    border-color: var(--border-calendar-color, var(--border-medium, var(--border-color)));
+}

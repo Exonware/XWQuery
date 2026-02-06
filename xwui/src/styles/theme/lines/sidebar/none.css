@@ -1,0 +1,17 @@
+/* ============================================
+   SIDEBAR LINES - NO LINES
+   ============================================ */
+
+:root[data-lines="none"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-sidebar-width: var(--border-width-regular, 0px);
+    --border-sidebar-style: solid;
+    --border-sidebar-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-sidebar-none {
+    border-style: var(--border-sidebar-style, solid);
+    border-width: var(--border-sidebar-width, var(--border-width-regular, 0px));
+    border-color: var(--border-sidebar-color, var(--border-medium, var(--border-color)));
+}

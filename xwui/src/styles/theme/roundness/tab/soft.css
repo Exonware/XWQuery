@@ -1,0 +1,14 @@
+/* ============================================
+   TAB - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-tab: 8px;
+    /* Fallback: --radius-navigation → --radius-sm → 8px */
+}
+
+/* Utility class for direct application */
+.radius-tab-soft {
+    border-radius: var(--radius-tab, 8px) !important;
+}

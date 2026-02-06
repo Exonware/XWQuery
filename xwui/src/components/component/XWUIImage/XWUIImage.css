@@ -1,0 +1,62 @@
+/**
+ * XWUIImage Component Styles
+ * Enhanced image with fallbacks and lazy loading
+ */
+
+.xwui-image-container {
+    display: inline-block;
+}
+
+.xwui-image-wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.xwui-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    transition: opacity 0.3s ease;
+}
+
+.xwui-image-loading {
+    opacity: 0;
+}
+
+.xwui-image-loaded {
+    opacity: 1;
+}
+
+.xwui-image-error {
+    opacity: 0.5;
+}
+
+.xwui-image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary, #f8f9fa);
+    color: var(--text-secondary, #6c757d);
+    font-size: 0.875rem;
+}
+
+.xwui-image-error-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-tertiary, #f1f3f5);
+    color: var(--text-tertiary, #adb5bd);
+    font-size: 0.875rem;
+}
+

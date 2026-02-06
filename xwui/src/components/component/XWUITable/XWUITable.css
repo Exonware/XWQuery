@@ -1,0 +1,145 @@
+/**
+ * XWUITable Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/table/*.css (component-specific border widths)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.xwui-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+/* Size variants */
+.xwui-table-small {
+    font-size: var(--font-size-sm, 0.8125rem);
+}
+
+.xwui-table-small .xwui-table-header,
+.xwui-table-small .xwui-table-cell {
+    padding: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-table-medium .xwui-table-header,
+.xwui-table-medium .xwui-table-cell {
+    padding: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-table-large {
+    font-size: var(--font-size-base, 0.9375rem);
+}
+
+.xwui-table-large .xwui-table-header,
+.xwui-table-large .xwui-table-cell {
+    padding: 1rem;
+}
+
+/* Bordered */
+.xwui-table-bordered .xwui-table-header,
+.xwui-table-bordered .xwui-table-cell {
+    border: var(--border-table-width, var(--border-width-regular, 1.5px)) var(--border-table-style, solid) var(--border-table-color, var(--border-color));
+}
+
+/* Striped */
+.xwui-table-striped .xwui-table-row:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+/* Hoverable */
+.xwui-table-hoverable .xwui-table-row:hover {
+    background: var(--bg-secondary);
+}
+
+/* Header */
+.xwui-table-header {
+    font-weight: var(--font-weight-semibold, 600);
+    text-align: left;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.xwui-table-header-content {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-table-header-sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.xwui-table-header-sortable:hover {
+    opacity: 0.8;
+}
+
+.xwui-table-sort-icon {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary);
+}
+
+/* Row */
+.xwui-table-row-selected {
+    background: var(--bg-hover);
+}
+
+/* Cell */
+.xwui-table-cell {
+    color: var(--text-primary);
+}
+
+/* Select */
+.xwui-table-select-header,
+.xwui-table-select-cell {
+    width: 40px;
+    text-align: center;
+}
+
+/* Pagination */
+.xwui-table-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md, 1rem);
+    margin-top: var(--spacing-md, 1rem);
+    padding: var(--spacing-md, 1rem);
+}
+
+.xwui-table-pagination-button {
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-sm, 0.75rem);
+    border: var(--border-table-width, var(--border-width-regular, 1.5px)) var(--border-table-style, solid) var(--border-table-color, var(--border-color));
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: var(--radius-table, var(--radius-sm, 6px));
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.xwui-table-pagination-button:hover:not(:disabled) {
+    background: var(--bg-secondary);
+    border-color: var(--accent-primary);
+}
+
+.xwui-table-pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.xwui-table-pagination-info {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+

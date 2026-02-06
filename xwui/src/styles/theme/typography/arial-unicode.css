@@ -1,0 +1,59 @@
+/* ============================================
+   ARIAL UNICODE TYPOGRAPHY - Arial Unicode font family
+   ============================================ */
+
+:root[data-font="arial-unicode"],
+:root:not([data-font]) {
+    --font-family-base: /* Arial Unicode MS - comprehensive Unicode support */
+        'Arial Unicode MS', 'Arial',
+        /* Arabic & Persian - Arial Unicode support */
+        'Arial Unicode MS', 'Tahoma', 'Simplified Arabic', 'Traditional Arabic',
+        /* Hebrew - Arial Unicode support */
+        'Arial Unicode MS', 'Arial Hebrew', 'David', 'Miriam',
+        /* Chinese - Arial Unicode support */
+        'Arial Unicode MS', 'Microsoft YaHei', '微软雅黑',
+        'SimHei', '黑体', 'SimSun', '宋体',
+        /* Japanese - Arial Unicode support */
+        'Arial Unicode MS', 'MS PGothic', 'MS PMincho',
+        'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo',
+        /* Korean - Arial Unicode support */
+        'Arial Unicode MS', 'Malgun Gothic', '맑은 고딕',
+        'Gulim', '굴림', 'Dotum', '돋움',
+        /* Thai - Arial Unicode support */
+        'Arial Unicode MS', 'Tahoma', 'Leelawadee UI',
+        /* Devanagari - Arial Unicode support */
+        'Arial Unicode MS', 'Nirmala UI', 'Mangal',
+        /* Bengali - Arial Unicode support */
+        'Arial Unicode MS', 'Vani',
+        /* Tamil - Arial Unicode support */
+        'Arial Unicode MS', 'Latha',
+        /* Telugu - Arial Unicode support */
+        'Arial Unicode MS', 'Gautami',
+        /* Gujarati - Arial Unicode support */
+        'Arial Unicode MS', 'Shruti',
+        /* Kannada - Arial Unicode support */
+        'Arial Unicode MS', 'Tunga',
+        /* Malayalam - Arial Unicode support */
+        'Arial Unicode MS', 'Kartika',
+        /* Oriya - Arial Unicode support */
+        'Arial Unicode MS', 'Kalinga',
+        /* Punjabi - Arial Unicode support */
+        'Arial Unicode MS', 'Raavi',
+        /* Cyrillic - Arial Unicode support */
+        'Arial Unicode MS', 'Arial', 'Tahoma',
+        /* Greek - Arial Unicode support */
+        'Arial Unicode MS', 'Arial', 'Tahoma',
+        /* Vietnamese - Arial Unicode support */
+        'Arial Unicode MS', 'Arial', 'Tahoma',
+        /* Armenian - Arial Unicode support */
+        'Arial Unicode MS',
+        /* Georgian - Arial Unicode support */
+        'Arial Unicode MS',
+        /* Fallback to system fonts */
+        system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    --font-family-mono: 'Consolas', 'Courier New', 'Lucida Console',
+        'Liberation Mono', 'Monaco', 'Menlo',
+        'Noto Sans Mono', monospace;
+}
+

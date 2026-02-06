@@ -1,0 +1,13 @@
+/* ============================================
+   CODE TYPOGRAPHY - CHINESE-OS
+   ============================================ */
+
+:root[data-font="chinese-os"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-code-family: var(--font-family-mono, monospace);
+}
+
+/* Utility class for direct application */
+.font-code-chinese-os {
+    font-family: var(--font-code-family, var(--font-family-base, sans-serif)) !important;
+}

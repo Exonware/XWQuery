@@ -1,0 +1,59 @@
+/**
+ * XWUISubtaskExpander Component Styles
+ */
+
+.xwui-subtask-expander {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.xwui-subtask-expander-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+    padding: var(--spacing-xs, 0.25rem) 0;
+    cursor: pointer;
+}
+
+.xwui-subtask-expander-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #6c757d);
+    transition: transform 0.2s ease;
+}
+
+.xwui-subtask-expander-toggle:hover {
+    color: var(--text-primary, #212529);
+}
+
+.xwui-subtask-expander-count {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-subtask-expander-progress {
+    flex: 1;
+    max-width: 150px;
+    margin-left: auto;
+}
+
+.xwui-subtask-expander-content {
+    margin-top: var(--spacing-xs, 0.25rem);
+    margin-left: var(--spacing-md, 1rem);
+    padding-left: var(--spacing-sm, 0.5rem);
+    border-left: 2px solid var(--border-light, #e9ecef);
+}
+
+.xwui-subtask-expander:not(.xwui-subtask-expander-expanded) .xwui-subtask-expander-content {
+    display: none;
+}
+

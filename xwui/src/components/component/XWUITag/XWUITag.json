@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "XWUITag",
+  "description": "Base tag component for simple tag display. XWUIChip extends this component with interactivity (clickable, closable) and richer visuals (avatar, icon support).",
+  "meta": {
+    "input": {
+      "description": "Input data required for the component",
+      "rules": [
+        "Required label string"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Tag text label"
+        }
+      }
+    },
+    "output": {
+      "description": "Output produced by the component",
+      "rules": [
+        "Renders tag element with label",
+        "Applies variant styling (default, primary, success, warning, error)",
+        "Applies size styling (small, medium, large)"
+      ],
+      "properties": {
+        "tagElement": {
+          "type": "HTMLElement",
+          "description": "The rendered tag DOM element"
+        }
+      }
+    },
+    "actions": {
+      "description": "User actions supported by the component",
+      "rules": [
+        "setLabel method to update tag label"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "variant": {
+      "type": "string",
+      "enum": [
+        "default",
+        "primary",
+        "success",
+        "warning",
+        "error"
+      ],
+      "default": "default",
+      "description": "Tag visual variant/style"
+    },
+    "size": {
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium",
+      "description": "Tag size"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS class name for the component"
+    }
+  },
+  "id": "XWUITag"
+}
+

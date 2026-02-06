@@ -1,0 +1,67 @@
+/**
+ * XWUIChart Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/rounded.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-chart {
+    width: 100%;
+    background: var(--bg-primary);
+    border: var(--border-chart-width, var(--border-width-regular, 1.5px)) var(--border-chart-style, solid) var(--border-chart-color, var(--border-color));
+    border-radius: var(--radius-chart, var(--radius-md, 8px));
+    padding: var(--spacing-md, 1rem);
+}
+
+.xwui-chart-title {
+    font-size: var(--font-size-lg, 1.125rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md, 1rem);
+    text-align: center;
+}
+
+.xwui-chart-svg-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--spacing-md, 1rem);
+}
+
+.xwui-chart-svg-container svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.xwui-chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg, 1.5rem);
+    flex-wrap: wrap;
+}
+
+.xwui-chart-legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-chart-legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: var(--radius-xs, 2px);
+}
+
+.xwui-chart-legend-label {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary);
+}
+

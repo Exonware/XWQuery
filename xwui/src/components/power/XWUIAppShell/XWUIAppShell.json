@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "sidebarCollapsible": {
+      "type": "boolean",
+      "default": false
+    },
+    "sidebarCollapsed": {
+      "type": "boolean",
+      "default": false
+    },
+    "sidebarWidth": {
+      "type": "string",
+      "default": "280px"
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "ltr",
+        "rtl"
+      ],
+      "default": "ltr"
+    },
+    "className": {
+      "type": "string"
+    },
+    "header": {
+      "description": "Header content as HTML string or HTMLElement"
+    },
+    "sidebar": {
+      "description": "Sidebar content as HTML string or HTMLElement"
+    },
+    "main": {
+      "description": "Main content as HTML string or HTMLElement"
+    },
+    "footer": {
+      "description": "Footer content as HTML string or HTMLElement"
+    }
+  },
+  "required": [
+    "main"
+  ],
+  "id": "XWUIAppShell"
+}

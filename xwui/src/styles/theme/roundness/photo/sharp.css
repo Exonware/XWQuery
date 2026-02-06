@@ -1,0 +1,14 @@
+/* ============================================
+   PHOTO - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-photo: 0px;
+    /* Fallback: --radius-media → --radius-md → 0px */
+}
+
+/* Utility class for direct application */
+.radius-photo-sharp {
+    border-radius: var(--radius-photo, 0px) !important;
+}

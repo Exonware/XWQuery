@@ -1,0 +1,12 @@
+/* ============================================
+   EMERALD ICON COLORS - Vibrant emerald theme
+   ============================================ */
+
+:root[data-icons-colors="emerald"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #064e3b;        /* Primary fill color - dark emerald text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #10b981;        /* Accent/rail/marks color - emerald */
+    --icons-color-transparent: transparent;
+}
+

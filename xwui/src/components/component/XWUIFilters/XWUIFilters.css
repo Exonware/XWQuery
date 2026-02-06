@@ -1,0 +1,154 @@
+/**
+ * XWUIFilters Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ */
+
+.xwui-filters-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.xwui-filters {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--bg-primary, #ffffff);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-md, 8px);
+}
+
+/* Preview */
+.xwui-filters-preview {
+    padding: var(--spacing-sm, 0.75rem);
+    border-bottom: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    text-align: center;
+}
+
+.xwui-filters-preview-image {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: var(--radius-sm, 4px);
+    box-shadow: var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+/* Presets */
+.xwui-filters-presets {
+    padding: var(--spacing-sm, 0.75rem);
+    border-bottom: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+}
+
+.xwui-filters-label {
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+    margin-bottom: var(--spacing-xs, 0.5rem);
+}
+
+.xwui-filters-presets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: var(--spacing-xs, 0.5rem);
+}
+
+.xwui-filters-preset {
+    padding: var(--spacing-xs, 0.5rem) var(--spacing-sm, 0.75rem);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-sm, 4px);
+    background: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #212529);
+    cursor: pointer;
+    font-size: var(--font-size-sm, 0.875rem);
+    transition: all 0.2s ease;
+}
+
+.xwui-filters-preset:hover {
+    background: var(--bg-hover, #f8f9fa);
+    border-color: var(--border-medium, #ced4da);
+}
+
+.xwui-filters-preset.active {
+    background: var(--accent-primary, #4f46e5);
+    color: var(--text-inverse, #ffffff);
+    border-color: var(--accent-primary, #4f46e5);
+}
+
+/* Custom Controls */
+.xwui-filters-controls {
+    padding: var(--spacing-sm, 0.75rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-filters-slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-filters-slider-label {
+    min-width: 100px;
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-filters-slider {
+    flex: 1;
+    height: 4px;
+    border-radius: var(--radius-sm, 4px);
+    background: var(--bg-secondary, #f8f9fa);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.xwui-filters-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-primary, #4f46e5);
+    cursor: pointer;
+}
+
+.xwui-filters-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-primary, #4f46e5);
+    cursor: pointer;
+    border: none;
+}
+
+.xwui-filters-slider-value {
+    min-width: 3rem;
+    text-align: right;
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #6c757d);
+    font-family: var(--font-family-mono, 'Courier New', monospace);
+}
+
+.xwui-filters-reset {
+    padding: var(--spacing-xs, 0.5rem) var(--spacing-sm, 0.75rem);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-sm, 4px);
+    background: var(--bg-secondary, #f8f9fa);
+    color: var(--text-primary, #212529);
+    cursor: pointer;
+    font-size: var(--font-size-sm, 0.875rem);
+    transition: all 0.2s ease;
+    align-self: flex-start;
+}
+
+.xwui-filters-reset:hover {
+    background: var(--bg-hover, #e9ecef);
+    border-color: var(--border-medium, #ced4da);
+}
+

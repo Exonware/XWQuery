@@ -1,0 +1,53 @@
+// flatbuffers.grammar
+// FlatBuffers Grammar - FlatBuffers schema
+// Company: eXonware.com
+
+?start: schema
+
+schema: include* namespace* root_type? file_extension? file_identifier? attribute* table* struct* enum* union* rpc_service*
+
+include: "include" STRING ";"
+
+namespace: "namespace" namespace_ident ";"
+
+root_type: "root_type" type_ident ";"
+
+file_extension: "file_extension" STRING ";"
+
+file_identifier: "file_identifier" STRING ";"
+
+attribute: "attribute" STRING ";"
+
+table: "table" IDENTIFIER "{" field* "}"
+
+struct: "struct" IDENTIFIER "{" field* "}"
+
+field: IDENTIFIER ":" type [default_value] [deprecated] ";"
+
+type: scalar_type | vector_type | string_type | table_type | struct_type | enum_type | union_type
+
+enum: "enum" IDENTIFIER [":" integer_type] "{" enum_value* "}"
+
+enum_value: IDENTIFIER [":" integer_literal] [","]
+
+union: "union" IDENTIFIER "{" union_value* "}"
+
+union_value: IDENTIFIER ":"
+
+rpc_service: "rpc_service" IDENTIFIER "{" rpc_method* "}"
+
+rpc_method: IDENTIFIER "(" type_ident ")" ":" type_ident [streaming] ";"
+
+// Terminals
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+integer_literal: /[+-]?[0-9]+/
+
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

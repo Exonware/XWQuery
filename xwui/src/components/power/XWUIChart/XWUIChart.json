@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "XWUIChart",
+  "description": "Chart component supporting multiple chart types (line, bar, pie, area). Renders data series with SVG, supports legends, grids, and custom colors. Basic implementation that can be extended with chart libraries.",
+  "meta": {
+    "input": {
+      "description": "Input data required for the component",
+      "rules": [
+        "Requires series array with at least one series",
+        "Each series must have name (string) and data (array of data points)",
+        "Each data point must have x (number or string) and y (number)",
+        "Optional label for data points",
+        "Optional color for each series",
+        "Optional title string for chart"
+      ],
+      "properties": {
+        "series": {
+          "type": "array",
+          "description": "Array of data series",
+          "required": true,
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "data"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Series name (displayed in legend)"
+              },
+              "data": {
+                "type": "array",
+                "description": "Array of data points",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "properties": {
+                    "x": {
+                      "type": [
+                        "number",
+                        "string"
+                      ],
+                      "description": "X-axis value"
+                    },
+                    "y": {
+                      "type": "number",
+                      "description": "Y-axis value"
+                    },
+                    "label": {
+                      "type": "string",
+                      "description": "Optional data point label"
+                    }
+                  }
+                }
+              },
+              "color": {
+                "type": "string",
+                "description": "Series color (CSS color value)"
+              }
+            }
+          }
+        },
+        "title": {
+          "type": "string",
+          "description": "Chart title text"
+        }
+      }
+    },
+    "output": {
+      "description": "Output produced by the component",
+      "rules": [
+        "Renders SVG chart based on type (line, bar, pie, area)",
+        "Displays chart title if provided",
+        "Shows legend if showLegend is true",
+        "Displays grid lines if showGrid is true",
+        "Renders data series with appropriate chart visualization"
+      ],
+      "properties": {
+        "chartElement": {
+          "type": "HTMLElement",
+          "description": "The rendered chart DOM element"
+        },
+        "svgElement": {
+          "type": "SVGElement",
+          "description": "The SVG element containing chart graphics"
+        }
+      }
+    },
+    "actions": {
+      "description": "User actions supported by the component",
+      "rules": [
+        "Chart updates when data changes",
+        "setData() updates chart data",
+        "setType() changes chart type",
+        "resize() updates chart dimensions"
+      ],
+      "properties": {
+        "setData": {
+          "type": "function",
+          "description": "Update chart data"
+        },
+        "setType": {
+          "type": "function",
+          "description": "Change chart type"
+        },
+        "resize": {
+          "type": "function",
+          "description": "Resize chart (width, height)"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "line",
+        "bar",
+        "pie",
+        "area"
+      ],
+      "default": "line",
+      "description": "Chart type"
+    },
+    "width": {
+      "type": "number",
+      "default": 400,
+      "description": "Chart width in pixels"
+    },
+    "height": {
+      "type": "number",
+      "default": 300,
+      "description": "Chart height in pixels"
+    },
+    "showLegend": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show legend with series names"
+    },
+    "showGrid": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show grid lines"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS class name for the component"
+    }
+  },
+  "id": "XWUIChart"
+}

@@ -1,0 +1,50 @@
+<!-- XPath Examples -->
+<!-- XPath is used to navigate XML documents -->
+
+<!-- Basic XPath expressions -->
+/bookstore/book[1]
+/bookstore/book[last()]
+/bookstore/book[position()<3]
+/bookstore/book[@category='fiction']
+/bookstore/book[price>35.00]
+
+<!-- Selecting all elements -->
+//book
+//@lang
+
+<!-- Selecting specific paths -->
+/bookstore/book/title
+//book/title
+//title[@lang='en']
+
+<!-- Using predicates -->
+/bookstore/book[price>35.00]/title
+/bookstore/book[price>35.00]/title | /bookstore/book[price>35.00]/author
+
+<!-- Functions -->
+//book[contains(title, 'XML')]
+//book[starts-with(title, 'Learning')]
+//book[string-length(title) > 30]
+
+<!-- Axes -->
+//book/ancestor::bookstore
+//book/descendant::title
+//book/following-sibling::book
+//book/preceding-sibling::book
+
+<!-- Example XML context -->
+<bookstore>
+  <book category="fiction">
+    <title lang="en">Learning XML</title>
+    <author>John Doe</author>
+    <year>2020</year>
+    <price>29.99</price>
+  </book>
+  <book category="programming">
+    <title lang="en">Advanced XPath</title>
+    <author>Jane Smith</author>
+    <year>2021</year>
+    <price>49.99</price>
+  </book>
+</bookstore>
+

@@ -1,0 +1,14 @@
+/* ============================================
+   CAROUSEL - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-carousel: 0px;
+    /* Fallback: --radius-content → --radius-md → 0px */
+}
+
+/* Utility class for direct application */
+.radius-carousel-sharp {
+    border-radius: var(--radius-carousel, 0px) !important;
+}

@@ -1,0 +1,60 @@
+// marshal.grammar
+// Marshal Grammar - Python internal serialization
+// Company: eXonware.com
+
+?start: marshal_data
+
+marshal_data: value
+
+value: TYPE_CODE value_data
+
+TYPE_CODE: "\x00" -> none
+         | "\x01" -> null
+         | "\x02" -> stop_iteration
+         | "\x03" -> ellipsis
+         | "\x04" -> false
+         | "\x05" -> true
+         | "\x06" -> int
+         | "\x07" -> int64
+         | "\x08" -> float
+         | "\x09" -> complex
+         | "\x0A" -> long
+         | "\x0B" -> string
+         | "\x0C" -> interned
+         | "\x0D" -> stringref
+         | "\x0E" -> tuple
+         | "\x0F" -> list
+         | "\x10" -> dict
+         | "\x11" -> code
+         | "\x12" -> unicode
+         | "\x13" -> unknown
+         | "\x14" -> set
+         | "\x15" -> frozenset
+         | "\x16" -> ref
+         | "\x17" -> type
+         | "\x18" -> base_exception
+         | "\x19" -> code_v2
+         | "\x1A" -> long64
+         | "\x1B" -> small_tuple
+         | "\x1C" -> short_ascii
+         | "\x1D" -> short_ascii_interned
+         | "\x1E" -> unicode_interned
+         | "\x1F" -> set_frozenset
+         | "\x20" -> dict_items
+         | "\x21" -> dict_items_interned
+         | "\x22" -> ascii_interned
+         | "\x23" -> small_tuple_interned
+         | "\x24" -> short_ascii_list
+         | "\x25" -> short_ascii_tuple
+
+value_data: BYTE* | INT* | FLOAT* | STRING* | value*
+
+BYTE: /[\x00-\xFF]/
+INT: /[\x00-\xFF]{4}/
+FLOAT: /[\x00-\xFF]{8}/
+STRING: /[\x00-\xFF]*/
+
+%import common.WS
+
+%ignore WS
+

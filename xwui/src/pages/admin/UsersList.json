@@ -1,0 +1,69 @@
+{
+  "id": "admin.users.list",
+  "name": "Users List",
+  "description": "List page showing users in a table with filters, search, and pagination",
+  "path": "/admin/users",
+  "conf_comp": {
+    "pageType": "list",
+    "layout": {
+      "regions": {
+        "header": true,
+        "main": true,
+        "footer": true
+      },
+      "grid": {
+        "rows": "auto 1fr auto",
+        "areas": "\"header\" \"main\" \"footer\""
+      }
+    }
+  },
+  "data": {
+    "title": "Users",
+    "subtitle": "Manage system users",
+    "header": {
+      "component": "XWUICard",
+      "region": "header",
+      "conf_comp": {
+        "variant": "outlined"
+      },
+      "data": {
+        "title": "Users",
+        "content": "<div>[XWUIButton: Add User] [XWUIButton: Export] [XWUIInput: Search]</div>"
+      }
+    },
+    "main": {
+      "component": "XWUITable",
+      "region": "main",
+      "gridArea": "main",
+      "conf_comp": {
+        "variant": "outlined",
+        "striped": true,
+        "hoverable": true
+      },
+      "data": {
+        "columns": [
+          { "key": "id", "label": "ID" },
+          { "key": "name", "label": "Name" },
+          { "key": "email", "label": "Email" },
+          { "key": "role", "label": "Role" },
+          { "key": "actions", "label": "Actions" }
+        ],
+        "rows": []
+      },
+      "targetId": "users-table"
+    },
+    "footer": {
+      "component": "XWUIPagination",
+      "region": "footer",
+      "gridArea": "footer",
+      "conf_comp": {},
+      "data": {
+        "current": 1,
+        "total": 10,
+        "pageSize": 20
+      },
+      "targetId": "users-pagination"
+    }
+  }
+}
+

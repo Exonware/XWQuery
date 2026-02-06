@@ -1,0 +1,13 @@
+/* ============================================
+   INPUT - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-input: 16px;
+}
+
+/* Utility class for direct application */
+.radius-input-extra-rounded {
+    border-radius: var(--radius-input, 16px) !important;
+}

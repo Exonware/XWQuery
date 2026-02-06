@@ -1,0 +1,103 @@
+// Kotlin Example
+// Comprehensive Kotlin code demonstrating various features
+
+import java.time.Instant
+
+// Data classes
+data class Metadata(
+    val author: String = "XWUI Team",
+    val created: String = Instant.now().toString(),
+    val tags: List<String> = listOf("example", "kotlin")
+)
+
+data class Item(
+    val id: Int,
+    val name: String,
+    val active: Boolean,
+    val price: Double,
+    val categories: List<String> = emptyList()
+)
+
+// Document class
+class Document(
+    val name: String,
+    val version: String,
+    val description: String
+) {
+    private val metadata = Metadata()
+    private val items = mutableListOf<Item>()
+    
+    fun addItem(item: Item) {
+        items.add(item)
+    }
+    
+    fun getActiveItems(): List<Item> {
+        return items.filter { it.active }
+    }
+    
+    fun getTotalPrice(): Double {
+        return getActiveItems().sumOf { it.price }
+    }
+    
+    fun toJSON(): String {
+        return """
+        {
+            "name": "$name",
+            "version": "$version",
+            "description": "$description",
+            "metadata": {
+                "author": "${metadata.author}",
+                "created": "${metadata.created}",
+                "tags": ${metadata.tags.joinToString(", ", "[", "]") { "\"$it\"" }}
+            },
+            "items": ${items.joinToString(", ", "[", "]") { item ->
+                """
+                {
+                    "id": ${item.id},
+                    "name": "${item.name}",
+                    "active": ${item.active},
+                    "price": ${item.price},
+                    "categories": ${item.categories.joinToString(", ", "[", "]") { "\"$it\"" }}
+                }
+                """.trimIndent()
+            }}
+        }
+        """.trimIndent()
+    }
+}
+
+// Extension functions
+fun Document.printSummary() {
+    println("Document: $name")
+    println("Active items: ${getActiveItems().size}")
+    println("Total price: $${"%.2f".format(getTotalPrice())}")
+}
+
+// Main function
+fun main() {
+    val doc = Document(
+        name = "Sample Kotlin Document",
+        version = "1.0.0",
+        description = "Kotlin code example"
+    )
+    
+    doc.addItem(Item(
+        id = 1,
+        name = "First Item",
+        active = true,
+        price = 29.99,
+        categories = listOf("electronics", "gadgets")
+    ))
+    
+    doc.addItem(Item(
+        id = 2,
+        name = "Second Item",
+        active = false,
+        price = 49.99,
+        categories = listOf("books", "education")
+    ))
+    
+    doc.printSummary()
+    println("\nJSON:\n${doc.toJSON()}")
+}
+

@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIResizable",
+  "name": "XWUI Resizable Component",
+  "description": "Resizable container component that allows users to resize content by dragging handles. Supports horizontal, vertical, and both directions with min/max size constraints.",
+  "path": "layout.resizable",
+  "tags": ["layout", "resizable", "drag", "resize", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "type": "string",
+          "enum": ["horizontal", "vertical", "both"],
+          "description": "Resize direction",
+          "default": "both"
+        },
+        "minWidth": {
+          "type": "number",
+          "description": "Minimum width in pixels"
+        },
+        "maxWidth": {
+          "type": "number",
+          "description": "Maximum width in pixels"
+        },
+        "minHeight": {
+          "type": "number",
+          "description": "Minimum height in pixels"
+        },
+        "maxHeight": {
+          "type": "number",
+          "description": "Maximum height in pixels"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the resizable container"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Content element or HTML string to display in the resizable container (required)"
+        },
+        "width": {
+          "type": "number",
+          "description": "Initial width in pixels"
+        },
+        "height": {
+          "type": "number",
+          "description": "Initial height in pixels"
+        }
+      },
+      "required": ["content"]
+    }
+  }
+}
+

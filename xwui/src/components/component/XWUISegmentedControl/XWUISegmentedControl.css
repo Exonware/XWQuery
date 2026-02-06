@@ -1,0 +1,95 @@
+/**
+ * XWUISegmentedControl Component Styles
+ */
+
+.xwui-segmented-control-container {
+    /* Container has no specific styles */
+}
+
+.xwui-segmented-control {
+    display: inline-flex;
+    position: relative;
+    background-color: var(--bg-secondary, #f0f0f0);
+    border-radius: var(--radius-md, 6px);
+    padding: 2px;
+}
+
+.xwui-segmented-control-block {
+    display: flex;
+    width: 100%;
+}
+
+.xwui-segmented-control-buttons {
+    display: flex;
+    position: relative;
+    z-index: 1;
+}
+
+.xwui-segmented-control-button {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 4px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: var(--font-size-sm, 14px);
+    color: var(--text-secondary, #666);
+    white-space: nowrap;
+}
+
+.xwui-segmented-control-button:hover:not(:disabled):not(.xwui-segmented-control-button-active) {
+    color: var(--text-primary, #333);
+}
+
+.xwui-segmented-control-button-active {
+    color: var(--accent-primary, #1890ff);
+    font-weight: var(--font-weight-medium, 500);
+}
+
+.xwui-segmented-control-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.xwui-segmented-control-indicator {
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    background-color: var(--bg-primary, #ffffff);
+    border-radius: var(--radius-sm, 4px);
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+    transition: left 0.3s ease, width 0.3s ease;
+    z-index: 0;
+}
+
+.xwui-segmented-control-small {
+    font-size: 12px;
+}
+
+.xwui-segmented-control-small .xwui-segmented-control-button {
+    padding: 2px 8px;
+}
+
+.xwui-segmented-control-large {
+    font-size: 16px;
+}
+
+.xwui-segmented-control-large .xwui-segmented-control-button {
+    padding: 6px 16px;
+}
+
+.xwui-segmented-control-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.xwui-segmented-control-icon {
+    display: inline-flex;
+    align-items: center;
+}
+

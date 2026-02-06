@@ -1,0 +1,32 @@
+// c.grammar
+// C Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: translation_unit
+
+translation_unit: external_declaration*
+
+external_declaration: function_definition | declaration
+
+function_definition: [declaration_specifiers] declarator [declaration_list] compound_statement
+
+declaration: [declaration_specifiers] init_declarator_list ";"
+
+declaration_specifiers: storage_class_specifier | type_specifier | type_qualifier
+
+storage_class_specifier: "auto" | "register" | "static" | "extern" | "typedef"
+
+type_specifier: "void" | "char" | "short" | "int" | "long" | "float" | "double" | "signed" | "unsigned" | struct_specifier | union_specifier | enum_specifier
+
+type_qualifier: "const" | "volatile"
+
+struct_specifier: "struct" [IDENTIFIER] "{" struct_declaration_list "}"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+%import common.WS
+%import common.C_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+

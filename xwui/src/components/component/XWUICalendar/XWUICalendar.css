@@ -1,0 +1,151 @@
+/**
+ * XWUICalendar Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/calendar/*.css (component-specific border widths)
+ * - Roundness: theme/roundness/calendar/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-calendar {
+    width: 100%;
+    background: var(--bg-primary);
+    border: var(--border-calendar-width, var(--border-width-regular, 1.5px)) var(--border-calendar-style, solid) var(--border-calendar-color, var(--border-color));
+    border-radius: var(--radius-calendar, var(--radius-md, 8px));
+    padding: var(--spacing-md, 1rem);
+}
+
+/* Navigation */
+.xwui-calendar-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md, 1rem);
+    gap: var(--spacing-md, 1rem);
+}
+
+.xwui-calendar-title {
+    font-weight: var(--font-weight-semibold, 600);
+    font-size: var(--font-size-lg, 1.125rem);
+    color: var(--text-primary);
+    flex: 1;
+    text-align: center;
+}
+
+.xwui-calendar-nav-button,
+.xwui-calendar-today-button {
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-sm, 0.75rem);
+    border: var(--border-calendar-width, var(--border-width-regular, 1.5px)) var(--border-calendar-style, solid) var(--border-calendar-color, var(--border-color));
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: var(--radius-calendar, var(--radius-sm, 6px));
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-calendar-nav-button:hover,
+.xwui-calendar-today-button:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-primary);
+}
+
+/* Month view */
+.xwui-calendar-month {
+    width: 100%;
+}
+
+.xwui-calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: var(--spacing-xs, 0.25rem);
+    margin-bottom: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-calendar-weekday {
+    text-align: center;
+    font-weight: var(--font-weight-semibold, 600);
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary);
+    padding: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-calendar-day {
+    aspect-ratio: 1;
+    border: var(--border-calendar-width, var(--border-width-regular, 1.5px)) var(--border-calendar-style, solid) var(--border-calendar-color, var(--border-color));
+    border-radius: var(--radius-calendar, var(--radius-sm, 6px));
+    padding: var(--spacing-sm, 0.5rem);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    min-height: 60px;
+}
+
+.xwui-calendar-day:hover:not(.xwui-calendar-day-disabled) {
+    background: var(--bg-secondary);
+    border-color: var(--accent-primary);
+}
+
+.xwui-calendar-day-other-month {
+    opacity: 0.4;
+}
+
+.xwui-calendar-day-today {
+    border-color: var(--accent-primary);
+    font-weight: var(--font-weight-semibold, 600);
+}
+
+.xwui-calendar-day-selected {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+    border-color: var(--accent-primary);
+}
+
+.xwui-calendar-day-disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.xwui-calendar-day-number {
+    font-size: var(--font-size-sm, 0.875rem);
+    margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-calendar-day-events {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xxs, 0.125rem);
+    margin-top: auto;
+}
+
+.xwui-calendar-event-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.xwui-calendar-event-dot:hover {
+    transform: scale(1.5);
+}
+
+.xwui-calendar-event-more {
+    font-size: var(--font-size-xs, 0.625rem);
+    color: var(--text-secondary);
+    margin-left: var(--spacing-xs, 0.25rem);
+}
+

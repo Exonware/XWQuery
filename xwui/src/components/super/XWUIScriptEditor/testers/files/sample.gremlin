@@ -1,0 +1,68 @@
+// Gremlin Query Examples (Apache TinkerPop Graph Traversal)
+
+// Create vertices
+g.addV('Document').property('name', 'Sample Gremlin Document')
+  .property('version', '1.0.0')
+  .property('description', 'Gremlin query examples')
+  .property('created', '2025-01-15T10:30:00Z')
+
+g.addV('Metadata').property('author', 'XWUI Team')
+  .property('created', '2025-01-15T10:30:00Z')
+  .property('tags', ['example', 'gremlin', 'graph'])
+
+g.addV('Item').property('id', 1)
+  .property('name', 'First Item')
+  .property('active', true)
+  .property('price', 29.99)
+
+g.addV('Item').property('id', 2)
+  .property('name', 'Second Item')
+  .property('active', false)
+  .property('price', 49.99)
+
+// Create edges
+g.V().has('Document', 'name', 'Sample Gremlin Document')
+  .addE('hasMetadata')
+  .to(g.V().has('Metadata', 'author', 'XWUI Team'))
+
+g.V().has('Document', 'name', 'Sample Gremlin Document')
+  .addE('contains')
+  .to(g.V().has('Item', 'id', 1))
+
+// Query examples
+g.V().hasLabel('Document').values('name')
+
+g.V().has('Document', 'name', 'Sample Gremlin Document')
+  .out('hasMetadata')
+  .values('author')
+
+g.V().has('Document', 'name', 'Sample Gremlin Document')
+  .out('contains')
+  .has('active', true)
+  .values('name')
+
+// Traversal with filters
+g.V().hasLabel('Item')
+  .has('active', true)
+  .has('price', gt(20))
+  .order().by('price', desc)
+  .values('name', 'price')
+
+// Path queries
+g.V().has('Document', 'name', 'Sample Gremlin Document')
+  .repeat(out())
+  .times(2)
+  .path()
+
+// Aggregations
+g.V().hasLabel('Item')
+  .has('active', true)
+  .values('price')
+  .mean()
+
+g.V().hasLabel('Item')
+  .groupCount()
+  .by('active')
+
+
+

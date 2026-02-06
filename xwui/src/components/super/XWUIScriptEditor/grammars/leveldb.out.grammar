@@ -1,0 +1,15 @@
+# leveldb.out.grammar
+# LevelDB Output Grammar - Template for generating LevelDB from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@leveldb_database = {{#each manifests}}{{value}}{{/each}}{{#each logs}}{{value}}{{/each}}{{#each sstables}}{{value}}{{/each}}
+
+@manifest = {{version}}{{#each edits}}{{value}}{{/each}}
+
+@log_file = {{#each records}}{{value}}{{/each}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

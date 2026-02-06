@@ -1,0 +1,17 @@
+/* ============================================
+   PHOTO LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-photo-width: var(--border-width-regular, 1.5px);
+    --border-photo-style: solid;
+    --border-photo-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-photo-balanced {
+    border-style: var(--border-photo-style, solid);
+    border-width: var(--border-photo-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-photo-color, var(--border-medium, var(--border-color)));
+}

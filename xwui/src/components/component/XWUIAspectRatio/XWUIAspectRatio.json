@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIAspectRatio",
+  "name": "XWUI Aspect Ratio Component",
+  "description": "Container component that maintains a specific aspect ratio for its content. Supports preset ratios (1:1, 4:3, 16:9, etc.) or custom numeric ratios. Useful for images, videos, and responsive layouts.",
+  "path": "layout.aspectratio",
+  "tags": ["layout", "aspect-ratio", "responsive", "container", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "ratio": {
+          "description": "Aspect ratio preset (1:1, 4:3, 16:9, 21:9, 3:2, 2:3, 9:16) or custom numeric ratio (width/height)",
+          "default": "16:9"
+        },
+        "maxWidth": {
+          "type": "string",
+          "description": "Maximum width CSS value (e.g., '100%', '800px')"
+        },
+        "maxHeight": {
+          "type": "string",
+          "description": "Maximum height CSS value (e.g., '100%', '600px')"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the aspect ratio container"
+        },
+        "objectFit": {
+          "type": "string",
+          "enum": ["contain", "cover", "fill", "none", "scale-down"],
+          "description": "CSS object-fit value for content",
+          "default": "cover"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Content element to display within the aspect ratio container"
+        }
+      }
+    }
+  }
+}
+

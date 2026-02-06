@@ -1,0 +1,13 @@
+/* ============================================
+   BADGE - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-badge: 9999px;
+}
+
+/* Utility class for direct application */
+.radius-badge-extra-rounded {
+    border-radius: var(--radius-badge, 9999px) !important;
+}

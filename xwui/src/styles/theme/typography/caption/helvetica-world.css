@@ -1,0 +1,13 @@
+/* ============================================
+   CAPTION TYPOGRAPHY - HELVETICA-WORLD
+   ============================================ */
+
+:root[data-font="helvetica-world"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-caption-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-caption-helvetica-world {
+    font-family: var(--font-caption-family, var(--font-family-base, sans-serif)) !important;
+}

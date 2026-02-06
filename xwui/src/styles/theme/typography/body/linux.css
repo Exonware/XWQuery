@@ -1,0 +1,13 @@
+/* ============================================
+   BODY TYPOGRAPHY - LINUX
+   ============================================ */
+
+:root[data-font="linux"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-body-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-body-linux {
+    font-family: var(--font-body-family, var(--font-family-base, sans-serif)) !important;
+}

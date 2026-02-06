@@ -1,0 +1,79 @@
+/**
+ * XWUITour Component Styles
+ */
+
+.xwui-tour-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-overlay, rgba(0, 0, 0, 0.45));
+    z-index: 998;
+}
+
+.xwui-tour-highlight {
+    /* Highlight styles applied inline */
+}
+
+.xwui-tour-popover {
+    background: var(--bg-primary, #ffffff);
+    border-radius: var(--radius-md, 8px);
+    box-shadow: var(--shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.15));
+    padding: var(--spacing-md, 16px);
+    max-width: 320px;
+    z-index: 1001;
+}
+
+.xwui-tour-popover-title {
+    font-size: var(--font-size-base, 16px);
+    font-weight: var(--font-weight-medium, 500);
+    margin-bottom: var(--spacing-sm, 8px);
+}
+
+.xwui-tour-popover-description {
+    font-size: var(--font-size-sm, 14px);
+    color: var(--text-secondary, #666);
+    margin-bottom: var(--spacing-md, 16px);
+}
+
+.xwui-tour-popover-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.xwui-tour-popover-btn {
+    padding: 4px 12px;
+    border: 1px solid var(--border-color, #d9d9d9);
+    border-radius: var(--radius-sm, 4px);
+    background: var(--bg-primary, #ffffff);
+    cursor: pointer;
+    font-size: var(--font-size-sm, 14px);
+}
+
+.xwui-tour-popover-btn:hover:not(:disabled) {
+    border-color: var(--accent-primary, #40a9ff);
+    color: var(--accent-primary, #1890ff);
+}
+
+.xwui-tour-popover-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.xwui-tour-popover-btn-next {
+    background: var(--accent-primary, #1890ff);
+    color: var(--text-inverse, #ffffff);
+    border-color: var(--accent-primary, #1890ff);
+}
+
+.xwui-tour-popover-btn-next:hover:not(:disabled) {
+    background: var(--accent-hover, #40a9ff);
+    border-color: var(--accent-hover, #40a9ff);
+}
+
+.xwui-tour-popover-btn-skip {
+    color: var(--text-secondary, #666);
+}
+

@@ -1,0 +1,16 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Input field with white interior and darker border -->
+  <rect x="10" y="40" width="80" height="24" rx="4" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2.5"/>
+  <!-- Underscores to show placeholder text -->
+  <line x1="18" y1="54" x2="28" y2="54" class="xwui-icon-accent" stroke-width="2" stroke-linecap="round"/>
+  <line x1="32" y1="54" x2="42" y2="54" class="xwui-icon-accent" stroke-width="2" stroke-linecap="round"/>
+  <line x1="46" y1="54" x2="56" y2="54" class="xwui-icon-accent" stroke-width="2" stroke-linecap="round"/>
+  <line x1="60" y1="54" x2="70" y2="54" class="xwui-icon-accent" stroke-width="2" stroke-linecap="round"/>
+  <!-- Text cursor -->
+  <line x1="74" y1="48" x2="74" y2="60" class="xwui-icon-fill" stroke-width="2" stroke-linecap="round"/>
+</svg>

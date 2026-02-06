@@ -1,0 +1,20 @@
+# regex.out.grammar
+# Regex Output Grammar - Template for generating regex patterns from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@pattern = {{value}}
+
+@alternative = {{#each terms}}{{value}}{{#if !@last}}|{{/if}}{{/each}}
+
+@term = {{atom}}{{#if quantifier}}{{quantifier}}{{/if}}
+
+@character_class = [{{#if negated}}^{{/if}}{{#each items}}{{value}}{{/each}}]
+
+@group = ({{#if modifier}}{{modifier}}{{/if}}{{value}})
+
+@quantifier = {{value}}
+
+@indent = 0
+@pretty = false
+

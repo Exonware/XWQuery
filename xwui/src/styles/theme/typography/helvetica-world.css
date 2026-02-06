@@ -1,0 +1,58 @@
+/* ============================================
+   HELVETICA WORLD TYPOGRAPHY - Helvetica World font family
+   ============================================ */
+
+:root[data-font="helvetica-world"],
+:root:not([data-font]) {
+    --font-family-base: /* Helvetica World - extended Helvetica */
+        'Helvetica World', 'Helvetica Neue', 'Helvetica',
+        /* Arabic & Persian - Helvetica World support */
+        'Helvetica World', 'Helvetica Neue Arabic', 'Helvetica Arabic',
+        /* Hebrew - Helvetica World support */
+        'Helvetica Neue Hebrew', 'Helvetica Hebrew',
+        /* Chinese - Fallback fonts */
+        'Microsoft YaHei', '微软雅黑', 'PingFang SC', 'Hiragino Sans GB',
+        'Noto Sans SC', 'Source Han Sans SC',
+        /* Japanese - Fallback fonts */
+        'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo',
+        'Noto Sans JP', 'Source Han Sans JP',
+        /* Korean - Fallback fonts */
+        'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo',
+        'Nanum Gothic', 'Noto Sans KR', 'Source Han Sans KR',
+        /* Thai - Fallback fonts */
+        'Noto Sans Thai', 'Sarabun', 'Thonburi',
+        /* Devanagari - Fallback fonts */
+        'Noto Sans Devanagari', 'Nirmala UI', 'Mangal',
+        /* Bengali - Fallback fonts */
+        'Noto Sans Bengali', 'Vani',
+        /* Tamil - Fallback fonts */
+        'Noto Sans Tamil', 'Latha',
+        /* Telugu - Fallback fonts */
+        'Noto Sans Telugu', 'Gautami',
+        /* Gujarati - Fallback fonts */
+        'Noto Sans Gujarati', 'Shruti',
+        /* Kannada - Fallback fonts */
+        'Noto Sans Kannada', 'Tunga',
+        /* Malayalam - Fallback fonts */
+        'Noto Sans Malayalam', 'Kartika',
+        /* Oriya - Fallback fonts */
+        'Noto Sans Oriya', 'Kalinga',
+        /* Punjabi - Fallback fonts */
+        'Noto Sans Gurmukhi', 'Raavi',
+        /* Cyrillic - Helvetica World support */
+        'Helvetica Neue Cyrillic', 'Helvetica Cyrillic',
+        'Noto Sans', 'Noto Sans Cyrillic',
+        /* Greek - Helvetica World support */
+        'Helvetica Neue Greek', 'Helvetica Greek',
+        'Noto Sans Greek',
+        /* Vietnamese - Helvetica World support */
+        'Helvetica Neue Vietnamese', 'Helvetica Vietnamese',
+        'Noto Sans',
+        /* Fallback to system fonts */
+        system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', 'Roboto', Arial, sans-serif;
+    --font-family-mono: 'SF Mono', 'Monaco', 'Menlo',
+        'Roboto Mono', 'Consolas', 'Courier New',
+        'Liberation Mono', 'DejaVu Sans Mono', 'Noto Sans Mono', monospace;
+}
+

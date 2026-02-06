@@ -1,0 +1,61 @@
+/* ============================================
+   SUBTLE GLOW - Lighter glow using accent-primary
+   ============================================ */
+
+:root[data-glow="subtle"] {
+    /* Button glows - lighter */
+    --glow-button-hover: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.05), 0 0 6px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15);
+    --glow-button-focus: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.1), 0 0 8px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.25);
+    --glow-button-active: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.08), 0 0 7px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2);
+    
+    /* Slider glows */
+    --glow-slider-thumb-hover: 0 0 0 4px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.05), 0 0 8px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15);
+    --glow-slider-thumb-focus: 0 0 0 2px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.1), 0 0 6px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2);
+    --glow-slider-thumb-active: 0 0 0 6px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.08), 0 0 10px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.25);
+    --glow-slider-track-active: 0 0 4px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.1);
+    
+    /* Switch glows */
+    --glow-switch-thumb-hover: 0 2px 6px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15), 0 1px 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.08);
+    --glow-switch-thumb-focus: 0 0 0 2px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.1), 0 1px 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15);
+    --glow-switch-track-checked: 0 0 4px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15);
+    
+    /* Input glows */
+    --glow-input-focus: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.1), 0 0 6px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15);
+    --glow-input-success: 0 0 0 1px rgba(var(--accent-success-rgb, 16, 185, 129), 0.1), 0 0 6px rgba(var(--accent-success-rgb, 16, 185, 129), 0.15);
+    --glow-input-error: 0 0 0 1px rgba(var(--accent-error-rgb, 239, 68, 68), 0.1), 0 0 6px rgba(var(--accent-error-rgb, 239, 68, 68), 0.15);
+    
+    /* Checkbox glows */
+    --glow-checkbox-checked: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.08), 0 0 5px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15);
+    --glow-checkbox-focus: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.1), 0 0 6px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2);
+    
+    /* Radio glows */
+    --glow-radio-selected: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.08), 0 0 5px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15);
+    --glow-radio-focus: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.1), 0 0 6px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2);
+    
+    /* Item glows */
+    --glow-item-active: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.05), 0 0 6px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.12);
+    --glow-item-hover: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.03), 0 0 4px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.08);
+    
+    /* Badge glows */
+    --glow-badge-active: 0 0 4px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15);
+    
+    /* Chip glows */
+    --glow-chip-selected: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.08), 0 0 5px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15);
+    --glow-chip-hover: 0 0 0 1px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.05), 0 0 4px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.1);
+    
+    /* Tag glows */
+    --glow-tag-active: 0 0 4px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.12);
+    
+    /* Progress glows */
+    --glow-progress-active: 0 0 4px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15);
+    
+    /* Rating glows */
+    --glow-rating-hover: 0 0 4px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15);
+    
+    /* SpeedDial glows */
+    --glow-speeddial-base: 0 0 8px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.1);
+    --glow-speeddial-hover: 0 0 10px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2);
+    
+    /* BackToTop glows */
+    --glow-backtotop-base: 0 0 6px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.1);
+}

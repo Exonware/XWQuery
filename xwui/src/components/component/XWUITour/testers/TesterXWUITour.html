@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUITour Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuitour-content">
+<div class="button-group">
+                <h3>Tour</h3>
+                <button id="start-tour-btn">Start Tour</button>
+                
+                <div style="margin: var(--spacing-xl) 0;">
+                    <button id="target-1" style="padding: var(--spacing-sm); margin: var(--spacing-sm);">Step 1 Target</button>
+                    <input id="target-2" type="text" placeholder="Step 2 Target" style="padding: var(--spacing-sm); margin: var(--spacing-sm); display: block;">
+                    <div id="target-3" style="padding: var(--spacing-md); background: var(--bg-secondary); margin: var(--spacing-sm); display: inline-block;">Step 3 Target</div>
+                </div>
+                
+                <div id="tour-container"></div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUITour.ts"></script>
+</body>
+</html>
+

@@ -1,0 +1,53 @@
+// yaml.grammar
+// YAML Grammar - YAML Ain't Markup Language
+// Based on YAML 1.2 specification
+// Company: eXonware.com
+
+?start: document
+
+document: stream
+
+stream: document_start? document_content* document_end?
+
+document_start: "---"
+document_end: "..."
+
+document_content: block | flow
+
+block: block_mapping | block_sequence | block_scalar
+
+block_mapping: mapping_entry+
+mapping_entry: key ":" value
+
+block_sequence: sequence_entry+
+sequence_entry: "-" value
+
+flow: flow_mapping | flow_sequence | flow_scalar
+
+flow_mapping: "{" [pair ("," pair)*] "}"
+flow_sequence: "[" [value ("," value)*] "]"
+
+pair: key ":" value
+
+key: scalar
+value: scalar | block | flow
+
+scalar: plain_scalar | quoted_scalar | block_scalar
+
+plain_scalar: PLAIN_SCALAR
+quoted_scalar: DOUBLE_QUOTED | SINGLE_QUOTED
+block_scalar: BLOCK_SCALAR
+
+// Terminals
+PLAIN_SCALAR: /[^\n\r:,\[\]{}#&*!|>'\"%@`]+/
+DOUBLE_QUOTED: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+SINGLE_QUOTED: "'" /[^'\\]|\\['"\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "'"
+BLOCK_SCALAR: /[|>][-+]?[0-9]*\n/[^\0]*?/\n/
+
+%import common.ESCAPED_STRING
+%import common.SIGNED_NUMBER
+%import common.WS
+%import common.NEWLINE
+
+%ignore WS
+

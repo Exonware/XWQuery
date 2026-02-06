@@ -1,0 +1,13 @@
+/* ============================================
+   CAPTION TYPOGRAPHY - SYSTEM
+   ============================================ */
+
+:root[data-font="system"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-caption-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-caption-system {
+    font-family: var(--font-caption-family, var(--font-family-base, sans-serif)) !important;
+}

@@ -1,0 +1,19 @@
+# ruby.out.grammar
+# Ruby Output Grammar - Template for generating Ruby from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@program = {{#each statements}}{{value}}
+{{/each}}
+
+@class_definition = {{keyword}} {{name}}{{#if inheritance}} < {{inheritance}}{{/if}}
+{{#each body}}{{value}}
+{{/each}}end
+
+@method_definition = {{#if self}}def self.{{else}}def {{/if}}{{name}}{{#if params}}({{params}}){{/if}}
+{{#each body}}{{value}}
+{{/each}}end
+
+@indent = 2
+@pretty = true
+

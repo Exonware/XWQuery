@@ -1,0 +1,38 @@
+/**
+ * XWUITimeTracker Component Styles
+ */
+
+.xwui-time-tracker {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    padding: var(--spacing-md, 1rem);
+    background: var(--bg-secondary, #f8f9fa);
+    border-radius: var(--radius-md, 8px);
+}
+
+.xwui-time-tracker-task-name {
+    font-size: var(--font-size-base, 1rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-time-tracker-display {
+    font-size: var(--font-size-3xl, 2rem);
+    font-weight: var(--font-weight-bold, 700);
+    font-variant-numeric: tabular-nums;
+    color: var(--accent-primary, #4f46e5);
+    text-align: center;
+    font-family: 'Courier New', monospace;
+}
+
+.xwui-time-tracker-controls {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-time-tracker-entries {
+    margin-top: var(--spacing-md, 1rem);
+}
+

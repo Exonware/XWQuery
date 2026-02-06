@@ -1,0 +1,14 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Statistic container -->
+  <rect x="15" y="20" width="70" height="60" rx="4" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <!-- Statistic value -->
+  <text x="50" y="50" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="var(--icons-color-main, black)">1,234</text>
+  <!-- Statistic label -->
+  <text x="50" y="68" font-family="Arial" font-size="9" text-anchor="middle" fill="var(--icons-color-accent, gray)">Total Count</text>
+</svg>
+

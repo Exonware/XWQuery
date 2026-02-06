@@ -1,0 +1,12 @@
+/* ============================================
+   CONTROL - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    --radius-control: 16px;
+}
+
+/* Utility class for direct application */
+.radius-control-extra-rounded {
+    border-radius: var(--radius-control, 16px) !important;
+}

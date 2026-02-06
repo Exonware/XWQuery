@@ -1,0 +1,23 @@
+﻿# xpath.out.grammar
+# XPath Output Grammar - Template for generating XPath from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@path_expr = {{#if absolute}}/{{else}}{{#if descendant}}//{{/if}}{{/if}}{{#each steps}}{{value}}{{#if !@last}}/{{/if}}{{/each}}
+
+@step = {{#if axis}}{{axis}}::{{/if}}{{test}}{{#each predicates}}{{value}}{{/each}}
+
+@axis_specifier = {{#if at}}@{{else}}{{name}}::{{/if}}
+
+@axis_name = {{value}}
+
+@node_test = {{value}}
+
+@predicate = [{{value}}]
+
+@comparison_op = {{value}}
+
+@value = {{value}}
+
+@indent = 0
+@pretty = false

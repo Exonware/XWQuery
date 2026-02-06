@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIMenuDropdown",
+  "name": "XWUI Dropdown Menu Component",
+  "description": "Dropdown menu component triggered by button or action. Supports click or hover triggers, various placements and alignments, nested menus, icons, and separators. Uses XWUIItemGroup internally.",
+  "path": "navigation.dropdownmenu",
+  "tags": [
+    "navigation",
+    "dropdown",
+    "menu",
+    "popup",
+    "desktop",
+    "mobile",
+    "tablet"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "trigger": {
+          "type": "string",
+          "enum": [
+            "click",
+            "hover"
+          ],
+          "description": "How to trigger the dropdown menu",
+          "default": "click"
+        },
+        "placement": {
+          "type": "string",
+          "enum": [
+            "bottom",
+            "top",
+            "left",
+            "right"
+          ],
+          "description": "Placement of the menu relative to trigger",
+          "default": "bottom"
+        },
+        "align": {
+          "type": "string",
+          "enum": [
+            "start",
+            "center",
+            "end"
+          ],
+          "description": "Alignment of the menu relative to trigger",
+          "default": "start"
+        },
+        "closeOnSelect": {
+          "type": "boolean",
+          "description": "Whether to close menu when an item is selected",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the dropdown menu"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of menu items to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the menu item"
+              },
+              "label": {
+                "type": "string",
+                "description": "Label text for the menu item"
+              },
+              "icon": {
+                "type": "string",
+                "description": "SVG icon HTML string for the menu item"
+              },
+              "disabled": {
+                "type": "boolean",
+                "description": "Whether the menu item is disabled"
+              },
+              "divider": {
+                "type": "boolean",
+                "description": "Whether this item is a divider/separator"
+              },
+              "children": {
+                "type": "array",
+                "description": "Nested menu items (recursive structure)",
+                "items": {
+                  "description": "XWUIMenuDropdownItem (recursive)"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        "triggerElement": {
+          "description": "Trigger element or selector string to attach the dropdown to"
+        }
+      },
+      "required": [
+        "items"
+      ]
+    }
+  }
+}

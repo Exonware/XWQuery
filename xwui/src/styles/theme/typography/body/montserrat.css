@@ -1,0 +1,13 @@
+/* ============================================
+   BODY TYPOGRAPHY - MONTSERRAT
+   ============================================ */
+
+:root[data-font="montserrat"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-body-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-body-montserrat {
+    font-family: var(--font-body-family, var(--font-family-base, sans-serif)) !important;
+}

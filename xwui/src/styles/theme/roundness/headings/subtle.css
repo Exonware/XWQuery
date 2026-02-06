@@ -1,0 +1,14 @@
+/* ============================================
+   HEADINGS - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-headings: 8px;
+    /* Fallback: --radius-heading → --radius-lg → 8px */
+}
+
+/* Utility class for direct application */
+.radius-headings-subtle {
+    border-radius: var(--radius-headings, 8px) !important;
+}

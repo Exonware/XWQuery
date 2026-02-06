@@ -1,0 +1,167 @@
+// XQuery Grammar for Lark
+// XML Query Language (simplified)
+
+?start: module
+
+module: prolog? query_body
+
+prolog: (namespace_decl | import_decl | variable_decl)*
+
+namespace_decl: DECLARE NAMESPACE IDENTIFIER "=" STRING
+
+import_decl: IMPORT MODULE STRING
+
+variable_decl: DECLARE VARIABLE "$" IDENTIFIER ":=" expression
+
+query_body: expression
+
+// FLWOR expressions
+expression: flwor_expr
+          | or_expr
+
+flwor_expr: for_clause+ [let_clause+] [where_clause] [order_clause] RETURN expression
+
+for_clause: FOR "$" IDENTIFIER IN expression
+
+let_clause: LET "$" IDENTIFIER ":=" expression
+
+where_clause: WHERE expression
+
+order_clause: ORDER BY order_spec ("," order_spec)*
+
+order_spec: expression [order_modifier]
+
+order_modifier: ASCENDING | DESCENDING
+
+// Expressions
+or_expr: and_expr (OR and_expr)*
+
+and_expr: comparison (AND comparison)*
+
+comparison: range_expr [compare_op range_expr]
+
+compare_op: "=" | "!=" | "<" | ">" | "<=" | ">=" | IS | EQ | NE | LT | LE | GT | GE
+
+range_expr: additive (TO additive)?
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: union_expr (("*" | DIV | IDIV | MOD) union_expr)*
+
+union_expr: path_expr (UNION path_expr | INTERSECT path_expr | EXCEPT path_expr)*
+
+path_expr: ("/" | "//")? relative_path_expr
+         | relative_path_expr
+
+relative_path_expr: step_expr ("/" step_expr | "//" step_expr)*
+
+step_expr: axis_step | filter_expr
+
+axis_step: (forward_axis | reverse_axis | "@")? node_test predicate*
+
+forward_axis: CHILD "::"
+            | DESCENDANT "::"
+            | ATTRIBUTE "::"
+            | SELF "::"
+            | DESCENDANT_OR_SELF "::"
+            | FOLLOWING_SIBLING "::"
+            | FOLLOWING "::"
+
+reverse_axis: PARENT "::"
+            | ANCESTOR "::"
+            | PRECEDING_SIBLING "::"
+            | PRECEDING "::"
+            | ANCESTOR_OR_SELF "::"
+
+node_test: name_test | kind_test
+
+name_test: "*" | IDENTIFIER | QNAME
+
+kind_test: NODE "(" ")"
+         | TEXT "(" ")"
+         | COMMENT "(" ")"
+         | ELEMENT "(" ")"
+
+qname: QNAME
+
+predicate: "[" expression "]"
+
+filter_expr: primary_expr predicate*
+
+primary_expr: literal
+            | var_ref
+            | function_call
+            | constructor
+            | "(" expression? ")"
+
+var_ref: "$" IDENTIFIER
+
+function_call: QNAME "(" [arg_list] ")"
+
+arg_list: expression ("," expression)*
+
+constructor: ELEMENT "{" expression "}"
+           | ATTRIBUTE "{" expression "}"
+           | TEXT "{" expression "}"
+
+literal: STRING | NUMBER | BOOLEAN_LITERAL
+
+// Keywords
+DECLARE: "declare"
+NAMESPACE: "namespace"
+IMPORT: "import"
+MODULE: "module"
+VARIABLE: "variable"
+FOR: "for"
+LET: "let"
+WHERE: "where"
+ORDER: "order"
+BY: "by"
+RETURN: "return"
+IN: "in"
+ASCENDING: "ascending"
+DESCENDING: "descending"
+AND: "and"
+OR: "or"
+IS: "is"
+EQ: "eq"
+NE: "ne"
+LT: "lt"
+LE: "le"
+GT: "gt"
+GE: "ge"
+TO: "to"
+DIV: "div"
+IDIV: "idiv"
+MOD: "mod"
+UNION: "union"
+INTERSECT: "intersect"
+EXCEPT: "except"
+CHILD: "child"
+DESCENDANT: "descendant"
+ATTRIBUTE: "attribute"
+SELF: "self"
+DESCENDANT_OR_SELF: "descendant-or-self"
+FOLLOWING_SIBLING: "following-sibling"
+FOLLOWING: "following"
+PARENT: "parent"
+ANCESTOR: "ancestor"
+PRECEDING_SIBLING: "preceding-sibling"
+PRECEDING: "preceding"
+ANCESTOR_OR_SELF: "ancestor-or-self"
+NODE: "node"
+TEXT: "text"
+COMMENT: "comment"
+ELEMENT: "element"
+
+BOOLEAN_LITERAL: "true" "(" ")" | "false" "(" ")"
+
+// Terminals
+QNAME: IDENTIFIER (":" IDENTIFIER)?
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_\-]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+

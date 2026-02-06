@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "showChart": {
+      "type": "boolean",
+      "default": true
+    },
+    "showCards": {
+      "type": "boolean",
+      "default": true
+    },
+    "showList": {
+      "type": "boolean",
+      "default": false
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "id": "XWUIWorkloadView"
+}

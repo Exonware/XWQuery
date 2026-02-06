@@ -1,0 +1,355 @@
+/**
+ * ScriptStudio Component - Structural Styles Only
+ * Colors and theming are in theme_*.css files
+ */
+
+.script-studio-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: #1e1e1e;
+    color: #cccccc;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* Activity Bar */
+.script-studio-activity-bar {
+    width: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 0;
+    background: #333333;
+    border-right: 1px solid #1e1e1e;
+    z-index: 10;
+}
+
+.script-studio-activity-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #cccccc;
+    transition: background-color 0.2s;
+    margin-bottom: 4px;
+}
+
+.script-studio-activity-icon:hover {
+    background: #444444;
+}
+
+.script-studio-activity-icon.active {
+    color: #ffffff;
+    border-left: 2px solid #007acc;
+}
+
+/* Sidebar */
+.script-studio-sidebar {
+    width: 256px;
+    display: flex;
+    flex-direction: column;
+    background: #252526;
+    border-right: 1px solid #1e1e1e;
+}
+
+.script-studio-sidebar-header {
+    height: 40px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #cccccc;
+}
+
+.script-studio-sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.script-studio-file-tree {
+    padding: 8px;
+}
+
+.script-studio-file-tree-header {
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: bold;
+    color: #cccccc;
+    margin-bottom: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.script-studio-file-list {
+    padding-left: 8px;
+}
+
+.script-studio-file-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #cccccc;
+    border-radius: 3px;
+    margin-bottom: 2px;
+}
+
+.script-studio-file-item:hover {
+    background: #2a2d2e;
+}
+
+.script-studio-file-item.active {
+    background: #37373d;
+    color: #ffffff;
+}
+
+.script-studio-file-item svg {
+    flex-shrink: 0;
+}
+
+/* Main Content */
+.script-studio-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: #1e1e1e;
+}
+
+/* Tab Bar */
+.script-studio-tab-bar {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    background: #2d2d2d;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.script-studio-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    height: 100%;
+    min-width: 120px;
+    max-width: 200px;
+    border-right: 1px solid #1e1e1e;
+    cursor: pointer;
+    user-select: none;
+    font-size: 13px;
+    color: #cccccc;
+    background: #2d2d2d;
+    position: relative;
+}
+
+.script-studio-tab:hover {
+    background: #2a2d2e;
+}
+
+.script-studio-tab.active {
+    background: #1e1e1e;
+    color: #ffffff;
+    border-top: 2px solid #007acc;
+}
+
+.script-studio-tab svg {
+    flex-shrink: 0;
+}
+
+.script-studio-tab span {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.script-studio-tab-close {
+    margin-left: auto;
+    padding: 2px;
+    border-radius: 2px;
+    opacity: 0.7;
+}
+
+.script-studio-tab-close:hover {
+    background: #444444;
+    opacity: 1;
+}
+
+/* Toolbar */
+.script-studio-toolbar {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background: #1e1e1e;
+    border-bottom: 1px solid #2d2d2d;
+}
+
+.script-studio-toolbar-path {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #cccccc;
+}
+
+.script-studio-path-separator {
+    opacity: 0.5;
+}
+
+.script-studio-run-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: #0e639c;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.script-studio-run-button:hover {
+    background: #1177bb;
+}
+
+/* Editor Container */
+.script-studio-editor-container {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+}
+
+.script-studio-editor {
+    width: 100%;
+    height: 100%;
+}
+
+.script-studio-editor-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e1e1e;
+    color: #808080;
+    z-index: 20;
+    font-size: 13px;
+}
+
+/* Bottom Panel */
+.script-studio-panel {
+    height: 128px;
+    display: flex;
+    flex-direction: column;
+    background: #1e1e1e;
+    border-top: 1px solid #333333;
+}
+
+.script-studio-panel-tabs {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 0 16px;
+    border-bottom: 1px solid #333333;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+}
+
+.script-studio-panel-tab {
+    color: #808080;
+    cursor: pointer;
+    padding: 8px 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s;
+}
+
+.script-studio-panel-tab:hover {
+    color: #cccccc;
+}
+
+.script-studio-panel-tab.active {
+    color: #ffffff;
+    border-bottom-color: #ffffff;
+}
+
+.script-studio-panel-content {
+    flex: 1;
+    padding: 8px;
+    overflow-y: auto;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12px;
+}
+
+.script-studio-output {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #cccccc;
+}
+
+/* Status Bar */
+.script-studio-status-bar {
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    background: #007acc;
+    color: #ffffff;
+    font-size: 11px;
+    user-select: none;
+}
+
+.script-studio-status-left,
+.script-studio-status-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.script-studio-status-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 2px;
+    transition: background-color 0.2s;
+}
+
+.script-studio-status-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.script-studio-status-item svg {
+    flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .script-studio-sidebar {
+        display: none;
+    }
+    
+    .script-studio-status-item:not(:last-child) {
+        display: none;
+    }
+}
+

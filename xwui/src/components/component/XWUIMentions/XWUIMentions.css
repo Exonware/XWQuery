@@ -1,0 +1,35 @@
+/**
+ * XWUIMentions Component Styles
+ */
+
+.xwui-mentions-container {
+    position: relative;
+}
+
+.xwui-mentions-dropdown {
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-color, #d9d9d9);
+    border-radius: var(--radius-sm, 4px);
+    box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.15));
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.xwui-mentions-option {
+    padding: var(--spacing-sm, 8px) 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.xwui-mentions-option:hover,
+.xwui-mentions-option-selected {
+    background-color: var(--bg-active, #e6f7ff);
+}
+
+.xwui-mentions-empty {
+    padding: var(--spacing-sm, 8px) 12px;
+    text-align: center;
+    color: var(--text-tertiary, #999);
+}
+

@@ -1,0 +1,14 @@
+/* ============================================
+   LABEL - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-label: 0px;
+    /* Fallback: --radius-text → --radius-sm → 0px */
+}
+
+/* Utility class for direct application */
+.radius-label-sharp {
+    border-radius: var(--radius-label, 0px) !important;
+}

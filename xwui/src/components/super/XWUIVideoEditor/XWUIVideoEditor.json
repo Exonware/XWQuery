@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-video-editor.schema.json",
+  "title": "XWUIVideoEditor Schema",
+  "description": "Schema for XWUIVideoEditor component",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "additionalProperties": false,
+      "properties": {
+        "allowTrim": {
+          "type": "boolean",
+          "description": "Allow trimming video",
+          "default": true
+        },
+        "allowCrop": {
+          "type": "boolean",
+          "description": "Allow cropping video",
+          "default": false
+        },
+        "allowFilter": {
+          "type": "boolean",
+          "description": "Allow filters",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "additionalProperties": false,
+      "properties": {
+        "videoSrc": {
+          "type": "string",
+          "description": "Source URL of the video to edit"
+        }
+      }
+    }
+  },
+  "id": "XWUIVideoEditor"
+}

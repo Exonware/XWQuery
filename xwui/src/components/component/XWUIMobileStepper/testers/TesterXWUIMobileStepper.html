@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIMobileStepper Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- Component CSS -->
+    
+    <style>
+        body {
+            padding: var(--spacing-lg);
+            padding-bottom: 100px; /* Space for fixed stepper */
+        }
+        .test-section {
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+        }
+        .test-section h2 {
+            margin-top: 0;
+        }
+        .step-content {
+            padding: var(--spacing-lg);
+            min-height: 200px;
+            background-color: var(--color-background);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+        }
+    </style>
+</head>
+<body>
+    <h1>XWUIMobileStepper Component Tester</h1>
+    
+    <div class="test-section">
+        <h2>Dots Variant</h2>
+        <div class="step-content" id="content-1">
+            <h3>Step <span id="step-number-1">1</span> of 5</h3>
+            <p>This is step content. Use the stepper below to navigate.</p>
+        </div>
+        <div id="stepper-container-1"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Progress Variant</h2>
+        <div class="step-content" id="content-2">
+            <h3>Step <span id="step-number-2">1</span> of 5</h3>
+            <p>This stepper uses a progress bar instead of dots.</p>
+        </div>
+        <div id="stepper-container-2"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Text Variant</h2>
+        <div class="step-content" id="content-3">
+            <h3>Step <span id="step-number-3">1</span> of 5</h3>
+            <p>This stepper shows step numbers as text.</p>
+        </div>
+        <div id="stepper-container-3"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Fixed Bottom Position</h2>
+        <div class="step-content" id="content-4">
+            <h3>Step <span id="step-number-4">1</span> of 5</h3>
+            <p>This stepper is fixed to the bottom of the viewport.</p>
+        </div>
+        <div id="stepper-container-4"></div>
+    </div>
+
+        <script type="module" src="./TesterXWUIMobileStepper.ts"></script>
+</body>
+</html>
+

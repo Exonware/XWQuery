@@ -1,0 +1,17 @@
+/* ============================================
+   CALENDAR LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-calendar-width: var(--border-width-regular, 1.5px);
+    --border-calendar-style: solid;
+    --border-calendar-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-calendar-balanced {
+    border-style: var(--border-calendar-style, solid);
+    border-width: var(--border-calendar-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-calendar-color, var(--border-medium, var(--border-color)));
+}

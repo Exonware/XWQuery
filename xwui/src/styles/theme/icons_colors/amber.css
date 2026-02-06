@@ -1,0 +1,12 @@
+/* ============================================
+   AMBER ICON COLORS - Golden amber theme
+   ============================================ */
+
+:root[data-icons-colors="amber"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #78350f;        /* Primary fill color - dark amber text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #d97706;        /* Accent/rail/marks color - amber */
+    --icons-color-transparent: transparent;
+}
+

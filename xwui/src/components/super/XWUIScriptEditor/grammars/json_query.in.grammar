@@ -1,0 +1,71 @@
+// JSON Query Grammar for Lark
+// Simple JSON path/query language
+
+?start: query
+
+query: path_query
+     | filter_query
+
+path_query: root path_component*
+
+root: "$"
+    | "@"  // Current node
+
+path_component: "." IDENTIFIER
+              | "[" index_expr "]"
+              | "[" "*" "]"
+              | "[" "?" "(" filter_expr ")" "]"
+              | ".."  // Recursive descent
+
+index_expr: NUMBER
+          | "*"
+          | slice_expr
+
+slice_expr: [NUMBER] ":" [NUMBER] [":" [NUMBER]]
+
+filter_expr: expression
+
+filter_query: "$" "[" "?" "(" expression ")" "]"
+
+// Expressions (for filters)
+expression: or_expr
+
+or_expr: and_expr ("||" and_expr)*
+
+and_expr: comparison ("&&" comparison)*
+
+comparison: additive [compare_op additive]
+
+compare_op: "==" | "!=" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | "/" | "%") unary)*
+
+unary: ("+" | "-" | "!")? primary
+
+primary: path_query
+       | literal
+       | function_call
+       | "(" expression ")"
+
+function_call: function_name "(" [arg_list] ")"
+
+function_name: "length" | "size" | "type" | "keys" | "values"
+
+arg_list: expression ("," expression)*
+
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+BOOLEAN_LITERAL: "true" | "false"
+
+NULL: "null"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+

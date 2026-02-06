@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIPagination",
+  "name": "XWUI Pagination Component",
+  "description": "Pagination component for navigating through pages of content. Supports page size changer, quick jumper, total count display, and simple mode. Useful for tables, lists, and any paginated content.",
+  "path": "navigation.pagination",
+  "tags": ["navigation", "pagination", "pages", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the pagination controls"
+        },
+        "showSizeChanger": {
+          "type": "boolean",
+          "description": "Whether to show page size changer dropdown"
+        },
+        "showQuickJumper": {
+          "type": "boolean",
+          "description": "Whether to show quick jump to page input"
+        },
+        "showTotal": {
+          "type": "boolean",
+          "description": "Whether to show total count display"
+        },
+        "simple": {
+          "type": "boolean",
+          "description": "Whether to use simple pagination mode (prev/next only)"
+        },
+        "pageSizeOptions": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Array of page size options for size changer"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the pagination"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "current": {
+          "type": "number",
+          "description": "Current page number (1-based)",
+          "default": 1
+        },
+        "total": {
+          "type": "number",
+          "description": "Total number of items",
+          "default": 0
+        },
+        "pageSize": {
+          "type": "number",
+          "description": "Number of items per page",
+          "default": 10
+        }
+      }
+    }
+  }
+}
+

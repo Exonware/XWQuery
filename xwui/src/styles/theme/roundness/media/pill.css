@@ -1,0 +1,12 @@
+/* ============================================
+   MEDIA - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    --radius-media: 16px;
+}
+
+/* Utility class for direct application */
+.radius-media-pill {
+    border-radius: var(--radius-media, 16px) !important;
+}

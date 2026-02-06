@@ -1,0 +1,57 @@
+// Protocol Buffers (protobuf) Example
+syntax = "proto3";
+
+package example;
+
+option go_package = "example/proto";
+
+// Metadata message
+message Metadata {
+  string author = 1;
+  string created = 2;
+  repeated string tags = 3;
+}
+
+// Database configuration
+message DatabaseConfig {
+  string host = 1;
+  int32 port = 2;
+  string name = 3;
+  bool ssl = 4;
+}
+
+// Item message
+message Item {
+  int32 id = 1;
+  string name = 2;
+  bool active = 3;
+  double price = 4;
+  repeated string categories = 5;
+}
+
+// Main document message
+message Document {
+  string name = 1;
+  string version = 2;
+  string description = 3;
+  Metadata metadata = 4;
+  DatabaseConfig database = 5;
+  repeated Item items = 6;
+}
+
+// Service definition example
+service DocumentService {
+  rpc GetDocument(GetDocumentRequest) returns (Document);
+  rpc CreateDocument(CreateDocumentRequest) returns (Document);
+}
+
+message GetDocumentRequest {
+  string id = 1;
+}
+
+message CreateDocumentRequest {
+  Document document = 1;
+}
+
+
+

@@ -1,0 +1,17 @@
+/* ============================================
+   CODE LINES - NO LINES
+   ============================================ */
+
+:root[data-lines="none"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-code-width: var(--border-width-regular, 0px);
+    --border-code-style: solid;
+    --border-code-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-code-none {
+    border-style: var(--border-code-style, solid);
+    border-width: var(--border-code-width, var(--border-width-regular, 0px));
+    border-color: var(--border-code-color, var(--border-medium, var(--border-color)));
+}

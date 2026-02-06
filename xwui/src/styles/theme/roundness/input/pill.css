@@ -1,0 +1,13 @@
+/* ============================================
+   INPUT - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-input: 12px;
+}
+
+/* Utility class for direct application */
+.radius-input-pill {
+    border-radius: var(--radius-input, 12px) !important;
+}

@@ -1,0 +1,14 @@
+/* ============================================
+   SIDEBAR - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-sidebar: 16px;
+    /* Fallback: --radius-navigation → --radius-md → 16px */
+}
+
+/* Utility class for direct application */
+.radius-sidebar-pill {
+    border-radius: var(--radius-sidebar, 16px) !important;
+}

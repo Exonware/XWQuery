@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIMenuDrawerSwipeable",
+  "name": "XWUI Swipeable Drawer Component",
+  "description": "Swipeable drawer component with touch gesture support. Extends XWUIMenuDrawer with swipe-to-close and optional swipe-to-open functionality. Perfect for mobile interfaces.",
+  "path": "feedback.drawer",
+  "tags": [
+    "feedback",
+    "drawer",
+    "swipe",
+    "mobile",
+    "touch",
+    "gesture",
+    "desktop",
+    "tablet"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "placement": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "description": "Drawer placement",
+          "default": "right"
+        },
+        "size": {
+          "type": "string",
+          "enum": [
+            "small",
+            "medium",
+            "large",
+            "full"
+          ],
+          "description": "Drawer size",
+          "default": "medium"
+        },
+        "closable": {
+          "type": "boolean",
+          "description": "Whether the drawer has a close button",
+          "default": true
+        },
+        "closeOnBackdrop": {
+          "type": "boolean",
+          "description": "Whether clicking the backdrop closes the drawer",
+          "default": true
+        },
+        "closeOnEscape": {
+          "type": "boolean",
+          "description": "Whether pressing Escape closes the drawer",
+          "default": true
+        },
+        "mask": {
+          "type": "boolean",
+          "description": "Whether to show backdrop mask",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class names"
+        },
+        "swipeable": {
+          "type": "boolean",
+          "description": "Enable swipe gestures",
+          "default": true
+        },
+        "swipeThreshold": {
+          "type": "number",
+          "description": "Distance in pixels to trigger swipe-to-close",
+          "default": 50
+        },
+        "disableSwipeToOpen": {
+          "type": "boolean",
+          "description": "Disable swipe-to-open gesture (only swipe-to-close)",
+          "default": false
+        },
+        "disableDiscovery": {
+          "type": "boolean",
+          "description": "Disable swipe discovery (peek) feature",
+          "default": false
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Drawer title"
+        },
+        "content": {
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "Drawer content (HTML string or HTMLElement)"
+        },
+        "footer": {
+          "type": "object",
+          "description": "Drawer footer element"
+        }
+      }
+    }
+  }
+}

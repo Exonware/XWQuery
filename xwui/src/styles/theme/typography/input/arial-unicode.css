@@ -1,0 +1,13 @@
+/* ============================================
+   INPUT TYPOGRAPHY - ARIAL-UNICODE
+   ============================================ */
+
+:root[data-font="arial-unicode"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-input-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-input-arial-unicode {
+    font-family: var(--font-input-family, var(--font-family-base, sans-serif)) !important;
+}

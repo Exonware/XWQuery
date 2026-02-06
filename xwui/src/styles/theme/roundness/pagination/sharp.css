@@ -1,0 +1,14 @@
+/* ============================================
+   PAGINATION - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-pagination: 0px;
+    /* Fallback: --radius-control → --radius-sm → 0px */
+}
+
+/* Utility class for direct application */
+.radius-pagination-sharp {
+    border-radius: var(--radius-pagination, 0px) !important;
+}

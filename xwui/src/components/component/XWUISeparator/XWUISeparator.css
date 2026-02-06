@@ -1,0 +1,52 @@
+/**
+ * XWUISeparator Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-separator {
+    display: flex;
+    align-items: center;
+}
+
+/* Horizontal separator */
+.xwui-separator-horizontal {
+    width: 100%;
+    height: 1px;
+    background: var(--border-color);
+}
+
+/* Vertical separator */
+.xwui-separator-vertical {
+    width: 1px;
+    height: 100%;
+    background: var(--border-color);
+    min-height: 1rem;
+}
+
+/* Separator with label */
+.xwui-separator-with-label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: var(--spacing-md, 1rem);
+}
+
+.xwui-separator-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.xwui-separator-label {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+

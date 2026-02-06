@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "XWUIDialog",
+  "description": "Modal dialog component with configurable header, body, and footer. Supports multiple sizes, backdrop overlay, keyboard navigation, and customizable close behavior.",
+  "meta": {
+    "input": {
+      "description": "Input data required for the component",
+      "rules": [
+        "Optional title string for dialog header",
+        "Optional content (HTMLElement or string) for dialog body",
+        "Optional footer HTMLElement for dialog footer"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Dialog title text displayed in header"
+        },
+        "content": {
+          "type": [
+            "HTMLElement",
+            "string"
+          ],
+          "description": "Dialog body content (element or HTML string)"
+        },
+        "footer": {
+          "type": "HTMLElement",
+          "description": "Dialog footer element (typically contains action buttons)"
+        }
+      }
+    },
+    "output": {
+      "description": "Output produced by the component",
+      "rules": [
+        "Renders modal dialog with overlay backdrop",
+        "Displays header with title and optional close button",
+        "Shows body content",
+        "Displays footer if provided",
+        "Applies size styling (small, medium, large, fullscreen)",
+        "Manages body scroll lock when open",
+        "Emits close events when dialog is closed"
+      ],
+      "properties": {
+        "dialogElement": {
+          "type": "HTMLElement",
+          "description": "The rendered dialog DOM element"
+        },
+        "overlayElement": {
+          "type": "HTMLElement",
+          "description": "The backdrop overlay element"
+        }
+      }
+    },
+    "actions": {
+      "description": "User actions supported by the component",
+      "rules": [
+        "Close button dismisses dialog (if closable is true)",
+        "Clicking backdrop closes dialog (if closeOnBackdrop is true)",
+        "Escape key closes dialog (if closeOnEscape is true)",
+        "open() method programmatically opens dialog",
+        "close() method programmatically closes dialog",
+        "onClose event handler can be registered"
+      ],
+      "properties": {
+        "open": {
+          "type": "function",
+          "description": "Open the dialog"
+        },
+        "close": {
+          "type": "function",
+          "description": "Close the dialog"
+        },
+        "onClose": {
+          "type": "function",
+          "description": "Register callback for close events"
+        },
+        "isOpen": {
+          "type": "boolean",
+          "description": "Check if dialog is currently open"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "size": {
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large",
+        "fullscreen"
+      ],
+      "default": "medium",
+      "description": "Dialog size"
+    },
+    "closable": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show close button in header"
+    },
+    "closeOnBackdrop": {
+      "type": "boolean",
+      "default": true,
+      "description": "Close dialog when clicking backdrop"
+    },
+    "closeOnEscape": {
+      "type": "boolean",
+      "default": true,
+      "description": "Close dialog when pressing Escape key"
+    },
+    "centered": {
+      "type": "boolean",
+      "default": true,
+      "description": "Center dialog vertically and horizontally"
+    },
+    "scrollable": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable scrolling for dialog body content"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS class name for the component"
+    }
+  },
+  "id": "XWUIDialog"
+}

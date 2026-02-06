@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-audio-player.schema.json",
+  "title": "XWUIAudioPlayer Schema",
+  "description": "Schema for XWUIAudioPlayer component",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "additionalProperties": false,
+      "properties": {
+        "autoplay": {
+          "type": "boolean",
+          "description": "Auto-play audio",
+          "default": false
+        },
+        "controls": {
+          "type": "boolean",
+          "description": "Show controls",
+          "default": true
+        },
+        "loop": {
+          "type": "boolean",
+          "description": "Loop audio",
+          "default": false
+        },
+        "muted": {
+          "type": "boolean",
+          "description": "Mute audio",
+          "default": false
+        },
+        "preload": {
+          "type": "string",
+          "enum": [
+            "none",
+            "metadata",
+            "auto"
+          ],
+          "description": "Preload strategy",
+          "default": "metadata"
+        },
+        "showCustomControls": {
+          "type": "boolean",
+          "description": "Show custom controls",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "additionalProperties": false,
+      "properties": {
+        "sources": {
+          "type": "array",
+          "description": "Audio sources",
+          "items": {
+            "type": "object",
+            "properties": {
+              "src": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "src"
+            ]
+          }
+        },
+        "title": {
+          "type": "string",
+          "description": "Audio title"
+        },
+        "artist": {
+          "type": "string",
+          "description": "Artist name"
+        },
+        "cover": {
+          "type": "string",
+          "description": "Cover image URL"
+        }
+      }
+    }
+  },
+  "id": "XWUIAudioPlayer"
+}

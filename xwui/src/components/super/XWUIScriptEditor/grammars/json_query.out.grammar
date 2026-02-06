@@ -1,0 +1,49 @@
+﻿# json_query.out.grammar
+# JSON Query Output Grammar - Template for generating JSON Query from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@query = {{value}}
+
+@path_query = {{root}}{{#each components}}{{value}}{{/each}}
+
+@filter_query = $[?({{expression}})]
+
+@root = {{value}}
+
+@path_component = {{#if dot}}.{{name}}{{else}}{{#if index}}[{{index}}]{{else}}{{#if wildcard}}[*]{{else}}{{#if filter}}[?({{filter}})]{{else}}..{{/if}}{{/if}}{{/if}}{{/if}}
+
+@index_expr = {{value}}
+
+@slice_expr = {{#if start}}{{start}}{{/if}}:{{#if end}}{{end}}{{/if}}{{#if step}}:{{step}}{{/if}}
+
+@filter_expr = {{expression}}
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} || {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} && {{/if}}{{/each}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{/if}}
+
+@compare_op = {{value}}
+
+@additive = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@multiplicative = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@primary = {{value}}
+
+@function_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@function_name = {{value}}
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@literal = {{value}}
+
+@indent = 0
+@pretty = false

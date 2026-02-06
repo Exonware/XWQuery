@@ -1,0 +1,13 @@
+/* ============================================
+   CODE TYPOGRAPHY - ANDROID
+   ============================================ */
+
+:root[data-font="android"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-code-family: var(--font-family-mono, monospace);
+}
+
+/* Utility class for direct application */
+.font-code-android {
+    font-family: var(--font-code-family, var(--font-family-base, sans-serif)) !important;
+}

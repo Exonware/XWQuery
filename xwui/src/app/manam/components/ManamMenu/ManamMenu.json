@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "ManamMenu",
+  "name": "Manam Menu Component",
+  "description": "Bottom navigation menu component for mobile apps with a prominent central action button. Features a dark theme with purple accents, rounded selected states, and an elevated central button.",
+  "path": "navigation.mobile",
+  "tags": ["navigation", "menu", "mobile", "bottom", "nav"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["default", "elevated"],
+          "description": "Menu style variant",
+          "default": "default"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the component"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of menu items to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the menu item"
+              },
+              "label": {
+                "type": "string",
+                "description": "Display label for the menu item"
+              },
+              "icon": {
+                "type": "string",
+                "description": "Icon SVG string or icon name/emoji for the menu item"
+              },
+              "disabled": {
+                "type": "boolean",
+                "description": "Whether the menu item is disabled",
+                "default": false
+              }
+            },
+            "required": ["id", "label"]
+          }
+        },
+        "centralButton": {
+          "type": "object",
+          "description": "Optional central button that appears elevated in the middle of the menu",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier for the central button"
+            },
+            "label": {
+              "type": "string",
+              "description": "Display label for the central button"
+            },
+            "icon": {
+              "type": "string",
+              "description": "Icon SVG string or icon name/emoji for the central button"
+            },
+            "disabled": {
+              "type": "boolean",
+              "description": "Whether the central button is disabled",
+              "default": false
+            }
+          },
+          "required": ["id", "label"]
+        },
+        "activeId": {
+          "type": "string",
+          "description": "ID of the currently active menu item"
+        }
+      },
+      "required": ["items"]
+    }
+  }
+}

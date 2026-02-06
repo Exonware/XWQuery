@@ -1,0 +1,29 @@
+// multipart.grammar
+// Multipart Grammar - HTTP multipart/form-data
+// Based on RFC 2388
+// Company: eXonware.com
+
+?start: document
+
+document: part*
+
+part: boundary NEWLINE headers NEWLINE NEWLINE body
+
+boundary: "--" BOUNDARY_STRING
+
+headers: header*
+header: HEADER_NAME ": " HEADER_VALUE NEWLINE
+
+body: BODY_CONTENT
+
+// Terminals
+BOUNDARY_STRING: /[a-zA-Z0-9'()+_,-./:=?]+/
+HEADER_NAME: /[a-zA-Z0-9-]+/
+HEADER_VALUE: /[^\n\r]+/
+BODY_CONTENT: /[^\0]*?/
+NEWLINE: /\r?\n/
+
+%import common.WS
+
+%ignore WS
+

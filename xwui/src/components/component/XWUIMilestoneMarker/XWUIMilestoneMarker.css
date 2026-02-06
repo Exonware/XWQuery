@@ -1,0 +1,107 @@
+/**
+ * XWUIMilestoneMarker Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ */
+
+.xwui-milestone-marker {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs, 0.25rem);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.xwui-milestone-marker:hover {
+    transform: scale(1.1);
+}
+
+.xwui-milestone-marker-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--accent-primary, #4f46e5);
+    color: var(--text-inverse, #ffffff);
+    border-radius: 50%;
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-bold, 700);
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+.xwui-milestone-marker-completed .xwui-milestone-marker-icon {
+    background: var(--accent-success, #10b981);
+}
+
+.xwui-milestone-marker-label {
+    font-size: var(--font-size-xs, 0.75rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+    text-align: center;
+    white-space: nowrap;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.xwui-milestone-marker-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.25rem);
+    width: 100%;
+    max-width: 100px;
+}
+
+.xwui-milestone-marker-progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--bg-tertiary, #e9ecef);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.xwui-milestone-marker-progress-fill {
+    height: 100%;
+    background: var(--accent-primary, #4f46e5);
+    transition: width 0.3s ease;
+}
+
+.xwui-milestone-marker-progress-text {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #6c757d);
+    white-space: nowrap;
+}
+
+/* Variants */
+.xwui-milestone-marker-compact {
+    gap: 0;
+}
+
+.xwui-milestone-marker-compact .xwui-milestone-marker-label {
+    display: none;
+}
+
+.xwui-milestone-marker-detailed {
+    min-width: 120px;
+}
+
+/* Sizes */
+.xwui-milestone-marker-small .xwui-milestone-marker-icon {
+    width: 16px;
+    height: 16px;
+    font-size: var(--font-size-xs, 0.75rem);
+}
+
+.xwui-milestone-marker-large .xwui-milestone-marker-icon {
+    width: 32px;
+    height: 32px;
+    font-size: var(--font-size-base, 1rem);
+}
+

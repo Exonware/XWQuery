@@ -1,0 +1,14 @@
+/* ============================================
+   ACCORDION - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-accordion: 3px;
+    /* Fallback: --radius-content → --radius-md → 3px */
+}
+
+/* Utility class for direct application */
+.radius-accordion-minimal {
+    border-radius: var(--radius-accordion, 3px) !important;
+}

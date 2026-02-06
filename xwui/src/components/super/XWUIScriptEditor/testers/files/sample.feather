@@ -1,0 +1,30 @@
+# Feather Metadata Example
+# Feather is a binary columnar format
+# This file represents Feather structure and metadata in text form
+
+Feather File Format v2
+=======================
+
+Schema:
+  - temperature: double (nullable)
+  - pressure: double (nullable)
+  - timestamp: timestamp[ns] (nullable)
+  - location: string (nullable)
+
+Metadata:
+  - author: "XWUI Team"
+  - created: "2025-01-15T10:30:00Z"
+  - description: "Sample Feather file with sensor data"
+
+Data (first 5 rows):
+  Row 0: temperature=20.5, pressure=1013.25, timestamp=2025-01-15T10:00:00Z, location="sensor1"
+  Row 1: temperature=21.0, pressure=1013.30, timestamp=2025-01-15T10:01:00Z, location="sensor1"
+  Row 2: temperature=21.5, pressure=1013.35, timestamp=2025-01-15T10:02:00Z, location="sensor1"
+  Row 3: temperature=22.0, pressure=1013.40, timestamp=2025-01-15T10:03:00Z, location="sensor2"
+  Row 4: temperature=22.5, pressure=1013.45, timestamp=2025-01-15T10:04:00Z, location="sensor2"
+
+Statistics:
+  - Total rows: 1000
+  - temperature: min=18.5, max=25.3, mean=21.8, std=1.2
+  - pressure: min=1010.0, max=1020.0, mean=1013.5, std=2.1
+

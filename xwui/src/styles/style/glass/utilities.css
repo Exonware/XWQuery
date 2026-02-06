@@ -1,0 +1,147 @@
+/* ============================================
+   GLASS STYLE - Utility Classes
+   Reusable glassmorphism components
+   Simple, clean glass effect based on industry standards
+   ============================================ */
+
+:root[data-style="glass"] {
+    /* Glass backgrounds - simple rgba with transparency */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-bg-light: rgba(255, 255, 255, 0.05);
+    --glass-bg-heavy: rgba(255, 255, 255, 0.2);
+    
+    /* Glass borders - semi-transparent white */
+    --glass-border: 1px solid rgba(255, 255, 255, 0.3);
+    --glass-border-light: 1px solid rgba(255, 255, 255, 0.2);
+    
+    /* Glass backdrop blur */
+    --glass-blur: blur(12px);
+    --glass-blur-light: blur(8px);
+    --glass-blur-heavy: blur(16px);
+    
+    /* Glass shadow - subtle and soft */
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark theme adjustments */
+:root[data-style="glass"][data-theme="dark"],
+:root[data-style="glass"][data-theme="night"] {
+    --glass-bg: rgba(0, 0, 0, 0.2);
+    --glass-bg-light: rgba(0, 0, 0, 0.1);
+    --glass-bg-heavy: rgba(0, 0, 0, 0.3);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --glass-border-light: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Glass Card - Simple, clean glass effect */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
+}
+
+.glass-card-light {
+    background: var(--glass-bg-light);
+    backdrop-filter: var(--glass-blur-light);
+    -webkit-backdrop-filter: var(--glass-blur-light);
+    border: var(--glass-border-light);
+}
+
+.glass-card-heavy {
+    background: var(--glass-bg-heavy);
+    backdrop-filter: var(--glass-blur-heavy);
+    -webkit-backdrop-filter: var(--glass-blur-heavy);
+    border: var(--glass-border);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ============================================
+   AUTOMATIC GLASS EFFECTS - Apply to common elements when data-style="glass" is set
+   ============================================ */
+
+/* Apply glass effects to common container/card elements automatically */
+:root[data-style="glass"] .demo-card,
+:root[data-style="glass"] .card,
+:root[data-style="glass"] [class*="card"]:not([class*="glass"]),
+:root[data-style="glass"] .theme-controls {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+}
+
+/* Apply glass effects to buttons automatically */
+:root[data-style="glass"] button:not([class*="glass"]),
+:root[data-style="glass"] .test-button {
+    background: var(--glass-bg-light) !important;
+    backdrop-filter: var(--glass-blur-light) !important;
+    -webkit-backdrop-filter: var(--glass-blur-light) !important;
+    border: var(--glass-border-light) !important;
+}
+
+:root[data-style="glass"] button:hover,
+:root[data-style="glass"] .test-button:hover {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+}
+
+/* Apply glass effects to form inputs automatically */
+:root[data-style="glass"] input,
+:root[data-style="glass"] textarea,
+:root[data-style="glass"] select {
+    background: var(--glass-bg-light) !important;
+    backdrop-filter: var(--glass-blur-light) !important;
+    -webkit-backdrop-filter: var(--glass-blur-light) !important;
+    border: var(--glass-border-light) !important;
+}
+
+:root[data-style="glass"] input:focus,
+:root[data-style="glass"] textarea:focus,
+:root[data-style="glass"] select:focus {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: var(--glass-border) !important;
+}
+
+/* Apply glass effects to badges/tags automatically */
+:root[data-style="glass"] .badge,
+:root[data-style="glass"] [class*="badge"]:not([class*="glass"]) {
+    background: var(--glass-bg-light) !important;
+    backdrop-filter: var(--glass-blur-light) !important;
+    -webkit-backdrop-filter: var(--glass-blur-light) !important;
+    border: var(--glass-border-light) !important;
+}
+
+/* Apply glass effects to alerts automatically */
+:root[data-style="glass"] .alert,
+:root[data-style="glass"] [class*="alert"] {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+}
+
+/* Apply glass effects to code blocks automatically */
+:root[data-style="glass"] .code-block,
+:root[data-style="glass"] pre,
+:root[data-style="glass"] code {
+    background: var(--glass-bg-light) !important;
+    backdrop-filter: var(--glass-blur-light) !important;
+    -webkit-backdrop-filter: var(--glass-blur-light) !important;
+    border: var(--glass-border-light) !important;
+}
+
+/* Apply glass effects to progress bars automatically */
+:root[data-style="glass"] .progress-bar {
+    background: var(--glass-bg-light) !important;
+    backdrop-filter: var(--glass-blur-light) !important;
+    -webkit-backdrop-filter: var(--glass-blur-light) !important;
+    border: var(--glass-border-light) !important;
+}
+

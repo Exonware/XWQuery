@@ -1,0 +1,12 @@
+/* ============================================
+   BLUE ICON COLORS - Light blue theme
+   ============================================ */
+
+:root[data-icons-colors="blue"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #1e3a8a;        /* Primary fill color - dark blue text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #3b82f6;        /* Accent/rail/marks color - blue */
+    --icons-color-transparent: transparent;
+}
+

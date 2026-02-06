@@ -1,0 +1,13 @@
+/* ============================================
+   BADGE - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-badge: 9999px;
+}
+
+/* Utility class for direct application */
+.radius-badge-soft {
+    border-radius: var(--radius-badge, 9999px) !important;
+}

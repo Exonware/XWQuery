@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "variant": {
+      "type": "string",
+      "enum": [
+        "default",
+        "compact",
+        "detailed"
+      ],
+      "default": "default"
+    },
+    "size": {
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium"
+    },
+    "showLabel": {
+      "type": "boolean",
+      "default": true
+    },
+    "showProgress": {
+      "type": "boolean",
+      "default": false
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "id": "XWUIMilestoneMarker"
+}

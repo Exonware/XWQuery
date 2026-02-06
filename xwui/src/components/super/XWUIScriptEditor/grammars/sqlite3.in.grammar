@@ -1,0 +1,23 @@
+// sqlite3.grammar
+// SQLite3 Grammar - SQLite database format
+// Company: eXonware.com
+
+?start: database
+
+database: page*
+
+page: PAGE_HEADER page_data
+
+PAGE_HEADER: /[\x00-\xFF]{100}/
+page_data: cell* free_space
+
+cell: CELL_HEADER cell_data
+CELL_HEADER: /[\x00-\xFF]{4,8}/
+cell_data: /[\x00-\xFF]*/
+
+free_space: /[\x00-\xFF]*/
+
+%import common.WS
+
+%ignore WS
+

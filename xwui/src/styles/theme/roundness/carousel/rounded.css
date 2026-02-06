@@ -1,0 +1,14 @@
+/* ============================================
+   CAROUSEL - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-carousel: 8px;
+    /* Fallback: --radius-content → --radius-md → 8px */
+}
+
+/* Utility class for direct application */
+.radius-carousel-rounded {
+    border-radius: var(--radius-carousel, 8px) !important;
+}

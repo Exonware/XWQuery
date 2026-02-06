@@ -1,0 +1,12 @@
+/* ============================================
+   CONTROL - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    --radius-control: 12px;
+}
+
+/* Utility class for direct application */
+.radius-control-pill {
+    border-radius: var(--radius-control, 12px) !important;
+}

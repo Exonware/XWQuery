@@ -1,0 +1,129 @@
+Sample reStructuredText Document
+==================================
+
+**Version:** 1.0.0  
+**Author:** XWUI Team  
+**Created:** 2025-01-15
+
+This is a comprehensive reStructuredText example demonstrating various reStructuredText features.
+
+Overview
+--------
+
+This document demonstrates:
+
+- Headers and text formatting
+- Lists (ordered and unordered)
+- Code blocks
+- Links and images
+- Tables
+- Blockquotes
+- And more!
+
+Text Formatting
+---------------
+
+This is **bold text** and this is *italic text*. You can also use ``inline code``.
+
+Here's a `link to example.com <https://example.com>`_.
+
+Lists
+-----
+
+Unordered List
+~~~~~~~~~~~~~~
+
+- First item
+- Second item
+
+  - Nested item
+  - Another nested item
+
+- Third item
+
+Ordered List
+~~~~~~~~~~~~
+
+1. First item
+2. Second item
+
+   1. Nested numbered item
+   2. Another nested item
+
+3. Third item
+
+Code Blocks
+-----------
+
+Python Example:
+
+.. code-block:: python
+
+    def calculate_total(items):
+        return sum(item.price for item in items if item.active)
+
+    items = [
+        {'name': 'Item 1', 'price': 29.99, 'active': True},
+        {'name': 'Item 2', 'price': 49.99, 'active': False}
+    ]
+
+    total = calculate_total(items)
+    print(f"Total: ${total:.2f}")
+
+JavaScript Example:
+
+.. code-block:: javascript
+
+    function greet(name) {
+        return `Hello, ${name}!`;
+    }
+
+    console.log(greet('World'));
+
+Tables
+------
+
+.. table:: Sample Table
+
+    =========  =============  =========
+    Item ID    Name           Price
+    =========  =============  =========
+    1          First Item     $29.99
+    2          Second Item    $49.99
+    3          Third Item     $19.99
+    =========  =============  =========
+
+Blockquotes
+-----------
+
+.. note::
+
+    This is a note block. It can contain important information.
+
+.. warning::
+
+    This is a warning block. Use it for warnings.
+
+.. tip::
+
+    This is a tip block. Use it for helpful tips.
+
+Links and Images
+----------------
+
+External link: `Markdown Guide <https://www.markdownguide.org/>`_
+
+Image:
+
+.. image:: https://via.placeholder.com/400x200
+   :alt: Sample Image
+   :width: 400px
+
+Footnotes
+---------
+
+Here's a footnote reference [#f1]_ and another [#f2]_.
+
+.. [#f1] This is the first footnote.
+.. [#f2] This is the second footnote.
+

@@ -1,0 +1,116 @@
+// MongoDB Grammar for Lark
+// MongoDB Query Language (MQL)
+// Document database query language
+
+?start: query
+
+query: find_query
+     | aggregate_query
+     | insert_query
+     | update_query
+     | delete_query
+     | count_query
+
+// Find operation
+find_query: "db" "." collection "." "find" "(" [filter_doc] ")" [projection]
+
+collection: IDENTIFIER
+
+filter_doc: "{" [field_filter ("," field_filter)*] "}"
+
+field_filter: field_path ":" value
+            | field_path ":" operator_expr
+
+field_path: STRING | IDENTIFIER
+
+// MongoDB query operators
+operator_expr: "{" operator ":" value "}"
+             | "{" operator ":" "[" value ("," value)* "]" "}"
+
+operator: "$eq" | "$ne" | "$gt" | "$gte" | "$lt" | "$lte"
+        | "$in" | "$nin" | "$exists" | "$type"
+        | "$regex" | "$text" | "$where"
+        | "$and" | "$or" | "$not" | "$nor"
+        | "$elemMatch" | "$size" | "$all"
+
+projection: "." "project" "(" "{" project_fields "}" ")"
+
+project_fields: project_field ("," project_field)*
+
+project_field: field_path ":" ("1" | "0" | NUMBER)
+
+// Aggregate pipeline
+aggregate_query: "db" "." collection "." "aggregate" "(" "[" pipeline_stages "]" ")"
+
+pipeline_stages: pipeline_stage ("," pipeline_stage)*
+
+pipeline_stage: "{" stage_op ":" stage_value "}"
+
+stage_op: "$match" | "$group" | "$project" | "$sort" | "$limit" | "$skip"
+        | "$unwind" | "$lookup" | "$graphLookup" | "$facet"
+        | "$addFields" | "$replaceRoot" | "$count" | "$bucket"
+
+stage_value: "{" [field_filter ("," field_filter)*] "}"
+           | STRING
+           | NUMBER
+
+// Insert
+insert_query: "db" "." collection "." insert_method "(" document ("," document)* ")"
+
+insert_method: "insertOne" | "insertMany"
+
+document: "{" [document_field ("," document_field)*] "}"
+
+document_field: field_path ":" value
+
+// Update
+update_query: "db" "." collection "." update_method "(" filter_doc "," update_doc ")"
+
+update_method: "updateOne" | "updateMany" | "replaceOne"
+
+update_doc: "{" update_operator ":" "{" field_filter ("," field_filter)* "}" "}"
+
+update_operator: "$set" | "$unset" | "$inc" | "$mul" | "$rename"
+               | "$push" | "$pull" | "$addToSet" | "$pop"
+
+// Delete
+delete_query: "db" "." collection "." delete_method "(" filter_doc ")"
+
+delete_method: "deleteOne" | "deleteMany"
+
+// Count
+count_query: "db" "." collection "." "countDocuments" "(" [filter_doc] ")"
+
+// Values
+value: STRING
+     | NUMBER
+     | BOOLEAN_LITERAL
+     | NULL
+     | object_literal
+     | array_literal
+     | objectid
+     | date_literal
+
+object_literal: "{" [object_pair ("," object_pair)*] "}"
+
+object_pair: (STRING | IDENTIFIER) ":" value
+
+array_literal: "[" [value ("," value)*] "]"
+
+objectid: "ObjectId" "(" STRING ")"
+
+date_literal: "ISODate" "(" STRING ")"
+            | "new" "Date" "(" [STRING | NUMBER] ")"
+
+BOOLEAN_LITERAL: "true" | "false"
+
+NULL: "null"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+

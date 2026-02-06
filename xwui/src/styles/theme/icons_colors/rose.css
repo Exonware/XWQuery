@@ -1,0 +1,12 @@
+/* ============================================
+   ROSE ICON COLORS - Soft rose theme
+   ============================================ */
+
+:root[data-icons-colors="rose"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #881337;        /* Primary fill color - dark rose text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #e11d48;        /* Accent/rail/marks color - rose */
+    --icons-color-transparent: transparent;
+}
+

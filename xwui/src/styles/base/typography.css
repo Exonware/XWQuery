@@ -1,0 +1,99 @@
+/* ============================================
+   BASE TYPOGRAPHY - Font families and text styles
+   ============================================ */
+
+/* UTF-8 Encoding Declaration */
+@charset "UTF-8";
+
+:root {
+    /* Typography will be overridden by theme/typography files */
+    --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    
+    /* International font fallbacks - comprehensive support for all scripts */
+    --font-family-arabic: 'Segoe UI', 'Arabic UI Display', 'Arabic UI Text', 
+                          'Tahoma', 'Arial Unicode MS', 'Microsoft Sans Serif', 
+                          'Noto Sans Arabic', 'Amiri', 'Cairo', sans-serif;
+    --font-family-hebrew: 'Segoe UI', 'Hebrew UI Display', 'Hebrew UI Text',
+                          'Tahoma', 'Arial Unicode MS', 'David', 'Miriam', 
+                          'Noto Sans Hebrew', sans-serif;
+    --font-family-chinese: 'Microsoft YaHei', '微软雅黑', 'SimHei', '黑体',
+                           'SimSun', '宋体', 'PingFang SC', 'Hiragino Sans GB',
+                           'WenQuanYi Micro Hei', 'Noto Sans SC', 'Source Han Sans SC',
+                           'STHeiti', '华文黑体', sans-serif;
+    --font-family-japanese: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 
+                            'Yu Gothic', '游ゴシック', 'Meiryo', 'メイリオ',
+                            'MS PGothic', 'Noto Sans JP', 'Source Han Sans JP',
+                            'Osaka', sans-serif;
+    --font-family-korean: 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo',
+                          'Nanum Gothic', '나눔고딕', 'Noto Sans KR', 
+                          'Source Han Sans KR', 'AppleGothic', sans-serif;
+    
+    /* Universal font stack with international fallbacks */
+    --font-family-international: var(--font-family-base),
+                                 var(--font-family-arabic),
+                                 var(--font-family-hebrew),
+                                 var(--font-family-chinese),
+                                 var(--font-family-japanese),
+                                 var(--font-family-korean),
+                                 system-ui, -apple-system, BlinkMacSystemFont,
+                                 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    
+    /* Monospace with international support */
+    --font-family-mono: 'Courier New', 'Courier', 'Consolas', 'Monaco', 
+                        'Menlo', 'Ubuntu Mono', 'Liberation Mono', 
+                        'Noto Sans Mono', monospace;
+    
+    /* Font weights */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    
+    /* Font sizes */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.25rem;
+    
+    /* Line heights */
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.75;
+    
+    /* Text rendering */
+    --font-smoothing: antialiased;
+    --font-rendering: optimizeLegibility;
+}
+
+/* Apply font family globally to all elements with international fallbacks */
+* {
+    font-family: var(--font-family-international, var(--font-family-base));
+    -webkit-font-smoothing: var(--font-smoothing);
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: var(--font-rendering);
+}
+
+/* Apply mono font to code elements with international support */
+code,
+pre,
+.code-block {
+    font-family: var(--font-family-mono);
+}
+
+/* UTF-8 and international character support */
+html {
+    /* Ensure UTF-8 encoding is respected */
+    charset: utf-8;
+}
+
+/* Better text rendering for international scripts */
+body {
+    /* Enable font features for better typography */
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    font-variant-ligatures: common-ligatures;
+}
+

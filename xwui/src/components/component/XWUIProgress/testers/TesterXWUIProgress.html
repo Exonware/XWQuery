@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIProgress Component Tester</title>
+    
+        <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuiprogress-content">
+<!-- Linear Progress -->
+            <div class="button-group">
+                <h3>Linear Progress</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div id="progress-0"></div>
+                    <div id="progress-25"></div>
+                    <div id="progress-50"></div>
+                    <div id="progress-75"></div>
+                    <div id="progress-100"></div>
+                </div>
+            </div>
+            
+            <!-- With Value -->
+            <div class="button-group">
+                <h3>With Value Display</h3>
+                <div id="progress-value"></div>
+            </div>
+            
+            <!-- Indeterminate -->
+            <div class="button-group">
+                <h3>Indeterminate Progress</h3>
+                <div id="progress-indeterminate"></div>
+            </div>
+            
+            <!-- Circular -->
+            <div class="button-group">
+                <h3>Circular Progress</h3>
+                <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+                    <div id="progress-circular-25"></div>
+                    <div id="progress-circular-50"></div>
+                    <div id="progress-circular-75"></div>
+                    <div id="progress-circular-100"></div>
+                </div>
+            </div>
+            
+            <!-- Colors -->
+            <div class="button-group">
+                <h3>Color Variants</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div id="progress-primary"></div>
+                    <div id="progress-success"></div>
+                    <div id="progress-warning"></div>
+                    <div id="progress-error"></div>
+                </div>
+            </div>
+            
+            <!-- Sizes -->
+            <div class="button-group">
+                <h3>Size Variants</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div id="progress-small"></div>
+                    <div id="progress-medium"></div>
+                    <div id="progress-large"></div>
+                </div>
+            </div>
+            
+            <!-- Animated Demo -->
+            <div class="button-group">
+                <h3>Animated Demo</h3>
+                <div id="progress-animated"></div>
+                <div class="button-row" style="margin-top: 1rem;">
+                    <button class="test-button primary" id="btn-start">Start</button>
+                    <button class="test-button" id="btn-reset">Reset</button>
+                </div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIProgress.ts"></script>
+</body>
+</html>
+

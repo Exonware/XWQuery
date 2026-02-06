@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-button: 8px;
+}
+
+/* Utility class for direct application */
+.radius-button-soft {
+    border-radius: var(--radius-button, 8px) !important;
+}

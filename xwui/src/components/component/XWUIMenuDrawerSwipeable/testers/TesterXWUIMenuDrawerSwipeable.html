@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIMenuDrawerSwipeable Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- Component CSS -->
+    
+    <style>
+        body {
+            padding: var(--spacing-lg);
+        }
+        .test-section {
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+        }
+        .test-section h2 {
+            margin-top: 0;
+        }
+        button {
+            padding: var(--spacing-sm) var(--spacing-md);
+            margin: var(--spacing-xs);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
+            cursor: pointer;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .info {
+            padding: var(--spacing-sm);
+            background-color: var(--color-info-bg, #e3f2fd);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--spacing-md);
+        }
+    </style>
+</head>
+<body>
+    <h1>XWUIMenuDrawerSwipeable Component Tester</h1>
+    
+    <div class="info">
+        <strong>Note:</strong> This component works best on touch devices. On desktop, you can test by using touch simulation in browser dev tools.
+    </div>
+    
+    <div class="test-section">
+        <h2>Right Swipeable Drawer</h2>
+        <button id="open-drawer-1">Open Right Drawer</button>
+        <p>Swipe left (or drag left) to close</p>
+        <div id="drawer-container-1"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Left Swipeable Drawer</h2>
+        <button id="open-drawer-2">Open Left Drawer</button>
+        <p>Swipe right (or drag right) to close</p>
+        <div id="drawer-container-2"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Bottom Swipeable Drawer</h2>
+        <button id="open-drawer-3">Open Bottom Drawer</button>
+        <p>Swipe down (or drag down) to close</p>
+        <div id="drawer-container-3"></div>
+    </div>
+
+        <script type="module" src="./TesterXWUIMenuDrawerSwipeable.ts"></script>
+</body>
+</html>
+

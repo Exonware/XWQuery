@@ -1,0 +1,14 @@
+/* ============================================
+   SKELETON - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-skeleton: 2px;
+    /* Fallback: --radius-feedback → --radius-sm → 2px */
+}
+
+/* Utility class for direct application */
+.radius-skeleton-minimal {
+    border-radius: var(--radius-skeleton, 2px) !important;
+}

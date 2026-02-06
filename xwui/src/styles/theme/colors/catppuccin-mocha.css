@@ -1,0 +1,61 @@
+/* ============================================
+   CATPPUCCIN MOCHA COLOR THEME - Warm dark theme (darkest variant)
+   @primary: #1e1e2e
+   @secondary: #313244
+   @text: #cdd6f4
+   ============================================ */
+
+:root[data-theme="catppuccin-mocha"] {
+    /* Background colors */
+    --bg-primary: #1e1e2e;
+    --bg-secondary: #313244;
+    --bg-tertiary: #45475a;
+    --bg-app: #1e1e2e;
+    --bg-elevated: #313244;
+    --bg-hover: #45475a;
+    --bg-active: #585b70;
+    
+    /* Text colors */
+    --text-primary: #cdd6f4;
+    --text-secondary: #bac2de;
+    --text-tertiary: #a6adc8;
+    --text-inverse: #1e1e2e;
+    
+    /* Border colors */
+    --border-color: rgba(186, 194, 222, 0.2);
+    --border-light: rgba(186, 194, 222, 0.1);
+    --border-medium: rgba(186, 194, 222, 0.2);
+    --border-strong: rgba(186, 194, 222, 0.3);
+    
+    /* Control colors */
+    --control-bg: #313244;
+    --control-bg-hover: #45475a;
+    --control-bg-active: #585b70;
+    --control-border: #45475a;
+    --control-text: #cdd6f4;
+    --control-text-secondary: #bac2de;
+    --control-active: #89b4fa;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #f9e2af;
+    --status-before-start-border: #fab387;
+    --status-before-start-hover: #fab387;
+    --status-processing: #89b4fa;
+    --status-processing-border: #74c7ec;
+    --status-processing-hover: #74c7ec;
+    --status-processing-text: #1e1e2e;
+    --status-error: #f38ba8;
+    --status-error-border: #eba0ac;
+    --status-error-hover: #eba0ac;
+    --status-error-text: #1e1e2e;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

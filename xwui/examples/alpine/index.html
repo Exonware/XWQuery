@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XWUI + Alpine.js</title>
+  <link rel="stylesheet" href="xwui-theme-examples.css">
+  <link rel="stylesheet" href="xwui/XWUIButton/XWUIButton.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 2rem; }
+    .buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+    xwui-button { display: inline-block; }
+  </style>
+</head>
+<body>
+  <div x-data>
+    <h1>XWUI + Alpine.js</h1>
+    <p>XWUIButton (Custom Element) below.</p>
+    <p><a href="uber/uber.html">Uber-like mobile demo →</a></p>
+    <div class="buttons">
+      <xwui-button text="Primary" variant="primary" size="medium"></xwui-button>
+      <xwui-button text="Success" variant="success" size="medium"></xwui-button>
+      <xwui-button text="Secondary" variant="secondary" size="medium"></xwui-button>
+    </div>
+  </div>
+  <script type="module" src="xwui-button.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+id	name	email	age	active	balance	created_at
+1	John Doe	john.doe@example.com	30	true	1250.50	2025-01-15T10:00:00Z
+2	Jane Smith	jane.smith@example.com	28	true	2300.75	2025-01-15T10:05:00Z
+3	Bob Johnson	bob.johnson@example.com	35	false	500.00	2025-01-15T10:10:00Z
+4	Alice Williams	alice.williams@example.com	32	true	1800.25	2025-01-15T10:15:00Z
+5	Charlie Brown	charlie.brown@example.com	27	true	950.00	2025-01-15T10:20:00Z
+
+
+

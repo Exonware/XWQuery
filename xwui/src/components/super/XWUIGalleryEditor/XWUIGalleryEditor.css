@@ -1,0 +1,23 @@
+/**
+ * XWUIGalleryEditor Component Styles
+ * Gallery editor with upload and management
+ * Uses @styles system variables
+ */
+
+.xwui-gallery-editor {
+    width: 100%;
+}
+
+.xwui-gallery-editor-toolbar {
+    display: flex;
+    gap: var(--spacing-sm, 0.5rem);
+    margin-bottom: var(--spacing-md, 1rem);
+    padding: var(--spacing-sm, 0.5rem);
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+.xwui-gallery-editor-viewer {
+    width: 100%;
+    min-height: 400px;
+}
+

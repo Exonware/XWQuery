@@ -1,0 +1,14 @@
+/* ============================================
+   BODY - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-body: 12px;
+    /* Fallback: --radius-text → --radius-base → 12px */
+}
+
+/* Utility class for direct application */
+.radius-body-soft {
+    border-radius: var(--radius-body, 12px) !important;
+}

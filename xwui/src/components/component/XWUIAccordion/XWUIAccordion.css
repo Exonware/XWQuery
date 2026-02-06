@@ -1,0 +1,163 @@
+/**
+ * XWUIAccordion Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/accordion/*.css (component-specific border widths)
+ * - Roundness: theme/roundness/accordion/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-accordion {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.xwui-accordion-bordered {
+    border: var(--border-accordion-width, var(--border-width-regular, 1.5px)) var(--border-accordion-style, solid) var(--border-accordion-color, var(--border-color, rgba(0, 0, 0, 0.1)));
+    border-radius: var(--radius-accordion, var(--radius-md, 8px));
+    overflow: hidden;
+}
+
+.xwui-accordion-flush {
+    border: none;
+    border-radius: 0;
+}
+
+/* Accordion Item */
+.xwui-accordion-item {
+    border-bottom: var(--border-accordion-width, var(--border-width-regular, 1.5px)) solid var(--border-accordion-color, var(--border-color, rgba(0, 0, 0, 0.1)));
+}
+
+.xwui-accordion-item:last-child {
+    border-bottom: none;
+}
+
+.xwui-accordion-flush .xwui-accordion-item {
+    border-bottom: var(--border-accordion-width, var(--border-width-regular, 1.5px)) solid var(--border-accordion-color, var(--border-color, rgba(0, 0, 0, 0.1)));
+}
+
+.xwui-accordion-flush .xwui-accordion-item:last-child {
+    border-bottom: none;
+}
+
+/* Header */
+.xwui-accordion-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.75rem);
+    padding: var(--spacing-md, 1rem);
+    background: var(--bg-primary, #ffffff);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s ease;
+}
+
+.xwui-accordion-header:hover {
+    background: var(--bg-hover, #f8f9fa);
+}
+
+.xwui-accordion-header:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--accent-primary, #4f46e5);
+}
+
+.xwui-accordion-item-disabled .xwui-accordion-header {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.xwui-accordion-item-disabled .xwui-accordion-header:hover {
+    background: var(--bg-primary, #ffffff);
+}
+
+/* Icon */
+.xwui-accordion-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-accordion-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Title */
+.xwui-accordion-title {
+    flex: 1;
+    font-weight: var(--font-weight-medium, 500);
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif));
+    color: var(--text-primary, #212529);
+}
+
+/* Arrow */
+.xwui-accordion-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--text-secondary, #6c757d);
+    transition: transform 0.2s ease;
+}
+
+.xwui-accordion-arrow svg {
+    width: 100%;
+    height: 100%;
+}
+
+.xwui-accordion-item-expanded .xwui-accordion-arrow {
+    transform: rotate(180deg);
+}
+
+/* Content */
+.xwui-accordion-content-wrapper {
+    overflow: hidden;
+}
+
+.xwui-accordion-content {
+    padding: var(--spacing-md, 1rem);
+    padding-top: 0;
+    color: var(--text-secondary, #6c757d);
+}
+
+/* Expanded state */
+.xwui-accordion-item-expanded .xwui-accordion-header {
+    background: var(--bg-secondary, #f8f9fa);
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+
+/* Size variants */
+.xwui-accordion-sm .xwui-accordion-header {
+    padding: var(--spacing-sm, 0.75rem);
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-accordion-sm .xwui-accordion-content {
+    padding: 0.75rem;
+    padding-top: 0;
+    font-size: 0.875rem;
+}
+
+.xwui-accordion-lg .xwui-accordion-header {
+    padding: var(--spacing-lg, 1.25rem);
+    font-size: var(--font-size-lg, 1.125rem);
+}
+
+.xwui-accordion-lg .xwui-accordion-content {
+    padding: 1.25rem;
+    padding-top: 0;
+}
+

@@ -1,0 +1,85 @@
+// MongoDB Query Examples
+
+// Insert documents
+db.documents.insertOne({
+  name: "Sample MongoDB Document",
+  version: "1.0.0",
+  description: "MongoDB query examples",
+  metadata: {
+    author: "XWUI Team",
+    created: ISODate("2025-01-15T10:30:00Z"),
+    tags: ["example", "mongodb", "nosql"]
+  },
+  database: {
+    host: "localhost",
+    port: 5432,
+    name: "example_db",
+    ssl: true
+  },
+  items: [
+    {
+      id: 1,
+      name: "First Item",
+      active: true,
+      price: 29.99,
+      categories: ["electronics", "gadgets"]
+    },
+    {
+      id: 2,
+      name: "Second Item",
+      active: false,
+      price: 49.99,
+      categories: ["books", "education"]
+    }
+  ]
+})
+
+// Find queries
+db.documents.find({ name: "Sample MongoDB Document" })
+
+db.documents.find(
+  { "items.active": true },
+  { name: 1, version: 1, "items.name": 1, "items.price": 1 }
+)
+
+// Query with filters
+db.documents.find({
+  "items.price": { $gt: 20, $lt: 50 },
+  "items.active": true
+})
+
+// Aggregation pipeline
+db.documents.aggregate([
+  { $unwind: "$items" },
+  { $match: { "items.active": true } },
+  { $group: {
+    _id: "$name",
+    totalItems: { $sum: 1 },
+    avgPrice: { $avg: "$items.price" },
+    maxPrice: { $max: "$items.price" },
+    minPrice: { $min: "$items.price" }
+  }},
+  { $sort: { avgPrice: -1 } }
+])
+
+// Update operations
+db.documents.updateOne(
+  { name: "Sample MongoDB Document" },
+  { $set: { version: "1.1.0", updated: ISODate() } }
+)
+
+db.documents.updateOne(
+  { name: "Sample MongoDB Document", "items.id": 1 },
+  { $set: { "items.$.price": 35.99 } }
+)
+
+// Delete operations
+db.documents.deleteOne({ name: "Sample MongoDB Document" })
+
+// Index creation
+db.documents.createIndex({ name: 1 })
+db.documents.createIndex({ "metadata.tags": 1 })
+db.documents.createIndex({ "items.price": 1, "items.active": 1 })
+
+
+

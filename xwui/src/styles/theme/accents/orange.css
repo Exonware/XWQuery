@@ -1,0 +1,24 @@
+/* ============================================
+   ORANGE ACCENT - Orange palette
+   ============================================ */
+
+:root[data-accent="orange"] {
+    /* Accent colors - Orange palette */
+    --accent-primary: #f97316;
+    --accent-hover: #ea580c;
+    --accent-light: #fb923c;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 249, 115, 22;
+    --accent-hover-rgb: 234, 88, 12;
+    --accent-light-rgb: 251, 146, 60;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

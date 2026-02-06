@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIPopconfirm",
+  "name": "XWUI Popconfirm Component",
+  "description": "Popover component with confirmation action. Extends XWUIPopover with confirm/cancel buttons. Useful for confirming destructive actions or important operations. Uses XWUIPopover internally.",
+  "path": "overlay.popconfirm",
+  "tags": ["overlay", "popconfirm", "confirmation", "popover", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title text for the confirmation popover"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description text for the confirmation"
+        },
+        "okText": {
+          "type": "string",
+          "description": "Text for the confirm button",
+          "default": "OK"
+        },
+        "cancelText": {
+          "type": "string",
+          "description": "Text for the cancel button",
+          "default": "Cancel"
+        },
+        "okButtonProps": {
+          "type": "object",
+          "description": "Additional props for the OK button"
+        },
+        "cancelButtonProps": {
+          "type": "object",
+          "description": "Additional props for the Cancel button"
+        },
+        "trigger": {
+          "type": "string",
+          "enum": ["click", "hover"],
+          "description": "How to trigger the popconfirm"
+        },
+        "placement": {
+          "type": "string",
+          "enum": ["top", "bottom", "left", "right"],
+          "description": "Placement of the popconfirm"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the popconfirm"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "onConfirm": {
+          "description": "Callback function when user confirms (not serializable in JSON)"
+        },
+        "onCancel": {
+          "description": "Callback function when user cancels (not serializable in JSON)"
+        },
+        "triggerElement": {
+          "description": "Trigger element or selector string to attach popconfirm to"
+        }
+      }
+    }
+  }
+}
+

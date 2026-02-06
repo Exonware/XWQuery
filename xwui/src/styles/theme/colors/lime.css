@@ -1,0 +1,58 @@
+/* ============================================
+   LIME COLOR THEME - Fresh lime theme
+   ============================================ */
+
+:root[data-theme="lime"] {
+    /* Background colors */
+    --bg-primary: #f7fee7;
+    --bg-secondary: #ecfccb;
+    --bg-tertiary: #d9f99d;
+    --bg-app: #f7fee7;
+    --bg-elevated: #ffffff;
+    --bg-hover: #ecfccb;
+    --bg-active: #d9f99d;
+    
+    /* Text colors */
+    --text-primary: #365314;
+    --text-secondary: #65a30d;
+    --text-tertiary: #84cc16;
+    --text-inverse: #ffffff;
+    
+    /* Border colors */
+    --border-color: rgba(132, 204, 22, 0.2);
+    --border-light: rgba(132, 204, 22, 0.1);
+    --border-medium: rgba(132, 204, 22, 0.2);
+    --border-strong: rgba(132, 204, 22, 0.3);
+    
+    /* Control colors */
+    --control-bg: #ffffff;
+    --control-bg-hover: #ecfccb;
+    --control-bg-active: #d9f99d;
+    --control-border: #bef264;
+    --control-text: #365314;
+    --control-text-secondary: #65a30d;
+    --control-active: #4d7c0f;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #fbbf24;
+    --status-before-start-border: #f59e0b;
+    --status-before-start-hover: #f59e0b;
+    --status-processing: #65a30d;
+    --status-processing-border: #4d7c0f;
+    --status-processing-hover: #4d7c0f;
+    --status-processing-text: #ffffff;
+    --status-error: #ef4444;
+    --status-error-border: #dc2626;
+    --status-error-hover: #dc2626;
+    --status-error-text: #ffffff;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

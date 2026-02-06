@@ -1,0 +1,109 @@
+﻿# kql.out.grammar
+# KQL Output Grammar - Template for generating KQL from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@query = {{source}}{{#each operators}} | {{value}}{{/each}}
+
+@table_source = {{name}}{{#if params}}{{params}}{{/if}}
+
+@params = ({{#each params}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@param_list = {{#each params}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@param = {{name}}={{value}}
+
+@operator = {{value}}
+
+@where_op = where {{expression}}
+
+@project_op = project {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@project_list = {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@project_item = {{expression}}{{#if alias}} as {{alias}}{{/if}}
+
+@extend_op = extend {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@extend_list = {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@extend_item = {{name}}={{value}}
+
+@summarize_op = summarize {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if by}} by {{#each groups}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{/if}}
+
+@summarize_list = {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@summarize_item = {{name}}={{aggregate}}
+
+@group_list = {{#each groups}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@order_op = order by {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@order_list = {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@order_item = {{name}}{{#if direction}} {{direction}}{{/if}}
+
+@take_op = {{#if take}}take {{value}}{{else}}limit {{value}}{{/if}}
+
+@top_op = top {{number}} by {{column}}{{#if direction}} {{direction}}{{/if}}
+
+@join_op = join{{#if kind}} kind={{kind}}{{/if}} ({{table}}) on {{condition}}
+
+@join_kind = {{value}}
+
+@join_condition = {{#each keys}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@join_key = $left.{{left}} == $right.{{right}}
+
+@union_op = union{{#if kind}} kind={{kind}}{{/if}} ({{#each tables}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@union_kind = {{value}}
+
+@distinct_op = distinct {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@count_op = count
+
+@render_op = render {{type}}
+
+@render_type = {{value}}
+
+@aggregate_func = {{value}}
+
+@function_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} or {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} and {{/if}}{{/each}}
+
+@not_expr = {{#if negated}}not {{/if}}{{comparison}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{else}}{{#if contains}} contains {{pattern}}{{else}}{{#if startswith}} startswith {{pattern}}{{else}}{{#if endswith}} endswith {{pattern}}{{else}}{{#if has}} has {{pattern}}{{else}}{{#if in}} in {{list}}{{else}}{{#if between}} between {{left}} and {{right}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}
+
+@compare_op = {{value}}
+
+@additive = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@multiplicative = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@primary = {{value}}
+
+@column_ref = {{#each parts}}{{value}}{{#if !@last}}.{{/if}}{{/each}}
+
+@array_literal = {{value}}
+
+@object_literal = {{value}}
+
+@timespan_literal = {{value}}{{unit}}
+
+@time_unit = {{value}}
+
+@datetime_literal = datetime({{value}})
+
+@literal = {{value}}
+
+@indent = 2
+@pretty = true

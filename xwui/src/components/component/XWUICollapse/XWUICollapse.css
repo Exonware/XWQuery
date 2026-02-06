@@ -1,0 +1,49 @@
+/**
+ * XWUICollapse Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ */
+
+.xwui-collapse {
+    overflow: hidden;
+    transition: height 200ms ease-out;
+}
+
+.xwui-collapse-content {
+    /* Ensure content doesn't get cut off during animation */
+}
+
+.xwui-collapse-collapsed {
+    height: 0;
+}
+
+.xwui-collapse-expanded {
+    height: auto;
+}
+
+.xwui-collapse-expanding,
+.xwui-collapse-collapsing {
+    /* During animation */
+}
+
+/* Visibility variants */
+.xwui-collapse-hidden .xwui-collapse-content {
+    visibility: hidden;
+}
+
+.xwui-collapse-visible .xwui-collapse-content {
+    visibility: visible;
+}
+
+/* Fade variant */
+.xwui-collapse-fade .xwui-collapse-content {
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+}
+
+.xwui-collapse-fade.xwui-collapse-expanded .xwui-collapse-content {
+    opacity: 1;
+}
+

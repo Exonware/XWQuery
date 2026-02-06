@@ -1,0 +1,17 @@
+/* ============================================
+   SKELETON LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-skeleton-width: var(--border-width-regular, 1.5px);
+    --border-skeleton-style: solid;
+    --border-skeleton-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-skeleton-balanced {
+    border-style: var(--border-skeleton-style, solid);
+    border-width: var(--border-skeleton-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-skeleton-color, var(--border-medium, var(--border-color)));
+}

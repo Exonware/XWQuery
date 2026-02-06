@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "behavior": {
+      "type": "string",
+      "enum": [
+        "auto",
+        "smooth"
+      ],
+      "default": "smooth"
+    },
+    "block": {
+      "type": "string",
+      "enum": [
+        "start",
+        "center",
+        "end",
+        "nearest"
+      ],
+      "default": "start"
+    },
+    "inline": {
+      "type": "string",
+      "enum": [
+        "start",
+        "center",
+        "end",
+        "nearest"
+      ],
+      "default": "nearest"
+    },
+    "offset": {
+      "type": "number",
+      "default": 0
+    },
+    "className": {
+      "type": "string"
+    },
+    "targetId": {
+      "type": "string",
+      "description": "ID of target element to scroll to"
+    },
+    "targetElement": {
+      "description": "Target HTMLElement to scroll to (not serializable)"
+    },
+    "content": {
+      "description": "Content as HTML string or HTMLElement"
+    }
+  },
+  "id": "XWUIScrollTo"
+}

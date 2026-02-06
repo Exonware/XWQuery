@@ -1,0 +1,12 @@
+/* ============================================
+   OVERLAY - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    --radius-overlay: 8px;
+}
+
+/* Utility class for direct application */
+.radius-overlay-subtle {
+    border-radius: var(--radius-overlay, 8px) !important;
+}

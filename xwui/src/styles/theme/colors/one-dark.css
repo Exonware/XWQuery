@@ -1,0 +1,61 @@
+/* ============================================
+   ONE DARK COLOR THEME - Popular VS Code dark theme
+   @primary: #282c34
+   @secondary: #21252b
+   @text: #abb2bf
+   ============================================ */
+
+:root[data-theme="one-dark"] {
+    /* Background colors */
+    --bg-primary: #282c34;
+    --bg-secondary: #21252b;
+    --bg-tertiary: #2c313c;
+    --bg-app: #282c34;
+    --bg-elevated: #21252b;
+    --bg-hover: #2c313c;
+    --bg-active: #353b45;
+    
+    /* Text colors - Improved contrast */
+    --text-primary: #c8ccd4;
+    --text-secondary: #abb2bf;
+    --text-tertiary: #5c6370;
+    --text-inverse: #282c34;
+    
+    /* Border colors */
+    --border-color: rgba(171, 178, 191, 0.15);
+    --border-light: rgba(171, 178, 191, 0.08);
+    --border-medium: rgba(171, 178, 191, 0.15);
+    --border-strong: rgba(171, 178, 191, 0.25);
+    
+    /* Control colors - Improved contrast */
+    --control-bg: #21252b;
+    --control-bg-hover: #2c313c;
+    --control-bg-active: #353b45;
+    --control-border: #2c313c;
+    --control-text: #c8ccd4;
+    --control-text-secondary: #abb2bf;
+    --control-active: #61afef;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #e5c07b;
+    --status-before-start-border: #d19a66;
+    --status-before-start-hover: #d19a66;
+    --status-processing: #61afef;
+    --status-processing-border: #56b6c2;
+    --status-processing-hover: #56b6c2;
+    --status-processing-text: #282c34;
+    --status-error: #e06c75;
+    --status-error-border: #be5046;
+    --status-error-hover: #be5046;
+    --status-error-text: #abb2bf;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

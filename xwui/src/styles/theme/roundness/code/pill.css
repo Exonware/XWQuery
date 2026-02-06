@@ -1,0 +1,14 @@
+/* ============================================
+   CODE - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-code: 16px;
+    /* Fallback: --radius-content → --radius-md → 16px */
+}
+
+/* Utility class for direct application */
+.radius-code-pill {
+    border-radius: var(--radius-code, 16px) !important;
+}

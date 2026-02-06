@@ -1,0 +1,48 @@
+// java.grammar
+// Java Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: compilation_unit
+
+compilation_unit: package_decl? import_decl* type_decl*
+
+package_decl: "package" qualified_name ";"
+
+import_decl: "import" ["static"] qualified_name ["." "*"] ";"
+
+type_decl: class_decl | interface_decl | enum_decl
+
+class_decl: [modifiers] "class" IDENTIFIER [type_params] ["extends" type] ["implements" type_list] "{" class_body "}"
+
+interface_decl: [modifiers] "interface" IDENTIFIER [type_params] ["extends" type_list] "{" interface_body "}"
+
+enum_decl: [modifiers] "enum" IDENTIFIER ["implements" type_list] "{" enum_constants [","] enum_body "}"
+
+modifiers: modifier+
+
+modifier: "public" | "private" | "protected" | "static" | "final" | "abstract" | "synchronized" | "native" | "transient" | "volatile"
+
+type: primitive_type | reference_type
+
+primitive_type: "byte" | "short" | "int" | "long" | "float" | "double" | "char" | "boolean"
+
+reference_type: qualified_name [type_args]
+
+type_params: "<" type_param ("," type_param)* ">"
+
+type_param: IDENTIFIER ["extends" type_bound]
+
+type_bound: type ("&" type)*
+
+qualified_name: IDENTIFIER ("." IDENTIFIER)*
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

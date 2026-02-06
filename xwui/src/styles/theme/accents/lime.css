@@ -1,0 +1,24 @@
+/* ============================================
+   LIME ACCENT - Lime palette
+   ============================================ */
+
+:root[data-accent="lime"] {
+    /* Accent colors - Lime palette */
+    --accent-primary: #84cc16;
+    --accent-hover: #65a30d;
+    --accent-light: #a3e635;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 132, 204, 22;
+    --accent-hover-rgb: 101, 163, 13;
+    --accent-light-rgb: 163, 230, 53;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

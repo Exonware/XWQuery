@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwstickersoverlay.schema.json",
+  "title": "XWUIStickersOverlay Schema",
+  "description": "Schema for XWUIStickersOverlay component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "stickerLibrary": {
+          "type": "array",
+          "description": "Array of available stickers",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique sticker identifier"
+              },
+              "url": {
+                "type": "string",
+                "description": "Sticker image URL"
+              },
+              "category": {
+                "type": "string",
+                "description": "Sticker category"
+              },
+              "name": {
+                "type": "string",
+                "description": "Sticker name"
+              }
+            },
+            "required": [
+              "id",
+              "url"
+            ]
+          }
+        },
+        "categories": {
+          "type": "array",
+          "description": "Array of category names",
+          "items": {
+            "type": "string"
+          }
+        },
+        "showCategories": {
+          "type": "boolean",
+          "description": "Whether to show category filter",
+          "default": true
+        },
+        "triggerElement": {
+          "description": "HTMLElement or selector string for trigger element"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "overlays": {
+          "type": "array",
+          "description": "Array of sticker overlays on canvas",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique overlay identifier"
+              },
+              "sticker": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "url"
+                ]
+              },
+              "x": {
+                "type": "number",
+                "description": "X position"
+              },
+              "y": {
+                "type": "number",
+                "description": "Y position"
+              },
+              "width": {
+                "type": "number",
+                "description": "Width in pixels",
+                "minimum": 10
+              },
+              "height": {
+                "type": "number",
+                "description": "Height in pixels",
+                "minimum": 10
+              },
+              "rotation": {
+                "type": "number",
+                "description": "Rotation in degrees"
+              },
+              "zIndex": {
+                "type": "number",
+                "description": "Z-index for layering"
+              }
+            },
+            "required": [
+              "id",
+              "sticker",
+              "x",
+              "y",
+              "width",
+              "height"
+            ]
+          }
+        },
+        "canvasElement": {
+          "description": "HTMLElement or selector string for canvas element"
+        }
+      }
+    }
+  },
+  "id": "XWUIStickersOverlay"
+}

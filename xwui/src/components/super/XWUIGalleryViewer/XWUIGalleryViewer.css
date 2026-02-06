@@ -1,0 +1,81 @@
+/**
+ * XWUIGalleryViewer Component Styles
+ * Gallery viewer with grid layout and lightbox
+ */
+
+.xwui-gallery-viewer {
+    width: 100%;
+}
+
+.xwui-gallery-empty {
+    text-align: center;
+    padding: var(--spacing-xl, 2rem);
+    color: var(--text-secondary, #666);
+}
+
+.xwui-gallery-grid-container {
+    width: 100%;
+}
+
+.xwui-gallery-card-wrapper {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: var(--radius-md, 8px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.xwui-gallery-card-wrapper:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.xwui-gallery-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.xwui-gallery-pagination {
+    margin-top: var(--spacing-md, 1rem);
+    display: flex;
+    justify-content: center;
+}
+
+.xwui-gallery-lightbox {
+    position: relative;
+    max-width: 100%;
+    max-height: 90vh;
+}
+
+.xwui-gallery-lightbox-image-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.xwui-gallery-lightbox-image {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+.xwui-gallery-lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.xwui-gallery-lightbox-nav > div {
+    pointer-events: all;
+    margin: 0 var(--spacing-md, 1rem);
+}
+

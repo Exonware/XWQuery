@@ -1,0 +1,24 @@
+/* ============================================
+   AMBER ACCENT - Amber palette
+   ============================================ */
+
+:root[data-accent="amber"] {
+    /* Accent colors - Amber palette */
+    --accent-primary: #f59e0b;
+    --accent-hover: #d97706;
+    --accent-light: #fbbf24;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 245, 158, 11;
+    --accent-hover-rgb: 217, 119, 6;
+    --accent-light-rgb: 251, 191, 36;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

@@ -1,0 +1,19 @@
+# tsv.out.grammar
+# TSV Output Grammar - Template for generating TSV from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#if header}}{{header}}
+{{/if}}{{#each records}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@header = {{value}}
+
+@record = {{#each fields}}{{value}}{{#if !@last}}	{{/if}}{{/each}}
+
+@field = {{value}}
+
+@indent = 0
+@pretty = false
+@delimiter = "\t"
+

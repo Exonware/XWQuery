@@ -1,0 +1,8 @@
+[
+  {
+    "component": "XWUIComponent",
+    "issues": [
+      "Constructor does not call super()"
+    ]
+  }
+]

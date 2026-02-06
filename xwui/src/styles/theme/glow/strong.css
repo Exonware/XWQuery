@@ -1,0 +1,61 @@
+/* ============================================
+   STRONG GLOW - Stronger glow using accent-primary
+   ============================================ */
+
+:root[data-glow="strong"] {
+    /* Button glows - stronger */
+    --glow-button-hover: 0 0 0 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15), 0 0 18px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.4);
+    --glow-button-focus: 0 0 0 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.25), 0 0 24px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.6);
+    --glow-button-active: 0 0 0 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2), 0 0 20px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.5);
+    
+    /* Slider glows */
+    --glow-slider-thumb-hover: 0 0 0 12px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15), 0 0 20px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.4);
+    --glow-slider-thumb-focus: 0 0 0 6px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.25), 0 0 16px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.5);
+    --glow-slider-thumb-active: 0 0 0 16px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2), 0 0 28px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.6);
+    --glow-slider-track-active: 0 0 8px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.3);
+    
+    /* Switch glows */
+    --glow-switch-thumb-hover: 0 4px 10px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.3), 0 3px 6px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2);
+    --glow-switch-thumb-focus: 0 0 0 4px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.25), 0 3px 8px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.4);
+    --glow-switch-track-checked: 0 0 8px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.4);
+    
+    /* Input glows */
+    --glow-input-focus: 0 0 0 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.25), 0 0 18px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.4);
+    --glow-input-success: 0 0 0 3px rgba(var(--accent-success-rgb, 16, 185, 129), 0.25), 0 0 18px rgba(var(--accent-success-rgb, 16, 185, 129), 0.4);
+    --glow-input-error: 0 0 0 3px rgba(var(--accent-error-rgb, 239, 68, 68), 0.25), 0 0 18px rgba(var(--accent-error-rgb, 239, 68, 68), 0.4);
+    
+    /* Checkbox glows */
+    --glow-checkbox-checked: 0 0 0 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2), 0 0 12px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.4);
+    --glow-checkbox-focus: 0 0 0 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.25), 0 0 18px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.5);
+    
+    /* Radio glows */
+    --glow-radio-selected: 0 0 0 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2), 0 0 12px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.4);
+    --glow-radio-focus: 0 0 0 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.25), 0 0 18px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.5);
+    
+    /* Item glows */
+    --glow-item-active: 0 0 0 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15), 0 0 18px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.35);
+    --glow-item-hover: 0 0 0 2px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.08), 0 0 10px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2);
+    
+    /* Badge glows */
+    --glow-badge-active: 0 0 8px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.4);
+    
+    /* Chip glows */
+    --glow-chip-selected: 0 0 0 3px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.2), 0 0 12px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.4);
+    --glow-chip-hover: 0 0 0 2px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.15), 0 0 10px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.3);
+    
+    /* Tag glows */
+    --glow-tag-active: 0 0 8px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.35);
+    
+    /* Progress glows */
+    --glow-progress-active: 0 0 8px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.4);
+    
+    /* Rating glows */
+    --glow-rating-hover: 0 0 8px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.4);
+    
+    /* SpeedDial glows */
+    --glow-speeddial-base: 0 0 16px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.3);
+    --glow-speeddial-hover: 0 0 24px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.5);
+    
+    /* BackToTop glows */
+    --glow-backtotop-base: 0 0 12px rgba(var(--accent-primary-rgb, 79, 70, 229), 0.3);
+}

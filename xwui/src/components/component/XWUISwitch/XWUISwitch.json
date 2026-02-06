@@ -1,0 +1,158 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUISwitch",
+  "name": "XWUI Switch Component",
+  "description": "Toggle switch component for boolean input. Supports various sizes, colors, label placement, and disabled states. Useful for on/off settings and boolean form inputs.",
+  "path": "input.switch",
+  "tags": ["input", "switch", "toggle", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the switch",
+          "default": "medium"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the switch is disabled",
+          "default": false
+        },
+        "color": {
+          "type": "string",
+          "enum": ["primary", "success", "warning", "error"],
+          "description": "Color variant of the switch"
+        },
+        "labelPlacement": {
+          "type": "string",
+          "enum": ["start", "end"],
+          "description": "Placement of label relative to switch",
+          "default": "end"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the switch"
+        },
+        "checkedContent": {
+          "type": "string",
+          "description": "HTML string or text for checked state (e.g., 'I', 'ON', '<svg>...</svg>'). When set with showThumb=false, replaces the thumb with custom content."
+        },
+        "uncheckedContent": {
+          "type": "string",
+          "description": "HTML string or text for unchecked state (e.g., 'O', 'OFF', '<svg>...</svg>'). When set with showThumb=false, replaces the thumb with custom content."
+        },
+        "showThumb": {
+          "type": "boolean",
+          "description": "Whether to show the thumb or replace with custom content",
+          "default": true
+        },
+        "checkedColor": {
+          "type": "string",
+          "description": "Custom CSS color for checked state thumb/content (overrides color variant)"
+        },
+        "uncheckedColor": {
+          "type": "string",
+          "description": "Custom CSS color for unchecked state thumb/content"
+        },
+        "checkedTrackColor": {
+          "type": "string",
+          "description": "Custom CSS color for checked state track background"
+        },
+        "uncheckedTrackColor": {
+          "type": "string",
+          "description": "Custom CSS color for unchecked state track background"
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["binary", "multi"],
+          "description": "Switch mode: binary (on/off) or multi (multiple options)",
+          "default": "binary"
+        },
+        "options": {
+          "type": "array",
+          "description": "Array of options for multi-state switch. Each option can have an icon, tooltip, and custom colors.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "Unique identifier for this option"
+              },
+              "icon": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "description": "Icon name (master icon name from CSV)"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["name"]
+                  }
+                ],
+                "description": "Icon name or icon data object"
+              },
+              "tooltip": {
+                "type": "string",
+                "description": "Tooltip text to show on hover"
+              },
+              "color": {
+                "type": "string",
+                "description": "CSS color for this option when selected"
+              },
+              "trackColor": {
+                "type": "string",
+                "description": "Track background color when this option is selected"
+              }
+            },
+            "required": ["value"]
+          }
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "checked": {
+          "type": "boolean",
+          "description": "Whether the switch is checked (for binary mode)"
+        },
+        "selectedValue": {
+          "type": "string",
+          "description": "Selected option value (for multi mode)"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label text displayed next to the switch"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description text below the label"
+        },
+        "name": {
+          "type": "string",
+          "description": "HTML name attribute for form submission"
+        },
+        "id": {
+          "type": "string",
+          "description": "HTML id attribute for the switch"
+        }
+      }
+    }
+  }
+}
+

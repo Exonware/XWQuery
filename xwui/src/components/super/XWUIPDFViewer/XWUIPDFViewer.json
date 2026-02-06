@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwpdfviewer.schema.json",
+  "title": "XWUIPDFViewer Schema",
+  "description": "Schema for XWUIPDFViewer component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "showToolbar": {
+          "type": "boolean",
+          "description": "Whether to show the toolbar",
+          "default": true
+        },
+        "showThumbnails": {
+          "type": "boolean",
+          "description": "Whether to show page thumbnails",
+          "default": false
+        },
+        "showPageNumbers": {
+          "type": "boolean",
+          "description": "Whether to show page number input",
+          "default": true
+        },
+        "enableAnnotations": {
+          "type": "boolean",
+          "description": "Whether to enable annotations",
+          "default": false
+        },
+        "enableTextSelection": {
+          "type": "boolean",
+          "description": "Whether to enable text selection",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "pdfUrl": {
+          "type": "string",
+          "description": "URL of the PDF file to display"
+        },
+        "pdfData": {
+          "description": "PDF file data as ArrayBuffer or Uint8Array"
+        },
+        "currentPage": {
+          "type": "number",
+          "description": "Current page number",
+          "minimum": 1,
+          "default": 1
+        },
+        "totalPages": {
+          "type": "number",
+          "description": "Total number of pages (auto-set when PDF loads)",
+          "minimum": 1
+        },
+        "zoom": {
+          "type": "number",
+          "description": "Zoom level",
+          "default": 1,
+          "minimum": 0.5,
+          "maximum": 3
+        }
+      }
+    }
+  },
+  "id": "XWUIPDFViewer"
+}

@@ -1,0 +1,24 @@
+/* ============================================
+   RED ACCENT - Red palette
+   ============================================ */
+
+:root[data-accent="red"] {
+    /* Accent colors - Red palette */
+    --accent-primary: #ef4444;
+    --accent-hover: #dc2626;
+    --accent-light: #f87171;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 239, 68, 68;
+    --accent-hover-rgb: 220, 38, 38;
+    --accent-light-rgb: 248, 113, 113;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

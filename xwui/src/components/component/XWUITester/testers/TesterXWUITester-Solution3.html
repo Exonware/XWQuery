@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUITester - Solution 3: waitForReady() + Spinner</title>
+    <style>
+        /* Hide body until ready */
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        body.xwui-ready {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Loading overlay with spinner */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary, #ffffff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md, 1rem);
+            z-index: 10000;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        #loading-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .loading-text {
+            color: var(--text-secondary, #6c757d);
+            font-size: var(--font-size-base, 1rem);
+        }
+        
+        .timer-text {
+            color: var(--text-tertiary, #adb5bd);
+            font-size: var(--font-size-sm, 0.875rem);
+            margin-top: var(--spacing-xs, 0.5rem);
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-overlay">
+        <div id="spinner-container"></div>
+        <div class="loading-text">Loading components and styles...</div>
+        <div class="timer-text" id="timer-text">0.00s</div>
+    </div>
+    
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuitester-solution3-content">
+<div class="button-group">
+                <h3>Solution 3: waitForReady() + Spinner</h3>
+                <p>This solution:</p>
+                <ul style="margin-left: var(--spacing-md, 1rem);">
+                    <li>Hides the body with CSS</li>
+                    <li>Shows XWUISpinner in overlay</li>
+                    <li>Uses tester.waitForReady() method</li>
+                    <li>Waits for all stylesheets and style initialization</li>
+                    <li>Fades in when ready</li>
+                </ul>
+            </div>
+            
+            <div class="button-group">
+                <h3>Test Button Instances</h3>
+                <div class="button-row" id="button-test-area">
+                    <!-- Buttons will be added here -->
+                </div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUITester-Solution3.ts"></script>
+</body>
+</html>
+

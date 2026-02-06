@@ -1,0 +1,12 @@
+/* ============================================
+   OVERLAY - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    --radius-overlay: 12px;
+}
+
+/* Utility class for direct application */
+.radius-overlay-rounded {
+    border-radius: var(--radius-overlay, 12px) !important;
+}

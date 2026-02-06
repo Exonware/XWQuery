@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIStatistic",
+  "name": "XWUI Statistic Component",
+  "description": "Statistic display component for showing counts, metrics, and numerical data. Supports title, prefix, suffix, value formatting, precision, and custom styling. Useful for dashboards and data displays.",
+  "path": "display.statistic",
+  "tags": ["display", "statistic", "count", "metric", "number", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title text to display above the value"
+        },
+        "prefix": {
+          "description": "Prefix element or HTML string to display before value"
+        },
+        "suffix": {
+          "description": "Suffix element or HTML string to display after value"
+        },
+        "valueStyle": {
+          "type": "object",
+          "description": "Custom CSS styles for the value"
+        },
+        "precision": {
+          "type": "number",
+          "description": "Number of decimal places for numeric values"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the statistic"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "description": "Statistic value to display (number or string)"
+        },
+        "formatter": {
+          "description": "Custom formatter function (not serializable in JSON)"
+        }
+      }
+    }
+  }
+}
+

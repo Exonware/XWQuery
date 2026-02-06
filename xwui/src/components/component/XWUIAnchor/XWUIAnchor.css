@@ -1,0 +1,53 @@
+/**
+ * XWUIAnchor Component Styles
+ */
+
+.xwui-anchor-container {
+    /* Container has no specific styles */
+}
+
+.xwui-anchor {
+    /* Anchor navigation */
+}
+
+.xwui-anchor-affix {
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.xwui-anchor-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.xwui-anchor-item {
+    margin: 0;
+}
+
+.xwui-anchor-link {
+    display: block;
+    padding: var(--spacing-xs, 4px) var(--spacing-sm, 8px);
+    color: var(--text-secondary, #666);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.xwui-anchor-link:hover {
+    color: var(--accent-primary, #1890ff);
+    border-left-color: var(--accent-primary, #1890ff);
+}
+
+.xwui-anchor-link-active {
+    color: var(--accent-primary, #1890ff);
+    border-left-color: var(--accent-primary, #1890ff);
+    font-weight: var(--font-weight-medium, 500);
+}
+
+.xwui-anchor-list-nested {
+    padding-left: 16px;
+}
+

@@ -1,0 +1,22 @@
+/* ============================================
+   SLIDER - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Slider track/rail roundness */
+    --radius-slider-track: 9999px;
+    /* Fallback: --radius-control → --radius-full → 9999px */
+    
+    /* Slider thumb roundness */
+    --radius-slider-thumb: 50%;
+}
+
+/* Utility classes for direct application */
+.radius-slider-track-pill {
+    border-radius: var(--radius-slider-track, 9999px) !important;
+}
+
+.radius-slider-thumb-pill {
+    border-radius: var(--radius-slider-thumb, 50%) !important;
+}
+

@@ -1,0 +1,17 @@
+/* ============================================
+   MENU LINES - NO LINES
+   ============================================ */
+
+:root[data-lines="none"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-menu-width: var(--border-width-regular, 0px);
+    --border-menu-style: solid;
+    --border-menu-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-menu-none {
+    border-style: var(--border-menu-style, solid);
+    border-width: var(--border-menu-width, var(--border-width-regular, 0px));
+    border-color: var(--border-menu-color, var(--border-medium, var(--border-color)));
+}

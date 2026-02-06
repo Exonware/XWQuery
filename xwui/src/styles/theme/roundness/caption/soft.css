@@ -1,0 +1,14 @@
+/* ============================================
+   CAPTION - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-caption: 6px;
+    /* Fallback: --radius-text → --radius-xs → 6px */
+}
+
+/* Utility class for direct application */
+.radius-caption-soft {
+    border-radius: var(--radius-caption, 6px) !important;
+}

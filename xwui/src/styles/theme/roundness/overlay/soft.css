@@ -1,0 +1,12 @@
+/* ============================================
+   OVERLAY - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    --radius-overlay: 16px;
+}
+
+/* Utility class for direct application */
+.radius-overlay-soft {
+    border-radius: var(--radius-overlay, 16px) !important;
+}

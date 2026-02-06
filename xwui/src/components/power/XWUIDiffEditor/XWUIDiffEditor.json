@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwdiffeditor.schema.json",
+  "title": "XWUIDiffEditor Schema",
+  "description": "Schema for XWUIDiffEditor component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "side-by-side",
+            "inline"
+          ],
+          "description": "Diff display mode",
+          "default": "side-by-side"
+        },
+        "language": {
+          "type": "string",
+          "description": "Programming language for syntax highlighting",
+          "default": "plaintext"
+        },
+        "showLineNumbers": {
+          "type": "boolean",
+          "description": "Whether to show line numbers",
+          "default": true
+        },
+        "ignoreWhitespace": {
+          "type": "boolean",
+          "description": "Whether to ignore whitespace differences",
+          "default": false
+        },
+        "renderSideBySide": {
+          "type": "boolean",
+          "description": "Whether to render side-by-side (Monaco only)",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "original": {
+          "type": "string",
+          "description": "Original file content"
+        },
+        "modified": {
+          "type": "string",
+          "description": "Modified file content"
+        },
+        "originalFileName": {
+          "type": "string",
+          "description": "Original file name"
+        },
+        "modifiedFileName": {
+          "type": "string",
+          "description": "Modified file name"
+        }
+      }
+    }
+  },
+  "id": "XWUIDiffEditor"
+}

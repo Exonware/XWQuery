@@ -1,0 +1,21 @@
+# typescript.out.grammar
+# TypeScript Output Grammar - Template for generating TypeScript from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@program = {{#each statements}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@declaration = {{keyword}} {{name}}{{#if type}}: {{type}}{{/if}}{{#if value}} = {{value}}{{/if}};
+
+@type_annotation = : {{type}}
+
+@interface_decl = interface {{name}}{{#if extends}} extends {{extends}}{{/if}} {
+{{#each body}}{{value}}
+{{/each}}}
+
+@type_decl = type {{name}} = {{type}};
+
+@indent = 2
+@pretty = true
+

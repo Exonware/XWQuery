@@ -1,0 +1,13 @@
+/* ============================================
+   INPUT - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-input: 2px;
+}
+
+/* Utility class for direct application */
+.radius-input-minimal {
+    border-radius: var(--radius-input, 2px) !important;
+}

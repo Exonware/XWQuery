@@ -1,0 +1,33 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Navigation controls icon - shows compass/navigation arrows -->
+  <!-- Central compass -->
+  <circle cx="50" cy="50" r="35" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <circle cx="50" cy="50" r="25" class="xwui-icon-fill" fill="none" stroke-width="2"/>
+  
+  <!-- Navigation arrows -->
+  <!-- Up arrow -->
+  <path d="M 50 20 L 45 30 L 50 25 L 55 30 Z" class="xwui-icon-fill"/>
+  <!-- Right arrow -->
+  <path d="M 80 50 L 70 45 L 75 50 L 70 55 Z" class="xwui-icon-fill"/>
+  <!-- Down arrow -->
+  <path d="M 50 80 L 55 70 L 50 75 L 45 70 Z" class="xwui-icon-fill"/>
+  <!-- Left arrow -->
+  <path d="M 20 50 L 30 55 L 25 50 L 30 45 Z" class="xwui-icon-fill"/>
+  
+  <!-- Center point -->
+  <circle cx="50" cy="50" r="3" class="xwui-icon-fill"/>
+  
+  <!-- Zoom controls (top left and bottom right) -->
+  <circle cx="25" cy="25" r="8" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="1.5"/>
+  <line x1="25" y1="20" x2="25" y2="30" class="xwui-icon-fill" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="20" y1="25" x2="30" y2="25" class="xwui-icon-fill" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <circle cx="75" cy="75" r="8" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="1.5"/>
+  <line x1="70" y1="75" x2="80" y2="75" class="xwui-icon-fill" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+

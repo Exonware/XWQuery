@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUICarousel",
+  "name": "XWUI Carousel Component",
+  "description": "Carousel component for displaying images or content in a sliding container. Supports autoplay, navigation arrows, indicators, and looping. Useful for image galleries and content showcases.",
+  "path": "display.carousel",
+  "tags": ["display", "carousel", "slider", "gallery", "images", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "autoplay": {
+          "type": "boolean",
+          "description": "Whether the carousel should automatically advance slides",
+          "default": false
+        },
+        "interval": {
+          "type": "number",
+          "description": "Time in milliseconds between autoplay slide changes"
+        },
+        "showIndicators": {
+          "type": "boolean",
+          "description": "Whether to show slide indicators",
+          "default": true
+        },
+        "showArrows": {
+          "type": "boolean",
+          "description": "Whether to show navigation arrows",
+          "default": true
+        },
+        "loop": {
+          "type": "boolean",
+          "description": "Whether to loop back to the first slide after the last",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the carousel"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of carousel items to display",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the carousel item"
+              },
+              "content": {
+                "description": "Content element or HTML string for the carousel item"
+              },
+              "title": {
+                "type": "string",
+                "description": "Title for the carousel item"
+              },
+              "description": {
+                "type": "string",
+                "description": "Description for the carousel item"
+              }
+            },
+            "required": ["id", "content"]
+          }
+        }
+      },
+      "required": ["items"]
+    }
+  }
+}
+

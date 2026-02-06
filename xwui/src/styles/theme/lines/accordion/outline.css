@@ -1,0 +1,17 @@
+/* ============================================
+   ACCORDION LINES - OUTLINE LINES
+   ============================================ */
+
+:root[data-lines="outline"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-accordion-width: var(--border-width-regular, 2px);
+    --border-accordion-style: solid;
+    --border-accordion-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-accordion-outline {
+    border-style: var(--border-accordion-style, solid);
+    border-width: var(--border-accordion-width, var(--border-width-regular, 2px));
+    border-color: var(--border-accordion-color, var(--border-medium, var(--border-color)));
+}

@@ -1,0 +1,12 @@
+/* ============================================
+   DRACULA ICON COLORS - Vibrant dark theme with purple accents
+   ============================================ */
+
+:root[data-icons-colors="dracula"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #f8f8f2;        /* Primary fill color - light text */
+    --icons-color-secondary: #282a36;    /* Secondary/stroke color - dark bg */
+    --icons-color-accent: #6272a4;        /* Accent/rail/marks color - gray */
+    --icons-color-transparent: transparent;
+}
+

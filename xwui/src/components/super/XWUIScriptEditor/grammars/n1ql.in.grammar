@@ -1,0 +1,216 @@
+// N1QL Grammar for Lark
+// Couchbase N1QL (Non-first Query Language)
+// SQL for JSON documents
+
+?start: statement
+
+statement: select_stmt
+         | insert_stmt
+         | update_stmt
+         | delete_stmt
+         | upsert_stmt
+         | merge_stmt
+
+// SELECT with N1QL features
+select_stmt: SELECT select_list from_clause? [USE KEYS use_keys] where_clause? group_by_clause? having_clause? order_by_clause? limit_clause? offset_clause?
+
+select_list: RAW expression
+           | "*"
+           | select_item ("," select_item)*
+
+select_item: expression [AS? IDENTIFIER]
+
+// FROM with document/bucket references
+from_clause: FROM from_source (join_clause)*
+
+from_source: keyspace_ref [AS? IDENTIFIER]
+           | expression [AS? IDENTIFIER]
+
+keyspace_ref: IDENTIFIER (":" IDENTIFIER)? ("." IDENTIFIER)?  // namespace:bucket.scope.collection
+
+use_keys: "[" STRING ("," STRING)* "]"
+
+join_clause: join_type? JOIN keyspace_ref [AS? IDENTIFIER] ON expression
+
+join_type: INNER | LEFT OUTER? | RIGHT OUTER?
+
+// WHERE
+where_clause: WHERE expression
+
+// GROUP BY
+group_by_clause: GROUP BY expression ("," expression)* [LETTING letting_clause]
+
+letting_clause: IDENTIFIER "=" expression ("," IDENTIFIER "=" expression)*
+
+having_clause: HAVING expression
+
+// ORDER BY
+order_by_clause: ORDER BY order_item ("," order_item)*
+
+order_item: expression (ASC | DESC)?
+
+limit_clause: LIMIT NUMBER
+
+offset_clause: OFFSET NUMBER
+
+// INSERT
+insert_stmt: INSERT INTO keyspace_ref [VALUES] "(" STRING "," expression ")" ("," "(" STRING "," expression ")")*
+           | INSERT INTO keyspace_ref select_stmt
+
+// UPDATE with document paths
+update_stmt: UPDATE keyspace_ref [USE KEYS use_keys] SET set_clause ("," set_clause)* [UNSET unset_clause] where_clause?
+
+set_clause: path_expr "=" expression [update_for]
+
+unset_clause: path_expr ("," path_expr)*
+
+update_for: FOR IDENTIFIER IN expression (WHEN expression)? END
+
+// DELETE
+delete_stmt: DELETE FROM keyspace_ref [USE KEYS use_keys] where_clause?
+
+// UPSERT (INSERT or UPDATE)
+upsert_stmt: UPSERT INTO keyspace_ref [VALUES] "(" STRING "," expression ")" ("," "(" STRING "," expression ")")*
+           | UPSERT INTO keyspace_ref select_stmt
+
+// MERGE
+merge_stmt: MERGE INTO keyspace_ref USING from_source ON expression merge_actions
+
+merge_actions: (WHEN MATCHED THEN UPDATE SET set_clause)? (WHEN NOT MATCHED THEN INSERT "(" STRING "," expression ")")?
+
+// Path expressions (JSON navigation)
+path_expr: IDENTIFIER path_component*
+
+path_component: "." IDENTIFIER
+              | "[" expression "]"
+              | "[" "*" "]"
+              | "." "*"
+
+// Expressions
+expression: or_expr
+
+or_expr: and_expr (OR and_expr)*
+
+and_expr: not_expr (AND not_expr)*
+
+not_expr: NOT? comparison
+
+comparison: additive [compare_op additive]
+          | additive LIKE STRING
+          | additive IN value_list
+          | additive BETWEEN additive AND additive
+          | additive IS NULL
+          | additive IS NOT NULL
+          | additive IS MISSING
+          | additive IS NOT MISSING
+          | EXISTS "(" select_stmt ")"
+
+compare_op: "=" | "!=" | "<>" | "<" | ">" | "<=" | ">="
+
+additive: multiplicative (("+" | "-" | "||") multiplicative)*
+
+multiplicative: unary (("*" | "/" | "%") unary)*
+
+unary: ("+" | "-")? primary
+
+primary: literal
+       | path_expr
+       | function_call
+       | aggregate_func
+       | "(" expression ")"
+       | "(" select_stmt ")"
+       | array_literal
+       | object_literal
+
+function_call: IDENTIFIER "(" [arg_list] ")"
+
+aggregate_func: COUNT "(" ("*" | DISTINCT? expression) ")"
+              | SUM "(" DISTINCT? expression ")"
+              | AVG "(" DISTINCT? expression ")"
+              | MIN "(" expression ")"
+              | MAX "(" expression ")"
+              | ARRAY_AGG "(" expression ")"
+
+arg_list: expression ("," expression)*
+
+array_literal: "[" [expression ("," expression)*] "]"
+
+object_literal: "{" [object_pair ("," object_pair)*] "}"
+
+object_pair: (STRING | IDENTIFIER) ":" expression
+
+value_list: "(" expression ("," expression)* ")"
+
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+// Keywords
+SELECT: "SELECT"i
+RAW: "RAW"i
+FROM: "FROM"i
+WHERE: "WHERE"i
+INSERT: "INSERT"i
+INTO: "INTO"i
+UPDATE: "UPDATE"i
+DELETE: "DELETE"i
+UPSERT: "UPSERT"i
+MERGE: "MERGE"i
+SET: "SET"i
+UNSET: "UNSET"i
+VALUES: "VALUES"i
+USE: "USE"i
+KEYS: "KEYS"i
+AS: "AS"i
+AT: "AT"i
+BY: "BY"i
+AND: "AND"i
+OR: "OR"i
+NOT: "NOT"i
+IN: "IN"i
+LIKE: "LIKE"i
+BETWEEN: "BETWEEN"i
+IS: "IS"i
+MISSING: "MISSING"i
+EXISTS: "EXISTS"i
+JOIN: "JOIN"i
+ON: "ON"i
+USING: "USING"i
+INNER: "INNER"i
+LEFT: "LEFT"i
+RIGHT: "RIGHT"i
+OUTER: "OUTER"i
+GROUP: "GROUP"i
+LETTING: "LETTING"i
+HAVING: "HAVING"i
+ORDER: "ORDER"i
+ASC: "ASC"i
+DESC: "DESC"i
+LIMIT: "LIMIT"i
+OFFSET: "OFFSET"i
+DISTINCT: "DISTINCT"i
+COUNT: "COUNT"i
+SUM: "SUM"i
+AVG: "AVG"i
+MIN: "MIN"i
+MAX: "MAX"i
+ARRAY_AGG: "ARRAY_AGG"i
+FOR: "FOR"i
+WHEN: "WHEN"i
+THEN: "THEN"i
+END: "END"i
+MATCHED: "MATCHED"i
+NULL: "NULL"i
+
+BOOLEAN_LITERAL: "TRUE"i | "FALSE"i
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+%import common.CPP_COMMENT
+%import common.C_COMMENT
+%ignore CPP_COMMENT
+%ignore C_COMMENT
+

@@ -1,0 +1,18 @@
+# marshal.out.grammar
+# Marshal Output Grammar - Template for generating Python marshal from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@marshal_data = {{value}}
+
+@value = {{type_code}}{{value_data}}
+
+@type_code = {{value}}
+
+@value_data = {{value}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+@version = 4
+

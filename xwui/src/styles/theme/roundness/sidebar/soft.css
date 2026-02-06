@@ -1,0 +1,14 @@
+/* ============================================
+   SIDEBAR - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-sidebar: 12px;
+    /* Fallback: --radius-navigation → --radius-md → 12px */
+}
+
+/* Utility class for direct application */
+.radius-sidebar-soft {
+    border-radius: var(--radius-sidebar, 12px) !important;
+}

@@ -1,0 +1,99 @@
+{
+  "id": "wizard.user.onboarding",
+  "name": "User Onboarding",
+  "description": "Multi-step wizard for user onboarding process",
+  "path": "/onboarding",
+  "conf_comp": {
+    "pageType": "wizard",
+    "container": {
+      "maxWidth": "800px",
+      "center": true,
+      "padding": "2rem"
+    },
+    "layout": {
+      "regions": {
+        "header": true,
+        "main": true,
+        "footer": true
+      },
+      "grid": {
+        "rows": "auto 1fr auto",
+        "areas": "\"header\" \"main\" \"footer\""
+      }
+    }
+  },
+  "data": {
+    "title": "User Onboarding",
+    "subtitle": "Complete your profile setup",
+    "header": {
+      "component": "XWUISteps",
+      "region": "header",
+      "gridArea": "header",
+      "conf_comp": {
+        "variant": "outlined"
+      },
+      "data": {
+        "steps": [
+          { "label": "Account", "status": "completed" },
+          { "label": "Profile", "status": "active" },
+          { "label": "Preferences", "status": "pending" },
+          { "label": "Complete", "status": "pending" }
+        ],
+        "current": 1
+      }
+    },
+    "main": {
+      "component": "XWUIForm",
+      "region": "main",
+      "gridArea": "main",
+      "conf_comp": {
+        "variant": "outlined"
+      },
+      "data": {
+        "fields": [
+          {
+            "component": "XWUIInput",
+            "conf_comp": { "label": "First Name", "required": true },
+            "data": { "value": "" }
+          },
+          {
+            "component": "XWUIInput",
+            "conf_comp": { "label": "Last Name", "required": true },
+            "data": { "value": "" }
+          },
+          {
+            "component": "XWUIInput",
+            "conf_comp": { "label": "Bio", "type": "textarea" },
+            "data": { "value": "" }
+          }
+        ]
+      },
+      "targetId": "onboarding-form"
+    },
+    "footer": {
+      "component": "XWUIStack",
+      "region": "footer",
+      "gridArea": "footer",
+      "conf_comp": {
+        "direction": "row",
+        "gap": "1rem",
+        "justify": "space-between"
+      },
+      "data": {
+        "children": [
+          {
+            "component": "XWUIButton",
+            "conf_comp": { "variant": "outline" },
+            "data": { "text": "Back" }
+          },
+          {
+            "component": "XWUIButton",
+            "conf_comp": { "variant": "primary" },
+            "data": { "text": "Next" }
+          }
+        ]
+      }
+    }
+  }
+}
+

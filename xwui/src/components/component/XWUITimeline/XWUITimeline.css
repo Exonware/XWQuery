@@ -1,0 +1,392 @@
+/**
+ * XWUITimeline Component Styles - Production Quality
+ * 100% Styles System Integration
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Typography: theme/typography/*.css
+ */
+
+/* ============================================
+   TIMELINE ROOT (ul)
+   ============================================ */
+.xwui-timeline {
+    position: relative;
+    padding: var(--spacing-md, 1rem) 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+}
+
+/* ============================================
+   TIMELINE ITEM (li)
+   ============================================ */
+.xwui-timeline__item {
+    position: relative;
+    display: flex;
+    gap: var(--spacing-md, 1rem);
+    padding-bottom: var(--spacing-xl, 2rem);
+    align-items: flex-start;
+    min-height: 48px;
+}
+
+.xwui-timeline__item:last-child {
+    padding-bottom: 0;
+}
+
+/* Clickable item */
+.xwui-timeline__item[role="button"] {
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    border-radius: var(--radius-sm, 4px);
+    margin: 0 calc(var(--spacing-xs, 0.5rem) * -1);
+    padding-left: var(--spacing-xs, 0.5rem);
+    padding-right: var(--spacing-xs, 0.5rem);
+}
+
+.xwui-timeline__item[role="button"]:hover {
+    background-color: var(--bg-hover, rgba(0, 0, 0, 0.04));
+}
+
+.xwui-timeline__item[role="button"]:active {
+    transform: scale(0.98);
+    background-color: var(--bg-active, rgba(0, 0, 0, 0.08));
+}
+
+.xwui-timeline__item[role="button"]:focus-visible {
+    outline: var(--border-width-thick) solid var(--accent-primary, var(--control-active));
+    outline-offset: 2px;
+}
+
+/* ============================================
+   TIMELINE SEPARATOR (contains dot and connector)
+   ============================================ */
+.xwui-timeline__separator {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+/* ============================================
+   TIMELINE DOT
+   ============================================ */
+.xwui-timeline__dot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+/* Dot size variants */
+.xwui-timeline--dot-small .xwui-timeline__dot {
+    width: 16px;
+    height: 16px;
+}
+
+.xwui-timeline--dot-medium .xwui-timeline__dot {
+    width: 24px;
+    height: 24px;
+}
+
+.xwui-timeline--dot-large .xwui-timeline__dot {
+    width: 32px;
+    height: 32px;
+}
+
+/* Dot variants */
+.xwui-timeline__dot--filled {
+    background-color: var(--accent-primary, var(--control-active));
+    border: none;
+}
+
+.xwui-timeline__dot--outlined {
+    background-color: transparent;
+    border: var(--border-width-thick) solid var(--accent-primary, var(--control-active));
+}
+
+.xwui-timeline__dot--default {
+    background-color: transparent;
+    border: none;
+}
+
+/* Inner dot for filled/default variants */
+.xwui-timeline__dot-inner {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--text-inverse, #fff);
+}
+
+.xwui-timeline--dot-small .xwui-timeline__dot-inner {
+    width: 6px;
+    height: 6px;
+}
+
+.xwui-timeline--dot-large .xwui-timeline__dot-inner {
+    width: 10px;
+    height: 10px;
+}
+
+/* Dot with icon */
+.xwui-timeline__dot--with-icon {
+    font-size: 0.875em;
+    color: var(--text-inverse, #fff);
+}
+
+.xwui-timeline__dot--with-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Color variants - Filled */
+.xwui-timeline__dot--filled-primary {
+    background-color: var(--accent-primary, var(--control-active));
+}
+
+.xwui-timeline__dot--filled-secondary {
+    background-color: var(--accent-light, var(--accent-primary));
+}
+
+.xwui-timeline__dot--filled-success {
+    background-color: var(--accent-success);
+}
+
+.xwui-timeline__dot--filled-warning {
+    background-color: var(--accent-warning);
+}
+
+.xwui-timeline__dot--filled-error {
+    background-color: var(--accent-error);
+}
+
+.xwui-timeline__dot--filled-info {
+    background-color: var(--accent-primary, var(--control-active));
+}
+
+.xwui-timeline__dot--filled-grey {
+    background-color: var(--text-secondary, #666);
+}
+
+/* Color variants - Outlined */
+.xwui-timeline__dot--outlined.xwui-timeline__dot--color-primary {
+    border-color: var(--accent-primary, var(--control-active));
+}
+
+.xwui-timeline__dot--outlined.xwui-timeline__dot--color-secondary {
+    border-color: var(--accent-light, var(--accent-primary));
+}
+
+.xwui-timeline__dot--outlined.xwui-timeline__dot--color-success {
+    border-color: var(--accent-success);
+}
+
+.xwui-timeline__dot--outlined.xwui-timeline__dot--color-warning {
+    border-color: var(--accent-warning);
+}
+
+.xwui-timeline__dot--outlined.xwui-timeline__dot--color-error {
+    border-color: var(--accent-error);
+}
+
+.xwui-timeline__dot--outlined.xwui-timeline__dot--color-info {
+    border-color: var(--accent-primary, var(--control-active));
+}
+
+.xwui-timeline__dot--outlined.xwui-timeline__dot--color-grey {
+    border-color: var(--text-secondary, #666);
+}
+
+/* ============================================
+   TIMELINE CONNECTOR (line between items)
+   ============================================ */
+.xwui-timeline__connector {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: calc(100% - 8px);
+    background-color: var(--border-color, var(--control-border));
+    flex-shrink: 0;
+    margin-top: var(--spacing-xs, 0.5rem);
+}
+
+.xwui-timeline__item:last-child .xwui-timeline__connector {
+    display: none;
+}
+
+/* ============================================
+   TIMELINE CONTENT
+   ============================================ */
+.xwui-timeline__content {
+    flex: 1;
+    padding-top: 0.25rem;
+    min-width: 0; /* Prevent flex item overflow */
+}
+
+.xwui-timeline__date {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, var(--control-text-secondary));
+    margin-bottom: var(--spacing-xs, 0.5rem);
+    font-weight: var(--font-weight-medium, 500);
+}
+
+.xwui-timeline__title {
+    font-weight: var(--font-weight-semibold, 600);
+    font-size: var(--font-size-base, 0.9375rem);
+    color: var(--text-primary, var(--control-text));
+    margin-bottom: var(--spacing-xs, 0.5rem);
+    line-height: 1.4;
+}
+
+.xwui-timeline__description {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, var(--control-text-secondary));
+    line-height: 1.5;
+}
+
+/* ============================================
+   TIMELINE OPPOSITE CONTENT
+   ============================================ */
+.xwui-timeline__opposite-content {
+    flex: 1;
+    padding-top: 0.25rem;
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, var(--control-text-secondary));
+    text-align: right;
+}
+
+/* ============================================
+   POSITION VARIANTS
+   ============================================ */
+
+/* Left position (default) */
+.xwui-timeline--position-left .xwui-timeline__item {
+    flex-direction: row;
+}
+
+.xwui-timeline--position-left .xwui-timeline__opposite-content {
+    display: none;
+}
+
+/* Right position */
+.xwui-timeline--position-right .xwui-timeline__item {
+    flex-direction: row-reverse;
+}
+
+.xwui-timeline--position-right .xwui-timeline__content {
+    text-align: right;
+}
+
+.xwui-timeline--position-right .xwui-timeline__opposite-content {
+    display: none;
+}
+
+/* Alternate position */
+.xwui-timeline--position-alternate .xwui-timeline__item--position-left {
+    flex-direction: row;
+}
+
+.xwui-timeline--position-alternate .xwui-timeline__item--position-right {
+    flex-direction: row-reverse;
+}
+
+.xwui-timeline--position-alternate .xwui-timeline__item--position-right .xwui-timeline__content {
+    text-align: right;
+}
+
+/* Alternate reverse position */
+.xwui-timeline--position-alternate-reverse .xwui-timeline__item--position-left {
+    flex-direction: row-reverse;
+}
+
+.xwui-timeline--position-alternate-reverse .xwui-timeline__item--position-right {
+    flex-direction: row;
+}
+
+.xwui-timeline--position-alternate-reverse .xwui-timeline__item--position-left .xwui-timeline__content {
+    text-align: right;
+}
+
+/* Missing opposite content - adjust layout */
+.xwui-timeline__item--missing-opposite-content {
+    /* When opposite content is missing, content takes full width */
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+    .xwui-timeline__item {
+        flex-direction: row !important;
+    }
+    
+    .xwui-timeline__content {
+        text-align: left !important;
+    }
+    
+    .xwui-timeline__opposite-content {
+        display: none;
+    }
+    
+    .xwui-timeline--position-alternate .xwui-timeline__item,
+    .xwui-timeline--position-alternate-reverse .xwui-timeline__item {
+        flex-direction: row !important;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+.xwui-timeline__item[aria-hidden="true"] {
+    display: none;
+}
+
+/* Screen reader only */
+.xwui-timeline__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes xwui-timeline-item-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.xwui-timeline__item {
+    animation: xwui-timeline-item-fade-in 0.3s ease forwards;
+}
+
+/* ============================================
+   DARK MODE SUPPORT
+   ============================================ */
+/* Dark mode is automatically handled via theme/colors/{theme}.css files */
+/* Custom overrides can be added here if needed */
+

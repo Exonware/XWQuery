@@ -1,0 +1,230 @@
+/**
+ * XWUIInput Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/input/*.css (component-specific border widths)
+ * - Roundness: theme/roundness/input/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.375rem);
+}
+
+.xwui-input-full-width {
+    width: 100%;
+}
+
+/* Label */
+.xwui-input-label {
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-input-required {
+    color: var(--accent-error, #ef4444);
+}
+
+/* Input container */
+.xwui-input-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.5rem);
+    border-radius: var(--radius-input, var(--radius-md, 6px));
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+/* Outlined variant */
+.xwui-input-outlined .xwui-input-container {
+    border: var(--border-input-width, var(--border-width-regular, 1.5px)) var(--border-input-style, solid) var(--border-input-color, var(--border-color));
+    background: var(--bg-primary, #ffffff);
+}
+
+.xwui-input-outlined .xwui-input-container:hover {
+    border-color: var(--border-strong, #adb5bd);
+}
+
+.xwui-input-outlined .xwui-input-container.xwui-input-focused {
+    border-color: var(--accent-primary, #4f46e5);
+    box-shadow: var(--glow-input-focus, var(--shadow-xs));
+}
+
+/* Filled variant */
+.xwui-input-filled .xwui-input-container {
+    border: var(--border-input-width, var(--border-width-regular, 1.5px)) var(--border-input-style, solid) transparent;
+    background: var(--bg-secondary, #f8f9fa);
+}
+
+.xwui-input-filled .xwui-input-container:hover {
+    background: var(--bg-tertiary, #f1f3f5);
+}
+
+.xwui-input-filled .xwui-input-container.xwui-input-focused {
+    background: var(--bg-primary, #ffffff);
+    border-color: var(--accent-primary, #4f46e5);
+    box-shadow: var(--glow-input-focus, none);
+}
+
+/* Underlined variant */
+.xwui-input-underlined .xwui-input-container {
+    border: none;
+    border-bottom: var(--border-input-width, var(--border-width-thick, 2px)) var(--border-input-style, solid) var(--border-input-color, var(--border-color));
+    border-radius: 0;
+    background: transparent;
+}
+
+.xwui-input-underlined .xwui-input-container:hover {
+    border-bottom-color: var(--border-strong, #adb5bd);
+}
+
+.xwui-input-underlined .xwui-input-container.xwui-input-focused {
+    border-bottom-color: var(--accent-primary, #4f46e5);
+    box-shadow: var(--glow-input-focus, none);
+}
+
+/* Input element */
+.xwui-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: var(--font-input-family, var(--font-family-base, inherit));
+    color: var(--text-primary, #212529);
+    width: 100%;
+    min-width: 0;
+}
+
+.xwui-input::placeholder {
+    color: var(--text-tertiary, #adb5bd);
+}
+
+/* Size variants */
+.xwui-input-small .xwui-input-container {
+    padding: var(--spacing-xs, 0.375rem) var(--spacing-sm, 0.75rem);
+}
+
+.xwui-input-small .xwui-input {
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-input-medium .xwui-input-container {
+    padding: var(--spacing-sm, 0.625rem) var(--spacing-sm, 0.875rem);
+}
+
+.xwui-input-medium .xwui-input {
+    font-size: var(--font-size-base, 0.9375rem);
+}
+
+.xwui-input-large .xwui-input-container {
+    padding: var(--spacing-sm, 0.875rem) var(--spacing-md, 1rem);
+}
+
+.xwui-input-large .xwui-input {
+    font-size: var(--font-size-base, 1rem);
+}
+
+/* Prefix and suffix */
+.xwui-input-prefix,
+.xwui-input-suffix {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary, #6c757d);
+    flex-shrink: 0;
+}
+
+.xwui-input-prefix svg,
+.xwui-input-suffix svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Clear button */
+.xwui-input-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-tertiary, #adb5bd);
+    transition: color 0.2s;
+    flex-shrink: 0;
+}
+
+.xwui-input-clear:hover {
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-input-clear svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Password toggle */
+.xwui-input-password-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-tertiary, #adb5bd);
+    transition: color 0.2s;
+    flex-shrink: 0;
+}
+
+.xwui-input-password-toggle:hover {
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-input-password-toggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Helper text */
+.xwui-input-helper {
+    font-size: 0.75rem;
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-input-helper-error {
+    color: var(--accent-error, #ef4444);
+}
+
+/* Error state */
+.xwui-input-error .xwui-input-container {
+    border-color: var(--accent-error, #ef4444) !important;
+}
+
+.xwui-input-error .xwui-input-container.xwui-input-focused {
+    box-shadow: var(--glow-input-error, var(--shadow-xs));
+}
+
+.xwui-input-error .xwui-input-label {
+    color: var(--accent-error, #ef4444);
+}
+
+/* Disabled state */
+.xwui-input-disabled .xwui-input-container {
+    background: var(--bg-secondary, #f8f9fa);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.xwui-input-disabled .xwui-input {
+    cursor: not-allowed;
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

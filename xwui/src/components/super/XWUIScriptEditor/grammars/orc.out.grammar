@@ -1,0 +1,19 @@
+# orc.out.grammar
+# ORC Output Grammar - Template for generating ORC from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@orc_file = {{postscript}}{{footer}}{{metadata}}{{#each stripes}}{{value}}{{/each}}
+
+@postscript = {{value}}
+
+@footer = {{value}}
+
+@metadata = {{value}}
+
+@stripe = {{index_data}}{{row_data}}{{stripe_footer}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

@@ -1,0 +1,15 @@
+# nginx.out.grammar
+# Nginx Output Grammar - Template for generating Nginx config from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@config_file = {{#each directives}}{{value}}
+{{/each}}
+
+@directive = {{name}}{{#if arguments}} {{arguments}}{{/if}}{{#if block}} {
+{{#each directives}}{{value}}
+{{/each}}}{{else}};{{/if}}
+
+@indent = 4
+@pretty = true
+

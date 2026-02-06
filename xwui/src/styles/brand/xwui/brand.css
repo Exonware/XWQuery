@@ -1,0 +1,23 @@
+/* ============================================
+   XWUI BRAND - Brand colors, logos, and identity
+   @default: true
+   ============================================ */
+
+:root {
+    /* Brand name */
+    --brand-name: 'XWUI';
+    
+    /* Brand colors */
+    --brand-primary: #4f46e5;
+    --brand-secondary: #6366f1;
+    --brand-tertiary: #818cf8;
+    
+    /* Brand logo (can be overridden) */
+    --brand-logo-url: '';
+    --brand-logo-width: auto;
+    --brand-logo-height: auto;
+    
+    /* Brand icon set */
+    --brand-icon-set: 'xwui-icons';
+}
+

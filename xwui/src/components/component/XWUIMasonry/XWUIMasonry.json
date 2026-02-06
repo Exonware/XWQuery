@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-masonry.schema.json",
+  "title": "XWUIMasonry Schema",
+  "description": "Schema for XWUIMasonry component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "type": "number",
+          "description": "Number of columns (defaults to auto based on width)"
+        },
+        "columnWidth": {
+          "type": "number",
+          "description": "Fixed column width in pixels"
+        },
+        "gap": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "description": "Gap between items",
+          "default": "var(--spacing-md)"
+        },
+        "responsive": {
+          "type": "boolean",
+          "description": "Adjust columns based on container width",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Items to display in masonry layout",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "description": "HTMLElement"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    }
+  },
+  "id": "XWUIMasonry"
+}

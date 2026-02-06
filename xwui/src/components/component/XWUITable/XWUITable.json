@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "XWUITable",
+  "description": "Data table component with sorting, filtering, and row selection. Supports pagination, custom column rendering, column alignment, and various styling options (bordered, striped, hoverable).",
+  "meta": {
+    "input": {
+      "description": "Input data required for the component",
+      "rules": [
+        "Requires columns array with column definitions",
+        "Requires data array with row objects",
+        "Each column must have key (string) and title (string)",
+        "Optional dataIndex, width, align, sortable, render for each column",
+        "Data rows should match column keys or dataIndex values"
+      ],
+      "properties": {
+        "columns": {
+          "type": "array",
+          "description": "Array of column definitions",
+          "required": true,
+          "items": {
+            "type": "object",
+            "required": [
+              "key",
+              "title"
+            ],
+            "properties": {
+              "key": {
+                "type": "string",
+                "description": "Unique column key"
+              },
+              "title": {
+                "type": "string",
+                "description": "Column header title"
+              },
+              "dataIndex": {
+                "type": "string",
+                "description": "Data property name (defaults to key)"
+              },
+              "width": {
+                "type": "string",
+                "description": "Column width (CSS value)"
+              },
+              "align": {
+                "type": "string",
+                "enum": [
+                  "left",
+                  "center",
+                  "right"
+                ],
+                "description": "Text alignment"
+              },
+              "sortable": {
+                "type": "boolean",
+                "description": "Enable column sorting"
+              },
+              "render": {
+                "type": "function",
+                "description": "Custom render function (value, record, index) => HTMLElement | string"
+              }
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "description": "Array of row data objects",
+          "required": true,
+          "items": {
+            "type": "object",
+            "description": "Row data object matching column keys"
+          }
+        }
+      }
+    },
+    "output": {
+      "description": "Output produced by the component",
+      "rules": [
+        "Renders HTML table with header and body",
+        "Displays data rows based on columns configuration",
+        "Shows pagination controls if pagination is enabled",
+        "Applies sorting indicators on sortable columns",
+        "Highlights selected rows if selectable is true",
+        "Emits sort and select events"
+      ],
+      "properties": {
+        "tableElement": {
+          "type": "HTMLTableElement",
+          "description": "The rendered table DOM element"
+        },
+        "selectedRows": {
+          "type": "array",
+          "description": "Array of selected row indices"
+        },
+        "currentPage": {
+          "type": "number",
+          "description": "Current page number (if pagination enabled)"
+        }
+      }
+    },
+    "actions": {
+      "description": "User actions supported by the component",
+      "rules": [
+        "Clicking column header sorts by that column (if sortable)",
+        "Clicking row selects/deselects row (if selectable)",
+        "Pagination controls navigate between pages",
+        "onSort event fires when column is sorted",
+        "onSelect event fires when row selection changes",
+        "setData() updates table data",
+        "setPage() changes current page"
+      ],
+      "properties": {
+        "onSort": {
+          "type": "function",
+          "description": "Register callback for sort events"
+        },
+        "onSelect": {
+          "type": "function",
+          "description": "Register callback for selection events"
+        },
+        "setData": {
+          "type": "function",
+          "description": "Update table data"
+        },
+        "setPage": {
+          "type": "function",
+          "description": "Change current page"
+        },
+        "getSelectedRows": {
+          "type": "function",
+          "description": "Get array of selected row indices"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "bordered": {
+      "type": "boolean",
+      "default": false,
+      "description": "Add borders to table cells"
+    },
+    "striped": {
+      "type": "boolean",
+      "default": false,
+      "description": "Apply striped row styling"
+    },
+    "hoverable": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable row hover effects"
+    },
+    "size": {
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium",
+      "description": "Table size"
+    },
+    "selectable": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable row selection"
+    },
+    "pagination": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable pagination"
+    },
+    "pageSize": {
+      "type": "number",
+      "default": 10,
+      "description": "Number of rows per page"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS class name for the component"
+    }
+  },
+  "id": "XWUITable"
+}

@@ -1,0 +1,13 @@
+/* ============================================
+   CONTAINER - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-container: 0px;
+}
+
+/* Utility class for direct application */
+.radius-container-sharp {
+    border-radius: var(--radius-container, 0px) !important;
+}

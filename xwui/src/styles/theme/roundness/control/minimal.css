@@ -1,0 +1,12 @@
+/* ============================================
+   CONTROL - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    --radius-control: 2px;
+}
+
+/* Utility class for direct application */
+.radius-control-minimal {
+    border-radius: var(--radius-control, 2px) !important;
+}

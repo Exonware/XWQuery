@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIToggleGroup",
+  "name": "XWUI Toggle Group Component",
+  "description": "Group of toggle buttons component for selecting one or multiple options. Displays buttons that can be toggled on/off. Supports single and multiple selection modes, various variants and sizes. Uses XWUIButton components internally.",
+  "path": "input.togglegroup",
+  "tags": ["input", "toggle", "group", "buttons", "selection", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["default", "outlined"],
+          "description": "Visual variant of the toggle buttons",
+          "default": "default"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the toggle buttons",
+          "default": "medium"
+        },
+        "multiple": {
+          "type": "boolean",
+          "description": "Whether multiple items can be selected",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the toggle group"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of toggle group items",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the toggle item"
+              },
+              "label": {
+                "type": "string",
+                "description": "Label text for the toggle item"
+              },
+              "icon": {
+                "type": "string",
+                "description": "SVG icon HTML string for the toggle item"
+              },
+              "disabled": {
+                "type": "boolean",
+                "description": "Whether the toggle item is disabled"
+              }
+            },
+            "required": ["id", "label"]
+          }
+        },
+        "selected": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of selected item IDs"
+        }
+      },
+      "required": ["items"]
+    }
+  }
+}
+

@@ -1,0 +1,12 @@
+/* ============================================
+   OVERLAY - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    --radius-overlay: 4px;
+}
+
+/* Utility class for direct application */
+.radius-overlay-minimal {
+    border-radius: var(--radius-overlay, 4px) !important;
+}

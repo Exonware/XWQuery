@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIForm",
+  "name": "XWUI Form Component",
+  "description": "Form wrapper component with validation support. Provides consistent form layout (vertical, horizontal, inline), label width configuration, and form submission/reset handling. Useful for creating structured forms with multiple fields.",
+  "path": "form.form",
+  "tags": ["form", "validation", "layout", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "layout": {
+          "type": "string",
+          "enum": ["vertical", "horizontal", "inline"],
+          "description": "Layout orientation of form fields",
+          "default": "vertical"
+        },
+        "labelWidth": {
+          "type": "string",
+          "description": "Width of labels in horizontal layout (CSS value)"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of form fields",
+          "default": "medium"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the form"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "fields": {
+          "type": "array",
+          "description": "Array of form field definitions",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Field name for form submission"
+              },
+              "label": {
+                "type": "string",
+                "description": "Label text for the field"
+              },
+              "required": {
+                "type": "boolean",
+                "description": "Whether the field is required"
+              },
+              "component": {
+                "description": "Input component element for the field"
+              }
+            },
+            "required": ["name", "label"]
+          }
+        }
+      }
+    }
+  }
+}
+

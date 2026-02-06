@@ -1,0 +1,78 @@
+# HDF5 Metadata Example
+# HDF5 (Hierarchical Data Format version 5) is a binary format
+# This file represents HDF5 structure and metadata in text form
+
+HDF5 "sample.h5" {
+GROUP "/" {
+   DATASET "temperature" {
+      DATATYPE  H5T_IEEE_F64LE
+      DATASPACE  SIMPLE { ( 100, 200 ) / ( 100, 200 ) }
+      DATA {
+      [0,0]: 20.5, 21.0, 21.5, 22.0, 22.5
+      [0,5]: 23.0, 23.5, 24.0, 24.5, 25.0
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 7;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+         }
+         DATASPACE  SCALAR
+         DATA {
+         (0): "celsius"
+         }
+      }
+      ATTRIBUTE "description" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 20;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+         }
+         DATASPACE  SCALAR
+         DATA {
+         (0): "Temperature readings"
+         }
+      }
+   }
+   DATASET "pressure" {
+      DATATYPE  H5T_IEEE_F64LE
+      DATASPACE  SIMPLE { ( 100, 200 ) / ( 100, 200 ) }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 4;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+         }
+         DATASPACE  SCALAR
+         DATA {
+         (0): "Pa"
+         }
+      }
+   }
+   GROUP "metadata" {
+      ATTRIBUTE "author" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 10;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+         }
+         DATASPACE  SCALAR
+         DATA {
+         (0): "XWUI Team"
+         }
+      }
+      ATTRIBUTE "created" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 20;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+         }
+         DATASPACE  SCALAR
+         DATA {
+         (0): "2025-01-15T10:30:00Z"
+         }
+      }
+   }
+}
+}
+

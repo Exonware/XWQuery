@@ -1,0 +1,13 @@
+/* ============================================
+   CAPTION TYPOGRAPHY - NOTO
+   ============================================ */
+
+:root[data-font="noto"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-caption-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-caption-noto {
+    font-family: var(--font-caption-family, var(--font-family-base, sans-serif)) !important;
+}

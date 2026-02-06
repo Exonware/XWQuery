@@ -1,0 +1,37 @@
+/**
+ * XWUIStatistic Component Styles
+ */
+
+.xwui-statistic-container {
+    /* Container has no specific styles */
+}
+
+.xwui-statistic {
+    display: inline-block;
+}
+
+.xwui-statistic-title {
+    font-size: var(--font-size-sm, 14px);
+    color: var(--text-secondary, #666);
+    margin-bottom: var(--spacing-xs, 4px);
+}
+
+.xwui-statistic-content {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-xs, 4px);
+}
+
+.xwui-statistic-value {
+    font-size: 24px;
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #333);
+    line-height: 1;
+}
+
+.xwui-statistic-prefix,
+.xwui-statistic-suffix {
+    font-size: var(--font-size-base, 16px);
+    color: var(--text-secondary, #666);
+}
+

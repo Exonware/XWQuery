@@ -1,0 +1,17 @@
+/* ============================================
+   NAVIGATION LINES - SUBTLE LINES
+   ============================================ */
+
+:root[data-lines="subtle"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-navigation-width: var(--border-width-regular, 1px);
+    --border-navigation-style: solid;
+    --border-navigation-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-navigation-subtle {
+    border-style: var(--border-navigation-style, solid);
+    border-width: var(--border-navigation-width, var(--border-width-regular, 1px));
+    border-color: var(--border-navigation-color, var(--border-medium, var(--border-color)));
+}

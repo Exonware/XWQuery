@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIAlert",
+  "name": "XWUI Alert Component",
+  "description": "Alert message box component with variants (info, success, warning, error). Displays important messages to users with optional title, icon, close button, and action button.",
+  "path": "feedback.alerts",
+  "tags": ["feedback", "alert", "notification", "message", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "properties": {
+    "variant": {
+      "type": "string",
+      "enum": ["info", "success", "warning", "error"],
+      "default": "info",
+      "description": "Alert variant/style type"
+    },
+    "closable": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show close button to dismiss alert"
+    },
+    "showIcon": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show icon based on variant"
+    },
+    "bordered": {
+      "type": "boolean",
+      "default": false,
+      "description": "Add border to alert"
+    },
+    "filled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Use filled background style"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS class name for the component"
+    }
+  }
+}
+

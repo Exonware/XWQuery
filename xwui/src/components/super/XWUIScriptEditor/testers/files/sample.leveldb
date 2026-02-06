@@ -1,0 +1,35 @@
+# LevelDB Metadata Example
+# LevelDB is a binary key-value store
+# This file represents LevelDB structure and metadata in text form
+
+LevelDB Database Structure
+==========================
+
+Database: sample.leveldb
+Format version: 0
+Comparator: leveldb.BytewiseComparator
+
+Key-Value Pairs:
+----------------
+  - "user:1" -> {"id": 1, "name": "John Doe", "email": "john@example.com", "active": true}
+  - "user:2" -> {"id": 2, "name": "Jane Smith", "email": "jane@example.com", "active": true}
+  - "user:3" -> {"id": 3, "name": "Bob Johnson", "email": "bob@example.com", "active": false}
+  - "order:1" -> {"id": 1, "userId": 1, "total": 29.99, "status": "completed", "date": "2025-01-15T10:00:00Z"}
+  - "order:2" -> {"id": 2, "userId": 2, "total": 49.99, "status": "pending", "date": "2025-01-15T11:00:00Z"}
+  - "order:3" -> {"id": 3, "userId": 1, "total": 19.99, "status": "completed", "date": "2025-01-15T12:00:00Z"}
+  - "config:app" -> {"name": "Sample App", "version": "1.0.0", "environment": "production"}
+  - "config:database" -> {"host": "localhost", "port": 5432, "name": "sample_db"}
+
+Statistics:
+-----------
+  - Total keys: 8
+  - Total size: ~3 KB
+  - Last updated: 2025-01-15T10:30:00Z
+  - Compression: Snappy
+
+Metadata:
+---------
+  - Author: XWUI Team
+  - Created: 2025-01-15T10:30:00Z
+  - Description: Sample LevelDB database with user, order, and config data
+

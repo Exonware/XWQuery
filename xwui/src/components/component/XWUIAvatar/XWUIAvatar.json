@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIAvatar",
+  "name": "XWUI Avatar Component",
+  "description": "Avatar component for displaying user profile images with fallback to initials. Supports various sizes, shapes (circle/square), and status indicators (online, offline, away, busy).",
+  "path": "display.avatar",
+  "tags": ["display", "avatar", "profile", "user", "image", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["xs", "small", "medium", "large", "xl"],
+          "description": "Size of the avatar",
+          "default": "medium"
+        },
+        "shape": {
+          "type": "string",
+          "enum": ["circle", "square"],
+          "description": "Shape of the avatar",
+          "default": "circle"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["online", "offline", "away", "busy"],
+          "description": "Status indicator to display on the avatar"
+        },
+        "bordered": {
+          "type": "boolean",
+          "description": "Whether to show a border around the avatar",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the avatar"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "type": "string",
+          "description": "Image source URL for the avatar"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Alternative text for the avatar image"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name used to generate initials fallback"
+        },
+        "fallback": {
+          "type": "string",
+          "description": "Custom fallback text to display when image is not available"
+        }
+      }
+    }
+  }
+}
+

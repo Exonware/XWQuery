@@ -1,0 +1,12 @@
+/* ============================================
+   MEDIA - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    --radius-media: 24px;
+}
+
+/* Utility class for direct application */
+.radius-media-extra-rounded {
+    border-radius: var(--radius-media, 24px) !important;
+}

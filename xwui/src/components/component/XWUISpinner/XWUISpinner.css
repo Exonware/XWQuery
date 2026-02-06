@@ -1,0 +1,104 @@
+/**
+ * XWUISpinner Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-spinner {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-spinner-icon {
+    animation: xwui-spinner-rotate 0.75s linear infinite;
+}
+
+.xwui-spinner-icon svg {
+    display: block;
+}
+
+@keyframes xwui-spinner-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Size variants */
+.xwui-spinner-small .xwui-spinner-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.xwui-spinner-medium .xwui-spinner-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.xwui-spinner-large .xwui-spinner-icon svg {
+    width: 36px;
+    height: 36px;
+}
+
+/* Color variants */
+.xwui-spinner-primary .xwui-spinner-icon {
+    color: var(--accent-primary, #4f46e5);
+}
+
+.xwui-spinner-secondary .xwui-spinner-icon {
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-spinner-white .xwui-spinner-icon {
+    color: var(--text-inverse);
+}
+
+/* Label */
+.xwui-spinner-label {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-spinner-white .xwui-spinner-label {
+    color: var(--text-inverse);
+}
+
+/* Overlay mode */
+.xwui-spinner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-overlay, rgba(255, 255, 255, 0.8));
+    z-index: 100;
+}
+
+.xwui-spinner-blur {
+    backdrop-filter: blur(2px);
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+
+/* Container utility */
+.xwui-spinner-container {
+    position: relative;
+    min-height: 100px;
+}
+
+.xwui-spinner-container.xwui-spinner-loading > *:not(.xwui-spinner) {
+    opacity: 0.5;
+    pointer-events: none;
+}
+

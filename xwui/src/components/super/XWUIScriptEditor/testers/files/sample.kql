@@ -1,0 +1,73 @@
+// KQL (Kusto Query Language) Examples
+// Azure Data Explorer query language
+
+// Basic query
+Users
+| where Age > 25
+
+// Project columns
+Users
+| project Name, Email, Age
+
+// Filtering
+Events
+| where Timestamp >= ago(1h)
+| where Level == "Error"
+| where Message contains "timeout"
+
+// Aggregations
+Orders
+| summarize 
+    Count = count(),
+    Total = sum(Amount),
+    AvgAmount = avg(Amount),
+    MaxAmount = max(Amount),
+    MinAmount = min(Amount)
+    by Category
+
+// Time-based aggregations
+Events
+| where Timestamp >= ago(24h)
+| summarize count() by bin(Timestamp, 1h)
+
+// Joins
+Users
+| join (Orders | where Status == "Completed") on UserId
+| project UserName = Name, OrderTotal = Amount
+
+// Top N
+Orders
+| top 10 by Amount desc
+
+// Distinct
+Users
+| distinct City
+
+// Extend (add computed columns)
+Orders
+| extend DiscountedPrice = Price * 0.9
+| extend IsExpensive = Price > 100
+
+// Parse
+Events
+| parse Message with "Error: " ErrorType ": " ErrorMessage
+| project ErrorType, ErrorMessage
+
+// String operations
+Users
+| where Name startswith "John"
+| where Email contains "@example.com"
+| extend Domain = extract(@"@(.+)", 1, Email)
+
+// Time operations
+Events
+| where Timestamp between (ago(7d) .. ago(1d))
+| summarize count() by bin(Timestamp, 1d)
+
+// Complex queries
+Users
+| join (Orders | summarize TotalSpent = sum(Amount) by UserId) on $left.Id == $right.UserId
+| where TotalSpent > 1000
+| project Name, Email, TotalSpent
+| order by TotalSpent desc
+

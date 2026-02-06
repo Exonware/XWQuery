@@ -1,0 +1,53 @@
+﻿# logql.out.grammar
+# LogQL Output Grammar - Template for generating LogQL from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@query = {{value}}
+
+@log_query = {{selector}}{{#if pipeline}}{{pipeline}}{{/if}}
+
+@metric_query = {{function}}({{query}}){{#if range}}{{range}}{{/if}}
+
+@log_selector = {{{#each matchers}}{{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@label_matchers = {{#each matchers}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@label_matcher = {{name}}{{op}}{{value}}
+
+@label_name = {{value}}
+
+@label_value = {{value}}
+
+@log_pipeline = {{#each operators}}{{value}}{{/each}}
+
+@pipeline_operator = {{value}}
+
+@line_filter = {{#if contains}}|={{pattern}}{{else}}{{#if regex}}|~{{pattern}}{{else}}!~{{pattern}}{{/if}}{{/if}}
+
+@json_parser = | json
+
+@label_filter = | {{expression}}
+
+@agg_function = {{value}}
+
+@range_vector = [{{duration}}]
+
+@duration = {{value}}{{unit}}
+
+@time_unit = {{value}}
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} or {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} and {{/if}}{{/each}}
+
+@comparison = {{field}}{{#if op}} {{op}} {{value}}{{/if}}
+
+@field_ref = {{#each parts}}{{value}}{{#if !@last}}.{{/if}}{{/each}}
+
+@value = {{value}}
+
+@indent = 0
+@pretty = false

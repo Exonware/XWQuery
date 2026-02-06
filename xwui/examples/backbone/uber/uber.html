@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>XWUI – Uber-like (mobile)</title>
+  <link rel="stylesheet" href="../xwui-theme-examples.css">
+  <link rel="stylesheet" href="../xwui/XWUIButton/XWUIButton.css">
+  <link rel="stylesheet" href="../xwui/XWUIItem/XWUIItem.css">
+  <link rel="stylesheet" href="./uber.css">
+</head>
+<body>
+  <div class="uber-app">
+    <header class="uber-appbar">
+      <button type="button" class="uber-menu" aria-label="Menu">≡</button>
+      <h1 class="uber-title">Ride</h1>
+      <div class="uber-avatar" aria-hidden="true">JD</div>
+    </header>
+
+    <div class="uber-map" aria-hidden="true">Map area</div>
+
+    <div class="uber-bottom-sheet">
+      <div class="uber-where-to">
+        <div class="uber-row">
+          <span class="uber-dot pickup" aria-hidden="true"></span>
+          <input type="text" placeholder="Pickup" aria-label="Pickup location" value="Current location" readonly>
+        </div>
+        <div class="uber-row">
+          <span class="uber-dot drop" aria-hidden="true"></span>
+          <input type="text" placeholder="Where to?" aria-label="Destination">
+        </div>
+      </div>
+
+      <div class="uber-ride-types">
+        <div class="uber-ride-card" tabindex="0" role="button">
+          <span class="uber-ride-name">UberX</span>
+          <span class="uber-ride-price">$12–15</span>
+        </div>
+        <div class="uber-ride-card" tabindex="0" role="button">
+          <span class="uber-ride-name">Comfort</span>
+          <span class="uber-ride-price">$18–22</span>
+        </div>
+        <div class="uber-ride-card selected" tabindex="0" role="button">
+          <span class="uber-ride-name">Black</span>
+          <span class="uber-ride-price">$32–40</span>
+        </div>
+      </div>
+
+      <div class="uber-request-wrap">
+        <xwui-button text="Request ride" variant="primary" size="medium"></xwui-button>
+      </div>
+
+      <p class="uber-nav-hint"><a href="../index.html">← Back to button demo</a></p>
+    </div>
+  </div>
+  <script type="module" src="../xwui-button.mjs"></script>
+</body>
+</html>

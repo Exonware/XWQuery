@@ -1,0 +1,30 @@
+// hdf5.grammar
+// HDF5 Grammar - Hierarchical Data Format
+// Company: eXonware.com
+
+?start: hdf5_file
+
+hdf5_file: superblock object_header* data_object*
+
+superblock: signature version* file_space* object_header_address
+
+object_header: object_header_version object_header_size object_header_messages
+
+data_object: dataset | group | datatype | attribute
+
+dataset: object_header data_space data_type data_storage
+
+group: object_header group_messages
+
+datatype: object_header datatype_messages
+
+attribute: object_header attribute_messages
+
+// Terminals
+BYTE: /[\x00-\xFF]/
+INT: /[\x00-\xFF]{4,8}/
+
+%import common.WS
+
+%ignore WS
+

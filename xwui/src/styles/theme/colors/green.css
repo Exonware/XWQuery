@@ -1,0 +1,58 @@
+/* ============================================
+   GREEN COLOR THEME - Fresh green theme
+   ============================================ */
+
+:root[data-theme="green"] {
+    /* Background colors */
+    --bg-primary: #f0fdf4;
+    --bg-secondary: #dcfce7;
+    --bg-tertiary: #bbf7d0;
+    --bg-app: #f0fdf4;
+    --bg-elevated: #ffffff;
+    --bg-hover: #dcfce7;
+    --bg-active: #bbf7d0;
+    
+    /* Text colors */
+    --text-primary: #14532d;
+    --text-secondary: #16a34a;
+    --text-tertiary: #4ade80;
+    --text-inverse: #ffffff;
+    
+    /* Border colors */
+    --border-color: rgba(34, 197, 94, 0.2);
+    --border-light: rgba(34, 197, 94, 0.1);
+    --border-medium: rgba(34, 197, 94, 0.2);
+    --border-strong: rgba(34, 197, 94, 0.3);
+    
+    /* Control colors */
+    --control-bg: #ffffff;
+    --control-bg-hover: #dcfce7;
+    --control-bg-active: #bbf7d0;
+    --control-border: #86efac;
+    --control-text: #14532d;
+    --control-text-secondary: #16a34a;
+    --control-active: #22c55e;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #fbbf24;
+    --status-before-start-border: #f59e0b;
+    --status-before-start-hover: #f59e0b;
+    --status-processing: #16a34a;
+    --status-processing-border: #15803d;
+    --status-processing-hover: #15803d;
+    --status-processing-text: #ffffff;
+    --status-error: #ef4444;
+    --status-error-border: #dc2626;
+    --status-error-hover: #dc2626;
+    --status-error-text: #ffffff;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

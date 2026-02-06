@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUINav",
+  "name": "XWUI Navigation Component",
+  "description": "Navigation controls for viewports providing zoom, panning, rotation, and search functionality. Supports both 2D and 3D viewport modes with keyboard and touch controls.",
+  "path": "navigation.viewport",
+  "tags": ["navigation", "viewport", "zoom", "pan", "rotate", "search", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "viewportMode": {
+          "type": "string",
+          "enum": ["2d", "3d"],
+          "description": "Viewport mode: 2D or 3D navigation",
+          "default": "2d"
+        },
+        "enablePanning": {
+          "type": "boolean",
+          "description": "Enable panning controls",
+          "default": true
+        },
+        "enableZooming": {
+          "type": "boolean",
+          "description": "Enable zooming controls",
+          "default": true
+        },
+        "enableRotation": {
+          "type": "boolean",
+          "description": "Enable rotation controls",
+          "default": false
+        },
+        "enableSearch": {
+          "type": "boolean",
+          "description": "Enable search functionality",
+          "default": false
+        },
+        "enableKeyboard": {
+          "type": "boolean",
+          "description": "Enable keyboard shortcuts (arrow keys, +/- for zoom)",
+          "default": true
+        },
+        "enableTouch": {
+          "type": "boolean",
+          "description": "Enable touch gestures (pinch to zoom, drag to pan)",
+          "default": true
+        },
+        "showControls": {
+          "type": "boolean",
+          "description": "Show navigation control buttons",
+          "default": true
+        },
+        "controlsPosition": {
+          "type": "string",
+          "enum": ["top-left", "top-right", "bottom-left", "bottom-right"],
+          "description": "Position of navigation controls",
+          "default": "bottom-right"
+        },
+        "panStep": {
+          "type": "number",
+          "description": "Pan step size in pixels",
+          "default": 50
+        },
+        "zoomFactor": {
+          "type": "number",
+          "description": "Zoom factor multiplier",
+          "default": 1.2
+        },
+        "minZoom": {
+          "type": "number",
+          "description": "Minimum zoom level",
+          "default": 0.1
+        },
+        "maxZoom": {
+          "type": "number",
+          "description": "Maximum zoom level",
+          "default": 10
+        },
+        "rotationStep": {
+          "type": "number",
+          "description": "Rotation step in radians",
+          "default": 0.174533
+        },
+        "searchPlaceholder": {
+          "type": "string",
+          "description": "Placeholder text for search input",
+          "default": "Search..."
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {}
+    }
+  }
+}
+

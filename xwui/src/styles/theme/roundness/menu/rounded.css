@@ -1,0 +1,14 @@
+/* ============================================
+   MENU - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-menu: 8px;
+    /* Fallback: --radius-navigation → --radius-md → 8px */
+}
+
+/* Utility class for direct application */
+.radius-menu-rounded {
+    border-radius: var(--radius-menu, 8px) !important;
+}

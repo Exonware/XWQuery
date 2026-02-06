@@ -1,0 +1,38 @@
+// php.grammar
+// PHP Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: script
+
+script: statement*
+
+statement: namespace_declaration | use_declaration | class_declaration | function_declaration | expression_statement
+
+namespace_declaration: "namespace" [qualified_name] ";"
+
+use_declaration: "use" [qualified_name ["as" IDENTIFIER]] ";"
+
+class_declaration: [modifiers] "class" IDENTIFIER [extends_clause] [implements_clause] "{" class_member* "}"
+
+function_declaration: [modifiers] "function" IDENTIFIER "(" [parameter_list] ")" [return_type] "{" statement* "}"
+
+extends_clause: "extends" qualified_name
+
+implements_clause: "implements" qualified_name ("," qualified_name)*
+
+modifiers: modifier+
+
+modifier: "public" | "private" | "protected" | "static" | "abstract" | "final"
+
+qualified_name: IDENTIFIER ("\\" IDENTIFIER)*
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

@@ -1,0 +1,12 @@
+/* ============================================
+   ONE DARK ICON COLORS - Atom One Dark theme
+   ============================================ */
+
+:root[data-icons-colors="one-dark"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #abb2bf;        /* Primary fill color - light text */
+    --icons-color-secondary: #282c34;    /* Secondary/stroke color - dark bg */
+    --icons-color-accent: #5c6370;        /* Accent/rail/marks color - gray */
+    --icons-color-transparent: transparent;
+}
+

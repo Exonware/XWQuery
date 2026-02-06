@@ -1,0 +1,293 @@
+/**
+ * XWUIKanbanBoard Component Styles
+ */
+
+.xwui-kanban-board {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.xwui-kanban-board-container {
+    display: flex;
+    gap: var(--spacing-lg, 1.5rem);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: var(--spacing-md, 1rem);
+    flex: 1;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollbar styling for better visibility */
+.xwui-kanban-board-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.xwui-kanban-board-container::-webkit-scrollbar-track {
+    background: var(--bg-secondary, #f3f4f6);
+    border-radius: 4px;
+}
+
+.xwui-kanban-board-container::-webkit-scrollbar-thumb {
+    background: var(--border-color, #d1d5db);
+    border-radius: 4px;
+}
+
+.xwui-kanban-board-container::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary, #9ca3af);
+}
+
+.xwui-kanban-board-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 280px;
+    max-width: 320px;
+    width: 280px;
+    height: 100%;
+    background: transparent;
+    border-radius: var(--radius-md, 8px);
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.xwui-kanban-board-column-header {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm, 0.5rem) 0;
+    margin-bottom: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-kanban-board-column-title {
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+    font-size: var(--font-size-base, 1rem);
+    display: flex;
+    align-items: center;
+}
+
+.xwui-kanban-board-column-count {
+    font-weight: var(--font-weight-normal, 400);
+    color: var(--text-secondary, #6c757d);
+    font-size: var(--font-size-base, 1rem);
+}
+
+.xwui-kanban-board-add-button-container {
+    margin-bottom: var(--spacing-md, 1rem);
+}
+
+.xwui-kanban-board-add-button-container .xwui-button {
+    width: 100%;
+    justify-content: center;
+}
+
+.xwui-kanban-board-column-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: var(--spacing-xs, 0.25rem);
+    min-height: 0; /* Important for flex children to allow scrolling */
+}
+
+.xwui-kanban-board-column-cards-drag-over {
+    background: var(--bg-hover, rgba(79, 70, 229, 0.05));
+    border-radius: var(--radius-sm, 4px);
+}
+
+.xwui-kanban-board-card {
+    cursor: move;
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: var(--radius-md, 8px);
+    padding: var(--spacing-md, 1rem);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+}
+
+.xwui-kanban-board-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.xwui-kanban-board-card-dragging {
+    opacity: 0.5;
+    transform: rotate(2deg);
+}
+
+.xwui-kanban-board-card-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-kanban-board-card-priority {
+    position: absolute;
+    top: var(--spacing-xs, 0.25rem);
+    right: var(--spacing-xs, 0.25rem);
+    font-size: var(--font-size-lg, 1.125rem);
+    line-height: 1;
+    z-index: 1;
+}
+
+.xwui-kanban-board-card-priority-high {
+    color: var(--accent-error, #ef4444);
+}
+
+.xwui-kanban-board-card-priority-medium {
+    color: var(--accent-primary, #3b82f6);
+}
+
+.xwui-kanban-board-card-priority-low {
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-kanban-board-card-content {
+    display: flex;
+    gap: var(--spacing-sm, 0.5rem);
+    align-items: flex-start;
+}
+
+.xwui-kanban-board-card-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--bg-secondary, #f3f4f6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-size: var(--font-size-xs, 0.75rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-secondary, #6c757d);
+}
+
+.xwui-kanban-board-card-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.xwui-kanban-board-card-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+    min-width: 0;
+}
+
+.xwui-kanban-board-card-title {
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+    font-size: var(--font-size-sm, 0.875rem);
+    line-height: 1.4;
+}
+
+.xwui-kanban-board-card-description {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #6c757d);
+    line-height: 1.4;
+}
+
+.xwui-kanban-board-card-tags {
+    display: flex;
+    gap: var(--spacing-xs, 0.25rem);
+    margin-top: var(--spacing-xs, 0.25rem);
+    flex-wrap: wrap;
+}
+
+.xwui-kanban-board-card-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm, 4px);
+    font-size: var(--font-size-xs, 0.75rem);
+    font-weight: var(--font-weight-medium, 500);
+    background: var(--bg-secondary, #f3f4f6);
+    color: var(--text-secondary, #6c757d);
+    line-height: 1.4;
+}
+
+/* Tag color variations - can be customized */
+.xwui-kanban-board-card-tag[data-color="purple"] {
+    background: var(--color-tag-purple-bg, #f3e8ff);
+    color: var(--color-tag-purple-text, #9333ea);
+}
+
+.xwui-kanban-board-card-tag[data-color="green"] {
+    background: var(--color-tag-green-bg, #dcfce7);
+    color: var(--color-tag-green-text, #16a34a);
+}
+
+.xwui-kanban-board-card-tag[data-color="red"] {
+    background: var(--color-tag-red-bg, #fee2e2);
+    color: var(--color-tag-red-text, #dc2626);
+}
+
+.xwui-kanban-board-card-tag[data-color="orange"] {
+    background: var(--color-tag-orange-bg, #fed7aa);
+    color: var(--color-tag-orange-text, #ea580c);
+}
+
+.xwui-kanban-board-card-tag[data-color="grey"] {
+    background: var(--bg-secondary, #f3f4f6);
+    color: var(--text-secondary, #6b7280);
+}
+
+.xwui-kanban-board-card-tag[data-color="teal"] {
+    background: var(--color-tag-teal-bg, #ccfbf1);
+    color: var(--color-tag-teal-text, #0d9488);
+}
+
+.xwui-kanban-board-card-tag[data-color="pink"] {
+    background: var(--color-tag-pink-bg, #fce7f3);
+    color: var(--color-tag-pink-text, #db2777);
+}
+
+.xwui-kanban-board-card-date {
+    position: absolute;
+    bottom: var(--spacing-sm, 0.5rem);
+    right: var(--spacing-sm, 0.5rem);
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #6c757d);
+    font-weight: var(--font-weight-normal, 400);
+}
+
+.xwui-kanban-board-add-column-container {
+    min-width: 280px;
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+    padding-top: var(--spacing-sm, 0.5rem);
+    margin-left: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-kanban-board-add-column-container .xwui-button {
+    width: 100%;
+    justify-content: center;
+    border: 2px dashed var(--border-color, #d1d5db);
+    background: var(--bg-secondary, #f9fafb);
+    transition: all 0.2s ease;
+}
+
+.xwui-kanban-board-add-column-container .xwui-button:hover {
+    border-color: var(--accent-primary, #4f46e5);
+    background: var(--bg-hover, #f3f4f6);
+    border-style: solid;
+}
+
+.xwui-kanban-board-edit-form {
+    padding: var(--spacing-sm, 0.5rem) 0;
+}
+
+.xwui-kanban-board-edit-form > div {
+    width: 100%;
+}
+

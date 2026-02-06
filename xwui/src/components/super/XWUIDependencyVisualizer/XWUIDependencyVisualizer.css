@@ -1,0 +1,42 @@
+/**
+ * XWUIDependencyVisualizer Component Styles
+ */
+
+.xwui-dependency-visualizer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    width: 100%;
+    height: 100%;
+}
+
+.xwui-dependency-visualizer-controls {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--spacing-sm, 0.5rem);
+    background: var(--bg-secondary, #f8f9fa);
+    border-radius: var(--radius-md, 8px);
+}
+
+.xwui-dependency-visualizer-canvas {
+    flex: 1;
+    position: relative;
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-color, #dee2e6);
+    border-radius: var(--radius-md, 8px);
+    overflow: hidden;
+}
+
+.xwui-dependency-visualizer-node {
+    transition: transform 0.2s ease, stroke-width 0.2s ease;
+}
+
+.xwui-dependency-visualizer-node:hover {
+    transform: scale(1.1);
+    stroke-width: 3;
+}
+
+.xwui-dependency-visualizer-link {
+    pointer-events: none;
+}
+

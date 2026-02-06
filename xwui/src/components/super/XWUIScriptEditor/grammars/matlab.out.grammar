@@ -1,0 +1,15 @@
+# matlab.out.grammar
+# MATLAB Output Grammar - Template for generating MATLAB MAT from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@mat_file = {{header}}{{#each elements}}{{value}}{{/each}}
+
+@header = {{value}}
+
+@data_element = {{type}}{{size}}{{data}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

@@ -1,0 +1,45 @@
+# MessagePack Example
+# Note: MessagePack is binary, but this shows the logical structure
+# In actual MessagePack, this would be binary-encoded
+
+{
+  "name": "Sample MessagePack Document",
+  "version": "1.0.0",
+  "description": "Efficient binary serialization format",
+  "metadata": {
+    "author": "XWUI Team",
+    "created": "2025-01-15T10:30:00Z",
+    "tags": ["example", "messagepack", "binary"]
+  },
+  "configuration": {
+    "database": {
+      "host": "localhost",
+      "port": 5432,
+      "name": "example_db",
+      "ssl": true
+    }
+  },
+  "items": [
+    {
+      "id": 1,
+      "name": "First Item",
+      "active": true,
+      "price": 29.99,
+      "categories": ["electronics", "gadgets"]
+    },
+    {
+      "id": 2,
+      "name": "Second Item",
+      "active": false,
+      "price": 49.99,
+      "categories": ["books", "education"]
+    }
+  ],
+  "numbers": [1, 2, 3, 4, 5],
+  "floats": [1.1, 2.2, 3.3],
+  "booleans": [true, false, true],
+  "null_value": null
+}
+
+
+

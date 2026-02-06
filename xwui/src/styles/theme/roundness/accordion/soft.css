@@ -1,0 +1,14 @@
+/* ============================================
+   ACCORDION - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-accordion: 12px;
+    /* Fallback: --radius-content → --radius-md → 12px */
+}
+
+/* Utility class for direct application */
+.radius-accordion-soft {
+    border-radius: var(--radius-accordion, 12px) !important;
+}

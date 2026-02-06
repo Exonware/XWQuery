@@ -1,0 +1,2838 @@
+[
+  {
+    "name": "XWUIAccordion",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAccordion",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIActivityFilter",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIActivityFilter",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIAffix",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAffix",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIAlert",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAlert",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIAnchor",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAnchor",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIAppBar",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAppBar",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIApprovalWorkflow",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIApprovalWorkflow",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIAppShell",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAppShell",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIAspectRatio",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAspectRatio",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIAudioEditor",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAudioEditor",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIAudioPlayer",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAudioPlayer",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIAudioRecorder",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAudioRecorder",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIAutocomplete",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAutocomplete",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIAvatar",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAvatar",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIAvatarGroup",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIAvatarGroup",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIBackToTop",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIBackToTop",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIBadge",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIBadge",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIBottomNavigation",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIBottomNavigation",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIBottomSheet",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIBottomSheet",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIBox",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIBox",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIBreadcrumbs",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIBreadcrumbs",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIBulkActionBar",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIBulkActionBar",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIButton",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIButton",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIButtonGroup",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIButtonGroup",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUICalendar",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUICalendar",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUICard",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUICard",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUICarousel",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUICarousel",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUICascader",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUICascader",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUICenter",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUICenter",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIChangeDiffViewer",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIChangeDiffViewer",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIChannelList",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIChannelList",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIChart",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIChart",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIChatInput",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIChatInput",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUICheckbox",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUICheckbox",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIChip",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIChip",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUICodeBlock",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUICodeBlock",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUICollapse",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUICollapse",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIColorPicker",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIColorPicker",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUICommand",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUICommand",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIComponent",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIComponent",
+    "hasCSS": false,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "Missing CSS file",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIConsole",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIConsole",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIContainer",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIContainer",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIContextMenu",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIContextMenu",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUICopyButton",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUICopyButton",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIDataGrid",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDataGrid",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIDatePicker",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDatePicker",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIDateRangePicker",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDateRangePicker",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIDebugToolbar",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDebugToolbar",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIDependencyVisualizer",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDependencyVisualizer",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIDescriptionList",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDescriptionList",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIDiagram",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDiagram",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIDialog",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDialog",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIDiffEditor",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDiffEditor",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIDrawer",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDrawer",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIDropdownMenu",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDropdownMenu",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIDurationPicker",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDurationPicker",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIDynamicFieldRenderer",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIDynamicFieldRenderer",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIEmpty",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIEmpty",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIField",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIField",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIFilePreview",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIFilePreview",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIFilters",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIFilters",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIFlex",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIFlex",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIFocusTrap",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIFocusTrap",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIFollowIndicator",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIFollowIndicator",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIForm",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIForm",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIGalleryEditor",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIGalleryEditor",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIGalleryViewer",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIGalleryViewer",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIGanttChart",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIGanttChart",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIGrid",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIGrid",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIHidden",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIHidden",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIHoverCard",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIHoverCard",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIIcon",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIIcon",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIImage",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIImage",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIInput",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIInput",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIInputGroup",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIInputGroup",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIInputOTP",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIInputOTP",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIItem",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIItem",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIItemGroup",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIItemGroup",
+    "hasCSS": false,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "Missing CSS file",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIJsonInput",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIJsonInput",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIKanbanBoard",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIKanbanBoard",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIKbd",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIKbd",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUILabel",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUILabel",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIList",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIList",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUILocationInput",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUILocationInput",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIMap",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIMap",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIMasonry",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIMasonry",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIMediaQuery",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIMediaQuery",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIMentions",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIMentions",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIMenu",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIMenu",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIMenubar",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIMenubar",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIMessageBubble",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIMessageBubble",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIMilestoneMarker",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIMilestoneMarker",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIMultiSelect",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIMultiSelect",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUINativeSelect",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUINativeSelect",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUINavigationMenu",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUINavigationMenu",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUINavigationRail",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUINavigationRail",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIPagination",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIPagination",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIPasswordInput",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIPasswordInput",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIPDFViewer",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIPDFViewer",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIPhotoEditor",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIPhotoEditor",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIPivotTable",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIPivotTable",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIPopconfirm",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIPopconfirm",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIPopover",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIPopover",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIPortal",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIPortal",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIPortfolioDashboard",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIPortfolioDashboard",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIProgress",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIProgress",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIProgressBySubtasks",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIProgressBySubtasks",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIQRCode",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIQRCode",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIRadioGroup",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIRadioGroup",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIRangeSlider",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIRangeSlider",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIRating",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIRating",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIReactionSelector",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIReactionSelector",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIRecurrencePicker",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIRecurrencePicker",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIResizable",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIResizable",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIResizablePanel",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIResizablePanel",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIResourceAllocationChart",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIResourceAllocationChart",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIResult",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIResult",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIRichTextEditor",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIRichTextEditor",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIScriptEditor",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIScriptEditor",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIScrollArea",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIScrollArea",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIScrollTo",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIScrollTo",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISectionGrouping",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISectionGrouping",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISegmentedControl",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISegmentedControl",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISelect",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISelect",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISeparator",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISeparator",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISidebar",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISidebar",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISignaturePad",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISignaturePad",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUISkeleton",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISkeleton",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISkipLink",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISkipLink",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISlider",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISlider",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISortableList",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISortableList",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISpace",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISpace",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISpeedDial",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISpeedDial",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISpinner",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISpinner",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISplitButton",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISplitButton",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUISpoiler",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISpoiler",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISpreadsheet",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISpreadsheet",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIStack",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIStack",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIStatistic",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIStatistic",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISteps",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISteps",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIStickersOverlay",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIStickersOverlay",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIStyle",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIStyle",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIStyleSelector",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIStyleSelector",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUISubtaskExpander",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISubtaskExpander",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUISwitch",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUISwitch",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITable",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITable",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITabs",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITabs",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITaskTemplateSelector",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITaskTemplateSelector",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITester",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITester",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": false,
+    "hasTesterFiles": false,
+    "testersExtendXWUITester": false,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Missing testers folder",
+      "No tester HTML files found",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITextarea",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITextarea",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITextOverlay",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITextOverlay",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIThread",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIThread",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITimeline",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITimeline",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITimelineZoom",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITimelineZoom",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITimePicker",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITimePicker",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITimeTracker",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITimeTracker",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIToast",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIToast",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIToggleGroup",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIToggleGroup",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITooltip",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITooltip",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITour",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITour",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITransferList",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITransferList",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUITransition",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITransition",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITree",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITree",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITreeSelect",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITreeSelect",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUITypingIndicator",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITypingIndicator",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUITypography",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUITypography",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIUpload",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIUpload",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIVideoEditor",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIVideoEditor",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIVideoPlayer",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIVideoPlayer",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIVideoRecorder",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIVideoRecorder",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": true,
+    "issues": [
+      "CSS file missing styles.ts reference comment"
+    ]
+  },
+  {
+    "name": "XWUIVisuallyHidden",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIVisuallyHidden",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIWatermark",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIWatermark",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": false,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Missing schema.json file",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIWorkflow",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIWorkflow",
+    "hasCSS": true,
+    "cssHasStylesReference": true,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "Schema.json missing title/description for manifest generation"
+    ]
+  },
+  {
+    "name": "XWUIWorkloadView",
+    "path": "D:\\OneDrive\\DEV\\exonware\\xwui\\src\\components\\XWUIWorkloadView",
+    "hasCSS": true,
+    "cssHasStylesReference": false,
+    "hasSchema": true,
+    "extendsXWUIComponent": true,
+    "hasTestersFolder": true,
+    "hasTesterFiles": true,
+    "testersExtendXWUITester": true,
+    "schemaHasManifestInfo": false,
+    "issues": [
+      "CSS file missing styles.ts reference comment",
+      "Schema.json missing title/description for manifest generation"
+    ]
+  }
+]

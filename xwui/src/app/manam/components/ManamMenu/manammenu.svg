@@ -1,0 +1,31 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Content area (app screen) -->
+  <rect x="10" y="10" width="80" height="70" rx="3" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  
+  <!-- Bottom navigation bar -->
+  <rect x="10" y="80" width="80" height="20" rx="3" class="xwui-icon-fill"/>
+  
+  <!-- Menu items (left side) -->
+  <circle cx="25" cy="90" r="3" class="xwui-icon-accent"/>
+  <text x="25" y="97" font-family="Arial" font-size="5" text-anchor="middle" fill="var(--icons-color-accent, gray)">Dreams</text>
+  
+  <circle cx="45" cy="90" r="3" class="xwui-icon-accent"/>
+  <text x="45" y="97" font-family="Arial" font-size="5" text-anchor="middle" fill="var(--icons-color-accent, gray)">Recharge</text>
+  
+  <!-- Central prominent button (elevated) -->
+  <rect x="48" y="78" width="16" height="12" rx="4" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="1.5"/>
+  <text x="56" y="85" font-family="Arial" font-size="4" text-anchor="middle" font-weight="bold" fill="var(--icons-color-main, black)">+</text>
+  <text x="56" y="88" font-family="Arial" font-size="3.5" text-anchor="middle" fill="var(--icons-color-main, black)">New</text>
+  
+  <!-- Menu items (right side) -->
+  <circle cx="70" cy="90" r="3" class="xwui-icon-accent"/>
+  <text x="70" y="97" font-family="Arial" font-size="5" text-anchor="middle" fill="var(--icons-color-accent, gray)">Profile</text>
+  
+  <circle cx="85" cy="90" r="3" class="xwui-icon-accent"/>
+  <text x="85" y="97" font-family="Arial" font-size="5" text-anchor="middle" fill="var(--icons-color-accent, gray)">Settings</text>
+</svg>

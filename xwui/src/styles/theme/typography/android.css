@@ -1,0 +1,60 @@
+/* ============================================
+   ANDROID TYPOGRAPHY - Android font family
+   ============================================ */
+
+:root[data-font="android"],
+:root:not([data-font]) {
+    --font-family-base: /* Android Roboto fonts (with language variants) */
+        'Roboto', 'Roboto Condensed', 'Roboto Mono',
+        'Roboto Slab', 'Roboto Thin', 'Roboto Light', 'Roboto Medium',
+        'Roboto Black', 'Roboto Regular',
+        /* Arabic & Persian - Android native */
+        'Roboto Arabic', 'Noto Sans Arabic', 'Noto Naskh Arabic',
+        'Noto Kufi Arabic', 'Droid Arabic Naskh', 'Droid Arabic Kufi',
+        /* Hebrew - Android native */
+        'Roboto Hebrew', 'Noto Sans Hebrew', 'Droid Hebrew',
+        /* Chinese - Android native */
+        'Noto Sans SC', 'Noto Sans TC', 'Noto Sans HK',
+        'Source Han Sans SC', 'Source Han Sans TC', 'Source Han Sans HK',
+        'Droid Sans Fallback', 'WenQuanYi Micro Hei',
+        /* Japanese - Android native */
+        'Noto Sans JP', 'Noto Sans CJK JP', 'Source Han Sans JP',
+        'Droid Sans Japanese',
+        /* Korean - Android native */
+        'Noto Sans KR', 'Noto Sans CJK KR', 'Source Han Sans KR',
+        'Nanum Gothic', 'Nanum Myeongjo', 'Nanum Brush Script',
+        'Droid Sans Korean',
+        /* Thai - Android native */
+        'Noto Sans Thai', 'Noto Serif Thai', 'Sarabun',
+        'Droid Sans Thai',
+        /* Devanagari - Android native */
+        'Noto Sans Devanagari', 'Noto Serif Devanagari',
+        'Mukta', 'Poppins Devanagari',
+        /* Bengali - Android native */
+        'Noto Sans Bengali', 'Noto Serif Bengali',
+        /* Tamil - Android native */
+        'Noto Sans Tamil', 'Noto Serif Tamil',
+        /* Telugu - Android native */
+        'Noto Sans Telugu', 'Noto Serif Telugu',
+        /* Gujarati - Android native */
+        'Noto Sans Gujarati', 'Noto Serif Gujarati',
+        /* Kannada - Android native */
+        'Noto Sans Kannada', 'Noto Serif Kannada',
+        /* Malayalam - Android native */
+        'Noto Sans Malayalam', 'Noto Serif Malayalam',
+        /* Oriya - Android native */
+        'Noto Sans Oriya', 'Noto Serif Oriya',
+        /* Punjabi - Android native */
+        'Noto Sans Gurmukhi', 'Noto Serif Gurmukhi',
+        /* Cyrillic - Android native */
+        'Roboto Cyrillic', 'Noto Sans', 'Noto Sans Cyrillic',
+        /* Greek - Android native */
+        'Roboto Greek', 'Noto Sans Greek',
+        /* Vietnamese - Android native */
+        'Roboto Vietnamese', 'Noto Sans',
+        /* Fallback to system fonts */
+        system-ui, 'Segoe UI', Arial, sans-serif;
+    --font-family-mono: 'Roboto Mono', 'Droid Sans Mono', 'Courier New',
+        'Consolas', 'Liberation Mono', 'Noto Sans Mono', monospace;
+}
+

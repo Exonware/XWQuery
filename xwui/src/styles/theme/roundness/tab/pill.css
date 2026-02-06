@@ -1,0 +1,14 @@
+/* ============================================
+   TAB - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-tab: 12px;
+    /* Fallback: --radius-navigation → --radius-sm → 12px */
+}
+
+/* Utility class for direct application */
+.radius-tab-pill {
+    border-radius: var(--radius-tab, 12px) !important;
+}

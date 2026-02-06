@@ -1,0 +1,14 @@
+/* ============================================
+   MENU - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-menu: 6px;
+    /* Fallback: --radius-navigation → --radius-md → 6px */
+}
+
+/* Utility class for direct application */
+.radius-menu-subtle {
+    border-radius: var(--radius-menu, 6px) !important;
+}

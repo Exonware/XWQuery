@@ -1,0 +1,49 @@
+/* ============================================
+   GLASS STYLE - Shadow System with Backdrop Blur
+   Apple Liquid Glass / Glassmorphism effects
+   @requiresGlassUtilities: true
+   ============================================ */
+
+:root[data-style="glass"] {
+    /* Glass shadows - Soft, diffused, with transparency */
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+    --shadow-xl: 0 16px 48px 0 rgba(0, 0, 0, 0.3);
+    --shadow-2xl: 0 24px 64px 0 rgba(0, 0, 0, 0.35);
+    
+    /* Inner shadows for glass depth */
+    --shadow-inner: inset 0 1px 2px 0 rgba(255, 255, 255, 0.1);
+    --shadow-inner-strong: inset 0 2px 4px 0 rgba(255, 255, 255, 0.15);
+    
+    /* Glass-specific backdrop blur values */
+    --backdrop-blur-xs: blur(2px);
+    --backdrop-blur-sm: blur(4px);
+    --backdrop-blur-md: blur(8px);
+    --backdrop-blur-lg: blur(16px);
+    --backdrop-blur-xl: blur(24px);
+    --backdrop-blur-2xl: blur(40px);
+    
+    /* Glass opacity levels for backgrounds */
+    --glass-opacity-light: 0.3;
+    --glass-opacity-medium: 0.5;
+    --glass-opacity-heavy: 0.7;
+    --glass-opacity-ultra: 0.85;
+    
+    /* Glass border styles - subtle, semi-transparent */
+    --glass-border: 1px solid rgba(255, 255, 255, 0.18);
+    --glass-border-light: 1px solid rgba(255, 255, 255, 0.1);
+    --glass-border-medium: 1px solid rgba(255, 255, 255, 0.18);
+    --glass-border-strong: 1px solid rgba(255, 255, 255, 0.25);
+    --glass-border-dark: 1px solid rgba(0, 0, 0, 0.1);
+    
+    /* Glass background gradients */
+    --glass-bg-light: rgba(255, 255, 255, 0.1);
+    --glass-bg-medium: rgba(255, 255, 255, 0.2);
+    --glass-bg-heavy: rgba(255, 255, 255, 0.3);
+    --glass-bg-dark-light: rgba(0, 0, 0, 0.1);
+    --glass-bg-dark-medium: rgba(0, 0, 0, 0.2);
+    --glass-bg-dark-heavy: rgba(0, 0, 0, 0.3);
+}
+

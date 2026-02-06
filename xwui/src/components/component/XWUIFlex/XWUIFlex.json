@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIFlex",
+  "name": "XWUI Flex Component",
+  "description": "Flexbox layout container component for creating flexible layouts. Supports row and column directions, alignment options, justification, wrapping, and gap spacing. Useful for flexible responsive layouts.",
+  "path": "layout.flex",
+  "tags": ["layout", "flex", "flexbox", "responsive", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "type": "string",
+          "enum": ["row", "column"],
+          "description": "Flex direction",
+          "default": "row"
+        },
+        "align": {
+          "type": "string",
+          "enum": ["flex-start", "flex-end", "center", "stretch", "baseline"],
+          "description": "CSS align-items value"
+        },
+        "justify": {
+          "type": "string",
+          "enum": ["flex-start", "flex-end", "center", "space-between", "space-around", "space-evenly"],
+          "description": "CSS justify-content value"
+        },
+        "wrap": {
+          "type": "boolean",
+          "description": "Whether items should wrap",
+          "default": false
+        },
+        "gap": {
+          "description": "Gap between flex items (string or number)"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the flex container"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of items (strings or HTMLElements) to display in the flex container"
+        }
+      }
+    }
+  }
+}
+

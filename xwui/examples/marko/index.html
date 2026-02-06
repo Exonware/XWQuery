@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XWUI + Marko</title>
+  <link rel="stylesheet" href="xwui-theme-examples.css">
+  <link rel="stylesheet" href="xwui/XWUIButton/XWUIButton.css">
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 2rem; }
+    .buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+    xwui-button { display: inline-block; }
+  </style>
+</head>
+<body>
+  <h1>XWUI + Marko</h1>
+  <p>XWUIButton (Custom Element) – Marko (eBay) tag-based UI.</p>
+  <p><a href="uber/uber.html">Uber-like mobile demo →</a></p>
+  <div class="buttons">
+    <xwui-button text="Primary" variant="primary" size="medium"></xwui-button>
+    <xwui-button text="Success" variant="success" size="medium"></xwui-button>
+    <xwui-button text="Secondary" variant="secondary" size="medium"></xwui-button>
+  </div>
+  <script type="module" src="xwui-button.mjs"></script>
+</body>
+</html>

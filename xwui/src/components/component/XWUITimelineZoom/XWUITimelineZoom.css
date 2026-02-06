@@ -1,0 +1,54 @@
+/**
+ * XWUITimelineZoom Component Styles
+ */
+
+.xwui-timeline-zoom {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    width: 100%;
+}
+
+.xwui-timeline-zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md, 1rem);
+    padding: var(--spacing-sm, 0.5rem);
+    background: var(--bg-secondary, #f8f9fa);
+    border-radius: var(--radius-md, 8px);
+}
+
+.xwui-timeline-zoom-selector {
+    flex: 0 0 auto;
+}
+
+.xwui-timeline-zoom-calendar {
+    flex: 0 0 auto;
+}
+
+.xwui-timeline-zoom-navigation {
+    display: flex;
+    gap: var(--spacing-xs, 0.25rem);
+    margin-left: auto;
+}
+
+.xwui-timeline-zoom-nav-btn {
+    padding: var(--spacing-xs, 0.25rem) var(--spacing-sm, 0.5rem);
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-color, #dee2e6);
+    border-radius: var(--radius-md, 8px);
+    cursor: pointer;
+    font-size: var(--font-size-base, 1rem);
+    transition: all 0.2s ease;
+}
+
+.xwui-timeline-zoom-nav-btn:hover {
+    background: var(--bg-hover, #f8f9fa);
+    border-color: var(--accent-primary, #4f46e5);
+}
+
+.xwui-timeline-zoom-content {
+    flex: 1;
+    overflow: hidden;
+}
+

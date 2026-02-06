@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIBackdrop",
+  "name": "XWUI Backdrop Component",
+  "description": "Overlay backdrop component for modals, dialogs, and drawers. Provides a semi-transparent overlay that can be clicked to dismiss content.",
+  "path": "feedback.overlay",
+  "tags": ["feedback", "overlay", "backdrop", "modal", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "visible": {
+          "type": "boolean",
+          "description": "Whether the backdrop is visible",
+          "default": true
+        },
+        "invisible": {
+          "type": "boolean",
+          "description": "Whether the backdrop is transparent (invisible but still blocks interaction)",
+          "default": false
+        },
+        "onClick": {
+          "type": "object",
+          "description": "Click handler function (set programmatically, not via JSON)"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class names"
+        },
+        "zIndex": {
+          "type": "number",
+          "description": "CSS z-index value for the backdrop",
+          "default": 1000
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {}
+    }
+  }
+}
+

@@ -1,0 +1,71 @@
+/* ============================================
+   WINDOWS TYPOGRAPHY - Windows font family
+   ============================================ */
+
+:root[data-font="windows"],
+:root:not([data-font]) {
+    --font-family-base: /* Windows Segoe UI fonts (with language variants) */
+        'Segoe UI', 'Segoe UI Light', 'Segoe UI Semibold', 'Segoe UI Bold',
+        'Segoe UI Black', 'Segoe UI Semilight', 'Segoe UI Historic',
+        /* Arabic & Persian - Windows native */
+        'Segoe UI', 'Arabic UI Display', 'Arabic UI Text',
+        'Tahoma', 'Arial Unicode MS', 'Microsoft Sans Serif',
+        'Simplified Arabic', 'Traditional Arabic',
+        /* Hebrew - Windows native */
+        'Segoe UI', 'Hebrew UI Display', 'Hebrew UI Text',
+        'David', 'Miriam', 'Gisha', 'Arial Hebrew',
+        /* Chinese - Windows native */
+        'Microsoft YaHei', '微软雅黑', 'Microsoft YaHei UI',
+        'SimHei', '黑体', 'SimSun', '宋体', 'KaiTi', '楷体',
+        'FangSong', '仿宋', 'Microsoft JhengHei', '微軟正黑體',
+        'Microsoft JhengHei UI', 'PMingLiU', '新細明體',
+        'MingLiU', '細明體', 'DFKai-SB', '標楷體',
+        /* Japanese - Windows native */
+        'Yu Gothic', '游ゴシック', 'Yu Gothic UI', '游ゴシック UI',
+        'Meiryo', 'メイリオ', 'Meiryo UI', 'メイリオ UI',
+        'MS PGothic', 'MS PMincho', 'MS Gothic', 'MS Mincho',
+        'MS UI Gothic', 'MS UI Mincho',
+        /* Korean - Windows native */
+        'Malgun Gothic', '맑은 고딕', 'Malgun Gothic Semilight',
+        'Gulim', '굴림', 'Dotum', '돋움', 'Batang', '바탕',
+        'Gungsuh', '궁서', 'Nanum Gothic', '나눔고딕',
+        'Nanum Myeongjo', '나눔명조',
+        /* Thai - Windows native */
+        'Leelawadee UI', 'Leelawadee', 'Tahoma',
+        'Angsana New', 'AngsanaUPC', 'Browallia New',
+        'BrowalliaUPC', 'Cordia New', 'CordiaUPC',
+        'DilleniaUPC', 'EucrosiaUPC', 'FreesiaUPC',
+        'IrisUPC', 'JasmineUPC', 'KodchiangUPC',
+        'LilyUPC', 'MoolBoran', 'Sathu',
+        /* Devanagari - Windows native */
+        'Nirmala UI', 'Nirmala', 'Mangal',
+        'Utsaah', 'Aparajita', 'Kokila',
+        /* Bengali - Windows native */
+        'Vani', 'Shonar Bangla', 'Lohit Bengali',
+        /* Tamil - Windows native */
+        'Latha', 'Vijaya', 'Lohit Tamil',
+        /* Telugu - Windows native */
+        'Gautami', 'Pothana2000', 'Lohit Telugu',
+        /* Gujarati - Windows native */
+        'Shruti', 'Lohit Gujarati',
+        /* Kannada - Windows native */
+        'Tunga', 'Lohit Kannada',
+        /* Malayalam - Windows native */
+        'Kartika', 'Lohit Malayalam',
+        /* Oriya - Windows native */
+        'Kalinga', 'Lohit Oriya',
+        /* Punjabi - Windows native */
+        'Raavi', 'Lohit Punjabi',
+        /* Cyrillic - Windows native */
+        'Segoe UI', 'Segoe UI Cyrillic', 'Segoe UI Historic',
+        'Tahoma', 'Arial Unicode MS',
+        /* Greek - Windows native */
+        'Segoe UI', 'Segoe UI Greek', 'Tahoma',
+        /* Vietnamese - Windows native */
+        'Segoe UI', 'Segoe UI Vietnamese', 'Tahoma',
+        /* Fallback to system fonts */
+        system-ui, 'Helvetica Neue', Arial, sans-serif;
+    --font-family-mono: 'Consolas', 'Courier New', 'Lucida Console',
+        'Liberation Mono', 'Monaco', 'Menlo', monospace;
+}
+

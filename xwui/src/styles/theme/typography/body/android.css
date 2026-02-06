@@ -1,0 +1,13 @@
+/* ============================================
+   BODY TYPOGRAPHY - ANDROID
+   ============================================ */
+
+:root[data-font="android"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-body-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-body-android {
+    font-family: var(--font-body-family, var(--font-family-base, sans-serif)) !important;
+}

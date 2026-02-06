@@ -1,0 +1,14 @@
+/* ============================================
+   TABLE - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-table: 6px;
+    /* Fallback: --radius-content → --radius-xs → 6px */
+}
+
+/* Utility class for direct application */
+.radius-table-soft {
+    border-radius: var(--radius-table, 6px) !important;
+}

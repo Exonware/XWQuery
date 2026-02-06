@@ -1,0 +1,61 @@
+/**
+ * Console Component - Structural Styles Only
+ * Colors and theming are in theme_*.css files
+ */
+
+.console-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    transition: background-color 0.3s ease;
+}
+
+.console-title {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 16px 20px 12px;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid;
+}
+
+.console-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+
+#consoleMessages {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.console-message {
+    padding: 6px 8px;
+    border-radius: 4px;
+    word-wrap: break-word;
+    line-height: 1.4;
+}
+
+.console-info {
+    background: transparent;
+}
+
+.console-success {
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.console-warning {
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.console-error {
+    background: rgba(239, 68, 68, 0.1);
+}

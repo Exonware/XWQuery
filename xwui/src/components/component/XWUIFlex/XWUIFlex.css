@@ -1,0 +1,16 @@
+/**
+ * XWUIFlex Component Styles
+ */
+
+.xwui-flex-wrapper {
+    /* Wrapper has no specific styles */
+}
+
+.xwui-flex {
+    box-sizing: border-box;
+}
+
+.xwui-flex-item {
+    /* Item inherits flex properties */
+}
+

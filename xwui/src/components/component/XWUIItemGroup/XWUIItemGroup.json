@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIItemGroup",
+  "name": "XWUI Item Group Component",
+  "description": "Container component for multiple XWUIItems that handles lists and trees of items. Supports collapsible lists, inline grids, various flow types (list, table, free, grid), and item interaction handlers. Uses XWUIItem components internally.",
+  "path": "display.itemgroup",
+  "tags": ["display", "item-group", "list", "tree", "items", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of item configurations (ItemConfig objects)"
+        },
+        "language": {
+          "type": "object",
+          "description": "Language/translation object"
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["ltr", "rtl"],
+          "description": "Text direction"
+        },
+        "isCollapsed": {
+          "type": "boolean",
+          "description": "Whether the group is initially collapsed"
+        },
+        "highlightedItem": {
+          "type": "string",
+          "description": "ID of the currently highlighted item"
+        },
+        "onItemClick": {
+          "description": "Click handler function (not serializable in JSON)"
+        },
+        "onItemRightClick": {
+          "description": "Right-click handler function (not serializable in JSON)"
+        },
+        "onItemAction": {
+          "description": "Action handler function (not serializable in JSON)"
+        },
+        "group_type": {
+          "type": "string",
+          "enum": ["collapsible_list", "inline_grid"],
+          "description": "Type of item group"
+        },
+        "group_flow": {
+          "type": "string",
+          "enum": ["list", "table", "free", "grid"],
+          "description": "Flow/layout type for items"
+        },
+        "group_axis": {
+          "type": "string",
+          "enum": ["v", "h"],
+          "description": "Primary axis direction (vertical or horizontal)"
+        },
+        "group_stops": {
+          "type": "boolean",
+          "description": "Whether to show stops/separators between items"
+        },
+        "allow_v_scroll": {
+          "type": "boolean",
+          "description": "Whether to allow vertical scrolling"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the item group"
+        }
+      },
+      "required": ["items"]
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of item configurations (ItemConfig objects)"
+        }
+      }
+    }
+  }
+}
+

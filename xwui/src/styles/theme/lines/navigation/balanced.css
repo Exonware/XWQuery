@@ -1,0 +1,17 @@
+/* ============================================
+   NAVIGATION LINES - BALANCED LINES
+   ============================================ */
+
+:root[data-lines="balanced"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-navigation-width: var(--border-width-regular, 1.5px);
+    --border-navigation-style: solid;
+    --border-navigation-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-navigation-balanced {
+    border-style: var(--border-navigation-style, solid);
+    border-width: var(--border-navigation-width, var(--border-width-regular, 1.5px));
+    border-color: var(--border-navigation-color, var(--border-medium, var(--border-color)));
+}

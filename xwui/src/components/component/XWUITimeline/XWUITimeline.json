@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUITimeline",
+  "name": "XWUI Timeline Component",
+  "description": "Production-quality vertical timeline component for displaying chronological events. Supports left, right, alternate, and alternate-reverse positioning modes, theme colors, custom icons, opposite content, ARIA attributes, animations, and full accessibility. Useful for activity feeds, history, event displays, and chronological data visualization.",
+  "path": "display.timeline",
+  "tags": ["display", "timeline", "events", "history", "chronological", "desktop", "mobile", "tablet", "accessibility", "aria"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "type": "string",
+          "enum": ["left", "right", "alternate", "alternate-reverse"],
+          "description": "Layout position of timeline items. 'left' positions all items on the left, 'right' on the right, 'alternate' alternates starting from left, 'alternate-reverse' alternates starting from right",
+          "default": "left"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the timeline root element"
+        },
+        "ariaLabel": {
+          "type": "string",
+          "description": "ARIA label for the timeline list for screen readers"
+        },
+        "ariaLabelledBy": {
+          "type": "string",
+          "description": "ID of element that labels the timeline for screen readers"
+        },
+        "animateOnRender": {
+          "type": "boolean",
+          "description": "Whether to animate items when timeline is rendered",
+          "default": false
+        },
+        "animationDuration": {
+          "type": "number",
+          "description": "Animation duration in milliseconds",
+          "default": 300,
+          "minimum": 0
+        },
+        "dotSize": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the timeline dot markers",
+          "default": "medium"
+        },
+        "connectorWidth": {
+          "type": "number",
+          "description": "Width of the connector line between items in pixels",
+          "minimum": 1
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of timeline items to display",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the timeline item (required)"
+              },
+              "title": {
+                "type": "string",
+                "description": "Title text for the timeline item (required)"
+              },
+              "description": {
+                "type": "string",
+                "description": "Description text for the timeline item"
+              },
+              "date": {
+                "type": "string",
+                "description": "Date string displayed above the title"
+              },
+              "oppositeContent": {
+                "type": "string",
+                "description": "Content displayed on the opposite side (for alternate modes)"
+              },
+              "icon": {
+                "description": "Icon for the timeline dot. Can be SVG HTML string or HTMLElement",
+                "oneOf": [
+                  { "type": "string" },
+                  { "type": "object" }
+                ]
+              },
+              "color": {
+                "type": "string",
+                "description": "Color for the timeline dot. Can be theme color ('primary', 'secondary', 'success', 'warning', 'error', 'info', 'grey') or custom color string (hex, rgb, etc.)",
+                "enum": ["primary", "secondary", "success", "warning", "error", "info", "grey"]
+              },
+              "dotVariant": {
+                "type": "string",
+                "enum": ["filled", "outlined", "default"],
+                "description": "Visual variant of the timeline dot",
+                "default": "filled"
+              },
+              "ariaLabel": {
+                "type": "string",
+                "description": "ARIA label for this timeline item for screen readers"
+              },
+              "ariaDescribedBy": {
+                "type": "string",
+                "description": "ID of element that describes this timeline item"
+              },
+              "className": {
+                "type": "string",
+                "description": "Additional CSS class name for this timeline item"
+              },
+              "onClick": {
+                "description": "Click handler function for this timeline item (not serializable in JSON)"
+              }
+            },
+            "required": ["id", "title"]
+          }
+        }
+      },
+      "required": ["items"]
+    }
+  }
+}
+

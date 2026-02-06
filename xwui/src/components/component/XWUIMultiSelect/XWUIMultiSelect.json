@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIMultiSelect",
+  "name": "XWUI Multi Select Component",
+  "description": "Multi-select dropdown component for selecting multiple options. Wraps XWUISelect with multiple selection mode enabled. Displays selected options as tags/chips with optional max tag count and custom tag rendering. Uses XWUISelect and XWUIChip internally.",
+  "path": "input.multiselect",
+  "tags": ["input", "select", "multi-select", "dropdown", "tags", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "maxTagCount": {
+          "type": "number",
+          "description": "Maximum number of tags to display before showing '+N' indicator"
+        },
+        "tagRender": {
+          "description": "Custom function to render tags (not serializable in JSON)"
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Placeholder text for the select"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the select"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the multi-select"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "Array of selected option values",
+          "items": {
+            "description": "Option value (string or number)"
+          }
+        },
+        "options": {
+          "type": "array",
+          "description": "Array of select options",
+          "items": {
+            "description": "XWUISelectOption (see XWUISelect schema for structure)"
+          }
+        }
+      }
+    }
+  }
+}
+

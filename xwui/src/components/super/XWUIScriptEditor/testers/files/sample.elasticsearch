@@ -1,0 +1,136 @@
+// Elasticsearch Query DSL Examples
+
+// Index a document
+PUT /documents/_doc/1
+{
+  "name": "Sample Elasticsearch Document",
+  "version": "1.0.0",
+  "description": "Elasticsearch query examples",
+  "metadata": {
+    "author": "XWUI Team",
+    "created": "2025-01-15T10:30:00Z",
+    "tags": ["example", "elasticsearch", "search"]
+  },
+  "items": [
+    {
+      "id": 1,
+      "name": "First Item",
+      "active": true,
+      "price": 29.99,
+      "categories": ["electronics", "gadgets"]
+    },
+    {
+      "id": 2,
+      "name": "Second Item",
+      "active": false,
+      "price": 49.99,
+      "categories": ["books", "education"]
+    }
+  ]
+}
+
+// Match query
+GET /documents/_search
+{
+  "query": {
+    "match": {
+      "name": "Sample Elasticsearch"
+    }
+  }
+}
+
+// Term query
+GET /documents/_search
+{
+  "query": {
+    "term": {
+      "version": "1.0.0"
+    }
+  }
+}
+
+// Bool query with filters
+GET /documents/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match": { "name": "Sample" } }
+      ],
+      "filter": [
+        { "term": { "metadata.tags": "example" } },
+        { "range": { "items.price": { "gte": 20, "lte": 50 } } }
+      ],
+      "must_not": [
+        { "term": { "items.active": false } }
+      ]
+    }
+  }
+}
+
+// Aggregations
+GET /documents/_search
+{
+  "size": 0,
+  "aggs": {
+    "avg_price": {
+      "avg": {
+        "field": "items.price"
+      }
+    },
+    "price_ranges": {
+      "range": {
+        "field": "items.price",
+        "ranges": [
+          { "to": 20 },
+          { "from": 20, "to": 50 },
+          { "from": 50 }
+        ]
+      }
+    },
+    "categories": {
+      "terms": {
+        "field": "items.categories.keyword",
+        "size": 10
+      }
+    }
+  }
+}
+
+// Full-text search
+GET /documents/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "sample document",
+      "fields": ["name^2", "description"]
+    }
+  },
+  "highlight": {
+    "fields": {
+      "name": {},
+      "description": {}
+    }
+  }
+}
+
+// Nested query
+GET /documents/_search
+{
+  "query": {
+    "nested": {
+      "path": "items",
+      "query": {
+        "bool": {
+          "must": [
+            { "term": { "items.active": true } },
+            { "range": { "items.price": { "gte": 20 } } }
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+

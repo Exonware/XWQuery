@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIPortal",
+  "name": "XWUI Portal Component",
+  "description": "Portal component that renders children into a DOM node outside the component hierarchy. Useful for modals, tooltips, and dropdowns that need to escape parent containers with overflow or z-index constraints.",
+  "path": "layout.portal",
+  "tags": ["layout", "portal", "render", "dom", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "container": {
+          "description": "Target container element or selector string. If not provided, creates a new container in document.body"
+        },
+        "disablePortal": {
+          "type": "boolean",
+          "description": "Skip portal rendering and render in place",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the portal container"
+        },
+        "zIndex": {
+          "type": "number",
+          "description": "Z-index for the portal container"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Content element or HTML string to render in the portal"
+        },
+        "children": {
+          "description": "Children element or HTML string to render in the portal (alias for content)"
+        }
+      }
+    }
+  }
+}
+

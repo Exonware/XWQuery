@@ -1,0 +1,12 @@
+/* ============================================
+   MEDIA - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    --radius-media: 8px;
+}
+
+/* Utility class for direct application */
+.radius-media-rounded {
+    border-radius: var(--radius-media, 8px) !important;
+}

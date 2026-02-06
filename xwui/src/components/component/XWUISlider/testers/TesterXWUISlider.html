@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUISlider Component Tester - Comprehensive</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    <link rel="stylesheet" href="../../../styles/theme/roundness/slider/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+    <style>
+        .test-section {
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            background: var(--color-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+        }
+        
+        .test-section h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+            font-size: var(--font-size-lg);
+        }
+        
+        .test-section h4 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-text);
+            font-size: var(--font-size-base);
+        }
+        
+        .slider-demo {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--color-surface-elevated);
+            border-radius: var(--radius-sm);
+        }
+        
+        .slider-demo label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text-secondary);
+        }
+        
+        .icon-demo {
+            display: inline-block;
+            margin: 0 0.5rem;
+            vertical-align: middle;
+        }
+        
+        .horizontal-group {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        
+        .vertical-demo-container {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .vertical-slider-wrapper {
+            height: 250px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .controls-panel {
+            background: var(--color-surface-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            margin-top: 1rem;
+        }
+        
+        .controls-panel button {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+        }
+        
+        .controls-panel button:hover {
+            background: var(--color-primary-hover);
+        }
+        
+        .info-text {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-secondary);
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuislider-content">
+<!-- Basic Slider -->
+            <div class="test-section">
+                <h3>Basic Slider</h3>
+                <div class="slider-demo">
+                    <label>Default Slider</label>
+                    <div id="slider-basic" style="max-width: 400px;"></div>
+                    <div class="info-text">Simple slider with default settings</div>
+                </div>
+            </div>
+            
+            <!-- Value Label Display Options -->
+            <div class="test-section">
+                <h3>Value Label Display</h3>
+                <div class="slider-demo">
+                    <label>Always On</label>
+                    <div id="slider-label-on" style="max-width: 400px;"></div>
+                </div>
+                <div class="slider-demo">
+                    <label>Auto (on hover/drag)</label>
+                    <div id="slider-label-auto" style="max-width: 400px;"></div>
+                </div>
+                <div class="slider-demo">
+                    <label>Off</label>
+                    <div id="slider-label-off" style="max-width: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- Icons -->
+            <div class="test-section">
+                <h3>Icons (Start/End)</h3>
+                <div class="slider-demo">
+                    <label>Volume Slider with Icons</label>
+                    <div id="slider-icons" style="max-width: 400px;"></div>
+                </div>
+                <div class="slider-demo">
+                    <label>Brightness Slider</label>
+                    <div id="slider-brightness" style="max-width: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- Thumb Customization -->
+            <div class="test-section">
+                <h3>Thumb Customization (Emojis/Shapes/Images)</h3>
+                <div class="slider-demo">
+                    <label>Emoji Thumb</label>
+                    <div id="slider-emoji" style="max-width: 400px;"></div>
+                </div>
+                <div class="slider-demo">
+                    <label>Star Shape</label>
+                    <div id="slider-star" style="max-width: 400px;"></div>
+                </div>
+                <div class="slider-demo">
+                    <label>Multiple Custom Thumbs</label>
+                    <div id="slider-custom" style="max-width: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- Range Slider -->
+            <div class="test-section">
+                <h3>Range Slider (Dual Handles)</h3>
+                <div class="slider-demo">
+                    <label>Price Range</label>
+                    <div id="slider-range" style="max-width: 400px;"></div>
+                </div>
+                <div class="slider-demo">
+                    <label>Range with Minimum Distance</label>
+                    <div id="slider-range-min" style="max-width: 400px;"></div>
+                    <div class="info-text">Minimum distance: 20 units</div>
+                </div>
+                <div class="slider-demo">
+                    <label>Range with Custom Thumbs</label>
+                    <div id="slider-range-thumbs" style="max-width: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- Marks -->
+            <div class="test-section">
+                <h3>Marks</h3>
+                <div class="slider-demo">
+                    <label>Custom Marks</label>
+                    <div id="slider-marks" style="max-width: 400px;"></div>
+                </div>
+                <div class="slider-demo">
+                    <label>Auto-Generated Marks</label>
+                    <div id="slider-marks-auto" style="max-width: 400px;"></div>
+                    <div class="info-text">Marks generated from step value</div>
+                </div>
+            </div>
+            
+            <!-- Track Options -->
+            <div class="test-section">
+                <h3>Track Display Options</h3>
+                <div class="slider-demo">
+                    <label>Normal Track</label>
+                    <div id="slider-track-normal" style="max-width: 400px;"></div>
+                </div>
+                <div class="slider-demo">
+                    <label>Inverted Track</label>
+                    <div id="slider-track-inverted" style="max-width: 400px;"></div>
+                </div>
+                <div class="slider-demo">
+                    <label>No Track (track)</label>
+                    <div id="slider-track-removed" style="max-width: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- Steppers -->
+            <div class="test-section">
+                <h3>Stepper Buttons</h3>
+                <div class="slider-demo">
+                    <label>Slider with Increment/Decrement Buttons</label>
+                    <div id="slider-steppers" style="max-width: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- Vertical Orientation -->
+            <div class="test-section">
+                <h3>Vertical Orientation</h3>
+                <div class="vertical-demo-container">
+                    <div class="vertical-slider-wrapper">
+                        <div id="slider-vertical-1"></div>
+                    </div>
+                    <div class="vertical-slider-wrapper">
+                        <div id="slider-vertical-2"></div>
+                    </div>
+                    <div class="vertical-slider-wrapper">
+                        <div id="slider-vertical-icons"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Colors -->
+            <div class="test-section">
+                <h3>Color Variants</h3>
+                <div class="horizontal-group">
+                    <div class="slider-demo">
+                        <label>Primary</label>
+                        <div id="slider-primary" style="max-width: 300px;"></div>
+                    </div>
+                    <div class="slider-demo">
+                        <label>Secondary</label>
+                        <div id="slider-secondary" style="max-width: 300px;"></div>
+                    </div>
+                    <div class="slider-demo">
+                        <label>Success</label>
+                        <div id="slider-success" style="max-width: 300px;"></div>
+                    </div>
+                    <div class="slider-demo">
+                        <label>Warning</label>
+                        <div id="slider-warning" style="max-width: 300px;"></div>
+                    </div>
+                    <div class="slider-demo">
+                        <label>Error</label>
+                        <div id="slider-error" style="max-width: 300px;"></div>
+                    </div>
+                    <div class="slider-demo">
+                        <label>Info</label>
+                        <div id="slider-info" style="max-width: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sizes -->
+            <div class="test-section">
+                <h3>Size Variants</h3>
+                <div class="slider-demo">
+                    <label>Small</label>
+                    <div id="slider-small" style="max-width: 400px;"></div>
+                </div>
+                <div class="slider-demo">
+                    <label>Medium</label>
+                    <div id="slider-medium" style="max-width: 400px;"></div>
+                </div>
+                <div class="slider-demo">
+                    <label>Large</label>
+                    <div id="slider-large" style="max-width: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- Linked Sliders -->
+            <div class="test-section">
+                <h3>Linked Sliders</h3>
+                <div class="slider-demo">
+                    <label>Master Slider</label>
+                    <div id="slider-linked-master" style="max-width: 400px;"></div>
+                    <div class="info-text">This slider controls the one below</div>
+                </div>
+                <div class="slider-demo">
+                    <label>Linked Slider (follows master)</label>
+                    <div id="slider-linked-slave" style="max-width: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- Disabled State -->
+            <div class="test-section">
+                <h3>Disabled State</h3>
+                <div class="slider-demo">
+                    <label>Disabled Slider</label>
+                    <div id="slider-disabled" style="max-width: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- Interactive Controls -->
+            <div class="test-section">
+                <h3>Interactive Demo</h3>
+                <div class="slider-demo">
+                    <label>Interactive Slider (try all features)</label>
+                    <div id="slider-interactive" style="max-width: 400px;"></div>
+                    <div class="controls-panel">
+                        <button onclick="window.setSliderValue(0)">Set to 0</button>
+                        <button onclick="window.setSliderValue(50)">Set to 50</button>
+                        <button onclick="window.setSliderValue(100)">Set to 100</button>
+                        <button onclick="window.toggleDisabled()">Toggle Disabled</button>
+                    </div>
+                    <div id="interactive-value" class="info-text">Current value: 50</div>
+                </div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUISlider.ts"></script>
+</body>
+</html>

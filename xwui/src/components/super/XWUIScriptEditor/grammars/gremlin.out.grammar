@@ -1,0 +1,49 @@
+﻿# gremlin.out.grammar
+# Gremlin Output Grammar - Template for generating Gremlin from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@traversal = {{source}}{{#each steps}}{{value}}{{/each}}
+
+@source_step = g.{{operation}}
+
+@graph_op = {{value}}
+
+@traversal_step = .{{name}}{{#if args}}{{args}}{{/if}}
+
+@step_name = {{value}}
+
+@step_args = ({{#if args}}{{args}}{{/if}})
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@argument = {{value}}
+
+@key_value = "{{key}}", {{value}}
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} || {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} && {{/if}}{{/each}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{/if}}
+
+@compare_op = {{value}}
+
+@primary = {{value}}
+
+@function_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@literal = {{value}}
+
+@list_literal = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@map_literal = [{{#each entries}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@map_entry = {{#if pair}}"{{key}}": {{value}}{{else}}({{key}}, {{value}}){{/if}}
+
+@predicate = {{value}}
+
+@indent = 2
+@pretty = true

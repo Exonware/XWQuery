@@ -1,0 +1,148 @@
+/**
+ * XWUICard Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/container/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary, #ffffff);
+    border-radius: var(--radius-container, var(--radius-lg, 12px));
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Variants */
+.xwui-card-default {
+    border: var(--border-container-width, var(--border-width-regular, 1.5px)) var(--border-container-style, solid) var(--border-container-color, var(--border-color, #dee2e6));
+}
+
+.xwui-card-outlined {
+    border: var(--border-container-width, var(--border-width-regular, 1.5px)) var(--border-container-style, solid) var(--border-container-color, var(--border-color, #dee2e6));
+    background: transparent;
+}
+
+.xwui-card-elevated {
+    box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+}
+
+.xwui-card-filled {
+    background: var(--bg-secondary, #f8f9fa);
+    border: none;
+}
+
+/* Hover and clickable states */
+.xwui-card-hoverable:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+}
+
+.xwui-card-clickable {
+    cursor: pointer;
+}
+
+.xwui-card-clickable:focus {
+    outline: none;
+    box-shadow: var(--shadow-xs);
+}
+
+/* Cover */
+.xwui-card-cover {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.xwui-card-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Header */
+.xwui-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-card-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.75rem);
+    flex-wrap: wrap;
+}
+
+.xwui-card-title {
+    margin: 0;
+    font-size: var(--font-size-lg, 1.125rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-card-badge {
+    display: inline-flex;
+    align-items: center;
+}
+
+.xwui-card-subtitle {
+    margin: 0;
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #6c757d);
+}
+
+/* Body */
+.xwui-card-body {
+    flex: 1;
+    color: var(--text-primary, #212529);
+}
+
+/* Footer */
+.xwui-card-footer {
+    border-top: var(--border-card-width, var(--border-width-regular, 1.5px)) var(--border-card-style, solid) var(--border-card-color, var(--border-color, #dee2e6));
+    margin-top: auto;
+}
+
+.xwui-card-footer-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs, 0.25rem);
+    align-items: center;
+}
+
+/* Padding variants */
+.xwui-card-padding-none .xwui-card-header,
+.xwui-card-padding-none .xwui-card-body,
+.xwui-card-padding-none .xwui-card-footer {
+    padding: 0;
+}
+
+.xwui-card-padding-small .xwui-card-header,
+.xwui-card-padding-small .xwui-card-body,
+.xwui-card-padding-small .xwui-card-footer {
+    padding: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-card-padding-medium .xwui-card-header,
+.xwui-card-padding-medium .xwui-card-body,
+.xwui-card-padding-medium .xwui-card-footer {
+    padding: var(--spacing-md, 1rem);
+}
+
+.xwui-card-padding-large .xwui-card-header,
+.xwui-card-padding-large .xwui-card-body,
+.xwui-card-padding-large .xwui-card-footer {
+    padding: var(--spacing-lg, 1.5rem);
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

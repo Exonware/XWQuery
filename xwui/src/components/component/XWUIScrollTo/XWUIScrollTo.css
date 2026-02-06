@@ -1,0 +1,13 @@
+/**
+ * XWUIScrollTo Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ */
+
+.xwui-scrollto {
+    width: 100%;
+    height: 100%;
+}
+

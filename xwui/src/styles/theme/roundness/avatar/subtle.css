@@ -1,0 +1,14 @@
+/* ============================================
+   AVATAR - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-avatar: 4px;
+    /* Fallback: --radius-media → --radius-sm → 4px */
+}
+
+/* Utility class for direct application */
+.radius-avatar-subtle {
+    border-radius: var(--radius-avatar, 4px) !important;
+}

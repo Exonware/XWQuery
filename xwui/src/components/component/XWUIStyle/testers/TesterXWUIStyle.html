@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-lines="balanced" data-roundness="rounded" data-font="inter" data-icons="material-icons" data-emojis="apple">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIStyle Component Tester</title>
+    
+    <style>
+        .theme-controls {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .theme-controls h2 {
+            margin-top: 0;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .control-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .control-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+        
+        .control-item label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .control-item select {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--control-bg);
+            color: var(--control-text);
+            font-size: 0.875rem;
+        }
+        
+        .control-item select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px var(--accent-primary, rgba(79, 70, 229, 0.1));
+        }
+        
+        .color-preview {
+            width: 100%;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            margin-top: var(--spacing-xs);
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .demo-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+        }
+        
+        .demo-card h3 {
+            margin-top: 0;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+        
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .input-group {
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--control-bg);
+            color: var(--control-text);
+            font-size: 0.875rem;
+        }
+        
+        .input-group input,
+        .input-group select,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px var(--accent-primary, rgba(79, 70, 229, 0.1));
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: var(--spacing-xs);
+        }
+        
+        .badge-primary {
+            background: var(--accent-primary);
+            color: var(--text-inverse);
+        }
+        
+        .badge-success {
+            background: var(--accent-success);
+            color: var(--text-inverse);
+        }
+        
+        .badge-warning {
+            background: var(--accent-warning);
+            color: var(--text-inverse);
+        }
+        
+        .badge-error {
+            background: var(--accent-error);
+            color: var(--text-inverse);
+        }
+        
+        .alert {
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-sm);
+            border-left: 4px solid;
+        }
+        
+        .alert-info {
+            background: var(--bg-secondary);
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
+        }
+        
+        .alert-success {
+            background: var(--bg-secondary);
+            border-color: var(--accent-success);
+            color: var(--text-primary);
+        }
+        
+        .alert-warning {
+            background: var(--bg-secondary);
+            border-color: var(--accent-warning);
+            color: var(--text-primary);
+        }
+        
+        .alert-error {
+            background: var(--bg-secondary);
+            border-color: var(--accent-error);
+            color: var(--text-primary);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
+        }
+        
+        .code-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            font-family: monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            color: var(--text-primary);
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: var(--spacing-xs);
+        }
+        
+        .status-indicator.online {
+            background: var(--accent-success);
+        }
+        
+        .status-indicator.offline {
+            background: var(--text-tertiary);
+        }
+        
+        .status-indicator.warning {
+            background: var(--accent-warning);
+        }
+        
+        .card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuistyle-content">
+<!-- XWUIStyle Component Container -->
+        <div id="xwui-style-container" style="display: none;"></div>
+        
+        <!-- Theme Controls -->
+        <div class="theme-controls">
+            <h2>Theme Controls</h2>
+            <p style="color: var(--text-secondary); margin-bottom: var(--spacing-md);">
+                These controls use the <code>data</code> parameter to override theme settings (highest priority).
+            </p>
+            
+            <div class="control-group">
+                <div class="control-item">
+                    <label for="brand-select">Brand</label>
+                    <select id="brand-select" aria-label="Select brand">
+                        <option>Loading...</option>
+                    </select>
+                </div>
+                
+                <div class="control-item">
+                    <label for="style-select">Style</label>
+                    <select id="style-select" aria-label="Select style">
+                        <option>Loading...</option>
+                    </select>
+                </div>
+                
+                <div class="control-item">
+                    <label for="color-select">Color Theme</label>
+                    <select id="color-select" aria-label="Select color theme">
+                        <option>Loading...</option>
+                    </select>
+                    <div class="color-preview" id="color-preview"></div>
+                </div>
+                
+                <div class="control-item">
+                    <label for="accent-select">Accent Color</label>
+                    <select id="accent-select" aria-label="Select accent color">
+                        <option>Loading...</option>
+                    </select>
+                    <div class="color-preview" id="accent-preview"></div>
+                </div>
+                
+                <div class="control-item">
+                    <label for="lines-target-select">Lines (Borders)</label>
+                    <select id="lines-target-select" aria-label="Select lines target (preset or component)">
+                        <option>Loading...</option>
+                    </select>
+                    <select id="lines-value-select" aria-label="Select lines value" style="margin-top: var(--spacing-xs);">
+                        <option>Loading...</option>
+                    </select>
+                </div>
+                
+                <div class="control-item">
+                    <label for="roundness-target-select">Roundness</label>
+                    <select id="roundness-target-select" aria-label="Select roundness target (preset or component)">
+                        <option>Loading...</option>
+                    </select>
+                    <select id="roundness-value-select" aria-label="Select roundness value" style="margin-top: var(--spacing-xs);">
+                        <option>Loading...</option>
+                    </select>
+                </div>
+                
+                <div class="control-item">
+                    <label for="font-target-select">Font</label>
+                    <select id="font-target-select" aria-label="Select font target (preset or component)">
+                        <option>Loading...</option>
+                    </select>
+                    <select id="font-value-select" aria-label="Select font value" style="margin-top: var(--spacing-xs);">
+                        <option>Loading...</option>
+                    </select>
+                </div>
+                
+                <div class="control-item">
+                    <label for="icons-select">Icons</label>
+                    <select id="icons-select" aria-label="Select icon set">
+                        <option>Loading...</option>
+                    </select>
+                </div>
+                
+                <div class="control-item">
+                    <label for="emojis-select">Emojis</label>
+                    <select id="emojis-select" aria-label="Select emoji style">
+                        <option>Loading...</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: var(--spacing-sm);">
+                <button id="btn-reset" class="test-button">Reset to Defaults</button>
+                <button id="btn-save" class="test-button">Save Current Theme</button>
+                <button id="btn-load" class="test-button">Load Saved Theme</button>
+            </div>
+        </div>
+        
+        <!-- UI Elements Demo -->
+        <div class="demo-grid">
+            <!-- Buttons Card -->
+            <div class="demo-card">
+                <h3>Buttons</h3>
+                <div class="button-group">
+                    <div id="btn-primary"></div>
+                    <div id="btn-secondary"></div>
+                    <div id="btn-success"></div>
+                    <div id="btn-danger"></div>
+                    <div id="btn-warning"></div>
+                    <div id="btn-outline"></div>
+                </div>
+                <div style="margin-top: var(--spacing-md);">
+                    <h4>Sizes:</h4>
+                    <div class="button-group">
+                        <div id="btn-small"></div>
+                        <div id="btn-medium"></div>
+                        <div id="btn-large"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Form Inputs Card -->
+            <div class="demo-card">
+                <h3>Form Inputs</h3>
+                <div class="input-group">
+                    <label>Text Input</label>
+                    <input type="text" placeholder="Enter text..." value="Sample text">
+                </div>
+                <div class="input-group">
+                    <label>Select Dropdown</label>
+                    <select aria-label="Select dropdown example">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Textarea</label>
+                    <textarea rows="3" placeholder="Enter text...">Sample textarea content</textarea>
+                </div>
+            </div>
+            
+            <!-- Badges & Tags Card -->
+            <div class="demo-card">
+                <h3>Badges & Tags</h3>
+                <div>
+                    <span class="badge badge-primary">Primary</span>
+                    <span class="badge badge-success">Success</span>
+                    <span class="badge badge-warning">Warning</span>
+                    <span class="badge badge-error">Error</span>
+                </div>
+            </div>
+            
+            <!-- Alerts Card -->
+            <div class="demo-card">
+                <h3>Alerts</h3>
+                <div class="alert alert-info">Info: This is an informational message.</div>
+                <div class="alert alert-success">Success: Operation completed successfully.</div>
+                <div class="alert alert-warning">Warning: Please review this action.</div>
+                <div class="alert alert-error">Error: Something went wrong.</div>
+            </div>
+            
+            <!-- Progress Bars Card -->
+            <div class="demo-card">
+                <h3>Progress Bars</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%"></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%"></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%"></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%"></div>
+                </div>
+            </div>
+            
+            <!-- Status Indicators Card -->
+            <div class="demo-card">
+                <h3>Status Indicators</h3>
+                <div style="margin-bottom: var(--spacing-sm);">
+                    <span class="status-indicator online"></span>
+                    <span>Online</span>
+                </div>
+                <div style="margin-bottom: var(--spacing-sm);">
+                    <span class="status-indicator offline"></span>
+                    <span>Offline</span>
+                </div>
+                <div style="margin-bottom: var(--spacing-sm);">
+                    <span class="status-indicator warning"></span>
+                    <span>Warning</span>
+                </div>
+            </div>
+            
+            <!-- Code Block Card -->
+            <div class="demo-card">
+                <h3>Code Block</h3>
+                <div class="code-block">
+function example() {
+    const message = "Hello, World";
+    console.log(message);
+    return true;
+}
+                </div>
+            </div>
+            
+            <!-- Cards Card -->
+            <div class="demo-card">
+                <h3>Cards</h3>
+                <div class="card" style="margin-bottom: var(--spacing-md);">
+                    <h4 style="margin-top: 0;">Card Title</h4>
+                    <p>This is a card component with shadow and border radius that adapts to the theme.</p>
+                </div>
+                <div class="card">
+                    <h4 style="margin-top: 0;">Another Card</h4>
+                    <p>Cards demonstrate border radius, shadows, and background colors from the theme.</p>
+                </div>
+            </div>
+            
+            <!-- Checkboxes & Radio Cards -->
+            <div class="demo-card">
+                <h3>Checkboxes & Radio</h3>
+                <div style="margin-bottom: var(--spacing-sm);">
+                    <label style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                        <input type="checkbox" checked>
+                        <span>Checkbox Option 1</span>
+                    </label>
+                </div>
+                <div style="margin-bottom: var(--spacing-sm);">
+                    <label style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                        <input type="checkbox">
+                        <span>Checkbox Option 2</span>
+                    </label>
+                </div>
+                <div style="margin-bottom: var(--spacing-sm);">
+                    <label style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                        <input type="radio" name="radio-group" checked>
+                        <span>Radio Option 1</span>
+                    </label>
+                </div>
+                <div style="margin-bottom: var(--spacing-sm);">
+                    <label style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                        <input type="radio" name="radio-group">
+                        <span>Radio Option 2</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Tabs Card -->
+            <div class="demo-card">
+                <h3>Tabs</h3>
+                <div style="display: flex; gap: var(--spacing-sm); border-bottom: 1px solid var(--border-color); margin-bottom: var(--spacing-md);">
+                    <button style="padding: var(--spacing-sm) var(--spacing-md); border: none; background: transparent; border-bottom: 2px solid var(--accent-primary); color: var(--text-primary); cursor: pointer;">Tab 1</button>
+                    <button style="padding: var(--spacing-sm) var(--spacing-md); border: none; background: transparent; color: var(--text-secondary); cursor: pointer;">Tab 2</button>
+                    <button style="padding: var(--spacing-sm) var(--spacing-md); border: none; background: transparent; color: var(--text-secondary); cursor: pointer;">Tab 3</button>
+                </div>
+                <p>Tab content area demonstrating theme colors and spacing.</p>
+            </div>
+            
+            <!-- Tooltip Card -->
+            <div class="demo-card">
+                <h3>Tooltips & Hover States</h3>
+                <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap;">
+                    <button class="test-button" title="Hover to see tooltip">Hover Me</button>
+                    <button class="test-button" style="background: var(--bg-secondary);">Hover Button</button>
+                    <button class="test-button" style="background: var(--accent-primary); color: var(--text-inverse);">Accent Button</button>
+                </div>
+            </div>
+            
+            <!-- Shadows & Elevation Card -->
+            <div class="demo-card">
+                <h3>Shadows & Elevation</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-md);">
+                    <div style="padding: var(--spacing-md); background: var(--bg-elevated); border-radius: var(--radius-md); box-shadow: var(--shadow-xs);">XS Shadow</div>
+                    <div style="padding: var(--spacing-md); background: var(--bg-elevated); border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">SM Shadow</div>
+                    <div style="padding: var(--spacing-md); background: var(--bg-elevated); border-radius: var(--radius-md); box-shadow: var(--shadow-md);">MD Shadow</div>
+                    <div style="padding: var(--spacing-md); background: var(--bg-elevated); border-radius: var(--radius-md); box-shadow: var(--shadow-lg);">LG Shadow</div>
+                    <div style="padding: var(--spacing-md); background: var(--bg-elevated); border-radius: var(--radius-md); box-shadow: var(--shadow-xl);">XL Shadow</div>
+                    <div style="padding: var(--spacing-md); background: var(--bg-elevated); border-radius: var(--radius-md); box-shadow: var(--shadow-2xl);">2XL Shadow</div>
+                </div>
+            </div>
+            
+            <!-- Borders & Dividers Card -->
+            <div class="demo-card">
+                <h3>Borders & Dividers</h3>
+                <div style="border: 1px solid var(--border-light); padding: var(--spacing-md); border-radius: var(--radius-sm); margin-bottom: var(--spacing-sm);">
+                    Light Border
+                </div>
+                <div style="border: 1px solid var(--border-medium); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-sm);">
+                    Medium Border
+                </div>
+                <div style="border: 1px solid var(--border-strong); padding: var(--spacing-md); border-radius: var(--radius-lg);">
+                    Strong Border
+                </div>
+                <hr style="margin: var(--spacing-md) 0; border: none; border-top: 1px solid var(--border-color);">
+                <div style="height: 1px; background: var(--border-color); margin: var(--spacing-md) 0;"></div>
+            </div>
+            
+            <!-- Typography Card -->
+            <div class="demo-card">
+                <h3>Typography</h3>
+                <h1 style="margin: 0 0 var(--spacing-sm) 0;">Heading 1</h1>
+                <h2 style="margin: 0 0 var(--spacing-sm) 0;">Heading 2</h2>
+                <h3 style="margin: 0 0 var(--spacing-sm) 0;">Heading 3</h3>
+                <p style="color: var(--text-primary);">Primary text color</p>
+                <p style="color: var(--text-secondary);">Secondary text color</p>
+                <p style="color: var(--text-tertiary);">Tertiary text color</p>
+                <p style="font-weight: 600;">Bold text</p>
+                <p style="font-style: italic;">Italic text</p>
+            </div>
+        </div>
+        
+        <!-- Console Demo -->
+        <div class="demo-card" style="margin-top: var(--spacing-xl);">
+            <h3>Console Component</h3>
+            <div class="console-container" id="consoleContainer" style="height: 300px; border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; background: var(--bg-elevated);"></div>
+        </div>
+        
+        <!-- Current Theme Display -->
+        <div class="demo-card" style="margin-top: var(--spacing-xl);">
+            <h3>Current Theme Configuration</h3>
+            <pre id="theme-config-display" style="background: var(--bg-secondary); padding: var(--spacing-md); border-radius: var(--radius-md); overflow-x: auto; font-size: 0.875rem;"></pre>
+        </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIStyle.ts"></script>
+</body>
+</html>
+

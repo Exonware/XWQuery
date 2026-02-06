@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIRadioGroup",
+  "name": "XWUI Radio Group Component",
+  "description": "Radio button group component for single selection from multiple options. Supports horizontal and vertical orientations, various sizes, colors, and disabled states. Useful for forms requiring single choice selection.",
+  "path": "input.radiogroup",
+  "tags": ["input", "radio", "group", "selection", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the radio buttons",
+          "default": "medium"
+        },
+        "orientation": {
+          "type": "string",
+          "enum": ["horizontal", "vertical"],
+          "description": "Layout orientation of radio buttons",
+          "default": "vertical"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether all radio buttons are disabled",
+          "default": false
+        },
+        "color": {
+          "type": "string",
+          "enum": ["primary", "success", "warning", "error"],
+          "description": "Color variant of the radio buttons"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the radio group"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "options": {
+          "type": "array",
+          "description": "Array of radio options",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "Option value"
+              },
+              "label": {
+                "type": "string",
+                "description": "Option display label"
+              },
+              "description": {
+                "type": "string",
+                "description": "Option description text"
+              },
+              "disabled": {
+                "type": "boolean",
+                "description": "Whether this option is disabled"
+              }
+            },
+            "required": ["value", "label"]
+          }
+        },
+        "value": {
+          "type": "string",
+          "description": "Selected option value"
+        },
+        "name": {
+          "type": "string",
+          "description": "HTML name attribute for form submission"
+        },
+        "label": {
+          "type": "string",
+          "description": "Group label text"
+        }
+      },
+      "required": ["options"]
+    }
+  }
+}
+

@@ -1,0 +1,73 @@
+-- N1QL (Couchbase SQL for JSON) Examples
+-- SQL-compatible query language for JSON
+
+-- Basic SELECT
+SELECT * FROM users WHERE age > 25;
+
+-- Selecting specific fields
+SELECT name, email, age 
+FROM users 
+WHERE active = true;
+
+-- Joins
+SELECT u.name, o.total
+FROM users u
+JOIN orders o ON KEYS u.orderIds
+WHERE o.status = "completed";
+
+-- Aggregations
+SELECT 
+    category,
+    COUNT(*) as count,
+    SUM(price) as total,
+    AVG(price) as avg_price,
+    MAX(price) as max_price,
+    MIN(price) as min_price
+FROM items
+WHERE active = true
+GROUP BY category;
+
+-- Array operations
+SELECT 
+    name,
+    ARRAY item FOR item IN orders WHEN item.total > 100 END as large_orders
+FROM users;
+
+-- Nested queries
+SELECT 
+    name,
+    (SELECT COUNT(*) FROM orders WHERE userId = users.id) as order_count
+FROM users;
+
+-- Window functions
+SELECT 
+    name,
+    total,
+    ROW_NUMBER() OVER (PARTITION BY category ORDER BY total DESC) as rank
+FROM orders;
+
+-- Subqueries
+SELECT * FROM users
+WHERE id IN (
+    SELECT DISTINCT userId 
+    FROM orders 
+    WHERE total > 1000
+);
+
+-- EXISTS
+SELECT * FROM users u
+WHERE EXISTS (
+    SELECT 1 FROM orders o
+    WHERE o.userId = u.id AND o.status = "pending"
+);
+
+-- UPDATE
+UPDATE users
+SET lastLogin = NOW()
+WHERE id = "user123"
+RETURNING *;
+
+-- DELETE
+DELETE FROM users
+WHERE active = false AND lastLogin < DATE_ADD_STR(NOW(), -365, "day");
+

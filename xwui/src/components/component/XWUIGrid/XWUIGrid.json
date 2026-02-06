@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIGrid",
+  "name": "XWUI Grid Component",
+  "description": "CSS Grid wrapper component with responsive breakpoints. Provides a flexible grid layout system with configurable columns, rows, gaps, alignment, and responsive behavior. Supports auto-fit/auto-fill patterns and responsive breakpoints.",
+  "path": "layout.grid",
+  "tags": ["layout", "grid", "css-grid", "responsive", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "description": "Number of columns or grid-template-columns CSS value"
+        },
+        "rows": {
+          "description": "Number of rows or grid-template-rows CSS value"
+        },
+        "gap": {
+          "type": "string",
+          "description": "Grid gap CSS value"
+        },
+        "rowGap": {
+          "type": "string",
+          "description": "Row gap CSS value (overrides gap for rows)"
+        },
+        "columnGap": {
+          "type": "string",
+          "description": "Column gap CSS value (overrides gap for columns)"
+        },
+        "alignItems": {
+          "type": "string",
+          "enum": ["start", "end", "center", "stretch", "baseline"],
+          "description": "CSS align-items value"
+        },
+        "justifyItems": {
+          "type": "string",
+          "enum": ["start", "end", "center", "stretch"],
+          "description": "CSS justify-items value"
+        },
+        "alignContent": {
+          "type": "string",
+          "enum": ["start", "end", "center", "stretch", "space-between", "space-around", "space-evenly"],
+          "description": "CSS align-content value"
+        },
+        "justifyContent": {
+          "type": "string",
+          "enum": ["start", "end", "center", "stretch", "space-between", "space-around", "space-evenly"],
+          "description": "CSS justify-content value"
+        },
+        "autoFlow": {
+          "type": "string",
+          "enum": ["row", "column", "dense", "row dense", "column dense"],
+          "description": "CSS grid-auto-flow value"
+        },
+        "autoRows": {
+          "type": "string",
+          "description": "CSS grid-auto-rows value"
+        },
+        "autoColumns": {
+          "type": "string",
+          "description": "CSS grid-auto-columns value"
+        },
+        "minChildWidth": {
+          "type": "string",
+          "description": "Minimum child width for auto-fit responsive grids"
+        },
+        "responsive": {
+          "type": "object",
+          "description": "Responsive breakpoint configurations",
+          "properties": {
+            "sm": {
+              "description": "Configuration for >= 640px breakpoint"
+            },
+            "md": {
+              "description": "Configuration for >= 768px breakpoint"
+            },
+            "lg": {
+              "description": "Configuration for >= 1024px breakpoint"
+            },
+            "xl": {
+              "description": "Configuration for >= 1280px breakpoint"
+            }
+          }
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the grid"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "children": {
+          "type": "array",
+          "description": "Array of child elements to display in the grid"
+        }
+      }
+    }
+  }
+}
+

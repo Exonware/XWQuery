@@ -1,0 +1,100 @@
+/**
+ * XWUIMobileStepper Component Styles
+ * 
+ * Style Dependencies (loaded in testers/app):
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Roundness: theme/roundness/stepper/*.css (component-specific roundness)
+ * - Lines: theme/lines/stepper/*.css (component-specific border widths)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-mobile-stepper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--spacing-md, 1rem);
+    
+    /* Colors from theme (MANDATORY - use variables, never hardcode) */
+    background-color: var(--color-stepper-bg, var(--color-background));
+    border-top: var(--border-width-regular, 1px) solid var(--color-border, rgba(0, 0, 0, 0.12));
+}
+
+.xwui-mobile-stepper-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--stepper-z-index, 1000);
+}
+
+.xwui-mobile-stepper-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--stepper-z-index, 1000);
+}
+
+/* Dots variant */
+.xwui-mobile-stepper-dots {
+    display: flex;
+    gap: var(--spacing-xs, 0.5rem);
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.xwui-mobile-stepper-dot {
+    width: var(--stepper-dot-size, 8px);
+    height: var(--stepper-dot-size, 8px);
+    border-radius: var(--radius-full, 50%);
+    background-color: var(--color-stepper-dot-inactive, rgba(0, 0, 0, 0.26));
+    transition: all var(--transition-duration-fast, 0.2s) ease;
+}
+
+.xwui-mobile-stepper-dot-active {
+    width: var(--stepper-dot-active-size, 12px);
+    height: var(--stepper-dot-active-size, 12px);
+    background-color: var(--color-stepper-dot-active, var(--color-primary));
+}
+
+/* Progress variant */
+.xwui-mobile-stepper-progress-wrapper {
+    flex: 1;
+    height: var(--stepper-progress-height, 4px);
+    background-color: var(--color-stepper-progress-bg, rgba(0, 0, 0, 0.12));
+    border-radius: var(--radius-full, 999px);
+    overflow: hidden;
+    margin: 0 var(--spacing-md);
+}
+
+.xwui-mobile-stepper-progress-bar {
+    height: 100%;
+    background-color: var(--color-stepper-progress-active, var(--color-primary));
+    border-radius: var(--radius-full, 999px);
+    transition: width var(--transition-duration-normal, 0.3s) ease;
+}
+
+/* Text variant */
+.xwui-mobile-stepper-text {
+    flex: 1;
+    text-align: center;
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--color-text-secondary, rgba(0, 0, 0, 0.6));
+    font-weight: var(--font-weight-medium, 500);
+}
+
+/* Buttons container */
+.xwui-mobile-stepper-buttons {
+    display: flex;
+    gap: var(--spacing-sm, 0.5rem);
+    align-items: center;
+}
+
+/* Button styles come from XWUIButton component */
+

@@ -1,0 +1,119 @@
+// aql.grammar
+// AQL Grammar - ArangoDB Query Language
+// Based on ArangoDB AQL specification
+// Company: eXonware.com
+
+?start: query
+
+query: statement (";" statement)*
+
+statement: for_statement
+         | filter_statement
+         | return_statement
+         | let_statement
+         | collect_statement
+         | sort_statement
+         | limit_statement
+         | insert_statement
+         | update_statement
+         | replace_statement
+         | remove_statement
+
+for_statement: "FOR" variable "IN" collection (filter_clause)? (options_clause)?
+
+filter_clause: "FILTER" expression
+
+options_clause: "OPTIONS" object
+
+return_statement: "RETURN" (distinct)? expression
+
+distinct: "DISTINCT"
+
+let_statement: "LET" variable "=" expression
+
+collect_statement: "COLLECT" (variable "=" expression ("," variable "=" expression)*)? (with_count)? (into variable)? (keep variable ("," variable)*)?
+
+with_count: "WITH COUNT INTO" variable
+
+sort_statement: "SORT" sort_spec ("," sort_spec)*
+
+sort_spec: expression (asc | desc)?
+
+asc: "ASC"
+
+desc: "DESC"
+
+limit_statement: "LIMIT" expression ("," expression)?
+
+insert_statement: "INSERT" expression "INTO" collection (return_clause)?
+
+update_statement: "UPDATE" expression "IN" collection "WITH" expression (return_clause)?
+
+replace_statement: "REPLACE" expression "IN" collection "WITH" expression (return_clause)?
+
+remove_statement: "REMOVE" expression "IN" collection (return_clause)?
+
+return_clause: "RETURN" expression
+
+expression: or_expr
+
+or_expr: and_expr ("OR" and_expr)*
+
+and_expr: not_expr ("AND" not_expr)*
+
+not_expr: "NOT" not_expr | comparison
+
+comparison: arith_expr (comp_op arith_expr)?
+
+comp_op: "==" | "!=" | "<" | ">" | "<=" | ">=" | "IN" | "NOT IN" | "LIKE" | "=~" | "!~"
+
+arith_expr: term (("+" | "-") term)*
+
+term: factor (("*" | "/" | "%") factor)*
+
+factor: ("+" | "-") factor | power
+
+power: atom ("^" atom)*
+
+atom: literal
+     | variable
+     | function_call
+     | array
+     | object
+     | "(" expression ")"
+
+variable: IDENTIFIER ("." IDENTIFIER)*
+
+function_call: IDENTIFIER "(" (expression ("," expression)*)? ")"
+
+array: "[" (expression ("," expression)*)? "]"
+
+object: "{" (property ("," property)*)? "}"
+
+property: (IDENTIFIER | string) ":" expression
+
+literal: string | number | boolean | null
+
+string: STRING
+
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\"" | "'" /[^'\\]|\\['\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "'"
+
+number: INTEGER | FLOAT
+
+INTEGER: /[0-9]+/
+
+FLOAT: /[0-9]+\.[0-9]+([eE][+-]?[0-9]+)?/
+
+boolean: "true" | "false"
+
+null: "null"
+
+collection: IDENTIFIER
+
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+
+%import common.WS
+%import common.NEWLINE
+
+%ignore WS
+

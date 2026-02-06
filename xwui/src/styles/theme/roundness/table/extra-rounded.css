@@ -1,0 +1,14 @@
+/* ============================================
+   TABLE - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-table: 12px;
+    /* Fallback: --radius-content → --radius-xs → 12px */
+}
+
+/* Utility class for direct application */
+.radius-table-extra-rounded {
+    border-radius: var(--radius-table, 12px) !important;
+}

@@ -1,0 +1,102 @@
+/**
+ * XWUICarousel Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Roundness: theme/roundness/carousel/*.css (component-specific roundness)
+ */
+
+.xwui-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-carousel, var(--radius-md, 8px));
+}
+
+.xwui-carousel-track {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.xwui-carousel-slide {
+    min-width: 100%;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.xwui-carousel-slide-active {
+    opacity: 1;
+}
+
+/* Arrows */
+.xwui-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: var(--font-size-2xl, 1.5rem);
+    line-height: 1;
+    z-index: 10;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.xwui-carousel-arrow:hover {
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.xwui-carousel-arrow-prev {
+    left: var(--spacing-md, 1rem);
+}
+
+.xwui-carousel-arrow-next {
+    right: var(--spacing-md, 1rem);
+}
+
+/* Indicators */
+.xwui-carousel-indicators {
+    position: absolute;
+    bottom: var(--spacing-md, 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: var(--spacing-sm, 0.5rem);
+    z-index: 10;
+}
+
+.xwui-carousel-indicator {
+    width: 8px;
+    height: 8px;
+    border: none;
+    background: var(--bg-secondary);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+}
+
+.xwui-carousel-indicator:hover {
+    background: var(--bg-elevated);
+}
+
+.xwui-carousel-indicator-active {
+    background: var(--bg-primary);
+    width: 24px;
+    border-radius: var(--radius-carousel, var(--radius-xs, 4px));
+}
+

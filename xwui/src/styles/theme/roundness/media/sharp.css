@@ -1,0 +1,12 @@
+/* ============================================
+   MEDIA - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    --radius-media: 0px;
+}
+
+/* Utility class for direct application */
+.radius-media-sharp {
+    border-radius: var(--radius-media, 0px) !important;
+}

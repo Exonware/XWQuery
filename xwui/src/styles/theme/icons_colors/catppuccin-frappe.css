@@ -1,0 +1,12 @@
+/* ============================================
+   CATPPUCCIN FRAPPE ICON COLORS - Blue-tinted dark theme
+   ============================================ */
+
+:root[data-icons-colors="catppuccin-frappe"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #c6d0f5;        /* Primary fill color - light text */
+    --icons-color-secondary: #303446;    /* Secondary/stroke color - dark bg */
+    --icons-color-accent: #838ba7;        /* Accent/rail/marks color - gray */
+    --icons-color-transparent: transparent;
+}
+

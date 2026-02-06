@@ -1,0 +1,49 @@
+// sexpr.grammar
+// S-Expression Grammar - Lisp S-Expression Format
+// Based on Common Lisp S-Expression syntax
+// Company: eXonware.com
+
+?start: sexpr
+
+sexpr: atom | list
+
+list: "(" (sexpr (WS sexpr)*)? ")"
+
+atom: symbol | number | string | character | boolean | nil
+
+symbol: SYMBOL
+
+SYMBOL: /[a-zA-Z_][a-zA-Z0-9_.-]*/
+
+number: integer | float | ratio | complex
+
+integer: INTEGER | BIGNUM
+
+INTEGER: /[+-]?[0-9]+/
+
+BIGNUM: /[+-]?[0-9]+L/
+
+float: FLOAT
+
+FLOAT: /[+-]?[0-9]+\.[0-9]+([eE][+-]?[0-9]+)?/
+
+ratio: INTEGER "/" INTEGER
+
+complex: "#C(" sexpr sexpr ")"
+
+string: STRING
+
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+
+character: "#\\" CHAR
+
+CHAR: /[a-zA-Z0-9]/
+
+boolean: "t" | "nil" | "T" | "NIL"
+
+nil: "nil" | "NIL" | "()"
+
+%import common.WS
+
+%ignore WS
+

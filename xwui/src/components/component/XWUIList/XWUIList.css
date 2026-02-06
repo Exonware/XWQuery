@@ -1,0 +1,75 @@
+/**
+ * XWUIList Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/rounded.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-list-select-all {
+    padding: var(--spacing-sm, 0.75rem) var(--spacing-md, 1rem);
+    border-bottom: var(--border-list-width, var(--border-width-regular, 1.5px)) var(--border-list-style, solid) var(--border-list-color, var(--border-color));
+    display: flex;
+    align-items: center;
+}
+
+.xwui-list-select-all label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+    cursor: pointer;
+    font-weight: var(--font-weight-medium, 500);
+}
+
+.xwui-list-select-all-checkbox {
+    cursor: pointer;
+}
+
+.xwui-list-item-checkbox {
+    margin-right: 0.75rem;
+    cursor: pointer;
+}
+
+.xwui-list-item-checked {
+    background: var(--bg-secondary);
+}
+
+.xwui-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.xwui-list-bordered {
+    border: var(--border-list-width, var(--border-width-regular, 1.5px)) var(--border-list-style, solid) var(--border-list-color, var(--border-color));
+    border-radius: var(--radius-list, var(--radius-md, 8px));
+    overflow: hidden;
+}
+
+.xwui-list-hoverable [data-item-id] {
+    transition: background 0.2s;
+}
+
+.xwui-list-hoverable [data-item-id]:hover {
+    background: var(--bg-secondary);
+}
+
+/* Size variants */
+.xwui-list-small {
+    font-size: var(--font-size-sm, 0.8125rem);
+}
+
+.xwui-list-medium {
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-list-large {
+    font-size: var(--font-size-base, 0.9375rem);
+}
+

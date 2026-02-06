@@ -1,0 +1,46 @@
+// makefile.grammar
+// Makefile Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: makefile
+
+makefile: statement*
+
+statement: rule | variable_assignment | include | conditional | comment
+
+rule: target ":" [prerequisites] NEWLINE [recipe]
+
+target: IDENTIFIER | pattern_target
+
+pattern_target: "%" IDENTIFIER
+
+prerequisites: prerequisite (SPACE prerequisite)*
+
+prerequisite: IDENTIFIER | pattern_prerequisite
+
+pattern_prerequisite: "%" IDENTIFIER
+
+recipe: recipe_line+
+
+recipe_line: TAB command NEWLINE
+
+variable_assignment: IDENTIFIER "=" value | IDENTIFIER ":=" value | IDENTIFIER "+=" value | IDENTIFIER "?=" value
+
+include: "include" filename
+
+conditional: "ifdef" | "ifndef" | "ifeq" | "ifneq"
+
+comment: "#" /[^\n]*/
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_.-]*/
+TAB: /\t/
+SPACE: / /
+NEWLINE: /\r?\n/
+value: /[^\n]+/
+filename: /[^\s]+/
+command: /[^\n]+/
+%import common.WS
+
+%ignore WS
+

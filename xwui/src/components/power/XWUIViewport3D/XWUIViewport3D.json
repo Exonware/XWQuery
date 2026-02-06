@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIViewport3D",
+  "name": "XWUI Viewport 3D Component",
+  "description": "3D viewport with transform system, coordinate conversion, and 3D rendering. Supports pan, zoom, rotation, and object manipulation. Includes integrated navigation controls for 3D navigation.",
+  "path": "viewport.canvas",
+  "tags": ["viewport", "canvas", "3d", "navigation", "zoom", "pan", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "initialX": {
+          "type": "number",
+          "description": "Initial pan X position",
+          "default": 0
+        },
+        "initialY": {
+          "type": "number",
+          "description": "Initial pan Y position",
+          "default": 0
+        },
+        "initialZ": {
+          "type": "number",
+          "description": "Initial pan Z position",
+          "default": 0
+        },
+        "initialScale": {
+          "type": "number",
+          "description": "Initial zoom scale",
+          "default": 1
+        },
+        "initialRotationX": {
+          "type": "number",
+          "description": "Initial rotation X in radians",
+          "default": 0
+        },
+        "initialRotationY": {
+          "type": "number",
+          "description": "Initial rotation Y in radians",
+          "default": 0
+        },
+        "initialRotationZ": {
+          "type": "number",
+          "description": "Initial rotation Z in radians",
+          "default": 0
+        },
+        "minScale": {
+          "type": "number",
+          "description": "Minimum zoom scale",
+          "default": 0.1
+        },
+        "maxScale": {
+          "type": "number",
+          "description": "Maximum zoom scale",
+          "default": 10
+        },
+        "enableNavigation": {
+          "type": "boolean",
+          "description": "Enable navigation controls",
+          "default": true
+        },
+        "navControlsPosition": {
+          "type": "string",
+          "enum": ["top-left", "top-right", "bottom-left", "bottom-right"],
+          "description": "Position of navigation controls",
+          "default": "bottom-right"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "objects": {
+          "type": "array",
+          "description": "Array of 3D objects to display in the viewport",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              },
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              },
+              "depth": {
+                "type": "number"
+              },
+              "color": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": ["id", "x", "y", "z", "width", "height", "depth"]
+          }
+        }
+      }
+    }
+  }
+}
+

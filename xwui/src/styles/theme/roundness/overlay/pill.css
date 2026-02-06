@@ -1,0 +1,12 @@
+/* ============================================
+   OVERLAY - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    --radius-overlay: 24px;
+}
+
+/* Utility class for direct application */
+.radius-overlay-pill {
+    border-radius: var(--radius-overlay, 24px) !important;
+}

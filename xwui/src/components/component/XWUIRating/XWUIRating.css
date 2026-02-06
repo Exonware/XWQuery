@@ -1,0 +1,78 @@
+/**
+ * XWUIRating Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-rating-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-rating-label {
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary);
+}
+
+.xwui-rating {
+    display: inline-flex;
+    gap: var(--spacing-xs, 0.25rem);
+    align-items: center;
+}
+
+.xwui-rating-readonly {
+    pointer-events: none;
+}
+
+/* Star */
+.xwui-rating-star {
+    position: relative;
+    display: inline-flex;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.xwui-rating-star:hover:not(.xwui-rating-readonly .xwui-rating-star) {
+    transform: scale(1.1);
+}
+
+.xwui-rating-star-icon {
+    display: flex;
+    color: var(--text-tertiary);
+    transition: color 0.2s;
+}
+
+.xwui-rating-star-full .xwui-rating-star-icon {
+    color: var(--accent-warning);
+}
+
+.xwui-rating-star-half .xwui-rating-star-icon {
+    color: var(--accent-warning);
+    clip-path: inset(0 50% 0 0);
+}
+
+.xwui-rating-star svg {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+/* Size variants */
+.xwui-rating-small .xwui-rating-star svg {
+    width: 1.25em;
+    height: 1.25em;
+}
+
+.xwui-rating-large .xwui-rating-star svg {
+    width: 2em;
+    height: 2em;
+}
+

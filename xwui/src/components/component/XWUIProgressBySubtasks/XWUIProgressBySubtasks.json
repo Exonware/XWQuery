@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "showTree": {
+      "type": "boolean",
+      "default": true
+    },
+    "showProgressBar": {
+      "type": "boolean",
+      "default": true
+    },
+    "showStatistics": {
+      "type": "boolean",
+      "default": true
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "id": "XWUIProgressBySubtasks"
+}

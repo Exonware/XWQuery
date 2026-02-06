@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwconsole-conf-sys.schema.json",
+  "title": "XWUIConsole System Configuration Schema",
+  "description": "Schema for system-level configuration (admin-editable, visual formats only)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "locale": {
+      "type": "string",
+      "description": "System default locale (e.g., 'en-US', 'de-DE', 'ar-SA')",
+      "default": "en-US",
+      "examples": ["en-US", "de-DE", "ar-SA", "fr-FR", "es-ES"]
+    },
+    "timezone": {
+      "type": "string",
+      "description": "System default timezone (e.g., 'UTC', 'America/New_York')",
+      "default": "UTC",
+      "examples": ["UTC", "America/New_York", "Europe/London", "Asia/Dubai"]
+    },
+    "formats": {
+      "type": "object",
+      "description": "System default format configurations",
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "type": "string",
+          "description": "Default date format pattern (e.g., 'YYYY-MM-DD', 'MM/DD/YYYY')",
+          "default": "YYYY-MM-DD",
+          "examples": ["YYYY-MM-DD", "MM/DD/YYYY", "DD.MM.YYYY", "DD/MM/YYYY"]
+        },
+        "time": {
+          "type": "string",
+          "description": "Default time format pattern (e.g., 'HH:mm:ss', 'hh:mm:ss A')",
+          "default": "HH:mm:ss",
+          "examples": ["HH:mm:ss", "hh:mm:ss A", "HH:mm:ss.SSS"]
+        },
+        "datetime": {
+          "type": "string",
+          "description": "Default datetime format pattern",
+          "default": "YYYY-MM-DD HH:mm:ss",
+          "examples": ["YYYY-MM-DD HH:mm:ss", "MM/DD/YYYY hh:mm:ss A"]
+        },
+        "currency": {
+          "type": "object",
+          "description": "Default currency format settings",
+          "additionalProperties": false,
+          "properties": {
+            "defaultSymbol": {
+              "type": "string",
+              "description": "Default currency symbol",
+              "default": "$",
+              "examples": ["$", "€", "£", "¥", "₹"]
+            },
+            "defaultDecimals": {
+              "type": "number",
+              "description": "Default number of decimal places for currency",
+              "default": 2,
+              "minimum": 0,
+              "maximum": 10
+            }
+          }
+        },
+        "number": {
+          "type": "object",
+          "description": "Default number format settings",
+          "additionalProperties": false,
+          "properties": {
+            "defaultDecimals": {
+              "type": "number",
+              "description": "Default number of decimal places",
+              "default": 2,
+              "minimum": 0,
+              "maximum": 10
+            },
+            "useGrouping": {
+              "type": "boolean",
+              "description": "Whether to use thousand separators",
+              "default": true
+            }
+          }
+        },
+        "percentage": {
+          "type": "object",
+          "description": "Default percentage format settings",
+          "additionalProperties": false,
+          "properties": {
+            "defaultDecimals": {
+              "type": "number",
+              "description": "Default number of decimal places for percentages",
+              "default": 1,
+              "minimum": 0,
+              "maximum": 10
+            }
+          }
+        },
+        "fileSize": {
+          "type": "object",
+          "description": "Default file size format settings",
+          "additionalProperties": false,
+          "properties": {
+            "defaultUnit": {
+              "type": "string",
+              "enum": ["bytes", "auto"],
+              "description": "Default unit for file size display",
+              "default": "auto"
+            },
+            "defaultDecimals": {
+              "type": "number",
+              "description": "Default number of decimal places for file sizes",
+              "default": 2,
+              "minimum": 0,
+              "maximum": 10
+            }
+          }
+        },
+        "duration": {
+          "type": "object",
+          "description": "Default duration format settings",
+          "additionalProperties": false,
+          "properties": {
+            "defaultUnit": {
+              "type": "string",
+              "enum": ["seconds", "minutes", "hours", "auto"],
+              "description": "Default unit for duration display",
+              "default": "auto"
+            },
+            "defaultFormat": {
+              "type": "string",
+              "enum": ["short", "long"],
+              "description": "Default format style (short: '1h 30m', long: '1 hour 30 minutes')",
+              "default": "short"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

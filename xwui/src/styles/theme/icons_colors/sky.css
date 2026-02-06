@@ -1,0 +1,12 @@
+/* ============================================
+   SKY ICON COLORS - Light sky theme
+   ============================================ */
+
+:root[data-icons-colors="sky"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #0c4a6e;        /* Primary fill color - dark sky text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #0ea5e9;        /* Accent/rail/marks color - sky */
+    --icons-color-transparent: transparent;
+}
+

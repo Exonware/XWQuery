@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUICenter",
+  "name": "XWUI Center Component",
+  "description": "Center component for centering content horizontally and/or vertically. Supports horizontal centering, vertical centering, and inline mode. Useful for centering content within containers.",
+  "path": "layout.center",
+  "tags": ["layout", "center", "alignment", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "horizontal": {
+          "type": "boolean",
+          "description": "Whether to center horizontally",
+          "default": true
+        },
+        "vertical": {
+          "type": "boolean",
+          "description": "Whether to center vertically",
+          "default": false
+        },
+        "inline": {
+          "type": "boolean",
+          "description": "Whether to use inline display mode",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the center container"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Content element or HTML string to center"
+        },
+        "children": {
+          "description": "Children element or HTML string (alias for content)"
+        }
+      }
+    }
+  }
+}
+

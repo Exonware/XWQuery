@@ -1,0 +1,26 @@
+// feather.grammar
+// Feather Grammar - Fast on-disk format
+// Company: eXonware.com
+
+?start: feather_file
+
+feather_file: magic_bytes metadata footer
+
+magic_bytes: "ARROW1"
+
+metadata: metadata_length metadata_body
+
+footer: footer_length footer_body
+
+metadata_body: schema* num_rows columns*
+
+footer_body: schema* num_rows columns*
+
+// Terminals
+BYTE: /[\x00-\xFF]/
+INT: /[\x00-\xFF]{4,8}/
+
+%import common.WS
+
+%ignore WS
+

@@ -1,0 +1,13 @@
+/* ============================================
+   HEADINGS TYPOGRAPHY - GEIST
+   ============================================ */
+
+:root[data-font="geist"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-headings-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-headings-geist {
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif)) !important;
+}

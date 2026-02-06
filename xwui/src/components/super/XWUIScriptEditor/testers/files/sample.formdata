@@ -1,0 +1,28 @@
+# FormData Example - URL-encoded form data
+# application/x-www-form-urlencoded format
+
+name=Sample+FormData+Document&version=1.0.0&description=Comprehensive+form+data+example
+
+# Multiple fields
+username=john.doe&password=secret123&email=john.doe%40example.com&age=30
+
+# Checkbox values
+interests=sports&interests=music&interests=reading
+
+# Select/dropdown
+country=US&state=CA&city=San+Francisco
+
+# Textarea content (URL encoded)
+message=This+is+a+multi-line+message%0AWith+line+breaks%0AAnd+special+characters%21
+
+# Boolean values
+terms_accepted=true&newsletter=false
+
+# Date and time
+birthdate=1990-01-15&registration_date=2025-01-15T10%3A30%3A00Z
+
+# File upload (filename only, actual content in multipart)
+file_name=document.pdf&file_type=application%2Fpdf&file_size=1024000
+
+
+

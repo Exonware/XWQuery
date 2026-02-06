@@ -1,0 +1,176 @@
+/**
+ * XWUIAlert Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/alert/*.css (component-specific border widths)
+ * - Roundness: theme/roundness/alert/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm, 0.75rem);
+    padding: var(--spacing-md, 1rem);
+    border-radius: var(--radius-alert, var(--radius-md, 8px));
+    background: var(--bg-secondary);
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.xwui-alert-closing {
+    opacity: 0;
+    transform: translateY(-8px);
+}
+
+/* Variants - use accent colors with light backgrounds */
+.xwui-alert-info {
+    background: var(--bg-elevated);
+    color: var(--accent-primary);
+    border: var(--border-alert-width, var(--border-width-regular, 1.5px)) solid var(--accent-primary);
+}
+
+.xwui-alert-success {
+    background: var(--bg-elevated);
+    color: var(--accent-success);
+    border: var(--border-alert-width, var(--border-width-regular, 1.5px)) solid var(--accent-success);
+}
+
+.xwui-alert-warning {
+    background: var(--bg-elevated);
+    color: var(--accent-warning);
+    border: var(--border-alert-width, var(--border-width-regular, 1.5px)) solid var(--accent-warning);
+}
+
+.xwui-alert-error {
+    background: var(--bg-elevated);
+    color: var(--accent-error);
+    border: var(--border-alert-width, var(--border-width-regular, 1.5px)) solid var(--accent-error);
+}
+
+/* Bordered - explicit border variant */
+.xwui-alert-bordered.xwui-alert-info {
+    border-color: var(--accent-primary);
+}
+
+.xwui-alert-bordered.xwui-alert-success {
+    border-color: var(--accent-success);
+}
+
+.xwui-alert-bordered.xwui-alert-warning {
+    border-color: var(--accent-warning);
+}
+
+.xwui-alert-bordered.xwui-alert-error {
+    border-color: var(--accent-error);
+}
+
+/* Filled - use accent colors as background */
+.xwui-alert-filled.xwui-alert-info {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+    border-color: var(--accent-primary);
+}
+
+.xwui-alert-filled.xwui-alert-success {
+    background: var(--accent-success);
+    color: var(--text-inverse);
+    border-color: var(--accent-success);
+}
+
+.xwui-alert-filled.xwui-alert-warning {
+    background: var(--accent-warning);
+    color: var(--text-inverse);
+    border-color: var(--accent-warning);
+}
+
+.xwui-alert-filled.xwui-alert-error {
+    background: var(--accent-error);
+    color: var(--text-inverse);
+    border-color: var(--accent-error);
+}
+
+/* Icon */
+.xwui-alert-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.xwui-alert-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Content */
+.xwui-alert-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-alert-title {
+    font-weight: var(--font-weight-semibold, 600);
+    font-size: var(--font-size-base, 0.9375rem);
+}
+
+.xwui-alert-message {
+    font-size: var(--font-size-sm, 0.875rem);
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+/* Action */
+.xwui-alert-action {
+    margin-top: var(--spacing-xs, 0.5rem);
+    padding: var(--spacing-xs, 0.375rem) var(--spacing-sm, 0.75rem);
+    border: none;
+    background: transparent;
+    font-weight: var(--font-weight-medium, 500);
+    font-size: var(--font-size-sm, 0.875rem);
+    text-decoration: underline;
+    cursor: pointer;
+    color: inherit;
+    align-self: flex-start;
+}
+
+.xwui-alert-action:hover {
+    opacity: 0.8;
+}
+
+/* Close button */
+.xwui-alert-close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xs, 0.25rem);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: currentColor;
+    opacity: 0.5;
+    border-radius: var(--radius-sm, 4px);
+    transition: opacity 0.2s, background 0.2s;
+}
+
+.xwui-alert-close:hover {
+    opacity: 1;
+    background: var(--bg-hover);
+}
+
+.xwui-alert-filled .xwui-alert-close:hover {
+    background: var(--bg-active);
+}
+
+.xwui-alert-close svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */

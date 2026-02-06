@@ -1,0 +1,66 @@
+﻿# graphql.out.grammar
+# GraphQL Output Grammar - Template for generating GraphQL from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#each definitions}}{{value}}
+{{/each}}
+
+@definition = {{value}}
+
+@operation_definition = {{type}}{{#if name}} {{name}}{{/if}}{{#if variables}}{{variables}}{{/if}}{{#if directives}}{{directives}}{{/if}} {{selection_set}}
+
+@operation_type = {{value}}
+
+@operation_name = {{value}}
+
+@variable_definitions = ({{#each definitions}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@variable_definition = ${{name}}: {{type}}{{#if default}} = {{default}}{{/if}}
+
+@type = {{value}}
+
+@named_type = {{value}}
+
+@list_type = [{{type}}]
+
+@non_null_type = {{type}}!
+
+@default_value = = {{value}}
+
+@selection_set = {
+{{#each selections}}  {{value}}
+{{/each}}}
+
+@selection = {{value}}
+
+@field = {{#if alias}}{{alias}}: {{/if}}{{name}}{{#if arguments}}{{arguments}}{{/if}}{{#if directives}}{{directives}}{{/if}}{{#if selection_set}} {{selection_set}}{{/if}}
+
+@alias = {{value}}:
+
+@arguments = ({{#each arguments}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@argument = {{name}}: {{value}}
+
+@fragment_spread = ...{{name}}{{#if directives}}{{directives}}{{/if}}
+
+@inline_fragment = ...{{#if type}} on {{type}}{{/if}}{{#if directives}}{{directives}}{{/if}} {{selection_set}}
+
+@type_condition = {{value}}
+
+@fragment_definition = fragment {{name}} on {{type}}{{#if directives}}{{directives}}{{/if}} {{selection_set}}
+
+@directives = {{#each directives}}{{value}}{{/each}}
+
+@directive = @{{name}}{{#if arguments}}{{arguments}}{{/if}}
+
+@value = {{value}}
+
+@list_value = [{{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@object_value = {{{#each fields}}{{name}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@object_field = {{name}}: {{value}}
+
+@indent = 2
+@pretty = true

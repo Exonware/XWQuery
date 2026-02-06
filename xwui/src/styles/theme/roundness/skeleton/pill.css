@@ -1,0 +1,14 @@
+/* ============================================
+   SKELETON - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-skeleton: 12px;
+    /* Fallback: --radius-feedback → --radius-sm → 12px */
+}
+
+/* Utility class for direct application */
+.radius-skeleton-pill {
+    border-radius: var(--radius-skeleton, 12px) !important;
+}

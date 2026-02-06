@@ -1,0 +1,21 @@
+/**
+ * XWUIAffix Component Styles
+ */
+
+.xwui-affix-container {
+    /* Container has no specific styles */
+}
+
+.xwui-affix-placeholder {
+    /* Placeholder maintains space */
+}
+
+.xwui-affix {
+    transition: all 0.3s ease;
+}
+
+.xwui-affix-affixed {
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+

@@ -1,0 +1,14 @@
+/* ============================================
+   SIDEBAR - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-sidebar: 3px;
+    /* Fallback: --radius-navigation → --radius-md → 3px */
+}
+
+/* Utility class for direct application */
+.radius-sidebar-minimal {
+    border-radius: var(--radius-sidebar, 3px) !important;
+}

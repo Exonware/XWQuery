@@ -1,0 +1,56 @@
+/**
+ * XWUIVideoPlayer Component Styles
+ * Video player with custom controls
+ * Uses @styles system variables
+ */
+
+.xwui-video-player {
+    width: 100%;
+    position: relative;
+    background: var(--bg-primary, #000);
+    border-radius: var(--radius-md, 8px);
+    overflow: hidden;
+}
+
+.xwui-video-player-video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.xwui-video-player-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    padding: var(--spacing-md, 1rem);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.xwui-video-player:hover .xwui-video-player-controls {
+    opacity: 1;
+}
+
+.xwui-video-player-controls-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-video-player-progress {
+    flex: 1;
+}
+
+.xwui-video-player-time {
+    color: var(--text-inverse, #fff);
+    font-size: var(--font-size-sm, 0.875rem);
+    white-space: nowrap;
+    padding: 0 var(--spacing-xs, 0.5rem);
+}
+
+.xwui-video-player-volume {
+    min-width: 100px;
+}
+

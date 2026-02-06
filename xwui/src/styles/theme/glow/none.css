@@ -1,0 +1,64 @@
+/* ============================================
+   NO GLOW - All glow effects disabled
+   @default: true
+   ============================================ */
+
+:root[data-glow="none"],
+:root:not([data-glow]) {
+    /* Button glows */
+    --glow-button-hover: none;
+    --glow-button-focus: none;
+    --glow-button-active: none;
+    
+    /* Slider glows */
+    --glow-slider-thumb-hover: none;
+    --glow-slider-thumb-focus: none;
+    --glow-slider-thumb-active: none;
+    --glow-slider-track-active: none;
+    
+    /* Switch glows */
+    --glow-switch-thumb-hover: none;
+    --glow-switch-thumb-focus: none;
+    --glow-switch-track-checked: none;
+    
+    /* Input glows */
+    --glow-input-focus: none;
+    --glow-input-success: none;
+    --glow-input-error: none;
+    
+    /* Checkbox glows */
+    --glow-checkbox-checked: none;
+    --glow-checkbox-focus: none;
+    
+    /* Radio glows */
+    --glow-radio-selected: none;
+    --glow-radio-focus: none;
+    
+    /* Item glows */
+    --glow-item-active: none;
+    --glow-item-hover: none;
+    
+    /* Badge glows */
+    --glow-badge-active: none;
+    
+    /* Chip glows */
+    --glow-chip-selected: none;
+    --glow-chip-hover: none;
+    
+    /* Tag glows */
+    --glow-tag-active: none;
+    
+    /* Progress glows */
+    --glow-progress-active: none;
+    
+    /* Rating glows */
+    --glow-rating-hover: none;
+    
+    /* SpeedDial glows */
+    --glow-speeddial-base: none;
+    --glow-speeddial-hover: none;
+    
+    /* BackToTop glows */
+    --glow-backtotop-base: none;
+}
+

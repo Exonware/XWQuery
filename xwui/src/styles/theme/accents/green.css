@@ -1,0 +1,24 @@
+/* ============================================
+   GREEN ACCENT - Green palette
+   ============================================ */
+
+:root[data-accent="green"] {
+    /* Accent colors - Green palette */
+    --accent-primary: #10b981;
+    --accent-hover: #059669;
+    --accent-light: #34d399;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 16, 185, 129;
+    --accent-hover-rgb: 5, 150, 105;
+    --accent-light-rgb: 52, 211, 153;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

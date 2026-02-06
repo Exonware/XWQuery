@@ -1,0 +1,14 @@
+/* ============================================
+   AVATAR - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-avatar: 8px;
+    /* Fallback: --radius-media → --radius-sm → 8px */
+}
+
+/* Utility class for direct application */
+.radius-avatar-soft {
+    border-radius: var(--radius-avatar, 8px) !important;
+}

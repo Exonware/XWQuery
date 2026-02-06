@@ -1,0 +1,18 @@
+// plaintext.grammar
+// Plain Text Grammar - Simple text format
+// Company: eXonware.com
+
+?start: text
+
+text: line*
+
+line: TEXT_CONTENT NEWLINE
+
+TEXT_CONTENT: /[^\n\r]*/
+
+NEWLINE: /\r?\n/
+
+%import common.WS
+
+%ignore WS
+

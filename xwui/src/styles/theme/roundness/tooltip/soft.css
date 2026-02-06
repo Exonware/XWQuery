@@ -1,0 +1,14 @@
+/* ============================================
+   TOOLTIP - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-tooltip: 8px;
+    /* Fallback: --radius-overlay → --radius-sm → 8px */
+}
+
+/* Utility class for direct application */
+.radius-tooltip-soft {
+    border-radius: var(--radius-tooltip, 8px) !important;
+}

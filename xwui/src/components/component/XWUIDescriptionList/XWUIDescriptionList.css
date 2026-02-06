@@ -1,0 +1,60 @@
+/**
+ * XWUIDescriptionList Component Styles
+ */
+
+.xwui-description-list-container {
+    /* Container has no specific styles */
+}
+
+.xwui-description-list {
+    display: grid;
+    gap: 16px;
+}
+
+.xwui-description-list-horizontal {
+    grid-template-columns: auto 1fr;
+}
+
+.xwui-description-list-vertical {
+    grid-template-columns: 1fr;
+}
+
+.xwui-description-list-item {
+    display: contents;
+}
+
+.xwui-description-list-term {
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-secondary, #666);
+    margin: 0;
+}
+
+.xwui-description-list-desc {
+    margin: 0;
+    color: var(--text-primary, #333);
+}
+
+.xwui-description-list-bordered {
+    border: 1px solid var(--border-light, #e8e8e8);
+    border-radius: var(--radius-sm, 4px);
+}
+
+.xwui-description-list-bordered .xwui-description-list-item {
+    display: grid;
+    grid-column: span 1;
+    border-bottom: 1px solid var(--border-light, #e8e8e8);
+    padding: var(--spacing-md, 12px);
+}
+
+.xwui-description-list-bordered .xwui-description-list-item:last-child {
+    border-bottom: none;
+}
+
+.xwui-description-list-small {
+    font-size: 12px;
+}
+
+.xwui-description-list-large {
+    font-size: 16px;
+}
+

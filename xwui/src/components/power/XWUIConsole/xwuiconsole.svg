@@ -1,0 +1,13 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <rect x="15" y="20" width="70" height="60" rx="3" class="xwui-icon-fill"/>
+  <text x="20" y="35" font-family="monospace" font-size="7" fill="var(--icons-color-secondary, white)">> console.log('Hello')</text>
+  <text x="20" y="48" font-family="monospace" font-size="7" fill="var(--icons-color-secondary, white)">Hello</text>
+  <text x="20" y="58" font-family="monospace" font-size="7" fill="var(--icons-color-secondary, white)">> error('Test')</text>
+  <text x="20" y="68" font-family="monospace" font-size="7" fill="var(--icons-color-secondary, white)">Error: Test</text>
+</svg>
+

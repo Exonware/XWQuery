@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "XWUIActivityFilter",
+  "description": "Filter and search activity stream by type, user, date range. Provides filtering controls for activity messages with search, type filters, date range selection, and preset filter tabs.",
+  "meta": {
+    "input": {
+      "description": "Input data required for the component",
+      "rules": [
+        "Requires contributors array (XWUIThreadContributor[])",
+        "Requires messages array (XWUIThreadMessage[])",
+        "Optional filterPresets array for preset filter configurations",
+        "Each filter preset must have label and filter object"
+      ],
+      "properties": {
+        "contributors": {
+          "type": "array",
+          "description": "Array of thread contributors/users",
+          "required": true
+        },
+        "messages": {
+          "type": "array",
+          "description": "Array of activity messages to filter",
+          "required": true
+        },
+        "filterPresets": {
+          "type": "array",
+          "description": "Optional array of preset filter configurations",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Display label for the preset"
+              },
+              "filter": {
+                "type": "object",
+                "description": "Filter configuration object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "output": {
+      "description": "Output produced by the component",
+      "rules": [
+        "Renders filtered activity thread based on current filter state",
+        "Emits change events with filter object and filtered messages array",
+        "Updates thread component when filters change"
+      ],
+      "properties": {
+        "filteredMessages": {
+          "type": "array",
+          "description": "Array of messages matching current filter criteria"
+        },
+        "currentFilter": {
+          "type": "object",
+          "description": "Current active filter state"
+        }
+      }
+    },
+    "actions": {
+      "description": "User actions supported by the component",
+      "rules": [
+        "Search input filters messages by content",
+        "Type dropdown filters by activity type",
+        "Date range picker filters by timestamp range",
+        "Preset tabs apply predefined filter configurations",
+        "Clear button resets all filters",
+        "onChange event fires when filter state changes"
+      ],
+      "properties": {
+        "setFilter": {
+          "type": "function",
+          "description": "Programmatically set filter state"
+        },
+        "getFilter": {
+          "type": "function",
+          "description": "Get current filter state"
+        },
+        "onChange": {
+          "type": "function",
+          "description": "Register callback for filter change events"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "showSearch": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show search input for filtering messages by content"
+    },
+    "showFilters": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show filter controls (type, date range)"
+    },
+    "showTabs": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show preset filter tabs"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS class name for the component"
+    }
+  },
+  "id": "XWUIActivityFilter"
+}

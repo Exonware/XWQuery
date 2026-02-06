@@ -1,0 +1,123 @@
+// XWQuery Example (Exonware Unified Query Language)
+
+// Basic query syntax
+query {
+  documents(where: { active: true }) {
+    id
+    name
+    version
+    metadata {
+      author
+      created
+      tags
+    }
+    items(filter: { active: true, price: { gte: 20 } }) {
+      id
+      name
+      price
+      categories
+    }
+  }
+}
+
+// Aggregations
+query {
+  documents {
+    name
+    stats: aggregate {
+      totalItems: count(items)
+      avgPrice: avg(items.price)
+      maxPrice: max(items.price)
+      minPrice: min(items.price)
+    }
+    items(groupBy: category) {
+      category
+      count
+      totalPrice: sum(price)
+    }
+  }
+}
+
+// Graph queries
+query {
+  documents {
+    name
+    connected: traverse(relations: [HAS_METADATA, CONTAINS], depth: 2) {
+      type
+      node {
+        ... on Metadata { author, created }
+        ... on Item { name, price }
+      }
+    }
+  }
+}
+
+// Temporal queries
+query {
+  documents(
+    where: {
+      created: { between: ["2025-01-01", "2025-12-31"] }
+    }
+  ) {
+    name
+    created
+    updated
+    duration: temporal_diff(created, updated)
+  }
+}
+
+// Full-text search
+query {
+  search(query: "sample document", fields: [name, description]) {
+    score
+    document {
+      name
+      description
+      highlights
+    }
+  }
+}
+
+// Mutations
+mutation {
+  createDocument(input: {
+    name: "New Document"
+    version: "1.0.0"
+    metadata: {
+      author: "XWUI Team"
+      created: "2025-01-15T10:30:00Z"
+    }
+  }) {
+    id
+    name
+    version
+  }
+  
+  updateDocument(
+    id: "123"
+    input: { version: "1.1.0" }
+  ) {
+    id
+    version
+  }
+  
+  deleteDocument(id: "123") {
+    success
+  }
+}
+
+// Subscriptions
+subscription {
+  documentUpdates(filter: { active: true }) {
+    event
+    document {
+      id
+      name
+      version
+      updated
+    }
+  }
+}
+
+
+

@@ -1,0 +1,168 @@
+/**
+ * XWUIProgress Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Roundness: theme/roundness/progress/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-progress {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-progress-label {
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+}
+
+/* Linear Progress */
+.xwui-progress-linear {
+    width: 100%;
+}
+
+.xwui-progress-track {
+    width: 100%;
+    background: var(--bg-tertiary, #e9ecef);
+    border-radius: var(--radius-progress, 999px);
+    overflow: hidden;
+}
+
+.xwui-progress-small .xwui-progress-track {
+    height: 4px;
+}
+
+.xwui-progress-medium .xwui-progress-track {
+    height: 8px;
+}
+
+.xwui-progress-large .xwui-progress-track {
+    height: 12px;
+}
+
+.xwui-progress-fill {
+    height: 100%;
+    background: var(--accent-primary, #4f46e5);
+    border-radius: var(--radius-progress, 999px);
+    transition: width 0.3s ease;
+}
+
+.xwui-progress-success .xwui-progress-fill {
+    background: var(--accent-success, #10b981);
+}
+
+.xwui-progress-warning .xwui-progress-fill {
+    background: var(--accent-warning, #f59e0b);
+}
+
+.xwui-progress-error .xwui-progress-fill {
+    background: var(--accent-error, #ef4444);
+}
+
+/* Indeterminate animation */
+.xwui-progress-indeterminate .xwui-progress-fill {
+    width: 50% !important;
+    animation: xwui-progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes xwui-progress-indeterminate {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(200%);
+    }
+}
+
+.xwui-progress-value {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #6c757d);
+    text-align: right;
+}
+
+/* Circular Progress */
+.xwui-progress-circular {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.xwui-progress-circular svg {
+    transform: rotate(-90deg);
+}
+
+.xwui-progress-circular-track {
+    stroke: var(--bg-tertiary, #e9ecef);
+}
+
+.xwui-progress-circular-fill {
+    stroke: var(--accent-primary, #4f46e5);
+    transition: stroke-dashoffset 0.3s ease;
+    stroke-linecap: round;
+}
+
+.xwui-progress-success .xwui-progress-circular-fill {
+    stroke: var(--accent-success, #10b981);
+}
+
+.xwui-progress-warning .xwui-progress-circular-fill {
+    stroke: var(--accent-warning, #f59e0b);
+}
+
+.xwui-progress-error .xwui-progress-circular-fill {
+    stroke: var(--accent-error, #ef4444);
+}
+
+.xwui-progress-circular-value {
+    position: absolute;
+    font-size: var(--font-size-xs, 0.75rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-progress-large .xwui-progress-circular-value {
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+/* Circular indeterminate */
+.xwui-progress-circular.xwui-progress-indeterminate svg {
+    animation: xwui-progress-circular-rotate 2s linear infinite;
+}
+
+.xwui-progress-circular.xwui-progress-indeterminate .xwui-progress-circular-fill {
+    stroke-dasharray: 80, 200;
+    stroke-dashoffset: 0;
+    animation: xwui-progress-circular-dash 1.5s ease-in-out infinite;
+}
+
+@keyframes xwui-progress-circular-rotate {
+    100% {
+        transform: rotate(270deg);
+    }
+}
+
+@keyframes xwui-progress-circular-dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 100, 200;
+        stroke-dashoffset: -15;
+    }
+    100% {
+        stroke-dasharray: 100, 200;
+        stroke-dashoffset: -125;
+    }
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

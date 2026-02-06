@@ -1,0 +1,37 @@
+/**
+ * XWUISortableList Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ */
+
+.xwui-sortable-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-sortable-list-item {
+    cursor: move;
+    user-select: none;
+    transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+
+.xwui-sortable-list-item:hover {
+    transform: translateY(-2px);
+}
+
+.xwui-sortable-list-item-dragging {
+    opacity: 0.5;
+    transform: scale(0.95);
+}
+
+.xwui-sortable-list-item:active {
+    cursor: grabbing;
+}
+

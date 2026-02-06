@@ -1,0 +1,12 @@
+/* ============================================
+   RED ICON COLORS - Bold red theme
+   ============================================ */
+
+:root[data-icons-colors="red"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #7f1d1d;        /* Primary fill color - dark red text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #dc2626;        /* Accent/rail/marks color - red */
+    --icons-color-transparent: transparent;
+}
+

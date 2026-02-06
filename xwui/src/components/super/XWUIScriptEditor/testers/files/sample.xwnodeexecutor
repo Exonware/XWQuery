@@ -1,0 +1,116 @@
+// XWNode Executor Examples
+// Exonware node execution language
+
+// Basic node execution
+execute node "process-data" {
+    input: {
+        data: $input.data,
+        config: $input.config
+    }
+}
+
+// Sequential execution
+execute node "validate-input" {
+    input: { data: $input.data }
+}
+|> execute node "transform-data" {
+    input: { data: $previous.output }
+}
+|> execute node "save-result" {
+    input: { data: $previous.output }
+}
+
+// Parallel execution
+parallel {
+    execute node "fetch-user-data" {
+        input: { userId: $input.userId }
+    },
+    execute node "fetch-order-data" {
+        input: { userId: $input.userId }
+    },
+    execute node "fetch-preference-data" {
+        input: { userId: $input.userId }
+    }
+}
+
+// Conditional execution
+if ($input.type == "user") {
+    execute node "process-user" {
+        input: $input
+    }
+} else if ($input.type == "order") {
+    execute node "process-order" {
+        input: $input
+    }
+} else {
+    execute node "process-default" {
+        input: $input
+    }
+}
+
+// Loop execution
+for each $item in $input.items {
+    execute node "process-item" {
+        input: {
+            item: $item,
+            context: $input.context
+        }
+    }
+}
+
+// Error handling
+try {
+    execute node "risky-operation" {
+        input: $input
+    }
+} catch (error) {
+    execute node "error-handler" {
+        input: {
+            error: error,
+            originalInput: $input
+        }
+    }
+}
+
+// Node with retry
+execute node "network-request" {
+    input: { url: $input.url },
+    retry: {
+        maxAttempts: 3,
+        delay: "1s"
+    }
+}
+
+// Conditional node execution
+execute node "conditional-process" {
+    input: $input,
+    when: $input.active == true
+}
+
+// Node with timeout
+execute node "long-running-task" {
+    input: $input,
+    timeout: "30s"
+}
+
+// Complex workflow
+execute node "initialize" {
+    input: $input
+}
+|> if ($previous.output.requiresValidation) {
+    execute node "validate" {
+        input: { data: $previous.output }
+    }
+}
+|> execute node "transform" {
+    input: { data: $previous.output }
+}
+|> parallel {
+    execute node "save-primary" {
+        input: { data: $previous.output }
+    },
+    execute node "notify" {
+        input: { data: $previous.output }
+    }
+}
+

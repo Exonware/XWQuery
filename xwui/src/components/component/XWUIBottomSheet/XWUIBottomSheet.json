@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "closable": {
+      "type": "boolean",
+      "default": true
+    },
+    "closeOnBackdrop": {
+      "type": "boolean",
+      "default": true
+    },
+    "closeOnEscape": {
+      "type": "boolean",
+      "default": true
+    },
+    "maxHeight": {
+      "type": "string",
+      "default": "90vh"
+    },
+    "className": {
+      "type": "string"
+    },
+    "content": {
+      "description": "Content as HTML string or HTMLElement"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "content"
+  ],
+  "id": "XWUIBottomSheet"
+}

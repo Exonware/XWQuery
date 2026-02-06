@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIBackdrop Component Tester</title>
+    
+    <style>
+        .test-section {
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-md);
+            border: 1px solid var(--border-color, #e0e0e0);
+            border-radius: var(--radius-md, 8px);
+            background: var(--color-surface, #ffffff);
+        }
+        .test-section h3 {
+            margin-top: 0;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text, #212529);
+            font-size: var(--font-size-lg, 1.125rem);
+            font-weight: var(--font-weight-semibold, 600);
+        }
+        .test-section p {
+            margin: var(--spacing-sm) 0;
+            color: var(--color-text-secondary, #6c757d);
+            font-size: var(--font-size-base, 1rem);
+            line-height: 1.6;
+        }
+        .demo-button {
+            padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+            margin: var(--spacing-xs, 0.25rem);
+            border-radius: var(--radius-sm, 4px);
+            border: 1px solid var(--border-color, #e0e0e0);
+            background-color: var(--accent-primary, #007bff);
+            color: var(--text-inverse, #ffffff);
+            cursor: pointer;
+            font-size: var(--font-size-base, 1rem);
+            font-weight: var(--font-weight-medium, 500);
+            transition: all 0.2s ease;
+        }
+        .demo-button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.1));
+        }
+        .backdrop-demo-container {
+            position: relative;
+            min-height: 200px;
+            width: 100%;
+            border: 2px dashed var(--border-color, #e0e0e0);
+            border-radius: var(--radius-md, 8px);
+            background: var(--bg-secondary, #f8f9fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: var(--spacing-md);
+        }
+        .backdrop-demo-container::before {
+            content: 'Backdrop will appear here';
+            color: var(--color-text-secondary, #6c757d);
+            font-size: var(--font-size-sm, 0.875rem);
+        }
+    </style>
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuibackdrop-content">
+<div class="test-section">
+                <h3>Basic Backdrop</h3>
+                <p>Click the button below to show/hide a basic backdrop overlay.</p>
+                <button class="demo-button" id="show-backdrop-1">Show Backdrop</button>
+                <div class="backdrop-demo-container" id="backdrop-container-1"></div>
+            </div>
+            
+            <div class="test-section">
+                <h3>Backdrop with Click Handler</h3>
+                <p>This backdrop can be closed by clicking on it. Click the button to show it, then click anywhere on the backdrop to close it.</p>
+                <button class="demo-button" id="show-backdrop-2">Show Backdrop (Click to Close)</button>
+                <div class="backdrop-demo-container" id="backdrop-container-2"></div>
+            </div>
+            
+            <div class="test-section">
+                <h3>Invisible Backdrop</h3>
+                <p>This backdrop is invisible but still captures click events. It's useful for modal dialogs where you want to detect clicks outside the modal.</p>
+                <button class="demo-button" id="show-backdrop-3">Show Invisible Backdrop</button>
+                <div class="backdrop-demo-container" id="backdrop-container-3"></div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIBackdrop.ts"></script>
+</body>
+</html>
+

@@ -1,0 +1,14 @@
+/* ============================================
+   CAROUSEL - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-carousel: 6px;
+    /* Fallback: --radius-content → --radius-md → 6px */
+}
+
+/* Utility class for direct application */
+.radius-carousel-subtle {
+    border-radius: var(--radius-carousel, 6px) !important;
+}

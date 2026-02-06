@@ -1,0 +1,40 @@
+/**
+ * XWUISwipeableDrawer Component Styles
+ * 
+ * Style Dependencies (loaded in testers/app):
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Roundness: theme/roundness/drawer/*.css (component-specific roundness)
+ * - Lines: theme/lines/drawer/*.css (component-specific border widths)
+ * - Typography: theme/typography/*.css
+ * 
+ * Note: This component extends XWUIMenuDrawer, so drawer styles apply.
+ * Additional styles for swipe gestures are defined here.
+ */
+
+.xwui-swipeable-drawer {
+    /* Inherits from XWUIMenuDrawer */
+    touch-action: pan-y; /* Allow vertical panning for swipe gestures */
+    user-select: none; /* Prevent text selection during swipe */
+}
+
+/* Swipe indicator (optional visual feedback) */
+.xwui-swipeable-drawer-swipe-indicator {
+    position: absolute;
+    width: var(--spacing-md, 4px);
+    height: var(--spacing-lg, 40px);
+    background-color: var(--color-border, var(--color-text-secondary, #666));
+    border-radius: var(--radius-full, 999px);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity var(--transition-duration-fast, 0.2s) ease;
+}
+
+.xwui-swipeable-drawer-swipe-indicator.visible {
+    opacity: 1;
+}
+

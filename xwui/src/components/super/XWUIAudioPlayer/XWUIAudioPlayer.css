@@ -1,0 +1,67 @@
+/**
+ * XWUIAudioPlayer Component Styles
+ * Audio player component
+ * Uses @styles system variables
+ */
+
+.xwui-audio-player {
+    width: 100%;
+    background: var(--bg-secondary, #f5f5f5);
+    border-radius: var(--radius-md, 8px);
+    padding: var(--spacing-md, 1rem);
+}
+
+.xwui-audio-player-audio {
+    width: 100%;
+}
+
+.xwui-audio-player-controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+}
+
+.xwui-audio-player-info {
+    display: flex;
+    gap: var(--spacing-md, 1rem);
+    align-items: center;
+}
+
+.xwui-audio-player-cover {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-md, 8px);
+    object-fit: cover;
+}
+
+.xwui-audio-player-title {
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #000);
+}
+
+.xwui-audio-player-artist {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #666);
+}
+
+.xwui-audio-player-controls-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-audio-player-progress {
+    flex: 1;
+}
+
+.xwui-audio-player-time {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary, #666);
+    white-space: nowrap;
+    padding: 0 var(--spacing-xs, 0.5rem);
+}
+
+.xwui-audio-player-volume {
+    min-width: 100px;
+}
+

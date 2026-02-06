@@ -1,0 +1,13 @@
+/* ============================================
+   HEADINGS TYPOGRAPHY - ANDROID
+   ============================================ */
+
+:root[data-font="android"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-headings-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-headings-android {
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif)) !important;
+}

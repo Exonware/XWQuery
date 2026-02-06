@@ -1,0 +1,16 @@
+/* ============================================
+   BUTTON - PRIMARY GLOW
+   ============================================ */
+
+:root[data-glow="primary"] {
+    /* Button glows - using accent-primary with opacity */
+    --glow-button-hover: 0 0 0 2px color-mix(in srgb, var(--accent-primary) 10%, transparent), 0 0 8px color-mix(in srgb, var(--accent-primary) 30%, transparent);
+    --glow-button-focus: 0 0 0 2px color-mix(in srgb, var(--accent-primary) 20%, transparent), 0 0 12px color-mix(in srgb, var(--accent-primary) 50%, transparent);
+    --glow-button-active: 0 0 0 2px color-mix(in srgb, var(--accent-primary) 15%, transparent), 0 0 10px color-mix(in srgb, var(--accent-primary) 40%, transparent);
+}
+
+/* Utility class for direct application */
+.glow-button-primary {
+    box-shadow: var(--glow-button-hover) !important;
+}
+

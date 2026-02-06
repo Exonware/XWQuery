@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwsignaturepad.schema.json",
+  "title": "XWUISignaturePad Schema",
+  "description": "Schema for XWUISignaturePad component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "penColor": {
+          "type": "string",
+          "description": "Pen color (hex, rgb, or named color)",
+          "default": "#000000"
+        },
+        "penWidth": {
+          "type": "number",
+          "description": "Pen width in pixels",
+          "default": 2,
+          "minimum": 1,
+          "maximum": 20
+        },
+        "backgroundColor": {
+          "type": "string",
+          "description": "Background color",
+          "default": "#ffffff"
+        },
+        "showClearButton": {
+          "type": "boolean",
+          "description": "Whether to show clear button",
+          "default": true
+        },
+        "showSaveButton": {
+          "type": "boolean",
+          "description": "Whether to show save button",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "imageData": {
+          "type": "string",
+          "description": "Base64 encoded image data"
+        }
+      }
+    }
+  },
+  "id": "XWUISignaturePad"
+}

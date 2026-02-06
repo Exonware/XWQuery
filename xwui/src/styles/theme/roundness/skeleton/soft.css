@@ -1,0 +1,14 @@
+/* ============================================
+   SKELETON - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-skeleton: 8px;
+    /* Fallback: --radius-feedback → --radius-sm → 8px */
+}
+
+/* Utility class for direct application */
+.radius-skeleton-soft {
+    border-radius: var(--radius-skeleton, 8px) !important;
+}

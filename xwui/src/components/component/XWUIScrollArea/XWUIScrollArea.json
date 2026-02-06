@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIScrollArea",
+  "name": "XWUI Scroll Area Component",
+  "description": "Custom scrollable area component with custom scrollbar styling. Supports vertical, horizontal, and both scroll orientations with optional scrollbar hiding. Useful for creating custom scrollable containers.",
+  "path": "layout.scrollarea",
+  "tags": ["layout", "scroll", "scrollbar", "container", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "orientation": {
+          "type": "string",
+          "enum": ["vertical", "horizontal", "both"],
+          "description": "Scroll orientation",
+          "default": "vertical"
+        },
+        "hideScrollbar": {
+          "type": "boolean",
+          "description": "Whether to hide the scrollbar while maintaining scroll functionality",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the scroll area"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Content element or HTML string to display in the scroll area (required)"
+        }
+      },
+      "required": ["content"]
+    }
+  }
+}
+

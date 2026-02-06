@@ -1,0 +1,95 @@
+# SPARQL Query Examples (RDF Query Language)
+
+# Prefix declarations
+PREFIX ex: <http://example.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# Insert data
+INSERT DATA {
+  ex:document1 rdf:type ex:Document ;
+    ex:name "Sample SPARQL Document" ;
+    ex:version "1.0.0" ;
+    ex:description "SPARQL query examples" ;
+    ex:created "2025-01-15T10:30:00Z"^^xsd:dateTime .
+  
+  ex:metadata1 rdf:type ex:Metadata ;
+    ex:author "XWUI Team" ;
+    ex:created "2025-01-15T10:30:00Z"^^xsd:dateTime ;
+    ex:tag "example" ;
+    ex:tag "sparql" ;
+    ex:tag "rdf" .
+  
+  ex:document1 ex:hasMetadata ex:metadata1 .
+  
+  ex:item1 rdf:type ex:Item ;
+    ex:id 1 ;
+    ex:name "First Item" ;
+    ex:active true ;
+    ex:price 29.99 .
+  
+  ex:item2 rdf:type ex:Item ;
+    ex:id 2 ;
+    ex:name "Second Item" ;
+    ex:active false ;
+    ex:price 49.99 .
+  
+  ex:document1 ex:contains ex:item1 .
+  ex:document1 ex:contains ex:item2 .
+}
+
+# SELECT query
+SELECT ?name ?version ?description
+WHERE {
+  ?doc rdf:type ex:Document ;
+    ex:name ?name ;
+    ex:version ?version ;
+    ex:description ?description .
+}
+
+# Query with filters
+SELECT ?item ?name ?price
+WHERE {
+  ?doc ex:contains ?item .
+  ?item ex:name ?name ;
+    ex:price ?price ;
+    ex:active true .
+  FILTER (?price > 20)
+}
+ORDER BY DESC(?price)
+
+# Query with joins
+SELECT ?docName ?author ?itemName
+WHERE {
+  ?doc rdf:type ex:Document ;
+    ex:name ?docName ;
+    ex:hasMetadata ?meta .
+  ?meta ex:author ?author .
+  ?doc ex:contains ?item .
+  ?item ex:name ?itemName .
+}
+
+# Aggregations
+SELECT (COUNT(?item) AS ?itemCount) (AVG(?price) AS ?avgPrice)
+WHERE {
+  ?doc ex:contains ?item .
+  ?item ex:price ?price ;
+    ex:active true .
+}
+
+# CONSTRUCT query
+CONSTRUCT {
+  ?doc ex:hasActiveItems ?count
+}
+WHERE {
+  SELECT ?doc (COUNT(?item) AS ?count)
+  WHERE {
+    ?doc ex:contains ?item .
+    ?item ex:active true .
+  }
+  GROUP BY ?doc
+}
+
+
+

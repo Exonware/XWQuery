@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUI Components - Testers Index</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../styles/app/testers.css">
+    
+    <style>
+        .components-index {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .components-index h1 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        
+        .components-index .description {
+            margin-bottom: 2rem;
+            color: #666;
+        }
+        
+        .search-bar {
+            margin-bottom: 2rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #1890ff;
+            box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        }
+        
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .component-card {
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: white;
+            transition: box-shadow 0.2s;
+        }
+        
+        .component-card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .component-card h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .component-card .component-description {
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .testers-list {
+            margin-top: 1rem;
+        }
+        
+        .testers-list .tester-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem 0.5rem 0.25rem 0;
+            background: #f0f0f0;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            transition: background-color 0.2s;
+        }
+        
+        .testers-list .tester-link:hover {
+            background: #1890ff;
+            color: white;
+        }
+        
+        .no-testers {
+            color: #999;
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+        
+        .stats {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .stats span {
+            margin-right: 1.5rem;
+            color: #666;
+        }
+        
+        .stats strong {
+            color: #333;
+        }
+        
+        .tester-count {
+            display: inline-block;
+            margin-left: 0.5rem;
+            padding: 0.125rem 0.5rem;
+            background: #1890ff;
+            color: white;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="components-index">
+        <h1>XWUI Components - Testers Index</h1>
+        <p class="description">
+            Dynamic listing of all XWUI components and their available testers. 
+            Click on any tester link to open the component test page.
+        </p>
+        
+        <input type="text" 
+               class="search-bar" 
+               id="searchInput" 
+               placeholder="Search components or testers...">
+        
+        <div class="stats" id="stats"></div>
+        
+        <div class="components-grid" id="componentsGrid"></div>
+    </div>
+
+    <script type="module" src="./index.ts"></script>
+</body>
+</html>

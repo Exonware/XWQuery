@@ -1,0 +1,199 @@
+/**
+ * XWUINav Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Roundness: theme/roundness/button/*.css (component-specific roundness)
+ * - Lines: theme/lines/button/*.css (component-specific border widths)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-nav {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Search Container */
+.xwui-nav-search-container {
+    position: absolute;
+    top: var(--spacing-md, 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    width: 100%;
+    max-width: 300px;
+}
+
+.xwui-nav-search {
+    position: relative;
+}
+
+.xwui-nav-search-input {
+    width: 100%;
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+    border: var(--border-width-regular, 1.5px) solid var(--color-border, #e0e0e0);
+    border-radius: var(--radius-input, var(--radius-sm, 6px));
+    background-color: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #000000);
+    font-size: var(--font-size-base, 1rem);
+    font-family: var(--font-family-base, inherit);
+    box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.1));
+}
+
+.xwui-nav-search-input:focus {
+    outline: none;
+    border-color: var(--accent-primary, var(--color-primary));
+    box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.1)), 
+                0 0 0 2px var(--accent-primary-light, rgba(0, 123, 255, 0.25));
+}
+
+.xwui-nav-search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: var(--spacing-xs, 0.25rem);
+    background-color: var(--bg-primary, #ffffff);
+    border: var(--border-width-regular, 1.5px) solid var(--color-border, #e0e0e0);
+    border-radius: var(--radius-md, 8px);
+    box-shadow: var(--shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.15));
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 101;
+}
+
+.xwui-nav-search-result {
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+    cursor: pointer;
+    color: var(--text-primary, #000000);
+    border-bottom: var(--border-width-thin, 1px) solid var(--color-border-light, #f0f0f0);
+    transition: background-color 0.2s ease;
+}
+
+.xwui-nav-search-result:hover {
+    background-color: var(--bg-secondary, #f5f5f5);
+}
+
+.xwui-nav-search-result:last-child {
+    border-bottom: none;
+}
+
+.xwui-nav-search-no-results {
+    padding: var(--spacing-md, 1rem);
+    text-align: center;
+    color: var(--text-secondary, #666666);
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+/* Controls Container */
+.xwui-nav-controls {
+    position: absolute;
+    z-index: 100;
+    padding: calc(var(--spacing-md, 1rem) * 2);
+}
+
+.xwui-nav-controls-top-left {
+    top: 0;
+    left: 0;
+}
+
+.xwui-nav-controls-top-right {
+    top: 0;
+    right: 0;
+}
+
+.xwui-nav-controls-bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.xwui-nav-controls-bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+/* Controls Grid */
+.xwui-nav-controls-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 40px);
+    grid-template-rows: repeat(3, 40px);
+    gap: var(--spacing-xs, 0.25rem);
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: var(--spacing-sm, 0.5rem);
+    border-radius: var(--radius-md, 8px);
+    box-shadow: var(--shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.xwui-nav-control-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--border-width-regular, 1.5px) solid var(--color-border, #e0e0e0);
+    border-radius: var(--radius-button, var(--radius-sm, 6px));
+    background-color: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #000000);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+.xwui-nav-control-btn:hover {
+    background-color: var(--bg-secondary, #f5f5f5);
+    border-color: var(--accent-primary, var(--color-primary));
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.15));
+}
+
+.xwui-nav-control-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+.xwui-nav-control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Icon container inside buttons */
+.xwui-nav-control-btn-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.xwui-nav-control-btn-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+    display: block !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.xwui-nav-control-btn-icon > * {
+    transform: none !important;
+}
+
+/* Reset button styling (centered) */
+.xwui-nav-control-btn[title="Reset View"] {
+    border-radius: 50%;
+}
+
+/* 3D controls grid */
+.xwui-nav-controls-grid-3d {
+    display: flex;
+    flex-direction: column;
+}
+

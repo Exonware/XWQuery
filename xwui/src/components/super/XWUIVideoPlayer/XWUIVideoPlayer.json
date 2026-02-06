@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-video-player.schema.json",
+  "title": "XWUIVideoPlayer Schema",
+  "description": "Schema for XWUIVideoPlayer component",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "additionalProperties": false,
+      "properties": {
+        "autoplay": {
+          "type": "boolean",
+          "description": "Auto-play video",
+          "default": false
+        },
+        "controls": {
+          "type": "boolean",
+          "description": "Show controls",
+          "default": true
+        },
+        "loop": {
+          "type": "boolean",
+          "description": "Loop video",
+          "default": false
+        },
+        "muted": {
+          "type": "boolean",
+          "description": "Mute video",
+          "default": false
+        },
+        "playsInline": {
+          "type": "boolean",
+          "description": "Play inline on mobile",
+          "default": true
+        },
+        "preload": {
+          "type": "string",
+          "enum": [
+            "none",
+            "metadata",
+            "auto"
+          ],
+          "description": "Preload strategy",
+          "default": "metadata"
+        },
+        "aspectRatio": {
+          "type": "string",
+          "enum": [
+            "16:9",
+            "4:3",
+            "21:9",
+            "auto"
+          ],
+          "description": "Aspect ratio",
+          "default": "16:9"
+        },
+        "showCustomControls": {
+          "type": "boolean",
+          "description": "Show custom controls",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "additionalProperties": false,
+      "properties": {
+        "sources": {
+          "type": "array",
+          "description": "Video sources",
+          "items": {
+            "type": "object",
+            "properties": {
+              "src": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "src"
+            ]
+          }
+        },
+        "poster": {
+          "type": "string",
+          "description": "Poster image URL"
+        },
+        "title": {
+          "type": "string",
+          "description": "Video title"
+        }
+      }
+    }
+  },
+  "id": "XWUIVideoPlayer"
+}

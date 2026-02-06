@@ -1,0 +1,17 @@
+# graphdb.out.grammar
+# GraphDB Output Grammar - Template for generating GraphDB from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@graph_database = {{#each nodes}}{{value}}
+{{/each}}{{#each relationships}}{{value}}
+{{/each}}{{#each properties}}{{value}}
+{{/each}}
+
+@node = ({{id}}{{#each labels}}:{{value}}{{/each}}{{#if properties}} {{properties}}{{/if}})
+
+@relationship = {{id}}-[{{type}}{{#if properties}} {{properties}}{{/if}}]->{{end_node}}
+
+@indent = 2
+@pretty = true
+

@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUISpeedDial",
+  "name": "XWUI Speed Dial Component",
+  "description": "Floating action button component with expandable menu of actions. Supports various directions for action expansion, custom positioning, and icon customization. Useful for quick access to multiple actions.",
+  "path": "input.speeddial",
+  "tags": ["input", "speed-dial", "fab", "floating", "actions", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "type": "string",
+          "enum": ["up", "down", "left", "right"],
+          "description": "Direction in which actions expand",
+          "default": "up"
+        },
+        "open": {
+          "type": "boolean",
+          "description": "Whether the speed dial is initially open",
+          "default": false
+        },
+        "icon": {
+          "type": "string",
+          "description": "SVG icon HTML string for the main button"
+        },
+        "position": {
+          "type": "string",
+          "enum": ["bottom-right", "bottom-left", "top-right", "top-left"],
+          "description": "Position of the speed dial on screen",
+          "default": "bottom-right"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the speed dial"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "actions": {
+          "type": "array",
+          "description": "Array of speed dial actions",
+          "items": {
+            "type": "object",
+            "properties": {
+              "icon": {
+                "type": "string",
+                "description": "SVG icon HTML string for the action"
+              },
+              "label": {
+                "type": "string",
+                "description": "Label text for the action"
+              },
+              "onClick": {
+                "description": "Click handler function (not serializable in JSON)"
+              }
+            },
+            "required": ["icon", "label"]
+          }
+        }
+      }
+    }
+  }
+}
+

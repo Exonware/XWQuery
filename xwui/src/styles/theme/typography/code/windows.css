@@ -1,0 +1,13 @@
+/* ============================================
+   CODE TYPOGRAPHY - WINDOWS
+   ============================================ */
+
+:root[data-font="windows"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-code-family: var(--font-family-mono, monospace);
+}
+
+/* Utility class for direct application */
+.font-code-windows {
+    font-family: var(--font-code-family, var(--font-family-base, sans-serif)) !important;
+}

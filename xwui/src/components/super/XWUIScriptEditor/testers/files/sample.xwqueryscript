@@ -1,0 +1,64 @@
+// XWQueryScript Example (Exonware Query Scripting Language)
+
+// Basic query
+SELECT name, version FROM documents WHERE active = true
+
+// Query with joins
+SELECT d.name, d.version, m.author, m.created
+FROM documents d
+JOIN metadata m ON d.metadata_id = m.id
+WHERE d.version >= '1.0.0'
+
+// Aggregations
+SELECT category, COUNT(*) as count, AVG(price) as avg_price
+FROM items
+WHERE active = true
+GROUP BY category
+HAVING count > 5
+ORDER BY avg_price DESC
+
+// Nested queries
+SELECT name, (
+    SELECT COUNT(*) 
+    FROM items 
+    WHERE document_id = documents.id AND active = true
+) as active_items_count
+FROM documents
+
+// Window functions
+SELECT name, price, 
+    ROW_NUMBER() OVER (PARTITION BY category ORDER BY price DESC) as rank,
+    AVG(price) OVER (PARTITION BY category) as category_avg
+FROM items
+
+// CTEs (Common Table Expressions)
+WITH active_items AS (
+    SELECT * FROM items WHERE active = true
+),
+priced_items AS (
+    SELECT * FROM active_items WHERE price > 20
+)
+SELECT category, COUNT(*) as count, SUM(price) as total
+FROM priced_items
+GROUP BY category
+
+// XW-specific extensions
+SELECT * FROM documents
+WHERE xw:contains(name, 'Sample')
+  AND xw:matches(description, '.*example.*')
+  AND xw:in_range(created, '2025-01-01', '2025-12-31')
+
+// Graph traversal
+SELECT * FROM documents
+WHERE xw:path(documents -> items -> categories) = 'electronics'
+
+// Full-text search
+SELECT * FROM documents
+WHERE xw:fulltext(name, description) MATCH 'sample document'
+
+// Temporal queries
+SELECT * FROM documents
+WHERE xw:temporal_overlaps(created, updated, '2025-01-01', '2025-12-31')
+
+
+

@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "showThumbnail": {
+      "type": "boolean",
+      "default": true
+    },
+    "showDialog": {
+      "type": "boolean",
+      "default": true
+    },
+    "thumbnailSize": {
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium"
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "id": "XWUIFilePreview"
+}

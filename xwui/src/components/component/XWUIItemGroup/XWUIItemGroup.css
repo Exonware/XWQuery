@@ -1,0 +1,45 @@
+/**
+ * XWUIItemGroup Component Styles
+ * Container for multiple XWUIItems that handles lists/trees of items
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/rounded.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-item-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.xwui-item-group-ltr {
+    direction: ltr;
+}
+
+.xwui-item-group-rtl {
+    direction: rtl;
+}
+
+.xwui-item-group-item {
+    width: 100%;
+}
+
+.xwui-item-nested-group {
+    margin-left: var(--spacing-md, 1rem);
+    margin-top: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-item-group-rtl .xwui-item-nested-group {
+    margin-left: 0;
+    margin-right: var(--spacing-md, 1rem);
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

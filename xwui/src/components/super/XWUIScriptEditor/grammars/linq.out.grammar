@@ -1,0 +1,70 @@
+﻿# linq.out.grammar
+# LINQ Output Grammar - Template for generating LINQ from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@query = {{from}} {{body}}
+
+@from_clause = from {{var}} in {{source}}
+
+@query_body = {{#each clauses}}{{value}}
+{{/each}}{{select_or_group}}
+
+@query_clause = {{value}}
+
+@let_clause = let {{var}} = {{value}}
+
+@where_clause = where {{expression}}
+
+@join_clause = join {{var}} in {{source}} on {{left}} equals {{right}}{{#if into}} into {{into}}{{/if}}
+
+@orderby_clause = orderby {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@ordering_list = {{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@ordering = {{expression}}{{#if direction}} {{direction}}{{/if}}
+
+@select_or_group = {{value}}
+
+@select_clause = select {{expression}}
+
+@group_clause = group {{expression}} by {{key}}{{#if into}} into {{into}}{{/if}}
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} || {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} && {{/if}}{{/each}}
+
+@not_expr = {{#if negated}}!{{/if}}{{comparison}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{/if}}
+
+@compare_op = {{value}}
+
+@additive = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@multiplicative = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@primary = {{value}}
+
+@member_access = {{#each parts}}{{value}}{{#if !@last}}.{{/if}}{{/each}}
+
+@method_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@lambda_expr = {{#if single}}{{var}} => {{expression}}{{else}}({{params}}) => {{expression}}{{/if}}
+
+@param_list = {{#each params}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@new_expr = new{{#if type}} {{type}}{{/if}} {{{#each properties}}{{name}} = {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@property_init = {{name}} = {{value}}
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@literal = {{value}}
+
+@indent = 2
+@pretty = true

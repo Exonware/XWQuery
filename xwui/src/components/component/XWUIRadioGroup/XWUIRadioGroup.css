@@ -1,0 +1,171 @@
+/**
+ * XWUIRadioGroup Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-radio-group-label {
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+    margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-radio-options {
+    display: flex;
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-radio-group-vertical .xwui-radio-options {
+    flex-direction: column;
+}
+
+.xwui-radio-group-horizontal .xwui-radio-options {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* Individual radio */
+.xwui-radio {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm, 0.625rem);
+    cursor: pointer;
+    user-select: none;
+}
+
+.xwui-radio-disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Hidden input */
+.xwui-radio-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Visual radio */
+.xwui-radio-visual {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--border-control-width, var(--border-width-thick, 2px)) var(--border-control-style, solid) var(--border-control-color, var(--border-color, #dee2e6));
+    border-radius: 50%;
+    background: var(--bg-primary, #ffffff);
+    transition: all 0.15s ease;
+}
+
+.xwui-radio-dot {
+    border-radius: 50%;
+    background: var(--text-inverse);
+    transform: scale(0);
+    transition: transform 0.15s ease;
+}
+
+/* Size variants */
+.xwui-radio-group-small .xwui-radio-visual {
+    width: 16px;
+    height: 16px;
+}
+
+.xwui-radio-group-small .xwui-radio-dot {
+    width: 6px;
+    height: 6px;
+}
+
+.xwui-radio-group-medium .xwui-radio-visual {
+    width: 20px;
+    height: 20px;
+}
+
+.xwui-radio-group-medium .xwui-radio-dot {
+    width: 8px;
+    height: 8px;
+}
+
+.xwui-radio-group-large .xwui-radio-visual {
+    width: 24px;
+    height: 24px;
+}
+
+.xwui-radio-group-large .xwui-radio-dot {
+    width: 10px;
+    height: 10px;
+}
+
+/* Checked state */
+.xwui-radio-input:checked + .xwui-radio-visual {
+    background: var(--accent-primary, #4f46e5);
+    border-color: var(--accent-primary, #4f46e5);
+    box-shadow: var(--glow-radio-selected, none);
+}
+
+.xwui-radio-input:checked + .xwui-radio-visual .xwui-radio-dot {
+    transform: scale(1);
+}
+
+/* Focus state */
+.xwui-radio-input:focus-visible + .xwui-radio-visual {
+    box-shadow: var(--glow-radio-focus, var(--shadow-xs));
+}
+
+/* Hover state */
+.xwui-radio:hover .xwui-radio-visual {
+    border-color: var(--accent-primary, #4f46e5);
+}
+
+/* Color variants */
+.xwui-radio-group-success .xwui-radio-input:checked + .xwui-radio-visual {
+    background: var(--accent-success, #10b981);
+    border-color: var(--accent-success, #10b981);
+}
+
+.xwui-radio-group-warning .xwui-radio-input:checked + .xwui-radio-visual {
+    background: var(--accent-warning, #f59e0b);
+    border-color: var(--accent-warning, #f59e0b);
+}
+
+.xwui-radio-group-error .xwui-radio-input:checked + .xwui-radio-visual {
+    background: var(--accent-error, #ef4444);
+    border-color: var(--accent-error, #ef4444);
+}
+
+/* Text content */
+.xwui-radio-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xxs, 0.125rem);
+}
+
+.xwui-radio-label {
+    font-size: var(--font-size-base, 0.9375rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+    line-height: 1.4;
+}
+
+.xwui-radio-description {
+    font-size: var(--font-size-sm, 0.8125rem);
+    color: var(--text-secondary, #6c757d);
+    line-height: 1.4;
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

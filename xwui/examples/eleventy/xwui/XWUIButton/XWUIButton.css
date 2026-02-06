@@ -1,0 +1,401 @@
+/**
+ * XWUIButton Component Styles
+ * Button component with various variants and states
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Roundness: theme/roundness/button/*.css (component-specific roundness)
+ * - Lines: theme/lines/button/*.css (component-specific border widths)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-button-container {
+    display: inline-block;
+}
+
+.xwui-button-container.xwui-button-full-width {
+    display: block;
+    width: 100%;
+}
+
+.xwui-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs, 0.5rem);
+    font-family: var(--font-button-family, var(--font-family-base, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif));
+    font-weight: var(--font-weight-medium, 500);
+    border: none;
+    border-radius: var(--radius-button, var(--radius-sm, 6px));
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    outline: none;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.xwui-button:focus-visible {
+    outline: 2px solid var(--accent-primary, #4f46e5);
+    outline-offset: 2px;
+    box-shadow: var(--glow-button-focus, none);
+}
+
+.xwui-button:disabled,
+.xwui-button.xwui-button-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    /* Ensure text remains visible even when disabled */
+    color: inherit !important;
+}
+
+/* Sizes */
+.xwui-button-tiny {
+    padding: 2px 4px;
+    font-size: var(--font-size-xs, 0.75rem);
+    min-height: 1.25rem;
+    gap: 2px;
+}
+
+.xwui-button-small {
+    padding: var(--spacing-xs, 0.375rem) var(--spacing-sm, 0.75rem);
+    font-size: var(--font-size-sm, 0.875rem);
+    min-height: 2rem;
+}
+
+.xwui-button-medium {
+    padding: var(--spacing-sm, 0.625rem) var(--spacing-md, 1.25rem);
+    font-size: var(--font-size-sm, 0.875rem);
+    min-height: 2.5rem;
+}
+
+.xwui-button-large {
+    padding: var(--spacing-sm, 0.875rem) var(--spacing-lg, 1.75rem);
+    font-size: var(--font-size-base, 1rem);
+    min-height: 3rem;
+}
+
+/* Variants */
+.xwui-button-primary {
+    background: var(--accent-primary, #4f46e5);
+    color: var(--text-inverse, #ffffff) !important;
+    border: var(--border-button-width, var(--border-width-regular, 1.5px)) var(--border-button-style, solid) var(--accent-primary, #4f46e5);
+}
+
+.xwui-button-primary:hover:not(:disabled) {
+    background: var(--accent-hover, #4338ca);
+    border-color: var(--accent-hover, #4338ca);
+    box-shadow: var(--glow-button-hover, none);
+}
+
+.xwui-button-primary:active:not(:disabled) {
+    background: var(--accent-primary, #3730a3);
+    border-color: var(--accent-primary, #3730a3);
+    opacity: 0.9;
+    box-shadow: var(--glow-button-active, none);
+}
+
+.xwui-button-primary:focus-visible {
+    box-shadow: var(--glow-button-focus, none);
+}
+
+.xwui-button-secondary {
+    background: var(--bg-secondary, #f8f9fa);
+    color: var(--text-primary, #212529) !important;
+    border: var(--border-button-width, var(--border-width-regular, 1.5px)) var(--border-button-style, solid) var(--border-color, #dee2e6);
+}
+
+.xwui-button-secondary:hover:not(:disabled) {
+    background: var(--bg-hover, #e9ecef);
+    border-color: var(--border-medium, #ced4da);
+}
+
+.xwui-button-secondary:active:not(:disabled) {
+    background: var(--bg-active, #dee2e6);
+}
+
+.xwui-button-success {
+    background: var(--accent-success, #10b981);
+    color: var(--text-inverse, #ffffff) !important;
+    border: var(--border-button-width, var(--border-width-regular, 1.5px)) var(--border-button-style, solid) var(--accent-success, #10b981);
+}
+
+.xwui-button-success:hover:not(:disabled) {
+    background: var(--accent-success-hover, #059669);
+    border-color: var(--accent-success-hover, #059669);
+    box-shadow: var(--glow-button-hover, none);
+}
+
+.xwui-button-success:active:not(:disabled) {
+    background: var(--accent-success, #047857);
+    border-color: var(--accent-success, #047857);
+    opacity: 0.9;
+}
+
+.xwui-button-danger {
+    background: var(--accent-error, #ef4444);
+    color: var(--text-inverse, #ffffff) !important;
+    border: var(--border-button-width, var(--border-width-regular, 1.5px)) var(--border-button-style, solid) var(--accent-error, #ef4444);
+}
+
+.xwui-button-danger:hover:not(:disabled) {
+    background: var(--accent-error, #dc2626);
+    border-color: var(--accent-error, #dc2626);
+    box-shadow: var(--glow-button-hover, none);
+}
+
+.xwui-button-danger:active:not(:disabled) {
+    background: var(--accent-error, #b91c1c);
+    border-color: var(--accent-error, #b91c1c);
+    opacity: 0.9;
+}
+
+.xwui-button-warning {
+    background: var(--accent-warning, #f59e0b);
+    /* Yellow/orange backgrounds need dark text for better contrast */
+    color: var(--text-primary, #212529) !important;
+    border: var(--border-button-width, var(--border-width-regular, 1.5px)) var(--border-button-style, solid) var(--accent-warning, #f59e0b);
+}
+
+.xwui-button-warning:hover:not(:disabled) {
+    background: var(--accent-warning, #d97706);
+    border-color: var(--accent-warning, #d97706);
+    color: var(--text-primary, #212529) !important;
+}
+
+.xwui-button-warning:active:not(:disabled) {
+    background: var(--accent-warning, #b45309);
+    border-color: var(--accent-warning, #b45309);
+    opacity: 0.9;
+    color: var(--text-primary, #212529) !important;
+}
+
+.xwui-button-info {
+    background: var(--accent-primary, #3b82f6);
+    color: var(--text-inverse, #ffffff) !important;
+    border: var(--border-button-width, var(--border-width-regular, 1.5px)) var(--border-button-style, solid) var(--accent-primary, #3b82f6);
+}
+
+.xwui-button-info:hover:not(:disabled) {
+    background: var(--accent-hover, #2563eb);
+    border-color: var(--accent-hover, #2563eb);
+}
+
+.xwui-button-info:active:not(:disabled) {
+    background: var(--accent-primary, #1d4ed8);
+    border-color: var(--accent-primary, #1d4ed8);
+}
+
+.xwui-button-outline {
+    background: transparent;
+    color: var(--accent-primary, #4f46e5) !important;
+    border: var(--border-button-width, var(--border-width-regular, 1.5px)) var(--border-button-style, solid) var(--accent-primary, #4f46e5);
+}
+
+.xwui-button-outline:hover:not(:disabled) {
+    background: var(--bg-hover);
+    border-color: var(--accent-hover);
+}
+
+.xwui-button-outline:active:not(:disabled) {
+    background: var(--bg-active);
+}
+
+.xwui-button-ghost {
+    background: transparent;
+    color: var(--text-primary, #212529) !important;
+    border: none;
+}
+
+.xwui-button-ghost:hover:not(:disabled) {
+    background: var(--bg-hover, #f8f9fa);
+    color: var(--text-primary, #212529) !important;
+}
+
+.xwui-button-ghost:active:not(:disabled) {
+    background: var(--bg-active, #e9ecef);
+    color: var(--text-primary, #212529) !important;
+}
+
+/* Full width */
+.xwui-button-full-width {
+    width: 100%;
+}
+
+/* Loading state */
+.xwui-button-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.xwui-button-loading .xwui-button-text,
+.xwui-button-loading .xwui-button-icon {
+    opacity: 0;
+}
+
+.xwui-button-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.25rem;
+    animation: xwui-button-spin 1s linear infinite;
+    color: currentColor;
+}
+
+@keyframes xwui-button-spin {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Icon */
+.xwui-button-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.xwui-button-icon svg {
+    width: 1em;
+    height: 1em;
+}
+
+/* Icon-only buttons - center icon both horizontally and vertically */
+.xwui-button:not(:has(.xwui-button-text)):has(.xwui-button-icon),
+.xwui-button:not(:has(.xwui-item-text)):has(.xwui-button-icon),
+.xwui-button:not(:has(.xwui-item-text)):has(.xwui-item-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xs, 0.375rem);
+    aspect-ratio: 1;
+}
+
+/* Fallback for browsers that don't support :has() */
+.xwui-button-icon-only {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xs, 0.375rem);
+    aspect-ratio: 1;
+    min-width: var(--spacing-md, 1.25rem);
+    min-height: var(--spacing-md, 1.25rem);
+}
+
+.xwui-button-icon-only .xwui-button-icon,
+.xwui-button-icon-only .xwui-item-icon {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.xwui-button-icon-only .xwui-button-icon svg,
+.xwui-button-icon-only .xwui-item-icon svg {
+    width: 1.25em;
+    height: 1.25em;
+    display: block;
+    margin: auto;
+}
+
+/* Icon-only button sizes */
+.xwui-button-icon-only.xwui-button-small {
+    padding: var(--spacing-xs, 0.375rem);
+    min-width: 2rem;
+    min-height: 2rem;
+}
+
+.xwui-button-icon-only.xwui-button-medium {
+    padding: var(--spacing-sm, 0.625rem);
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+}
+
+.xwui-button-icon-only.xwui-button-large {
+    padding: var(--spacing-sm, 0.875rem);
+    min-width: 3rem;
+    min-height: 3rem;
+}
+
+/* Text */
+.xwui-button-text {
+    flex: 1;
+    text-align: center;
+}
+
+/* Ensure text inside buttons inherits button color for visibility */
+/* Override XWUIItem status-based text colors when inside buttons */
+.xwui-button .xwui-item-text,
+.xwui-button .xwui-button-text,
+.xwui-button span,
+.xwui-button div {
+    color: inherit !important;
+}
+
+/* Override XWUIItem status-based colors for all text elements inside buttons */
+.xwui-button.xwui-item-status-processing .xwui-item-text,
+.xwui-button.xwui-item-status-processing .xwui-button-text,
+.xwui-button.xwui-item-status-error .xwui-item-text,
+.xwui-button.xwui-item-status-error .xwui-button-text,
+.xwui-button.xwui-item-status-before_start .xwui-item-text,
+.xwui-button.xwui-item-status-before_start .xwui-button-text {
+    color: inherit !important;
+}
+
+/* Ensure icons inside buttons inherit button color for visibility */
+.xwui-button .xwui-item-icon,
+.xwui-button .xwui-button-icon,
+.xwui-button .xwui-icon {
+    color: inherit !important;
+}
+
+/* Override XWUIItem status-based colors for icons inside buttons */
+.xwui-button.xwui-item-status-processing .xwui-item-icon,
+.xwui-button.xwui-item-status-processing .xwui-button-icon,
+.xwui-button.xwui-item-status-processing .xwui-icon,
+.xwui-button.xwui-item-status-error .xwui-item-icon,
+.xwui-button.xwui-item-status-error .xwui-button-icon,
+.xwui-button.xwui-item-status-error .xwui-icon,
+.xwui-button.xwui-item-status-before_start .xwui-item-icon,
+.xwui-button.xwui-item-status-before_start .xwui-button-icon,
+.xwui-button.xwui-item-status-before_start .xwui-icon {
+    color: inherit !important;
+}
+
+.xwui-button .xwui-item-icon svg,
+.xwui-button .xwui-button-icon svg,
+.xwui-button .xwui-icon svg {
+    stroke: currentColor;
+    fill: currentColor;
+}
+
+/* Remove margin from xwui-icon when inside button - button uses gap for spacing */
+.xwui-button .xwui-icon {
+    margin: 0;
+}
+
+/* Remove margin from xwui-item-standard-layout when inside button - button uses gap for spacing */
+.xwui-button .xwui-item-standard-layout {
+    margin: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Remove gap when button only has icon and empty item layout (no visible text content) */
+.xwui-button:has(.xwui-icon):has(.xwui-item-standard-layout):not(:has(.xwui-item-text)):not(:has(.xwui-button-text)) {
+    gap: 0;
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

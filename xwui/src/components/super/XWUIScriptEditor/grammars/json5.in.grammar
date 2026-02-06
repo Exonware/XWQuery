@@ -1,0 +1,41 @@
+// json5.grammar
+// JSON5 Grammar - JSON with comments and trailing commas
+// Based on JSON5 specification
+// Company: eXonware.com
+
+?start: value
+
+?value: object
+      | array
+      | string
+      | number
+      | "true"  -> true
+      | "false" -> false
+      | "null"  -> null
+
+object: "{" [pair ("," pair)* [","]] "}"
+pair: (string | identifier) ":" value
+
+array: "[" [value ("," value)* [","]] "]"
+
+string: ESCAPED_STRING | SINGLE_QUOTED_STRING
+number: SIGNED_NUMBER | HEX_NUMBER | INFINITY | NAN
+identifier: IDENTIFIER
+
+// Terminals
+%import common.ESCAPED_STRING
+%import common.SIGNED_NUMBER
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+SINGLE_QUOTED_STRING: "'" /[^'\\]|\\['"\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "'"
+HEX_NUMBER: /0[xX][0-9a-fA-F]+/
+INFINITY: /[+-]?Infinity/
+NAN: /[+-]?NaN/
+IDENTIFIER: /[$_a-zA-Z][$_a-zA-Z0-9]*/
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIItem Sandbox Tester</title>
+    
+    <style>
+        .sandbox-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: calc(100vh - 200px);
+        }
+        
+        .sandbox-editor {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sandbox-preview {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .editor-header, .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .editor-header h3, .preview-header h3 {
+            margin: 0;
+        }
+        
+        .editor-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .editor-tab {
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.2s;
+            margin-bottom: -2px;
+        }
+        
+        .editor-tab.active {
+            color: #0078d4;
+            border-bottom-color: #0078d4;
+            font-weight: 600;
+        }
+        
+        .editor-tab:hover:not(.active) {
+            color: #333;
+        }
+        
+        .editor-panel {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+        }
+        
+        .editor-panel.active {
+            display: flex;
+        }
+        
+        .json-editor {
+            flex: 1;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            resize: none;
+            background: #f9f9f9;
+            overflow-y: auto;
+            min-height: 200px;
+        }
+        
+        .json-editor:focus {
+            outline: none;
+            border-color: #0078d4;
+            background: #fff;
+        }
+        
+        .json-editor.error {
+            border-color: #d32f2f;
+            background: #ffebee;
+        }
+        
+        .preview-container {
+            flex: 1;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            overflow-y: auto;
+            background: #fff;
+        }
+        
+        .preview-container.empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .test-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        
+        .test-button.primary {
+            background: #0078d4;
+            color: white;
+        }
+        
+        .test-button.primary:hover {
+            background: #005a9e;
+        }
+        
+        .test-button.secondary {
+            background: #f3f3f3;
+            color: #333;
+        }
+        
+        .test-button.secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            font-size: 12px;
+            margin-top: 5px;
+            padding: 5px;
+            background: #ffebee;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .sandbox-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .sandbox-editor, .sandbox-preview {
+                min-height: 400px;
+            }
+        }
+    </style>
+        <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuiitem-sandbox-content">
+<div class="sandbox-container">
+            <div class="sandbox-editor">
+                <div class="editor-header">
+                    <h3>JSON Editor</h3>
+                    <div class="button-group">
+                        <select id="example-selector" class="test-button secondary" style="padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer;">
+                            <option value="custom">Custom JSON</option>
+                            <optgroup label="Basic Examples">
+                                <option value="default">Default Example</option>
+                                <option value="chat-sent">Chat Bubble (Sent)</option>
+                                <option value="chat-received">Chat Bubble (Received)</option>
+                                <option value="whatsapp-chat">WhatsApp Chat Bubble</option>
+                                <option value="email">Email Item</option>
+                                <option value="card-full">Card (Full Content)</option>
+                                <option value="banner">Banner Item</option>
+                                <option value="search">Search Input</option>
+                                <option value="visibility">Visibility Controls</option>
+                                <option value="actions">All Actions</option>
+                                <option value="status">Status Variants</option>
+                                <option value="complex">Complex Nested</option>
+                            </optgroup>
+                            <optgroup label="Advanced Examples">
+                                <option value="overflow-ellipsis">Text Overflow (Ellipsis)</option>
+                                <option value="overflow-expandable">Text Overflow (Expandable)</option>
+                                <option value="multi-content">Multi-Content Sections</option>
+                                <option value="progress-demo">Progress Bar Demo</option>
+                                <option value="user-stack">User Stack Demo</option>
+                                <option value="mixed-icons">Mixed Icons & Text</option>
+                                <option value="colorful">Colorful Variants</option>
+                                <option value="minimal">Minimal Design</option>
+                                <option value="rich-content">Rich Content</option>
+                                <option value="interactive">Interactive Demo</option>
+                            </optgroup>
+                            <optgroup label="LTR Examples">
+                                <option value="ltr-email">LTR Email View</option>
+                                <option value="ltr-chat">LTR Chat Interface</option>
+                                <option value="ltr-dashboard">LTR Dashboard Item</option>
+                                <option value="ltr-notification">LTR Notification</option>
+                                <option value="ltr-file-item">LTR File Item</option>
+                            </optgroup>
+                            <optgroup label="Arabic RTL Examples">
+                                <option value="rtl-email-ar">RTL Email (Arabic)</option>
+                                <option value="rtl-chat-ar">RTL Chat (Arabic)</option>
+                                <option value="rtl-news-ar">RTL News Item (Arabic)</option>
+                                <option value="rtl-document-ar">RTL Document (Arabic)</option>
+                                <option value="rtl-message-ar">RTL Message (Arabic)</option>
+                            </optgroup>
+                        </select>
+                        <button class="test-button secondary" id="btn-reset">Reset</button>
+                        <button class="test-button secondary" id="btn-format">Format</button>
+                    </div>
+                </div>
+                <div class="editor-tabs">
+                    <button class="editor-tab active" data-tab="data">Component Data</button>
+                    <button class="editor-tab" data-tab="config">Component Config</button>
+                </div>
+                <div class="editor-panel active" data-panel="data">
+                    <textarea id="json-editor-data" class="json-editor" spellcheck="false" placeholder="Component data (ItemConfig) JSON here..."></textarea>
+                </div>
+                <div class="editor-panel" data-panel="config">
+                    <textarea id="json-editor-config" class="json-editor" spellcheck="false" placeholder="Component config (XWUIItemConfig) JSON here..."></textarea>
+                </div>
+                <div id="error-message" class="error-message" style="display: none;"></div>
+                <div class="button-group">
+                    <button class="test-button primary" id="btn-update">Update Component</button>
+                </div>
+            </div>
+            
+            <div class="sandbox-preview">
+                <div class="preview-header">
+                    <h3>Preview</h3>
+                </div>
+                <div id="preview-container" class="preview-container empty">
+                    <div>Component will appear here after you update the JSON</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Console -->
+        <div class="console-container">
+            <div id="xwui-console"></div>
+        </div>
+        </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIItemSandbox.ts"></script>
+</body>
+</html>
+

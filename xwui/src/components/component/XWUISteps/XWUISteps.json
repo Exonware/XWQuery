@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUISteps",
+  "name": "XWUI Steps Component",
+  "description": "Step progress indicator (stepper) component for displaying multi-step processes. Shows progress through steps with status indicators (wait, process, finish, error), icons, titles, and descriptions. Supports horizontal and vertical layouts.",
+  "path": "display.steps",
+  "tags": ["display", "steps", "stepper", "progress", "wizard", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "current": {
+          "type": "number",
+          "description": "Current active step index (0-based)"
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["horizontal", "vertical"],
+          "description": "Layout direction of steps",
+          "default": "horizontal"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the steps",
+          "default": "medium"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the steps"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "steps": {
+          "type": "array",
+          "description": "Array of step items",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Title text for the step"
+              },
+              "description": {
+                "type": "string",
+                "description": "Description text for the step"
+              },
+              "icon": {
+                "type": "string",
+                "description": "SVG icon HTML string for the step"
+              },
+              "status": {
+                "type": "string",
+                "enum": ["wait", "process", "finish", "error"],
+                "description": "Status of the step"
+              }
+            },
+            "required": ["title"]
+          }
+        }
+      },
+      "required": ["steps"]
+    }
+  }
+}
+

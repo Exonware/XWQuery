@@ -1,0 +1,24 @@
+/* ============================================
+   SKY ACCENT - Sky blue palette
+   ============================================ */
+
+:root[data-accent="sky"] {
+    /* Accent colors - Sky blue palette */
+    --accent-primary: #0ea5e9;
+    --accent-hover: #0284c7;
+    --accent-light: #38bdf8;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 14, 165, 233;
+    --accent-hover-rgb: 2, 132, 199;
+    --accent-light-rgb: 56, 189, 248;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

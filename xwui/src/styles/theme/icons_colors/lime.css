@@ -1,0 +1,12 @@
+/* ============================================
+   LIME ICON COLORS - Fresh lime theme
+   ============================================ */
+
+:root[data-icons-colors="lime"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #365314;        /* Primary fill color - dark lime text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #84cc16;        /* Accent/rail/marks color - lime */
+    --icons-color-transparent: transparent;
+}
+

@@ -1,0 +1,29 @@
+# json5.out.grammar
+# JSON5 Output Grammar - Template for generating JSON5 from AST
+# Supports comments, trailing commas, and unquoted keys
+# Company: eXonware.com
+# Version: 1.0
+
+@object = {{{#each pairs}}{{#if key_is_identifier}}{{key}}{{else}}"{{key}}"{{/if}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if trailing_comma}},{{/if}}}
+
+@pair = {{child_0}}: {{child_1}}
+
+@array = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}{{#if trailing_comma}},{{/if}}]
+
+@string = {{value}}
+
+@number = {{value}}
+
+@identifier = {{value}}
+
+@true = true
+
+@false = false
+
+@null = null
+
+@indent = 2
+@pretty = false
+@allow_trailing_commas = true
+@allow_comments = true
+

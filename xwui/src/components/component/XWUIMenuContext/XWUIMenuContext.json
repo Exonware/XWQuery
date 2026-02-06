@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIMenuContext",
+  "name": "XWUI Context Menu Component",
+  "description": "Right-click context menu component. Displays a menu when user right-clicks on a target element. Supports menu items with icons, separators, and nested menus. Uses XWUIMenuDropdown internally.",
+  "path": "navigation.contextmenu",
+  "tags": [
+    "navigation",
+    "context-menu",
+    "right-click",
+    "menu",
+    "desktop",
+    "mobile",
+    "tablet"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the context menu"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of menu items to display in the context menu",
+          "items": {
+            "description": "Dropdown menu item (see XWUIMenuDropdown schema for structure)"
+          }
+        },
+        "targetElement": {
+          "description": "Target element or selector string to attach the context menu to"
+        }
+      },
+      "required": [
+        "items"
+      ]
+    }
+  }
+}

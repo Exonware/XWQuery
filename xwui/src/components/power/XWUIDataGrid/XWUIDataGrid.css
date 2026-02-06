@@ -1,0 +1,143 @@
+/**
+ * XWUIDataGrid Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/table/*.css (component-specific border widths)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-datagrid-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.xwui-datagrid {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+/* Size variants */
+.xwui-datagrid-small {
+    font-size: var(--font-size-sm, 0.8125rem);
+}
+
+.xwui-datagrid-small .xwui-datagrid-header,
+.xwui-datagrid-small .xwui-datagrid-cell {
+    padding: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-datagrid-medium .xwui-datagrid-header,
+.xwui-datagrid-medium .xwui-datagrid-cell {
+    padding: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-datagrid-large {
+    font-size: var(--font-size-base, 0.9375rem);
+}
+
+.xwui-datagrid-large .xwui-datagrid-header,
+.xwui-datagrid-large .xwui-datagrid-cell {
+    padding: 1rem;
+}
+
+/* Bordered */
+.xwui-datagrid-bordered .xwui-datagrid-header,
+.xwui-datagrid-bordered .xwui-datagrid-cell {
+    border: var(--border-table-width, var(--border-width-regular, 1.5px)) var(--border-table-style, solid) var(--border-table-color, var(--border-color));
+}
+
+/* Striped */
+.xwui-datagrid-striped .xwui-datagrid-row:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+/* Hoverable */
+.xwui-datagrid-hoverable .xwui-datagrid-row:hover {
+    background: var(--bg-secondary);
+}
+
+/* Header */
+.xwui-datagrid-header {
+    font-weight: var(--font-weight-semibold, 600);
+    text-align: left;
+    background: var(--bg-secondary);
+}
+
+.xwui-datagrid-header-content {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-datagrid-header-sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.2s;
+}
+
+.xwui-datagrid-header-sortable:hover {
+    opacity: 0.8;
+}
+
+.xwui-datagrid-sort-icon {
+    font-size: var(--font-size-xs, 0.75rem);
+    margin-left: 0.25rem;
+}
+
+/* Row */
+.xwui-datagrid-row-selected {
+    background: var(--bg-active, rgba(79, 70, 229, 0.1));
+}
+
+/* Cell */
+.xwui-datagrid-cell {
+    vertical-align: top;
+}
+
+/* Select */
+.xwui-datagrid-select-header,
+.xwui-datagrid-select-cell {
+    width: 40px;
+    text-align: center;
+}
+
+/* Pagination */
+.xwui-datagrid-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md, 1rem);
+    margin-top: var(--spacing-md, 1rem);
+    padding: var(--spacing-md, 1rem);
+}
+
+.xwui-datagrid-pagination-button {
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-sm, 0.75rem);
+    border: var(--border-table-width, var(--border-width-regular, 1.5px)) var(--border-table-style, solid) var(--border-table-color, var(--border-color));
+    background: var(--bg-primary);
+    border-radius: var(--radius-button, var(--radius-sm, 6px));
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.xwui-datagrid-pagination-button:hover:not(:disabled) {
+    background: var(--bg-secondary);
+    border-color: var(--accent-primary);
+}
+
+.xwui-datagrid-pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.xwui-datagrid-pagination-info {
+    font-size: var(--font-size-sm, 0.875rem);
+}
+

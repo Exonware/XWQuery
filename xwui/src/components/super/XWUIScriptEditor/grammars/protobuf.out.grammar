@@ -1,0 +1,46 @@
+# protobuf.out.grammar
+# Protobuf Output Grammar - Template for generating Protocol Buffers from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@proto_file = {{#if syntax}}{{syntax}}
+
+{{/if}}{{#each imports}}{{value}}
+{{/each}}{{#if package}}{{package}}
+
+{{/if}}{{#each options}}{{value}}
+{{/each}}{{#each messages}}{{value}}
+{{/each}}{{#each enums}}{{value}}
+{{/each}}{{#each services}}{{value}}
+{{/each}}
+
+@syntax = syntax = "{{value}}";
+
+@import = import{{#if modifier}} {{modifier}}{{/if}} "{{value}}";
+
+@package = package {{value}};
+
+@option = option {{name}} = {{value}};
+
+@message = message {{name}} {
+{{#each body}}{{value}}
+{{/each}}}
+
+@field = {{#if rule}}{{rule}} {{/if}}{{type}} {{name}} = {{number}}{{#if options}} [{{options}}]{{/if}};
+
+@enum = enum {{name}} {
+{{#each body}}{{value}}
+{{/each}}}
+
+@enum_value = {{name}} = {{number}}{{#if options}} [{{options}}]{{/if}};
+
+@service = service {{name}} {
+{{#each rpcs}}{{value}}
+{{/each}}{{#each options}}{{value}}
+{{/each}}}
+
+@rpc = rpc {{name}}({{#if stream}}stream {{/if}}{{request_type}}) returns ({{#if stream}}stream {{/if}}{{response_type}}){{#if options}} [{{options}}]{{/if}};
+
+@indent = 2
+@pretty = true
+

@@ -1,0 +1,14 @@
+/* ============================================
+   PAGINATION - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-pagination: 8px;
+    /* Fallback: --radius-control → --radius-sm → 8px */
+}
+
+/* Utility class for direct application */
+.radius-pagination-soft {
+    border-radius: var(--radius-pagination, 8px) !important;
+}

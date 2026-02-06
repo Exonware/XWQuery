@@ -1,0 +1,35 @@
+// xwnode_executor.grammar
+// XWNode Executor Grammar - XWNode native execution format
+// Company: eXonware.com
+
+?start: execution_plan
+
+execution_plan: node*
+
+node: node_type node_config node_children?
+
+node_type: IDENTIFIER
+
+node_config: "{" config_pair* "}"
+
+config_pair: IDENTIFIER ":" value
+
+node_children: "[" node* "]"
+
+value: string | number | boolean | null | array | object
+
+string: STRING
+number: SIGNED_NUMBER
+boolean: "true" | "false"
+null: "null"
+array: "[" [value ("," value)*] "]"
+object: "{" [config_pair ("," config_pair)*] "}"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+%import common.SIGNED_NUMBER
+%import common.WS
+
+%ignore WS
+

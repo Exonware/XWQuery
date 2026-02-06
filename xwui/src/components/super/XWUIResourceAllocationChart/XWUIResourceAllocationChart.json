@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "chartType": {
+      "type": "string",
+      "enum": [
+        "stacked-bar",
+        "area"
+      ],
+      "default": "stacked-bar"
+    },
+    "showTooltip": {
+      "type": "boolean",
+      "default": true
+    },
+    "showLegend": {
+      "type": "boolean",
+      "default": true
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "id": "XWUIResourceAllocationChart"
+}

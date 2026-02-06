@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIMenuNavigation",
+  "name": "XWUI Navigation Menu Component",
+  "description": "Navigation menu component for site navigation. Separate from the general Menu component, this is specifically designed for navigation purposes. Supports horizontal and vertical orientations. Uses XWUIMenu internally.",
+  "path": "navigation.navigationmenu",
+  "tags": [
+    "navigation",
+    "menu",
+    "nav",
+    "site-navigation",
+    "desktop",
+    "mobile",
+    "tablet"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "orientation": {
+          "type": "string",
+          "enum": [
+            "horizontal",
+            "vertical"
+          ],
+          "description": "Orientation of the navigation menu",
+          "default": "horizontal"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the navigation menu"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of navigation menu items",
+          "items": {
+            "description": "XWUIMenuItem (see XWUIMenu schema for structure)"
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    }
+  }
+}

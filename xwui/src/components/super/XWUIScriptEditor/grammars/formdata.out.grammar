@@ -1,0 +1,17 @@
+# formdata.out.grammar
+# FormData Output Grammar - Template for generating URL-encoded form data
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#each fields}}{{value}}{{#if !@last}}&{{/if}}{{/each}}
+
+@field = {{child_0}}={{child_1}}
+
+@key = {{value|url_encode}}
+
+@value = {{value|url_encode}}
+
+@indent = 0
+@pretty = false
+@delimiter = "&"
+

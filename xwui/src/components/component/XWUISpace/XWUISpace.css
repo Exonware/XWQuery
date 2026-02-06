@@ -1,0 +1,21 @@
+/**
+ * XWUISpace Component Styles
+ */
+
+.xwui-space-wrapper {
+    /* Wrapper has no specific styles */
+}
+
+.xwui-space {
+    box-sizing: border-box;
+}
+
+.xwui-space-item {
+    /* Item inherits flex properties */
+}
+
+.xwui-space-split {
+    color: var(--text-tertiary, rgba(0, 0, 0, 0.3));
+    margin: 0 var(--spacing-xs, 4px);
+}
+

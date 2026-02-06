@@ -1,0 +1,50 @@
+# UBJSON (Universal Binary JSON) Example
+# Note: UBJSON is binary, but this shows the logical structure
+# In actual UBJSON, this would be binary-encoded with type markers
+
+{
+  "name": "Sample UBJSON Document",
+  "version": "1.0.0",
+  "description": "Universal Binary JSON format",
+  "metadata": {
+    "author": "XWUI Team",
+    "created": "2025-01-15T10:30:00Z",
+    "tags": ["example", "ubjson", "binary"]
+  },
+  "configuration": {
+    "database": {
+      "host": "localhost",
+      "port": 5432,
+      "name": "example_db",
+      "ssl": true
+    }
+  },
+  "items": [
+    {
+      "id": 1,
+      "name": "First Item",
+      "active": true,
+      "price": 29.99,
+      "categories": ["electronics", "gadgets"]
+    },
+    {
+      "id": 2,
+      "name": "Second Item",
+      "active": false,
+      "price": 49.99,
+      "categories": ["books", "education"]
+    }
+  ],
+  "numbers": [1, 2, 3, 4, 5],
+  "floats": [1.1, 2.2, 3.3],
+  "booleans": [true, false],
+  "null_value": null
+}
+
+# UBJSON Type Markers:
+# Z = null, T = true, F = false
+# i = int8, I = uint8, l = int32, L = uint32
+# d = float64, S = string, [ = array start, { = object start
+
+
+

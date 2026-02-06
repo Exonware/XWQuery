@@ -1,0 +1,263 @@
+/**
+ * XWUIWorkflow Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * 
+ * Structural styles using patterns from @_Archieve/exonware-xmsgr-frontend/src/components/xmsgr/styles/styles.ts
+ */
+
+/* Main Workflow Container */
+.xwui-workflow {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-family, inherit);
+    background: var(--bg-primary, #1f2937);
+    color: var(--text-primary, #ffffff);
+    overflow: hidden;
+}
+
+/* Header */
+.xwui-workflow-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color, #374151);
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+    gap: var(--spacing-md, 1rem);
+    flex-shrink: 0;
+}
+
+.xwui-workflow-title {
+    margin-right: var(--spacing-md, 1rem);
+    color: var(--text-primary, #ffffff);
+    font-weight: var(--font-weight-semibold, 600);
+}
+
+.xwui-workflow-tabs {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-workflow-tab {
+    padding: var(--spacing-xs, 0.25rem) var(--spacing-sm, 0.5rem);
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-medium, 500);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-secondary, #9ca3af);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.xwui-workflow-tab:hover {
+    color: var(--text-primary, #ffffff);
+}
+
+.xwui-workflow-tab.active {
+    border-bottom-color: var(--text-primary, #ffffff);
+    color: var(--text-primary, #ffffff);
+}
+
+/* Main Content Area */
+.xwui-workflow-main {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Canvas */
+.xwui-workflow-canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary, #111827);
+    overflow: auto;
+}
+
+.xwui-workflow-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.xwui-workflow-svg {
+    position: absolute;
+    inset: 0;
+    width: 2000px;
+    height: 1200px;
+    pointer-events: none;
+}
+
+/* Node Wrapper */
+.xwui-workflow-node-wrapper {
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+    z-index: 10;
+}
+
+.xwui-workflow-node-wrapper:active {
+    cursor: grabbing;
+}
+
+.xwui-workflow-node-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Node Body */
+.xwui-workflow-node-body {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg, 0 10px 15px rgba(0, 0, 0, 0.1));
+    transition: box-shadow 0.2s ease;
+    backdrop-filter: blur(8px);
+}
+
+.xwui-workflow-node-body:hover {
+    box-shadow: var(--shadow-xl, 0 20px 25px rgba(0, 0, 0, 0.15));
+}
+
+/* Node Icon */
+.xwui-workflow-node-icon {
+    font-size: 1.875rem;
+    line-height: 1;
+}
+
+/* Node Content (Full Layout) */
+.xwui-workflow-node-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: var(--spacing-md, 1rem);
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.xwui-workflow-node-text {
+    flex: 1;
+    text-align: left;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.xwui-workflow-node-title {
+    font-weight: var(--font-weight-semibold, 600);
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-primary, #ffffff);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.xwui-workflow-node-type {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #9ca3af);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Node Label (Icon Only Layout) */
+.xwui-workflow-node-label {
+    margin-top: var(--spacing-xs, 0.5rem);
+    text-align: center;
+}
+
+.xwui-workflow-node-label-title {
+    font-weight: var(--font-weight-semibold, 600);
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-primary, #ffffff);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.xwui-workflow-node-label-type {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #9ca3af);
+}
+
+/* Ports */
+.xwui-workflow-node-ports {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.xwui-workflow-port {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--bg-primary, #111827);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    pointer-events: all;
+    transition: transform 0.2s ease;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.xwui-workflow-port:hover {
+    transform: translate(-50%, -50%) scale(1.25);
+}
+
+/* Context Menu */
+.xwui-workflow-context-menu {
+    background: var(--bg-elevated, #374151);
+    border: 1px solid var(--border-color, #4b5563);
+    border-radius: var(--radius-md, 8px);
+    box-shadow: var(--shadow-lg, 0 10px 15px rgba(0, 0, 0, 0.3));
+    padding: var(--spacing-xs, 0.25rem) 0;
+    min-width: 160px;
+}
+
+.xwui-workflow-context-menu-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: var(--spacing-xs, 0.5rem) var(--spacing-md, 1rem);
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-primary, #e5e7eb);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.xwui-workflow-context-menu-item:hover {
+    background: var(--bg-hover, #4b5563);
+}
+
+/* Data Tab */
+.xwui-workflow-data-tab {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.xwui-workflow-textarea {
+    width: 100%;
+    height: 100%;
+    padding: var(--spacing-md, 1rem);
+    font-family: var(--font-family-mono, 'Courier New', monospace);
+    font-size: var(--font-size-sm, 0.875rem);
+    background: var(--bg-primary, #111827);
+    color: var(--text-primary, #ffffff);
+    border: none;
+    outline: none;
+    resize: none;
+}
+

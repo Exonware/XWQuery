@@ -1,0 +1,83 @@
+# YAML Example - Human-readable data serialization
+name: Sample YAML Document
+version: 1.0.0
+description: Comprehensive YAML example with various features
+
+# Metadata
+metadata:
+  author: XWUI Team
+  created: 2025-01-15T10:30:00Z
+  tags:
+    - example
+    - yaml
+    - configuration
+
+# Database configuration
+database:
+  host: localhost
+  port: 5432
+  name: example_db
+  ssl: true
+  connection_pool:
+    min: 5
+    max: 20
+    timeout: 30s
+
+# Features configuration
+features:
+  authentication: true
+  caching: false
+  logging:
+    level: info
+    format: json
+    outputs:
+      - console
+      - file
+    file:
+      path: /var/log/app.log
+      max_size: 10MB
+      retention: 7d
+
+# List of items
+items:
+  - id: 1
+    name: First Item
+    active: true
+    price: 29.99
+    categories:
+      - electronics
+      - gadgets
+  - id: 2
+    name: Second Item
+    active: false
+    price: 49.99
+    categories:
+      - books
+      - education
+
+# Multi-line strings
+description: |
+  This is a multi-line string
+  that preserves line breaks
+  and formatting.
+
+summary: >
+  This is a folded string
+  that converts newlines
+  to spaces.
+
+# Anchors and aliases
+defaults: &defaults
+  timeout: 30
+  retries: 3
+
+service1:
+  <<: *defaults
+  name: Service One
+
+service2:
+  <<: *defaults
+  name: Service Two
+
+
+

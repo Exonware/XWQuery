@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIAppBar",
+  "name": "XWUI App Bar Component",
+  "description": "Application bar component for layout headers. Supports logo, title, navigation, and action areas. Can be positioned as static, fixed, or sticky with various variants and color schemes.",
+  "path": "layout.appbar",
+  "tags": ["layout", "appbar", "header", "navigation", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "type": "string",
+          "enum": ["static", "fixed", "sticky"],
+          "description": "Position behavior of the app bar",
+          "default": "static"
+        },
+        "variant": {
+          "type": "string",
+          "enum": ["default", "transparent", "elevated"],
+          "description": "Visual variant of the app bar",
+          "default": "default"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Height size of the app bar",
+          "default": "medium"
+        },
+        "color": {
+          "type": "string",
+          "enum": ["default", "primary", "dark", "light"],
+          "description": "Color scheme of the app bar",
+          "default": "default"
+        },
+        "bordered": {
+          "type": "boolean",
+          "description": "Whether to show a border at the bottom",
+          "default": true
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the app bar"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "logo": {
+          "description": "Logo element or HTML string to display on the left"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title text to display"
+        },
+        "navigation": {
+          "description": "Navigation element to display in the center"
+        },
+        "actions": {
+          "description": "Action buttons/elements to display on the right"
+        },
+        "leftContent": {
+          "description": "Custom left section content"
+        },
+        "centerContent": {
+          "description": "Custom center section content"
+        },
+        "rightContent": {
+          "description": "Custom right section content"
+        }
+      }
+    }
+  }
+}
+

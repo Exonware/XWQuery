@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUISkeleton",
+  "name": "XWUI Skeleton Component",
+  "description": "Loading skeleton placeholder component for showing content placeholders while data is loading. Supports various variants (text, circular, rectangular, rounded), animations (pulse, wave), and customizable dimensions.",
+  "path": "display.skeleton",
+  "tags": ["display", "skeleton", "loading", "placeholder", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["text", "circular", "rectangular", "rounded"],
+          "description": "Shape variant of the skeleton",
+          "default": "text"
+        },
+        "animation": {
+          "type": "string",
+          "enum": ["pulse", "wave", "none"],
+          "description": "Animation type for the skeleton",
+          "default": "pulse"
+        },
+        "width": {
+          "description": "Width of the skeleton (string or number)"
+        },
+        "height": {
+          "description": "Height of the skeleton (string or number)"
+        },
+        "lines": {
+          "type": "number",
+          "description": "Number of lines for text variant"
+        },
+        "lineHeight": {
+          "type": "string",
+          "description": "Line height for text variant (CSS value)"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the skeleton"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false
+    }
+  }
+}
+

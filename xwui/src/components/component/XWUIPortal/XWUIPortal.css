@@ -1,0 +1,26 @@
+/**
+ * XWUIPortal Component Styles
+ * Portal container for rendering content outside normal DOM hierarchy
+ */
+
+.xwui-portal {
+    /* Portal container - styles applied by parent or via className */
+    /* Default: no specific styling, content is positioned as needed */
+    position: relative;
+}
+
+/* When portal is used for modals/overlays, ensure it's on top */
+.xwui-portal.xwui-portal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.xwui-portal.xwui-portal-overlay > * {
+    pointer-events: auto;
+}
+

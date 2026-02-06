@@ -1,0 +1,14 @@
+/* ============================================
+   CALENDAR - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-calendar: 16px;
+    /* Fallback: --radius-content → --radius-sm → 16px */
+}
+
+/* Utility class for direct application */
+.radius-calendar-extra-rounded {
+    border-radius: var(--radius-calendar, 16px) !important;
+}

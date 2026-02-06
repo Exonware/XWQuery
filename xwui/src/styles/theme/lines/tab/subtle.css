@@ -1,0 +1,17 @@
+/* ============================================
+   TAB LINES - SUBTLE LINES
+   ============================================ */
+
+:root[data-lines="subtle"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-tab-width: var(--border-width-regular, 1px);
+    --border-tab-style: solid;
+    --border-tab-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-tab-subtle {
+    border-style: var(--border-tab-style, solid);
+    border-width: var(--border-tab-width, var(--border-width-regular, 1px));
+    border-color: var(--border-tab-color, var(--border-medium, var(--border-color)));
+}

@@ -1,0 +1,14 @@
+/* ============================================
+   PHOTO - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-photo: 3px;
+    /* Fallback: --radius-media → --radius-md → 3px */
+}
+
+/* Utility class for direct application */
+.radius-photo-minimal {
+    border-radius: var(--radius-photo, 3px) !important;
+}

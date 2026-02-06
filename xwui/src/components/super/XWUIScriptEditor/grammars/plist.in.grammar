@@ -1,0 +1,37 @@
+// plist.grammar
+// Plist Grammar - Apple Property List
+// Based on XML Property List format
+// Company: eXonware.com
+
+?start: plist
+
+plist: "<?xml" XML_ATTRIBUTES* "?>" DOCTYPE? "<plist" PLIST_ATTRIBUTES* ">" dict "</plist>"
+
+dict: "<dict>" key_value* "</dict>"
+key_value: "<key>" KEY_VALUE "</key>" value
+
+value: string | integer | real | boolean | date | data | array | dict
+
+string: "<string>" STRING_VALUE "</string>"
+integer: "<integer>" INTEGER_VALUE "</integer>"
+real: "<real>" REAL_VALUE "</real>"
+boolean: "<true/>" | "<false/>"
+date: "<date>" DATE_VALUE "</date>"
+data: "<data>" DATA_VALUE "</data>"
+array: "<array>" value* "</array>"
+
+// Terminals
+XML_ATTRIBUTES: /[^>]*/
+PLIST_ATTRIBUTES: /[^>]*/
+KEY_VALUE: /[^<]+/
+STRING_VALUE: /[^<]+/
+INTEGER_VALUE: /[+-]?[0-9]+/
+REAL_VALUE: /[+-]?[0-9]+\.[0-9]+([eE][+-]?[0-9]+)?/
+DATE_VALUE: /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z/
+DATA_VALUE: /[A-Za-z0-9+/=]+/
+DOCTYPE: "<!DOCTYPE" /[^>]+/ ">"
+
+%import common.WS
+
+%ignore WS
+

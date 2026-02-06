@@ -1,0 +1,16 @@
+/* ============================================
+   PRESET: XWUI Modern Silver Green Rounded
+   Complete theme preset for quick loading
+   ============================================ */
+
+@import '../base/reset.css';
+@import '../base/typography.css';
+@import '../base/utilities.css';
+@import '../brand/xwui/brand.css';
+@import '../style/modern/spacing.css';
+@import '../style/modern/shadows.css';
+@import '../theme/colors/silver.css';
+@import '../theme/accents/green.css';
+@import '../theme/roundness/rounded.css';
+@import '../theme/typography/roboto.css';
+

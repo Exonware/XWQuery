@@ -1,0 +1,36 @@
+/**
+ * XWUISkipLink Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/rounded.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-skiplink {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    z-index: 10000;
+    padding: var(--spacing-sm, 0.75rem) var(--spacing-md, 1rem);
+    background: var(--bg-primary);
+    border: var(--border-skiplink-width, var(--border-width-regular, 1.5px)) var(--border-skiplink-style, solid) var(--border-skiplink-color, var(--border-color));
+    border-radius: var(--radius-skiplink, var(--radius-xs, 4px));
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold, 600);
+    transition: top 0.2s;
+}
+
+.xwui-skiplink:focus {
+    top: var(--spacing-sm, 0.5rem);
+    left: var(--spacing-sm, 0.5rem);
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+

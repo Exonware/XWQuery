@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "showCheckbox": {
+      "type": "boolean",
+      "default": true
+    },
+    "showProgress": {
+      "type": "boolean",
+      "default": true
+    },
+    "indentSize": {
+      "type": "number",
+      "default": 20
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "id": "XWUISubtaskExpander"
+}

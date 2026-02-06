@@ -1,0 +1,12 @@
+/**
+ * XWUIWatermark Component Styles
+ */
+
+.xwui-watermark-container {
+    position: relative;
+}
+
+.xwui-watermark {
+    /* Watermark overlay styles applied inline */
+}
+

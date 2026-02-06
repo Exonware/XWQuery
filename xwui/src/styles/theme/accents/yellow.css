@@ -1,0 +1,24 @@
+/* ============================================
+   YELLOW ACCENT - Yellow palette
+   ============================================ */
+
+:root[data-accent="yellow"] {
+    /* Accent colors - Yellow palette */
+    --accent-primary: #eab308;
+    --accent-hover: #ca8a04;
+    --accent-light: #facc15;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 234, 179, 8;
+    --accent-hover-rgb: 202, 138, 4;
+    --accent-light-rgb: 250, 204, 21;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

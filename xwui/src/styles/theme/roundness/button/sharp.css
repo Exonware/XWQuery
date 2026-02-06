@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-button: 0px;
+}
+
+/* Utility class for direct application */
+.radius-button-sharp {
+    border-radius: var(--radius-button, 0px) !important;
+}

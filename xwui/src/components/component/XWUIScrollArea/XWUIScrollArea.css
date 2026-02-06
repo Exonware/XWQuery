@@ -1,0 +1,44 @@
+/**
+ * XWUIScrollArea Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ */
+
+.xwui-scroll-area {
+    position: relative;
+    overflow: hidden;
+}
+
+.xwui-scroll-area-viewport {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+/* Orientation */
+.xwui-scroll-area-vertical .xwui-scroll-area-viewport {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.xwui-scroll-area-horizontal .xwui-scroll-area-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.xwui-scroll-area-both .xwui-scroll-area-viewport {
+    overflow: auto;
+}
+
+/* Hide scrollbar */
+.xwui-scroll-area-hide-scrollbar .xwui-scroll-area-viewport {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.xwui-scroll-area-hide-scrollbar .xwui-scroll-area-viewport::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+

@@ -1,0 +1,13 @@
+/* ============================================
+   BODY TYPOGRAPHY - PLAYFAIR
+   ============================================ */
+
+:root[data-font="playfair"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-body-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-body-playfair {
+    font-family: var(--font-body-family, var(--font-family-base, sans-serif)) !important;
+}

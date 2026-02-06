@@ -1,0 +1,47 @@
+/**
+ * XWUIMultiSelect Component Styles
+ */
+
+.xwui-multi-select-container {
+    /* Container has no specific styles */
+}
+
+.xwui-multi-select-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.xwui-multi-select-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs, 4px);
+    padding: 2px var(--spacing-sm, 8px);
+    background-color: var(--bg-secondary, #f0f0f0);
+    border-radius: var(--radius-sm, 4px);
+    font-size: var(--font-size-xs, 12px);
+}
+
+.xwui-multi-select-tag-close {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-base, 16px);
+    color: var(--text-secondary, #666);
+}
+
+.xwui-multi-select-tag-close:hover {
+    color: var(--text-primary, #333);
+}
+
+.xwui-multi-select-tag-more {
+    background-color: var(--bg-tertiary, #e0e0e0);
+}
+

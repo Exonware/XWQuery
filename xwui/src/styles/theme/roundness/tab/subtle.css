@@ -1,0 +1,14 @@
+/* ============================================
+   TAB - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-tab: 4px;
+    /* Fallback: --radius-navigation → --radius-sm → 4px */
+}
+
+/* Utility class for direct application */
+.radius-tab-subtle {
+    border-radius: var(--radius-tab, 4px) !important;
+}

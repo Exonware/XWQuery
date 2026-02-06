@@ -1,0 +1,90 @@
+/**
+ * XWUIGanttChart Component Styles
+ */
+
+.xwui-gantt-chart {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.xwui-gantt-chart-controls {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--spacing-sm, 0.5rem);
+    background: var(--bg-secondary, #f8f9fa);
+    border-radius: var(--radius-md, 8px);
+}
+
+.xwui-gantt-chart-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.xwui-gantt-chart-sidebar {
+    width: 250px;
+    border-right: 1px solid var(--border-color, #dee2e6);
+    overflow-y: auto;
+}
+
+.xwui-gantt-chart-task-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.xwui-gantt-chart-task-item {
+    padding: var(--spacing-sm, 0.5rem);
+    border-bottom: 1px solid var(--border-light, #e9ecef);
+    font-size: var(--font-size-sm, 0.875rem);
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.xwui-gantt-chart-timeline {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+}
+
+.xwui-gantt-chart-timeline-scroll {
+    min-width: 100%;
+}
+
+.xwui-gantt-chart-date-header {
+    display: flex;
+    border-bottom: 2px solid var(--border-color, #dee2e6);
+    position: sticky;
+    top: 0;
+    background: var(--bg-primary, #ffffff);
+    z-index: 10;
+}
+
+.xwui-gantt-chart-date-cell {
+    min-width: 100px;
+    padding: var(--spacing-sm, 0.5rem);
+    text-align: center;
+    font-size: var(--font-size-xs, 0.75rem);
+    font-weight: var(--font-weight-medium, 500);
+    border-right: 1px solid var(--border-light, #e9ecef);
+}
+
+.xwui-gantt-chart-area {
+    position: relative;
+    min-height: 400px;
+}
+
+.xwui-gantt-chart-task-bar {
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.xwui-gantt-chart-task-bar:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+

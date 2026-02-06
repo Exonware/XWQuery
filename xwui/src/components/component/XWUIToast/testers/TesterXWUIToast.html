@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIToast Component Tester</title>
+    
+        <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css" id="themeColorSheet">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- App-specific styles -->
+    <link rel="stylesheet" href="../../../app/styles/testers.css">
+    
+    <!-- Component CSS -->
+    
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuitoast-content">
+<div class="button-group">
+                <h3>Show Toasts</h3>
+                <div class="button-row">
+                    <button class="test-button" id="btn-info">Info</button>
+                    <button class="test-button" id="btn-success">Success</button>
+                    <button class="test-button" id="btn-warning">Warning</button>
+                    <button class="test-button" id="btn-error">Error</button>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <h3>With Title</h3>
+                <div class="button-row">
+                    <button class="test-button" id="btn-title">Toast with Title</button>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <h3>With Action</h3>
+                <div class="button-row">
+                    <button class="test-button" id="btn-action">Toast with Action</button>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <h3>Persistent</h3>
+                <div class="button-row">
+                    <button class="test-button" id="btn-persistent">Persistent Toast</button>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <h3>Control</h3>
+                <div class="button-row">
+                    <button class="test-button" id="btn-dismiss-all">Dismiss All</button>
+                </div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUIToast.ts"></script>
+</body>
+</html>
+

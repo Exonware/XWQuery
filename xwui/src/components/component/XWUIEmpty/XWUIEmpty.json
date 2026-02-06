@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIEmpty",
+  "name": "XWUI Empty Component",
+  "description": "Empty state component for displaying when there is no content to show. Supports title, description, image, icon, and optional action button. Useful for empty lists, search results, and error states.",
+  "path": "display.empty",
+  "tags": ["display", "empty", "state", "placeholder", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the empty state component"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the empty component"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title text for the empty state"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description text for the empty state"
+        },
+        "image": {
+          "type": "string",
+          "description": "Image URL to display in the empty state"
+        },
+        "icon": {
+          "type": "string",
+          "description": "SVG icon HTML string to display in the empty state"
+        },
+        "action": {
+          "type": "object",
+          "description": "Action button configuration",
+          "properties": {
+            "label": {
+              "type": "string",
+              "description": "Label text for the action button"
+            },
+            "onClick": {
+              "description": "Click handler function (not serializable in JSON)"
+            }
+          },
+          "required": ["label"]
+        }
+      }
+    }
+  }
+}
+

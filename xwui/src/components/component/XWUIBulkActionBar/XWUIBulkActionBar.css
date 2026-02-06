@@ -1,0 +1,114 @@
+/**
+ * XWUIBulkActionBar Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ */
+
+.xwui-bulk-action-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md, 1rem);
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+    background: var(--bg-elevated, #ffffff);
+    border-top: 1px solid var(--border-color, #dee2e6);
+    box-shadow: var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1));
+    z-index: 1000;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.xwui-bulk-action-bar-fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-top: none;
+    border-bottom: 1px solid var(--border-color, #dee2e6);
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.xwui-bulk-action-bar-fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.xwui-bulk-action-bar-inline {
+    position: relative;
+    margin: var(--spacing-md, 1rem) 0;
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--border-color, #dee2e6);
+}
+
+.xwui-bulk-action-bar-left {
+    display: flex;
+    align-items: center;
+}
+
+.xwui-bulk-action-bar-count {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-bulk-action-bar-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 var(--spacing-xs, 0.25rem);
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-bold, 700);
+    color: var(--text-inverse, #ffffff);
+    background: var(--accent-primary, #4f46e5);
+    border-radius: 12px;
+    line-height: 1;
+}
+
+.xwui-bulk-action-bar-count-text {
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-bulk-action-bar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-bulk-action-bar-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.25rem);
+}
+

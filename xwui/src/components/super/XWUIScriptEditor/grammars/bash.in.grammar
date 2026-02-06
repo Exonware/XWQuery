@@ -1,0 +1,45 @@
+// bash.grammar
+// Bash Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: script
+
+script: shebang? command*
+
+shebang: "#!" /[^\n]+/
+
+command: simple_command | pipeline | list | compound_command | function_definition
+
+simple_command: [assignment]* [command_word] [argument*]
+
+pipeline: command ("|" command)+
+
+list: command ((";" | "&" | "&&" | "||") command)*
+
+compound_command: if_command | while_command | for_command | case_command | subshell
+
+if_command: "if" compound_list "then" compound_list ["elif" compound_list "then" compound_list]* ["else" compound_list] "fi"
+
+while_command: "while" compound_list "do" compound_list "done"
+
+for_command: "for" IDENTIFIER ["in" word_list] "do" compound_list "done"
+
+function_definition: IDENTIFIER "(" ")" compound_command
+
+assignment: IDENTIFIER "=" word
+
+command_word: word
+
+argument: word
+
+word: STRING | IDENTIFIER | NUMBER | /[^\s|;&()]+/
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]/* "\"" | "'" /[^']/* "'"
+NUMBER: /[0-9]+/
+%import common.WS
+%import common.NEWLINE
+
+%ignore WS
+

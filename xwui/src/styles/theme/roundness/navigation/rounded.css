@@ -1,0 +1,13 @@
+/* ============================================
+   NAVIGATION - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-navigation: 6px;
+}
+
+/* Utility class for direct application */
+.radius-navigation-rounded {
+    border-radius: var(--radius-navigation, 6px) !important;
+}

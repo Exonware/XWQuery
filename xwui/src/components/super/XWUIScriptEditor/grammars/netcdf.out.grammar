@@ -1,0 +1,17 @@
+# netcdf.out.grammar
+# NetCDF Output Grammar - Template for generating NetCDF from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@netcdf_file = {{magic}}{{num_recs}}{{dim_list}}{{gatt_list}}{{var_list}}
+
+@magic_number = CDF
+
+@dim_list = {{num_dims}}{{#each dims}}{{value}}{{/each}}
+
+@var_list = {{num_vars}}{{#each vars}}{{value}}{{/each}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

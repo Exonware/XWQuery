@@ -1,0 +1,655 @@
+/**
+ * XWUIItem Component Styles
+ * Styles for XWUIItem component that renders JSON config as HTML
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Roundness: theme/roundness/rounded.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+/* Base item styles */
+.xwui-item {
+    position: relative;
+    width: 100%;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+}
+
+/* Status-based background colors */
+.xwui-item-status-before_start {
+    background-color: var(--status-before-start) !important;
+    border-left: 3px solid var(--status-before-start-border);
+}
+
+[dir="rtl"] .xwui-item-status-before_start {
+    border-left: none;
+    border-right: 3px solid var(--status-before-start-border);
+}
+
+.xwui-item-status-processing {
+    background-color: var(--status-processing) !important;
+    border-left: 3px solid var(--status-processing-border);
+    color: var(--status-processing-text);
+}
+
+[dir="rtl"] .xwui-item-status-processing {
+    border-left: none;
+    border-right: 3px solid var(--status-processing-border);
+}
+
+.xwui-item-status-processing * {
+    color: var(--status-processing-text);
+}
+
+.xwui-item-status-error {
+    background-color: var(--status-error) !important;
+    border-left: 3px solid var(--status-error-border);
+    color: var(--status-error-text);
+}
+
+[dir="rtl"] .xwui-item-status-error {
+    border-left: none;
+    border-right: 3px solid var(--status-error-border);
+}
+
+.xwui-item-status-error * {
+    color: var(--status-error-text);
+}
+
+.xwui-item-status-pass {
+    /* No background color - use default */
+    background-color: transparent;
+}
+
+.xwui-item-clickable {
+    cursor: pointer;
+}
+
+.xwui-item-clickable:hover:not(.xwui-item-status-before_start):not(.xwui-item-status-processing):not(.xwui-item-status-error):not(.xwui-item-status-pass) {
+    background-color: var(--bg-hover);
+}
+
+/* Hover effects for status items - slightly darker */
+.xwui-item-status-before_start:hover {
+    background-color: var(--status-before-start-hover) !important;
+}
+
+.xwui-item-status-processing:hover {
+    background-color: var(--status-processing-hover) !important;
+}
+
+.xwui-item-status-error:hover {
+    background-color: var(--status-error-hover) !important;
+}
+
+/* Size classes */
+.xwui-item-size-xs {
+    padding: var(--spacing-xs, 6px) var(--spacing-xs, 8px);
+    font-size: var(--font-size-xs, 12px);
+}
+
+.xwui-item-size-s {
+    padding: var(--spacing-xs, 8px) var(--spacing-sm, 12px);
+    font-size: var(--font-size-sm, 13px);
+}
+
+.xwui-item-size-m {
+    padding: var(--spacing-sm, 12px) var(--spacing-md, 16px);
+    font-size: var(--font-size-sm, 14px);
+}
+
+.xwui-item-size-l {
+    padding: var(--spacing-md, 16px) var(--spacing-lg, 20px);
+    font-size: var(--font-size-base, 15px);
+}
+
+.xwui-item-size-xl {
+    padding: var(--spacing-lg, 20px) var(--spacing-lg, 24px);
+    font-size: var(--font-size-base, 15px);
+    border-bottom: var(--border-content-width, var(--border-width-regular, 1.5px)) var(--border-content-style, solid) var(--border-content-color, var(--border-color));
+}
+
+/* Text overflow styles */
+.xwui-item-text-ellipsis {
+    display: -webkit-box;
+    -webkit-line-clamp: var(--max-lines, 1);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+
+.xwui-item-text-expandable-wrapper {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-xs, 8px);
+}
+
+.xwui-item-text-expandable {
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--max-lines, 3);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+    transition: all 0.3s ease;
+}
+
+.xwui-item-text-expandable.xwui-item-text-expanded {
+    -webkit-line-clamp: unset;
+    display: block;
+}
+
+.xwui-item-text-expand-btn {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    padding: 0;
+    border: var(--border-control-width, var(--border-width-regular, 1.5px)) var(--border-control-style, solid) var(--border-control-color, var(--border-color));
+    border-radius: var(--radius-control, var(--radius-xs, 4px));
+    background: var(--control-bg);
+    color: var(--control-text);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.xwui-item-text-expand-btn:hover {
+    background: var(--control-bg-hover);
+    border-color: var(--accent-primary);
+}
+
+.xwui-item-text-expand-btn:active {
+    transform: scale(0.95);
+}
+
+/* Content block */
+.xwui-item-content-block {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 8px);
+    flex-wrap: wrap;
+    text-align: inherit;
+}
+
+/* Text styles */
+.xwui-item-text {
+    line-height: 1.5;
+    text-align: inherit;
+}
+
+.xwui-item-text-bold {
+    font-weight: 600;
+}
+
+.xwui-item-text-subdued {
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+.xwui-item-text-timestamp {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+.xwui-item-select-text {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+/* Icon styles */
+.xwui-item-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.xwui-item-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Image styles */
+.xwui-item-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.xwui-item-image-circle {
+    border-radius: 50%;
+}
+
+.xwui-item-image-square {
+    border-radius: 4px;
+}
+
+/* Progress bar */
+.xwui-item-progress-bar {
+    width: 100%;
+    height: 4px;
+    background-color: var(--bg-tertiary);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.xwui-item-progress-fill {
+    height: 100%;
+    background-color: var(--accent-primary);
+    transition: width 0.3s ease;
+}
+
+/* User stack */
+.xwui-item-user-stack {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.xwui-item-user-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--bg-primary);
+    object-fit: cover;
+    position: relative;
+    margin-left: -8px;
+}
+
+[dir="rtl"] .xwui-item-user-avatar {
+    margin-left: 0;
+    margin-right: -8px;
+}
+
+.xwui-item-user-avatar:first-child {
+    margin-left: 0;
+}
+
+[dir="rtl"] .xwui-item-user-avatar:first-child {
+    margin-right: 0;
+}
+
+/* Collapsed item */
+.xwui-item-collapsed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Standard layout */
+.xwui-item-standard-layout {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 8px);
+    width: 100%;
+}
+
+.xwui-item-drag-handle {
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+}
+
+.xwui-item-drag-handle:hover {
+    opacity: 1;
+}
+
+.xwui-item-expand-icon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.xwui-item-expand-icon.xwui-item-expanded {
+    transform: rotate(90deg);
+}
+
+[dir="rtl"] .xwui-item-expand-icon.xwui-item-expanded {
+    transform: rotate(-90deg) scaleX(-1);
+}
+
+.xwui-item-primary-content {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-align: inherit;
+}
+
+.xwui-item-add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xs, 4px);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.xwui-item:hover .xwui-item-add-button {
+    opacity: 1;
+}
+
+.xwui-item-add-button:hover {
+    background-color: var(--bg-hover);
+}
+
+/* XL layout */
+.xwui-item-xl-layout {
+    display: flex;
+    gap: var(--spacing-sm, 12px);
+    width: 100%;
+}
+
+.xwui-item-checkbox {
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.xwui-item-xl-avatar-wrapper {
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 2px;
+}
+
+/* Avatar wrapper RTL: same approach as xwui-item-content-block - no flex-direction reversal */
+[dir="rtl"] .xwui-item-xl-avatar-wrapper {
+    /* DO NOT use flex-direction: row-reverse - let browser handle RTL naturally with dir attribute */
+    text-align: right;
+}
+
+[dir="ltr"] .xwui-item-xl-avatar-wrapper {
+    text-align: left;
+}
+
+.xwui-item-xl-content-wrapper {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.xwui-item-xl-reaction-wrapper {
+    display: flex;
+    align-items: center;
+    padding-left: 56px;
+    margin-top: 4px;
+    min-height: 20px;
+}
+
+[dir="rtl"] .xwui-item-xl-reaction-wrapper {
+    padding-left: 0;
+    padding-right: 56px;
+}
+
+.xwui-item-xl-content {
+    flex: 1;
+    min-width: 0;
+    text-align: inherit;
+}
+
+.xwui-item-xl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-sm, 12px);
+    text-align: inherit;
+}
+
+.xwui-item-xl-header-other {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 8px);
+    flex-shrink: 0;
+}
+
+.xwui-item-actions {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing-xs, 4px) / 2);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.xwui-item:hover .xwui-item-actions {
+    opacity: 1;
+}
+
+.xwui-item-action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xs, 4px);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.xwui-item-action-button:hover {
+    background-color: var(--bg-hover);
+}
+
+/* Search item */
+.xwui-item-search-container {
+    position: relative;
+    width: 100%;
+}
+
+.xwui-item-search-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    color: var(--text-tertiary);
+}
+
+.xwui-item-search-icon-ltr {
+    left: 12px;
+}
+
+.xwui-item-search-icon-rtl {
+    right: 12px;
+}
+
+.xwui-item-search-input {
+    width: 100%;
+    padding: var(--spacing-xs, 8px) var(--spacing-sm, 12px);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-secondary);
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.xwui-item-search-input-ltr {
+    padding-left: 36px;
+}
+
+.xwui-item-search-input-rtl {
+    padding-right: 36px;
+}
+
+.xwui-item-search-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    /* Focus ring using accent color with opacity - works across all themes */
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 10%, transparent);
+}
+
+/* Group list */
+.xwui-item-group-list {
+    margin-top: 4px;
+}
+
+.xwui-item-group-ltr {
+    padding-left: 16px;
+}
+
+.xwui-item-group-rtl {
+    padding-right: 16px;
+}
+
+[dir="rtl"] .xwui-item-group-list {
+    padding-right: 16px;
+    padding-left: 0;
+}
+
+[dir="ltr"] .xwui-item-group-list {
+    padding-left: 16px;
+    padding-right: 0;
+}
+
+/* XWUIItemGroup styles */
+.xwui-item-group {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-xs, 4px) / 4);
+}
+
+.xwui-item-group-item {
+    width: 100%;
+}
+
+.xwui-item-nested-group {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-xs, 4px) / 4);
+}
+
+/* List item spacing - for standalone items in lists */
+.xwui-item-list-item {
+    margin-bottom: 2px;
+}
+
+.xwui-item-list-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Highlighted item */
+.xwui-item-highlighted {
+    animation: xwui-item-highlight 1.5s ease-out;
+}
+
+@keyframes xwui-item-highlight {
+    from {
+        background-color: var(--accent-primary);
+        opacity: 0.3;
+    }
+    to {
+        background-color: transparent;
+        opacity: 0;
+    }
+}
+
+/* RTL support */
+[dir="rtl"] .xwui-item {
+    text-align: right;
+    direction: rtl;
+}
+
+[dir="ltr"] .xwui-item {
+    text-align: left;
+    direction: ltr;
+}
+
+[dir="rtl"] .xwui-item-standard-layout {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .xwui-item-xl-layout {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .xwui-item-xl-content-wrapper {
+    text-align: right;
+}
+
+[dir="rtl"] .xwui-item-xl-header {
+    /* DOM order is already reversed, so no need for flex-direction: row-reverse */
+    text-align: right;
+}
+
+[dir="rtl"] .xwui-item-xl-header-other {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .xwui-item-actions {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .xwui-item-content-block {
+    /* DO NOT use flex-direction: row-reverse - it causes text mirroring */
+    /* Let browser handle RTL text flow naturally with dir attribute */
+    text-align: right;
+}
+
+[dir="ltr"] .xwui-item-content-block {
+    text-align: left;
+}
+
+[dir="rtl"] .xwui-item-user-stack {
+    flex-direction: row-reverse;
+}
+
+/* xwui-item-text-expandable-wrapper: RTL handled naturally by browser with dir attribute */
+
+[dir="rtl"] .xwui-item-checkbox {
+    order: 1;
+}
+
+[dir="rtl"] .xwui-item-xl-content {
+    order: 0;
+    text-align: right;
+}
+
+[dir="ltr"] .xwui-item-xl-content {
+    text-align: left;
+}
+
+[dir="rtl"] .xwui-item-primary-content {
+    text-align: right;
+}
+
+[dir="ltr"] .xwui-item-primary-content {
+    text-align: left;
+}
+
+[dir="rtl"] .xwui-item-text {
+    text-align: right;
+}
+
+[dir="ltr"] .xwui-item-text {
+    text-align: left;
+}
+

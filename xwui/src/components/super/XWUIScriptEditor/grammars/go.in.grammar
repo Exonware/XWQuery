@@ -1,0 +1,45 @@
+// go.grammar
+// Go Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: source_file
+
+source_file: package_clause import_decl* top_level_decl*
+
+package_clause: "package" IDENTIFIER
+
+import_decl: "import" (import_spec | "(" import_spec* ")")
+
+import_spec: ["./" | STRING] [IDENTIFIER]
+
+top_level_decl: declaration | function_decl | method_decl
+
+declaration: "var" | "const" | "type" IDENTIFIER [type] ["=" expression]
+
+function_decl: "func" IDENTIFIER signature [block]
+
+method_decl: "func" receiver IDENTIFIER signature [block]
+
+receiver: "(" [IDENTIFIER] "*" IDENTIFIER ")"
+
+signature: parameters [result]
+
+parameters: "(" [parameter_list] ")"
+
+type: type_name | type_literal
+
+type_name: IDENTIFIER | qualified_ident
+
+qualified_ident: IDENTIFIER "." IDENTIFIER
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

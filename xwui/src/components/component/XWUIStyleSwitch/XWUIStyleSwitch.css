@@ -1,0 +1,34 @@
+/**
+ * XWUIStyleSwitch Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Roundness: theme/roundness/rounded.css (global roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-style-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.5rem);
+}
+
+/* Size variants */
+.xwui-style-switch--small {
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-style-switch--medium {
+    font-size: var(--font-size-base, 1rem);
+}
+
+.xwui-style-switch--large {
+    font-size: var(--font-size-lg, 1.125rem);
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+

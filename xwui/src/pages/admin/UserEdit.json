@@ -1,0 +1,107 @@
+{
+  "id": "admin.users.edit",
+  "name": "Edit User",
+  "description": "Form page for editing an existing user",
+  "path": "/admin/users/edit/:id",
+  "conf_comp": {
+    "pageType": "form",
+    "container": {
+      "maxWidth": "800px",
+      "center": true,
+      "padding": "2rem"
+    },
+    "layout": {
+      "regions": {
+        "breadcrumbs": true,
+        "main": true,
+        "actions": true
+      },
+      "grid": {
+        "rows": "auto 1fr auto",
+        "areas": "\"breadcrumbs\" \"main\" \"actions\""
+      }
+    }
+  },
+  "data": {
+    "title": "Edit User",
+    "subtitle": "Update user information",
+    "breadcrumbs": {
+      "component": "XWUIBreadcrumbs",
+      "region": "breadcrumbs",
+      "gridArea": "breadcrumbs",
+      "conf_comp": {},
+      "data": {
+        "items": [
+          { "label": "Home", "path": "/" },
+          { "label": "Users", "path": "/admin/users" },
+          { "label": "Edit User", "path": "/admin/users/edit" }
+        ]
+      }
+    },
+    "main": {
+      "component": "XWUIForm",
+      "region": "main",
+      "gridArea": "main",
+      "conf_comp": {
+        "variant": "outlined"
+      },
+      "data": {
+        "fields": [
+          {
+            "component": "XWUIInput",
+            "conf_comp": { "label": "Name", "required": true },
+            "data": { "value": "" }
+          },
+          {
+            "component": "XWUIInput",
+            "conf_comp": { "label": "Email", "type": "email", "required": true },
+            "data": { "value": "" }
+          },
+          {
+            "component": "XWUISelect",
+            "conf_comp": { "label": "Role", "required": true },
+            "data": {
+              "options": [
+                { "value": "admin", "label": "Admin" },
+                { "value": "user", "label": "User" },
+                { "value": "guest", "label": "Guest" }
+              ],
+              "value": ""
+            }
+          }
+        ]
+      },
+      "targetId": "user-edit-form"
+    },
+    "actions": {
+      "component": "XWUIStack",
+      "region": "actions",
+      "gridArea": "actions",
+      "conf_comp": {
+        "direction": "row",
+        "gap": "1rem",
+        "justify": "end"
+      },
+      "data": {
+        "children": [
+          {
+            "component": "XWUIButton",
+            "conf_comp": { "variant": "outline" },
+            "data": { "text": "Cancel" }
+          },
+          {
+            "component": "XWUIButton",
+            "conf_comp": { "variant": "danger" },
+            "data": { "text": "Delete" }
+          },
+          {
+            "component": "XWUIButton",
+            "conf_comp": { "variant": "primary" },
+            "data": { "text": "Save Changes" }
+          }
+        ]
+      }
+    }
+  }
+}
+

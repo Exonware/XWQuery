@@ -1,0 +1,12 @@
+/* ============================================
+   OVERLAY - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    --radius-overlay: 0px;
+}
+
+/* Utility class for direct application */
+.radius-overlay-sharp {
+    border-radius: var(--radius-overlay, 0px) !important;
+}

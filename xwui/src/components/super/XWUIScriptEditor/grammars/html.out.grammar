@@ -1,0 +1,21 @@
+# html.out.grammar
+# HTML Output Grammar - Template for generating HTML from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#if doctype}}{{doctype}}
+{{/if}}{{html}}
+
+@doctype = <!DOCTYPE{{#if value}} {{value}}{{/if}}>
+
+@html_element = <html{{#if attributes}} {{attributes}}{{/if}}>
+{{#each content}}{{value}}
+{{/each}}</html>
+
+@element = {{#if void}}<{{name}}{{#if attributes}} {{attributes}}{{/if}} />{{else}}<{{name}}{{#if attributes}} {{attributes}}{{/if}}>{{#if content}}{{content}}{{/if}}</{{name}}>{{/if}}
+
+@attribute = {{name}}{{#if value}}="{{value}}"{{/if}}
+
+@indent = 2
+@pretty = true
+

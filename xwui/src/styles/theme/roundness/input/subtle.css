@@ -1,0 +1,13 @@
+/* ============================================
+   INPUT - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-input: 4px;
+}
+
+/* Utility class for direct application */
+.radius-input-subtle {
+    border-radius: var(--radius-input, 4px) !important;
+}

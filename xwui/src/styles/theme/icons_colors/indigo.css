@@ -1,0 +1,12 @@
+/* ============================================
+   INDIGO ICON COLORS - Deep indigo theme
+   ============================================ */
+
+:root[data-icons-colors="indigo"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #312e81;        /* Primary fill color - dark indigo text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #6366f1;        /* Accent/rail/marks color - indigo */
+    --icons-color-transparent: transparent;
+}
+

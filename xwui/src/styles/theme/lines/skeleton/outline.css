@@ -1,0 +1,17 @@
+/* ============================================
+   SKELETON LINES - OUTLINE LINES
+   ============================================ */
+
+:root[data-lines="outline"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-skeleton-width: var(--border-width-regular, 2px);
+    --border-skeleton-style: solid;
+    --border-skeleton-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-skeleton-outline {
+    border-style: var(--border-skeleton-style, solid);
+    border-width: var(--border-skeleton-width, var(--border-width-regular, 2px));
+    border-color: var(--border-skeleton-color, var(--border-medium, var(--border-color)));
+}

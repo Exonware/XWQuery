@@ -1,0 +1,41 @@
+/* ============================================
+   FONT AWESOME - Font Awesome Icons
+   @default: false
+   ============================================ */
+
+:root[data-icons="font-awesome"] {
+    /* Font Awesome font family */
+    --icon-font-family: 'Font Awesome 6 Free';
+    --icon-font-weight: 900;
+    --icon-font-style: normal;
+    --icon-font-size: 16px;
+    --icon-line-height: 1;
+    --icon-letter-spacing: normal;
+    --icon-text-transform: none;
+    --icon-display: inline-block;
+    
+    /* Icon sizes */
+    --icon-size-xs: 12px;
+    --icon-size-sm: 16px;
+    --icon-size-md: 20px;
+    --icon-size-lg: 24px;
+    --icon-size-xl: 32px;
+    --icon-size-2xl: 40px;
+}
+
+/* Font Awesome base class */
+.fa,
+.fas,
+.far,
+.fal,
+.fab {
+    font-family: var(--icon-font-family, 'Font Awesome 6 Free');
+    font-weight: var(--icon-font-weight, 900);
+    font-style: var(--icon-font-style, normal);
+    font-size: var(--icon-size-md, 20px);
+    line-height: var(--icon-line-height, 1);
+    display: var(--icon-display, inline-block);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+

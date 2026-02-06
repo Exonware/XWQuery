@@ -1,0 +1,14 @@
+/* ============================================
+   MENU - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-menu: 3px;
+    /* Fallback: --radius-navigation → --radius-md → 3px */
+}
+
+/* Utility class for direct application */
+.radius-menu-minimal {
+    border-radius: var(--radius-menu, 3px) !important;
+}

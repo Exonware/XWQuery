@@ -1,0 +1,55 @@
+/**
+ * XWUIKbd Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-kbd {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.25rem);
+    font-family: var(--font-code-family, var(--font-family-mono, ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace));
+}
+
+.xwui-kbd-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.75em;
+    height: 1.75em;
+    padding: 0 0.5em;
+    border: var(--border-kbd-width, var(--border-width-regular, 1.5px)) var(--border-kbd-style, solid) var(--border-kbd-color, var(--border-color));
+    border-radius: var(--radius-kbd, var(--radius-xs, 4px));
+    background: var(--bg-secondary);
+    box-shadow: var(--shadow-xs, 0 1px 0 var(--border-color)), inset 0 -1px 0 var(--border-color);
+    font-weight: var(--font-weight-medium, 500);
+    line-height: 1;
+}
+
+/* Size variants */
+.xwui-kbd-small .xwui-kbd-key {
+    min-width: 1.5em;
+    height: 1.5em;
+    padding: 0 0.375em;
+    font-size: var(--font-size-xs, 0.75rem);
+}
+
+.xwui-kbd-large .xwui-kbd-key {
+    min-width: 2em;
+    height: 2em;
+    padding: 0 0.625em;
+    font-size: var(--font-size-base, 1rem);
+}
+
+.xwui-kbd-separator {
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-medium, 500);
+}
+

@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUICollapse",
+  "name": "XWUI Collapse Component",
+  "description": "Animated expand/collapse container component. Smoothly animates content height changes with customizable duration and easing. Supports destroy-on-collapse mode for performance optimization.",
+  "path": "display.collapse",
+  "tags": ["display", "collapse", "expand", "animation", "accordion", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "expanded": {
+          "type": "boolean",
+          "description": "Whether the collapse is initially expanded",
+          "default": false
+        },
+        "duration": {
+          "type": "number",
+          "description": "Animation duration in milliseconds",
+          "default": 200
+        },
+        "easing": {
+          "type": "string",
+          "description": "CSS easing function for the animation",
+          "default": "ease-out"
+        },
+        "destroyOnCollapse": {
+          "type": "boolean",
+          "description": "Whether to remove content from DOM when collapsed (for performance)",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the collapse container"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Content element or HTML string to display in the collapse container"
+        }
+      }
+    }
+  }
+}
+

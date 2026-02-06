@@ -1,0 +1,14 @@
+/* ============================================
+   TAB - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-tab: 16px;
+    /* Fallback: --radius-navigation → --radius-sm → 16px */
+}
+
+/* Utility class for direct application */
+.radius-tab-extra-rounded {
+    border-radius: var(--radius-tab, 16px) !important;
+}

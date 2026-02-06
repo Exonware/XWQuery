@@ -1,0 +1,123 @@
+// JSONiq Grammar for Lark
+// XQuery for JSON
+
+?start: module
+
+module: prolog? expression
+
+prolog: (namespace_decl | variable_decl)*
+
+namespace_decl: DECLARE NAMESPACE IDENTIFIER "=" STRING
+
+variable_decl: DECLARE VARIABLE "$" IDENTIFIER ":=" expression
+
+// Main expression
+expression: flwor_expr
+          | or_expr
+
+// FLWOR (For, Let, Where, Order, Return)
+flwor_expr: (for_clause | let_clause)+ where_clause? order_clause? RETURN expression
+
+for_clause: FOR "$" IDENTIFIER IN expression
+
+let_clause: LET "$" IDENTIFIER ":=" expression
+
+where_clause: WHERE expression
+
+order_clause: ORDER BY order_spec ("," order_spec)*
+
+order_spec: expression (ASCENDING | DESCENDING)?
+
+// Logical expressions
+or_expr: and_expr (OR and_expr)*
+
+and_expr: comparison (AND comparison)*
+
+comparison: range_expr [compare_op range_expr]
+
+compare_op: "=" | "!=" | "<" | ">" | "<=" | ">=" | EQ | NE | LT | LE | GT | GE
+
+range_expr: additive (TO additive)?
+
+additive: multiplicative (("+" | "-") multiplicative)*
+
+multiplicative: unary (("*" | DIV | IDIV | MOD) unary)*
+
+unary: ("+" | "-")? postfix_expr
+
+postfix_expr: primary_expr postfix*
+
+postfix: predicate
+       | "." (IDENTIFIER | "*" | KEYS | "*")
+       | "[]"
+       | "[" "]"
+       | "(" [arg_list] ")"
+
+predicate: "[" expression "]"
+
+primary_expr: literal
+            | var_ref
+            | function_call
+            | array_constructor
+            | object_constructor
+            | "(" expression? ")"
+
+var_ref: "$" IDENTIFIER
+
+function_call: QNAME "(" [arg_list] ")"
+
+arg_list: expression ("," expression)*
+
+// JSONiq constructors
+array_constructor: "[" [expression ("," expression)*] "]"
+
+object_constructor: "{" [object_pair ("," object_pair)*] "}"
+
+object_pair: (STRING | IDENTIFIER) ":" expression
+
+// Literals
+literal: STRING
+       | NUMBER
+       | BOOLEAN_LITERAL
+       | NULL
+
+// Keywords
+DECLARE: "declare"
+NAMESPACE: "namespace"
+VARIABLE: "variable"
+FOR: "for"
+LET: "let"
+WHERE: "where"
+ORDER: "order"
+BY: "by"
+RETURN: "return"
+IN: "in"
+ASCENDING: "ascending"
+DESCENDING: "descending"
+AND: "and"
+OR: "or"
+EQ: "eq"
+NE: "ne"
+LT: "lt"
+LE: "le"
+GT: "gt"
+GE: "ge"
+TO: "to"
+DIV: "div"
+IDIV: "idiv"
+MOD: "mod"
+KEYS: "keys"
+
+BOOLEAN_LITERAL: "true" | "false"
+
+NULL: "null"
+
+// Terminals
+QNAME: IDENTIFIER (":" IDENTIFIER)?
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_\-]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+

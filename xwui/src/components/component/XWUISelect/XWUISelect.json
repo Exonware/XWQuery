@@ -1,0 +1,133 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUISelect",
+  "name": "XWUI Select Component",
+  "description": "Dropdown select component with single and multi-select modes. Supports searchable options, clearable selection, grouped options, error states, and various sizes and variants. Useful for forms requiring dropdown selection.",
+  "path": "input.select",
+  "tags": ["input", "select", "dropdown", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the select",
+          "default": "medium"
+        },
+        "variant": {
+          "type": "string",
+          "enum": ["outlined", "filled"],
+          "description": "Visual variant of the select",
+          "default": "outlined"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Whether the select is disabled",
+          "default": false
+        },
+        "multiple": {
+          "type": "boolean",
+          "description": "Whether multiple selection is enabled",
+          "default": false
+        },
+        "searchable": {
+          "type": "boolean",
+          "description": "Whether options are searchable",
+          "default": false
+        },
+        "clearable": {
+          "type": "boolean",
+          "description": "Whether selection can be cleared",
+          "default": false
+        },
+        "fullWidth": {
+          "type": "boolean",
+          "description": "Whether the select should take full width",
+          "default": false
+        },
+        "error": {
+          "type": "boolean",
+          "description": "Whether the select is in error state",
+          "default": false
+        },
+        "maxHeight": {
+          "type": "string",
+          "description": "Maximum height of the dropdown menu (CSS value)"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the select"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "options": {
+          "type": "array",
+          "description": "Array of select options",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "Option value"
+              },
+              "label": {
+                "type": "string",
+                "description": "Option display label"
+              },
+              "disabled": {
+                "type": "boolean",
+                "description": "Whether the option is disabled"
+              },
+              "group": {
+                "type": "string",
+                "description": "Option group name for grouping"
+              }
+            },
+            "required": ["value", "label"]
+          }
+        },
+        "value": {
+          "description": "Selected value (string for single select, array for multi-select)"
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Placeholder text for the select"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label text for the select"
+        },
+        "helperText": {
+          "type": "string",
+          "description": "Helper text to display below the select"
+        },
+        "errorText": {
+          "type": "string",
+          "description": "Error text to display when in error state"
+        },
+        "name": {
+          "type": "string",
+          "description": "HTML name attribute for form submission"
+        },
+        "id": {
+          "type": "string",
+          "description": "HTML id attribute for the select"
+        }
+      },
+      "required": ["options"]
+    }
+  }
+}
+

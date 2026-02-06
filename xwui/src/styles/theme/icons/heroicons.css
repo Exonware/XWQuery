@@ -1,0 +1,29 @@
+/* ============================================
+   HEROICONS - Heroicons SVG-based icons
+   @default: false
+   ============================================ */
+
+:root[data-icons="heroicons"] {
+    /* Heroicons are SVG-based, so we define size variables */
+    --icon-size-xs: 12px;
+    --icon-size-sm: 16px;
+    --icon-size-md: 20px;
+    --icon-size-lg: 24px;
+    --icon-size-xl: 32px;
+    --icon-size-2xl: 40px;
+    
+    /* Icon stroke width */
+    --icon-stroke-width: 2;
+    --icon-stroke-linecap: round;
+    --icon-stroke-linejoin: round;
+}
+
+/* Heroicons SVG base styles */
+.heroicon {
+    width: var(--icon-size-md, 20px);
+    height: var(--icon-size-md, 20px);
+    stroke-width: var(--icon-stroke-width, 2);
+    stroke-linecap: var(--icon-stroke-linecap, round);
+    stroke-linejoin: var(--icon-stroke-linejoin, round);
+}
+

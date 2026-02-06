@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "XWUIShortcuts Configuration",
+  "description": "Configuration for keyboard and mouse shortcuts handler",
+  "type": "object",
+  "properties": {
+    "shortcuts": {
+      "type": "object",
+      "description": "Shortcuts configuration organized by category",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "description": "Action identifier"
+            },
+            "description": {
+              "type": "string",
+              "description": "Human-readable description"
+            },
+            "type": {
+              "type": "string",
+              "enum": ["keyboard", "mouse"],
+              "description": "Shortcut type"
+            },
+            "mode": {
+              "type": "string",
+              "enum": ["2d", "3d", "both"],
+              "description": "Component mode this shortcut applies to"
+            }
+          },
+          "required": ["action", "description"]
+        }
+      }
+    },
+    "targetElement": {
+      "type": "object",
+      "description": "Target element (set programmatically, not in JSON)"
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["2d", "3d", "both"],
+      "default": "both",
+      "description": "Component mode"
+    },
+    "enableFocusDetection": {
+      "type": "boolean",
+      "default": true,
+      "description": "Only activate shortcuts when target element is focused"
+    },
+    "preventDefault": {
+      "type": "boolean",
+      "default": true,
+      "description": "Prevent default browser behavior for handled shortcuts"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS class name"
+    }
+  }
+}
+

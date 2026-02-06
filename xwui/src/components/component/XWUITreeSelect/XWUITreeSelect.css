@@ -1,0 +1,21 @@
+/**
+ * XWUITreeSelect Component Styles
+ */
+
+.xwui-tree-select-container {
+    position: relative;
+}
+
+.xwui-tree-select {
+    /* Component wrapper */
+}
+
+.xwui-tree-select-dropdown {
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-color, #d9d9d9);
+    border-radius: var(--radius-sm, 4px);
+    box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.15));
+    z-index: 1000;
+    padding: var(--spacing-xs, 4px);
+}
+

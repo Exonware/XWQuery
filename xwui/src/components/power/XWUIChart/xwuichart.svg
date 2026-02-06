@@ -1,0 +1,19 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .xwui-icon-fill { fill: var(--icons-color-main, black); }
+    .xwui-icon-secondary { fill: var(--icons-color-secondary, white); }
+    .xwui-icon-accent { fill: var(--icons-color-accent, gray); }
+  </style>
+  <!-- Chart container -->
+  <rect x="15" y="20" width="70" height="60" rx="3" class="xwui-icon-secondary" stroke="var(--icons-color-main, black)" stroke-width="2"/>
+  <!-- Chart bars -->
+  <rect x="25" y="60" width="8" height="15" class="xwui-icon-fill"/>
+  <rect x="38" y="50" width="8" height="25" class="xwui-icon-fill"/>
+  <rect x="51" y="45" width="8" height="30" class="xwui-icon-fill"/>
+  <rect x="64" y="55" width="8" height="20" class="xwui-icon-fill"/>
+  <!-- X-axis -->
+  <line x1="20" y1="75" x2="80" y2="75" class="xwui-icon-accent" stroke-width="2"/>
+  <!-- Y-axis -->
+  <line x1="20" y1="20" x2="20" y2="75" class="xwui-icon-accent" stroke-width="2"/>
+</svg>
+

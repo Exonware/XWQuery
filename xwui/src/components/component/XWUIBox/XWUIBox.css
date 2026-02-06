@@ -1,0 +1,42 @@
+/**
+ * XWUIBox Component Styles
+ * Basic layout container
+ */
+
+.xwui-box-container {
+    /* Container has no specific styles */
+}
+
+.xwui-box {
+    /* Box element - styles applied via inline styles or className */
+    box-sizing: border-box;
+    color: var(--text-primary, inherit);
+}
+
+/* Gradient background support */
+.xwui-box-gradient-background {
+    position: relative;
+    overflow: hidden;
+}
+
+.xwui-box-gradient-wrapper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.xwui-box-gradient-wrapper svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Glass effect support */
+.xwui-box-glass-effect {
+    /* Glass effect styles are applied inline via JavaScript */
+    /* This class is used for identification and potential CSS overrides */
+    /* Use CSS variables from styles system for shadow */
+    box-shadow: var(--shadow-lg, 0 25px 50px -12px rgba(0, 0, 0, 0.25));
+}
+

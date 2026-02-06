@@ -1,0 +1,58 @@
+/* ============================================
+   SKY COLOR THEME - Light sky blue theme
+   ============================================ */
+
+:root[data-theme="sky"] {
+    /* Background colors */
+    --bg-primary: #f0f9ff;
+    --bg-secondary: #e0f2fe;
+    --bg-tertiary: #bae6fd;
+    --bg-app: #f0f9ff;
+    --bg-elevated: #ffffff;
+    --bg-hover: #e0f2fe;
+    --bg-active: #bae6fd;
+    
+    /* Text colors */
+    --text-primary: #0c4a6e;
+    --text-secondary: #0284c7;
+    --text-tertiary: #0ea5e9;
+    --text-inverse: #ffffff;
+    
+    /* Border colors */
+    --border-color: rgba(14, 165, 233, 0.2);
+    --border-light: rgba(14, 165, 233, 0.1);
+    --border-medium: rgba(14, 165, 233, 0.2);
+    --border-strong: rgba(14, 165, 233, 0.3);
+    
+    /* Control colors */
+    --control-bg: #ffffff;
+    --control-bg-hover: #e0f2fe;
+    --control-bg-active: #bae6fd;
+    --control-border: #7dd3fc;
+    --control-text: #0c4a6e;
+    --control-text-secondary: #0284c7;
+    --control-active: #0369a1;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #fbbf24;
+    --status-before-start-border: #f59e0b;
+    --status-before-start-hover: #f59e0b;
+    --status-processing: #0284c7;
+    --status-processing-border: #0369a1;
+    --status-processing-hover: #0369a1;
+    --status-processing-text: #ffffff;
+    --status-error: #ef4444;
+    --status-error-border: #dc2626;
+    --status-error-hover: #dc2626;
+    --status-error-text: #ffffff;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

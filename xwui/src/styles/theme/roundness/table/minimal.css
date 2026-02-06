@@ -1,0 +1,14 @@
+/* ============================================
+   TABLE - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-table: 1px;
+    /* Fallback: --radius-content → --radius-xs → 1px */
+}
+
+/* Utility class for direct application */
+.radius-table-minimal {
+    border-radius: var(--radius-table, 1px) !important;
+}

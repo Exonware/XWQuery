@@ -1,0 +1,57 @@
+﻿# eql.out.grammar
+# EQL Output Grammar - Template for generating EQL from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@query = {{value}}
+
+@sequence_query = sequence{{#if params}} {{params}}{{/if}} [{{#each filters}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]{{#if until}} until {{until}}{{/if}}
+
+@event_query = {{type}} where {{expression}}
+
+@sequence_params = {{#if by}}by {{field}}{{else}}with maxspan = {{timespan}}{{/if}}
+
+@event_filter = {{type}} where {{expression}}
+
+@event_type = {{value}}
+
+@expression = {{value}}
+
+@or_expr = {{#each terms}}{{value}}{{#if !@last}} or {{/if}}{{/each}}
+
+@and_expr = {{#each terms}}{{value}}{{#if !@last}} and {{/if}}{{/each}}
+
+@not_expr = {{#if negated}}not {{/if}}{{comparison}}
+
+@comparison = {{left}}{{#if op}} {{op}} {{right}}{{else}}{{#if in}} in {{list}}{{else}}{{#if like}} like {{pattern}}{{else}}{{#if regex}} regex {{pattern}}{{/if}}{{/if}}{{/if}}{{/if}}
+
+@compare_op = {{value}}
+
+@additive = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@multiplicative = {{#each terms}}{{value}}{{#if !@last}} {{operator}} {{/if}}{{/each}}
+
+@unary = {{#if operator}}{{operator}} {{/if}}{{value}}
+
+@primary = {{value}}
+
+@field_ref = {{#each parts}}{{value}}{{#if !@last}}.{{/if}}{{/each}}
+
+@field_name = {{value}}
+
+@function_call = {{name}}({{#if args}}{{args}}{{/if}})
+
+@function_name = {{value}}
+
+@arg_list = {{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@value_list = ({{#each values}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@timespan = {{value}}{{unit}}
+
+@time_unit = {{value}}
+
+@literal = {{value}}
+
+@indent = 2
+@pretty = true

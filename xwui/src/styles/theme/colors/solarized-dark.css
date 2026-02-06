@@ -1,0 +1,61 @@
+/* ============================================
+   SOLARIZED DARK COLOR THEME - Balanced contrast for reduced eye strain
+   @primary: #002b36
+   @secondary: #073642
+   @text: #839496
+   ============================================ */
+
+:root[data-theme="solarized-dark"] {
+    /* Background colors */
+    --bg-primary: #002b36;
+    --bg-secondary: #073642;
+    --bg-tertiary: #586e75;
+    --bg-app: #002b36;
+    --bg-elevated: #073642;
+    --bg-hover: #586e75;
+    --bg-active: #657b83;
+    
+    /* Text colors - Improved contrast while maintaining solarized aesthetic */
+    --text-primary: #93a1a1;
+    --text-secondary: #839496;
+    --text-tertiary: #657b83;
+    --text-inverse: #002b36;
+    
+    /* Border colors */
+    --border-color: rgba(101, 123, 131, 0.3);
+    --border-light: rgba(101, 123, 131, 0.15);
+    --border-medium: rgba(101, 123, 131, 0.3);
+    --border-strong: rgba(101, 123, 131, 0.5);
+    
+    /* Control colors - Improved contrast */
+    --control-bg: #073642;
+    --control-bg-hover: #586e75;
+    --control-bg-active: #657b83;
+    --control-border: #586e75;
+    --control-text: #93a1a1;
+    --control-text-secondary: #839496;
+    --control-active: #b58900;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #b58900;
+    --status-before-start-border: #cb4b16;
+    --status-before-start-hover: #cb4b16;
+    --status-processing: #268bd2;
+    --status-processing-border: #2aa198;
+    --status-processing-hover: #2aa198;
+    --status-processing-text: #002b36;
+    --status-error: #dc322f;
+    --status-error-border: #d33682;
+    --status-error-hover: #d33682;
+    --status-error-text: #fdf6e3;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

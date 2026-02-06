@@ -1,0 +1,66 @@
+/* ============================================
+   LIGHT COLOR THEME - Clean and bright
+   @default: true
+   @primary: #ffffff
+   @secondary: #f8f9fa
+   @text: #212529
+   ============================================ */
+
+:root[data-theme="light"],
+:root:not([data-theme]) {
+    /* Background colors */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #f1f3f5;
+    --bg-app: #f5f7fa;
+    --bg-elevated: #ffffff;
+    --bg-hover: #f8f9fa;
+    --bg-active: #e9ecef;
+    
+    /* Text colors */
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --text-tertiary: #adb5bd;
+    --text-inverse: #ffffff;
+    
+    /* Border colors */
+    --border-color: rgba(0, 0, 0, 0.05);
+    --border-light: rgba(0, 0, 0, 0.03);
+    --border-medium: rgba(0, 0, 0, 0.05);
+    --border-strong: rgba(0, 0, 0, 0.08);
+    
+    /* Control colors */
+    --control-bg: #ffffff;
+    --control-bg-hover: #f8f9fa;
+    --control-bg-active: #e9ecef;
+    --control-border: #dee2e6;
+    --control-text: #212529;
+    --control-text-secondary: #6c757d;
+    --control-active: #4f46e5;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #ffeb3b;
+    --status-before-start-border: #fbc02d;
+    --status-before-start-hover: #fdd835;
+    --status-processing: #2196f3;
+    --status-processing-border: #1976d2;
+    --status-processing-hover: #1976d2;
+    --status-processing-text: #ffffff;
+    --status-error: #f44336;
+    --status-error-border: #d32f2f;
+    --status-error-hover: #d32f2f;
+    --status-error-text: #ffffff;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+    
+    /* Skeleton loader color - darker for better visibility on light background */
+    --skeleton-bg: #d0d0d0;
+}
+

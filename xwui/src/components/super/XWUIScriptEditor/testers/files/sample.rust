@@ -1,0 +1,112 @@
+// Sample Rust Code
+// Comprehensive Rust example demonstrating various features
+
+use std::collections::HashMap;
+use serde::{Deserialize, Serialize};
+
+/// Metadata for document information
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Metadata {
+    pub author: String,
+    pub created: String,
+    pub tags: Vec<String>,
+}
+
+/// Item representing a document item
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Item {
+    pub id: u32,
+    pub name: String,
+    pub active: bool,
+    pub price: f64,
+    pub categories: Vec<String>,
+}
+
+/// Main document structure
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Document {
+    pub name: String,
+    pub version: String,
+    pub description: Option<String>,
+    pub metadata: Metadata,
+    pub items: Vec<Item>,
+}
+
+impl Document {
+    /// Create a new document with default metadata
+    pub fn new(name: String, version: String, description: Option<String>) -> Self {
+        Self {
+            name,
+            version,
+            description,
+            metadata: Metadata {
+                author: "XWUI Team".to_string(),
+                created: chrono::Utc::now().to_rfc3339(),
+                tags: vec!["example".to_string(), "rust".to_string()],
+            },
+            items: Vec::new(),
+        }
+    }
+    
+    /// Add an item to the document
+    pub fn add_item(&mut self, item: Item) {
+        self.items.push(item);
+    }
+    
+    /// Get all active items
+    pub fn get_active_items(&self) -> Vec<&Item> {
+        self.items.iter().filter(|item| item.active).collect()
+    }
+    
+    /// Calculate total price of active items
+    pub fn get_total_price(&self) -> f64 {
+        self.items
+            .iter()
+            .filter(|item| item.active)
+            .map(|item| item.price)
+            .sum()
+    }
+    
+    /// Convert document to JSON string
+    pub fn to_json(&self) -> Result<String, serde_json::Error> {
+        serde_json::to_string_pretty(self)
+    }
+}
+
+fn main() {
+    // Create document
+    let mut doc = Document::new(
+        "Sample Rust Document".to_string(),
+        "1.0.0".to_string(),
+        Some("Rust code example".to_string()),
+    );
+    
+    // Add items
+    doc.add_item(Item {
+        id: 1,
+        name: "First Item".to_string(),
+        active: true,
+        price: 29.99,
+        categories: vec!["electronics".to_string(), "gadgets".to_string()],
+    });
+    
+    doc.add_item(Item {
+        id: 2,
+        name: "Second Item".to_string(),
+        active: false,
+        price: 49.99,
+        categories: vec!["books".to_string(), "education".to_string()],
+    });
+    
+    // Use methods
+    println!("Document: {}", doc.name);
+    println!("Active items: {}", doc.get_active_items().len());
+    println!("Total price: ${:.2}", doc.get_total_price());
+    
+    if let Ok(json) = doc.to_json() {
+        println!("\nJSON:\n{}", json);
+    }
+}
+
+
+

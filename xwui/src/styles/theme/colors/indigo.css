@@ -1,0 +1,58 @@
+/* ============================================
+   INDIGO COLOR THEME - Deep indigo theme
+   ============================================ */
+
+:root[data-theme="indigo"] {
+    /* Background colors */
+    --bg-primary: #eef2ff;
+    --bg-secondary: #e0e7ff;
+    --bg-tertiary: #c7d2fe;
+    --bg-app: #eef2ff;
+    --bg-elevated: #ffffff;
+    --bg-hover: #e0e7ff;
+    --bg-active: #c7d2fe;
+    
+    /* Text colors */
+    --text-primary: #312e81;
+    --text-secondary: #4f46e5;
+    --text-tertiary: #6366f1;
+    --text-inverse: #ffffff;
+    
+    /* Border colors */
+    --border-color: rgba(99, 102, 241, 0.2);
+    --border-light: rgba(99, 102, 241, 0.1);
+    --border-medium: rgba(99, 102, 241, 0.2);
+    --border-strong: rgba(99, 102, 241, 0.3);
+    
+    /* Control colors */
+    --control-bg: #ffffff;
+    --control-bg-hover: #e0e7ff;
+    --control-bg-active: #c7d2fe;
+    --control-border: #a5b4fc;
+    --control-text: #312e81;
+    --control-text-secondary: #4f46e5;
+    --control-active: #4338ca;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #fbbf24;
+    --status-before-start-border: #f59e0b;
+    --status-before-start-hover: #f59e0b;
+    --status-processing: #4f46e5;
+    --status-processing-border: #4338ca;
+    --status-processing-hover: #4338ca;
+    --status-processing-text: #ffffff;
+    --status-error: #ef4444;
+    --status-error-border: #dc2626;
+    --status-error-hover: #dc2626;
+    --status-error-text: #ffffff;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

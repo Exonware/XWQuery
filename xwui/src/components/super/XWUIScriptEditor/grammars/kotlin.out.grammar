@@ -1,0 +1,17 @@
+# kotlin.out.grammar
+# Kotlin Output Grammar - Template for generating Kotlin from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@kotlin_file = {{#if package}}{{package}}
+{{/if}}{{#each imports}}{{value}}
+{{/each}}{{#each declarations}}{{value}}
+{{/each}}
+
+@function_declaration = {{#if modifiers}}{{modifiers}} {{/if}}fun{{#if type_params}} {{type_params}}{{/if}}{{#if receiver}} {{receiver}}.{{/if}}{{name}}{{#if params}}({{params}}){{/if}}{{#if return}}: {{return}}{{/if}}{{#if body}} {{body}}{{/if}}
+
+@class_declaration = {{#if modifiers}}{{modifiers}} {{/if}}class {{name}}{{#if type_params}}{{type_params}}{{/if}}{{#if constructor}}{{constructor}}{{/if}}{{#if super}} : {{super}}{{/if}}{{#if body}} {{body}}{{/if}}
+
+@indent = 4
+@pretty = true
+

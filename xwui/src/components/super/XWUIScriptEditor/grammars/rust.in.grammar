@@ -1,0 +1,41 @@
+// rust.grammar
+// Rust Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: crate
+
+crate: [inner_attr] item*
+
+inner_attr: "#!" "[" meta_item "]"
+
+item: use_declaration | extern_crate | mod_item | fn_item | struct_item | enum_item | trait_item | impl_item
+
+use_declaration: "use" use_tree ";"
+
+use_tree: path ["as" IDENTIFIER] | path "{" use_tree* "}" | "*"
+
+fn_item: ["pub"] ["unsafe"] ["extern" [STRING]] "fn" IDENTIFIER generic_params? "(" [param_list] ")" [return_type] block
+
+struct_item: ["pub"] "struct" IDENTIFIER generic_params? [struct_body]
+
+enum_item: ["pub"] "enum" IDENTIFIER generic_params? "{" enum_variant* "}"
+
+trait_item: ["pub"] "trait" IDENTIFIER generic_params? [trait_bounds] "{" trait_item* "}"
+
+impl_item: ["pub"] ["unsafe"] "impl" [generic_params] [trait_path] "for" type_path "{" impl_item* "}"
+
+path: path_segment ("::" path_segment)*
+
+path_segment: IDENTIFIER [generic_args]
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

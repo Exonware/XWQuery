@@ -1,0 +1,41 @@
+// regex.grammar
+// Regex Grammar - Regular expression pattern
+// Company: eXonware.com
+
+?start: pattern
+
+pattern: alternative
+
+alternative: term ("|" term)*
+
+term: atom quantifier?
+
+atom: pattern_char | character_class | group | anchor | backreference
+
+pattern_char: /[^|()\[\]{}*+?^$\\]/
+
+character_class: "[" "^"? class_item* "]"
+
+class_item: class_char | class_range
+
+class_char: /[^\-\]\\]/
+
+class_range: class_char "-" class_char
+
+group: "(" [group_modifier] alternative ")"
+
+group_modifier: "?:" | "?=" | "?!" | "?<=" | "?<!" | "?>"
+
+anchor: "^" | "$" | "\\b" | "\\B"
+
+backreference: "\\" NUMBER
+
+quantifier: "*" | "+" | "?" | "{" [NUMBER] ["," [NUMBER]] "}"
+
+// Terminals
+NUMBER: /[0-9]+/
+
+%import common.WS
+
+%ignore WS
+

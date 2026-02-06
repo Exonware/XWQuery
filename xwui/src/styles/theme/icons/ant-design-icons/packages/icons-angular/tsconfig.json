@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "esModuleInterop": true,
+    "sourceMap": false,
+    "declaration": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "target": "ES2022",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "paths": {
+      "@ant-design/icons-angular": [
+        "src/public_api"
+      ],
+      "@ant-design/icons-angular/icons": [
+        "src/icons/public_api"
+      ]
+    }
+  }
+}

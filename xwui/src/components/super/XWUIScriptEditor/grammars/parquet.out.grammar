@@ -1,0 +1,19 @@
+# parquet.out.grammar
+# Parquet Output Grammar - Template for generating Parquet from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@parquet_file = {{magic_number}}{{file_metadata}}{{file_metadata_length}}{{row_groups}}{{footer}}
+
+@magic_number = PAR1
+
+@file_metadata = {{value}}
+
+@row_groups = {{#each groups}}{{value}}{{/each}}
+
+@footer = {{file_metadata}}{{file_metadata_length}}{{magic_number}}
+
+@indent = 0
+@pretty = false
+@binary_format = true
+

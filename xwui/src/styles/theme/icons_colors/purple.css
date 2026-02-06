@@ -1,0 +1,12 @@
+/* ============================================
+   PURPLE ICON COLORS - Rich purple theme
+   ============================================ */
+
+:root[data-icons-colors="purple"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #581c87;        /* Primary fill color - dark purple text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #a855f7;        /* Accent/rail/marks color - purple */
+    --icons-color-transparent: transparent;
+}
+

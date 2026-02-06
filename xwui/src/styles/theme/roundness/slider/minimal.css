@@ -1,0 +1,22 @@
+/* ============================================
+   SLIDER - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Slider track/rail roundness */
+    --radius-slider-track: 9999px;
+    /* Fallback: --radius-control → --radius-full → 9999px */
+    
+    /* Slider thumb roundness */
+    --radius-slider-thumb: 50%;
+}
+
+/* Utility classes for direct application */
+.radius-slider-track-minimal {
+    border-radius: var(--radius-slider-track, 9999px) !important;
+}
+
+.radius-slider-thumb-minimal {
+    border-radius: var(--radius-slider-thumb, 50%) !important;
+}
+

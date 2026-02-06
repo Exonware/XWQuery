@@ -1,0 +1,38 @@
+# yaml.out.grammar
+# YAML Output Grammar - Template for generating YAML from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#if document_start}}{{document_start}}
+{{/if}}{{#each content}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}{{#if document_end}}
+{{document_end}}{{/if}}
+
+@stream = {{#each documents}}{{value}}{{#if !@last}}
+---
+{{/if}}{{/each}}
+
+@block_mapping = {{#each entries}}{{key}}: {{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@mapping_entry = {{child_0}}: {{child_1}}
+
+@block_sequence = {{#each entries}}- {{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@sequence_entry = - {{child_0}}
+
+@flow_mapping = {{{#each pairs}}{{key}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@flow_sequence = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@scalar = {{value}}
+
+@plain_scalar = {{value}}
+
+@quoted_scalar = {{value}}
+
+@indent = 2
+@pretty = true
+@line_width = 80
+

@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIComponentPropertyForm",
+  "name": "XWUI Component Property Form Component",
+  "description": "Converts a JSON schema into an editable form. Automatically generates form fields based on schema properties, supporting various input types (text, number, boolean, select, date, etc.). Supports read and write modes using XWUIForm. Can read JSON schema from a file path or URL. Reuses XWUIInput, XWUITextarea, XWUISelect, XWUICheckbox, and other XWUI input components.",
+  "path": "form.property",
+  "tags": ["form", "schema", "json", "dynamic", "generator", "property", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["read", "write"],
+          "description": "Form mode: 'read' for read-only display, 'write' for editable form",
+          "default": "write"
+        },
+        "layout": {
+          "type": "string",
+          "enum": ["vertical", "horizontal", "inline"],
+          "description": "Layout orientation of form fields",
+          "default": "vertical"
+        },
+        "labelWidth": {
+          "type": "string",
+          "description": "Width of labels in horizontal layout (CSS value)"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of form fields",
+          "default": "medium"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the form"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "description": "JSON schema object or path/URL to JSON schema file. Can be an object or a string (file path/URL).",
+          "oneOf": [
+            {
+              "type": "object",
+              "description": "JSON schema object defining the form structure. Should follow JSON Schema Draft 07 format with 'properties' containing field definitions."
+            },
+            {
+              "type": "string",
+              "description": "Path or URL to a JSON schema file"
+            }
+          ]
+        },
+        "values": {
+          "type": "object",
+          "description": "Current form values, keyed by property name"
+        }
+      },
+      "required": ["schema"]
+    }
+  }
+}
+

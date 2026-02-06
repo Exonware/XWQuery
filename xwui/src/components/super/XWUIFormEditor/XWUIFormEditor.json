@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": [
+        "editor",
+        "add",
+        "view",
+        "update"
+      ],
+      "default": "editor"
+    },
+    "className": {
+      "type": "string"
+    },
+    "showComponentPalette": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "id": "XWUIFormEditor"
+}

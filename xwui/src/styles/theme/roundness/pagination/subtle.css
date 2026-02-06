@@ -1,0 +1,14 @@
+/* ============================================
+   PAGINATION - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-pagination: 4px;
+    /* Fallback: --radius-control → --radius-sm → 4px */
+}
+
+/* Utility class for direct application */
+.radius-pagination-subtle {
+    border-radius: var(--radius-pagination, 4px) !important;
+}

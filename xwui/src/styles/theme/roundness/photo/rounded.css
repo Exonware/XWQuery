@@ -1,0 +1,14 @@
+/* ============================================
+   PHOTO - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-photo: 8px;
+    /* Fallback: --radius-media → --radius-md → 8px */
+}
+
+/* Utility class for direct application */
+.radius-photo-rounded {
+    border-radius: var(--radius-photo, 8px) !important;
+}

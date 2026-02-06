@@ -1,0 +1,13 @@
+# plaintext.out.grammar
+# Plain Text Output Grammar - Template for generating plain text from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@text = {{#each lines}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@line = {{value}}
+
+@indent = 0
+@pretty = false
+

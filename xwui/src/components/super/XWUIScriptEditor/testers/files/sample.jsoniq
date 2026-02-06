@@ -1,0 +1,71 @@
+(: JSONiq Examples :)
+(: JSONiq is a query and processing language for JSON :)
+
+(: Basic query :)
+for $user in collection("users")
+where $user.age > 25
+return $user.name
+
+(: FLWOR expression :)
+for $item in collection("items")[]
+let $total := $item.price * $item.quantity
+where $item.active eq true
+order by $total descending
+return {
+  "name": $item.name,
+  "total": $total
+}
+
+(: Array operations :)
+for $i in 1 to 10
+return $i * $i
+
+(: Object construction :)
+{
+  "users": [
+    for $user in collection("users")[]
+    where $user.active eq true
+    return {
+      "id": $user.id,
+      "name": $user.name,
+      "email": $user.email
+    }
+  ],
+  "count": count(collection("users")[?active eq true])
+}
+
+(: Joins :)
+for $order in collection("orders")[],
+    $item in collection("items")[]
+where $order.itemId eq $item.id
+return {
+  "orderId": $order.id,
+  "itemName": $item.name,
+  "quantity": $order.quantity,
+  "total": $order.quantity * $item.price
+}
+
+(: Aggregations :)
+{
+  "totalOrders": count(collection("orders")[]),
+  "totalRevenue": sum(
+    for $order in collection("orders")[],
+        $item in collection("items")[]
+    where $order.itemId eq $item.id
+    return $order.quantity * $item.price
+  ),
+  "avgOrderValue": avg(
+    for $order in collection("orders")[]
+    return $order.total
+  )
+}
+
+(: Grouping :)
+for $order in collection("orders")[]
+group by $category := $order.category
+return {
+  "category": $category,
+  "count": count($order),
+  "total": sum($order.total)
+}
+

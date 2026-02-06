@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIUpload",
+  "name": "XWUI Upload Component",
+  "description": "File upload component with drag-and-drop support. Supports multiple file selection, file type restrictions, size limits, max count, and various list display types (text, picture, picture-card). Useful for file upload forms and media management.",
+  "path": "input.upload",
+  "tags": ["input", "upload", "file", "drag-drop", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "multiple": {
+          "type": "boolean",
+          "description": "Whether multiple files can be selected",
+          "default": false
+        },
+        "accept": {
+          "type": "string",
+          "description": "Accepted file types (e.g., 'image/*', '.pdf,.doc')"
+        },
+        "maxSize": {
+          "type": "number",
+          "description": "Maximum file size in bytes"
+        },
+        "maxCount": {
+          "type": "number",
+          "description": "Maximum number of files allowed"
+        },
+        "dragDrop": {
+          "type": "boolean",
+          "description": "Whether drag-and-drop is enabled",
+          "default": true
+        },
+        "listType": {
+          "type": "string",
+          "enum": ["text", "picture", "picture-card"],
+          "description": "Display type for file list",
+          "default": "text"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the upload component"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "files": {
+          "type": "array",
+          "description": "Array of uploaded files",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the file"
+              },
+              "name": {
+                "type": "string",
+                "description": "File name"
+              },
+              "size": {
+                "type": "number",
+                "description": "File size in bytes"
+              },
+              "type": {
+                "type": "string",
+                "description": "File MIME type"
+              },
+              "status": {
+                "type": "string",
+                "enum": ["uploading", "done", "error"],
+                "description": "Upload status"
+              },
+              "progress": {
+                "type": "number",
+                "description": "Upload progress percentage (0-100)"
+              },
+              "url": {
+                "type": "string",
+                "description": "File URL after upload"
+              }
+            },
+            "required": ["id", "name", "size", "type"]
+          }
+        },
+        "label": {
+          "type": "string",
+          "description": "Label text for the upload area"
+        }
+      }
+    }
+  }
+}
+

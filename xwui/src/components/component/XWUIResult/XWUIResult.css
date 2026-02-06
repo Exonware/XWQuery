@@ -1,0 +1,98 @@
+/**
+ * XWUIResult Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--spacing-3xl, 3rem) var(--spacing-xl, 2rem);
+}
+
+.xwui-result-icon {
+    width: 72px;
+    height: 72px;
+    margin-bottom: var(--spacing-lg, 1.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.xwui-result-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Status colors */
+.xwui-result-success .xwui-result-icon {
+    color: var(--accent-success);
+}
+
+.xwui-result-error .xwui-result-icon {
+    color: var(--accent-error);
+}
+
+.xwui-result-info .xwui-result-icon {
+    color: var(--accent-info);
+}
+
+.xwui-result-warning .xwui-result-icon {
+    color: var(--accent-warning);
+}
+
+.xwui-result-title {
+    font-size: var(--font-size-xl, 1.25rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md, 1rem);
+}
+
+.xwui-result-description {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg, 1.5rem);
+    max-width: 400px;
+}
+
+.xwui-result-extra {
+    margin-top: var(--spacing-md, 1rem);
+}
+
+/* Size variants */
+.xwui-result-small {
+    padding: var(--spacing-xl, 2rem) var(--spacing-lg, 1.5rem);
+}
+
+.xwui-result-small .xwui-result-icon {
+    width: 48px;
+    height: 48px;
+}
+
+.xwui-result-small .xwui-result-title {
+    font-size: var(--font-size-lg, 1.25rem);
+}
+
+.xwui-result-large {
+    padding: var(--spacing-3xl, 4rem) var(--spacing-xl, 2rem);
+}
+
+.xwui-result-large .xwui-result-icon {
+    width: 96px;
+    height: 96px;
+}
+
+.xwui-result-large .xwui-result-title {
+    font-size: var(--font-size-2xl, 2rem);
+}
+

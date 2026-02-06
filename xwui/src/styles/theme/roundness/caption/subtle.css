@@ -1,0 +1,14 @@
+/* ============================================
+   CAPTION - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-caption: 2px;
+    /* Fallback: --radius-text → --radius-xs → 2px */
+}
+
+/* Utility class for direct application */
+.radius-caption-subtle {
+    border-radius: var(--radius-caption, 2px) !important;
+}

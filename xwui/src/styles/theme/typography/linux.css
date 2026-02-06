@@ -1,0 +1,77 @@
+/* ============================================
+   LINUX TYPOGRAPHY - Linux font family
+   ============================================ */
+
+:root[data-font="linux"],
+:root:not([data-font]) {
+    --font-family-base: /* Linux system fonts */
+        system-ui, -apple-system, 'Ubuntu', 'Cantarell', 'Noto Sans',
+        'Liberation Sans', 'DejaVu Sans', 'Bitstream Vera Sans',
+        'Droid Sans', 'FreeSans', 'Arimo', 'Nimbus Sans L',
+        /* Arabic & Persian - Linux native */
+        'Noto Sans Arabic', 'Noto Naskh Arabic', 'Noto Kufi Arabic',
+        'DejaVu Sans', 'Liberation Sans', 'FreeSans',
+        /* Hebrew - Linux native */
+        'Noto Sans Hebrew', 'DejaVu Sans', 'Liberation Sans',
+        'FreeSans', 'Arial Hebrew',
+        /* Chinese - Linux native */
+        'Noto Sans SC', 'Noto Sans TC', 'Noto Sans HK',
+        'Source Han Sans SC', 'Source Han Sans TC', 'Source Han Sans HK',
+        'WenQuanYi Micro Hei', 'WenQuanYi Zen Hei', 'AR PL UMing CN',
+        'AR PL UMing TW', 'AR PL UKai CN', 'AR PL UKai TW',
+        /* Japanese - Linux native */
+        'Noto Sans JP', 'Noto Sans CJK JP', 'Source Han Sans JP',
+        'Takao Gothic', 'Takao Mincho', 'VL Gothic', 'VL PGothic',
+        'VL Pゴシック', 'IPAexGothic', 'IPAexMincho',
+        /* Korean - Linux native */
+        'Noto Sans KR', 'Noto Sans CJK KR', 'Source Han Sans KR',
+        'Nanum Gothic', 'Nanum Myeongjo', 'Nanum Brush Script',
+        'UnBatang', 'UnDotum', 'Baekmuk Gulim', 'Baekmuk Batang',
+        /* Thai - Linux native */
+        'Noto Sans Thai', 'Noto Serif Thai', 'Sarabun',
+        'Garuda', 'Kinnari', 'Loma', 'Norasi', 'Purisa',
+        'Sawasdee', 'Tlwg Mono', 'Tlwg Typewriter', 'Tlwg Typist',
+        'Tlwg Typo', 'Umpush', 'Waree',
+        /* Devanagari - Linux native */
+        'Noto Sans Devanagari', 'Noto Serif Devanagari',
+        'Lohit Devanagari', 'Mukti', 'Kalapi', 'Arial Unicode MS',
+        /* Bengali - Linux native */
+        'Noto Sans Bengali', 'Noto Serif Bengali',
+        'Lohit Bengali', 'Mukti Narrow',
+        /* Tamil - Linux native */
+        'Noto Sans Tamil', 'Noto Serif Tamil',
+        'Lohit Tamil', 'LKLUG',
+        /* Telugu - Linux native */
+        'Noto Sans Telugu', 'Noto Serif Telugu',
+        'Lohit Telugu', 'Pothana2000',
+        /* Gujarati - Linux native */
+        'Noto Sans Gujarati', 'Noto Serif Gujarati',
+        'Lohit Gujarati',
+        /* Kannada - Linux native */
+        'Noto Sans Kannada', 'Noto Serif Kannada',
+        'Lohit Kannada',
+        /* Malayalam - Linux native */
+        'Noto Sans Malayalam', 'Noto Serif Malayalam',
+        'Lohit Malayalam',
+        /* Oriya - Linux native */
+        'Noto Sans Oriya', 'Noto Serif Oriya',
+        'Lohit Oriya',
+        /* Punjabi - Linux native */
+        'Noto Sans Gurmukhi', 'Noto Serif Gurmukhi',
+        'Lohit Punjabi',
+        /* Cyrillic - Linux native */
+        'Noto Sans', 'Noto Sans Cyrillic', 'DejaVu Sans',
+        'Liberation Sans', 'FreeSans', 'Arial Unicode MS',
+        /* Greek - Linux native */
+        'Noto Sans Greek', 'DejaVu Sans', 'Liberation Sans',
+        'FreeSans',
+        /* Vietnamese - Linux native */
+        'Noto Sans', 'DejaVu Sans', 'Liberation Sans',
+        'FreeSans',
+        /* Fallback to generic fonts */
+        'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-family-mono: 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
+        'Courier New', 'Consolas', 'Monaco', 'Menlo',
+        'Noto Sans Mono', 'Droid Sans Mono', monospace;
+}
+

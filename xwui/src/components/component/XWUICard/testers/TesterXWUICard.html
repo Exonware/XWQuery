@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUICard Component Tester</title>
+</head>
+<body>
+    <div id="tester-container"></div>
+
+        
+    <template id="tester-xwuicard-content">
+<!-- Variants -->
+            <div class="button-group">
+                <h3>Variants</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div id="card-default"></div>
+                    <div id="card-outlined"></div>
+                    <div id="card-elevated"></div>
+                    <div id="card-filled"></div>
+                </div>
+            </div>
+            
+            <!-- With Cover -->
+            <div class="button-group">
+                <h3>With Cover Image</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div id="card-cover-1"></div>
+                    <div id="card-cover-2"></div>
+                </div>
+            </div>
+            
+            <!-- Hoverable -->
+            <div class="button-group">
+                <h3>Hoverable Card</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div id="card-hoverable"></div>
+                </div>
+            </div>
+            
+            <!-- Clickable -->
+            <div class="button-group">
+                <h3>Clickable Card</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div id="card-clickable"></div>
+                </div>
+            </div>
+            
+            <!-- Padding Variants -->
+            <div class="button-group">
+                <h3>Padding Variants</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div id="card-padding-none"></div>
+                    <div id="card-padding-small"></div>
+                    <div id="card-padding-medium"></div>
+                    <div id="card-padding-large"></div>
+                </div>
+            </div>
+            
+            <!-- New Features: XWUITitled -->
+            <div class="button-group">
+                <h3>XWUITitled Integration</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div id="card-titled-icon"></div>
+                    <div id="card-titled-full"></div>
+                </div>
+            </div>
+            
+            <!-- New Features: Badge -->
+            <div class="button-group">
+                <h3>Badge Support</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div id="card-badge-count"></div>
+                    <div id="card-badge-text"></div>
+                </div>
+            </div>
+            
+            <!-- New Features: Tags -->
+            <div class="button-group">
+                <h3>Tags Footer</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div id="card-tags-simple"></div>
+                    <div id="card-tags-variants"></div>
+                </div>
+            </div>
+            
+            <!-- New Features: Complete Example -->
+            <div class="button-group">
+                <h3>Complete Example (All Features)</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+                    <div id="card-complete"></div>
+                </div>
+            </div>
+    </template>
+
+    <script type="module" src="./TesterXWUICard.ts"></script>
+</body>
+</html>
+

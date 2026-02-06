@@ -1,0 +1,181 @@
+/**
+ * XWUIAppBar Component Styles
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/balanced.css (global border widths)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-appbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: var(--bg-primary, #ffffff);
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.xwui-appbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 0 var(--spacing-md, 1rem);
+    max-width: 100%;
+}
+
+/* Sections */
+.xwui-appbar-left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md, 1rem);
+    flex-shrink: 0;
+}
+
+.xwui-appbar-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 0 var(--spacing-md, 1rem);
+}
+
+.xwui-appbar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.75rem);
+    flex-shrink: 0;
+}
+
+/* Logo */
+.xwui-appbar-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.xwui-appbar-logo img {
+    height: 32px;
+    width: auto;
+}
+
+.xwui-appbar-logo svg {
+    height: 32px;
+    width: auto;
+}
+
+/* Title */
+.xwui-appbar-title {
+    margin: 0;
+    font-size: var(--font-size-xl, 1.25rem);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+    white-space: nowrap;
+}
+
+/* Size variants */
+.xwui-appbar-small {
+    height: 48px;
+}
+
+.xwui-appbar-small .xwui-appbar-title {
+    font-size: var(--font-size-base, 1rem);
+}
+
+.xwui-appbar-small .xwui-appbar-logo img,
+.xwui-appbar-small .xwui-appbar-logo svg {
+    height: 24px;
+}
+
+.xwui-appbar-medium {
+    height: 64px;
+}
+
+.xwui-appbar-large {
+    height: 80px;
+}
+
+.xwui-appbar-large .xwui-appbar-title {
+    font-size: var(--font-size-2xl, 1.5rem);
+}
+
+.xwui-appbar-large .xwui-appbar-logo img,
+.xwui-appbar-large .xwui-appbar-logo svg {
+    height: 40px;
+}
+
+/* Variants */
+.xwui-appbar-default {
+    background: var(--bg-primary, #ffffff);
+}
+
+.xwui-appbar-transparent {
+    background: transparent;
+}
+
+.xwui-appbar-elevated {
+    background: var(--bg-elevated, #ffffff);
+    box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+}
+
+/* Color variants */
+.xwui-appbar-primary {
+    background: var(--accent-primary, #4f46e5);
+}
+
+.xwui-appbar-primary .xwui-appbar-title {
+    color: var(--text-inverse);
+}
+
+.xwui-appbar-dark {
+    background: var(--bg-tertiary);
+}
+
+.xwui-appbar-dark .xwui-appbar-title {
+    color: var(--text-inverse);
+}
+
+.xwui-appbar-light {
+    background: var(--bg-secondary);
+}
+
+/* Border */
+.xwui-appbar-bordered {
+    border-bottom: var(--border-appbar-width, var(--border-width-regular, 1.5px)) var(--border-appbar-style, solid) var(--border-appbar-color, var(--border-color, rgba(0, 0, 0, 0.1)));
+}
+
+/* Note: Dark theme support is handled automatically via theme/colors/{theme}.css files */
+
+/* Fixed position spacer */
+.xwui-appbar-spacer-small {
+    height: 48px;
+}
+
+.xwui-appbar-spacer-medium {
+    height: 64px;
+}
+
+.xwui-appbar-spacer-large {
+    height: 80px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .xwui-appbar-inner {
+        padding: 0 var(--spacing-sm, 0.75rem);
+    }
+    
+    .xwui-appbar-center {
+        display: none;
+    }
+    
+    .xwui-appbar-title {
+        font-size: var(--font-size-base, 1rem);
+    }
+}
+

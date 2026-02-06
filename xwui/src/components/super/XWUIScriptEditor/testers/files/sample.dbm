@@ -1,0 +1,49 @@
+# DBM (Database Manager) Example
+# Note: DBM is binary key-value storage, but this shows the logical structure
+# In actual DBM, this would be binary-encoded key-value pairs
+
+# Python code that would create this DBM:
+"""
+import dbm
+
+# Open/create DBM database
+with dbm.open('sample.dbm', 'c') as db:
+    # Store key-value pairs
+    db[b'name'] = b'Sample DBM Document'
+    db[b'version'] = b'1.0.0'
+    db[b'description'] = b'Key-value database format'
+    db[b'metadata.author'] = b'XWUI Team'
+    db[b'metadata.created'] = b'2025-01-15T10:30:00Z'
+    db[b'metadata.tags'] = b'example,dbm,keyvalue'
+    
+    db[b'configuration.database.host'] = b'localhost'
+    db[b'configuration.database.port'] = b'5432'
+    db[b'configuration.database.name'] = b'example_db'
+    db[b'configuration.database.ssl'] = b'true'
+    
+    db[b'items.1.id'] = b'1'
+    db[b'items.1.name'] = b'First Item'
+    db[b'items.1.active'] = b'true'
+    db[b'items.1.price'] = b'29.99'
+    db[b'items.1.categories'] = b'electronics,gadgets'
+    
+    db[b'items.2.id'] = b'2'
+    db[b'items.2.name'] = b'Second Item'
+    db[b'items.2.active'] = b'false'
+    db[b'items.2.price'] = b'49.99'
+    db[b'items.2.categories'] = b'books,education'
+"""
+
+# DBM format (conceptual representation):
+# Key-Value pairs stored as binary:
+# name -> Sample DBM Document
+# version -> 1.0.0
+# description -> Key-value database format
+# metadata.author -> XWUI Team
+# metadata.created -> 2025-01-15T10:30:00Z
+# configuration.database.host -> localhost
+# items.1.name -> First Item
+# etc.
+
+
+

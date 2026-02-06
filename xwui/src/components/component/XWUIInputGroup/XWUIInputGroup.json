@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIInputGroup",
+  "name": "XWUI Input Group Component",
+  "description": "Input group component that wraps an input with prefix and suffix elements. Supports left/right addons for icons, buttons, or other elements. Useful for creating inputs with icons, currency symbols, or action buttons.",
+  "path": "input.inputgroup",
+  "tags": ["input", "group", "prefix", "suffix", "addon", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the input group",
+          "default": "medium"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the input group"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "prefix": {
+          "description": "Prefix element or HTML string to display before the input"
+        },
+        "suffix": {
+          "description": "Suffix element or HTML string to display after the input"
+        },
+        "input": {
+          "description": "Input element or HTML string (required)"
+        },
+        "leftAddon": {
+          "description": "Left addon element or HTML string"
+        },
+        "rightAddon": {
+          "description": "Right addon element or HTML string"
+        }
+      },
+      "required": ["input"]
+    }
+  }
+}
+

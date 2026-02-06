@@ -1,0 +1,28 @@
+/**
+ * Minimal theme for examples: ensures XWUI buttons have visible text and correct variant colors.
+ * Include this before XWUIButton.css in every example so --text-inverse and accent vars are set.
+ */
+:root {
+  /* Button variant backgrounds */
+  --accent-primary: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-success: #059669;
+  --accent-success-hover: #047857;
+  --accent-error: #dc2626;
+  --accent-warning: #d97706;
+  /* Text on colored buttons – always white for contrast */
+  --text-inverse: #ffffff;
+  /* Secondary/ghost button text */
+  --text-primary: #171717;
+  --text-secondary: #525252;
+  /* Secondary button background/border */
+  --bg-secondary: #f5f5f5;
+  --bg-hover: #e5e5e5;
+  --bg-active: #d4d4d4;
+  --border-color: #e5e5e5;
+  --border-medium: #d4d4d4;
+  /* Button border width/style */
+  --border-button-width: 1.5px;
+  --border-button-style: solid;
+  --border-width-regular: 1.5px;
+}

@@ -1,0 +1,84 @@
+// jq Grammar for Lark
+// JSON processor and transformation language
+
+?start: filter
+
+filter: pipe
+
+pipe: term ("|" term)*
+
+term: "."
+    | recursive_descent
+    | identifier_index
+    | generic_index
+    | slice
+    | iterator
+    | optional
+    | function_call
+    | literal
+    | array_construction
+    | object_construction
+    | conditional
+    | try_catch
+    | reduce_expr
+    | foreach_expr
+    | "(" pipe ")"
+
+recursive_descent: ".."
+
+identifier_index: "." IDENTIFIER ["?"]
+
+generic_index: "[" pipe "]" ["?"]
+
+slice: "[" [pipe] ":" [pipe] "]"
+
+iterator: ".[]" ["?"]
+
+optional: pipe "?"
+
+function_call: IDENTIFIER ["(" [arg_list] ")"]
+
+arg_list: pipe (";" pipe)*
+
+array_construction: "[" [pipe] "]"
+
+object_construction: "{" [object_field ("," object_field)*] "}"
+
+object_field: (IDENTIFIER | STRING | "(" pipe ")") ":" pipe
+            | IDENTIFIER  // Shorthand
+
+conditional: IF pipe THEN pipe (ELIF pipe THEN pipe)* [ELSE pipe] END
+
+try_catch: TRY pipe [CATCH pipe]
+
+reduce_expr: REDUCE pipe AS "$" IDENTIFIER "(" pipe ";" pipe ")"
+
+foreach_expr: FOREACH pipe AS "$" IDENTIFIER "(" pipe ";" pipe [";" pipe] ")"
+
+// Literals
+literal: STRING | NUMBER | BOOLEAN_LITERAL | NULL
+
+// Keywords
+IF: "if"
+THEN: "then"
+ELIF: "elif"
+ELSE: "else"
+END: "end"
+TRY: "try"
+CATCH: "catch"
+REDUCE: "reduce"
+AS: "as"
+FOREACH: "foreach"
+
+BOOLEAN_LITERAL: "true" | "false"
+
+NULL: "null"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"([^"\\]|\\.)*"/
+NUMBER: /-?\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS
+

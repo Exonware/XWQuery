@@ -1,0 +1,135 @@
+/**
+ * XWUISpeedDial Component Styles
+ */
+
+.xwui-speed-dial-container {
+    /* Container has no specific styles */
+}
+
+.xwui-speed-dial {
+    position: fixed;
+    z-index: 1000;
+}
+
+.xwui-speed-dial-main {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--accent-primary, #1890ff);
+    color: var(--text-inverse, #ffffff);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s, background-color 0.3s;
+    z-index: 1001;
+}
+
+.xwui-speed-dial-main:hover {
+    background-color: var(--accent-hover, #40a9ff);
+    transform: scale(1.1);
+}
+
+.xwui-speed-dial-main svg {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s;
+}
+
+.xwui-speed-dial-open .xwui-speed-dial-main svg {
+    transform: rotate(45deg);
+}
+
+.xwui-speed-dial-actions {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 72px;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.xwui-speed-dial-open .xwui-speed-dial-actions {
+    pointer-events: auto;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.xwui-speed-dial-action {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #333);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.15));
+    transition: transform 0.2s, background-color 0.2s;
+    position: relative;
+}
+
+.xwui-speed-dial-action:hover {
+    background-color: var(--bg-hover, #f0f0f0);
+    transform: scale(1.1);
+}
+
+.xwui-speed-dial-action svg {
+    width: 20px;
+    height: 20px;
+}
+
+.xwui-speed-dial-action-label {
+    position: absolute;
+    right: 56px;
+    white-space: nowrap;
+    background: var(--color-overlay-dark, rgba(0, 0, 0, 0.8));
+    color: var(--text-inverse, #ffffff);
+    padding: var(--spacing-xs, 4px) var(--spacing-sm, 8px);
+    border-radius: var(--radius-sm, 4px);
+    font-size: var(--font-size-xs, 12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.xwui-speed-dial-action:hover .xwui-speed-dial-action-label {
+    opacity: 1;
+}
+
+.xwui-speed-dial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-overlay, rgba(0, 0, 0, 0.3));
+    z-index: 999;
+    display: none;
+}
+
+.xwui-speed-dial-actions.xwui-speed-dial-down {
+    flex-direction: column-reverse;
+    margin-bottom: 0;
+    margin-top: 72px;
+}
+
+.xwui-speed-dial-actions.xwui-speed-dial-left {
+    flex-direction: row-reverse;
+    margin-bottom: 0;
+    margin-right: 72px;
+}
+
+.xwui-speed-dial-actions.xwui-speed-dial-right {
+    flex-direction: row;
+    margin-bottom: 0;
+    margin-left: 72px;
+}
+

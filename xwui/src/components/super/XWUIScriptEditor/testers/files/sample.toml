@@ -1,0 +1,77 @@
+# TOML Example - Tom's Obvious Minimal Language
+title = "Sample TOML Document"
+version = "1.0.0"
+description = "Comprehensive TOML configuration example"
+
+# Metadata
+[metadata]
+author = "XWUI Team"
+created = 2025-01-15T10:30:00Z
+tags = ["example", "toml", "config"]
+
+# Database configuration
+[database]
+host = "localhost"
+port = 5432
+name = "example_db"
+ssl = true
+
+[database.connection_pool]
+min = 5
+max = 20
+timeout = "30s"
+
+# Features configuration
+[features]
+authentication = true
+caching = false
+
+[features.logging]
+level = "info"
+format = "json"
+outputs = ["console", "file"]
+
+[features.logging.file]
+path = "/var/log/app.log"
+max_size = "10MB"
+retention = "7d"
+
+# Array of items
+[[items]]
+id = 1
+name = "First Item"
+active = true
+price = 29.99
+categories = ["electronics", "gadgets"]
+
+[[items]]
+id = 2
+name = "Second Item"
+active = false
+price = 49.99
+categories = ["books", "education"]
+
+# Multi-line strings
+description = """
+This is a multi-line string
+that preserves line breaks
+and formatting.
+"""
+
+summary = '''
+This is a literal string
+that does not process escapes.
+'''
+
+# Dates and times
+created_date = 2025-01-15
+created_time = 10:30:00
+created_datetime = 2025-01-15T10:30:00Z
+
+# Arrays
+tags = ["example", "toml", "config"]
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "two", 3.0, true]
+
+
+

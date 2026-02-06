@@ -1,0 +1,58 @@
+/* ============================================
+   SILVER COLOR THEME - Metallic brushed silver
+   ============================================ */
+
+:root[data-theme="silver"] {
+    /* Background colors */
+    --bg-primary: #e8e8e8;
+    --bg-secondary: #d4d4d4;
+    --bg-tertiary: #c0c0c0;
+    --bg-app: #e8e8e8;
+    --bg-elevated: #f5f5f5;
+    --bg-hover: #d4d4d4;
+    --bg-active: #c0c0c0;
+    
+    /* Text colors */
+    --text-primary: #2d2d2d;
+    --text-secondary: #5a5a5a;
+    --text-tertiary: #808080;
+    --text-inverse: #ffffff;
+    
+    /* Border colors */
+    --border-color: rgba(0, 0, 0, 0.05);
+    --border-light: rgba(0, 0, 0, 0.03);
+    --border-medium: rgba(0, 0, 0, 0.05);
+    --border-strong: rgba(0, 0, 0, 0.08);
+    
+    /* Control colors */
+    --control-bg: #f5f5f5;
+    --control-bg-hover: #e8e8e8;
+    --control-bg-active: #d4d4d4;
+    --control-border: #c0c0c0;
+    --control-text: #2d2d2d;
+    --control-text-secondary: #5a5a5a;
+    --control-active: #808080;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #ffeb3b;
+    --status-before-start-border: #fbc02d;
+    --status-before-start-hover: #fdd835;
+    --status-processing: #2196f3;
+    --status-processing-border: #1976d2;
+    --status-processing-hover: #1976d2;
+    --status-processing-text: #ffffff;
+    --status-error: #f44336;
+    --status-error-border: #d32f2f;
+    --status-error-hover: #d32f2f;
+    --status-error-text: #ffffff;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

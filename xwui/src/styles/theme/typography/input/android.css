@@ -1,0 +1,13 @@
+/* ============================================
+   INPUT TYPOGRAPHY - ANDROID
+   ============================================ */
+
+:root[data-font="android"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-input-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-input-android {
+    font-family: var(--font-input-family, var(--font-family-base, sans-serif)) !important;
+}

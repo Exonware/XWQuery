@@ -1,0 +1,61 @@
+/* ============================================
+   DRACULA COLOR THEME - Vibrant dark theme with purple accents
+   @primary: #282a36
+   @secondary: #44475a
+   @text: #f8f8f2
+   ============================================ */
+
+:root[data-theme="dracula"] {
+    /* Background colors */
+    --bg-primary: #282a36;
+    --bg-secondary: #44475a;
+    --bg-tertiary: #6272a4;
+    --bg-app: #282a36;
+    --bg-elevated: #44475a;
+    --bg-hover: #6272a4;
+    --bg-active: #8be9fd;
+    
+    /* Text colors */
+    --text-primary: #f8f8f2;
+    --text-secondary: #bd93f9;
+    --text-tertiary: #6272a4;
+    --text-inverse: #282a36;
+    
+    /* Border colors */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-light: rgba(255, 255, 255, 0.05);
+    --border-medium: rgba(255, 255, 255, 0.1);
+    --border-strong: rgba(255, 255, 255, 0.15);
+    
+    /* Control colors */
+    --control-bg: #44475a;
+    --control-bg-hover: #6272a4;
+    --control-bg-active: #8be9fd;
+    --control-border: #6272a4;
+    --control-text: #f8f8f2;
+    --control-text-secondary: #bd93f9;
+    --control-active: #bd93f9;
+    
+    /* Status colors for XWUIItem */
+    --status-before-start: #f1fa8c;
+    --status-before-start-border: #ffb86c;
+    --status-before-start-hover: #ffb86c;
+    --status-processing: #8be9fd;
+    --status-processing-border: #50fa7b;
+    --status-processing-hover: #50fa7b;
+    --status-processing-text: #282a36;
+    --status-error: #ff5555;
+    --status-error-border: #ff6e6e;
+    --status-error-hover: #ff6e6e;
+    --status-error-text: #f8f8f2;
+    
+    /* Component backgrounds - Unified */
+    --bg-menu: var(--bg-elevated);
+    --bg-user-info: var(--bg-elevated);
+    --bg-assistant: var(--bg-elevated);
+    --bg-view: var(--bg-elevated);
+    --bg-console: var(--bg-elevated);
+    --bg-header: var(--bg-elevated);
+    --bg-view-controls: var(--bg-secondary);
+}
+

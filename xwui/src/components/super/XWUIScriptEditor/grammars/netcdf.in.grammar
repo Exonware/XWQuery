@@ -1,0 +1,32 @@
+// netcdf.grammar
+// NetCDF Grammar - Network Common Data Form
+// Company: eXonware.com
+
+?start: netcdf_file
+
+netcdf_file: magic_number num_recs dim_list gatt_list var_list
+
+magic_number: "CDF"
+
+num_recs: INT32
+
+dim_list: num_dims dim*
+
+dim: name length
+
+gatt_list: num_global_atts att*
+
+var_list: num_vars var*
+
+var: name num_dims dim_ids var_attrs data
+
+// Terminals
+INT32: /[\x00-\xFF]{4}/
+name: STRING
+STRING: /[^\x00]+/
+BYTE: /[\x00-\xFF]*/
+
+%import common.WS
+
+%ignore WS
+

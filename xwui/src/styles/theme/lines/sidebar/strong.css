@@ -1,0 +1,17 @@
+/* ============================================
+   SIDEBAR LINES - STRONG LINES
+   ============================================ */
+
+:root[data-lines="strong"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-sidebar-width: var(--border-width-regular, 2px);
+    --border-sidebar-style: solid;
+    --border-sidebar-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-sidebar-strong {
+    border-style: var(--border-sidebar-style, solid);
+    border-width: var(--border-sidebar-width, var(--border-width-regular, 2px));
+    border-color: var(--border-sidebar-color, var(--border-medium, var(--border-color)));
+}

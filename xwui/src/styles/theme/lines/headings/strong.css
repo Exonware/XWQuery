@@ -1,0 +1,17 @@
+/* ============================================
+   HEADINGS LINES - STRONG LINES
+   ============================================ */
+
+:root[data-lines="strong"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-headings-width: var(--border-width-regular, 2px);
+    --border-headings-style: solid;
+    --border-headings-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-headings-strong {
+    border-style: var(--border-headings-style, solid);
+    border-width: var(--border-headings-width, var(--border-width-regular, 2px));
+    border-color: var(--border-headings-color, var(--border-medium, var(--border-color)));
+}

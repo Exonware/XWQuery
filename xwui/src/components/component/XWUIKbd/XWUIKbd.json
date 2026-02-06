@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIKbd",
+  "name": "XWUI Kbd Component",
+  "description": "Keyboard key display component for showing keyboard shortcuts and key combinations. Displays keys in a styled format similar to keyboard keys. Useful for documentation and keyboard shortcut displays.",
+  "path": "display.kbd",
+  "tags": ["display", "keyboard", "key", "shortcut", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Size of the keyboard key display",
+          "default": "medium"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the kbd element"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "keys": {
+          "description": "Single key string or array of key strings to display"
+        }
+      },
+      "required": ["keys"]
+    }
+  }
+}
+

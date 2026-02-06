@@ -1,0 +1,74 @@
+// LogQL Grammar for Lark
+// Grafana Loki Log Query Language - Simplified Version
+// Handles basic log queries and filters
+
+?start: query
+
+query: log_query
+     | metric_query
+
+// Log queries
+log_query: log_selector [log_pipeline]
+
+log_selector: "{" [label_matchers] "}"
+
+label_matchers: label_matcher ("," label_matcher)*
+
+label_matcher: label_name ("=" | "!=" | "=~" | "!~") label_value
+
+label_name: IDENTIFIER
+
+label_value: STRING
+
+// Pipeline for filtering and transformation
+log_pipeline: pipeline_operator+
+
+pipeline_operator: line_filter
+                 | json_parser
+                 | label_filter
+
+// Line filters (contains, not contains, regex, not regex)
+line_filter: "|=" STRING
+           | "|~" STRING
+           | "!~" STRING
+
+// JSON parser
+json_parser: "|" "json"
+
+// Label filter with boolean expression
+label_filter: "|" expression
+
+// Metric queries (for aggregations)
+metric_query: agg_function "(" log_query ")" [range_vector]
+
+agg_function: "rate" | "count_over_time" | "sum" | "avg" | "max" | "min"
+
+range_vector: "[" duration "]"
+
+duration: NUMBER time_unit
+
+time_unit: "s" | "m" | "h" | "d" | "w"
+
+// Expressions for label filters
+expression: or_expr
+
+or_expr: and_expr ("or" and_expr)*
+
+and_expr: comparison ("and" comparison)*
+
+comparison: field_ref ("==" | "!=" | "<" | ">" | "<=" | ">=") value
+          | field_ref
+
+field_ref: IDENTIFIER ("." IDENTIFIER)*
+
+value: STRING | NUMBER | BOOLEAN
+
+BOOLEAN: "true" | "false"
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: /"[^"]*"/ | /'[^']*'/
+NUMBER: /\d+(\.\d+)?([eE][+-]?\d+)?/
+
+%import common.WS
+%ignore WS

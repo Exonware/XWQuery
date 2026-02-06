@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- XML Example - eXtensible Markup Language -->
+<document xmlns="http://example.com/schema" version="1.0">
+  <metadata>
+    <title>Sample XML Document</title>
+    <author>XWUI Team</author>
+    <created>2025-01-15T10:30:00Z</created>
+    <tags>
+      <tag>example</tag>
+      <tag>xml</tag>
+      <tag>data</tag>
+    </tags>
+  </metadata>
+  
+  <configuration>
+    <database>
+      <host>localhost</host>
+      <port>5432</port>
+      <name>example_db</name>
+      <ssl>true</ssl>
+      <connection-pool min="5" max="20" timeout="30s"/>
+    </database>
+    
+    <features>
+      <authentication enabled="true"/>
+      <caching enabled="false"/>
+      <logging>
+        <level>info</level>
+        <format>json</format>
+        <outputs>
+          <output>console</output>
+          <output>file</output>
+        </outputs>
+        <file path="/var/log/app.log" max-size="10MB" retention="7d"/>
+      </logging>
+    </features>
+  </configuration>
+  
+  <items>
+    <item id="1" active="true">
+      <name>First Item</name>
+      <price currency="USD">29.99</price>
+      <categories>
+        <category>electronics</category>
+        <category>gadgets</category>
+      </categories>
+    </item>
+    
+    <item id="2" active="false">
+      <name>Second Item</name>
+      <price currency="USD">49.99</price>
+      <categories>
+        <category>books</category>
+        <category>education</category>
+      </categories>
+    </item>
+  </items>
+  
+  <nested>
+    <level1>
+      <level2>
+        <level3 value="Deep nesting example">
+          <array>
+            <number>1</number>
+            <number>2</number>
+            <number>3</number>
+          </array>
+        </level3>
+      </level2>
+    </level1>
+  </nested>
+</document>
+
+
+

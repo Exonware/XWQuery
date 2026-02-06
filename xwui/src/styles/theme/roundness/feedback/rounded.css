@@ -1,0 +1,12 @@
+/* ============================================
+   FEEDBACK - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    --radius-feedback: 8px;
+}
+
+/* Utility class for direct application */
+.radius-feedback-rounded {
+    border-radius: var(--radius-feedback, 8px) !important;
+}

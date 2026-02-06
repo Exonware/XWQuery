@@ -1,0 +1,17 @@
+/* ============================================
+   LABEL LINES - STRONG LINES
+   ============================================ */
+
+:root[data-lines="strong"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-label-width: var(--border-width-regular, 2px);
+    --border-label-style: solid;
+    --border-label-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-label-strong {
+    border-style: var(--border-label-style, solid);
+    border-width: var(--border-label-width, var(--border-width-regular, 2px));
+    border-color: var(--border-label-color, var(--border-medium, var(--border-color)));
+}

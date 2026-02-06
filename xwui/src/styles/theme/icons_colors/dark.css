@@ -1,0 +1,12 @@
+/* ============================================
+   DARK ICON COLORS - Deep dark gray
+   ============================================ */
+
+:root[data-icons-colors="dark"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #c9d1d9;        /* Primary fill color - light text */
+    --icons-color-secondary: #0d1117;    /* Secondary/stroke color - dark bg */
+    --icons-color-accent: #8b949e;        /* Accent/rail/marks color - gray */
+    --icons-color-transparent: transparent;
+}
+

@@ -1,0 +1,24 @@
+/* ============================================
+   INDIGO ACCENT - Indigo palette
+   ============================================ */
+
+:root[data-accent="indigo"] {
+    /* Accent colors - Indigo palette */
+    --accent-primary: #6366f1;
+    --accent-hover: #4f46e5;
+    --accent-light: #818cf8;
+    --accent-success: #10b981;
+    --accent-success-hover: #059669;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    
+    /* RGB values for glow effects */
+    --accent-primary-rgb: 99, 102, 241;
+    --accent-hover-rgb: 79, 70, 229;
+    --accent-light-rgb: 129, 140, 248;
+    --accent-success-rgb: 16, 185, 129;
+    --accent-success-hover-rgb: 5, 150, 105;
+    --accent-warning-rgb: 245, 158, 11;
+    --accent-error-rgb: 239, 68, 68;
+}
+

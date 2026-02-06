@@ -1,0 +1,14 @@
+/* ============================================
+   CAPTION - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-caption: 1px;
+    /* Fallback: --radius-text → --radius-xs → 1px */
+}
+
+/* Utility class for direct application */
+.radius-caption-minimal {
+    border-radius: var(--radius-caption, 1px) !important;
+}

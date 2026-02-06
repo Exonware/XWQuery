@@ -1,0 +1,14 @@
+/* ============================================
+   MENU - SOFT ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="soft"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-menu: 12px;
+    /* Fallback: --radius-navigation → --radius-md → 12px */
+}
+
+/* Utility class for direct application */
+.radius-menu-soft {
+    border-radius: var(--radius-menu, 12px) !important;
+}

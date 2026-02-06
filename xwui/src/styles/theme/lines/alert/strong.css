@@ -1,0 +1,17 @@
+/* ============================================
+   ALERT LINES - STRONG LINES
+   ============================================ */
+
+:root[data-lines="strong"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-alert-width: var(--border-width-regular, 2px);
+    --border-alert-style: solid;
+    --border-alert-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-alert-strong {
+    border-style: var(--border-alert-style, solid);
+    border-width: var(--border-alert-width, var(--border-width-regular, 2px));
+    border-color: var(--border-alert-color, var(--border-medium, var(--border-color)));
+}

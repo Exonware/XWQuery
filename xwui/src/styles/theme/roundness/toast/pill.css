@@ -1,0 +1,14 @@
+/* ============================================
+   TOAST - PILL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="pill"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-toast: 16px;
+    /* Fallback: --radius-overlay → --radius-md → 16px */
+}
+
+/* Utility class for direct application */
+.radius-toast-pill {
+    border-radius: var(--radius-toast, 16px) !important;
+}

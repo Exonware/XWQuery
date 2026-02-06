@@ -1,0 +1,16 @@
+/* ============================================
+   PRESET: XWUI Modern Dark Purple Pill
+   Complete theme preset for quick loading
+   ============================================ */
+
+@import '../base/reset.css';
+@import '../base/typography.css';
+@import '../base/utilities.css';
+@import '../brand/xwui/brand.css';
+@import '../style/modern/spacing.css';
+@import '../style/modern/shadows.css';
+@import '../theme/colors/dark.css';
+@import '../theme/accents/purple.css';
+@import '../theme/roundness/pill.css';
+@import '../theme/typography/inter.css';
+

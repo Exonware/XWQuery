@@ -1,0 +1,17 @@
+/* ============================================
+   AVATAR LINES - STRONG LINES
+   ============================================ */
+
+:root[data-lines="strong"] {
+    /* Shape-specific tokens (inherit from root via fallbacks) */
+    --border-avatar-width: var(--border-width-regular, 2px);
+    --border-avatar-style: solid;
+    --border-avatar-color: var(--border-medium, var(--border-color));
+}
+
+/* Convenience class using shape tokens */
+.line-avatar-strong {
+    border-style: var(--border-avatar-style, solid);
+    border-width: var(--border-avatar-width, var(--border-width-regular, 2px));
+    border-color: var(--border-avatar-color, var(--border-medium, var(--border-color)));
+}

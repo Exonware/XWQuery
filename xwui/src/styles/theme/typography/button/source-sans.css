@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON TYPOGRAPHY - SOURCE-SANS
+   ============================================ */
+
+:root[data-font="source-sans"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-button-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-button-source-sans {
+    font-family: var(--font-button-family, var(--font-family-base, sans-serif)) !important;
+}

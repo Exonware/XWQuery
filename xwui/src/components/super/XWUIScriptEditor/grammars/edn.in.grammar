@@ -1,0 +1,73 @@
+// edn.grammar
+// EDN Grammar - Extensible Data Notation
+// Based on EDN specification (Clojure data format)
+// Company: eXonware.com
+
+?start: value
+
+value: collection
+      | map
+      | vector
+      | list
+      | set
+      | tagged_value
+      | nil
+      | boolean
+      | string
+      | character
+      | symbol
+      | keyword
+      | integer
+      | float
+      | ratio
+
+collection: map | vector | list | set
+
+map: "{" (map_entry ("," map_entry)*)? "}"
+
+map_entry: value value
+
+vector: "[" (value ("," value)*)? "]"
+
+list: "(" (value ("," value)*)? ")"
+
+set: "#{" (value ("," value)*)? "}"
+
+tagged_value: "#" symbol value
+
+nil: "nil"
+
+boolean: "true" | "false"
+
+string: STRING
+
+STRING: "\"" /[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4}/* "\""
+
+character: "\\" CHAR
+
+CHAR: /[a-zA-Z0-9]/
+
+symbol: SYMBOL
+
+SYMBOL: /[a-zA-Z_][a-zA-Z0-9_.-]*/
+
+keyword: ":" SYMBOL
+
+integer: INTEGER | BIGINT
+
+INTEGER: /[+-]?[0-9]+/
+
+BIGINT: /[+-]?[0-9]+N/
+
+float: FLOAT | BIGDEC
+
+FLOAT: /[+-]?[0-9]+\.[0-9]+([eE][+-]?[0-9]+)?/
+
+BIGDEC: /[+-]?[0-9]+\.[0-9]+M/
+
+ratio: INTEGER "/" INTEGER
+
+%import common.WS
+
+%ignore WS
+

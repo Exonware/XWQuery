@@ -1,0 +1,77 @@
+/**
+ * XWUITextOverlay Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ */
+
+.xwui-text-overlay-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Toolbar */
+.xwui-text-overlay-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.5rem);
+    padding: var(--spacing-sm, 0.75rem);
+    background: var(--bg-secondary, #f8f9fa);
+    border-bottom: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-sm, 4px) var(--radius-sm, 4px) 0 0;
+}
+
+.xwui-text-overlay-toolbar label {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--text-primary, #212529);
+}
+
+.xwui-text-overlay-toolbar input[type="number"],
+.xwui-text-overlay-toolbar select,
+.xwui-text-overlay-toolbar input[type="color"] {
+    padding: var(--spacing-xs, 0.375rem);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-sm, 4px);
+    background: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #212529);
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-text-overlay-toolbar button {
+    padding: var(--spacing-xs, 0.375rem) var(--spacing-sm, 0.75rem);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-sm, 4px);
+    background: var(--bg-primary, #ffffff);
+    color: var(--text-primary, #212529);
+    cursor: pointer;
+    font-size: var(--font-size-sm, 0.875rem);
+    transition: all 0.2s ease;
+}
+
+.xwui-text-overlay-toolbar button:hover {
+    background: var(--bg-hover, #f8f9fa);
+}
+
+/* Text Overlay Item */
+.xwui-text-overlay-item {
+    cursor: move;
+    user-select: none;
+    padding: var(--spacing-xs, 0.25rem);
+    border-radius: var(--radius-sm, 4px);
+    transition: all 0.1s ease;
+}
+
+.xwui-text-overlay-item:hover {
+    background: var(--bg-hover, rgba(79, 70, 229, 0.1));
+}
+
+.xwui-text-overlay-item.selected {
+    outline: 2px solid var(--accent-primary, #4f46e5);
+    outline-offset: 2px;
+}
+

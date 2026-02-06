@@ -1,0 +1,50 @@
+/**
+ * XWUISignaturePad Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ */
+
+.xwui-signature-pad-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.xwui-signature-pad {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--bg-primary, #ffffff);
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-md, 8px);
+}
+
+/* Canvas */
+.xwui-signature-pad-canvas {
+    width: 100%;
+    height: 300px;
+    border: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    border-radius: var(--radius-sm, 4px);
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.xwui-signature-pad-canvas:active {
+    cursor: crosshair;
+}
+
+/* Controls */
+.xwui-signature-pad-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.5rem);
+    padding: var(--spacing-sm, 0.75rem);
+    border-top: var(--border-width-regular, 1px) solid var(--border-color, #e0e0e0);
+    background: var(--bg-secondary, #f8f9fa);
+}
+

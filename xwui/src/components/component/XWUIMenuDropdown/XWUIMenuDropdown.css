@@ -1,0 +1,105 @@
+/**
+ * XWUIDropdownMenu Component Styles
+ * Structure and behavior only - colors come from CSS variables
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css, style/modern/shadows.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Lines: theme/lines/menu/*.css (component-specific border widths)
+ * - Roundness: theme/roundness/menu/*.css (component-specific roundness)
+ * - Typography: theme/typography/*.css
+ */
+
+.xwui-dropdown-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10001;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.xwui-dropdown-menu-overlay-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.xwui-dropdown-menu {
+    position: fixed;
+    min-width: 200px;
+    max-width: 320px;
+    min-height: 40px;
+    padding: var(--spacing-sm, 0.5rem);
+    background: var(--bg-primary, #ffffff);
+    border: var(--border-menu-width, var(--border-width-regular, 1.5px)) var(--border-menu-style, solid) var(--border-menu-color, var(--border-color, #e0e0e0));
+    border-radius: var(--radius-menu, var(--radius-md, 8px));
+    box-shadow: var(--shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.15));
+    z-index: 10002;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: auto;
+    color: var(--text-primary, #000000);
+    display: block;
+    visibility: visible;
+}
+
+.xwui-dropdown-menu-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Menu item */
+.xwui-dropdown-menu-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.75rem);
+    padding: var(--spacing-sm, 0.625rem) var(--spacing-sm, 0.75rem);
+    border-radius: var(--radius-menu, var(--radius-sm, 6px));
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-dropdown-menu-item:hover:not(.xwui-dropdown-menu-item-disabled) {
+    background: var(--bg-secondary, #f5f5f5);
+}
+
+.xwui-dropdown-menu-item-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.xwui-dropdown-menu-item-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.xwui-dropdown-menu-item-icon svg {
+    width: 1em;
+    height: 1em;
+}
+
+.xwui-dropdown-menu-item-label {
+    flex: 1;
+}
+
+.xwui-dropdown-menu-item-arrow {
+    margin-left: auto;
+    color: var(--text-secondary);
+}
+
+/* Divider */
+.xwui-dropdown-menu-divider {
+    height: 1px;
+    background: var(--border-color, #e0e0e0);
+    margin: var(--spacing-sm, 0.5rem) 0;
+}
+

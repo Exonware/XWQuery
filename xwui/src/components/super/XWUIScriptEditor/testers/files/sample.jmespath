@@ -1,0 +1,66 @@
+# JMESPath Query Examples (JSON Matching Expressions)
+
+# Basic selection
+name
+version
+metadata.author
+
+# Nested selection
+metadata.tags[0]
+database.host
+items[0].name
+
+# Array operations
+items[*].name
+items[*].{name: name, price: price}
+items[?active == `true`]
+
+# Filtering
+items[?price > `20`]
+items[?active == `true` && price > `20`]
+items[?contains(categories, `'electronics'`)]
+
+# Projections
+items[*].{name: name, price: price, active: active}
+items[*].{item_name: name, item_price: price}
+
+# Functions
+length(items)
+max(items[*].price)
+min(items[*].price)
+sum(items[*].price)
+avg(items[*].price)
+
+# Complex queries
+items[?active == `true`].{name: name, price: price}
+items[?price > `20` && price < `50`].name
+items[?contains(categories, `'electronics'`)].{name: name, price: price}
+
+# Sorting
+sort(items[*].price)
+reverse(sort(items[*].price))
+sort_by(items, &price)
+
+# Aggregations
+items[?active == `true`] | length(@)
+items[?active == `true`] | sum(@[*].price)
+items[?active == `true`] | avg(@[*].price)
+
+# Multi-select
+{name: name, version: version, author: metadata.author}
+items[*].{id: id, name: name, categories: categories}
+
+# Pipe operations
+items[*].price | max(@)
+items[?active == `true`] | length(@)
+items[*].categories | flatten(@) | unique(@)
+
+# Conditional expressions
+items[*].{name: name, status: active == `true` ? 'Active' : 'Inactive'}
+
+# String operations
+items[*].name | join(', ', @)
+items[*].name | contains(@, `'Item'`)
+
+
+

@@ -1,0 +1,28 @@
+// nginx.grammar
+// Nginx Grammar - Simplified for editor support
+// Company: eXonware.com
+
+?start: config_file
+
+config_file: directive*
+
+directive: directive_name [arguments] ["{" directive* "}"] [";"]
+
+directive_name: IDENTIFIER
+
+arguments: argument+
+
+argument: STRING | IDENTIFIER | NUMBER
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: "\"" /[^"]/* "\"" | "'" /[^']/* "'" | /[^;{}\s]+/
+NUMBER: /[0-9]+/
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT
+

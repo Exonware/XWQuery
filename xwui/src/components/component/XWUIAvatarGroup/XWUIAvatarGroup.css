@@ -1,0 +1,35 @@
+/**
+ * XWUIAvatarGroup Component Styles
+ */
+
+.xwui-avatar-group-container {
+    /* Container has no specific styles */
+}
+
+.xwui-avatar-group {
+    display: inline-flex;
+    align-items: center;
+}
+
+.xwui-avatar-group-item {
+    position: relative;
+    border: 2px solid var(--bg-primary, #ffffff);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.xwui-avatar-group-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--bg-secondary, #f0f0f0);
+    border: 2px solid var(--bg-primary, #ffffff);
+    color: var(--text-secondary, #666);
+    font-size: var(--font-size-xs, 12px);
+    font-weight: var(--font-weight-medium, 500);
+    cursor: default;
+}
+

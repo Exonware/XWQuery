@@ -1,0 +1,61 @@
+/**
+ * XWUIPopconfirm Component Styles
+ */
+
+.xwui-popconfirm-container {
+    /* Container has no specific styles */
+}
+
+.xwui-popconfirm-content {
+    padding: 12px;
+    min-width: 200px;
+}
+
+.xwui-popconfirm-title {
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.xwui-popconfirm-description {
+    color: var(--text-secondary, #666);
+    font-size: var(--font-size-sm, 14px);
+    margin-bottom: var(--spacing-md, 12px);
+}
+
+.xwui-popconfirm-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-sm, 8px);
+}
+
+.xwui-popconfirm-cancel,
+.xwui-popconfirm-ok {
+    padding: var(--spacing-xs, 4px) var(--spacing-md, 12px);
+    border: 1px solid var(--border-color, #d9d9d9);
+    border-radius: var(--radius-sm, 4px);
+    cursor: pointer;
+    font-size: var(--font-size-sm, 14px);
+    transition: all 0.2s;
+}
+
+.xwui-popconfirm-cancel {
+    background: var(--bg-primary, #ffffff);
+    color: var(--text-secondary, #666);
+}
+
+.xwui-popconfirm-cancel:hover {
+    border-color: var(--accent-hover, #40a9ff);
+    color: var(--accent-primary, #1890ff);
+}
+
+.xwui-popconfirm-ok {
+    background: var(--accent-primary, #1890ff);
+    color: var(--text-inverse, #ffffff);
+    border-color: var(--accent-primary, #1890ff);
+}
+
+.xwui-popconfirm-ok:hover {
+    background: var(--accent-hover, #40a9ff);
+    border-color: var(--accent-hover, #40a9ff);
+}
+

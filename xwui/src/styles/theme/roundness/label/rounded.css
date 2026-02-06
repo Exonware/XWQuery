@@ -1,0 +1,14 @@
+/* ============================================
+   LABEL - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-label: 6px;
+    /* Fallback: --radius-text → --radius-sm → 6px */
+}
+
+/* Utility class for direct application */
+.radius-label-rounded {
+    border-radius: var(--radius-label, 6px) !important;
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIStyleSwitch",
+  "name": "XWUI Style Switch Component",
+  "description": "Style preset switch component that allows switching between system, preset, and custom themes. Dynamically loads available presets and provides a multi-state switch interface for theme selection.",
+  "path": "input.switches",
+  "tags": ["input", "switch", "theme", "style", "preset", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "styleInstance": {
+          "type": "object",
+          "description": "Optional: provide existing XWUIStyle instance to use. If not provided, a new instance will be created.",
+          "default": null
+        },
+        "styleConfig": {
+          "type": "object",
+          "description": "Optional: configuration for creating XWUIStyle instance if styleInstance is not provided.",
+          "default": null
+        },
+        "iconSize": {
+          "type": "number",
+          "description": "Size of icons in the switch",
+          "default": 16
+        },
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "description": "Switch size",
+          "default": "small"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the switch container"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {}
+    }
+  }
+}
+

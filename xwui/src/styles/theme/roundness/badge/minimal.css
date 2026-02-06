@@ -1,0 +1,13 @@
+/* ============================================
+   BADGE - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-badge: 9999px;
+}
+
+/* Utility class for direct application */
+.radius-badge-minimal {
+    border-radius: var(--radius-badge, 9999px) !important;
+}

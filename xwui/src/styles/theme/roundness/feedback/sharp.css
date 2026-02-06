@@ -1,0 +1,12 @@
+/* ============================================
+   FEEDBACK - SHARP ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="sharp"] {
+    --radius-feedback: 0px;
+}
+
+/* Utility class for direct application */
+.radius-feedback-sharp {
+    border-radius: var(--radius-feedback, 0px) !important;
+}

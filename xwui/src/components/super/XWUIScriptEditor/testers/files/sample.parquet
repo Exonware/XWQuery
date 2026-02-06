@@ -1,0 +1,59 @@
+# Apache Parquet Schema Example
+# Note: Parquet is binary columnar format, but this shows the schema definition
+
+# Parquet schema (using Arrow/Parquet schema format):
+"""
+import pyarrow as pa
+import pyarrow.parquet as pq
+
+# Define schema
+schema = pa.schema([
+    ('id', pa.int32()),
+    ('name', pa.string()),
+    ('active', pa.bool_()),
+    ('price', pa.float64()),
+    ('categories', pa.list_(pa.string())),
+    ('created', pa.timestamp('ns')),
+    ('metadata', pa.struct([
+        ('author', pa.string()),
+        ('version', pa.string()),
+        ('tags', pa.list_(pa.string()))
+    ]))
+])
+
+# Sample data
+data = {
+    'id': [1, 2, 3],
+    'name': ['First Item', 'Second Item', 'Third Item'],
+    'active': [True, False, True],
+    'price': [29.99, 49.99, 19.99],
+    'categories': [
+        ['electronics', 'gadgets'],
+        ['books', 'education'],
+        ['clothing', 'accessories']
+    ],
+    'created': [
+        pa.Timestamp('2025-01-15T10:00:00'),
+        pa.Timestamp('2025-01-15T10:05:00'),
+        pa.Timestamp('2025-01-15T10:10:00')
+    ],
+    'metadata': [
+        {'author': 'XWUI Team', 'version': '1.0.0', 'tags': ['example']},
+        {'author': 'XWUI Team', 'version': '1.0.0', 'tags': ['example']},
+        {'author': 'XWUI Team', 'version': '1.0.0', 'tags': ['example']}
+    ]
+}
+
+# Create table and write to Parquet
+table = pa.table(data, schema=schema)
+pq.write_table(table, 'sample.parquet')
+"""
+
+# Parquet file structure (conceptual):
+# - File metadata with schema
+# - Row groups (column chunks)
+# - Column data (compressed, encoded)
+# - Footer with statistics
+
+
+

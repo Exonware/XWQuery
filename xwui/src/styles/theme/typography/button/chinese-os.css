@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON TYPOGRAPHY - CHINESE-OS
+   ============================================ */
+
+:root[data-font="chinese-os"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-button-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-button-chinese-os {
+    font-family: var(--font-button-family, var(--font-family-base, sans-serif)) !important;
+}

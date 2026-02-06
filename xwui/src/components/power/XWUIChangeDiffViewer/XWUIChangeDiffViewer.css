@@ -1,0 +1,80 @@
+/**
+ * XWUIChangeDiffViewer Component Styles
+ */
+
+.xwui-change-diff-viewer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    width: 100%;
+}
+
+.xwui-change-diff-viewer-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.25rem);
+}
+
+.xwui-change-diff-viewer-changes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+    margin-top: var(--spacing-sm, 0.5rem);
+}
+
+.xwui-change-diff-viewer-change-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 0.25rem);
+    padding: var(--spacing-sm, 0.5rem);
+    background: var(--bg-secondary, #f8f9fa);
+    border-radius: var(--radius-md, 8px);
+}
+
+.xwui-change-diff-viewer-field-label {
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-primary, #212529);
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-change-diff-viewer-diff {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+    flex-wrap: wrap;
+}
+
+.xwui-change-diff-viewer-before,
+.xwui-change-diff-viewer-after {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.25rem);
+    padding: var(--spacing-xs, 0.25rem) var(--spacing-sm, 0.5rem);
+    border-radius: var(--radius-sm, 4px);
+}
+
+.xwui-change-diff-viewer-before {
+    background: var(--bg-error-light, #fee2e2);
+    color: var(--text-error, #dc2626);
+}
+
+.xwui-change-diff-viewer-after {
+    background: var(--bg-success-light, #d1fae5);
+    color: var(--text-success, #059669);
+}
+
+.xwui-change-diff-viewer-label {
+    font-weight: var(--font-weight-medium, 500);
+    font-size: var(--font-size-xs, 0.75rem);
+}
+
+.xwui-change-diff-viewer-value {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm, 0.875rem);
+}
+
+.xwui-change-diff-viewer-arrow {
+    color: var(--text-secondary, #6c757d);
+    font-weight: var(--font-weight-bold, 700);
+}
+

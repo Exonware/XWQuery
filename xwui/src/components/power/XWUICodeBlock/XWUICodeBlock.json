@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "language": {
+      "type": "string",
+      "default": "javascript",
+      "enum": [
+        "javascript",
+        "typescript",
+        "json",
+        "html",
+        "css",
+        "python",
+        "java",
+        "cpp",
+        "c",
+        "csharp",
+        "php",
+        "ruby",
+        "go",
+        "rust",
+        "sql",
+        "xml",
+        "yaml",
+        "markdown",
+        "bash",
+        "shell"
+      ]
+    },
+    "showLineNumbers": {
+      "type": "boolean",
+      "default": false
+    },
+    "copyable": {
+      "type": "boolean",
+      "default": false
+    },
+    "className": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string",
+      "description": "Code content to display"
+    }
+  },
+  "required": [
+    "code"
+  ],
+  "id": "XWUICodeBlock"
+}

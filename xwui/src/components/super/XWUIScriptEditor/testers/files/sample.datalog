@@ -1,0 +1,52 @@
+// Datalog Examples
+// Declarative logic programming language
+
+// Facts (database)
+parent(john, mary).
+parent(mary, alice).
+parent(mary, bob).
+parent(alice, charlie).
+
+// Rules (queries)
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+
+// Queries
+?- ancestor(john, alice).
+?- ancestor(X, charlie).
+
+// Recursive queries
+sibling(X, Y) :- parent(Z, X), parent(Z, Y), X != Y.
+
+// Negation
+childless(X) :- person(X), not parent(X, Y).
+
+// Aggregations
+count_children(X, Count) :- 
+  parent(X, Y), 
+  count(Y, Count).
+
+// Complex queries
+grandparent(X, Y) :- 
+  parent(X, Z), 
+  parent(Z, Y).
+
+// Transitive closure
+reachable(X, Y) :- edge(X, Y).
+reachable(X, Y) :- edge(X, Z), reachable(Z, Y).
+
+// Constraints
+valid_age(X, Age) :- 
+  person(X), 
+  age(X, Age), 
+  Age >= 0, 
+  Age <= 150.
+
+// Example: Employee hierarchy
+manager(john, mary).
+manager(mary, alice).
+manager(mary, bob).
+
+subordinate(X, Y) :- manager(Y, X).
+subordinate(X, Y) :- manager(Z, X), subordinate(Z, Y).
+

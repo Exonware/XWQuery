@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIColorPicker",
+  "name": "XWUI Color Picker Component",
+  "description": "Color picker input component for selecting colors. Supports hex, RGB, and HSL formats. Includes color swatch preview, text input, and optional color presets. Uses XWUIInput internally.",
+  "path": "input.colorpicker",
+  "tags": ["input", "color", "picker", "form", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "type": "string",
+          "enum": ["hex", "rgb", "hsl"],
+          "description": "Color format for input and output",
+          "default": "hex"
+        },
+        "showText": {
+          "type": "boolean",
+          "description": "Whether to show text input for color value",
+          "default": true
+        },
+        "allowClear": {
+          "type": "boolean",
+          "description": "Whether to allow clearing the color value",
+          "default": true
+        },
+        "presets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of preset color values to display"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the color picker"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Current color value in the specified format"
+        }
+      }
+    }
+  }
+}
+

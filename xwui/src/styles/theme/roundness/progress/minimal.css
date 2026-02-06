@@ -1,0 +1,14 @@
+/* ============================================
+   PROGRESS - MINIMAL ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="minimal"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-progress: 9999px;
+    /* Fallback: --radius-feedback → --radius-full → 9999px */
+}
+
+/* Utility class for direct application */
+.radius-progress-minimal {
+    border-radius: var(--radius-progress, 9999px) !important;
+}

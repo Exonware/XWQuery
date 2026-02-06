@@ -1,0 +1,13 @@
+/* ============================================
+   HEADINGS TYPOGRAPHY - HELVETICA-WORLD
+   ============================================ */
+
+:root[data-font="helvetica-world"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-headings-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-headings-helvetica-world {
+    font-family: var(--font-headings-family, var(--font-family-base, sans-serif)) !important;
+}

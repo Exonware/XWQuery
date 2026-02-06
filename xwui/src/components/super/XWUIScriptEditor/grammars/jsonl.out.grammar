@@ -1,0 +1,31 @@
+# jsonl.out.grammar
+# JSONL Output Grammar - Template for generating JSON Lines from AST
+# One JSON object per line
+# Company: eXonware.com
+# Version: 1.0
+
+@document = {{#each lines}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@line = {{child_0}}
+
+@json_value = {{value}}
+
+@object = {{{#each pairs}}"{{key}}": {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@array = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@string = {{value}}
+
+@number = {{value}}
+
+@true = true
+
+@false = false
+
+@null = null
+
+@indent = 0
+@pretty = false
+@line_separator = "\n"
+

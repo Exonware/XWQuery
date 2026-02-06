@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "XWUIQRCode",
+  "name": "XWUI QR Code Component",
+  "description": "QR code display component that generates and displays QR codes. Supports various error correction levels, custom colors, background colors, and optional center icon. Uses canvas for rendering.",
+  "path": "display.qrcode",
+  "tags": ["display", "qrcode", "barcode", "canvas", "desktop", "mobile", "tablet"],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "number",
+          "description": "Size of the QR code in pixels",
+          "default": 256
+        },
+        "level": {
+          "type": "string",
+          "enum": ["L", "M", "Q", "H"],
+          "description": "Error correction level (L=Low, M=Medium, Q=Quartile, H=High)",
+          "default": "M"
+        },
+        "color": {
+          "type": "string",
+          "description": "Color of the QR code (foreground)",
+          "default": "#000000"
+        },
+        "bgColor": {
+          "type": "string",
+          "description": "Background color of the QR code",
+          "default": "#FFFFFF"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon image URL or data URI to display in center of QR code"
+        },
+        "iconSize": {
+          "type": "number",
+          "description": "Size of the center icon in pixels"
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS class name for the QR code"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Text or URL to encode in the QR code"
+        }
+      }
+    }
+  }
+}
+

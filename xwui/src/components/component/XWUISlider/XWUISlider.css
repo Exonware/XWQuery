@@ -1,0 +1,691 @@
+/**
+ * XWUISlider Component Styles - Production Quality
+ * 100% Styles System Integration
+ * 
+ * Style Dependencies:
+ * - Base: reset.css, typography.css, utilities.css
+ * - Brand: brand/xwui/brand.css
+ * - Style: style/modern/spacing.css
+ * - Theme: theme/colors/{selected-theme}.css (MANDATORY - provides all color variables)
+ * - Theme: theme/accents/{selected-accent}.css (MANDATORY - provides accent color variables)
+ * - Theme: theme/roundness/slider/*.css (MANDATORY - provides slider roundness variables)
+ * - Typography: theme/typography/*.css
+ */
+
+/* ============================================
+   WRAPPER
+   ============================================ */
+.xwui-slider {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    width: 100%;
+    font-family: var(--font-family-base);
+}
+
+/* Label */
+.xwui-slider__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-primary, var(--control-text));
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Title/Direction label */
+.xwui-slider__title {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-inverse, #ffffff);
+    text-align: center;
+    margin-bottom: var(--spacing-xs);
+    padding: var(--spacing-xs);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+}
+
+.xwui-slider--vertical .xwui-slider__title {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    margin-bottom: 0;
+    margin-right: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-xs);
+}
+
+/* ============================================
+   CONTAINER & TRACK WRAPPER
+   ============================================ */
+.xwui-slider__container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.xwui-slider__icons {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+}
+
+.xwui-slider__track-wrapper {
+    flex: 1;
+    position: relative;
+    padding: var(--spacing-sm) 0;
+}
+
+/* Icon */
+.xwui-slider__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-inverse, #ffffff);
+    font-size: var(--font-size-base);
+    flex-shrink: 0;
+}
+
+/* Icon with better contrast - use white by default, allow override */
+.xwui-slider__icon svg {
+    color: var(--text-inverse, #ffffff);
+    fill: currentColor;
+    stroke: currentColor;
+}
+
+.xwui-slider--disabled .xwui-slider__icon {
+    opacity: 0.5;
+}
+
+/* ============================================
+   RAIL & TRACK
+   ============================================ */
+.xwui-slider__rail {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.xwui-slider__track {
+    position: relative;
+    width: 100%;
+    background: var(--bg-secondary, var(--control-bg));
+    border-radius: var(--radius-slider-track, var(--radius-control, var(--radius-sm)));
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+}
+
+/* Size variants - Track height */
+.xwui-slider--small .xwui-slider__track {
+    height: 4px;
+}
+
+.xwui-slider--medium .xwui-slider__track {
+    height: 6px;
+}
+
+.xwui-slider--large .xwui-slider__track {
+    height: 8px;
+}
+
+/* Vertical orientation - ensure parent container has height */
+:has(> .xwui-slider--vertical) {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+}
+
+.xwui-slider--vertical {
+    flex-direction: row;
+    align-items: stretch;
+    height: 100%;
+    width: auto;
+    min-height: 200px;
+}
+
+.xwui-slider--vertical .xwui-slider__label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    margin-bottom: 0;
+    margin-right: var(--spacing-xs);
+    flex-shrink: 0;
+}
+
+.xwui-slider--vertical .xwui-slider__container {
+    flex-direction: column;
+    width: auto;
+    height: 100%;
+    min-height: 200px;
+}
+
+.xwui-slider--vertical .xwui-slider__icons {
+    flex-direction: column;
+    width: auto;
+    height: 100%;
+}
+
+.xwui-slider--vertical .xwui-slider__track-wrapper {
+    height: 100%;
+    width: auto;
+    padding: 0 var(--spacing-sm);
+    flex: 1;
+}
+
+.xwui-slider--vertical .xwui-slider__rail {
+    height: 100%;
+    width: auto;
+}
+
+.xwui-slider--vertical .xwui-slider__track {
+    width: 6px;
+    height: 100%;
+}
+
+.xwui-slider--vertical.xwui-slider--small .xwui-slider__track {
+    width: 4px;
+}
+
+.xwui-slider--vertical.xwui-slider--large .xwui-slider__track {
+    width: 8px;
+}
+
+/* ============================================
+   FILL (Active portion)
+   ============================================ */
+.xwui-slider__fill {
+    position: absolute;
+    background: var(--accent-primary, var(--control-active));
+    border-radius: var(--radius-slider-track, var(--radius-control, var(--radius-sm)));
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+/* Horizontal fill */
+.xwui-slider__fill {
+    left: 0;
+    top: 0;
+    height: 100%;
+}
+
+/* Vertical fill */
+.xwui-slider--vertical .xwui-slider__fill {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+/* Color variants */
+.xwui-slider--primary .xwui-slider__fill {
+    background: var(--accent-primary, var(--control-active));
+    box-shadow: var(--glow-slider-track-active, none);
+}
+
+.xwui-slider--secondary .xwui-slider__fill {
+    background: var(--accent-light, var(--accent-primary));
+}
+
+.xwui-slider--success .xwui-slider__fill {
+    background: var(--accent-success);
+}
+
+.xwui-slider--warning .xwui-slider__fill {
+    background: var(--accent-warning);
+}
+
+.xwui-slider--error .xwui-slider__fill {
+    background: var(--accent-error);
+}
+
+.xwui-slider--info .xwui-slider__fill {
+    background: var(--accent-primary, var(--control-active));
+}
+
+/* Inverted track */
+.xwui-slider--track-inverted .xwui-slider__fill {
+    background: var(--bg-secondary, var(--control-bg));
+}
+
+.xwui-slider--track-inverted.xwui-slider--primary .xwui-slider__fill {
+    background: var(--accent-primary, var(--control-active));
+    opacity: 0.3;
+}
+
+/* ============================================
+   THUMB
+   ============================================ */
+.xwui-slider__thumb {
+    position: absolute;
+    background: var(--bg-primary, var(--control-bg));
+    border: var(--border-width-thick) solid var(--accent-primary, var(--control-active));
+    border-radius: var(--radius-slider-thumb, 50%);
+    cursor: grab;
+    transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+    z-index: 1;
+    touch-action: none;
+    user-select: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Size variants - Thumb */
+.xwui-slider--small .xwui-slider__thumb {
+    width: 14px;
+    height: 14px;
+}
+
+.xwui-slider--medium .xwui-slider__thumb {
+    width: 18px;
+    height: 18px;
+}
+
+.xwui-slider--large .xwui-slider__thumb {
+    width: 22px;
+    height: 22px;
+}
+
+/* Horizontal thumb positioning */
+.xwui-slider__thumb {
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Vertical thumb positioning */
+.xwui-slider--vertical .xwui-slider__thumb {
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+/* Hover state */
+.xwui-slider__thumb:hover:not(:disabled),
+.xwui-slider__thumb--hovered {
+    box-shadow: var(--glow-slider-thumb-hover, 0 0 0 8px var(--bg-hover, var(--control-bg-hover, rgba(0, 0, 0, 0.05))));
+}
+
+/* Focus state */
+.xwui-slider__thumb:focus-visible {
+    outline: var(--border-width-thick) solid var(--accent-primary, var(--control-active));
+    outline-offset: 2px;
+    box-shadow: var(--glow-slider-thumb-focus, 0 0 0 4px var(--accent-primary, rgba(79, 70, 229, 0.2)));
+}
+
+/* Active/Dragging state */
+.xwui-slider__thumb--active {
+    cursor: grabbing;
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: var(--glow-slider-thumb-active, 0 0 0 12px var(--bg-hover, var(--control-bg-hover, rgba(0, 0, 0, 0.08))));
+    z-index: 2;
+}
+
+.xwui-slider--vertical .xwui-slider__thumb--active {
+    transform: translate(-50%, 50%) scale(1.15);
+}
+
+/* Color variants - Thumb border */
+.xwui-slider--primary .xwui-slider__thumb {
+    border-color: var(--accent-primary, var(--control-active));
+}
+
+.xwui-slider--secondary .xwui-slider__thumb {
+    border-color: var(--accent-light, var(--accent-primary));
+}
+
+.xwui-slider--success .xwui-slider__thumb {
+    border-color: var(--accent-success);
+}
+
+.xwui-slider--warning .xwui-slider__thumb {
+    border-color: var(--accent-warning);
+}
+
+.xwui-slider--error .xwui-slider__thumb {
+    border-color: var(--accent-error);
+}
+
+.xwui-slider--info .xwui-slider__thumb {
+    border-color: var(--accent-primary, var(--control-active));
+}
+
+/* ============================================
+   THUMB CONTENT (Emoji/Shape/Image)
+   ============================================ */
+.xwui-slider__thumb-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 0.75em;
+    overflow: hidden;
+}
+
+.xwui-slider__thumb-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.xwui-slider__thumb-content svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Shape variants */
+.xwui-slider__thumb-content--shape-square {
+    border-radius: var(--radius-sm);
+}
+
+.xwui-slider__thumb-content--shape-diamond {
+    border-radius: 0;
+    transform: rotate(45deg);
+}
+
+/* Star shape is handled by content (emoji/SVG) */
+
+/* ============================================
+   HIDDEN NATIVE INPUT (Accessibility)
+   ============================================ */
+.xwui-slider__thumb input[type="range"] {
+    /* Already styled inline, but ensure it's truly hidden */
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+/* ============================================
+   TOOLTIP (Value Label) - Nested Structure
+   ============================================ */
+.xwui-slider__tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: var(--spacing-xs);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+}
+
+/* Tooltip circle wrapper - Clear, prominent styling */
+.xwui-slider__tooltip-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--accent-primary, var(--control-active, #4f46e5));
+    color: var(--text-inverse, #ffffff);
+    border-radius: var(--radius-tooltip, var(--radius-sm));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--accent-primary, var(--control-active, #4f46e5));
+    min-width: 24px;
+    min-height: 24px;
+}
+
+/* Color variants for tooltip circle */
+.xwui-slider--primary .xwui-slider__tooltip-circle {
+    background: var(--accent-primary, var(--control-active, #4f46e5));
+    border-color: var(--accent-primary, var(--control-active, #4f46e5));
+    color: var(--text-inverse, #ffffff);
+}
+
+.xwui-slider--secondary .xwui-slider__tooltip-circle {
+    background: var(--accent-light, var(--accent-primary, #6366f1));
+    border-color: var(--accent-light, var(--accent-primary, #6366f1));
+    color: var(--text-inverse, #ffffff);
+}
+
+.xwui-slider--success .xwui-slider__tooltip-circle {
+    background: var(--accent-success, #10b981);
+    border-color: var(--accent-success, #10b981);
+    color: var(--text-inverse, #ffffff);
+}
+
+.xwui-slider--warning .xwui-slider__tooltip-circle {
+    background: var(--accent-warning, #f59e0b);
+    border-color: var(--accent-warning, #f59e0b);
+    color: var(--text-inverse, #ffffff);
+}
+
+.xwui-slider--error .xwui-slider__tooltip-circle {
+    background: var(--accent-error, #ef4444);
+    border-color: var(--accent-error, #ef4444);
+    color: var(--text-inverse, #ffffff);
+}
+
+.xwui-slider--info .xwui-slider__tooltip-circle {
+    background: var(--accent-primary, var(--control-active, #4f46e5));
+    border-color: var(--accent-primary, var(--control-active, #4f46e5));
+    color: var(--text-inverse, #ffffff);
+}
+
+/* Tooltip label text */
+.xwui-slider__tooltip-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* Visible state */
+.xwui-slider__tooltip--visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Always visible (open) state for valueLabelDisplay="on" */
+.xwui-slider__tooltip--open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Vertical tooltip */
+.xwui-slider--vertical .xwui-slider__tooltip {
+    bottom: auto;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-bottom: 0;
+    margin-left: var(--spacing-xs);
+}
+
+/* ============================================
+   MARKS
+   ============================================ */
+.xwui-slider__marks {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+}
+
+.xwui-slider--vertical .xwui-slider__marks {
+    width: 100%;
+    height: 100%;
+}
+
+.xwui-slider__mark {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-50%);
+}
+
+.xwui-slider--vertical .xwui-slider__mark {
+    transform: translateY(50%);
+    left: 0;
+}
+
+.xwui-slider__mark-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--border-color, var(--control-border));
+    border-radius: 50%;
+    margin-top: calc(var(--spacing-sm) * -1);
+    transition: background-color 0.2s ease;
+}
+
+/* Active mark state */
+.xwui-slider__mark--active .xwui-slider__mark-dot {
+    background: var(--accent-primary, var(--control-active));
+}
+
+.xwui-slider--small .xwui-slider__mark-dot {
+    width: 3px;
+    height: 3px;
+}
+
+.xwui-slider--large .xwui-slider__mark-dot {
+    width: 5px;
+    height: 5px;
+}
+
+.xwui-slider--vertical .xwui-slider__mark-dot {
+    margin-top: 0;
+    margin-left: calc(var(--spacing-sm) * -1);
+}
+
+.xwui-slider__mark-label {
+    margin-top: var(--spacing-xs);
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary, var(--control-text-secondary));
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+/* Active mark label state */
+.xwui-slider__mark-label--active {
+    color: var(--text-primary, var(--control-text));
+    font-weight: var(--font-weight-medium);
+}
+
+.xwui-slider--vertical .xwui-slider__mark-label {
+    margin-top: 0;
+    margin-left: var(--spacing-xs);
+}
+
+/* ============================================
+   STEPPERS
+   ============================================ */
+.xwui-slider__steppers {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    flex-shrink: 0;
+}
+
+.xwui-slider--vertical .xwui-slider__steppers {
+    flex-direction: row;
+}
+
+.xwui-slider__stepper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-control-height-sm, 28px);
+    height: var(--size-control-height-sm, 28px);
+    padding: 0;
+    background: var(--bg-primary, var(--control-bg));
+    border: var(--border-width-thin) solid var(--border-color, var(--control-border));
+    border-radius: var(--radius-button, var(--radius-sm));
+    color: var(--text-primary, var(--control-text));
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.xwui-slider__stepper:hover:not(:disabled) {
+    background: var(--bg-hover, var(--control-bg-hover));
+    border-color: var(--accent-primary, var(--control-active));
+    color: var(--accent-primary, var(--control-active));
+}
+
+.xwui-slider__stepper:active:not(:disabled) {
+    background: var(--bg-active, var(--control-bg-active));
+    transform: scale(0.95);
+}
+
+.xwui-slider__stepper:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   DISABLED STATE
+   ============================================ */
+.xwui-slider--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.xwui-slider--disabled .xwui-slider__track,
+.xwui-slider--disabled .xwui-slider__thumb {
+    cursor: not-allowed;
+}
+
+.xwui-slider--disabled .xwui-slider__thumb:hover {
+    box-shadow: none;
+    transform: translate(-50%, -50%);
+}
+
+.xwui-slider--disabled .xwui-slider__stepper {
+    cursor: not-allowed;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+.xwui-slider__thumb[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Screen reader only */
+.xwui-slider__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 640px) {
+    .xwui-slider--small .xwui-slider__thumb {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .xwui-slider--medium .xwui-slider__thumb {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .xwui-slider--large .xwui-slider__thumb {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* ============================================
+   DARK MODE SUPPORT
+   ============================================ */
+/* Dark mode is automatically handled via theme/colors/{theme}.css files */
+/* Custom overrides can be added here if needed */

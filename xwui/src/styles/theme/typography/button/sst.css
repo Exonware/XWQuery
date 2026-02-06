@@ -1,0 +1,13 @@
+/* ============================================
+   BUTTON TYPOGRAPHY - SST
+   ============================================ */
+
+:root[data-font="sst"] {
+    /* Shape-specific font (inherits from root via fallback) */
+    --font-button-family: var(--font-family-base, sans-serif);
+}
+
+/* Utility class for direct application */
+.font-button-sst {
+    font-family: var(--font-button-family, var(--font-family-base, sans-serif)) !important;
+}

@@ -1,0 +1,94 @@
+/* ============================================
+   ROBOTO TYPOGRAPHY - Roboto font family
+   ============================================ */
+
+:root[data-font="roboto"],
+:root:not([data-font]) {
+    --font-family-base: 'Roboto', 'Roboto Condensed', 'Roboto Slab',
+                        'Roboto Thin', 'Roboto Light', 'Roboto Medium',
+                        'Roboto Black', 'Roboto Regular',
+                        /* iOS/macOS San Francisco fallbacks */
+                        -apple-system, BlinkMacSystemFont,
+                        'SF Pro Display', 'SF Pro Text',
+                        /* Windows Segoe UI fallbacks */
+                        'Segoe UI', 'Segoe UI Light', 'Segoe UI Semibold',
+                        /* Linux system fonts */
+                        'Ubuntu', 'Cantarell', 'Noto Sans',
+                        /* Arabic & Persian - Roboto has native variants */
+                        'Roboto Arabic', 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Noto Kufi Arabic',
+                        'Segoe UI', 'Arabic UI Display', 'Arabic UI Text',
+                        'Tahoma', 'Arial Unicode MS', 'Microsoft Sans Serif',
+                        'Geeza Pro', 'KufiStandardGK', 'Droid Arabic Naskh', 'Droid Arabic Kufi',
+                        /* Hebrew - Roboto has native variants */
+                        'Roboto Hebrew', 'Noto Sans Hebrew', 'Segoe UI', 'Hebrew UI Display',
+                        'Hebrew UI Text', 'David', 'Miriam',
+                        'Helvetica Hebrew', 'Arial Hebrew', 'Droid Hebrew',
+                        /* Chinese Simplified - Comprehensive support */
+                        'Noto Sans SC', 'Noto Sans CJK SC', 'Source Han Sans SC',
+                        'Microsoft YaHei', '微软雅黑', 'Microsoft YaHei UI',
+                        'PingFang SC', 'Hiragino Sans GB', 'SimHei', '黑体', 'SimSun', '宋体',
+                        'WenQuanYi Micro Hei', 'Droid Sans Fallback',
+                        /* Chinese Traditional - Comprehensive support */
+                        'Noto Sans TC', 'Noto Sans CJK TC', 'Source Han Sans TC',
+                        'Noto Sans HK', 'Noto Sans CJK HK', 'Source Han Sans HK',
+                        'Microsoft JhengHei', '微軟正黑體', 'Microsoft JhengHei UI',
+                        'PingFang TC', 'PingFang HK',
+                        'PMingLiU', '新細明體', 'MingLiU', '細明體',
+                        /* Japanese - Comprehensive support */
+                        'Noto Sans JP', 'Noto Sans CJK JP', 'Source Han Sans JP',
+                        'Droid Sans Japanese', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 
+                        'Yu Gothic', '游ゴシック', 'Meiryo', 'メイリオ',
+                        'MS PGothic', 'Takao Gothic', 'Takao Mincho',
+                        /* Korean - Comprehensive support */
+                        'Noto Sans KR', 'Noto Sans CJK KR', 'Source Han Sans KR',
+                        'Droid Sans Korean', 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo',
+                        'Nanum Gothic', '나눔고딕', 'Nanum Myeongjo', 'Nanum Brush Script',
+                        /* Thai - Comprehensive support */
+                        'Noto Sans Thai', 'Noto Serif Thai', 'Sarabun',
+                        'Droid Sans Thai', 'Thonburi', 'Sathu', 'Leelawadee UI', 'Leelawadee',
+                        /* Devanagari (Hindi, Sanskrit) - Comprehensive support */
+                        'Noto Sans Devanagari', 'Noto Serif Devanagari',
+                        'Mukta', 'Poppins Devanagari', 'Nirmala UI', 'Nirmala', 'Mangal',
+                        'Lohit Devanagari', 'Kohinoor Devanagari',
+                        /* Bengali - Comprehensive support */
+                        'Noto Sans Bengali', 'Noto Serif Bengali',
+                        'Vani', 'Shonar Bangla', 'Lohit Bengali', 'Mukti',
+                        /* Tamil - Comprehensive support */
+                        'Noto Sans Tamil', 'Noto Serif Tamil',
+                        'Latha', 'Vijaya', 'Lohit Tamil',
+                        /* Telugu - Comprehensive support */
+                        'Noto Sans Telugu', 'Noto Serif Telugu',
+                        'Gautami', 'Pothana2000', 'Lohit Telugu',
+                        /* Gujarati - Comprehensive support */
+                        'Noto Sans Gujarati', 'Noto Serif Gujarati',
+                        'Shruti', 'Lohit Gujarati',
+                        /* Kannada - Comprehensive support */
+                        'Noto Sans Kannada', 'Noto Serif Kannada',
+                        'Tunga', 'Lohit Kannada',
+                        /* Malayalam - Comprehensive support */
+                        'Noto Sans Malayalam', 'Noto Serif Malayalam',
+                        'Kartika', 'Lohit Malayalam',
+                        /* Oriya - Comprehensive support */
+                        'Noto Sans Oriya', 'Noto Serif Oriya',
+                        'Kalinga', 'Lohit Oriya',
+                        /* Punjabi - Comprehensive support */
+                        'Noto Sans Gurmukhi', 'Noto Serif Gurmukhi',
+                        'Raavi', 'Lohit Punjabi',
+                        /* Cyrillic (Russian, Ukrainian, etc.) - Roboto has native variants */
+                        'Roboto Cyrillic', 'Noto Sans', 'Noto Sans Cyrillic',
+                        'Segoe UI', 'Segoe UI Cyrillic', 'Tahoma',
+                        'Arial Unicode MS', 'DejaVu Sans', 'Liberation Sans',
+                        /* Greek - Roboto has native variants */
+                        'Roboto Greek', 'Noto Sans Greek',
+                        'Segoe UI', 'Segoe UI Greek', 'Tahoma', 'DejaVu Sans',
+                        /* Vietnamese - Roboto has native variants */
+                        'Roboto Vietnamese', 'Noto Sans',
+                        'Segoe UI', 'Segoe UI Vietnamese', 'Tahoma', 'DejaVu Sans',
+                        /* System fallbacks */
+                        system-ui, 'Helvetica Neue', Arial, sans-serif;
+    --font-family-mono: 'Roboto Mono', 'Droid Sans Mono',
+                        'SF Mono', 'Monaco', 'Menlo',
+                        'Consolas', 'Courier New',
+                        'Liberation Mono', 'DejaVu Sans Mono', 'Noto Sans Mono', monospace;
+}
+

@@ -1,0 +1,14 @@
+/* ============================================
+   ACCORDION - EXTRA ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="extra-rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-accordion: 24px;
+    /* Fallback: --radius-content → --radius-md → 24px */
+}
+
+/* Utility class for direct application */
+.radius-accordion-extra-rounded {
+    border-radius: var(--radius-accordion, 24px) !important;
+}

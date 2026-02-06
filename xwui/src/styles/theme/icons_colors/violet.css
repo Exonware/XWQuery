@@ -1,0 +1,12 @@
+/* ============================================
+   VIOLET ICON COLORS - Rich violet theme
+   ============================================ */
+
+:root[data-icons-colors="violet"] {
+    /* Global icon color variables for all SVG icons */
+    --icons-color-main: #4c1d95;        /* Primary fill color - dark violet text */
+    --icons-color-secondary: #ffffff;    /* Secondary/stroke color - white */
+    --icons-color-accent: #8b5cf6;        /* Accent/rail/marks color - violet */
+    --icons-color-transparent: transparent;
+}
+

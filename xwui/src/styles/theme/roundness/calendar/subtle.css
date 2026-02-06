@@ -1,0 +1,14 @@
+/* ============================================
+   CALENDAR - SUBTLE ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="subtle"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-calendar: 4px;
+    /* Fallback: --radius-content → --radius-sm → 4px */
+}
+
+/* Utility class for direct application */
+.radius-calendar-subtle {
+    border-radius: var(--radius-calendar, 4px) !important;
+}

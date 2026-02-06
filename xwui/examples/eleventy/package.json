@@ -1,0 +1,12 @@
+{
+  "name": "xwui-example-eleventy",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "eleventy --serve --port 8080",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

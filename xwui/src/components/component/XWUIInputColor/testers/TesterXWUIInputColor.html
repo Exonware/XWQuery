@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="xwui" data-style="modern" data-theme="light" data-accent="blue" data-roundness="rounded" data-font="inter">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XWUIInputColor Component Tester</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../styles/base/reset.css">
+    <link rel="stylesheet" href="../../../styles/base/typography.css">
+    <link rel="stylesheet" href="../../../styles/base/utilities.css">
+    
+    <!-- Brand -->
+    <link rel="stylesheet" href="../../../styles/brand/xwui/brand.css">
+    
+    <!-- Style (Modern) -->
+    <link rel="stylesheet" href="../../../styles/style/modern/spacing.css">
+    <link rel="stylesheet" href="../../../styles/style/modern/shadows.css">
+    
+    <!-- Theme Color -->
+    <link rel="stylesheet" href="../../../styles/theme/colors/light.css">
+    
+    <!-- Theme Accent -->
+    <link rel="stylesheet" href="../../../styles/theme/accents/blue.css">
+    
+    <!-- Theme Roundness -->
+    <link rel="stylesheet" href="../../../styles/theme/roundness/rounded.css">
+    
+    <!-- Theme Typography -->
+    <link rel="stylesheet" href="../../../styles/theme/typography/inter.css">
+    
+    <!-- Component CSS -->
+</head>
+<body>
+    <div class="tester-container" style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+        <h1>XWUIInputColor Component Tester</h1>
+        <p>Test the XWUIInputColor component - color input with picker.</p>
+        
+        <div style="margin: 2rem 0;">
+            <h2>Minimized View (Popup) with Presets</h2>
+            <div id="input-color-1" style="margin-bottom: 1rem;"></div>
+        </div>
+        
+        <div style="margin: 2rem 0;">
+            <h2>Full View (Inline)</h2>
+            <div id="input-color-2" style="margin-bottom: 1rem;"></div>
+        </div>
+        
+        <div style="margin: 2rem 0;">
+            <h2>Editable Input (Readonly)</h2>
+            <div id="input-color-3" style="margin-bottom: 1rem;"></div>
+        </div>
+        
+        <div style="margin: 2rem 0;">
+            <h2>Color Preview</h2>
+            <div id="color-preview" style="width: 200px; height: 200px; border: 2px solid #333; border-radius: 8px; background: #007bff; margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+        <script type="module" src="./TesterXWUIInputColor.ts"></script>
+</body>
+</html>
+

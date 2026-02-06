@@ -1,0 +1,14 @@
+/* ============================================
+   TOAST - ROUNDED ROUNDNESS
+   ============================================ */
+
+:root[data-roundness="rounded"] {
+    /* Shape-specific radius (inherits from root via fallback) */
+    --radius-toast: 8px;
+    /* Fallback: --radius-overlay → --radius-md → 8px */
+}
+
+/* Utility class for direct application */
+.radius-toast-rounded {
+    border-radius: var(--radius-toast, 8px) !important;
+}

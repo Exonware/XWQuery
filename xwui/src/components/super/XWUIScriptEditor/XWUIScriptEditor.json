@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwscripteditor.schema.json",
+  "title": "XWUIScriptEditor Schema",
+  "description": "Schema for XWUIScriptEditor component - describes both conf_comp (component configuration) and data (component data)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "description": "Component-specific settings set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "grammar": {
+          "type": "string",
+          "description": "Grammar/syntax type (from centralized grammars). Can also be detected from fileName extension.",
+          "enum": [
+            "html",
+            "css",
+            "javascript",
+            "typescript",
+            "json",
+            "xml",
+            "python",
+            "java",
+            "cpp",
+            "c",
+            "csharp",
+            "go",
+            "rust",
+            "swift",
+            "kotlin",
+            "php",
+            "ruby",
+            "scala",
+            "yaml",
+            "toml",
+            "ini",
+            "csv",
+            "markdown",
+            "latex",
+            "restructuredtext",
+            "sql",
+            "graphql",
+            "sparql",
+            "dockerfile",
+            "makefile",
+            "nginx",
+            "apache",
+            "bash",
+            "powershell",
+            "shell",
+            "batch",
+            "text",
+            "plaintext",
+            "log"
+          ],
+          "default": "json"
+        },
+        "fileName": {
+          "type": "string",
+          "description": "Optional: file name or path to auto-detect grammar from extension (e.g., 'script.js', '/path/to/file.py')"
+        },
+        "engine": {
+          "type": "string",
+          "enum": [
+            "monaco",
+            "codemirror6",
+            "ace",
+            "highlightjs",
+            "orion",
+            "ckeditor-code"
+          ],
+          "description": "Editor engine to use",
+          "default": "monaco"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "view",
+            "edit"
+          ],
+          "description": "View mode (read-only) or Edit mode (editable)",
+          "default": "edit"
+        },
+        "height": {
+          "type": "string",
+          "description": "Height of the editor (CSS value, e.g., '70vh', '500px')",
+          "default": "70vh"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "description": "Data to update the component, set when initializing the component",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "Initial content/code to display in the editor"
+        }
+      }
+    }
+  },
+  "id": "XWUIScriptEditor"
+}

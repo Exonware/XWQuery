@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/xwui-audio-recorder.schema.json",
+  "title": "XWUIAudioRecorder Schema",
+  "description": "Schema for XWUIAudioRecorder component",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conf_comp": {
+      "type": "object",
+      "title": "Component Configuration (conf_comp)",
+      "additionalProperties": false,
+      "properties": {
+        "maxDuration": {
+          "type": "number",
+          "description": "Maximum recording duration in seconds"
+        },
+        "showWaveform": {
+          "type": "boolean",
+          "description": "Show waveform visualization",
+          "default": false
+        },
+        "className": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "title": "Component Data",
+      "additionalProperties": false,
+      "properties": {
+        "recordedBlob": {
+          "type": "object",
+          "description": "Recorded audio blob"
+        },
+        "recordedUrl": {
+          "type": "string",
+          "description": "URL of recorded audio"
+        }
+      }
+    }
+  },
+  "id": "XWUIAudioRecorder"
+}

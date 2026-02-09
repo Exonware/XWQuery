@@ -1,0 +1,24 @@
+# xwui project-specific ignores
+# Global patterns live in the repo root .gitignore
+
+_Archieve/
+.cursor/
+.vscode/
+
+# Node / build artifacts
+node_modules/
+dist/
+
+# Example app outputs
+examples/*/node_modules/
+examples/*/dist/
+examples/*/.next/
+examples/*/.nuxt/
+examples/*/.cache/
+examples/*/public/
+
+# Local tooling / caches
+*.log
+*.tmp
+*.sqlite3
+

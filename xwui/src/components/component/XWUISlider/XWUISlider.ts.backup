@@ -1,0 +1,384 @@
+/**
+ * XWUISlider Component
+ * Range slider with single/dual handles
+ */
+
+import { XWUIComponent, type XWUISystemConfig, type XWUIUserConfig } from '../XWUIComponent/XWUIComponent';
+
+// Component-level configuration
+export interface XWUISliderConfig {
+    min?: number;
+    max?: number;
+    step?: number;
+    disabled?: boolean;
+    showValue?: boolean;
+    showMarks?: boolean;
+    marks?: { value: number; label?: string }[];
+    orientation?: 'horizontal' | 'vertical';
+    color?: 'primary' | 'success' | 'warning' | 'error';
+    size?: 'small' | 'medium' | 'large';
+    className?: string;
+}
+
+// Data type
+export interface XWUISliderData {
+    value?: number | [number, number];  // Single value or range
+    label?: string;
+    name?: string;
+    id?: string;
+}
+
+export class XWUISlider extends XWUIComponent<XWUISliderData, XWUISliderConfig> {
+    private wrapperElement: HTMLElement | null = null;
+    private trackElement: HTMLElement | null = null;
+    private fillElement: HTMLElement | null = null;
+    private thumbElements: HTMLElement[] = [];
+    private isDragging: boolean = false;
+    private activeThumbIndex: number = 0;
+    private changeHandlers: Array<(value: number | [number, number], event: Event) => void> = [];
+
+    constructor(
+        container: HTMLElement,
+        data: XWUISliderData = {},
+        conf_comp: XWUISliderConfig = {},
+        conf_sys?: XWUISystemConfig,
+        conf_usr?: XWUIUserConfig
+    ) {
+        super(container, data, conf_comp, conf_sys, conf_usr);
+        if (this.data.value === undefined) {
+            this.data.value = this.config.min || 0;
+        }
+        this.render();
+    }
+
+    protected createConfig(
+        conf_comp?: XWUISliderConfig,
+        conf_usr?: XWUIUserConfig,
+        conf_sys?: XWUISystemConfig
+    ): XWUISliderConfig {
+        return {
+            min: conf_comp?.min ?? 0,
+            max: conf_comp?.max ?? 100,
+            step: conf_comp?.step ?? 1,
+            disabled: conf_comp?.disabled ?? false,
+            showValue: conf_comp?.showValue ?? true,
+            showMarks: conf_comp?.showMarks ?? false,
+            marks: conf_comp?.marks,
+            orientation: conf_comp?.orientation ?? 'horizontal',
+            color: conf_comp?.color ?? 'primary',
+            size: conf_comp?.size ?? 'medium',
+            className: conf_comp?.className
+        };
+    }
+
+    private render(): void {
+        this.container.innerHTML = '';
+
+        // Create wrapper
+        this.wrapperElement = document.createElement('div');
+        this.wrapperElement.className = 'xwui-slider';
+        this.wrapperElement.classList.add(`xwui-slider-${this.config.size}`);
+        this.wrapperElement.classList.add(`xwui-slider-${this.config.color}`);
+        this.wrapperElement.classList.add(`xwui-slider-${this.config.orientation}`);
+        
+        if (this.config.disabled) {
+            this.wrapperElement.classList.add('xwui-slider-disabled');
+        }
+        if (this.config.className) {
+            this.wrapperElement.classList.add(this.config.className);
+        }
+
+        // Label
+        if (this.data.label) {
+            const labelElement = document.createElement('label');
+            labelElement.className = 'xwui-slider-label';
+            labelElement.textContent = this.data.label;
+            this.wrapperElement.appendChild(labelElement);
+        }
+
+        // Slider container
+        const sliderContainer = document.createElement('div');
+        sliderContainer.className = 'xwui-slider-container';
+
+        // Track
+        this.trackElement = document.createElement('div');
+        this.trackElement.className = 'xwui-slider-track';
+
+        // Fill
+        this.fillElement = document.createElement('div');
+        this.fillElement.className = 'xwui-slider-fill';
+        this.trackElement.appendChild(this.fillElement);
+
+        // Thumbs
+        this.thumbElements = [];
+        const isRange = Array.isArray(this.data.value);
+        const thumbCount = isRange ? 2 : 1;
+
+        for (let i = 0; i < thumbCount; i++) {
+            const thumb = document.createElement('div');
+            thumb.className = 'xwui-slider-thumb';
+            thumb.setAttribute('role', 'slider');
+            thumb.setAttribute('tabindex', this.config.disabled ? '-1' : '0');
+            thumb.setAttribute('aria-valuemin', String(this.config.min));
+            thumb.setAttribute('aria-valuemax', String(this.config.max));
+            
+            // Value tooltip
+            if (this.config.showValue) {
+                const tooltip = document.createElement('span');
+                tooltip.className = 'xwui-slider-tooltip';
+                thumb.appendChild(tooltip);
+            }
+
+            this.thumbElements.push(thumb);
+            this.trackElement.appendChild(thumb);
+
+            // Mouse events
+            thumb.addEventListener('mousedown', (e) => {
+                if (!this.config.disabled) {
+                    this.startDrag(i, e);
+                }
+            });
+
+            // Keyboard events
+            thumb.addEventListener('keydown', (e) => {
+                if (!this.config.disabled) {
+                    this.handleKeydown(i, e);
+                }
+            });
+        }
+
+        // Track click
+        this.trackElement.addEventListener('click', (e) => {
+            if (!this.config.disabled) {
+                this.handleTrackClick(e);
+            }
+        });
+
+        sliderContainer.appendChild(this.trackElement);
+
+        // Marks
+        if (this.config.showMarks && this.config.marks) {
+            const marksContainer = document.createElement('div');
+            marksContainer.className = 'xwui-slider-marks';
+            
+            this.config.marks.forEach(mark => {
+                const markElement = document.createElement('div');
+                markElement.className = 'xwui-slider-mark';
+                markElement.style.left = `${this.valueToPercent(mark.value)}%`;
+                
+                const dot = document.createElement('span');
+                dot.className = 'xwui-slider-mark-dot';
+                markElement.appendChild(dot);
+                
+                if (mark.label) {
+                    const label = document.createElement('span');
+                    label.className = 'xwui-slider-mark-label';
+                    label.textContent = mark.label;
+                    markElement.appendChild(label);
+                }
+                
+                marksContainer.appendChild(markElement);
+            });
+            
+            sliderContainer.appendChild(marksContainer);
+        }
+
+        this.wrapperElement.appendChild(sliderContainer);
+        this.container.appendChild(this.wrapperElement);
+
+        // Update positions
+        this.updatePositions();
+
+        // Global mouse events
+        document.addEventListener('mousemove', this.handleMouseMove.bind(this));
+        document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+    }
+
+    private valueToPercent(value: number): number {
+        const { min = 0, max = 100 } = this.config;
+        return ((value - min) / (max - min)) * 100;
+    }
+
+    private percentToValue(percent: number): number {
+        const { min = 0, max = 100, step = 1 } = this.config;
+        const value = (percent / 100) * (max - min) + min;
+        return Math.round(value / step) * step;
+    }
+
+    private updatePositions(): void {
+        const isRange = Array.isArray(this.data.value);
+        
+        if (isRange) {
+            const [minVal, maxVal] = this.data.value as [number, number];
+            const minPercent = this.valueToPercent(minVal);
+            const maxPercent = this.valueToPercent(maxVal);
+            
+            this.fillElement!.style.left = `${minPercent}%`;
+            this.fillElement!.style.width = `${maxPercent - minPercent}%`;
+            
+            this.thumbElements[0].style.left = `${minPercent}%`;
+            this.thumbElements[1].style.left = `${maxPercent}%`;
+            
+            this.thumbElements[0].setAttribute('aria-valuenow', String(minVal));
+            this.thumbElements[1].setAttribute('aria-valuenow', String(maxVal));
+            
+            if (this.config.showValue) {
+                const tooltip0 = this.thumbElements[0].querySelector('.xwui-slider-tooltip');
+                const tooltip1 = this.thumbElements[1].querySelector('.xwui-slider-tooltip');
+                if (tooltip0) tooltip0.textContent = String(minVal);
+                if (tooltip1) tooltip1.textContent = String(maxVal);
+            }
+        } else {
+            const value = this.data.value as number;
+            const percent = this.valueToPercent(value);
+            
+            this.fillElement!.style.left = '0';
+            this.fillElement!.style.width = `${percent}%`;
+            
+            this.thumbElements[0].style.left = `${percent}%`;
+            this.thumbElements[0].setAttribute('aria-valuenow', String(value));
+            
+            if (this.config.showValue) {
+                const tooltip = this.thumbElements[0].querySelector('.xwui-slider-tooltip');
+                if (tooltip) tooltip.textContent = String(value);
+            }
+        }
+    }
+
+    private startDrag(thumbIndex: number, e: MouseEvent): void {
+        this.isDragging = true;
+        this.activeThumbIndex = thumbIndex;
+        this.thumbElements[thumbIndex].classList.add('xwui-slider-thumb-active');
+        e.preventDefault();
+    }
+
+    private handleMouseMove(e: MouseEvent): void {
+        if (!this.isDragging || !this.trackElement) return;
+        
+        const rect = this.trackElement.getBoundingClientRect();
+        const percent = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+        const newValue = this.percentToValue(percent);
+        
+        this.updateValue(newValue, this.activeThumbIndex, e);
+    }
+
+    private handleMouseUp(): void {
+        if (this.isDragging) {
+            this.isDragging = false;
+            this.thumbElements[this.activeThumbIndex]?.classList.remove('xwui-slider-thumb-active');
+        }
+    }
+
+    private handleTrackClick(e: MouseEvent): void {
+        if (!this.trackElement) return;
+        
+        const rect = this.trackElement.getBoundingClientRect();
+        const percent = ((e.clientX - rect.left) / rect.width) * 100;
+        const newValue = this.percentToValue(percent);
+        
+        // For range, find closest thumb
+        if (Array.isArray(this.data.value)) {
+            const [minVal, maxVal] = this.data.value;
+            const thumbIndex = Math.abs(newValue - minVal) < Math.abs(newValue - maxVal) ? 0 : 1;
+            this.updateValue(newValue, thumbIndex, e);
+        } else {
+            this.updateValue(newValue, 0, e);
+        }
+    }
+
+    private handleKeydown(thumbIndex: number, e: KeyboardEvent): void {
+        const { step = 1, min = 0, max = 100 } = this.config;
+        let delta = 0;
+        
+        switch (e.key) {
+            case 'ArrowRight':
+            case 'ArrowUp':
+                delta = step;
+                break;
+            case 'ArrowLeft':
+            case 'ArrowDown':
+                delta = -step;
+                break;
+            case 'PageUp':
+                delta = step * 10;
+                break;
+            case 'PageDown':
+                delta = -step * 10;
+                break;
+            case 'Home':
+                delta = min - (Array.isArray(this.data.value) ? this.data.value[thumbIndex] : this.data.value as number);
+                break;
+            case 'End':
+                delta = max - (Array.isArray(this.data.value) ? this.data.value[thumbIndex] : this.data.value as number);
+                break;
+            default:
+                return;
+        }
+        
+        e.preventDefault();
+        
+        const currentValue = Array.isArray(this.data.value) 
+            ? this.data.value[thumbIndex] 
+            : this.data.value as number;
+        const newValue = Math.max(min, Math.min(max, currentValue + delta));
+        
+        this.updateValue(newValue, thumbIndex, e);
+    }
+
+    private updateValue(newValue: number, thumbIndex: number, event: Event): void {
+        const { min = 0, max = 100 } = this.config;
+        newValue = Math.max(min, Math.min(max, newValue));
+        
+        if (Array.isArray(this.data.value)) {
+            const newRange = [...this.data.value] as [number, number];
+            newRange[thumbIndex] = newValue;
+            
+            // Ensure min <= max
+            if (thumbIndex === 0 && newRange[0] > newRange[1]) {
+                newRange[0] = newRange[1];
+            } else if (thumbIndex === 1 && newRange[1] < newRange[0]) {
+                newRange[1] = newRange[0];
+            }
+            
+            this.data.value = newRange;
+        } else {
+            this.data.value = newValue;
+        }
+        
+        this.updatePositions();
+        this.changeHandlers.forEach(handler => handler(this.data.value!, event));
+    }
+
+    public getValue(): number | [number, number] | undefined {
+        return this.data.value;
+    }
+
+    public setValue(value: number | [number, number]): void {
+        this.data.value = value;
+        this.updatePositions();
+    }
+
+    public setDisabled(disabled: boolean): void {
+        this.config.disabled = disabled;
+        this.render();
+    }
+
+    public onChange(handler: (value: number | [number, number], event: Event) => void): void {
+        this.changeHandlers.push(handler);
+    }
+
+    public getElement(): HTMLElement | null {
+        return this.wrapperElement;
+    }
+
+    public destroy(): void {
+        this.changeHandlers = [];
+        document.removeEventListener('mousemove', this.handleMouseMove.bind(this));
+        document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+        if (this.wrapperElement) {
+            this.wrapperElement.remove();
+            this.wrapperElement = null;
+        }
+    }
+}
+

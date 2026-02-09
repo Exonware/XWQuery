@@ -4,7 +4,7 @@
 **Author:** Eng. Muhammad AlShehri  
 **Email:** connect@exonware.com  
 **Version:** 0.0.1  
-**Last Updated:** 30-Jan-2025
+**Last Updated:** 09-Feb-2026
 
 ---
 
@@ -233,6 +233,7 @@ The following items are **invalid as stated** or **need clarification**:
 - [ ] In all external/marketing text, clarify “multi-engine” and “mobile/desktop (via web runtimes).”
 - [ ] Treat “only the updated part re-renders” as a design goal; add or refine patterns in base/component docs.
 - [ ] Keep [GUIDE_COMPONENT_TYPES.md](guides/GUIDE_COMPONENT_TYPES.md), [GUIDE_61_DEP_TS_XWUI.md](guides/GUIDE_61_DEP_TS_XWUI.md), [ROUNDNESS_DIMENSIONS.md](ROUNDNESS_DIMENSIONS.md), and [XWUI_FRAMEWORK_COMPARISON.md](XWUI_FRAMEWORK_COMPARISON.md) aligned with REF_12_IDEA.
+- [ ] Keep Firebase frontend parity (Hosting, Auth UI, data UI, Functions/API) documented and up to date in REF_22_PROJECT.md; adjust this idea doc if the scope of parity changes.
 
 ---
 

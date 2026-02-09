@@ -4,11 +4,10 @@
  */
 
 // Base
-export * from './component/XWUIComponent/XWUIComponent';
-export * from './component/XWUIComponent/XWUIComponent.element';
-export * from './component/XWUIItem/XWUIItem';
-export * from './component/XWUIItemGroup/XWUIItemGroup';
-export * from './component/XWUIButton/XWUIButton';
+export * from './component/XWUIComponent';
+export * from './component/XWUIItem';
+export * from './component/XWUIItemGroup';
+export * from './component/XWUIButton';
 
 // Layout Components
 export * from './component/XWUIIcon';

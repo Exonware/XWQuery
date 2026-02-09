@@ -147,8 +147,21 @@ XWUI is designed to **work with** these frameworks (via Custom Elements and/or t
 | Lit | Custom Elements natively | Same |
 | Alpine.js | Custom Elements or Alpine wrappers | Same |
 | Stencil | Custom Elements (same platform) | Same |
+| Stimulus | Custom Elements or Stimulus controllers | Same |
 
 All of the above can consume Web Components / Custom Elements; XWUI provides that plus React wrappers where applicable.
+
+### Runnable examples (30+ frameworks and stacks)
+
+Runnable demos in **`examples/`** show XWUI working with each of the following. Use them as integration references.
+
+**Frameworks and libraries:** Alpine.js, Angular, Aurelia, Backbone, Dojo, Ember, Fresh, Hyperapp, jQuery, Knockout, Lit, Marko, Mithril, Petite-Vue, Preact, Qwik, React, Riot, Solid, Stencil, Stimulus, Svelte, Vue.
+
+**Meta-frameworks and runtimes:** Astro, Eleventy, Gatsby, Next, Nuxt, Remix, SvelteKit.
+
+**Other:** Vanilla (no framework), htmx.
+
+See [examples/](../examples/) in the repository for runnable projects; each subfolder (e.g. `examples/react`, `examples/vue`, `examples/svelte`) contains a minimal app using XWUI components.
 
 ---
 

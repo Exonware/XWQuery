@@ -1,5 +1,5 @@
-# xwui project-specific ignores
-# Global patterns live in the repo root .gitignore
+# xwui project-specific ignores (all xwui ignores MUST live here, not in repo root)
+# examples/ is tracked in git; only per-example build outputs are ignored below.
 
 _Archieve/
 .cursor/
@@ -9,7 +9,7 @@ _Archieve/
 node_modules/
 dist/
 
-# Example app outputs
+# Example app outputs (examples/ is in git; exclude only build artifacts per subfolder)
 examples/*/node_modules/
 examples/*/dist/
 examples/*/.next/

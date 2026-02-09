@@ -1,153 +1,103 @@
-# International Standards Viewer
+# XWUI — eXonware UI Component Framework
 
-A beautiful, modern TypeScript-based viewer for international standards in JSON format. Converts JSON standards to Markdown and displays them in an elegant interface, powered by FastAPI backend.
+**XWUI** is a **user-interface component-based framework** written in **native TypeScript**. It is reusable in almost any other TypeScript or JavaScript framework because it has no framework runtime in its core—just Custom Elements and optional thin wrappers. It has been tested on **30+ frameworks and stacks**; runnable examples live in **`examples/`** for each. Use it with **Tailwind CSS**, and customize colors, roundness, typography, and advanced theming via a centralized styles system.
+
+XWUI is a **replacement or alternative** for the big famous UI libraries—MUI, Ant Design, Chakra UI, TUI, PrimeNG/PrimeReact/PrimeVue, Ionic, Bootstrap-style systems—with one key difference: **one component set, any framework**. The library is **growing**: 190+ production-ready components, from buttons and inputs to full sub-applications.
+
+---
+
+## What Makes XWUI Different
+
+- **Framework-agnostic:** Same components in vanilla TS/JS, React, Vue, Angular, Svelte, or any stack that can use Web Components or a thin wrapper. Runnable demos in **`examples/`** for 30+ frameworks and stacks (see [Works with](#works-with-frameworks--stacks) below).
+- **Native TypeScript:** No framework lock-in in the core; type-safe APIs and schema-driven configuration.
+- **Three tiers of components:** **Component** (building blocks), **Power Component** (feature-rich widgets), and **Super Component** (full sub-apps you can drop into any host).
+
+---
+
+## Three Categories of Components
+
+| Tier | Name | What it is | Examples |
+|------|------|------------|----------|
+| **1** | **Component** | Single-concern building blocks | Button, Input, Card, Tabs, Dialog, Form, DatePicker, Tooltip |
+| **2** | **Power Component** | One widget, many features | DataGrid, DiffEditor, RichTextEditor, Chart, Console, ResizablePanel |
+| **3** | **Super Component** | Full sub-application — *app inside an app* | FormEditor, ScriptEditor, Workflow, Spreadsheet, PDFViewer, KanbanBoard, GanttChart, VideoEditor, GalleryEditor |
+
+**Super components** are composable sub-applications: drag-and-drop, configure with **any system you want**—or with ExonWare libraries, backends, and APIs—and they work. They are a distinct category: full verticals (form builder, workflow designer, spreadsheet, etc.) that you plug into a host app like a component.
+
+---
 
 ## Features
 
-- 📚 Load and display all international standards from JSON files via FastAPI
-- ✅ JSON Schema validation
-- 📝 Automatic JSON to Markdown conversion
-- 🎨 Modern, responsive UI with CSS5 features
-- 🔍 Search and filter capabilities
-- 📥 Export standards as Markdown files
-- 🖨️ Print support
-- 📊 Statistics dashboard
-- 🔌 RESTful API with automatic documentation
+- **190+ components** across Component, Power, and Super tiers—and growing.
+- **JSON-driven configuration:** One config object per instance (schema, system/user/component settings, data). No need to learn a different API per framework.
+- **Theming & tokens:** Centralized styles (colors, roundness, typography, themes). Skeleton (layout) lives in the component; theme is controlled by the styles system. Works **with Tailwind**; tokens can align.
+- **Web + hybrid:** Runs in the browser and in hybrid mobile/desktop apps (e.g. Capacitor, Electron, Tauri, PWA).
+- **eXonware ecosystem:** Designed to work with xwauth, xwstorage, xwchat, xwapi, and other ExonWare backends—optional; components work standalone too.
 
-## Getting Started
+---
 
-### Prerequisites
+## Works with (frameworks & stacks)
 
-- Python 3.8 or higher
-- Node.js (v16 or higher) for TypeScript compilation
-- npm or yarn
+XWUI has **runnable examples** in **`examples/`** for each of the following. Use them as integration references.
 
-### Installation
+| Frameworks & libraries | Meta-frameworks & runtimes | Other |
+|------------------------|----------------------------|-------|
+| Alpine.js, Angular, Aurelia, Backbone, Dojo, Ember, Fresh, Hyperapp, jQuery, Knockout, Lit, Marko, Mithril, Petite-Vue, Preact, Qwik, React, Riot, Solid, Stencil, Stimulus, Svelte, Vue | Astro, Eleventy, Gatsby, Next, Nuxt, Remix, SvelteKit | Vanilla (no framework), htmx |
 
-1. **Install Python dependencies:**
-```bash
-cd backend
-pip install -r requirements.txt
+Details and consumption patterns (Custom Elements, wrappers) are in [docs/REF_12_IDEA.md](docs/REF_12_IDEA.md) (“Target: Works With (Frameworks)” and “Runnable examples”).
+
+---
+
+## Documentation
+
+Full docs live in **`docs/`**. Start here:
+
+| Document | Purpose |
+|----------|---------|
+| [docs/INDEX.md](docs/INDEX.md) | Documentation index and navigation |
+| [docs/REF_12_IDEA.md](docs/REF_12_IDEA.md) | Core idea, pillars, component tiers, competitors, framework/tool matrix |
+| [docs/REF_22_PROJECT.md](docs/REF_22_PROJECT.md) | Vision, goals, Firebase frontend parity |
+| [docs/REF_13_ARCH.md](docs/REF_13_ARCH.md) | Architecture, component layers, framework adapters |
+| [docs/REF_15_API.md](docs/REF_15_API.md) | API reference and where to find what |
+| [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md) | How to use xwui |
+
+Additional guides (component types, deployment, framework comparison, theming) are in `docs/_archive/` and linked from the references above.
+
+---
+
+## Repository Layout
+
+- **`src/components/`** — The XWUI library:
+  - `component/` — Standard components (Button, Input, Card, etc.)
+  - `power/` — Power components (DataGrid, DiffEditor, Chart, etc.)
+  - `super/` — Super components (FormEditor, Workflow, Spreadsheet, etc.)
+- **`src/styles/`** — Themes, tokens, roundness, typography.
+- **`src/tokens/`**, **`src/utils/`** — Shared utilities and design tokens.
+- **`docs/`** — All project and API documentation.
+
+The library is **vanilla TypeScript** and **framework-agnostic**; components use the DOM API and Custom Elements (e.g. `<xwui-button>`, `<xwui-dialog>`). Use it from React, Vue, Angular, Svelte, or plain HTML/JS.
+
+---
+
+## Quick Example (Conceptual)
+
+```ts
+import { XWUIButton } from './src/components/component/XWUIButton';
+// Or after build: from 'xwui'
+
+// One config object: schema, settings, data
+const config = { conf_comp: { label: 'Submit' }, data: {} };
+const btn = new XWUIButton(container, config);
 ```
 
-2. **Install Node.js dependencies (for TypeScript compilation):**
-```bash
-cd frontend
-npm install
-```
+With Custom Elements, you can also use `<xwui-button>` in any framework that supports Web Components.
 
-3. **Compile TypeScript:**
-```bash
-cd frontend
-npm run build
-```
-
-### Running the Server
-
-From the project root directory:
-
-```bash
-cd backend
-python server.py
-```
-
-The server will start at `http://localhost:8000`
-
-- **Viewer**: http://localhost:8000/
-- **API Documentation**: http://localhost:8000/docs
-- **Alternative API Docs**: http://localhost:8000/redoc
-
-### Development
-
-For TypeScript development with auto-recompilation:
-
-```bash
-cd frontend
-npm run watch
-```
-
-## API Endpoints
-
-The FastAPI server provides the following endpoints:
-
-- `GET /api/standards` - List all available standards with metadata
-- `GET /api/standards/{standard_id}` - Get full JSON data for a specific standard
-- `GET /api/categories` - Get all unique categories
-- `GET /api/organizations` - Get all unique organizations
-- `GET /docs` - Interactive API documentation (Swagger UI)
-- `GET /redoc` - Alternative API documentation (ReDoc)
-
-## Usage
-
-1. Start the FastAPI server using `python server.py`
-2. Open `http://localhost:8000` in your browser
-3. Browse standards in the sidebar
-4. Click on any standard to view its details in Markdown format
-5. Use the search box to find specific standards
-6. Filter by category, organization, or status
-7. Export standards as Markdown files using the export button
-
-## File Structure
-
-```
-.
-├── backend/
-│   ├── server.py          # FastAPI server
-│   └── requirements.txt   # Python dependencies
-├── frontend/
-│   ├── index.html         # Main HTML file
-│   ├── styles.css         # Styling with CSS5 features
-│   ├── main.ts            # TypeScript source code
-│   ├── main.js            # Compiled JavaScript
-│   ├── tsconfig.json      # TypeScript configuration
-│   ├── package.json       # Node.js dependencies
-│   └── README.md          # This file
-├── menu/                  # Governance index JSON
-├── media/                 # Media assets
-├── data/                  # Governance data
-│   ├── standards/        # JSON standard files
-│   ├── bylaws/           # JSON bylaw files
-│   └── ...               # Other governance folders
-└── schemas/               # JSON schemas (at project root)
-```
-
-## Technologies Used
-
-### Backend
-- FastAPI - Modern Python web framework
-- Uvicorn - ASGI server
-
-### Frontend
-- TypeScript for type-safe code
-- Marked.js for Markdown parsing and rendering
-- Highlight.js for code syntax highlighting
-- AJV for JSON Schema validation
-- Modern CSS with gradients, animations, and responsive design
-
-## XWUI Component Library
-
-The XWUI component library in `src/components` is **vanilla TypeScript** and **framework-agnostic**. Components use the DOM API and custom elements (e.g. `<xwui-button>`, `<xwui-mobile-stepper>`). There is no React or other framework dependency; the library can be used from any stack (React, Vue, Svelte, Angular, or plain HTML/JS).
-
-## Browser Support
-
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-
-Requires ES2020 support for modules.
+---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
-## Contributing
+---
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on how to get started.
-
-## Code of Conduct
-
-Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
-
-## Security
-
-For security concerns, please see our [Security Policy](SECURITY.md).
+*XWUI: one component library, native TypeScript, any framework. Component → Power → Super.*

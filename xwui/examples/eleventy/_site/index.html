@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XWUI + Eleventy</title>
+  <link rel="stylesheet" href="/xwui-theme-examples.css">
+  <link rel="stylesheet" href="/xwui/XWUIButton/XWUIButton.css">
+</head>
+<body>
+  <div style="font-family: system-ui, sans-serif; padding: 2rem">
+  <h1>XWUI + Eleventy</h1>
+  <p>XWUIButton (Custom Element) – Eleventy (11ty) static site.</p>
+  <p><a href="/uber/uber.html">Uber-like mobile demo →</a></p>
+  <div class="buttons">
+    <xwui-button text="Primary" variant="primary" size="medium"></xwui-button>
+    <xwui-button text="Success" variant="success" size="medium"></xwui-button>
+    <xwui-button text="Secondary" variant="secondary" size="medium"></xwui-button>
+  </div>
+</div>
+
+<style>
+  .buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+</style>
+
+  <script type="module" src="/xwui-button.mjs"></script>
+</body>
+</html>

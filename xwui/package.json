@@ -1,6 +1,6 @@
 {
   "name": "international-standards-viewer",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "International Standards Viewer - Convert JSON standards to Markdown and view them",
   "license": "MIT",
   "type": "module",

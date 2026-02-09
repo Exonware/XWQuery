@@ -155,7 +155,14 @@ async function runPostBuildTasks() {
 
 export default defineConfig(({ mode }) => ({
   base: './',
-  server: { host: '0.0.0.0', port: 3000, strictPort: false, open: false },
+  server: {
+    host: '0.0.0.0',
+    port: 3000,
+    strictPort: false,
+    open: false,
+    // examples/ is tracked in git but excluded from build and dev watch
+    watch: { ignored: ['**/examples/**'] },
+  },
   define: {
     'import.meta.env.MODE': JSON.stringify(mode),
     'import.meta.env.PROD': JSON.stringify(mode === 'production'),

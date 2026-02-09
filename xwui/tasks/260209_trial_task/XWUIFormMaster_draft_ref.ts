@@ -6,13 +6,16 @@
 // NOTE FOR FREELANCER / XWUI:
 // - This file lives in `xwui/task/trial_task/XWUIFormMaster_draft_ref.ts`.
 // - It is **reference / prototype code only** for the **XWUIFormMaster**
-//   form management component described in:
-//     - `xwui/task/trial_task/FREELANCER_TASK_01_FORM_MANAGER.md`
+//   form management component. Canonical sources (same folder):
+//     - FREELANCER_TASK_01_FORM_MANAGER.md — full brief, requirements, deliverables
+//     - XWUIFormMaster.pdf — states, flows, screenshots, and detailed task info
+//     - This file — reference behavior only. Refer to the PDF for screenshots and more.
 // - Do NOT copy-paste or ship this file as production code.
 //   Instead:
 //   - Study the JSON model (config + schema + data).
 //   - Observe how the tabs (EDITOR, FORM JSON, ADD, LIST, VIEW, UPDATE,
 //     FORM DATA JSON) demonstrate full CRUD flows.
+//   - Refer to XWUIFormMaster.pdf for screenshots and more detailed info.
 //   - Look at how sections/rows/columns/elements are rendered and edited.
 //   Then design a clean, reusable **XWUIFormMaster** component that fits XWUI’s
 //   patterns and stylization, extracting only the pieces you actually need.

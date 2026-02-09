@@ -34,11 +34,17 @@ We will measure **how well you understand and apply this**: correct extension of
 
 ## 3. Reference Materials
 
+**Canonical sources for this task** (all in this folder):
+
+- **`FREELANCER_TASK_01_FORM_MANAGER.md`** — This brief: goals, requirements, evaluation, deliverables.
+- **`XWUIFormMaster.pdf`** — Authoritative form/record **states** and flows. **Refer to the PDF for screenshots and more detailed info** on the UI, state transitions, and expected behavior.
+- **`XWUIFormMaster_draft_ref.ts`** — Reference implementation (behavior only); re-implement as XWUIFormMaster, do not copy.
+
 | What | Where | Use |
 |------|--------|-----|
 | **Reference implementation (features & behavior)** | `XWUIFormMaster_draft_ref.ts` (this folder) | Study JSON model (config + schema + data), CRUD modes (EDITOR, ADD, LIST, VIEW, UPDATE, FORM JSON, FORM DATA JSON), sections/rows/columns/elements, validation, layout. Do **not** copy-paste; re-implement cleanly as **XWUIFormMaster** inside XWUI. |
 | **Quality & implementation guides** | `guides_to_help/` (this folder) | Additional guides the author added to help you write high-quality, idiomatic code: development practices, TypeScript patterns, review checklists, and QA guidelines specifically for XWUI components. |
-| **Form component states (authoritative)** | `XWUIFormMaster.pdf` (this folder) | Defines the **states** the component must support: `form_state_editor_view`, `form_state_editor_json`, `form_record_state_add`, `form_record_state_view`, `form_record_state_update`, `form_record_state_json`, and the flow between FORM JSON, RECORDS JSON, and RECORD JSON. |
+| **Form component states (authoritative)** | `XWUIFormMaster.pdf` (this folder) | **Screenshots and detailed task info.** Defines the **states** the component must support: `form_state_editor_view`, `form_state_editor_json`, `form_record_state_add`, `form_record_state_view`, `form_record_state_update`, `form_record_state_json`, and the flow between FORM JSON, RECORDS JSON, and RECORD JSON. |
 | **XWUI base component** | `src/components/component/XWUIComponent/XWUIComponent.ts` | Extend `XWUIComponent<TData, TConfig>`, implement `createConfig`, use standard inputs. |
 | **Existing XWUI components** | e.g. `XWUIInput`, `XWUIForm`, `XWUIButton`, layout, tokens | Reuse as much as possible; avoid one-off primitives. |
 

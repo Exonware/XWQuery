@@ -48,7 +48,7 @@ NEW v4.0 - Enterprise Features:
   - Watched Prefixes: Special handling for serialization modules (pickle, json, yaml, etc.)
   - Enhanced Performance Monitoring: Detailed metrics (load times, access counts, cache performance)
   - Serialization Module Detection: Automatic detection of serialization modules for special handling
-Version: 1.0.1.2
+Version: 1.0.1.3
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com

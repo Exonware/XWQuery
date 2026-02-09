@@ -1,0 +1,17 @@
+# Test run evidence index — xwlazy
+
+**Last Updated:** 07-Feb-2026  
+**Owner:** GUIDE_51_TEST
+
+Test run summaries. Test status and coverage: [REPORT_51_TEST.md](../../REPORT_51_TEST.md).
+
+## Test runs
+
+| Date | File |
+|------|------|
+| 2025-11-18 | [TEST_20251118_1912_SUMMARY.md](TEST_20251118_1912_SUMMARY.md), [TEST_20251118_1913_SUMMARY.md](TEST_20251118_1913_SUMMARY.md), [TEST_20251118_1914_SUMMARY.md](TEST_20251118_1914_SUMMARY.md) |
+| 2025-11-22 | [TEST_20251122_1844_SUMMARY.md](TEST_20251122_1844_SUMMARY.md), [TEST_20251122_1848_SUMMARY.md](TEST_20251122_1848_SUMMARY.md), [TEST_20251122_1924_SUMMARY.md](TEST_20251122_1924_SUMMARY.md) |
+
+---
+
+*Per GUIDE_51_TEST. See [REPORT_51_TEST.md](../../REPORT_51_TEST.md) for test status.*

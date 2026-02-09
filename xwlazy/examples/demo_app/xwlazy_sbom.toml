@@ -1,0 +1,28 @@
+[[entry]]
+timestamp = "2026-01-10T14:00:53.281512"
+package = "numpy"
+status = "success"
+duration = 0.931
+strategy = "pip"
+
+[[entry]]
+timestamp = "2026-01-10T14:10:44.232578"
+package = "brotli"
+status = "success"
+duration = 1.153
+strategy = "pip"
+
+[[entry]]
+timestamp = "2026-01-10T14:10:45.154906"
+package = "backports"
+status = "failed"
+duration = 0.901
+strategy = "pip"
+
+[[entry]]
+timestamp = "2026-01-10T14:10:46.832960"
+package = "simplejson"
+status = "success"
+duration = 1.594
+strategy = "pip"
+

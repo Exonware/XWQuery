@@ -39,7 +39,7 @@ This directory contains practical examples demonstrating how to use xwlazy in di
 
 ## 🔗 Related Documentation
 
-- [HOOKING_GUIDE.md](../docs/HOOKING_GUIDE.md) - Complete hooking and extension guide
-- [REF_ARCH.md](../docs/REF_ARCH.md) - System architecture
+- [GUIDE_01_USAGE.md](../docs/GUIDE_01_USAGE.md#hooking-and-extension) - Hooking and extension
+- [REF_13_ARCH.md](../docs/REF_13_ARCH.md) - System architecture
 - [README.md](../README.md) - Main documentation
 

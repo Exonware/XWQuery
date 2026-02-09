@@ -105,8 +105,8 @@ When you run `example_usage.py`:
 
 ## 🔗 Related Documentation
 
-- [HOOKING_GUIDE.md](../../docs/HOOKING_GUIDE.md) - Complete guide on hooking and extending xwlazy
-- [REF_ARCH.md](../../docs/REF_ARCH.md) - System architecture
+- [GUIDE_01_USAGE.md](../../docs/GUIDE_01_USAGE.md#hooking-and-extension) - Hooking and extending xwlazy
+- [REF_13_ARCH.md](../../docs/REF_13_ARCH.md) - System architecture
 - [README.md](../../README.md) - Main xwlazy documentation
 
 ## 💡 Key Takeaway

@@ -12,6 +12,8 @@ xwlazy is a production-ready lazy loading system that enables Python packages to
 
 **Why xwlazy exists:** Traditional dependency management requires installing all dependencies upfront, even if they're never used. This leads to bloated installations, longer setup times, and potential conflicts. xwlazy solves this by installing dependencies only when code actually needs them, while maintaining full security and isolation between packages.
 
+**Source:** Single implementation file `src/exonware/xwlazy.py`; `src/xwlazy.py` is a convenience re-export. Legacy multi-file layout in `src/_old/` is for reference only and is not shipped in the package.
+
 ## ✨ Key Features
 
 ### 🚀 **Auto-Installation on Demand**
@@ -150,14 +152,19 @@ After `pip install -e .`, xwlazy automatically enables lazy loading for your pac
 
 ## 📖 Documentation
 
-- **[Architecture Reference](docs/REF_ARCH.md)** - System design, patterns, and structure
-- **[Integration Guide](docs/INTEGRATION_GUIDE.md)** - Integration with xw libraries
-- **[Best Practices](docs/BEST_PRACTICES.md)** - Usage guidelines and recommendations
-- **[Troubleshooting Guide](docs/TROUBLESHOOTING.md)** - Common issues and solutions
-- **[Production Deployment](docs/PRODUCTION_DEPLOYMENT.md)** - Production deployment guide
-- **[Keyword Detection Guide](docs/KEYWORD_DETECTION.md)** - Zero-code integration
-- **[Competition Benchmarks](benchmarks/competition_tests/)** - Performance comparisons
-- **[Performance Analysis](benchmarks/competition_tests/PERFORMANCE_ANALYSIS.md)** - Optimization recommendations
+**Requirements & REFs:**
+- **[Requirements](docs/REF_01_REQ.md)** — REF_01_REQ (vision, scope, one-line enable)
+- **[Compliance](docs/REF_11_COMP.md)** — REF_11_COMP (stance from REF_01_REQ sec. 4)
+- **[Project](docs/REF_22_PROJECT.md)** — Vision, goals, FR/NFR, milestones
+- **[Architecture](docs/REF_13_ARCH.md)** — System design, patterns, and structure
+- **[Test status](docs/REF_51_TEST.md)** — Test layers and traceability
+- **[Review](docs/REF_35_REVIEW.md)** — REF_35
+
+**Guides & indexes:**
+- **[Documentation index](docs/INDEX.md)** — All docs (REF_*, GUIDE_01_USAGE, logs)
+- **[Usage guide](docs/GUIDE_01_USAGE.md)** — How to use xwlazy (modes, integration, best practices, production, troubleshooting)
+- **[Benchmarks](docs/REF_54_BENCH.md)** — Performance SLAs; [logs/benchmarks](docs/logs/benchmarks/INDEX.md) for run evidence
+- **[Competition benchmarks](benchmarks/competition_tests/)** - Performance comparison runs
 
 ## 💡 Use Cases
 

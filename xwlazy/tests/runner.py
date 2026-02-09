@@ -56,7 +56,8 @@ def main():
     # Setup output directory
     reports_dir = project_root / "docs" / "tests"
     reports_dir.mkdir(parents=True, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+    from exonware.xwsystem.utils.test_runner import timestamp_for_filename
+    timestamp = timestamp_for_filename()
     output_file = reports_dir / f"TEST_{timestamp}_SUMMARY.md"
     
     # Add src to Python path for testing

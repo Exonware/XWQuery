@@ -1,0 +1,10 @@
+version = "1.0"
+generated = "2026-01-10T14:06:03.016754"
+packages = [
+    "requests",
+    "yaml",
+]
+
+[statistics]
+total_installs = 1
+total_failures = 0

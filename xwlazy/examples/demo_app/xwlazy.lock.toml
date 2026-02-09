@@ -1,0 +1,11 @@
+version = "1.0"
+generated = "2026-01-10T14:10:46.832960"
+packages = [
+    "brotli",
+    "numpy",
+    "simplejson",
+]
+
+[statistics]
+total_installs = 1
+total_failures = 1

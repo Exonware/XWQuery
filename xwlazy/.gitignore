@@ -264,7 +264,7 @@ Temporary Items
 
 # Log files
 *.log
-logs/
+/logs/
 
 # Database files
 *.sqlite

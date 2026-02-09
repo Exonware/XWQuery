@@ -1,10 +1,12 @@
-# xwlazy Ideas and Future Enhancements
+# xwlazy Ideas and Future Enhancements (REF_12_IDEA)
 
 **Company:** eXonware.com  
 **Author:** Eng. Muhammad AlShehri  
 **Email:** connect@exonware.com  
 **Version:** 0.1.0.18  
-**Last Updated:** 15-Nov-2025
+**Last Updated:** 07-Feb-2026  
+**Requirements source:** [REF_01_REQ.md](REF_01_REQ.md) sec. 1–2  
+**Producing guide:** [GUIDE_12_IDEA.md](../../docs/guides/GUIDE_12_IDEA.md)
 
 ## 🎯 AI-Friendly Document
 
@@ -12,9 +14,10 @@
 Tracks ideas, proposals, and future enhancements for xwlazy.
 
 **Related Documents:**
-- [REF_ARCH.md](REF_ARCH.md) - Current architecture
-- [HOOKING_GUIDE.md](HOOKING_GUIDE.md) - Extension guide
-- [docs/guides/GUIDE_DOCS.md](guides/GUIDE_DOCS.md) - Documentation standards
+- [REF_22_PROJECT.md](REF_22_PROJECT.md) - Vision, goals, FR/NFR, milestones
+- [REF_13_ARCH.md](REF_13_ARCH.md) - Current architecture
+- [GUIDE_01_USAGE.md](GUIDE_01_USAGE.md) - Usage and extension guide
+- [GUIDE_41_DOCS.md](../../docs/guides/GUIDE_41_DOCS.md) - Documentation standards
 
 ---
 
@@ -30,7 +33,7 @@ Tracks ideas, proposals, and future enhancements for xwlazy.
 
 **Problem:** The lazy installer repeatedly performs manifest lookups and installer checks for modules already known to be external and currently missing. This adds unnecessary latency and noise, especially before async installers finish pulling the dependency.
 
-**Proposed Solution:** Maintain a tiny per-package LRU cache of “confirmed external + still missing” modules. While an entry is hot, short-circuit manifest lookups and installer scheduling so the hook can return immediately until a successful import occurs (which evicts the entry). Integrate the cache with async installer completion so successful installs automatically invalidate the failure record.
+**Proposed Solution:** Maintain a tiny per-package LRU cache of "confirmed external + still missing" modules. While an entry is hot, short-circuit manifest lookups and installer scheduling so the hook can return immediately until a successful import occurs (which evicts the entry). Integrate the cache with async installer completion so successful installs automatically invalidate the failure record.
 
 **Benefits:**
 - Avoids redundant manifest hashing and installer work for repeated failures.
@@ -50,4 +53,4 @@ Tracks ideas, proposals, and future enhancements for xwlazy.
 
 ---
 
-
+*Output of GUIDE_12_IDEA. For project requirements see REF_22_PROJECT.md; for architecture see REF_13_ARCH.md.*

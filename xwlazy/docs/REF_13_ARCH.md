@@ -4,7 +4,9 @@
 **Author:** Eng. Muhammad AlShehri  
 **Email:** connect@exonware.com  
 **Version:** 0.1.0.18  
-**Last Updated:** 15-Nov-2025
+**Last Updated:** 07-Feb-2026  
+**Requirements source:** [REF_01_REQ.md](REF_01_REQ.md) sec. 7, sec. 6, sec. 5  
+**Producing guide:** [GUIDE_13_ARCH.md](../../docs/guides/GUIDE_13_ARCH.md)
 
 ## 🎯 AI-Friendly Document
 
@@ -12,9 +14,9 @@
 Describes the system architecture, design patterns, and structure of xwlazy.
 
 **Related Documents:**
-- [HOOKING_GUIDE.md](HOOKING_GUIDE.md) - How to extend and customize xwlazy
-- [docs/guides/GUIDE_DOCS.md](guides/GUIDE_DOCS.md) - Documentation standards
-- [docs/guides/GUIDE_DEV.md](guides/GUIDE_DEV.md) - Development standards
+- [GUIDE_01_USAGE.md](GUIDE_01_USAGE.md) - How to use and extend xwlazy
+- [GUIDE_41_DOCS.md](../../docs/guides/GUIDE_41_DOCS.md) - Documentation standards
+- [GUIDE_31_DEV.md](../../docs/guides/GUIDE_31_DEV.md) - Development standards
 
 ---
 
@@ -56,9 +58,20 @@ xwdata:   Missing imports → LOG + AUTO-INSTALL on usage ✅
 3. **Performance**: Dependencies installed only when actually needed
 4. **Transparency**: Clean Python code with standard imports
 
-## Architecture
+## As-built architecture (single file)
 
-### 4-File Structure (DEV_GUIDELINES.md Compliant)
+**Current implementation:** One main implementation file, facade-style API, simple yet powerful (per REF_01_REQ).
+
+- **Single implementation file:** `src/exonware/xwlazy.py` (~2546 lines). All core behavior (discovery, install, hook, cache, stats) lives in this file. Cap at ~3000 lines per requirements.
+- **Entry points:** `exonware.xwlazy` is the main module; `xwlazy` (in `src/xwlazy.py`) is a convenience re-export so users can `import xwlazy` or `import exonware.xwlazy`.
+- **Config and data:** `xwlazy_external_libs.toml` for external library mappings; TOML read from pyproject.toml, requirements.txt, and manifest. Minimal TOML writing for SBOM and lockfile only.
+- **Legacy:** A legacy multi-file layout is preserved in `src/_old/` for reference only and is **not shipped** in the wheel (pyproject packages are `src/exonware` and `src/xwlazy`).
+
+The sections below describe **conceptual** patterns (Strategy, Facade, etc.) that are implemented inside the single file. The former "4-File Structure" was a design reference; the as-built layout is single-file.
+
+## Architecture (conceptual patterns)
+
+### Former 4-File Structure (reference only; as-built is single file above)
 
 ```
 lazy_package/
@@ -67,7 +80,7 @@ lazy_package/
 ├── lazy_base.py         (~450 lines) - Abstract base classes
 ├── lazy_core.py         (~2000 lines) - Complete implementation
 ├── __init__.py          - Public API exports
-└── docs/REF_ARCH.md     - Architecture reference (this document)
+└── docs/REF_13_ARCH.md  - Architecture reference (this document)
 ```
 
 #### lazy_contracts.py - Interfaces & Contracts
@@ -472,6 +485,18 @@ Intelligent caching:
 - Automatic cache invalidation
 - Thread-safe operations
 - Zero overhead for valid cache
+
+## Public API tiers (per REF_01_REQ)
+
+REF_01_REQ: expose only what's useful for users (enable, disable, config); do not expose internal implementation.
+
+| Tier | Purpose | Examples |
+|------|---------|----------|
+| **Minimal API** | One-line enable; no config needed. | `auto_enable_lazy(package_name)`, `hook()`, `attach(package_name, submodules=...)`. Use when installing with `[lazy]` or one call at startup. |
+| **Advanced / Config API** | Enable/disable, config, and optional monitoring. | Keyword detection (`enable_keyword_detection`, `check_package_keywords`), stats (`get_all_stats`, `get_cache_stats`, `get_performance_stats`), lockfile/SBOM (`get_lockfile`, `save_lockfile`, `generate_sbom`), watched prefixes, cache invalidation, global hook install/uninstall. For power users and tooling. |
+| **Not public** | Internal implementation. | Private classes and helpers inside `exonware/xwlazy.py`; not in `__all__` or documented as stable API. |
+
+---
 
 ## API Documentation
 

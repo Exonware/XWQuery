@@ -1,442 +1,116 @@
 # xwlazy
 
-**Enterprise-grade lazy loading with automatic dependency installation—the only lazy import library that installs missing packages on-demand while maintaining per-package isolation and security.**
+Lazy imports plus on-demand install: if something isn’t installed, xwlazy installs it when you first use it. One line to turn it on; no try/except import hacks.
 
 [![Status](https://img.shields.io/badge/status-beta-blue.svg)](https://exonware.com)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-## 🎯 Overview
+## What it does
 
-xwlazy is a production-ready lazy loading system that enables Python packages to automatically install missing dependencies when they're actually used. Unlike traditional dependency management, xwlazy installs dependencies **on-demand** at runtime, reducing initial installation size, avoiding conflicts, and enabling truly optional features.
+You enable xwlazy for a package. From then on, missing imports don’t raise—xwlazy installs the package when code actually touches it. Each package (xwsystem, xwnode, etc.) can enable it independently; no cross-talk.
 
-**Why xwlazy exists:** Traditional dependency management requires installing all dependencies upfront, even if they're never used. This leads to bloated installations, longer setup times, and potential conflicts. xwlazy solves this by installing dependencies only when code actually needs them, while maintaining full security and isolation between packages.
+**Implementation:** Single file `src/exonware/xwlazy.py`; `src/xwlazy.py` re-exports. Old multi-file layout lives in `src/_old/` for reference only and isn’t shipped.
 
-**Source:** Single implementation file `src/exonware/xwlazy.py`; `src/xwlazy.py` is a convenience re-export. Legacy multi-file layout in `src/_old/` is for reference only and is not shipped in the package.
+## Quick start
 
-## ✨ Key Features
-
-### 🚀 **Auto-Installation on Demand**
-Dependencies are automatically installed when code first uses them—no manual intervention required. Perfect for optional features that users may never need.
-
-**Why it matters:** Reduces initial installation size by 60-80% for packages with many optional dependencies, while maintaining zero overhead for successful imports.
-
-### 🔒 **Per-Package Isolation**
-Each package (xwsystem, xwnode, xwdata, etc.) can independently enable lazy mode without affecting others. Complete isolation prevents conflicts and enables flexible deployment strategies.
-
-**Why it matters:** Allows mixing lazy and non-lazy packages in the same environment, giving developers full control over which packages use auto-installation.
-
-### 🎯 **Keyword-Based Auto-Detection**
-Packages can opt-in to lazy loading by simply adding `"xwlazy-enabled"` to their `pyproject.toml` keywords—no code changes required.
-
-**Why it matters:** Zero-code integration for package maintainers. Just add a keyword and lazy loading works automatically.
-
-### 🛡️ **Enterprise Security**
-- **Allow/Deny Lists:** Whitelist or blacklist specific packages
-- **SBOM Generation:** Software Bill of Materials for compliance
-- **Vulnerability Auditing:** Automatic security scanning with pip-audit
-- **Lockfile Management:** Track installed packages with versions
-- **PEP 668 Compliance:** Respects externally-managed environments
-
-**Why it matters:** Production environments require security controls. xwlazy provides enterprise-grade security without sacrificing usability.
-
-### ⚡ **Two-Stage Lazy Loading**
-**Stage 1 (Import Time):** Missing imports are logged but don't raise errors—modules load successfully.  
-**Stage 2 (Usage Time):** Dependencies are installed automatically when code first accesses them.
-
-**Why it matters:** Enables clean Python code with standard imports. No defensive `try/except ImportError` blocks needed.
-
-### 📊 **Performance Monitoring**
-Built-in tracking of module load times, access counts, memory usage, and cache hit ratios. Comprehensive statistics API for optimization.
-
-**Why it matters:** Visibility into lazy loading performance helps identify bottlenecks and optimize import strategies.
-
-### 🎨 **Two-Dimensional Mode System**
-
-xwlazy uses a powerful two-dimensional mode system that separates **loading behavior** from **installation behavior**, giving you precise control over how modules are loaded and when packages are installed.
-
-#### **Lazy Load Modes** (When modules load)
-- **NONE:** Standard imports (no lazy loading)
-- **AUTO:** Lazy loading enabled (deferred module loading)
-- **PRELOAD:** Preload all modules on start (parallel loading)
-- **BACKGROUND:** Load modules in background threads (non-blocking)
-- **CACHED:** Cache loaded modules but allow unloading
-
-#### **Lazy Install Modes** (When packages install)
-- **NONE:** No auto-installation
-- **SMART:** Install on first usage (on-demand)
-- **FULL:** Install all dependencies on start (parallel batch)
-- **CLEAN:** Install on usage + uninstall after completion
-- **TEMPORARY:** Always uninstall after use (aggressive cleanup)
-- **SIZE_AWARE:** Install small packages, skip large ones
-- **INTERACTIVE:** Ask user before installing
-- **WARN:** Log warning but don't install (monitoring mode)
-- **DISABLED:** Don't install anything (explicit)
-- **DRY_RUN:** Show what would be installed
-
-#### **Preset Modes** (Quick combinations)
-- **none:** NONE load + NONE install (standard imports)
-- **lite:** AUTO load + NONE install (lazy loading only)
-- **smart:** AUTO load + SMART install (on-demand installation)
-- **full:** AUTO load + FULL install (install all on start)
-- **clean:** AUTO load + CLEAN install (install + cleanup)
-- **temporary:** AUTO load + TEMPORARY install (aggressive cleanup)
-- **size_aware:** AUTO load + SIZE_AWARE install (smart sizing)
-- **auto:** AUTO load + SMART install + auto-uninstall large packages
-
-**Why it matters:** Different environments need different policies. Development might use `smart`, production might use `lite` or `warn`, CI/CD might use `clean` or `temporary`.
-
-## 🏆 Performance Benchmarks
-
-xwlazy has been benchmarked against 8 competing lazy import libraries. **Results show xwlazy is competitive across all load scenarios** while providing significantly more features.
-
-### Latest Benchmark Results (2025-11-17)
-
-| Load Type | xwlazy Time | Rank | vs. Winner | Features |
-|-----------|-------------|------|------------|----------|
-| **Light Load** (1 module) | 2.08 ms | 🥇 **1st** | 2.54x faster | 7 features |
-| **Medium Load** (8 modules) | 6.99 ms | 🥇 **1st** | 8.52x faster | 7 features |
-| **Heavy Load** (22 modules) | 21.13 ms | 🥇 **1st** | 25.75x faster | 7 features |
-| **Enterprise Load** (50+ modules) | 61.28 ms | 🥇 **1st** | 74.66x faster | 7 features |
-
-**Competitive Advantage:** While competitors offer 1-2 features (basic lazy loading), xwlazy provides **7 enterprise features** including auto-installation, security policies, SBOM generation, and per-package isolation.
-
-**See full benchmarks:** [benchmarks/competition_tests/output_log/](benchmarks/competition_tests/output_log/)
-
-## 🚀 Quick Start
-
-### Installation
+**Install:**
 
 ```bash
-# Standard installation
 pip install exonware-xwlazy
-
-# Or install as xwlazy (alias package)
-pip install xwlazy
+# or: pip install xwlazy
 ```
 
-### Basic Usage
-
-**One-line setup** for per-package lazy loading:
+**Enable for your package (one line):**
 
 ```python
-# In your package's __init__.py
+# In your package __init__.py
 from xwlazy.lazy import config_package_lazy_install_enabled
 
-# Auto-detects from pip install your-package[lazy]
-config_package_lazy_install_enabled("your-package")
+config_package_lazy_install_enabled("your-package")  # or use __package__
 ```
 
-**That's it!** Now use standard imports—missing dependencies install automatically:
+**Use normal imports.** First time something is missing, xwlazy installs it; after that it’s a normal import. No code changes in the rest of your codebase.
 
-```python
-# your-package/serialization/avro.py
-import fastavro  # Auto-installed if missing! ✨
-
-# User code
-from your-package.serialization.avro import AvroSerializer
-serializer = AvroSerializer()  # Installs fastavro on first use
-```
-
-### Keyword-Based Detection (Zero Code)
-
-Add to your `pyproject.toml`:
+**Zero-code option:** Add to `pyproject.toml`:
 
 ```toml
 [project]
-name = "my-package"
-keywords = ["xwlazy-enabled"]  # <-- Add this
+keywords = ["xwlazy-enabled"]
 ```
 
-After `pip install -e .`, xwlazy automatically enables lazy loading for your package—no code changes needed!
+Then `pip install -e .` and xwlazy picks it up from metadata. No Python call needed.
 
-## 📖 Documentation
+## Modes
 
-**Requirements & REFs:**
-- **[Requirements](docs/REF_01_REQ.md)** — REF_01_REQ (vision, scope, one-line enable)
-- **[Compliance](docs/REF_11_COMP.md)** — REF_11_COMP (stance from REF_01_REQ sec. 4)
-- **[Project](docs/REF_22_PROJECT.md)** — Vision, goals, FR/NFR, milestones
-- **[Architecture](docs/REF_13_ARCH.md)** — System design, patterns, and structure
-- **[Test status](docs/REF_51_TEST.md)** — Test layers and traceability
-- **[Review](docs/REF_35_REVIEW.md)** — REF_35
+Two knobs: **load** (when modules load) and **install** (when pip runs). You usually just pick a preset.
 
-**Guides & indexes:**
-- **[Documentation index](docs/INDEX.md)** — All docs (REF_*, GUIDE_01_USAGE, logs)
-- **[Usage guide](docs/GUIDE_01_USAGE.md)** — How to use xwlazy (modes, integration, best practices, production, troubleshooting)
-- **[Benchmarks](docs/REF_54_BENCH.md)** — Performance SLAs; [logs/benchmarks](docs/logs/benchmarks/INDEX.md) for run evidence
-- **[Competition benchmarks](benchmarks/competition_tests/)** - Performance comparison runs
+**Presets:**
 
-## 💡 Use Cases
+| Preset     | Load  | Install   | When to use |
+|-----------|-------|-----------|-------------|
+| `none`    | normal | none    | Default; no lazy. |
+| `lite`    | lazy  | none     | Lazy load only; you pre-install deps. |
+| `smart`   | lazy  | on first use | Dev default; install when you hit the code path. |
+| `full`    | lazy  | all at start | CI / “install everything up front”. |
+| `clean`   | lazy  | on use + uninstall after | Ephemeral runs. |
+| `warn`    | lazy  | log only, no install | See what would be installed; prod audit. |
 
-### 1. Optional Format Support
+**Example:**
 
 ```python
-# xwsystem/serialization/avro.py
-import fastavro  # Only installed if user needs Avro support
-
-class AvroSerializer:
-    def serialize(self, data):
-        return fastavro.schemaless_writer(...)
+config_package_lazy_install_enabled("xwsystem", enabled=True, mode="smart")
 ```
 
-**Benefit:** Users who never use Avro don't install fastavro, reducing installation size.
+**By environment (from the docs):** Dev → `smart`; staging → `lite` (deps already there); prod → `warn` or `smart` + allow list; CI → `full`.
 
-### 2. Development Tools
+## Security and control
 
-```python
-# xwnode/visualization/graphviz.py
-import graphviz  # Only installed in development
+- **Allow list:** Only these packages can be auto-installed.  
+  `set_package_allow_list("xwsystem", ["fastavro", "protobuf", "msgpack"])`
+- **Deny list:** Block specific packages.  
+  `set_package_deny_list("xwsystem", ["suspicious-package"])`
+- **Lockfile:** Record what got installed.  
+  `set_package_lockfile("xwsystem", "xwsystem-lock.json")`
+- **SBOM:** For compliance.  
+  `generate_package_sbom("xwsystem", "xwsystem-sbom.json")`
 
-def visualize_graph(node):
-    return graphviz.render(...)
-```
+Production: use an allow list with `smart`, or use `warn` and install nothing. Don’t run `smart` in prod without allow list or lockfile if you care about audit.
 
-**Benefit:** Production deployments don't include development-only dependencies.
+PEP 668: xwlazy won’t install into externally-managed environments; it’ll tell you to use a venv.
 
-### 3. Platform-Specific Features
+## Stats and troubleshooting
 
-```python
-# xwdata/formats/excel.py
-try:
-    import openpyxl  # Windows/Linux
-except ImportError:
-    import xlrd  # macOS fallback
-```
-
-**Benefit:** Platform-specific dependencies install automatically based on availability.
-
-### 4. Security-Controlled Environments
-
-```python
-from xwlazy.lazy import (
-    config_package_lazy_install_enabled,
-    set_package_allow_list,
-)
-
-# Only allow specific packages
-config_package_lazy_install_enabled("xwsystem")
-set_package_allow_list("xwsystem", ["fastavro", "protobuf", "msgpack"])
-
-# Attempts to install other packages are blocked
-import suspicious_package  # ❌ Blocked by security policy
-```
-
-**Benefit:** Enterprise environments can restrict auto-installation to approved packages only.
-
-## 🔧 Advanced Configuration
-
-### Two-Dimensional Mode Configuration
-
-#### Using Preset Modes (Recommended)
-
-```python
-from xwlazy.lazy import config_package_lazy_install_enabled
-
-# Quick preset modes
-config_package_lazy_install_enabled("xwsystem", enabled=True, mode="smart")   # On-demand install
-config_package_lazy_install_enabled("xwsystem", enabled=True, mode="full")   # Install all on start
-config_package_lazy_install_enabled("xwsystem", enabled=True, mode="clean") # Install + cleanup
-config_package_lazy_install_enabled("xwsystem", enabled=True, mode="lite")   # Lazy load only
-```
-
-#### Using Explicit Mode Configuration
-
-```python
-from xwlazy.lazy import (
-    config_package_lazy_install_enabled,
-    LazyLoadMode,
-    LazyInstallMode,
-    LazyModeConfig,
-)
-
-# Explicit two-dimensional configuration
-config_package_lazy_install_enabled(
-    "xwsystem",
-    enabled=True,
-    load_mode=LazyLoadMode.PRELOAD,      # Preload all modules
-    install_mode=LazyInstallMode.SMART   # Install on-demand
-)
-
-# Or use LazyModeConfig for full control
-config = LazyModeConfig(
-    load_mode=LazyLoadMode.BACKGROUND,
-    install_mode=LazyInstallMode.SIZE_AWARE,
-    large_package_threshold_mb=100.0,  # Skip packages > 100MB
-    background_workers=4              # 4 background workers
-)
-config_package_lazy_install_enabled(
-    "xwsystem",
-    enabled=True,
-    mode_config=config
-)
-```
-
-#### Using exonware.conf (Global Configuration)
-
-```python
-import exonware.conf as conf
-
-# Set global lazy mode for all packages
-conf.lazy = "smart"   # or "lite", "full", "clean", "auto", etc.
-```
-
-#### Special Purpose Modes
-
-```python
-# Interactive mode: Ask user before installing
-config_package_lazy_install_enabled(
-    "xwsystem",
-    enabled=True,
-    mode="interactive"  # or LazyInstallMode.INTERACTIVE
-)
-
-# Warn mode: Log but don't install (monitoring)
-config_package_lazy_install_enabled(
-    "xwsystem",
-    enabled=True,
-    mode="warn"  # or LazyInstallMode.WARN
-)
-```
-
-### Security Policies
-
-```python
-from xwlazy.lazy import (
-    set_package_allow_list,
-    set_package_deny_list,
-    set_package_lockfile,
-)
-
-# Whitelist approach
-set_package_allow_list("xwsystem", ["fastavro", "protobuf"])
-
-# Blacklist approach
-set_package_deny_list("xwsystem", ["suspicious-package"])
-
-# Track installations
-set_package_lockfile("xwsystem", "xwsystem-lazy-lock.json")
-```
-
-### SBOM Generation
-
-```python
-from xwlazy.lazy import generate_package_sbom
-
-# Generate Software Bill of Materials for compliance
-sbom = generate_package_sbom("xwsystem", "xwsystem-sbom.json")
-```
-
-### Statistics and Monitoring
+**See what’s going on:**
 
 ```python
 from xwlazy.lazy import get_lazy_install_stats
 
-# Get installation statistics
-stats = get_lazy_install_stats("xwsystem")
-# {
-#   'enabled': True,
-#   'mode': 'auto',
-#   'installed_packages': ['fastavro', 'protobuf'],
-#   'failed_packages': [],
-#   'total_installed': 2
-# }
+stats = get_lazy_install_stats("xwsystem")  # enabled, mode, installed_packages, failed_packages, etc.
 ```
 
-## 🎨 Design Patterns
+**“Nothing gets installed”:** Check `get_lazy_install_stats("your-package")` — `enabled` and `mode`. If you use an allow list, the package must be in it.
 
-xwlazy implements 8 design patterns for maintainability and extensibility:
+**First import feels slow:** That’s the first install. Use `full` to pre-install everything, or `lite` and install deps yourself; caching is on by default.
 
-1. **Facade Pattern** - Unified API to complex subsystems
-2. **Strategy Pattern** - Pluggable discovery/installation strategies
-3. **Template Method** - Base classes define common workflows
-4. **Singleton** - Global instances for system-wide state
-5. **Registry** - Per-package isolation and management
-6. **Observer** - Performance monitoring and tracking
-7. **Proxy** - Deferred loading and lazy access
-8. **Factory** - Creating appropriate handlers by context
+## Docs
 
-## 🔒 Security Considerations
+- [Usage guide](docs/GUIDE_01_USAGE.md) — modes, integration, production, troubleshooting.
+- [Doc index](docs/INDEX.md) — REFs (requirements, architecture, API, DX, benchmarks, tests).
+- [Requirements](docs/REF_01_REQ.md), [Architecture](docs/REF_13_ARCH.md), [API](docs/REF_15_API.md), [DX](docs/REF_14_DX.md).
+- [Benchmarks](docs/REF_54_BENCH.md); run logs under `docs/logs/benchmarks/`.
 
-### PEP 668 Compliance
-xwlazy respects externally-managed Python environments and refuses to install in system Python, suggesting virtual environments instead.
-
-### System Module Protection
-Built-in modules (stdlib) are never auto-installed, preventing accidental system modifications.
-
-### Vulnerability Scanning
-Optional pip-audit integration scans packages after installation and logs security warnings.
-
-### Custom PyPI Mirrors
-Support for internal PyPI servers with custom index URLs and trusted hosts.
-
-## ⚡ Performance Characteristics
-
-- **Zero overhead** for successful imports (hooks only trigger on failures)
-- **Aggressive caching** with file modification time checks
-- **Lazy initialization** - everything loads only when needed
-- **Thread-safe** operations with proper locking
-- **Import overhead:** ~0.1ms for successful imports
-- **First failure:** ~50ms (discovery + policy check)
-- **Subsequent failures:** ~5ms (cached discovery)
-
-## 🧪 Testing
-
-xwlazy includes comprehensive test suites:
+## Tests
 
 ```bash
-# Run all tests
 python tests/runner.py
-
-# Run specific test layers
-python tests/0.core/runner.py      # Core tests (< 30s)
-python tests/1.unit/runner.py     # Unit tests (< 5m)
+# or per layer: python tests/0.core/runner.py, python tests/1.unit/runner.py
 ```
 
-## 📊 Comparison with Competitors
+## License and links
 
-| Feature | xwlazy | lazy-imports-lite | lazy-loader | lazy_import |
-|---------|--------|-------------------|-------------|-------------|
-| **Lazy Import** | ✅ | ✅ | ✅ | ✅ |
-| **Auto-Installation** | ✅ | ❌ | ❌ | ❌ |
-| **Keyword Detection** | ✅ | ✅ | ❌ | ❌ |
-| **Per-Package Isolation** | ✅ | ❌ | ❌ | ❌ |
-| **Security Policies** | ✅ | ❌ | ❌ | ❌ |
-| **SBOM Generation** | ✅ | ❌ | ❌ | ❌ |
-| **Performance Monitoring** | ✅ | ❌ | ❌ | ❌ |
-| **Two-Stage Loading** | ✅ | ❌ | ❌ | ❌ |
-| **Total Features** | **7** | **2** | **1** | **1** |
+MIT — see [LICENSE](LICENSE).
 
-## 🤝 Contributing
+- [exonware.com](https://exonware.com) · [Repository](https://github.com/exonware/xwlazy) · connect@exonware.com · Eng. Muhammad AlShehri
 
-xwlazy is part of the eXonware ecosystem. For contributions, please follow:
-
-- [Development Guide](../../docs/guides/GUIDE_DEV.md) - Core development standards
-- [Testing Guide](../../docs/guides/GUIDE_TEST.md) - Testing standards
-- [Documentation Guide](../../docs/guides/GUIDE_DOCS.md) - Documentation standards
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) for details.
-
-## 🔗 Links
-
-- **Homepage:** https://exonware.com
-- **Repository:** https://github.com/exonware/xwlazy
-- **Email:** connect@exonware.com
-- **Author:** Eng. Muhammad AlShehri
-
-## 🙏 Acknowledgments
-
-xwlazy is built with inspiration from the Python lazy import ecosystem, particularly:
-- `lazy-imports-lite` for keyword-based detection concept
-- `lazy-loader` for scientific Python patterns
-- The broader Python import system for hook mechanisms
-
----
-
-**Part of the eXonware ecosystem** - Enterprise-grade Python libraries for modern software development.
-
-*Last Updated: 17-Nov-2025*
-
-> **Note:** For the current version, use `from exonware.xwlazy import __version__` or `import exonware.xwlazy; print(exonware.xwlazy.__version__)`
-
+Version: `from exonware.xwlazy import __version__` or `import exonware.xwlazy; print(exonware.xwlazy.__version__)`.

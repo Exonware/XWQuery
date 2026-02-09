@@ -8,7 +8,7 @@ This allows users to import the library in two ways:
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
-Version: 1.0.1.3
+Version: 1.0.1.4
 
 DESIGN RATIONALE FOR WILDCARD IMPORT:
 This file intentionally uses a wildcard import (from exonware.xwlazy import *) as an 

@@ -1,6 +1,6 @@
-# xwlazy
+# xwlazy ⚡️
 
-**Missing import? Install it on first use.** One line to enable; standard imports, no try/except. Per-package isolation—xwsystem can be lazy while xwnode stays normal.
+**Missing import? Install it on first use.** One line to enable; standard imports, no try/except. Per-package isolation—xwsystem can be lazy while xwnode stays normal. 🚀
 
 [![Status](https://img.shields.io/badge/status-beta-blue.svg)](https://exonware.com)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org)
@@ -8,7 +8,7 @@
 
 ---
 
-## Install
+## Install 📦
 
 ```bash
 pip install exonware-xwlazy
@@ -16,9 +16,14 @@ pip install exonware-xwlazy
 pip install xwlazy
 ```
 
+Works in both **local/system Python** and **virtual environments** (venv, virtualenv, conda, uv, etc.):
+
+- On a system interpreter, xwlazy respects PEP 668 and will refuse to install into externally-managed environments.
+- Inside a venv, it simply uses the active environment’s `pip` — recommended for real projects.
+
 ---
 
-## Quick start
+## Quick start 🚀
 
 **1. Enable for your package (one line in `__init__.py`):**
 
@@ -41,7 +46,7 @@ Then `pip install -e .` — xwlazy picks it up from metadata.
 
 ---
 
-## What you get
+## What you get ⭐
 
 | Thing | What it means |
 |-------|----------------|
@@ -51,11 +56,31 @@ Then `pip install -e .` — xwlazy picks it up from metadata.
 | **Two-stage load** | Import time: missing imports logged, no crash. Use time: install then run. So you keep normal `import` style. |
 | **Control** | Allow/deny lists, lockfile, SBOM. PEP 668 respected (no install into system Python). |
 
-Single implementation file: `src/exonware/xwlazy.py`; `src/xwlazy.py` re-exports. Old layout in `src/_old/` is reference only, not shipped.
+## DX highlights for developers ✨
+
+- **Copy-paste setup:** `pip install xwlazy` + one `config_package_lazy_install_enabled(...)` call and you’re done.
+- **No import gymnastics:** Keep normal `import` statements; xwlazy installs missing deps behind the scenes, then gets out of your way.
+- **Works with how you already develop:** Local/system Python or venv/conda/uv — with PEP 668 checks so you don’t accidentally mutate system installs.
+- **Debuggable behavior:** `get_lazy_install_stats(...)`, lockfile/SBOM outputs, and clear logs when something is skipped or denied — so you always know *why* something happened.
+
+Single implementation file: `src/exonware/xwlazy.py`; `src/xwlazy.py` re-exports.
+When browsing on GitHub, you may see `src/_old/` — this is legacy/reference code only, safe to ignore, and not shipped or imported.
 
 ---
 
-## Modes
+## Built-in library mappings
+
+xwlazy ships with a curated mapping file (`src/exonware/xwlazy_external_libs.toml`) so common ecosystems “just work” out of the box:
+
+- **Data & ML:** `numpy`, `pandas`, `scipy`, `scikit-learn`, `statsmodels`, `xgboost`, `lightgbm`, `catboost`, `joblib`, `dask`, …
+- **Deep learning & AI:** `torch`, `tensorflow`/`tf`, `keras`, `transformers`, `jax`, `jaxlib`, …
+- **Visualization & geo:** `matplotlib`, `seaborn`, `plotly`, `bokeh`, `altair`, `graphviz`, `folium`, `geopandas`, …
+- **Web & APIs:** `requests`, `httpx`, `aiohttp`, `fastapi`, `uvicorn`, `django`, `flask`, `starlette`, …
+- **Formats & I/O:** `PyYAML`, `ruamel.yaml`, `beautifulsoup4` (`bs4`), `pyarrow`, `fastavro`, `h5py`, and more.
+
+You can extend or override these mappings by editing that TOML file in your own project.
+
+## Modes 🎛️
 
 Two knobs: **load** (when modules load) and **install** (when pip runs). You usually pick a preset.
 
@@ -78,7 +103,7 @@ config_package_lazy_install_enabled("xwsystem", enabled=True, mode="smart")
 
 ---
 
-## Security and production
+## Security and production 🛡️
 
 - **Allow list:** only these packages can be auto-installed.  
   `set_package_allow_list("xwsystem", ["fastavro", "protobuf", "msgpack"])`
@@ -95,7 +120,7 @@ PEP 668: xwlazy won’t install into externally-managed environments; it will te
 
 ---
 
-## Troubleshooting
+## Troubleshooting 🩺
 
 **See what’s going on:**
 
@@ -111,7 +136,7 @@ stats = get_lazy_install_stats("xwsystem")  # enabled, mode, installed_packages,
 
 ---
 
-## Docs and tests
+## Docs and tests 📚
 
 Content in this README is aligned with the project REFs and [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md) (per [GUIDE_63_README](../../docs/guides/GUIDE_63_README.md)).
 
@@ -152,7 +177,7 @@ Not just lazy imports — an **adaptive runtime optimizer** that learns from usa
 
 ---
 
-## License and links
+## License and links 🔗
 
 MIT — see [LICENSE](LICENSE).
 
@@ -160,6 +185,6 @@ MIT — see [LICENSE](LICENSE).
 - **Repository:** https://github.com/exonware/xwlazy  
 - **Contact:** connect@exonware.com · Eng. Muhammad AlShehri  
 
-**Version:** 1.0.1.5
+**Version:** 1.0.1.6
 
 *Built with ❤️ by eXonware.com - Revolutionizing Python Development Since 2025*

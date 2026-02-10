@@ -282,3 +282,10 @@ credentials.json
 .env.development.local
 .env.test.local
 .env.production.local
+
+# ========================================
+# eXonware package-specific ignores
+# ========================================
+
+# Legacy/old layout for xwlazy (reference only, not shipped)
+src/_old/

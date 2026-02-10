@@ -48,7 +48,7 @@ NEW v4.0 - Enterprise Features:
   - Watched Prefixes: Special handling for serialization modules (pickle, json, yaml, etc.)
   - Enhanced Performance Monitoring: Detailed metrics (load times, access counts, cache performance)
   - Serialization Module Detection: Automatic detection of serialization modules for special handling
-Version: 1.0.1.7
+Version: 1.0.1.8
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
@@ -79,6 +79,17 @@ from datetime import datetime
 from collections import defaultdict, deque, OrderedDict
 from importlib.abc import MetaPathFinder, Loader
 from importlib.util import spec_from_loader
+
+# Optional mixins (all features disabled by default; recommend against enabling)
+_mixins = None
+try:
+    _mixins_path = Path(__file__).resolve().parent / "xwlazy_mixins.py"
+    if _mixins_path.exists():
+        _mixins_spec = importlib.util.spec_from_file_location("exonware.xwlazy_mixins", _mixins_path)
+        _mixins = importlib.util.module_from_spec(_mixins_spec)
+        _mixins_spec.loader.exec_module(_mixins)
+except Exception:
+    _mixins = None
 
 # =============================================================================
 # EXTERNAL DEPENDENCIES (Conditionally imported, Need pip installation)
@@ -2539,6 +2550,63 @@ def is_global_import_hook_installed():
     """Check if global __import__ hook is installed."""
     return _global_import_hook_installed
 
+
+# =============================================================================
+# OPTIONAL MIXIN APIs (all disabled by default; we recommend against enabling)
+# =============================================================================
+
+def lazy_import(module_name, package=None, mode="smart", root="."):
+    """
+    Per-call lazy import: ensure hook is active, optionally configure package, then import.
+    Only active when XWLAZY_PER_CALL_API=1. We recommend against enabling (use hook/attach instead).
+    """
+    if _mixins and _mixins.per_call_api_enabled():
+        _mixins.recommendation_warning("Per-call wrapper API")
+        guardian = _instance if _instance else hook(root=root)
+        return _mixins.lazy_import_impl(guardian, module_name, package=package, mode=mode, root=root)
+    raise RuntimeError(
+        "Per-call wrapper API is disabled. Set XWLAZY_PER_CALL_API=1 to enable. "
+        "We recommend against it from a software engineering perspective."
+    )
+
+
+def enable_ast_lazy(root="."):
+    """
+    Register optional AST-based lazy import finder. Only active when XWLAZY_AST_LAZY=1.
+    We recommend against enabling (fragility, Python-only, different problem domain).
+    """
+    if _mixins and _mixins.ast_lazy_enabled():
+        _mixins.recommendation_warning("AST rewrite / AST lazy")
+        return _mixins.register_ast_lazy_finder(root=root)
+    return None
+
+
+def disable_ast_lazy():
+    """Unregister the optional AST lazy finder from sys.meta_path."""
+    if _mixins and _mixins.ast_lazy_enabled():
+        _mixins.unregister_ast_lazy_finder()
+
+
+def attach_stub(package_name, stub_content=None, stub_path=None):
+    """
+    Register type-stub content or path for a package (for tooling). Only active when XWLAZY_TYPING_TOOLS=1.
+    We recommend against enabling (different problem domain; use standard type stubs instead).
+    """
+    if _mixins and _mixins.typing_tools_enabled():
+        _mixins.recommendation_warning("Type-stub / internal API tooling")
+        return _mixins.attach_stub_impl(package_name, stub_content=stub_content, stub_path=stub_path)
+    raise RuntimeError(
+        "Type-stub tooling is disabled. Set XWLAZY_TYPING_TOOLS=1 to enable. "
+        "We recommend against it from a software engineering perspective."
+    )
+
+
+def get_stub_registry():
+    """Return the stub registry (only populated when XWLAZY_TYPING_TOOLS=1 and attach_stub was used)."""
+    if _mixins and _mixins.typing_tools_enabled():
+        return _mixins.get_stub_registry()
+    return {}
+
 # Export public API
 __all__ = [
     # Core activation
@@ -2563,4 +2631,6 @@ __all__ = [
     'get_performance_stats', 'clear_performance_stats',
     # Utility
     'is_externally_managed',
+    # Optional mixins (disabled by default; we recommend against enabling)
+    'lazy_import', 'enable_ast_lazy', 'disable_ast_lazy', 'attach_stub', 'get_stub_registry',
 ]

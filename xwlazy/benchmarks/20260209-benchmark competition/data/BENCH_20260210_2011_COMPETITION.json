@@ -1,0 +1,5690 @@
+[
+  {
+    "library": "pipimport",
+    "test_name": "light_load",
+    "import_time_ms": 1.7441000018152408,
+    "memory_peak_mb": 29.4375,
+    "memory_avg_mb": 29.09765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:21:35.332355",
+    "relative_time": 6.007922798456089,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "medium_load",
+    "import_time_ms": 6.339999999909196,
+    "memory_peak_mb": 30.71484375,
+    "memory_avg_mb": 30.20703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:21:35.357814",
+    "relative_time": 21.83947623532031,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "heavy_load",
+    "import_time_ms": 21.375599997554673,
+    "memory_peak_mb": 34.4375,
+    "memory_avg_mb": 32.595703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:21:35.434035",
+    "relative_time": 73.63279308659216,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "enterprise_load",
+    "import_time_ms": 71.4836999977706,
+    "memory_peak_mb": 44.109375,
+    "memory_avg_mb": 39.302734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:21:35.667166",
+    "relative_time": 246.24078349155158,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "light_load",
+    "import_time_ms": 0.8755000017117709,
+    "memory_peak_mb": 45.4609375,
+    "memory_avg_mb": 45.283203125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:21:38.924029",
+    "relative_time": 3.0158456595711294,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "medium_load",
+    "import_time_ms": 9.932599998137448,
+    "memory_peak_mb": 46.16796875,
+    "memory_avg_mb": 45.814453125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:21:38.954400",
+    "relative_time": 34.214949781919906,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "heavy_load",
+    "import_time_ms": 20.552900001348462,
+    "memory_peak_mb": 48.0078125,
+    "memory_avg_mb": 47.09375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:21:39.025147",
+    "relative_time": 70.79882825753837,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 90.22340000228724,
+    "memory_peak_mb": 51.2421875,
+    "memory_avg_mb": 49.625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:21:39.257411",
+    "relative_time": 310.79365934510594,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "light_load",
+    "import_time_ms": 1.5731000021332875,
+    "memory_peak_mb": 51.7578125,
+    "memory_avg_mb": 51.662109375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:21:42.254635",
+    "relative_time": 5.418876989410775,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "medium_load",
+    "import_time_ms": 6.085900000471156,
+    "memory_peak_mb": 52.57421875,
+    "memory_avg_mb": 52.171875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:21:42.285022",
+    "relative_time": 20.96417483166077,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "heavy_load",
+    "import_time_ms": 20.549600001686485,
+    "memory_peak_mb": 54.52734375,
+    "memory_avg_mb": 53.55078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:21:42.345692",
+    "relative_time": 70.78746070798074,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "enterprise_load",
+    "import_time_ms": 58.14180000015767,
+    "memory_peak_mb": 60.00390625,
+    "memory_avg_mb": 57.265625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:21:42.527920",
+    "relative_time": 200.28177593065868,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "light_load",
+    "import_time_ms": 1.2340000030235387,
+    "memory_peak_mb": 61.00390625,
+    "memory_avg_mb": 60.833984375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:46.450275",
+    "relative_time": 4.250775037981664,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "medium_load",
+    "import_time_ms": 7.506299996748567,
+    "memory_peak_mb": 62.5703125,
+    "memory_avg_mb": 61.81640625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:46.470538",
+    "relative_time": 25.85704422658094,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "heavy_load",
+    "import_time_ms": 22.454100002505584,
+    "memory_peak_mb": 64.46484375,
+    "memory_avg_mb": 63.57421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:46.541294",
+    "relative_time": 77.34791536234225,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 59.54340000243974,
+    "memory_peak_mb": 70.25,
+    "memory_avg_mb": 67.451171875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:46.763773",
+    "relative_time": 205.10988475427106,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "light_load",
+    "import_time_ms": 2.267399999254849,
+    "memory_peak_mb": 70.28125,
+    "memory_avg_mb": 70.279296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:50.156655",
+    "relative_time": 7.810540757161006,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "medium_load",
+    "import_time_ms": 6.437200001528254,
+    "memory_peak_mb": 70.3046875,
+    "memory_avg_mb": 70.302734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:50.176908",
+    "relative_time": 22.174302280346,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "heavy_load",
+    "import_time_ms": 24.065499997959705,
+    "memory_peak_mb": 70.46875,
+    "memory_avg_mb": 70.38671875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:50.257911",
+    "relative_time": 82.89872481136742,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 58.87069999880623,
+    "memory_peak_mb": 74.54296875,
+    "memory_avg_mb": 72.505859375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:50.440679",
+    "relative_time": 202.79262675063316,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "light_load",
+    "import_time_ms": 1.4795999995840248,
+    "memory_peak_mb": 75.40234375,
+    "memory_avg_mb": 75.14453125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:55.648728",
+    "relative_time": 5.09679637683881,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "medium_load",
+    "import_time_ms": 6.05100000029779,
+    "memory_peak_mb": 76.7265625,
+    "memory_avg_mb": 76.068359375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:55.668973",
+    "relative_time": 20.843954370397395,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "heavy_load",
+    "import_time_ms": 21.353700001782272,
+    "memory_peak_mb": 78.69140625,
+    "memory_avg_mb": 77.75390625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:55.739776",
+    "relative_time": 73.55735390090891,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 56.213200001366204,
+    "memory_peak_mb": 84.4765625,
+    "memory_avg_mb": 81.587890625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:21:55.911734",
+    "relative_time": 193.63830371588767,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "light_load",
+    "import_time_ms": 2.3860000001150183,
+    "memory_peak_mb": 85.046875,
+    "memory_avg_mb": 84.93359375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:25:05.463418",
+    "relative_time": 8.219083643648663,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "medium_load",
+    "import_time_ms": 8.19709999996121,
+    "memory_peak_mb": 86.15625,
+    "memory_avg_mb": 85.603515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:25:05.481859",
+    "relative_time": 28.23665152212318,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "heavy_load",
+    "import_time_ms": 24.5403000008082,
+    "memory_peak_mb": 88.3359375,
+    "memory_avg_mb": 87.26171875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:25:05.620827",
+    "relative_time": 84.53427424021415,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "enterprise_load",
+    "import_time_ms": 61.83899999814457,
+    "memory_peak_mb": 88.9296875,
+    "memory_avg_mb": 88.6328125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:25:05.805251",
+    "relative_time": 213.01756638719144,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "light_load",
+    "import_time_ms": 1.0696999997890089,
+    "memory_peak_mb": 89.03515625,
+    "memory_avg_mb": 89.03125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:28:14.542069",
+    "relative_time": 3.684808789376781,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "medium_load",
+    "import_time_ms": 10.102700001880294,
+    "memory_peak_mb": 89.33984375,
+    "memory_avg_mb": 89.1875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:28:14.574436",
+    "relative_time": 34.800895363847815,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "heavy_load",
+    "import_time_ms": 25.127500000962755,
+    "memory_peak_mb": 91.51953125,
+    "memory_avg_mb": 90.435546875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:28:14.644225",
+    "relative_time": 86.5570093267976,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "enterprise_load",
+    "import_time_ms": 64.19340000138618,
+    "memory_peak_mb": 98.58984375,
+    "memory_avg_mb": 95.05859375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:28:14.848710",
+    "relative_time": 221.12779713166614,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "light_load",
+    "import_time_ms": 1.9424999991315417,
+    "memory_peak_mb": 102.2890625,
+    "memory_avg_mb": 100.6640625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:31:44.581010",
+    "relative_time": 6.6913537174685525,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "medium_load",
+    "import_time_ms": 6.724700000631856,
+    "memory_peak_mb": 105.22265625,
+    "memory_avg_mb": 104.126953125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:31:44.745369",
+    "relative_time": 23.16465707500967,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "heavy_load",
+    "import_time_ms": 21.468799997819588,
+    "memory_peak_mb": 108.15625,
+    "memory_avg_mb": 106.76171875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:31:44.969439",
+    "relative_time": 73.9538402775932,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "enterprise_load",
+    "import_time_ms": 60.62770000062301,
+    "memory_peak_mb": 109.9140625,
+    "memory_avg_mb": 109.8046875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:31:45.377952",
+    "relative_time": 208.84498633828062,
+    "test_mode": "lazy_import_only",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "light_load",
+    "import_time_ms": 1.6371999990951736,
+    "memory_peak_mb": 109.91796875,
+    "memory_avg_mb": 109.916015625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:35:11.711479",
+    "relative_time": 5.639683039939681,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "medium_load",
+    "import_time_ms": 10.007299999415409,
+    "memory_peak_mb": 109.9375,
+    "memory_avg_mb": 109.927734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:35:11.744991",
+    "relative_time": 34.4722697981205,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "heavy_load",
+    "import_time_ms": 30.03099999841652,
+    "memory_peak_mb": 110.0390625,
+    "memory_avg_mb": 109.98828125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:35:11.836176",
+    "relative_time": 103.44815627724215,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "enterprise_load",
+    "import_time_ms": 56.42140000054496,
+    "memory_peak_mb": 114.515625,
+    "memory_avg_mb": 112.27734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:35:12.021832",
+    "relative_time": 194.3554928222478,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "light_load",
+    "import_time_ms": 0.5971999999019317,
+    "memory_peak_mb": 115.12109375,
+    "memory_avg_mb": 115.04296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:37:43.566259",
+    "relative_time": 2.057182209113301,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "medium_load",
+    "import_time_ms": 3.772799998841947,
+    "memory_peak_mb": 116.21875,
+    "memory_avg_mb": 115.669921875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:37:43.580256",
+    "relative_time": 12.996210712382538,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "heavy_load",
+    "import_time_ms": 14.266799997130875,
+    "memory_peak_mb": 118.23828125,
+    "memory_avg_mb": 117.228515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:37:43.623314",
+    "relative_time": 49.145022002503175,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 36.86800000286894,
+    "memory_peak_mb": 120.5,
+    "memory_avg_mb": 119.369140625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:37:43.785718",
+    "relative_time": 126.99965456119516,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "light_load",
+    "import_time_ms": 0.6425999999919441,
+    "memory_peak_mb": 120.61328125,
+    "memory_avg_mb": 120.556640625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:39:48.877373",
+    "relative_time": 2.213572149659605,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "medium_load",
+    "import_time_ms": 3.5748000009334646,
+    "memory_peak_mb": 120.62890625,
+    "memory_avg_mb": 120.62109375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:39:48.888621",
+    "relative_time": 12.31415767626618,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "heavy_load",
+    "import_time_ms": 15.668700001697289,
+    "memory_peak_mb": 120.63671875,
+    "memory_avg_mb": 120.6328125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:39:48.937507",
+    "relative_time": 53.97416424768648,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "enterprise_load",
+    "import_time_ms": 41.323299999930896,
+    "memory_peak_mb": 123.5234375,
+    "memory_avg_mb": 122.080078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:39:49.056692",
+    "relative_time": 142.3468814394997,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "light_load",
+    "import_time_ms": 0.6476999988080934,
+    "memory_peak_mb": 123.97265625,
+    "memory_avg_mb": 123.919921875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:42:06.623847",
+    "relative_time": 2.231140178515606,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "medium_load",
+    "import_time_ms": 4.019500000140397,
+    "memory_peak_mb": 124.63671875,
+    "memory_avg_mb": 124.3046875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:42:06.639043",
+    "relative_time": 13.846021251134612,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.724299999012146,
+    "memory_peak_mb": 126.76953125,
+    "memory_avg_mb": 125.720703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:42:06.674147",
+    "relative_time": 47.27626556453078,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 38.543599999684375,
+    "memory_peak_mb": 132.75,
+    "memory_avg_mb": 129.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:42:06.799978",
+    "relative_time": 132.771614547138,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "light_load",
+    "import_time_ms": 1.4009000005898997,
+    "memory_peak_mb": 133.11328125,
+    "memory_avg_mb": 133.099609375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:44:12.749992",
+    "relative_time": 4.825697519145349,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "medium_load",
+    "import_time_ms": 5.67850000152248,
+    "memory_peak_mb": 133.15234375,
+    "memory_avg_mb": 133.15234375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:44:12.770730",
+    "relative_time": 19.56079902796415,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "heavy_load",
+    "import_time_ms": 18.25249999819789,
+    "memory_peak_mb": 133.16015625,
+    "memory_avg_mb": 133.15625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:44:12.829134",
+    "relative_time": 62.87461197973755,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 48.14819999955944,
+    "memory_peak_mb": 136.05078125,
+    "memory_avg_mb": 134.60546875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:44:12.978991",
+    "relative_time": 165.85669868752177,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "light_load",
+    "import_time_ms": 0.7199000028776936,
+    "memory_peak_mb": 136.484375,
+    "memory_avg_mb": 136.439453125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:46:45.711664",
+    "relative_time": 2.4798484234825855,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "medium_load",
+    "import_time_ms": 3.6107999985688366,
+    "memory_peak_mb": 137.45703125,
+    "memory_avg_mb": 136.974609375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:46:45.725795",
+    "relative_time": 12.438167312360905,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "heavy_load",
+    "import_time_ms": 11.88700000056997,
+    "memory_peak_mb": 139.25,
+    "memory_avg_mb": 138.353515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:46:45.760395",
+    "relative_time": 40.947295587605446,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 30.268799997429596,
+    "memory_peak_mb": 145.5078125,
+    "memory_avg_mb": 142.37890625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:46:45.853847",
+    "relative_time": 104.26730886829573,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "light_load",
+    "import_time_ms": 1.4207999993232079,
+    "memory_peak_mb": 146.08203125,
+    "memory_avg_mb": 145.982421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:47:34.706842",
+    "relative_time": 4.894247290348064,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "medium_load",
+    "import_time_ms": 4.797499997948762,
+    "memory_peak_mb": 147.29296875,
+    "memory_avg_mb": 146.705078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:47:34.723435",
+    "relative_time": 16.526007444109123,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "heavy_load",
+    "import_time_ms": 16.827700004796498,
+    "memory_peak_mb": 148.734375,
+    "memory_avg_mb": 148.029296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:47:34.777799",
+    "relative_time": 57.96658586042841,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "enterprise_load",
+    "import_time_ms": 44.72659999737516,
+    "memory_peak_mb": 153.1953125,
+    "memory_avg_mb": 150.96484375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:47:34.996024",
+    "relative_time": 154.0702709374357,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "light_load",
+    "import_time_ms": 1.7268999945372343,
+    "memory_peak_mb": 153.20703125,
+    "memory_avg_mb": 153.20703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:47:41.405432",
+    "relative_time": 5.94867372113736,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "medium_load",
+    "import_time_ms": 8.198399998946115,
+    "memory_peak_mb": 153.22265625,
+    "memory_avg_mb": 153.21484375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:47:41.434388",
+    "relative_time": 28.241129644668476,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "heavy_load",
+    "import_time_ms": 26.77650000259746,
+    "memory_peak_mb": 153.2421875,
+    "memory_avg_mb": 153.232421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:47:41.525938",
+    "relative_time": 92.23733998109729,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "enterprise_load",
+    "import_time_ms": 72.08320000063395,
+    "memory_peak_mb": 156.2421875,
+    "memory_avg_mb": 154.7421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:47:41.744690",
+    "relative_time": 248.30588854924812,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "light_load",
+    "import_time_ms": 1.879499999631662,
+    "memory_peak_mb": 156.86328125,
+    "memory_avg_mb": 156.771484375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:47:49.104157",
+    "relative_time": 6.474336841770994,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "medium_load",
+    "import_time_ms": 7.6212999993003905,
+    "memory_peak_mb": 161.4453125,
+    "memory_avg_mb": 159.90234375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:47:49.300910",
+    "relative_time": 26.253186154471837,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "heavy_load",
+    "import_time_ms": 30.293499999970663,
+    "memory_peak_mb": 164.609375,
+    "memory_avg_mb": 163.705078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:47:49.574971",
+    "relative_time": 104.3523932718471,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "enterprise_load",
+    "import_time_ms": 64.39169999794103,
+    "memory_peak_mb": 173.515625,
+    "memory_avg_mb": 169.37109375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:47:49.943768",
+    "relative_time": 221.81088357682162,
+    "test_mode": "lazy_import_install",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "light_load",
+    "import_time_ms": 1.829500004532747,
+    "memory_peak_mb": 175.64453125,
+    "memory_avg_mb": 175.59765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:47:55.663592",
+    "relative_time": 6.302101241653562,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "medium_load",
+    "import_time_ms": 8.709399997314904,
+    "memory_peak_mb": 175.80078125,
+    "memory_avg_mb": 175.72265625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:47:55.849851",
+    "relative_time": 30.00137764479209,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "heavy_load",
+    "import_time_ms": 28.5132999997586,
+    "memory_peak_mb": 175.84765625,
+    "memory_avg_mb": 175.82421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:47:55.942879",
+    "relative_time": 98.22011636343932,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "enterprise_load",
+    "import_time_ms": 70.7371999960742,
+    "memory_peak_mb": 176.4453125,
+    "memory_avg_mb": 176.1484375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:47:56.163858",
+    "relative_time": 243.66930572389404,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "light_load",
+    "import_time_ms": 1.381799993396271,
+    "memory_peak_mb": 176.57421875,
+    "memory_avg_mb": 176.55859375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:48:00.274444",
+    "relative_time": 4.7599034886712674,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "medium_load",
+    "import_time_ms": 8.194599999114871,
+    "memory_peak_mb": 176.64453125,
+    "memory_avg_mb": 176.609375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:48:00.302734",
+    "relative_time": 28.22803973835777,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "heavy_load",
+    "import_time_ms": 25.96419999463251,
+    "memory_peak_mb": 176.7421875,
+    "memory_avg_mb": 176.693359375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:48:00.385028",
+    "relative_time": 89.4392001198741,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 65.22509999922477,
+    "memory_peak_mb": 177.51953125,
+    "memory_avg_mb": 177.130859375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:48:00.578820",
+    "relative_time": 224.68170684540408,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "light_load",
+    "import_time_ms": 1.585599995451048,
+    "memory_peak_mb": 177.953125,
+    "memory_avg_mb": 177.837890625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:48:04.824008",
+    "relative_time": 5.4619358706424475,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "medium_load",
+    "import_time_ms": 8.05459999537561,
+    "memory_peak_mb": 179.1015625,
+    "memory_avg_mb": 178.529296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:48:04.855471",
+    "relative_time": 27.74577999787636,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "heavy_load",
+    "import_time_ms": 27.956199999607634,
+    "memory_peak_mb": 180.3046875,
+    "memory_avg_mb": 179.7109375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:48:04.944890",
+    "relative_time": 96.30106711830237,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "enterprise_load",
+    "import_time_ms": 71.6824999981327,
+    "memory_peak_mb": 187.6953125,
+    "memory_avg_mb": 184.0,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:48:05.168655",
+    "relative_time": 246.92559230599193,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "light_load",
+    "import_time_ms": 1.3763999959337525,
+    "memory_peak_mb": 188.16796875,
+    "memory_avg_mb": 188.115234375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:09.559785",
+    "relative_time": 4.741302050776134,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "medium_load",
+    "import_time_ms": 9.037800002261065,
+    "memory_peak_mb": 189.3359375,
+    "memory_avg_mb": 188.779296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:09.746273",
+    "relative_time": 31.132621194287903,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "heavy_load",
+    "import_time_ms": 23.457999996026047,
+    "memory_peak_mb": 189.35546875,
+    "memory_avg_mb": 189.345703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:09.821229",
+    "relative_time": 80.80606205815334,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 67.50230000034207,
+    "memory_peak_mb": 189.921875,
+    "memory_avg_mb": 189.642578125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:10.024111",
+    "relative_time": 232.52600578991277,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "light_load",
+    "import_time_ms": 1.814799994463101,
+    "memory_peak_mb": 189.94140625,
+    "memory_avg_mb": 189.931640625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:14.241317",
+    "relative_time": 6.2514639355684505,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "medium_load",
+    "import_time_ms": 6.733199996233452,
+    "memory_peak_mb": 190.48828125,
+    "memory_avg_mb": 190.224609375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:14.265360",
+    "relative_time": 23.19393711474848,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "heavy_load",
+    "import_time_ms": 24.62309999827994,
+    "memory_peak_mb": 191.65234375,
+    "memory_avg_mb": 191.083984375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:14.349843",
+    "relative_time": 84.81949641325744,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 81.31810000486439,
+    "memory_peak_mb": 197.91015625,
+    "memory_avg_mb": 194.79296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:14.598646",
+    "relative_time": 280.117462552535,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "light_load",
+    "import_time_ms": 3.380399997695349,
+    "memory_peak_mb": 198.32421875,
+    "memory_avg_mb": 198.255859375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:18.627653",
+    "relative_time": 11.64450558621479,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "medium_load",
+    "import_time_ms": 11.14650000090478,
+    "memory_peak_mb": 198.94140625,
+    "memory_avg_mb": 198.634765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:18.663537",
+    "relative_time": 38.3964861009849,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "heavy_load",
+    "import_time_ms": 30.397899994568434,
+    "memory_peak_mb": 201.1484375,
+    "memory_avg_mb": 200.052734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:18.758860",
+    "relative_time": 104.71202122153453,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 80.10210000065854,
+    "memory_peak_mb": 210.36328125,
+    "memory_avg_mb": 205.755859375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T19:48:19.011676",
+    "relative_time": 275.9286923326007,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "light_load",
+    "import_time_ms": 1.2984999993932433,
+    "memory_peak_mb": 210.8359375,
+    "memory_avg_mb": 210.763671875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:51:16.157595",
+    "relative_time": 4.472958971406677,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "medium_load",
+    "import_time_ms": 5.763599998317659,
+    "memory_peak_mb": 212.0390625,
+    "memory_avg_mb": 211.439453125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:51:16.177703",
+    "relative_time": 19.85394403705891,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "heavy_load",
+    "import_time_ms": 19.015999998373445,
+    "memory_peak_mb": 213.97265625,
+    "memory_avg_mb": 213.0078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:51:16.236689",
+    "relative_time": 65.50464985193626,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "enterprise_load",
+    "import_time_ms": 46.615399995062035,
+    "memory_peak_mb": 216.00390625,
+    "memory_avg_mb": 214.98828125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T19:51:16.473184",
+    "relative_time": 160.5766435972695,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "light_load",
+    "import_time_ms": 0.6274999977904372,
+    "memory_peak_mb": 216.0078125,
+    "memory_avg_mb": 216.0078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:53:01.177987",
+    "relative_time": 2.161556985741968,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "medium_load",
+    "import_time_ms": 4.074800002854317,
+    "memory_peak_mb": 216.015625,
+    "memory_avg_mb": 216.01171875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:53:01.194848",
+    "relative_time": 14.036513852885577,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "heavy_load",
+    "import_time_ms": 15.360400000645313,
+    "memory_peak_mb": 216.0234375,
+    "memory_avg_mb": 216.01953125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:53:01.248841",
+    "relative_time": 52.91215942963912,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "enterprise_load",
+    "import_time_ms": 40.923800006567035,
+    "memory_peak_mb": 217.12109375,
+    "memory_avg_mb": 216.572265625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T19:53:01.373800",
+    "relative_time": 140.97071888252722,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "light_load",
+    "import_time_ms": 1.237000004039146,
+    "memory_peak_mb": 217.66796875,
+    "memory_avg_mb": 217.576171875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:55:01.316332",
+    "relative_time": 4.2611091785001545,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "medium_load",
+    "import_time_ms": 4.944899999827612,
+    "memory_peak_mb": 221.4921875,
+    "memory_avg_mb": 220.302734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:55:01.431437",
+    "relative_time": 17.03375804949799,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.362400000914931,
+    "memory_peak_mb": 225.0390625,
+    "memory_avg_mb": 223.845703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:55:01.553836",
+    "relative_time": 46.02962417523744,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "enterprise_load",
+    "import_time_ms": 38.770500003010966,
+    "memory_peak_mb": 233.80859375,
+    "memory_avg_mb": 229.978515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T19:55:01.762857",
+    "relative_time": 133.55321978854434,
+    "test_mode": "lazy_import_preload",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "light_load",
+    "import_time_ms": 0.8841999951982871,
+    "memory_peak_mb": 235.8515625,
+    "memory_avg_mb": 235.76953125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:56:34.033095",
+    "relative_time": 3.0458146344920967,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "medium_load",
+    "import_time_ms": 4.26290000177687,
+    "memory_peak_mb": 236.43359375,
+    "memory_avg_mb": 236.14453125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:56:34.051279",
+    "relative_time": 14.684464240329064,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "heavy_load",
+    "import_time_ms": 14.038899993465748,
+    "memory_peak_mb": 238.40234375,
+    "memory_avg_mb": 237.4375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:56:34.097672",
+    "relative_time": 48.35997204759068,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "enterprise_load",
+    "import_time_ms": 40.232300001662225,
+    "memory_peak_mb": 246.18359375,
+    "memory_avg_mb": 242.34375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T19:56:34.223684",
+    "relative_time": 138.58870028251795,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "light_load",
+    "import_time_ms": 0.3891000014846213,
+    "memory_peak_mb": 246.80859375,
+    "memory_avg_mb": 246.77734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:58:03.531426",
+    "relative_time": 1.3403375766101249,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "medium_load",
+    "import_time_ms": 2.8252000047359616,
+    "memory_peak_mb": 248.17578125,
+    "memory_avg_mb": 247.494140625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:58:03.531426",
+    "relative_time": 9.732001319296776,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "heavy_load",
+    "import_time_ms": 8.264699994469993,
+    "memory_peak_mb": 250.01953125,
+    "memory_avg_mb": 249.09765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:58:03.563083",
+    "relative_time": 28.469514057391866,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 26.723599999968428,
+    "memory_peak_mb": 250.15234375,
+    "memory_avg_mb": 250.0859375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T19:58:03.746748",
+    "relative_time": 92.05511468925476,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "light_load",
+    "import_time_ms": 0.71340000431519,
+    "memory_peak_mb": 250.171875,
+    "memory_avg_mb": 250.138671875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:59:39.136069",
+    "relative_time": 2.457457798224313,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "medium_load",
+    "import_time_ms": 3.678499997477047,
+    "memory_peak_mb": 250.21875,
+    "memory_avg_mb": 250.1953125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:59:39.151776",
+    "relative_time": 12.671374334018358,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "heavy_load",
+    "import_time_ms": 22.82500000001164,
+    "memory_peak_mb": 250.21875,
+    "memory_avg_mb": 250.21875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:59:39.215663",
+    "relative_time": 78.62555916065926,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "enterprise_load",
+    "import_time_ms": 38.28599999542348,
+    "memory_peak_mb": 250.31640625,
+    "memory_avg_mb": 250.267578125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T19:59:39.341140",
+    "relative_time": 131.8842566336751,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "light_load",
+    "import_time_ms": 0.6968999950913712,
+    "memory_peak_mb": 250.54296875,
+    "memory_avg_mb": 250.48046875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:01:14.043166",
+    "relative_time": 2.4006200128408244,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "medium_load",
+    "import_time_ms": 3.794999996898696,
+    "memory_peak_mb": 250.5625,
+    "memory_avg_mb": 250.552734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:01:14.056941",
+    "relative_time": 13.072683319636713,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "heavy_load",
+    "import_time_ms": 12.551599997095764,
+    "memory_peak_mb": 251.15625,
+    "memory_avg_mb": 250.859375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:01:14.088683",
+    "relative_time": 43.23665139680527,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 33.13219999836292,
+    "memory_peak_mb": 253.59375,
+    "memory_avg_mb": 252.421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:01:14.201599",
+    "relative_time": 114.13089818588172,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "light_load",
+    "import_time_ms": 0.966899999184534,
+    "memory_peak_mb": 253.9765625,
+    "memory_avg_mb": 253.90625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:02:53.624135",
+    "relative_time": 3.3306923587420023,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "medium_load",
+    "import_time_ms": 4.323399996792432,
+    "memory_peak_mb": 255.21484375,
+    "memory_avg_mb": 254.6015625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:02:53.649110",
+    "relative_time": 14.892869319729423,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "heavy_load",
+    "import_time_ms": 14.532099994539749,
+    "memory_peak_mb": 257.16796875,
+    "memory_avg_mb": 256.19921875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:02:53.695750",
+    "relative_time": 50.058904177380875,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 38.1377000012435,
+    "memory_peak_mb": 263.48046875,
+    "memory_avg_mb": 260.32421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:02:53.806643",
+    "relative_time": 131.37340581370063,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "light_load",
+    "import_time_ms": 0.861399996210821,
+    "memory_peak_mb": 263.9921875,
+    "memory_avg_mb": 263.88671875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:03:58.427307",
+    "relative_time": 2.9672751966278654,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "medium_load",
+    "import_time_ms": 4.635700002836529,
+    "memory_peak_mb": 264.97265625,
+    "memory_avg_mb": 264.484375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:03:58.443674",
+    "relative_time": 15.96865300433323,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "heavy_load",
+    "import_time_ms": 16.08289999421686,
+    "memory_peak_mb": 266.27734375,
+    "memory_avg_mb": 265.634765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:03:58.493598",
+    "relative_time": 55.400964073148714,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 42.52779999660561,
+    "memory_peak_mb": 270.98046875,
+    "memory_avg_mb": 268.62890625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:03:58.773245",
+    "relative_time": 146.49603744158134,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "light_load",
+    "import_time_ms": 0.9950999956345186,
+    "memory_peak_mb": 270.984375,
+    "memory_avg_mb": 270.984375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:04:33.818944",
+    "relative_time": 3.427833234501368,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "medium_load",
+    "import_time_ms": 4.241599999659229,
+    "memory_peak_mb": 271.01171875,
+    "memory_avg_mb": 270.998046875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:04:33.833972",
+    "relative_time": 14.611091860192287,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "heavy_load",
+    "import_time_ms": 14.072699996177107,
+    "memory_peak_mb": 271.0703125,
+    "memory_avg_mb": 271.041015625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:04:33.880759",
+    "relative_time": 48.476403334022706,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "enterprise_load",
+    "import_time_ms": 40.16569999657804,
+    "memory_peak_mb": 271.5234375,
+    "memory_avg_mb": 271.296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:04:33.998655",
+    "relative_time": 138.35928242316004,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "light_load",
+    "import_time_ms": 1.022299999021925,
+    "memory_peak_mb": 271.75390625,
+    "memory_avg_mb": 271.69140625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:04:37.760455",
+    "relative_time": 3.5215294218181503,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "medium_load",
+    "import_time_ms": 5.223100000876002,
+    "memory_peak_mb": 271.76953125,
+    "memory_avg_mb": 271.76171875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:04:37.779955",
+    "relative_time": 17.992077026098844,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "heavy_load",
+    "import_time_ms": 17.760300004738383,
+    "memory_peak_mb": 272.421875,
+    "memory_avg_mb": 272.09765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:04:37.836508",
+    "relative_time": 61.17912458851709,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "enterprise_load",
+    "import_time_ms": 43.81920000014361,
+    "memory_peak_mb": 279.72265625,
+    "memory_avg_mb": 276.072265625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:04:37.967848",
+    "relative_time": 150.94453896965146,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "light_load",
+    "import_time_ms": 1.1317999960738234,
+    "memory_peak_mb": 280.375,
+    "memory_avg_mb": 280.294921875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:04:43.333169",
+    "relative_time": 3.89872541289336,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "medium_load",
+    "import_time_ms": 4.654399999708403,
+    "memory_peak_mb": 284.17578125,
+    "memory_avg_mb": 283.001953125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:04:43.449964",
+    "relative_time": 16.033069114315833,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "heavy_load",
+    "import_time_ms": 18.241400000988506,
+    "memory_peak_mb": 287.46875,
+    "memory_avg_mb": 286.275390625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:04:43.604490",
+    "relative_time": 62.83637568237636,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "enterprise_load",
+    "import_time_ms": 40.593199999420904,
+    "memory_peak_mb": 297.5234375,
+    "memory_avg_mb": 293.0546875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:04:43.820042",
+    "relative_time": 139.83189695830512,
+    "test_mode": "lazy_import_background",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "light_load",
+    "import_time_ms": 0.9098000009544194,
+    "memory_peak_mb": 299.69921875,
+    "memory_avg_mb": 299.61328125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:04:49.211560",
+    "relative_time": 3.1339992902244505,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "medium_load",
+    "import_time_ms": 4.3884999977308325,
+    "memory_peak_mb": 300.27734375,
+    "memory_avg_mb": 299.98828125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:04:49.228322",
+    "relative_time": 15.117120096296283,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "heavy_load",
+    "import_time_ms": 14.05700000032084,
+    "memory_peak_mb": 301.75,
+    "memory_avg_mb": 301.03515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:04:49.272899",
+    "relative_time": 48.4223213645586,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "enterprise_load",
+    "import_time_ms": 35.657299995364156,
+    "memory_peak_mb": 309.27734375,
+    "memory_avg_mb": 305.515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:04:49.385672",
+    "relative_time": 122.82914130529902,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "light_load",
+    "import_time_ms": 1.2629000048036687,
+    "memory_peak_mb": 309.99609375,
+    "memory_avg_mb": 309.875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:04:52.859692",
+    "relative_time": 4.35032723073985,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "medium_load",
+    "import_time_ms": 4.206300000078045,
+    "memory_peak_mb": 311.05859375,
+    "memory_avg_mb": 310.529296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:04:52.873061",
+    "relative_time": 14.489493516032804,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.230800002929755,
+    "memory_peak_mb": 313.265625,
+    "memory_avg_mb": 312.162109375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:04:52.919170",
+    "relative_time": 45.57630003823324,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 36.59930000139866,
+    "memory_peak_mb": 313.30078125,
+    "memory_avg_mb": 313.283203125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:04:53.192661",
+    "relative_time": 126.07406035037107,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "light_load",
+    "import_time_ms": 0.7294000024558045,
+    "memory_peak_mb": 313.33984375,
+    "memory_avg_mb": 313.33984375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:04:56.703389",
+    "relative_time": 2.5125731892593484,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "medium_load",
+    "import_time_ms": 3.743699999176897,
+    "memory_peak_mb": 313.33984375,
+    "memory_avg_mb": 313.33984375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:04:56.713522",
+    "relative_time": 12.895969584442193,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.293700001668185,
+    "memory_peak_mb": 313.33984375,
+    "memory_avg_mb": 313.33984375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:04:56.753898",
+    "relative_time": 45.792972440073825,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "enterprise_load",
+    "import_time_ms": 35.38420000404585,
+    "memory_peak_mb": 313.3515625,
+    "memory_avg_mb": 313.345703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:04:56.856096",
+    "relative_time": 121.88839039514953,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "light_load",
+    "import_time_ms": 0.5985999960103072,
+    "memory_peak_mb": 313.359375,
+    "memory_avg_mb": 313.359375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:00.308139",
+    "relative_time": 2.0620047929837813,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "medium_load",
+    "import_time_ms": 3.8078999932622537,
+    "memory_peak_mb": 313.3671875,
+    "memory_avg_mb": 313.3671875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:00.323890",
+    "relative_time": 13.117120096296283,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.175799998862203,
+    "memory_peak_mb": 313.640625,
+    "memory_avg_mb": 313.509765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:00.371171",
+    "relative_time": 45.386840845521405,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 35.60969999671215,
+    "memory_peak_mb": 315.33203125,
+    "memory_avg_mb": 314.486328125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:00.479453",
+    "relative_time": 122.66517300255823,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "light_load",
+    "import_time_ms": 0.8889000018825755,
+    "memory_peak_mb": 315.37890625,
+    "memory_avg_mb": 315.375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:04.038390",
+    "relative_time": 3.062004805515572,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "medium_load",
+    "import_time_ms": 3.8420999990194105,
+    "memory_peak_mb": 315.6328125,
+    "memory_avg_mb": 315.505859375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:04.052637",
+    "relative_time": 13.23492927815621,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "heavy_load",
+    "import_time_ms": 12.465700005122926,
+    "memory_peak_mb": 316.54296875,
+    "memory_avg_mb": 316.08984375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:04.094665",
+    "relative_time": 42.94075063445009,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 34.4351999956416,
+    "memory_peak_mb": 321.6328125,
+    "memory_avg_mb": 319.087890625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:04.203705",
+    "relative_time": 118.61935835553435,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "light_load",
+    "import_time_ms": 0.6538000016007572,
+    "memory_peak_mb": 321.99609375,
+    "memory_avg_mb": 321.94921875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:07.607516",
+    "relative_time": 2.252152933409562,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "medium_load",
+    "import_time_ms": 3.729900003236253,
+    "memory_peak_mb": 323.0625,
+    "memory_avg_mb": 322.548828125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:07.615767",
+    "relative_time": 12.848432568133434,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "heavy_load",
+    "import_time_ms": 12.712499999906868,
+    "memory_peak_mb": 324.7578125,
+    "memory_avg_mb": 323.916015625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:07.662884",
+    "relative_time": 43.790905621995556,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 38.599300001806114,
+    "memory_peak_mb": 331.828125,
+    "memory_avg_mb": 328.29296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:05:07.801119",
+    "relative_time": 132.96348503178507,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "light_load",
+    "import_time_ms": 0.9716999993543141,
+    "memory_peak_mb": 332.37109375,
+    "memory_avg_mb": 332.240234375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:05:46.444464",
+    "relative_time": 3.347226978558871,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "medium_load",
+    "import_time_ms": 5.344999997760169,
+    "memory_peak_mb": 333.6796875,
+    "memory_avg_mb": 333.02734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:05:46.460939",
+    "relative_time": 18.411987449612333,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "heavy_load",
+    "import_time_ms": 15.633299997716676,
+    "memory_peak_mb": 335.76171875,
+    "memory_avg_mb": 334.720703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:05:46.512842",
+    "relative_time": 53.85222141713823,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "enterprise_load",
+    "import_time_ms": 53.662700003769714,
+    "memory_peak_mb": 341.2109375,
+    "memory_avg_mb": 338.486328125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:05:46.686395",
+    "relative_time": 184.85256490098377,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "light_load",
+    "import_time_ms": 0.8834000036586076,
+    "memory_peak_mb": 341.76953125,
+    "memory_avg_mb": 341.65234375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:05:50.824143",
+    "relative_time": 3.043058893763463,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "medium_load",
+    "import_time_ms": 5.708899996534456,
+    "memory_peak_mb": 342.421875,
+    "memory_avg_mb": 342.09765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:05:51.050812",
+    "relative_time": 19.665518265918003,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "heavy_load",
+    "import_time_ms": 16.99930000177119,
+    "memory_peak_mb": 342.421875,
+    "memory_avg_mb": 342.421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:05:51.101006",
+    "relative_time": 58.55769848755199,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "enterprise_load",
+    "import_time_ms": 43.109300000651274,
+    "memory_peak_mb": 342.7265625,
+    "memory_avg_mb": 342.57421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:05:51.230801",
+    "relative_time": 148.49913768123054,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "light_load",
+    "import_time_ms": 1.1360999997123145,
+    "memory_peak_mb": 342.73046875,
+    "memory_avg_mb": 342.73046875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:05:56.921023",
+    "relative_time": 3.9135376884889377,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "medium_load",
+    "import_time_ms": 6.426599997212179,
+    "memory_peak_mb": 343.4921875,
+    "memory_avg_mb": 343.38671875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:05:57.049202",
+    "relative_time": 22.13778831467431,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "heavy_load",
+    "import_time_ms": 16.755999997258186,
+    "memory_peak_mb": 344.51953125,
+    "memory_avg_mb": 344.0546875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:05:57.206481",
+    "relative_time": 57.719599959682725,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "enterprise_load",
+    "import_time_ms": 43.682700001227204,
+    "memory_peak_mb": 349.16796875,
+    "memory_avg_mb": 347.029296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:05:57.437320",
+    "relative_time": 150.47433573897342,
+    "test_mode": "full_install_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "light_load",
+    "import_time_ms": 1.3427000012598,
+    "memory_peak_mb": 351.2734375,
+    "memory_avg_mb": 351.2265625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:06:02.855784",
+    "relative_time": 4.625215263264659,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "medium_load",
+    "import_time_ms": 5.307100000209175,
+    "memory_peak_mb": 351.81640625,
+    "memory_avg_mb": 351.544921875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:06:02.877050",
+    "relative_time": 18.281432860362255,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "heavy_load",
+    "import_time_ms": 17.28449999791337,
+    "memory_peak_mb": 353.70703125,
+    "memory_avg_mb": 352.78125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:06:02.931251",
+    "relative_time": 59.540130433632406,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "enterprise_load",
+    "import_time_ms": 45.61110000213375,
+    "memory_peak_mb": 360.4453125,
+    "memory_avg_mb": 357.134765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:06:03.076018",
+    "relative_time": 157.1171190185623,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "light_load",
+    "import_time_ms": 0.9410000056959689,
+    "memory_peak_mb": 360.9765625,
+    "memory_avg_mb": 360.85546875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:06:07.621974",
+    "relative_time": 3.2414743315658874,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "medium_load",
+    "import_time_ms": 6.250400001590606,
+    "memory_peak_mb": 362.16015625,
+    "memory_avg_mb": 361.568359375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:06:07.644380",
+    "relative_time": 21.530830015447812,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "heavy_load",
+    "import_time_ms": 20.789299996977206,
+    "memory_peak_mb": 364.89453125,
+    "memory_avg_mb": 363.52734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:06:07.709366",
+    "relative_time": 71.61315823965789,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 49.724099997547455,
+    "memory_peak_mb": 370.08984375,
+    "memory_avg_mb": 367.4921875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:06:07.860454",
+    "relative_time": 171.2852208572053,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "light_load",
+    "import_time_ms": 1.2403000000631437,
+    "memory_peak_mb": 370.69921875,
+    "memory_avg_mb": 370.572265625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:06:11.892226",
+    "relative_time": 4.272476715525987,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "medium_load",
+    "import_time_ms": 7.029599997622427,
+    "memory_peak_mb": 371.94921875,
+    "memory_avg_mb": 371.33203125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:06:11.917591",
+    "relative_time": 24.214949857110646,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "heavy_load",
+    "import_time_ms": 23.39399999618763,
+    "memory_peak_mb": 373.84765625,
+    "memory_avg_mb": 372.908203125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:06:11.990478",
+    "relative_time": 80.58560046894962,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "enterprise_load",
+    "import_time_ms": 53.63490000308957,
+    "memory_peak_mb": 382.29296875,
+    "memory_avg_mb": 378.0703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:06:12.155673",
+    "relative_time": 184.7568018955887,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "light_load",
+    "import_time_ms": 0.6324000059976242,
+    "memory_peak_mb": 382.76953125,
+    "memory_avg_mb": 382.716796875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:16.034497",
+    "relative_time": 2.178436104479392,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "medium_load",
+    "import_time_ms": 3.510899994580541,
+    "memory_peak_mb": 383.5625,
+    "memory_avg_mb": 383.173828125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:16.046887",
+    "relative_time": 12.094040535855852,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "heavy_load",
+    "import_time_ms": 10.817000002134591,
+    "memory_peak_mb": 386.65625,
+    "memory_avg_mb": 385.109375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:16.080790",
+    "relative_time": 37.261453389189526,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 29.506799997761846,
+    "memory_peak_mb": 391.6484375,
+    "memory_avg_mb": 389.173828125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:16.172021",
+    "relative_time": 101.64243806635626,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "light_load",
+    "import_time_ms": 1.7374999952153303,
+    "memory_peak_mb": 392.1328125,
+    "memory_avg_mb": 392.044921875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:19.997662",
+    "relative_time": 5.9851876742772605,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "medium_load",
+    "import_time_ms": 7.391700004518498,
+    "memory_peak_mb": 392.87109375,
+    "memory_avg_mb": 392.521484375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:20.333983",
+    "relative_time": 25.462280219181515,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "heavy_load",
+    "import_time_ms": 18.523800004913937,
+    "memory_peak_mb": 392.8984375,
+    "memory_avg_mb": 392.896484375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:20.393338",
+    "relative_time": 63.80916246071581,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 52.90419999801088,
+    "memory_peak_mb": 392.9453125,
+    "memory_avg_mb": 392.921875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:20.552321",
+    "relative_time": 182.23975057125227,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "light_load",
+    "import_time_ms": 0.82970000221394,
+    "memory_peak_mb": 392.95703125,
+    "memory_avg_mb": 392.95703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:24.526002",
+    "relative_time": 2.8580778361287185,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "medium_load",
+    "import_time_ms": 6.095800003095064,
+    "memory_peak_mb": 392.95703125,
+    "memory_avg_mb": 392.95703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:24.546433",
+    "relative_time": 20.998277492865434,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "heavy_load",
+    "import_time_ms": 19.298899998830166,
+    "memory_peak_mb": 392.95703125,
+    "memory_avg_mb": 392.95703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:24.603078",
+    "relative_time": 66.47915897449701,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 58.321700002125,
+    "memory_peak_mb": 393.02734375,
+    "memory_avg_mb": 392.9921875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:06:24.787807",
+    "relative_time": 200.9014796874025,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "light_load",
+    "import_time_ms": 1.137600003858097,
+    "memory_peak_mb": 393.0703125,
+    "memory_avg_mb": 393.0703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:07:22.383516",
+    "relative_time": 3.918704771279973,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "medium_load",
+    "import_time_ms": 5.097000001114793,
+    "memory_peak_mb": 393.0703125,
+    "memory_avg_mb": 393.0703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:07:22.402078",
+    "relative_time": 17.557698800846754,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "heavy_load",
+    "import_time_ms": 18.742200001724996,
+    "memory_peak_mb": 393.0703125,
+    "memory_avg_mb": 393.0703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:07:22.463310",
+    "relative_time": 64.56148762478797,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "enterprise_load",
+    "import_time_ms": 70.45950000610901,
+    "memory_peak_mb": 393.10546875,
+    "memory_avg_mb": 393.087890625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:07:22.669140",
+    "relative_time": 242.71270914164165,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "light_load",
+    "import_time_ms": 1.1547999965841882,
+    "memory_peak_mb": 393.11328125,
+    "memory_avg_mb": 393.11328125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:07:26.766223",
+    "relative_time": 3.9779537984715403,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "medium_load",
+    "import_time_ms": 7.031499997538049,
+    "memory_peak_mb": 393.11328125,
+    "memory_avg_mb": 393.11328125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:07:26.788743",
+    "relative_time": 24.221494810265998,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "heavy_load",
+    "import_time_ms": 19.289700001536403,
+    "memory_peak_mb": 393.12890625,
+    "memory_avg_mb": 393.12109375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:07:26.849159",
+    "relative_time": 66.44746763029117,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "enterprise_load",
+    "import_time_ms": 53.26230000355281,
+    "memory_peak_mb": 393.53125,
+    "memory_avg_mb": 393.330078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:07:27.012763",
+    "relative_time": 183.4733020792985,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "light_load",
+    "import_time_ms": 1.345900003798306,
+    "memory_peak_mb": 393.5390625,
+    "memory_avg_mb": 393.537109375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:07:32.486167",
+    "relative_time": 4.636238351497099,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "medium_load",
+    "import_time_ms": 5.855799994606059,
+    "memory_peak_mb": 394.41015625,
+    "memory_avg_mb": 394.228515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:07:32.623464",
+    "relative_time": 20.171546502021997,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "heavy_load",
+    "import_time_ms": 17.86980000179028,
+    "memory_peak_mb": 395.08984375,
+    "memory_avg_mb": 395.080078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:07:32.774453",
+    "relative_time": 61.5563205795923,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "enterprise_load",
+    "import_time_ms": 43.35999999602791,
+    "memory_peak_mb": 402.515625,
+    "memory_avg_mb": 398.892578125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:07:33.008457",
+    "relative_time": 149.36272704894367,
+    "test_mode": "clean_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "light_load",
+    "import_time_ms": 1.0458000033395365,
+    "memory_peak_mb": 404.68359375,
+    "memory_avg_mb": 404.607421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:07:37.907376",
+    "relative_time": 3.6024801766812025,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "medium_load",
+    "import_time_ms": 5.911000000196509,
+    "memory_peak_mb": 405.5,
+    "memory_avg_mb": 405.09375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:07:37.929726",
+    "relative_time": 20.36169464244778,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "heavy_load",
+    "import_time_ms": 19.638400000985712,
+    "memory_peak_mb": 406.640625,
+    "memory_avg_mb": 406.091796875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:07:37.994075",
+    "relative_time": 67.64863882135403,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "enterprise_load",
+    "import_time_ms": 50.740499995299615,
+    "memory_peak_mb": 414.06640625,
+    "memory_avg_mb": 410.4296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:07:38.144877",
+    "relative_time": 174.78642647184344,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "light_load",
+    "import_time_ms": 1.1517000020830892,
+    "memory_peak_mb": 414.65625,
+    "memory_avg_mb": 414.60546875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:07:42.018063",
+    "relative_time": 3.967275209159656,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "medium_load",
+    "import_time_ms": 5.760099993494805,
+    "memory_peak_mb": 415.76953125,
+    "memory_avg_mb": 415.212890625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:07:42.043604",
+    "relative_time": 19.841887527255547,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "heavy_load",
+    "import_time_ms": 18.7554000003729,
+    "memory_peak_mb": 418.79296875,
+    "memory_avg_mb": 417.28125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:07:42.098778",
+    "relative_time": 64.60695782301846,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 49.09329999645706,
+    "memory_peak_mb": 421.83984375,
+    "memory_avg_mb": 420.31640625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:07:42.630914",
+    "relative_time": 169.1122963093739,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "light_load",
+    "import_time_ms": 1.4258000010158867,
+    "memory_peak_mb": 421.84765625,
+    "memory_avg_mb": 421.84765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:07:46.530033",
+    "relative_time": 4.911470857878881,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "medium_load",
+    "import_time_ms": 4.91640000109328,
+    "memory_peak_mb": 421.875,
+    "memory_avg_mb": 421.861328125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:07:46.550095",
+    "relative_time": 16.9355837521677,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "heavy_load",
+    "import_time_ms": 18.098600005032495,
+    "memory_peak_mb": 421.875,
+    "memory_avg_mb": 421.875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:07:46.605244",
+    "relative_time": 62.34447077415399,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "enterprise_load",
+    "import_time_ms": 39.12080000009155,
+    "memory_peak_mb": 422.015625,
+    "memory_avg_mb": 421.9453125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:07:46.738664",
+    "relative_time": 134.7599025111916,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "light_load",
+    "import_time_ms": 1.2293999971006997,
+    "memory_peak_mb": 422.0234375,
+    "memory_avg_mb": 422.0234375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:50.753714",
+    "relative_time": 4.234929340815163,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "medium_load",
+    "import_time_ms": 7.101900002453476,
+    "memory_peak_mb": 422.0234375,
+    "memory_avg_mb": 422.0234375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:50.780573",
+    "relative_time": 24.4640025759346,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "heavy_load",
+    "import_time_ms": 22.48400000098627,
+    "memory_peak_mb": 422.0234375,
+    "memory_avg_mb": 422.0234375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:50.854942",
+    "relative_time": 77.4509122560748,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 57.97139999776846,
+    "memory_peak_mb": 422.02734375,
+    "memory_avg_mb": 422.025390625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:51.031428",
+    "relative_time": 199.69479693969166,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "light_load",
+    "import_time_ms": 1.6329999998561107,
+    "memory_peak_mb": 422.02734375,
+    "memory_avg_mb": 422.02734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:54.900268",
+    "relative_time": 5.625215250732868,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "medium_load",
+    "import_time_ms": 5.543999999645166,
+    "memory_peak_mb": 422.02734375,
+    "memory_avg_mb": 422.02734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:54.921634",
+    "relative_time": 19.097485211766646,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "heavy_load",
+    "import_time_ms": 20.09139999427134,
+    "memory_peak_mb": 422.02734375,
+    "memory_avg_mb": 422.02734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:54.986135",
+    "relative_time": 69.20909348824732,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 54.235900002822746,
+    "memory_peak_mb": 422.03515625,
+    "memory_avg_mb": 422.03125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:55.150703",
+    "relative_time": 186.8270740110127,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "light_load",
+    "import_time_ms": 0.8153000017045997,
+    "memory_peak_mb": 422.05078125,
+    "memory_avg_mb": 422.05078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:59.144077",
+    "relative_time": 2.8084739766781124,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "medium_load",
+    "import_time_ms": 5.59860000066692,
+    "memory_peak_mb": 422.05078125,
+    "memory_avg_mb": 422.05078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:59.160565",
+    "relative_time": 19.28556650905058,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.696100002562162,
+    "memory_peak_mb": 422.0546875,
+    "memory_avg_mb": 422.0546875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:59.204370",
+    "relative_time": 47.17912468877142,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 34.60179999819957,
+    "memory_peak_mb": 422.38671875,
+    "memory_avg_mb": 422.220703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:07:59.310617",
+    "relative_time": 119.19324744019069,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "light_load",
+    "import_time_ms": 2.2323000011965632,
+    "memory_peak_mb": 422.375,
+    "memory_avg_mb": 422.375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:08:39.434354",
+    "relative_time": 7.689631360715471,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "medium_load",
+    "import_time_ms": 7.194500001787674,
+    "memory_peak_mb": 422.41015625,
+    "memory_avg_mb": 422.392578125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:08:39.463519",
+    "relative_time": 24.782982936325585,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "heavy_load",
+    "import_time_ms": 16.758700003265403,
+    "memory_peak_mb": 423.0625,
+    "memory_avg_mb": 422.736328125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:08:39.514416",
+    "relative_time": 57.728900703693874,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "enterprise_load",
+    "import_time_ms": 40.49189999932423,
+    "memory_peak_mb": 423.67578125,
+    "memory_avg_mb": 423.369140625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:08:39.638095",
+    "relative_time": 139.48294759792958,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "light_load",
+    "import_time_ms": 0.7291000001714565,
+    "memory_peak_mb": 423.96875,
+    "memory_avg_mb": 423.875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:08:43.218371",
+    "relative_time": 2.511539767688425,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "medium_load",
+    "import_time_ms": 4.535799998848233,
+    "memory_peak_mb": 425.15234375,
+    "memory_avg_mb": 424.5625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:08:43.234063",
+    "relative_time": 15.624526227828177,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "heavy_load",
+    "import_time_ms": 14.164100000925828,
+    "memory_peak_mb": 426.41796875,
+    "memory_avg_mb": 425.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:08:43.281405",
+    "relative_time": 48.79125005825716,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "enterprise_load",
+    "import_time_ms": 38.71200000139652,
+    "memory_peak_mb": 434.45703125,
+    "memory_avg_mb": 430.4375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:08:43.408089",
+    "relative_time": 133.35170411109272,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "light_load",
+    "import_time_ms": 2.1517999994102865,
+    "memory_peak_mb": 435.2109375,
+    "memory_avg_mb": 435.1171875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:08:48.338438",
+    "relative_time": 7.412332011191841,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "medium_load",
+    "import_time_ms": 4.05989999853773,
+    "memory_peak_mb": 438.9609375,
+    "memory_avg_mb": 437.791015625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:08:48.451909",
+    "relative_time": 13.985187624150099,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "heavy_load",
+    "import_time_ms": 14.457599994784687,
+    "memory_peak_mb": 442.328125,
+    "memory_avg_mb": 441.02734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:08:48.587320",
+    "relative_time": 49.80227310889423,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "enterprise_load",
+    "import_time_ms": 41.37269999773707,
+    "memory_peak_mb": 452.2265625,
+    "memory_avg_mb": 447.89453125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:08:49.077818",
+    "relative_time": 142.51705022153888,
+    "test_mode": "auto_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "light_load",
+    "import_time_ms": 0.9565000000293367,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.77734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:08:53.804465",
+    "relative_time": 3.29486735331605,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "medium_load",
+    "import_time_ms": 4.280799999833107,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:08:53.818710",
+    "relative_time": 14.746124584519452,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "heavy_load",
+    "import_time_ms": 14.250599997467361,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.783203125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:08:53.861574",
+    "relative_time": 49.08921766375419,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "enterprise_load",
+    "import_time_ms": 37.16749999875901,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:08:53.988329",
+    "relative_time": 128.0313458928692,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "light_load",
+    "import_time_ms": 0.5845999985467643,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:08:57.429912",
+    "relative_time": 2.013778828961073,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "medium_load",
+    "import_time_ms": 4.7408999962499365,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:08:57.445618",
+    "relative_time": 16.33103671981286,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "heavy_load",
+    "import_time_ms": 17.796399995859247,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:08:57.496288",
+    "relative_time": 61.30347867340521,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 41.11950000515208,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:08:57.619513",
+    "relative_time": 141.64484908259212,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "light_load",
+    "import_time_ms": 0.6738000010955147,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:09:01.297536",
+    "relative_time": 2.321047178469251,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "medium_load",
+    "import_time_ms": 4.5593999966513366,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:09:01.313277",
+    "relative_time": 15.705821431484623,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "heavy_load",
+    "import_time_ms": 16.03869999962626,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:09:01.376484",
+    "relative_time": 55.24870780635431,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "enterprise_load",
+    "import_time_ms": 43.45760000433074,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:09:01.502707",
+    "relative_time": 149.69893100192905,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "light_load",
+    "import_time_ms": 0.6847999975434504,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:04.963833",
+    "relative_time": 2.358939001973469,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "medium_load",
+    "import_time_ms": 5.1851000025635585,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:04.981668",
+    "relative_time": 17.861177962991793,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "heavy_load",
+    "import_time_ms": 19.873199998983182,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:05.047353",
+    "relative_time": 68.45745727188911,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 40.30870000133291,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:05.178978",
+    "relative_time": 138.85187630415993,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "light_load",
+    "import_time_ms": 0.9876999974949285,
+    "memory_peak_mb": 452.78515625,
+    "memory_avg_mb": 452.78515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:08.592850",
+    "relative_time": 3.402342369593906,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "medium_load",
+    "import_time_ms": 3.8215999957174063,
+    "memory_peak_mb": 452.796875,
+    "memory_avg_mb": 452.791015625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:08.608924",
+    "relative_time": 13.16431266381165,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "heavy_load",
+    "import_time_ms": 12.510199994721916,
+    "memory_peak_mb": 452.796875,
+    "memory_avg_mb": 452.796875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:08.640455",
+    "relative_time": 43.09404029775183,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 34.858600003644824,
+    "memory_peak_mb": 453.46875,
+    "memory_avg_mb": 453.1328125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:08.751134",
+    "relative_time": 120.07784958786137,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "light_load",
+    "import_time_ms": 0.7466000024578534,
+    "memory_peak_mb": 453.46875,
+    "memory_avg_mb": 453.46875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:12.161195",
+    "relative_time": 2.571822241514496,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "medium_load",
+    "import_time_ms": 3.7735000005341135,
+    "memory_peak_mb": 453.7265625,
+    "memory_avg_mb": 453.59765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:12.176891",
+    "relative_time": 12.998622016849568,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.03100000222912,
+    "memory_peak_mb": 453.92578125,
+    "memory_avg_mb": 453.826171875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:12.216637",
+    "relative_time": 44.88804651028671,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 36.61399999691639,
+    "memory_peak_mb": 459.1796875,
+    "memory_avg_mb": 456.552734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:09:12.326261",
+    "relative_time": 126.12469760632902,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "light_load",
+    "import_time_ms": 0.9212000004481524,
+    "memory_peak_mb": 459.58984375,
+    "memory_avg_mb": 459.537109375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:09:46.728604",
+    "relative_time": 3.1732690091565656,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "medium_load",
+    "import_time_ms": 7.4070000046049245,
+    "memory_peak_mb": 460.765625,
+    "memory_avg_mb": 460.181640625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:09:46.755427",
+    "relative_time": 25.51498431828131,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "heavy_load",
+    "import_time_ms": 24.126000003889203,
+    "memory_peak_mb": 461.92578125,
+    "memory_avg_mb": 461.37109375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:09:46.825387",
+    "relative_time": 83.10712992836315,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "enterprise_load",
+    "import_time_ms": 43.23049999948125,
+    "memory_peak_mb": 468.53125,
+    "memory_avg_mb": 465.228515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:09:46.965602",
+    "relative_time": 148.91663681280878,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "light_load",
+    "import_time_ms": 1.178700003947597,
+    "memory_peak_mb": 469.0703125,
+    "memory_avg_mb": 468.953125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:09:50.468323",
+    "relative_time": 4.06028244876249,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "medium_load",
+    "import_time_ms": 5.298500000208151,
+    "memory_peak_mb": 470.140625,
+    "memory_avg_mb": 469.60546875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:09:50.484264",
+    "relative_time": 18.25180833423468,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "heavy_load",
+    "import_time_ms": 16.72600000165403,
+    "memory_peak_mb": 472.390625,
+    "memory_avg_mb": 471.265625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:09:50.532113",
+    "relative_time": 57.61625860462498,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "enterprise_load",
+    "import_time_ms": 41.94370000186609,
+    "memory_peak_mb": 476.56640625,
+    "memory_avg_mb": 474.478515625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:09:50.956206",
+    "relative_time": 144.48398098190515,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "light_load",
+    "import_time_ms": 0.9405000018887222,
+    "memory_peak_mb": 476.56640625,
+    "memory_avg_mb": 476.56640625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:09:55.826994",
+    "relative_time": 3.239751962281015,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "medium_load",
+    "import_time_ms": 4.201100004138425,
+    "memory_peak_mb": 477.19140625,
+    "memory_avg_mb": 477.123046875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:09:55.933815",
+    "relative_time": 14.471581025851618,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "heavy_load",
+    "import_time_ms": 15.12910000019474,
+    "memory_peak_mb": 477.34375,
+    "memory_avg_mb": 477.330078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:09:56.070293",
+    "relative_time": 52.11539746384381,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "enterprise_load",
+    "import_time_ms": 39.189499999338295,
+    "memory_peak_mb": 477.5625,
+    "memory_avg_mb": 477.45703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:09:56.276264",
+    "relative_time": 134.99655424635523,
+    "test_mode": "full_features",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "light_load",
+    "import_time_ms": 0.9552999981679022,
+    "memory_peak_mb": 477.6953125,
+    "memory_avg_mb": 477.6953125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:10:00.759289",
+    "relative_time": 3.290733692095938,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "medium_load",
+    "import_time_ms": 3.891300002578646,
+    "memory_peak_mb": 477.6953125,
+    "memory_avg_mb": 477.6953125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:10:00.775234",
+    "relative_time": 13.40440913754501,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.13289999961853,
+    "memory_peak_mb": 477.6953125,
+    "memory_avg_mb": 477.6953125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:10:00.824627",
+    "relative_time": 45.23906268874051,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pipimport",
+    "test_name": "enterprise_load",
+    "import_time_ms": 35.39699999964796,
+    "memory_peak_mb": 477.73828125,
+    "memory_avg_mb": 477.716796875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "auto_install"
+    ],
+    "timestamp": "2026-02-10T20:10:00.937723",
+    "relative_time": 121.93248269795212,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "light_load",
+    "import_time_ms": 0.47250000352505594,
+    "memory_peak_mb": 477.7421875,
+    "memory_avg_mb": 477.7421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:10:04.408499",
+    "relative_time": 1.6276265927952707,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "medium_load",
+    "import_time_ms": 3.1413000033353455,
+    "memory_peak_mb": 477.7421875,
+    "memory_avg_mb": 477.7421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:10:04.408499",
+    "relative_time": 10.820874885147706,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "heavy_load",
+    "import_time_ms": 8.64000000001397,
+    "memory_peak_mb": 477.7421875,
+    "memory_avg_mb": 477.7421875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:10:04.441183",
+    "relative_time": 29.76231461769323,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "deferred-import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 26.440800000273157,
+    "memory_peak_mb": 477.79296875,
+    "memory_avg_mb": 477.767578125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "deferred_loading"
+    ],
+    "timestamp": "2026-02-10T20:10:04.519568",
+    "relative_time": 91.08095004055099,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "light_load",
+    "import_time_ms": 0.6795000008423813,
+    "memory_peak_mb": 477.79296875,
+    "memory_avg_mb": 477.79296875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:10:07.843795",
+    "relative_time": 2.340682037935309,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "medium_load",
+    "import_time_ms": 4.118400000152178,
+    "memory_peak_mb": 477.80078125,
+    "memory_avg_mb": 477.796875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:10:07.852454",
+    "relative_time": 14.186703301601712,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.352399997529574,
+    "memory_peak_mb": 477.80078125,
+    "memory_avg_mb": 477.80078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:10:07.899705",
+    "relative_time": 45.995177040175804,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-loader",
+    "test_name": "enterprise_load",
+    "import_time_ms": 39.198999998916406,
+    "memory_peak_mb": 478.78125,
+    "memory_avg_mb": 478.291015625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "caching"
+    ],
+    "timestamp": "2026-02-10T20:10:08.022632",
+    "relative_time": 135.02927901213198,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "light_load",
+    "import_time_ms": 0.7072000007610768,
+    "memory_peak_mb": 479.16796875,
+    "memory_avg_mb": 479.119140625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:11.388798",
+    "relative_time": 2.436100569473383,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "medium_load",
+    "import_time_ms": 4.624200002581347,
+    "memory_peak_mb": 479.38671875,
+    "memory_avg_mb": 479.27734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:11.404772",
+    "relative_time": 15.92903881154414,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "heavy_load",
+    "import_time_ms": 16.283700002531987,
+    "memory_peak_mb": 480.43359375,
+    "memory_avg_mb": 479.919921875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:11.452793",
+    "relative_time": 56.09266233966498,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 53.885899993474595,
+    "memory_peak_mb": 483.8359375,
+    "memory_avg_mb": 482.134765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:11.610769",
+    "relative_time": 185.6214246598092,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "light_load",
+    "import_time_ms": 0.9787000017240644,
+    "memory_peak_mb": 484.27734375,
+    "memory_avg_mb": 484.2109375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:14.972841",
+    "relative_time": 3.3713399731020157,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "medium_load",
+    "import_time_ms": 3.5615000015241094,
+    "memory_peak_mb": 485.0703125,
+    "memory_avg_mb": 484.6796875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:14.990596",
+    "relative_time": 12.268343004178712,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "heavy_load",
+    "import_time_ms": 12.624299997696653,
+    "memory_peak_mb": 487.078125,
+    "memory_avg_mb": 486.083984375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:15.036403",
+    "relative_time": 43.48708198599354,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy_import",
+    "test_name": "enterprise_load",
+    "import_time_ms": 36.997499999415595,
+    "memory_peak_mb": 493.27734375,
+    "memory_avg_mb": 490.189453125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:15.148858",
+    "relative_time": 127.44574479733005,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "light_load",
+    "import_time_ms": 0.857699997141026,
+    "memory_peak_mb": 493.69921875,
+    "memory_avg_mb": 493.650390625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:18.536272",
+    "relative_time": 2.954529764174135,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "medium_load",
+    "import_time_ms": 4.954600000928622,
+    "memory_peak_mb": 494.3203125,
+    "memory_avg_mb": 494.009765625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:18.552949",
+    "relative_time": 17.067171762988703,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.457799999741837,
+    "memory_peak_mb": 495.94921875,
+    "memory_avg_mb": 495.140625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:18.587915",
+    "relative_time": 46.358249728432966,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "pylazyimports",
+    "test_name": "enterprise_load",
+    "import_time_ms": 36.06220000074245,
+    "memory_peak_mb": 504.52734375,
+    "memory_avg_mb": 500.23828125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import"
+    ],
+    "timestamp": "2026-02-10T20:10:18.698485",
+    "relative_time": 124.2239053502938,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "light_load",
+    "import_time_ms": 0.9397999965585768,
+    "memory_peak_mb": 505.08203125,
+    "memory_avg_mb": 504.962890625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:10:54.619061",
+    "relative_time": 3.237340645282194,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "medium_load",
+    "import_time_ms": 4.902300002868287,
+    "memory_peak_mb": 506.32421875,
+    "memory_avg_mb": 505.705078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:10:54.635053",
+    "relative_time": 16.88701331428802,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.402699994912837,
+    "memory_peak_mb": 509.0859375,
+    "memory_avg_mb": 507.705078125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:10:54.682466",
+    "relative_time": 46.16844606186416,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazi",
+    "test_name": "enterprise_load",
+    "import_time_ms": 38.5759999990114,
+    "memory_peak_mb": 515.08984375,
+    "memory_avg_mb": 512.087890625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "auto_detection"
+    ],
+    "timestamp": "2026-02-10T20:10:54.792746",
+    "relative_time": 132.88322322463597,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "light_load",
+    "import_time_ms": 0.6828999976278283,
+    "memory_peak_mb": 515.4921875,
+    "memory_avg_mb": 515.443359375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:10:58.232241",
+    "relative_time": 2.352394048818116,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "medium_load",
+    "import_time_ms": 5.62079999508569,
+    "memory_peak_mb": 515.9140625,
+    "memory_avg_mb": 515.70703125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:10:58.582854",
+    "relative_time": 19.36203910377296,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "heavy_load",
+    "import_time_ms": 12.282600000617094,
+    "memory_peak_mb": 515.921875,
+    "memory_avg_mb": 515.91796875,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:10:58.619321",
+    "relative_time": 42.31002378947384,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "lazy-imports-lite",
+    "test_name": "enterprise_load",
+    "import_time_ms": 34.97380000044359,
+    "memory_peak_mb": 515.93359375,
+    "memory_avg_mb": 515.927734375,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "lazy_import",
+      "keyword_detection"
+    ],
+    "timestamp": "2026-02-10T20:10:58.724904",
+    "relative_time": 120.47468043840263,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "light_load",
+    "import_time_ms": 1.2171999987913296,
+    "memory_peak_mb": 515.94140625,
+    "memory_avg_mb": 515.94140625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:11:03.491783",
+    "relative_time": 4.192903856090833,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "medium_load",
+    "import_time_ms": 6.025899994710926,
+    "memory_peak_mb": 516.328125,
+    "memory_avg_mb": 516.314453125,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:11:03.610496",
+    "relative_time": 20.757492071418124,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "heavy_load",
+    "import_time_ms": 13.176200001908,
+    "memory_peak_mb": 516.50390625,
+    "memory_avg_mb": 516.416015625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:11:03.750335",
+    "relative_time": 45.388218740949306,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  },
+  {
+    "library": "xwlazy",
+    "test_name": "enterprise_load",
+    "import_time_ms": 38.1889999989653,
+    "memory_peak_mb": 516.5703125,
+    "memory_avg_mb": 516.541015625,
+    "package_size_mb": 0.0,
+    "success": true,
+    "error": null,
+    "features_supported": [
+      "keyword_detection",
+      "per_package_isolation",
+      "performance_monitoring"
+    ],
+    "timestamp": "2026-02-10T20:11:03.952017",
+    "relative_time": 131.55011954889514,
+    "test_mode": "intelligent_mode",
+    "test_category": "standard"
+  }
+]

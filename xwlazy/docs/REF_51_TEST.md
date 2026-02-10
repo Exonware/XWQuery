@@ -16,6 +16,7 @@ Test layers: 0.core, 1.unit, 2.integration (and 3.advance as applicable). Runner
 | Reliable run; virtual + normal env | 2.integration, 3.advance | `test_installer_cache_integration.py`, `test_production_scenarios.py` |
 | Zero delay when no error; performance | 0.core/benchmarks, 3.advance | `test_mode_performance.py`, `test_performance_regression.py` |
 | Security / allow-deny (internal) | 3.advance | `test_security.py` |
+| Optional mixins (per-call, AST, type-stub) | 1.unit | `test_optional_mixins.py` — env gates, disabled/enabled API, recommendation warning |
 
 Source: [REF_01_REQ.md](REF_01_REQ.md). Plan: [logs/reviews/REVIEW_20260207_REQ_REFLECTION_AND_PLAN.md](logs/reviews/REVIEW_20260207_REQ_REFLECTION_AND_PLAN.md).
 

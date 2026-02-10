@@ -80,6 +80,41 @@ xwlazy ships with a curated mapping file (`src/exonware/xwlazy_external_libs.tom
 
 You can extend or override these mappings by editing that TOML file in your own project.
 
+---
+
+## Why xwlazy? Benchmarked, mapping-aware, and feature-rich 🏆
+
+We run xwlazy against other lazy-import libraries (pipimport, deferred-import, lazy-loader, lazy-imports, pylazyimports, lazi, lazy-imports-lite) in a dedicated [benchmark campaign](benchmarks/20260209-benchmark%20competition/README.md). Here’s what stands out.
+
+### Performance (latest competition run)
+
+- **Medium load:** xwlazy is **fastest** (4.06 ms vs 4.54 ms next best).
+- **Heavy / enterprise:** xwlazy stays in the top tier (e.g. 14.46 ms heavy, 41.37 ms enterprise) while keeping auto-install, per-package isolation, and audit features on.
+
+So you get competitive or leading times **without** giving up mapping-aware installs or policy controls.
+
+### Feature comparison
+
+Other tools are built for different trade-offs: many do **lazy import only** (no auto-install), or **auto-install but assume `import name == pip name`**. xwlazy is the only one in the comparison that has **all** of: auto-install, lazy import, global import hook, **mapping-aware install**, pyproject/build integration, import tracing, per-package isolation, lockfile/SBOM, PEP 668 awareness, and a one-liner API. See the [Library Feature Comparison table](benchmarks/20260209-benchmark%20competition/README.md#library-feature-comparison-vs-xwlazy-) in the campaign README.
+
+### Where other lazy installers break (no mapping)
+
+Libraries that assume `import name == pip package name` will **fail or install the wrong thing** on very common imports. Examples:
+
+| You write | Pip package to install | What happens without mapping |
+|-----------|------------------------|------------------------------|
+| `import bs4` | `beautifulsoup4` | They run `pip install bs4` → wrong or missing. |
+| `import yaml` | `PyYAML` | `pip install yaml` → fails (no such package). |
+| `import sklearn` | `scikit-learn` | `pip install sklearn` → fails. |
+| `import cv2` | `opencv-python` | `pip install cv2` → fails. |
+| `import PIL` | `Pillow` | `pip install PIL` → fails. |
+| `import attr` | `attrs` | `pip install attr` → wrong package. |
+| `import pandas` | `pandas` | Same name, so may work—but `import sklearn` or `import bs4` in the same project won’t. |
+
+xwlazy’s curated mapping (`xwlazy_external_libs.toml`) resolves these so that `import bs4`, `import yaml`, `import sklearn`, `import cv2`, `import PIL`, etc. install the correct pip package automatically. No per-import configuration or wrapper API needed.
+
+---
+
 ## Modes and strategies 🎛️
 
 xwlazy combines **when** to install (lazy vs normal imports) with **how** to install (strategy):
@@ -113,6 +148,20 @@ auto_enable_lazy("xwsystem", mode="smart")
 Auditing is **disabled by default**. To enable lockfile/SBOM writes, set `XWLAZY_AUDIT_ENABLED=1` in the environment before importing xwlazy.
 
 For production, you typically pre-install pinned dependencies, keep the lazy hook in `smart` or `pip` strategy for edge cases, and (optionally) rely on the lockfile/SBOM for audit.
+
+---
+
+## Optional features (we recommend against enabling) ⚠️
+
+Three optional mixins exist for **per-call wrapper API**, **AST rewrite**, and **type-stub / internal API tooling**. They are **disabled by default** and only activate when you set the corresponding environment variable:
+
+| Feature | Env var | API when enabled |
+|--------|---------|-------------------|
+| Per-call wrapper API | `XWLAZY_PER_CALL_API=1` | `lazy_import(module_name, package=..., mode=..., root=...)` |
+| AST rewrite / lazy transform | `XWLAZY_AST_LAZY=1` | `enable_ast_lazy(root=...)`, `disable_ast_lazy()` |
+| Type-stub / internal API tooling | `XWLAZY_TYPING_TOOLS=1` | `attach_stub(package_name, stub_content=..., stub_path=...)`, `get_stub_registry()` |
+
+**From a software engineering perspective we recommend against enabling these.** They increase complexity, reduce maintainability, and (for AST/type-stub) are fragile or address a different problem domain. When enabled, they may or may not work well together (e.g. per-call and AST both touching imports). Prefer the core `hook` / `auto_enable_lazy` / `attach` API. Enable only for edge cases or compatibility.
 
 ---
 
@@ -176,6 +225,6 @@ MIT — see [LICENSE](LICENSE).
 - **Repository:** https://github.com/exonware/xwlazy  
 - **Contact:** connect@exonware.com · Eng. Muhammad AlShehri  
 
-**Version:** 1.0.1.7
+**Version:** 1.0.1.8
 
 *Built with ❤️ by eXonware.com - Revolutionizing Python Development Since 2025*

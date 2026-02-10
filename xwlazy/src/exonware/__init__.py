@@ -49,6 +49,12 @@ if _xwlazy_file.exists():
     invalidate_cache = _xwlazy.invalidate_cache
     get_performance_stats = _xwlazy.get_performance_stats
     clear_performance_stats = _xwlazy.clear_performance_stats
+    # Optional mixins (disabled by default; we recommend against enabling)
+    lazy_import = _xwlazy.lazy_import
+    enable_ast_lazy = _xwlazy.enable_ast_lazy
+    disable_ast_lazy = _xwlazy.disable_ast_lazy
+    attach_stub = _xwlazy.attach_stub
+    get_stub_registry = _xwlazy.get_stub_registry
 else:
     raise ImportError("xwlazy.py module not found!")
 
@@ -90,4 +96,6 @@ __all__ = [
     'get_cache_stats', 'clear_cache', 'invalidate_cache',
     # Performance monitoring
     'get_performance_stats', 'clear_performance_stats',
+    # Optional mixins (disabled by default; we recommend against enabling)
+    'lazy_import', 'enable_ast_lazy', 'disable_ast_lazy', 'attach_stub', 'get_stub_registry',
 ]

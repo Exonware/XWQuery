@@ -289,3 +289,6 @@ credentials.json
 
 # Legacy/old layout for xwlazy (reference only, not shipped)
 src/_old/
+
+# Benchmark artifacts (e.g. pytest-benchmark)
+.benchmarks/

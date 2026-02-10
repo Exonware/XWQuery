@@ -48,7 +48,7 @@ NEW v4.0 - Enterprise Features:
   - Watched Prefixes: Special handling for serialization modules (pickle, json, yaml, etc.)
   - Enhanced Performance Monitoring: Detailed metrics (load times, access counts, cache performance)
   - Serialization Module Detection: Automatic detection of serialization modules for special handling
-Version: 1.0.1.6
+Version: 1.0.1.7
 Company: eXonware.com
 Author: Eng. Muhammad AlShehri
 Email: connect@exonware.com
@@ -1053,8 +1053,15 @@ class XWLazy(MetaPathFinder):
         self._enable_learning = enable_learning
         self._learner = AdaptiveLearner() if enable_learning else None
         
-        # NEW v3.0: Lockfile support - Store in centralized ~/.xwlazy/ directory
-        # This prevents pollution of project directories with xwlazy files
+        # NEW v4.0: Audit controls (lockfile + audit log are opt-in)
+        # Controlled via environment variable:
+        #   XWLAZY_AUDIT_ENABLED=1 → enable persistent audit (lockfile + audit log)
+        #   XWLAZY_AUDIT_ENABLED unset/0 → no audit files are written (default)
+        env_audit = os.environ.get('XWLAZY_AUDIT_ENABLED')
+        self._audit_enabled = (env_audit == '1')
+        
+        # Lockfile / audit file paths under centralized ~/.xwlazy/ directory
+        # (directory may still be used for caches even when audit is disabled)
         XWLAZY_DATA_DIR.mkdir(parents=True, exist_ok=True)
         self._lockfile_path = XWLAZY_DATA_DIR / LOCKFILE_PATH
         self._audit_log_path = XWLAZY_DATA_DIR / AUDIT_LOG_FILE
@@ -1489,6 +1496,9 @@ class XWLazy(MetaPathFinder):
 
     def _load_lockfile(self):
         """Load lockfile if exists."""
+        if not getattr(self, "_audit_enabled", False):
+            # Audit disabled: do not load or create lockfile
+            return
         if not self._lockfile_path.exists():
             return
         
@@ -1505,6 +1515,9 @@ class XWLazy(MetaPathFinder):
 
     def _save_lockfile(self):
         """Save current state to lockfile."""
+        if not getattr(self, "_audit_enabled", False):
+            # Audit disabled: skip writing lockfile
+            return
         try:
             with self._lock:
                 lockfile_data = {
@@ -1523,6 +1536,8 @@ class XWLazy(MetaPathFinder):
 
     def _read_lockfile(self):
         """Read lockfile contents (TOML format)."""
+        if not getattr(self, "_audit_enabled", False):
+            return None
         return _read_toml_simple(self._lockfile_path)
 
     # --- STRATEGY IMPLEMENTATIONS ---
@@ -1911,7 +1926,7 @@ class XWLazy(MetaPathFinder):
             sys.stdout.write(f"\r[OK] [xwlazy] Installed: {install_str} via {strategy_name} ({round(duration,2)}s)\n")
 
     def _log_audit(self, pkg, success, duration, strategy="unknown"):
-        """Writes to SBOM TOML and updates stats."""
+        """Update in-memory stats and (optionally) write to audit log."""
         entry = {
             "timestamp": datetime.now().isoformat(),
             "package": pkg,
@@ -1924,6 +1939,11 @@ class XWLazy(MetaPathFinder):
             self.stats['failures'] += 1 if not success else 0
             self.stats['total_time_ms'] += int(duration * 1000)
             self.stats['history'].append(entry)
+        
+        # If audit is disabled, stop after updating in-memory stats
+        if not getattr(self, "_audit_enabled", False):
+            return
+        
         try:
             # Read existing data (TOML format, fallback to JSON for backwards compatibility)
             # Use centralized audit log path

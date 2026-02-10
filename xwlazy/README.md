@@ -28,9 +28,9 @@ Works in both **local/system Python** and **virtual environments** (venv, virtua
 **1. Enable for your package (one line in `__init__.py`):**
 
 ```python
-from xwlazy.lazy import config_package_lazy_install_enabled
+from xwlazy import auto_enable_lazy
 
-config_package_lazy_install_enabled("your-package")  # or __package__
+auto_enable_lazy(__package__)  # or auto_enable_lazy()
 ```
 
 **2. Use normal imports.** First time a dependency is missing, xwlazy installs it; after that it’s a normal import. No changes elsewhere in your code.
@@ -58,7 +58,7 @@ Then `pip install -e .` — xwlazy picks it up from metadata.
 
 ## DX highlights for developers ✨
 
-- **Copy-paste setup:** `pip install xwlazy` + one `config_package_lazy_install_enabled(...)` call and you’re done.
+- **Copy-paste setup:** `pip install xwlazy` + one `auto_enable_lazy(...)` call in your package `__init__` and you’re done.
 - **No import gymnastics:** Keep normal `import` statements; xwlazy installs missing deps behind the scenes, then gets out of your way.
 - **Works with how you already develop:** Local/system Python or venv/conda/uv — with PEP 668 checks so you don’t accidentally mutate system installs.
 - **Debuggable behavior:** `get_lazy_install_stats(...)`, lockfile/SBOM outputs, and clear logs when something is skipped or denied — so you always know *why* something happened.
@@ -80,43 +80,39 @@ xwlazy ships with a curated mapping file (`src/exonware/xwlazy_external_libs.tom
 
 You can extend or override these mappings by editing that TOML file in your own project.
 
-## Modes 🎛️
+## Modes and strategies 🎛️
 
-Two knobs: **load** (when modules load) and **install** (when pip runs). You usually pick a preset.
+xwlazy combines **when** to install (lazy vs normal imports) with **how** to install (strategy):
 
-| Preset | Load | Install | Use when |
-|--------|------|--------|----------|
-| `none` | normal | none | Default; no lazy. |
-| `lite` | lazy | none | Lazy load only; you pre-install deps. |
-| `smart` | lazy | on first use | **Dev default.** Install when you hit the code path. |
-| `full` | lazy | all at start | CI; install everything up front. |
-| `clean` | lazy | on use + uninstall after | Ephemeral runs. |
-| `warn` | lazy | log only, no install | See what would install; prod audit. |
+| Strategy | What it does | Use when |
+|----------|--------------|---------|
+| `smart`  | Uses manifests and mappings to install missing deps on first use. | Default for most projects. |
+| `pip`    | Installs missing deps with plain `pip` under the lazy import hook. | You want vanilla pip behavior. |
+| `wheel`  | Prefers wheel-based installs when available. | Environments with prebuilt wheels. |
+| `cached` | Reuses previously resolved install candidates across runs. | Repeat runs with similar deps. |
 
-**By environment:** Dev → `smart`. Staging → `lite`. Prod → `warn` or `smart` + allow list. CI → `full`.
+If you **don’t** call `auto_enable_lazy(...)`, imports stay normal and nothing is installed lazily.
 
 **Example:**
 
 ```python
-config_package_lazy_install_enabled("xwsystem", enabled=True, mode="smart")
+from xwlazy import auto_enable_lazy
+
+auto_enable_lazy("xwsystem", mode="smart")
 ```
 
 ---
 
 ## Security and production 🛡️
 
-- **Allow list:** only these packages can be auto-installed.  
-  `set_package_allow_list("xwsystem", ["fastavro", "protobuf", "msgpack"])`
-- **Deny list:** block specific packages.  
-  `set_package_deny_list("xwsystem", ["suspicious-package"])`
-- **Lockfile:** record what got installed.  
-  `set_package_lockfile("xwsystem", "xwsystem-lock.json")`
-- **SBOM:** for compliance.  
-  `generate_package_sbom("xwsystem", "xwsystem-sbom.json")`
+- **Deny list:** a central list of blocked packages loaded from the `[deny_list]` section in `xwlazy_external_libs.toml`.
+- **Lockfile (opt-in):** when auditing is enabled, installed packages and basic stats persist to `~/.xwlazy/xwlazy.lock.toml` for reproducibility.
+- **SBOM (opt-in):** when auditing is enabled, `generate_sbom()` writes `~/.xwlazy/xwlazy_sbom.toml` so you can audit what was installed and when.
+- **PEP 668:** xwlazy won’t install into externally-managed environments; it will tell you to use a venv instead.
 
-**Production:** use an allow list with `smart`, or use `warn` and install nothing. Don’t run `smart` in prod without allow list or lockfile if you care about audit.
+Auditing is **disabled by default**. To enable lockfile/SBOM writes, set `XWLAZY_AUDIT_ENABLED=1` in the environment before importing xwlazy.
 
-PEP 668: xwlazy won’t install into externally-managed environments; it will tell you to use a venv.
+For production, you typically pre-install pinned dependencies, keep the lazy hook in `smart` or `pip` strategy for edge cases, and (optionally) rely on the lockfile/SBOM for audit.
 
 ---
 
@@ -125,9 +121,9 @@ PEP 668: xwlazy won’t install into externally-managed environments; it will te
 **See what’s going on:**
 
 ```python
-from xwlazy.lazy import get_lazy_install_stats
+from xwlazy import get_all_stats
 
-stats = get_lazy_install_stats("xwsystem")  # enabled, mode, installed_packages, failed_packages
+stats = get_all_stats()  # installed_packages, failures, lockfile_path, keyword detection, etc.
 ```
 
 **“Nothing gets installed”:** Check `get_lazy_install_stats("your-package")` — `enabled` and `mode`. If you use an allow list, the package must be in it.
@@ -158,20 +154,15 @@ See [docs/REF_51_TEST.md](docs/REF_51_TEST.md) for test layers and coverage.
 
 ---
 
-
----
-
----
-
 ## 🔬 Innovation: Where does this package fit?
 
 **Tier 1 — Genuinely novel (nothing like this exists)**
 
 **`xwlazy` — Adaptive Intelligent Package Manager**
 
-Not just lazy imports — an **adaptive runtime optimizer** that learns from usage patterns. Multi-strategy caching (LRU/LFU/TTL/multi-tier), discovery (file/manifest/hybrid), security (allow-list/deny-list/SBOM), and an **intelligent selector** that picks strategies based on metrics.
+Not just lazy imports — an **adaptive import hook** that learns from usage patterns. Multi-tier caching (in-memory LRU + disk cache), manifest-based discovery, a deny list for problematic packages, and optional SBOM/lockfile support.
 
-- `functools.lru_cache` = one cache type; this has 6+ with auto-selection. Lock file (`xwlazy.lock.toml`), SBOM, async install, interactive mode
+- `functools.lru_cache` = one cache type; xwlazy layers caching, manifest indexing, and an adaptive installer with optional lockfile (`~/.xwlazy/xwlazy.lock.toml`) and SBOM (`~/.xwlazy/xwlazy_sbom.toml`) output for audit (off by default; enable with `XWLAZY_AUDIT_ENABLED=1`).
 
 **Verdict:** 🟢 **Nothing like this exists** as a unified system. Part of the eXonware story — vertical integration across 20+ packages.
 
@@ -185,6 +176,6 @@ MIT — see [LICENSE](LICENSE).
 - **Repository:** https://github.com/exonware/xwlazy  
 - **Contact:** connect@exonware.com · Eng. Muhammad AlShehri  
 
-**Version:** 1.0.1.6
+**Version:** 1.0.1.7
 
 *Built with ❤️ by eXonware.com - Revolutionizing Python Development Since 2025*

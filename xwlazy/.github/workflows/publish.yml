@@ -35,16 +35,21 @@ jobs:
           exit 1
         fi
         echo "version=$FILE_VER" >> $GITHUB_OUTPUT
-        echo "Version in $VERSION_FILE: $FILE_VER"
         if [ "${{ github.ref_type }}" = "tag" ]; then
           TAG_VER="${{ github.ref_name }}"
           TAG_VER="${TAG_VER#v}"
+          echo "Comparing: tag_version=${TAG_VER} | version.py=${FILE_VER}"
           if [ "$TAG_VER" != "$FILE_VER" ]; then
-            echo "ERROR: Tag version (${TAG_VER}) does not match $VERSION_FILE (${FILE_VER})."
+            echo ""
+            echo "ERROR: Version mismatch (tag must match version.py)."
+            echo "  tag_version (from ref): ${TAG_VER}"
+            echo "  version.py (from file): ${FILE_VER}"
             echo "  Either push tag v${FILE_VER} or set __version__ = \"${TAG_VER}\" in $VERSION_FILE."
             exit 1
           fi
-          echo "Tag matches version.py: $FILE_VER"
+          echo "OK: tag and version.py match: ${FILE_VER}"
+        else
+          echo "Version in $VERSION_FILE: $FILE_VER (no tag to compare)"
         fi
 
     - name: Install dependencies

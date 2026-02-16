@@ -20,7 +20,7 @@ def _today_release_date() -> str:
     return datetime.now().strftime("%d-%b-%Y")
 
 # Main version - update this to change version across entire project
-__version__ = "1.0.1.19"
+__version__ = "1.0.1.20"
 
 # Release/update date (DD-MMM-YYYY). Evaluated at import time.
 __date__ = _today_release_date()
@@ -29,7 +29,7 @@ __date__ = _today_release_date()
 VERSION_MAJOR = 1
 VERSION_MINOR = 0
 VERSION_PATCH = 1
-VERSION_BUILD = 19  # Set to None for releases, or build number for dev builds
+VERSION_BUILD = 20  # Set to None for releases, or build number for dev builds
 
 # Version metadata
 VERSION_SUFFIX = ""  # e.g., "dev", "alpha", "beta", "rc1"

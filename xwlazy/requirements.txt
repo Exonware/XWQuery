@@ -1,12 +1,11 @@
 # xWLazy Requirements - Marker Package & Wrapper
-# Version: 1.0.1.17
+# Version: 1.0.1.18
 # xwlazy is a zero-footprint marker; Python 3.8+. Usage: pip install -r requirements.txt
 
 # =============================================================================
 # RUNTIME DEPENDENCIES
 # =============================================================================
 pip
-tomli>=2.0.1 ; python_version < "3.11"
 
 # Optional: psutil>=5.9.0 for INTELLIGENT mode (xwlazy works without it)
 # Dev/CI: build, twine, pytest, black, isort, flake8 — install as needed or use CI

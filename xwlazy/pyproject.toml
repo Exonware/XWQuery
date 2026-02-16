@@ -24,7 +24,6 @@ classifiers = [
 ]
 dependencies = [
     "pip",
-    "tomli>=2.0.1; python_version < \"3.11\"",
 ]
 
 [[project.authors]]

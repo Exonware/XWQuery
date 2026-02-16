@@ -2272,10 +2272,19 @@ def is_keyword_detection_enabled():
         return _instance._keyword_detection_enabled
     return True
 
-def check_package_keywords(package_name=None, keyword="xwlazy-enabled"):
-    """Check if package has keyword in metadata."""
+def get_keyword_detection_keyword():
+    """Return the keyword used for keyword-based auto-detection."""
     global _instance
     if _instance:
+        return getattr(_instance, "_keyword_to_check", "xwlazy-enabled")
+    return "xwlazy-enabled"
+
+def check_package_keywords(package_name=None, keyword=None):
+    """Check if package has keyword in metadata. keyword sets the check for this call if provided."""
+    global _instance
+    if _instance:
+        if keyword is not None:
+            _instance._keyword_to_check = keyword
         return _instance._check_package_keywords(package_name)
     return False
 

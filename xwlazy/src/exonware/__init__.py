@@ -29,6 +29,7 @@ if _xwlazy_file.exists():
     XWLazy = _xwlazy.XWLazy
     enable_keyword_detection = _xwlazy.enable_keyword_detection
     is_keyword_detection_enabled = _xwlazy.is_keyword_detection_enabled
+    get_keyword_detection_keyword = _xwlazy.get_keyword_detection_keyword
     check_package_keywords = _xwlazy.check_package_keywords
     enable_learning = _xwlazy.enable_learning
     predict_next_imports = _xwlazy.predict_next_imports
@@ -78,7 +79,7 @@ __all__ = [
     # Main class
     'XWLazy',
     # Keyword detection
-    'enable_keyword_detection', 'is_keyword_detection_enabled', 'check_package_keywords',
+    'enable_keyword_detection', 'is_keyword_detection_enabled', 'get_keyword_detection_keyword', 'check_package_keywords',
     # Adaptive learning
     'enable_learning', 'predict_next_imports',
     # Stats & monitoring

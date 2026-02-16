@@ -225,6 +225,6 @@ MIT — see [LICENSE](LICENSE).
 - **Repository:** https://github.com/exonware/xwlazy  
 - **Contact:** connect@exonware.com · eXonware Backend Team  
 
-**Version:** 1.0.1.18
+**Version:** See [version.py](src/exonware/xwlazy/version.py) or PyPI. **Updated:** See version.py (`__date__`).
 
 *Built with ❤️ by eXonware.com - Revolutionizing Python Development Since 2025*

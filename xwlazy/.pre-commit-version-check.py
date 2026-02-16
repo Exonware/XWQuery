@@ -17,13 +17,19 @@ ROOT = Path(__file__).resolve().parent
 SKIP_DIRS = {"_old", ".venv", "__pycache__", ".git"}
 
 
+def _read_text_normalized(path: Path) -> str:
+    """Read file and normalize line endings (\\r\\r\\n / \\r -> \\n) so parsing is robust."""
+    raw = path.read_bytes()
+    return raw.replace(b"\r\n", b"\n").replace(b"\r", b"\n").decode("utf-8")
+
+
 def get_version_py_path() -> Path:
     """Read version.py path from pyproject.toml ([tool.hatch.version] or [tool.setuptools.dynamic] version file)."""
     pyproject = ROOT / "pyproject.toml"
     if not pyproject.exists():
         print("ERROR: pyproject.toml not found", file=sys.stderr)
         sys.exit(2)
-    text = pyproject.read_text(encoding="utf-8")
+    text = _read_text_normalized(pyproject)
     m = re.search(r"\[tool\.hatch\.version\][^\n]*\n\s*path\s*=\s*[\"']([^\"']+)[\"']", text, re.DOTALL)
     if m:
         return (ROOT / m.group(1).strip()).resolve()
@@ -42,7 +48,7 @@ def get_canonical_version(version_py: Path) -> str:
     if not version_py.exists():
         print(f"ERROR: {version_py} not found", file=sys.stderr)
         sys.exit(2)
-    code = version_py.read_text(encoding="utf-8")
+    code = _read_text_normalized(version_py)
     m = re.search(r'__version__\s*=\s*["\']([^"\']+)["\']', code)
     if m:
         return m.group(1)
@@ -67,7 +73,7 @@ def get_canonical_date(version_py: Path) -> str | None:
     """
     if not version_py.exists():
         return None
-    code = version_py.read_text(encoding="utf-8")
+    code = _read_text_normalized(version_py)
     m = re.search(r'__date__\s*=\s*["\']([^"\']+)["\']', code)
     if m:
         return m.group(1)
@@ -92,7 +98,7 @@ def check_py_file(path: Path, version_py: Path, canonical: str, init_fallback_ok
     if any(s in path.parts for s in SKIP_DIRS):
         return []
     try:
-        text = path.read_text(encoding="utf-8")
+        text = _read_text_normalized(path)
     except Exception as e:
         return [f"{path}: could not read: {e}"]
     allowed = {version_py, Path(__file__).resolve()}
@@ -110,7 +116,7 @@ def check_text_file(path: Path, canonical: str) -> list[str]:
     """Check README etc. for literal version string."""
     errors = []
     try:
-        text = path.read_text(encoding="utf-8")
+        text = _read_text_normalized(path)
     except Exception:
         return []
     if canonical not in text:
@@ -126,7 +132,7 @@ def check_text_file_date(path: Path, canonical_date: str) -> list[str]:
     """Check README etc. for literal date string (version.py is source of truth)."""
     errors = []
     try:
-        text = path.read_text(encoding="utf-8")
+        text = _read_text_normalized(path)
     except Exception:
         return []
     if canonical_date not in text:
@@ -182,7 +188,7 @@ def main() -> None:
         for toml in sorted(ROOT.glob("pyproject*.toml")):
             if toml.exists():
                 try:
-                    for i, line in enumerate(toml.read_text(encoding="utf-8").splitlines(), 1):
+                    for i, line in enumerate(_read_text_normalized(toml).splitlines(), 1):
                         if canonical_date in line and not line.strip().startswith("#"):
                             all_errors.append(
                                 f"{toml}:{i}: hardcoded date {canonical_date!r} (use version.py __date__)"
@@ -195,7 +201,7 @@ def main() -> None:
         if not toml.exists():
             continue
         try:
-            for i, line in enumerate(toml.read_text(encoding="utf-8").splitlines(), 1):
+            for i, line in enumerate(_read_text_normalized(toml).splitlines(), 1):
                 if canonical in line and not line.strip().startswith("#"):
                     all_errors.append(
                         f"{toml}:{i}: hardcoded version {canonical!r} (version is dynamic from version.py)"

@@ -18,21 +18,18 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 # Add src to path for imports
-if str(__file__).endswith("test_keyword_detection.py"):
-    import os
-    from pathlib import Path
-    
-    project_root = Path(__file__).resolve().parents[3]
-    src_root = project_root / "src"
-    if str(src_root) not in sys.path:
-        sys.path.insert(0, str(src_root))
+from pathlib import Path
+project_root = Path(__file__).resolve().parents[2]
+src_root = project_root / "src"
+if str(src_root) not in sys.path:
+    sys.path.insert(0, str(src_root))
 
-    from exonware.xwlazy import (
-        check_package_keywords,
-        enable_keyword_detection,
-        get_keyword_detection_keyword,
-        is_keyword_detection_enabled,
-    )
+from exonware.xwlazy import (
+    check_package_keywords,
+    enable_keyword_detection,
+    get_keyword_detection_keyword,
+    is_keyword_detection_enabled,
+)
 
 class TestKeywordDetection:
     """Test keyword-based detection functionality."""

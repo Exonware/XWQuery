@@ -9,18 +9,27 @@ This module provides centralized version management for the entire project.
 All version references should import from this module to ensure consistency.
 """
 
+from datetime import datetime
+
 # =============================================================================
 # VERSION CONFIGURATION
 # =============================================================================
 
+def _today_release_date() -> str:
+    """Return today's date in DD-MMM-YYYY."""
+    return datetime.now().strftime("%d-%b-%Y")
+
 # Main version - update this to change version across entire project
-__version__ = "1.0.1.18"
+__version__ = "1.0.1.19"
+
+# Release/update date (DD-MMM-YYYY). Evaluated at import time.
+__date__ = _today_release_date()
 
 # Version components for programmatic access
 VERSION_MAJOR = 1
 VERSION_MINOR = 0
 VERSION_PATCH = 1
-VERSION_BUILD = 18  # Set to None for releases, or build number for dev builds
+VERSION_BUILD = 19  # Set to None for releases, or build number for dev builds
 
 # Version metadata
 VERSION_SUFFIX = ""  # e.g., "dev", "alpha", "beta", "rc1"
@@ -33,6 +42,11 @@ VERSION_STRING = __version__ + VERSION_SUFFIX
 def get_version() -> str:
     """Get the current version string."""
     return VERSION_STRING
+
+
+def get_date() -> str:
+    """Get the release/update date (DD-MMM-YYYY)."""
+    return __date__
 
 def get_version_info() -> tuple:
     """Get version as a tuple (major, minor, patch, build)."""
@@ -63,15 +77,17 @@ def is_release_version() -> bool:
 
 __all__ = [
     "__version__",
+    "__date__",
     "VERSION_MAJOR",
-    "VERSION_MINOR", 
+    "VERSION_MINOR",
     "VERSION_PATCH",
     "VERSION_BUILD",
     "VERSION_SUFFIX",
     "VERSION_STRING",
     "get_version",
+    "get_date",
     "get_version_info",
     "get_version_dict",
     "is_dev_version",
-    "is_release_version"
+    "is_release_version",
 ]

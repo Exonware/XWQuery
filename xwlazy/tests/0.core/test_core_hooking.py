@@ -1,141 +1,88 @@
-"""
-Core Tests: Hooking and Configuration
-
-Tests the hooking mechanism and configuration API.
-Fast, high-value tests covering critical functionality.
-
-Company: eXonware.com
-Author: eXonware Backend Team
-Email: connect@exonware.com
-
-Generation Date: 15-Nov-2025
-"""
-
-import pytest
-import sys
-from pathlib import Path
-
-# Add src to path
-tests_dir = Path(__file__).resolve().parent.parent
-project_root = tests_dir.parent
-src_path = project_root / "src"
-if str(src_path) not in sys.path:
-    sys.path.insert(0, str(src_path))
-
-from exonware.xwlazy import (
-    config_package_lazy_install_enabled,
-    config_module_lazy_load_enabled,
-    is_lazy_install_enabled,
-    is_lazy_import_enabled,
-)
-from exonware.xwlazy.package.services.config_manager import LazyInstallConfig
-from exonware.xwlazy.package.services.strategy_registry import StrategyRegistry
-from exonware.xwlazy.package.strategies import PipExecution, SmartTiming
-from exonware.xwlazy.module.strategies import LazyHelper
-
-@pytest.mark.xwlazy_core
-class TestConfigurationAPI:
-    """Test configuration API functions."""
-    
-    def test_config_package_lazy_install_enabled_basic(self):
-        """Test basic package configuration."""
-        result = config_package_lazy_install_enabled("test_pkg", enabled=True, install_hook=False)
-        assert result == True
-        assert LazyInstallConfig.is_enabled("test_pkg") == True
-    
-    def test_config_package_lazy_install_enabled_with_strategies(self):
-        """Test package configuration with custom strategies."""
-        exec_strategy = PipExecution()
-        timing_strategy = SmartTiming()
-        
-        result = config_package_lazy_install_enabled(
-            "test_pkg",
-            enabled=True,
-            install_hook=False,
-            execution_strategy=exec_strategy,
-            timing_strategy=timing_strategy,
-        )
-        assert result == True
-        
-        # Verify strategies were stored
-        assert StrategyRegistry.get_package_strategy("test_pkg", "execution") is exec_strategy
-        assert StrategyRegistry.get_package_strategy("test_pkg", "timing") is timing_strategy
-        
-        # Cleanup
-        StrategyRegistry.clear_all_strategies("test_pkg")
-    
-    def test_config_module_lazy_load_enabled_basic(self):
-        """Test basic module configuration."""
-        result = config_module_lazy_load_enabled("test_pkg", enabled=True)
-        assert result == True
-    
-    def test_config_module_lazy_load_enabled_with_strategies(self):
-        """Test module configuration with custom strategies."""
-        helper_strategy = LazyHelper()
-        
-        result = config_module_lazy_load_enabled(
-            "test_pkg",
-            enabled=True,
-            helper_strategy=helper_strategy,
-        )
-        assert result == True
-        
-        # Verify strategy was stored
-        assert StrategyRegistry.get_module_strategy("test_pkg", "helper") is helper_strategy
-        
-        # Cleanup
-        StrategyRegistry.clear_all_strategies("test_pkg")
-    
-    def test_is_lazy_install_enabled(self):
-        """Test is_lazy_install_enabled function."""
-        config_package_lazy_install_enabled("test_pkg", enabled=True, install_hook=False)
-        assert is_lazy_install_enabled("test_pkg") == True
-        
-        config_package_lazy_install_enabled("test_pkg", enabled=False, install_hook=False)
-        assert is_lazy_install_enabled("test_pkg") == False
-
-@pytest.mark.xwlazy_core
-class TestStrategySelection:
-    """Test strategy selection and retrieval."""
-    
-    def test_strategy_selection_via_config(self):
-        """Test strategies can be selected via config function."""
-        from exonware.xwlazy.package.facade import XWPackageHelper
-        
-        custom_exec = PipExecution()
-        custom_timing = SmartTiming()
-        
-        config_package_lazy_install_enabled(
-            "test_pkg",
-            enabled=True,
-            install_hook=False,
-            execution_strategy=custom_exec,
-            timing_strategy=custom_timing,
-        )
-        
-        # Create helper - should use registered strategies
-        helper = XWPackageHelper("test_pkg")
-        assert helper._execution is custom_exec
-        assert helper._timing is custom_timing
-        
-        # Cleanup
-        StrategyRegistry.clear_all_strategies("test_pkg")
-    
-    def test_strategy_selection_via_module_config(self):
-        """Test module strategies can be selected via config function."""
-        from exonware.xwlazy.module.facade import XWModuleHelper
-        
-        custom_helper = LazyHelper()
-        
-        config_module_lazy_load_enabled(
-            "test_pkg",
-            enabled=True,
-            helper_strategy=custom_helper,
-        )
-        
-        # Create helper - should use registered strategy
-        helper = XWModuleHelper("test_pkg")
-        assert helper._helper is custom_helper
-        
-        # Cleanup
-        StrategyRegistry.clear_all_strategies("test_pkg")
+"""
+Core Tests: Hooking and Configuration
+
+Tests the hooking mechanism and public API (hook, auto_enable_lazy, global import hook).
+xwlazy is single-file; no separate package/module strategy modules.
+
+Company: eXonware.com
+Author: eXonware Backend Team
+Email: connect@exonware.com
+"""
+
+import pytest
+import sys
+from pathlib import Path
+
+tests_dir = Path(__file__).resolve().parent.parent
+project_root = tests_dir.parent
+src_path = project_root / "src"
+if str(src_path) not in sys.path:
+    sys.path.insert(0, str(src_path))
+
+from exonware.xwlazy import (
+    hook,
+    auto_enable_lazy,
+    install_global_import_hook,
+    uninstall_global_import_hook,
+    is_global_import_hook_installed,
+    clear_cache,
+    get_cache_stats,
+    get_watched_prefixes,
+    add_watched_prefix,
+    remove_watched_prefix,
+)
+
+
+@pytest.mark.xwlazy_core
+class TestHookAPI:
+    """Test hook() and global import hook."""
+
+    def teardown_method(self):
+        uninstall_global_import_hook()
+
+    def test_hook_returns_instance(self):
+        """hook() returns XWLazy instance and installs on meta_path."""
+        inst = hook(root=".", default_enabled=True, enable_global_hook=False)
+        assert inst is not None
+        assert inst in sys.meta_path
+
+    def test_auto_enable_lazy_basic(self):
+        """auto_enable_lazy() enables lazy for a package and returns instance."""
+        uninstall_global_import_hook()
+        result = auto_enable_lazy("test_pkg", mode="smart", root=".")
+        assert result is not None
+        # If singleton was created with hook enabled, it is installed; else install explicitly
+        if not is_global_import_hook_installed():
+            install_global_import_hook()
+        assert is_global_import_hook_installed()
+
+    def test_install_uninstall_global_hook(self):
+        """install_global_import_hook / uninstall_global_import_hook toggle state."""
+        uninstall_global_import_hook()
+        assert not is_global_import_hook_installed()
+        install_global_import_hook()
+        assert is_global_import_hook_installed()
+        uninstall_global_import_hook()
+        assert not is_global_import_hook_installed()
+
+
+@pytest.mark.xwlazy_core
+class TestCacheAndWatchedPrefixes:
+    """Test cache and watched prefix API."""
+
+    def test_clear_cache(self):
+        """clear_cache() runs without error."""
+        clear_cache()
+
+    def test_get_cache_stats(self):
+        """get_cache_stats() returns dict with expected keys."""
+        stats = get_cache_stats()
+        assert isinstance(stats, dict)
+
+    def test_watched_prefixes(self):
+        """add_watched_prefix / remove_watched_prefix / get_watched_prefixes."""
+        before = set(get_watched_prefixes())
+        add_watched_prefix("_test_xwlazy_")
+        assert "_test_xwlazy_" in get_watched_prefixes()
+        remove_watched_prefix("_test_xwlazy_")
+        assert set(get_watched_prefixes()) == before

@@ -312,7 +312,8 @@ class TestPublicAPIEnabled:
         from exonware.xwlazy import enable_ast_lazy, disable_ast_lazy
 
         meta_before = list(sys.meta_path)
-        finder = enable_ast_lazy(root=".")
+        with pytest.warns(UserWarning, match="recommend against"):
+            finder = enable_ast_lazy(root=".")
         assert finder is not None
         assert finder in sys.meta_path
         disable_ast_lazy()
@@ -350,12 +351,13 @@ class TestDisableAstLazy:
         os.environ["XWLAZY_AST_LAZY"] = "1"
         from exonware.xwlazy import enable_ast_lazy, disable_ast_lazy
 
+        finder = None
         try:
-            finder = enable_ast_lazy()
+            with pytest.warns(UserWarning, match="recommend against"):
+                finder = enable_ast_lazy()
             assert finder in sys.meta_path
             disable_ast_lazy()
             assert finder not in sys.meta_path
         finally:
-            # Ensure clean meta_path for other tests
-            if finder in sys.meta_path:
+            if finder is not None and finder in sys.meta_path:
                 sys.meta_path.remove(finder)

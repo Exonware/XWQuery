@@ -223,8 +223,8 @@ MIT — see [LICENSE](LICENSE).
 
 - **Homepage:** https://exonware.com  
 - **Repository:** https://github.com/exonware/xwlazy  
-- **Contact:** connect@exonware.com · Eng. Muhammad AlShehri  
+- **Contact:** connect@exonware.com · eXonware Backend Team  
 
-**Version:** 1.0.1.9
+**Version:** 1.0.1.11
 
 *Built with ❤️ by eXonware.com - Revolutionizing Python Development Since 2025*

@@ -1,7 +1,7 @@
 # xwlazy Architecture Reference
 
 **Company:** eXonware.com  
-**Author:** Eng. Muhammad AlShehri  
+**Author:** eXonware Backend Team  
 **Email:** connect@exonware.com  
 **Version:** 0.1.0.18  
 **Last Updated:** 07-Feb-2026  

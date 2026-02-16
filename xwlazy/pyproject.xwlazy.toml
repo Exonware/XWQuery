@@ -30,7 +30,7 @@ dependencies = [
     "exonware-xwlazy",
 ]
 authors = [
-    { name = "Eng. Muhammad AlShehri", email = "connect@exonware.com" },
+    { name = "eXonware Backend Team", email = "connect@exonware.com" },
 ]
 
 [project.license]

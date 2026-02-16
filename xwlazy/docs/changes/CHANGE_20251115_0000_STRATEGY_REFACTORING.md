@@ -1,7 +1,7 @@
 # Strategy Pattern Refactoring Summary
 
 **Company:** eXonware.com  
-**Author:** Eng. Muhammad AlShehri  
+**Author:** eXonware Backend Team  
 **Email:** connect@exonware.com  
 **Version:** 0.1.0.18  
 **Last Updated:** 15-Nov-2025

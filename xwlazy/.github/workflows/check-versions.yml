@@ -8,6 +8,8 @@ on:
       - 'docs/**/*.md'
       - '*.md'
       - '*.txt'
+      - 'pyproject.toml'
+      - '.pre-commit-version-check.py'
   push:
     branches: [main, develop]
 
@@ -28,5 +30,16 @@ jobs:
       
       - name: Verify version.py is the source of truth
         run: |
-          python -c "from src.exonware.xwlazy.version import __version__; print(f'Current version: {__version__}')"
+          python -c "
+          import re
+          with open('pyproject.toml') as f: t = f.read()
+          m = re.search(r'\[tool\.hatch\.version\][^\n]*\n\s*path\s*=\s*[\"']([^\"']+)[\"']', t, re.DOTALL)
+          if not m:
+              m = re.search(r'version\s*=\s*\{\s*file\s*=\s*[\"']([^\"']+)[\"']', t, re.DOTALL)
+          if m:
+              with open(m.group(1).strip()) as f: exec(f.read())
+              print('Current version:', __version__)
+          else:
+              exit(2)
+          "
 

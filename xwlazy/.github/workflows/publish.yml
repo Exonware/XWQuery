@@ -23,6 +23,23 @@ jobs:
         python -m pip install --upgrade pip
         pip install build twine
 
+    - name: Set release date to today
+      run: |
+        python -c "
+        import re
+        from pathlib import Path
+        from datetime import date
+        pyproject = Path('pyproject.toml').read_text()
+        m = re.search(r'\[tool\.hatch\.version\][^\n]*\n\s*path\s*=\s*[\"']([^\"']+)[\"']', pyproject, re.DOTALL)
+        if m:
+            p = Path(m.group(1).strip())
+            text = p.read_text()
+            today = date.today().isoformat()
+            text = re.sub(r'(__date__\s*=\s*)[\"\'][^\"\']*[\"\']', r'\1\"' + today + '\"', text)
+            p.write_text(text)
+            print('Set __date__ to', today, 'in', p)
+        "
+
     - name: Build exonware-xwlazy package
       run: |
         echo "Building exonware-xwlazy package..."

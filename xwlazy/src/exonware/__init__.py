@@ -68,10 +68,9 @@ try:
         _version_spec.loader.exec_module(_version_module)
         __version__ = _version_module.__version__
     else:
-        __version__ = "1.0.1"
+        __version__ = "0.0.0"  # fallback only when version.py missing (broken env)
 except (ImportError, AttributeError, Exception):
-    # Fallback: use default version
-    __version__ = "1.0.1"
+    __version__ = "0.0.0"  # fallback only when version.py missing
 
 __all__ = [
     # Core activation

@@ -38,16 +38,27 @@ def get_version_py_path() -> Path:
 
 
 def get_canonical_version(version_py: Path) -> str:
-    """Read __version__ from version.py."""
+    """Read __version__ from version.py (literal or dynamic)."""
     if not version_py.exists():
         print(f"ERROR: {version_py} not found", file=sys.stderr)
         sys.exit(2)
     code = version_py.read_text(encoding="utf-8")
     m = re.search(r'__version__\s*=\s*["\']([^"\']+)["\']', code)
-    if not m:
-        print("ERROR: __version__ not found in version.py", file=sys.stderr)
-        sys.exit(2)
-    return m.group(1)
+    if m:
+        return m.group(1)
+    # Dynamic __version__ (e.g. from components): resolve at runtime
+    try:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("_version_check", version_py)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        v = getattr(mod, "__version__", None)
+        if v is not None:
+            return str(v)
+    except Exception:
+        pass
+    print("ERROR: __version__ not found in version.py", file=sys.stderr)
+    sys.exit(2)
 
 
 def get_canonical_date(version_py: Path) -> str | None:

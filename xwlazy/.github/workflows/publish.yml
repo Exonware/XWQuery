@@ -29,15 +29,28 @@ jobs:
         import re
         from pathlib import Path
         from datetime import date
-        pyproject = Path('pyproject.toml').read_text()
+        pyproject_path = Path('pyproject.toml')
+        if not pyproject_path.exists():
+            print('No pyproject.toml; skipping __date__ update')
+            exit(0)
+        pyproject = pyproject_path.read_text()
         m = re.search(r'\[tool\.hatch\.version\][^\n]*\n\s*path\s*=\s*[\"']([^\"']+)[\"']', pyproject, re.DOTALL)
-        if m:
-            p = Path(m.group(1).strip())
-            text = p.read_text()
-            today = date.today().isoformat()
-            text = re.sub(r'(__date__\s*=\s*)[\"\'][^\"\']*[\"\']', r'\1\"' + today + '\"', text)
-            p.write_text(text)
-            print('Set __date__ to', today, 'in', p)
+        if not m:
+            print('No [tool.hatch.version] path; skipping __date__ update')
+            exit(0)
+        p = Path(m.group(1).strip())
+        if not p.exists():
+            print('Version file not found:', p, '; skipping __date__ update')
+            exit(0)
+        text = p.read_text()
+        literal_match = re.search(r'__date__\s*=\s*[\"\'][^\"\']*[\"\']', text)
+        if not literal_match:
+            print('__date__ is dynamic or missing; no update needed')
+            exit(0)
+        today = date.today().isoformat()
+        new_text = re.sub(r'(__date__\s*=\s*)[\"\'][^\"\']*[\"\']', r'\1\"' + today + '\"', text)
+        p.write_text(new_text)
+        print('Set __date__ to', today, 'in', p)
         "
 
     - name: Build exonware-xwlazy package

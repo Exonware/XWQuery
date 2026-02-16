@@ -291,4 +291,5 @@ credentials.json
 src/_old/
 
 # Benchmark artifacts (e.g. pytest-benchmark)
+.benchmarks
 .benchmarks/

@@ -110,17 +110,45 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
       run: |
+        if [ -z "$TWINE_PASSWORD" ]; then
+          echo "ERROR: PYPI_API_TOKEN secret is not set in this repository (xwlazy). Add it under Settings → Secrets and variables → Actions."
+          exit 1
+        fi
         echo "Publishing exonware-xwlazy to PyPI..."
         ls -la dist/
-        twine upload --skip-existing dist/exonware_xwlazy-*.whl dist/exonware_xwlazy-*.tar.gz
+        echo "Files to upload (exonware-xwlazy):"
+        ls -la dist/exonware_xwlazy-*.whl dist/exonware_xwlazy-*.tar.gz 2>/dev/null || echo "(no files matched)"
+        set +e
+        twine upload -v --skip-existing dist/exonware_xwlazy-*.whl dist/exonware_xwlazy-*.tar.gz
+        TWINE_EXIT=$?
+        set -e
+        echo "twine exit code: $TWINE_EXIT"
+        if [ "$TWINE_EXIT" -ne 0 ]; then
+          echo "ERROR: twine upload failed (exit $TWINE_EXIT). Common causes: token scope, wrong repo secret, or version already on PyPI (--skip-existing should skip)."
+          exit $TWINE_EXIT
+        fi
 
     - name: Publish xwlazy wrapper to PyPI
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
       run: |
+        if [ -z "$TWINE_PASSWORD" ]; then
+          echo "ERROR: PYPI_API_TOKEN secret is not set in this repository (xwlazy). Add it under Settings → Secrets and variables → Actions."
+          exit 1
+        fi
         echo "Publishing xwlazy wrapper to PyPI..."
-        twine upload --skip-existing dist/xwlazy-*.whl
+        echo "Files to upload (xwlazy):"
+        ls -la dist/xwlazy-*.whl 2>/dev/null || echo "(no files matched)"
+        set +e
+        twine upload -v --skip-existing dist/xwlazy-*.whl
+        TWINE_EXIT=$?
+        set -e
+        echo "twine exit code: $TWINE_EXIT"
+        if [ "$TWINE_EXIT" -ne 0 ]; then
+          echo "ERROR: twine upload failed with exit code $TWINE_EXIT (check token, project name, or 'version already exists')"
+          exit $TWINE_EXIT
+        fi
 
     - name: Success notification
       run: |

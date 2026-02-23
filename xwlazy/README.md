@@ -55,6 +55,7 @@ Then `pip install -e .` — xwlazy picks it up from metadata.
 | **Keyword opt-in** | `"xwlazy-enabled"` in pyproject → lazy on. No code change. |
 | **Two-stage load** | Import time: missing imports logged, no crash. Use time: install then run. So you keep normal `import` style. |
 | **Control** | Allow/deny lists, lockfile, SBOM. PEP 668 respected (no install into system Python). |
+| **Persist to project** | On successful install, xwlazy can add the package to your `requirements.txt` and `pyproject.toml` (default: `[project.optional-dependencies.full]` if it exists, else `[project.dependencies]`). Set `XWLAZY_PERSIST_EXTRAS=<name>` to write into a specific extras group (e.g. `dev`) or `XWLAZY_PERSIST_EXTRAS=none` to force `[project.dependencies]`. Disable entirely with `XWLAZY_NO_PERSIST=1`. |
 
 ## DX highlights for developers ✨
 
@@ -142,7 +143,9 @@ auto_enable_lazy("xwsystem", mode="smart")
 
 - **Deny list:** a central list of blocked packages loaded from the `[deny_list]` section in `xwlazy_external_libs.toml`.
 - **Lockfile (opt-in):** when auditing is enabled, installed packages and basic stats persist to `~/.xwlazy/xwlazy.lock.toml` for reproducibility.
+- **Persist to project:** when an install succeeds, xwlazy adds the package to your project’s `requirements.txt` and/or `pyproject.toml` (default: `[project.optional-dependencies.full]` if present, else `[project.dependencies]`). Override with `XWLAZY_PERSIST_EXTRAS=<name>` (write to that extras group) or `XWLAZY_PERSIST_EXTRAS=none` (force dependencies). Disable with `XWLAZY_NO_PERSIST=1`.
 - **SBOM (opt-in):** when auditing is enabled, `generate_sbom()` writes `~/.xwlazy/xwlazy_sbom.toml` so you can audit what was installed and when.
+- **Async I/O (default):** file updates (persist-to-project, lockfile, audit log) run in a background worker so imports/installs don’t block your app. Set `XWLAZY_ASYNC_IO=0` to force synchronous writes.
 - **PEP 668:** xwlazy won’t install into externally-managed environments; it will tell you to use a venv instead.
 
 Auditing is **disabled by default**. To enable lockfile/SBOM writes, set `XWLAZY_AUDIT_ENABLED=1` in the environment before importing xwlazy.

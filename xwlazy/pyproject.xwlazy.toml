@@ -40,6 +40,11 @@ authors = [
     { name = "eXonware Backend Team", email = "connect@exonware.com" },
 ]
 
+[project.optional-dependencies]
+archives = [
+    "exonware-xwlazy[archives]",
+]
+
 [project.license]
 text = "MIT"
 

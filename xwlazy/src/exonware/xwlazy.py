@@ -28,6 +28,9 @@ Key Features:
   - ✅ ENHANCED PERFORMANCE MONITORING: Detailed metrics tracking (load times, access counts, cache stats) (NEW v3.0.2!)
   - ✅ SERIALIZATION MODULE DETECTION: Automatic detection and special handling (NEW v3.0.2!)
   - ✅ LOCKFILE SUPPORT: Track installed packages for reproducibility
+  - ✅ PERSIST TO PROJECT: On successful install, add package to requirements.txt and
+    pyproject.toml ([project.optional-dependencies.full] or [project.dependencies]);
+    set XWLAZY_NO_PERSIST=1 to disable.
   - ✅ ADAPTIVE LEARNING: Lightweight pattern-based optimization
   - ✅ functools.lru_cache: High-performance resolution caching
   - ✅ Multiple Installation Strategies: PIP, Wheel, Smart, Cached
@@ -73,6 +76,9 @@ import builtins
 import inspect
 import pickle
 import hashlib
+import queue
+import atexit
+import tempfile
 from functools import lru_cache
 from pathlib import Path
 from datetime import datetime
@@ -107,6 +113,165 @@ AUDIT_LOG_FILE = "xwlazy_sbom.toml"  # Filename only (will be stored in XWLAZY_D
 LOCKFILE_PATH = "xwlazy.lock.toml"  # Filename only (will be stored in XWLAZY_DATA_DIR)
 EXTERNAL_LIBS_TOML = "xwlazy_external_libs.toml"
 
+# =============================================================================
+# ASYNC I/O (robust, non-blocking file updates)
+# =============================================================================
+
+def _is_async_io_enabled() -> bool:
+    """
+    Enable async I/O by default to avoid blocking application execution.
+    Disable with `XWLAZY_ASYNC_IO=0`.
+    """
+    v = os.environ.get("XWLAZY_ASYNC_IO")
+    if v is None:
+        return True
+    return str(v).strip() not in ("0", "false", "False", "no", "NO")
+
+
+def _get_async_flush_timeout_s() -> float:
+    v = os.environ.get("XWLAZY_ASYNC_IO_FLUSH_TIMEOUT_MS")
+    if v is None:
+        return 2.0
+    try:
+        return max(0.0, float(str(v).strip()) / 1000.0)
+    except Exception:
+        return 2.0
+
+
+def _atomic_replace(src: Path, dst: Path) -> None:
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    os.replace(str(src), str(dst))
+
+
+def _atomic_write_text(path: Path, content: str) -> None:
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_fd, tmp_name = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=str(path.parent))
+    try:
+        with os.fdopen(tmp_fd, "w", encoding="utf-8", newline="\n") as f:
+            f.write(content)
+            if content and not content.endswith("\n"):
+                f.write("\n")
+        _atomic_replace(Path(tmp_name), path)
+    finally:
+        try:
+            if Path(tmp_name).exists():
+                Path(tmp_name).unlink(missing_ok=True)
+        except Exception:
+            pass
+
+
+def _atomic_write_toml(data, path: Path) -> None:
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_fd, tmp_name = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=str(path.parent))
+    try:
+        # Close fd; dump_toml will open the file itself.
+        try:
+            os.close(tmp_fd)
+        except Exception:
+            pass
+        _toml_dump(data, tmp_name)
+        _atomic_replace(Path(tmp_name), path)
+    finally:
+        try:
+            if Path(tmp_name).exists():
+                Path(tmp_name).unlink(missing_ok=True)
+        except Exception:
+            pass
+
+
+class _AsyncIOWorker:
+    """
+    Single background worker that serializes file I/O.
+    Callers enqueue actions and continue immediately.
+    """
+    def __init__(self):
+        self._q: queue.Queue = queue.Queue()
+        self._unfinished = 0
+        self._unfinished_lock = threading.Lock()
+        self._thread = None
+        self._started = False
+        self._start_lock = threading.Lock()
+        self._pending_keys = set()
+        self._pending_lock = threading.Lock()
+        self._stopping = False
+
+    def _ensure_started(self) -> None:
+        if self._started:
+            return
+        with self._start_lock:
+            if self._started:
+                return
+            t = threading.Thread(target=self._run, name="xwlazy-async-io", daemon=True)
+            self._thread = t
+            self._started = True
+            t.start()
+
+    def submit(self, fn, *, dedupe_key=None) -> None:
+        if self._stopping:
+            return
+        if dedupe_key is not None:
+            with self._pending_lock:
+                if dedupe_key in self._pending_keys:
+                    return
+                self._pending_keys.add(dedupe_key)
+        self._ensure_started()
+        with self._unfinished_lock:
+            self._unfinished += 1
+        self._q.put((fn, dedupe_key))
+
+    def flush(self, timeout_s: float | None = None) -> bool:
+        if not self._started:
+            return True
+        deadline = None if timeout_s is None else (time.time() + timeout_s)
+        while True:
+            with self._unfinished_lock:
+                n = self._unfinished
+            if n == 0:
+                return True
+            if deadline is not None and time.time() > deadline:
+                return False
+            time.sleep(0.01)
+
+    def shutdown(self, timeout_s: float | None = None) -> None:
+        self._stopping = True
+        # best-effort flush
+        self.flush(timeout_s=timeout_s)
+
+    def _run(self) -> None:
+        while True:
+            try:
+                fn, dedupe_key = self._q.get()
+            except Exception:
+                continue
+            try:
+                fn()
+            except Exception as e:
+                if os.environ.get("XWLAZY_VERBOSE"):
+                    sys.stderr.write(f"[xwlazy] Async I/O task failed: {type(e).__name__}: {e}\n")
+            finally:
+                if dedupe_key is not None:
+                    with self._pending_lock:
+                        self._pending_keys.discard(dedupe_key)
+                with self._unfinished_lock:
+                    self._unfinished = max(0, self._unfinished - 1)
+
+
+_ASYNC_IO = _AsyncIOWorker()
+
+
+def _flush_async_io(timeout_s: float | None = None) -> bool:
+    """Best-effort wait for pending async I/O tasks (useful for tests/shutdown)."""
+    return _ASYNC_IO.flush(timeout_s=timeout_s)
+
+
+def _shutdown_async_io() -> None:
+    _ASYNC_IO.shutdown(timeout_s=_get_async_flush_timeout_s())
+
+
+atexit.register(_shutdown_async_io)
+
 # Serialization module prefixes (watched for special handling)
 SERIALIZATION_PREFIXES = {
     "pickle", "json", "yaml", "toml", "xml", "msgpack", "cbor",
@@ -129,7 +294,8 @@ def _write_toml_simple(data, file_path):
     Uses stdlib-only xwlazy_mixins_toml.dump_toml (no tomli/tomli-w).
     """
     try:
-        _toml_dump(data, file_path)
+        # Prefer atomic writes for robustness under parallelism.
+        _atomic_write_toml(data, Path(file_path))
     except Exception as e:
         raise IOError(f"Failed to write TOML to {file_path}: {e}") from e
 
@@ -177,8 +343,199 @@ def _read_toml_simple(file_path):
             return json.load(f)
     except Exception as e:
         if os.environ.get('XWLAZY_VERBOSE'):
-            sys.stderr.write(f"[xwlazy] Failed to read {file_path} as TOML or JSON: {e}\n")
+            sys.stderr.write(f"[xwlazy] Failed to read {file_path} as TOML or JSON: {_redact_sensitive(str(e))}\n")
         return None
+
+
+def _redact_sensitive(text):
+    """
+    Redact URL credentials and token-like substrings from text before logging.
+    Prevents accidental exposure of secrets when XWLAZY_VERBOSE is set (e.g. pip
+    stderr may contain index URLs with embedded tokens).
+    """
+    if not text or not isinstance(text, str):
+        return text
+    # Redact credentials in URLs: https://user:password@host or https://token@host
+    text = re.sub(r'(?i)(https?://)([^/@\s]+)(@)', r'\1***REDACTED***\3', text)
+    return text
+
+
+def _find_project_root():
+    """
+    Find project root by walking up from cwd until a directory containing
+    pyproject.toml or requirements.txt is found.
+    Returns Path or None if not found.
+    """
+    cwd = Path(os.getcwd()).resolve()
+    current = cwd
+    for _ in range(32):
+        if (current / "pyproject.toml").exists():
+            return current
+        if (current / "requirements.txt").exists():
+            return current
+        parent = current.parent
+        if parent == current:
+            break
+        current = parent
+    return None
+
+
+def _normalize_spec_for_compare(spec):
+    """Normalize install spec for duplicate check (strip, lowercase base name)."""
+    if not isinstance(spec, str):
+        return ""
+    s = spec.strip().split("#")[0].strip()
+    base = re.split(r"[<>=!~,\s;]", s)[0].strip().lower()
+    return base
+
+
+def _add_to_requirements_txt(project_root, install_spec):
+    """
+    Append install_spec to requirements.txt if not already present.
+    Does nothing if file does not exist or on error (logs to XWLAZY_VERBOSE).
+    """
+    req_path = project_root / "requirements.txt"
+    if not req_path.exists():
+        return
+    install_spec = install_spec.strip() if isinstance(install_spec, str) else str(install_spec).strip()
+    if not install_spec:
+        return
+
+    new_base = _normalize_spec_for_compare(install_spec)
+    dedupe_key = ("requirements.txt", str(req_path.resolve()), new_base)
+
+    def _op():
+        try:
+            text = req_path.read_text(encoding="utf-8") if req_path.exists() else ""
+            lines = [ln.rstrip("\n") for ln in text.splitlines()]
+            for ln in lines:
+                if not ln.strip() or ln.strip().startswith("#"):
+                    continue
+                if _normalize_spec_for_compare(ln) == new_base:
+                    return
+            # Build new content with a trailing newline.
+            if text and not text.endswith("\n"):
+                text = text + "\n"
+            new_text = text + install_spec + "\n"
+            _atomic_write_text(req_path, new_text)
+        except (IOError, OSError, Exception) as e:
+            if os.environ.get("XWLAZY_VERBOSE"):
+                sys.stderr.write(f"[xwlazy] Failed to update requirements.txt: {_redact_sensitive(str(e))}\n")
+
+    if _is_async_io_enabled():
+        _ASYNC_IO.submit(_op, dedupe_key=dedupe_key)
+        return
+    _op()
+
+
+def _add_to_pyproject(project_root, install_spec):
+    """
+    Add install_spec to project config.
+
+    Default behavior (auto):
+    - If `[project.optional-dependencies.full]` exists, add there
+    - Else add to `[project.dependencies]`
+
+    Override with `XWLAZY_PERSIST_EXTRAS`:
+    - `XWLAZY_PERSIST_EXTRAS=dev` -> add to `[project.optional-dependencies.dev]` (creates if missing)
+    - `XWLAZY_PERSIST_EXTRAS=none` (or `dependencies`/`default`) -> add to `[project.dependencies]`
+    Does nothing if pyproject.toml missing or on error.
+    """
+    pyproject_path = project_root / "pyproject.toml"
+    if not pyproject_path.exists():
+        return
+    install_spec = install_spec.strip() if isinstance(install_spec, str) else str(install_spec).strip()
+    if not install_spec:
+        return
+
+    new_base = _normalize_spec_for_compare(install_spec)
+
+    extras_override = os.environ.get("XWLAZY_PERSIST_EXTRAS")
+    extras_override = extras_override.strip() if isinstance(extras_override, str) else None
+    extras_override_l = extras_override.lower() if extras_override else None
+
+    if extras_override:
+        if extras_override_l in ("none", "dependency", "dependencies", "default", "project", "base"):
+            opt_target = None
+        else:
+            opt_target = extras_override
+    else:
+        opt_target = "auto"
+
+    dedupe_key = ("pyproject.toml", str(pyproject_path.resolve()), opt_target, new_base)
+
+    def _op():
+        try:
+            data = _load_toml_file(pyproject_path, verbose_error=False)
+            if not data or not isinstance(data, dict):
+                return
+            project = data.get("project")
+            if not isinstance(project, dict):
+                return
+            opt_deps = project.get("optional-dependencies")
+
+            # Resolve auto target at execution time against latest file contents.
+            resolved_opt_target = opt_target
+            if resolved_opt_target == "auto":
+                resolved_opt_target = "full" if isinstance(opt_deps, dict) and "full" in opt_deps else None
+
+            if resolved_opt_target is not None:
+                if not isinstance(opt_deps, dict):
+                    opt_deps = {}
+                    project["optional-dependencies"] = opt_deps
+                group_list = opt_deps.get(resolved_opt_target)
+                if not isinstance(group_list, list):
+                    group_list = []
+                    opt_deps[resolved_opt_target] = group_list
+                for item in group_list:
+                    if isinstance(item, str) and _normalize_spec_for_compare(item) == new_base:
+                        return
+                group_list.append(install_spec)
+                _write_toml_simple(data, pyproject_path)
+                return
+
+            deps = project.get("dependencies")
+            if not isinstance(deps, list):
+                deps = []
+                project["dependencies"] = deps
+            for item in deps:
+                if isinstance(item, str) and _normalize_spec_for_compare(item) == new_base:
+                    return
+            deps.append(install_spec)
+            _write_toml_simple(data, pyproject_path)
+        except (IOError, OSError, Exception) as e:
+            if os.environ.get("XWLAZY_VERBOSE"):
+                sys.stderr.write(f"[xwlazy] Failed to update pyproject.toml: {_redact_sensitive(str(e))}\n")
+
+    if _is_async_io_enabled():
+        _ASYNC_IO.submit(_op, dedupe_key=dedupe_key)
+        return
+    _op()
+
+
+def _persist_installed_to_project(install_str):
+    """
+    On successful install, add the package to the current project's
+    requirements.txt and/or pyproject.toml so the install is recorded.
+    Respects XWLAZY_NO_PERSIST=1 to disable. If no 'full' optional-dependencies
+    section exists, adds to [project.dependencies].
+
+    Override pyproject target with:
+    - `XWLAZY_PERSIST_EXTRAS=<name>` to write to `[project.optional-dependencies.<name>]`
+    - `XWLAZY_PERSIST_EXTRAS=none` to force `[project.dependencies]`
+    """
+    if os.environ.get("XWLAZY_NO_PERSIST") == "1":
+        return
+    project_root = _find_project_root()
+    if project_root is None:
+        return
+    if not isinstance(install_str, str):
+        install_str = str(install_str).strip()
+    if not install_str:
+        return
+    _add_to_requirements_txt(project_root, install_str)
+    _add_to_pyproject(project_root, install_str)
+
 
 def _extract_package_name(value):
     """
@@ -1398,10 +1755,21 @@ class XWLazy(MetaPathFinder):
                         "total_failures": self.stats['failures'],
                     }
                 }
-            _write_toml_simple(lockfile_data, self._lockfile_path)
+
+            def _op():
+                try:
+                    _write_toml_simple(lockfile_data, self._lockfile_path)
+                except (IOError, OSError, Exception) as e:
+                    if os.environ.get('XWLAZY_VERBOSE'):
+                        sys.stderr.write(f"[xwlazy] Failed to write lockfile: {e}\n")
+
+            if _is_async_io_enabled():
+                _ASYNC_IO.submit(_op, dedupe_key=("lockfile", str(Path(self._lockfile_path).resolve())))
+                return
+            _op()
         except (IOError, OSError, Exception) as e:
             if os.environ.get('XWLAZY_VERBOSE'):
-                sys.stderr.write(f"[xwlazy] Failed to write lockfile: {e}\n")
+                sys.stderr.write(f"[xwlazy] Failed to prepare lockfile: {e}\n")
 
     def _read_lockfile(self):
         """Read lockfile contents (TOML format)."""
@@ -1587,7 +1955,7 @@ class XWLazy(MetaPathFinder):
             # Fallback to pip (expected behavior, not an error)
             if os.environ.get('XWLAZY_VERBOSE'):
                 err_msg = str(e).encode('ascii', 'replace').decode('ascii')
-                sys.stderr.write(f"[xwlazy] Wheel strategy failed for {install_str}, falling back to pip: {err_msg}\n")
+                sys.stderr.write(f"[xwlazy] Wheel strategy failed for {install_str}, falling back to pip: {_redact_sensitive(err_msg)}\n")
             self._strategy_pip(install_str)
 
     def _is_stdlib_module(self, module_name: str) -> bool:
@@ -1736,6 +2104,9 @@ class XWLazy(MetaPathFinder):
                 # NEW v3.0: Save to lockfile on successful install
                 self._save_lockfile()
                 
+                # Persist to project: add to requirements.txt and pyproject.toml when install succeeds
+                _persist_installed_to_project(candidate)
+                
                 # Success - break out of loop
                 install_str = candidate  # Use successful candidate for logging
                 break
@@ -1743,7 +2114,8 @@ class XWLazy(MetaPathFinder):
             except subprocess.CalledProcessError as e:
                 last_error = e
                 if os.environ.get('XWLAZY_VERBOSE'):
-                    sys.stderr.write(f"[xwlazy] Install Failed ({strategy_name}) for {candidate}: {e.stderr.decode('utf-8', errors='replace') if e.stderr else str(e)}\n")
+                    err_text = e.stderr.decode('utf-8', errors='replace') if e.stderr else str(e)
+                    sys.stderr.write(f"[xwlazy] Install Failed ({strategy_name}) for {candidate}: {_redact_sensitive(err_text)}\n")
                 # Continue to next candidate
                 continue
             except subprocess.TimeoutExpired:
@@ -1755,7 +2127,7 @@ class XWLazy(MetaPathFinder):
             except Exception as e:
                 last_error = e
                 if os.environ.get('XWLAZY_VERBOSE'):
-                    sys.stderr.write(f"[xwlazy] Unexpected Error installing {candidate}: {type(e).__name__}: {e}\n")
+                    sys.stderr.write(f"[xwlazy] Unexpected Error installing {candidate}: {type(e).__name__}: {_redact_sensitive(str(e))}\n")
                 # Continue to next candidate
                 continue
         
@@ -1769,7 +2141,8 @@ class XWLazy(MetaPathFinder):
                 if isinstance(last_error, subprocess.CalledProcessError):
                     if os.environ.get('XWLAZY_VERBOSE'):
                         last_candidate = candidates[-1]
-                        sys.stderr.write(f"[xwlazy] All candidates failed. Last attempt ({last_candidate}): {last_error.stderr.decode('utf-8', errors='replace') if last_error.stderr else str(last_error)}\n")
+                        err_text = last_error.stderr.decode('utf-8', errors='replace') if last_error.stderr else str(last_error)
+                        sys.stderr.write(f"[xwlazy] All candidates failed. Last attempt ({last_candidate}): {_redact_sensitive(err_text)}\n")
                 elif isinstance(last_error, subprocess.TimeoutExpired):
                     if os.environ.get('XWLAZY_VERBOSE'):
                         last_candidate = candidates[-1]
@@ -1777,7 +2150,7 @@ class XWLazy(MetaPathFinder):
                 else:
                     if os.environ.get('XWLAZY_VERBOSE'):
                         last_candidate = candidates[-1]
-                        sys.stderr.write(f"[xwlazy] All candidates failed. Last attempt ({last_candidate}): {type(last_error).__name__}: {last_error}\n")
+                        sys.stderr.write(f"[xwlazy] All candidates failed. Last attempt ({last_candidate}): {type(last_error).__name__}: {_redact_sensitive(str(last_error))}\n")
             install_str = candidates[-1] if candidates else install_str  # Use last candidate for logging
         
         # Cleanup: Always remove from installing_now
@@ -1812,22 +2185,26 @@ class XWLazy(MetaPathFinder):
         # If audit is disabled, stop after updating in-memory stats
         if not getattr(self, "_audit_enabled", False):
             return
-        
-        try:
-            # Read existing data (TOML format, fallback to JSON for backwards compatibility)
-            # Use centralized audit log path
-            data = _read_toml_simple(self._audit_log_path)
-            if data is None:
-                data = []
-            elif not isinstance(data, list):
-                # Convert to list format if needed
-                data = [data] if data else []
-            data.append(entry)
-            # Write as TOML to centralized location
-            _write_toml_simple(data, self._audit_log_path)
-        except (IOError, OSError, Exception) as e:
-            if os.environ.get('XWLAZY_VERBOSE'):
-                sys.stderr.write(f"[xwlazy] Failed to write audit log: {e}\n")
+
+        def _op():
+            try:
+                # Read existing data (TOML format, fallback to JSON for backwards compatibility)
+                data = _read_toml_simple(self._audit_log_path)
+                if data is None:
+                    data = []
+                elif not isinstance(data, list):
+                    data = [data] if data else []
+                data.append(entry)
+                _write_toml_simple(data, self._audit_log_path)
+            except (IOError, OSError, Exception) as e:
+                if os.environ.get('XWLAZY_VERBOSE'):
+                    sys.stderr.write(f"[xwlazy] Failed to write audit log: {e}\n")
+
+        if _is_async_io_enabled():
+            # No dedupe: each entry is unique.
+            _ASYNC_IO.submit(_op)
+            return
+        _op()
 
     def find_spec(self, fullname, path, target=None):
         # Check if xwlazy is disabled via environment variable

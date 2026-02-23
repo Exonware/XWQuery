@@ -19,6 +19,7 @@ DX contract for xwlazy: happy paths, "key code," and ergonomics. Filled from REF
 |------|------|
 | Enable xwlazy | One line to enable (per-package: install with `[lazy]` extra, e.g. `pip install xwsystem[lazy]`) |
 | Use as usual | Import and use; missing libs trigger auto-install on first use (no code change) |
+| Persist to project | On successful install, package is added to `requirements.txt` and `pyproject.toml` (auto: `full` extras if present, else dependencies). Use `XWLAZY_PERSIST_EXTRAS=<name>` to choose an extras group (or `none` to force dependencies). Set `XWLAZY_NO_PERSIST=1` to disable. |
 | Optional config | Change TOML, create custom mappings (extremely configurable when needed) |
 
 ---

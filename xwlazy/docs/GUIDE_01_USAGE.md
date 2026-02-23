@@ -49,6 +49,27 @@ After `pip install -e .`, lazy loading is enabled for that package. xwlazy reads
 | Production | `warn` or `smart` + allow list | `mode="warn"` for audit; or `smart` + `set_package_allow_list(...)` |
 | CI/CD | `full` | Pre-install all deps |
 
+### Persist to project
+
+When a lazy install **succeeds**, xwlazy adds the installed package to the current project’s dependency files so the install is recorded:
+
+- **requirements.txt:** appended (if present in project root); duplicate package names are skipped.
+- **pyproject.toml (default/auto):** if `[project.optional-dependencies.full]` exists, the package is added there; otherwise it is added to `[project.dependencies]`.
+
+You can override where `pyproject.toml` is updated:
+
+- **Write to a specific extras group:** set `XWLAZY_PERSIST_EXTRAS=dev` to write to `[project.optional-dependencies.dev]` (created if missing).
+- **Force default dependencies:** set `XWLAZY_PERSIST_EXTRAS=none` (or `dependencies`/`default`) to always write to `[project.dependencies]`.
+
+Project root is found by walking up from the current working directory until a directory containing `pyproject.toml` or `requirements.txt` is found. To disable this behavior (e.g. in CI or read-only trees), set `XWLAZY_NO_PERSIST=1`.
+
+### Async I/O (robust + non-blocking)
+
+To avoid slowing down your application, xwlazy performs file updates (persist-to-project, lockfile, audit log) using a **background I/O worker** by default. This makes file edits “pending actions” that do not block the main workflow, and it remains safe when multiple threads are installing/importing in parallel (writes are serialized and atomic).
+
+- **Disable async I/O (force sync):** set `XWLAZY_ASYNC_IO=0`.
+- **Exit flush timeout:** set `XWLAZY_ASYNC_IO_FLUSH_TIMEOUT_MS=<ms>` (default: 2000ms). This is best-effort; xwlazy will not crash your process if a flush cannot complete.
+
 ### Security
 
 - **Production:** Use allow lists: `set_package_allow_list("xwsystem", ["fastavro", "protobuf", "msgpack"])`.

@@ -26,6 +26,14 @@ dependencies = [
     "pip",
 ]
 
+[project.optional-dependencies]
+# Archive format support (Zpaq, WIM, Squashfs) - installed via xwlazy when formats are used
+archives = [
+    "python-wimlib",
+    "pyzpaq",
+    "PySquashfsImage",
+]
+
 [[project.authors]]
 name = "eXonware Backend Team"
 email = "connect@exonware.com"

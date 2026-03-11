@@ -275,6 +275,7 @@ Temporary Items
 config.ini
 secrets.json
 .secrets
+.archieve/
 credentials.json
 
 # Local environment files

@@ -1,0 +1,8 @@
+query { users { -- sql example
+-- simple  query with where clause
+
+select name age email
+from users
+where age > 25
+order by name asc
+limit 10; } }

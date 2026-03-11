@@ -1,15 +1,12 @@
 """
 Convenience wrapper for xwquery.
-
 This module provides the 'xwquery' package as a lightweight wrapper
 that imports from 'exonware-xwquery'. Install the full package as a dependency.
-
 Company: eXonware.com
-Author: Eng. Muhammad AlShehri
+Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.0.1.8
+Version: 0.9.0.1
 """
-
 # Import everything from the full package
-from exonware.xwquery import *  # noqa: F401, F403
 
+from exonware.xwquery import *  # noqa: F401, F403

@@ -1,0 +1,1 @@
+from x in collection select x

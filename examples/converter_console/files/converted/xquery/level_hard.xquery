@@ -1,0 +1,1 @@
+for $item in doc()//* return $item

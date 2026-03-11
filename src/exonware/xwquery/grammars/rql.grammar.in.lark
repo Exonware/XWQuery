@@ -1,0 +1,95 @@
+// RQL Grammar for Lark
+// Resource Query Language
+// RESTful API query language
+
+start: query
+
+query: url_query
+     | structured_query
+
+// URL-encoded query format: ?filter=eq(name,John)&sort=name&limit=10
+url_query: "?" query_params
+
+query_params: query_param ("&" query_param)*
+
+query_param: param_name "=" param_value
+
+param_name: "filter" | "select" | "sort" | "limit" | "offset" | "page" | "page_size"
+
+param_value: filter_expression
+           | select_expression
+           | sort_expression
+           | NUMBER
+
+// Structured query format: filter(eq(name,John))&sort(name)&limit(10)
+structured_query: query_operation ("&" query_operation)*
+
+query_operation: filter_operation
+               | select_operation
+               | sort_operation
+               | limit_operation
+               | offset_operation
+
+// Filter operation
+filter_operation: "filter" "(" filter_expression ")"
+
+filter_expression: comparison_expr
+                 | logical_expr
+                 | function_expr
+
+comparison_expr: comparison_op "(" field_path "," value ")"
+
+comparison_op: "eq" | "ne" | "gt" | "gte" | "lt" | "lte" | "like" | "in" | "nin"
+
+logical_expr: logical_op "(" filter_expression ("," filter_expression)+ ")"
+
+logical_op: "and" | "or" | "not"
+
+function_expr: function_name "(" [arguments] ")"
+
+function_name: IDENTIFIER
+
+arguments: argument ("," argument)*
+
+argument: filter_expression | value
+
+// Select operation
+select_operation: "select" "(" field_list ")"
+
+field_list: field_path ("," field_path)*
+
+// Sort operation
+sort_operation: "sort" "(" sort_spec ")"
+
+sort_spec: field_path
+         | "-" field_path  // Descending
+         | "+" field_path  // Ascending
+
+// Limit operation
+limit_operation: "limit" "(" NUMBER ")"
+
+// Offset operation
+offset_operation: "offset" "(" NUMBER ")"
+
+// Field path
+field_path: IDENTIFIER ("." IDENTIFIER)*
+
+// Values
+value: STRING
+     | NUMBER
+     | BOOLEAN
+     | NULL
+     | array_value
+
+array_value: "(" value ("," value)* ")"
+
+// Terminals
+STRING: /"[^"]*"|'[^']*'/
+NUMBER: /-?\d+(\.\d+)?/
+BOOLEAN: "true" | "false"
+NULL: "null"
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+
+%import common.WS
+%ignore WS
+

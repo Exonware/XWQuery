@@ -1,394 +1,82 @@
-# 🚀 **xwquery: Universal Query Language for Python**
+# xwquery
 
-**Company:** eXonware.com  
-**Author:** Eng. Muhammad AlShehri  
-**Email:** connect@exonware.com  
-**Version:** 0.0.1.8
+**One universal query system.** 35+ query grammars (SQL, GraphQL, Cypher, MQL, PromQL, SPARQL, JQ, JMESPath, and more) with a single execution engine over node-based or table-based data.
 
-## 🎯 **What is xwquery?**
+**Company:** eXonware.com · **Author:** eXonware Backend Team · **Email:** connect@exonware.com  
+**Version:** See [version.py](src/exonware/xwquery/version.py) or PyPI. · **Updated:** See [version.py](src/exonware/xwquery/version.py) (`__date__`)
 
-xwquery is the universal query language for Python that works across all data structures. Write once, query anywhere - from simple lists to complex graphs, from JSON to XML, from nodes to entities.
+[![Status](https://img.shields.io/badge/status-alpha-orange.svg)](https://exonware.com)
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-**Think of it as SQL for everything.**
+---
 
-## ⚡ **Quick Start**
+## Install
 
-### **Installation**
 ```bash
 pip install exonware-xwquery
 ```
 
-### **Basic Usage**
+Requires xwsystem (and xwsyntax for grammars). See [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md) for variants.
+
+---
+
+## Quick start
+
 ```python
 from exonware.xwquery import XWQuery
 
-# Query any data structure
 data = {'users': [
     {'name': 'Alice', 'age': 30, 'city': 'NYC'},
     {'name': 'Bob', 'age': 25, 'city': 'LA'},
     {'name': 'Charlie', 'age': 35, 'city': 'NYC'}
 ]}
 
-# Use familiar SQL-like syntax
 result = XWQuery.execute("""
     SELECT name, age 
     FROM users 
     WHERE age > 25 AND city = 'NYC'
 """, data)
-
-print(result)
 # [{'name': 'Alice', 'age': 30}, {'name': 'Charlie', 'age': 35}]
 ```
 
-## 🎯 **Perfect For:**
-
-- **📊 Data Querying** - Query any Python data structure with SQL-like syntax
-- **🔄 Format Conversion** - Convert between 35+ query formats (SQL, GraphQL, Cypher, etc.)
-- **🔀 Data Transformation** - Transform and filter data with powerful operations
-- **🔗 Universal Interface** - One query language for nodes, data, schemas, and entities
-- **🚀 Performance** - Optimized execution for different data structure types
-
-## 🚀 **Key Features**
-
-### **50 Query Operations**
-✅ **Core CRUD**: SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, DROP  
-✅ **Filtering**: WHERE, FILTER, BETWEEN, LIKE, IN, HAS, TERM, RANGE  
-✅ **Aggregation**: SUM, COUNT, AVG, MIN, MAX, GROUP BY, HAVING  
-✅ **Graph Operations**: MATCH, PATH, OUT, IN_TRAVERSE, RETURN  
-✅ **Advanced**: JOIN, UNION, WITH, MERGE, WINDOW, PIPE  
-
-### **30+ Grammar-Based Formats (Powered by xwsyntax)**
-✅ **SQL**: Full SQL parsing and generation with bidirectional support  
-✅ **Graph Queries**: Cypher, Gremlin, SPARQL, GraphQL, GQL  
-✅ **Document Queries**: MongoDB (MQL), Elasticsearch, CQL  
-✅ **Time Series**: PromQL, Flux, LogQL  
-✅ **Data Queries**: JQ, JMESPath, JSONiq, XPath, XQuery, JSON  
-✅ **Others**: Datalog, LINQ, N1QL, PartiQL, HiveQL, HQL, Pig, KQL  
-✅ **All with parse + generate + validation support!**
-
-### **🆕 Database-Grade Query Optimization**
-✅ **Query Planning**: Logical and physical execution plans  
-✅ **Cost Estimation**: Smart cost-based optimization decisions  
-✅ **Statistics Management**: Table/column statistics for better plans  
-✅ **Optimization Rules**: Predicate pushdown, index selection, join reordering  
-✅ **Query Caching**: LRU cache with TTL and memory management  
-✅ **Multiple Optimization Levels**: From BASIC to AGGRESSIVE  
-
-### **Type-Aware Execution**
-```python
-# Automatically optimizes based on data structure
-linear_data = [1, 2, 3, 4, 5]
-tree_data = {'a': 1, 'b': 2, 'c': 3}
-graph_data = {'nodes': [...], 'edges': [...]}
-
-# Same query, optimized execution for each type!
-XWQuery.execute("SELECT * WHERE value > 2", linear_data)  # Sequential scan
-XWQuery.execute("SELECT * WHERE key BETWEEN 'a' AND 'c'", tree_data)  # Tree traversal
-XWQuery.execute("MATCH (n)-[r]->(m)", graph_data)  # Graph algorithm
-```
-
-## 📚 **XWQuery Script Language**
-
-### **Comprehensive Syntax**
-
-```xquery
--- Data retrieval
-SELECT name, email, age FROM users WHERE age >= 18;
-
--- Aggregation
-SELECT 
-    department,
-    COUNT(*) as employee_count,
-    AVG(salary) as avg_salary
-FROM employees
-GROUP BY department
-HAVING avg_salary > 50000;
-
--- Graph pattern matching
-MATCH (u:User)-[:FRIENDS_WITH]->(f:User)
-WHERE u.age > 25
-RETURN u.name, f.name;
-
--- Data transformation
-PIPE users
-|> FILTER age > 18
-|> EXTEND full_name = CONCAT(first_name, ' ', last_name)
-|> PROJECT user_id, full_name, email
-|> ORDER BY full_name;
-
--- Complex joins
-SELECT u.name, o.total_amount
-FROM users u
-INNER JOIN orders o ON u.id = o.user_id
-WHERE o.order_date >= '2024-01-01';
-
--- Window functions
-SELECT 
-    product_id,
-    price,
-    AVG(price) OVER (PARTITION BY category) as avg_category_price
-FROM products;
-```
-
-### **Format Conversion**
-
-```python
-# Parse SQL, convert to GraphQL
-sql_query = "SELECT id, name FROM users WHERE age > 25"
-graphql = XWQuery.convert(sql_query, from_format='sql', to_format='graphql')
-# Result: "query { users(filter: {age: {gt: 25}}) { id name } }"
-
-# Parse Cypher, convert to SQL
-cypher_query = "MATCH (u:User)-[:WORKS_AT]->(c:Company) RETURN u.name, c.name"
-sql = XWQuery.convert(cypher_query, from_format='cypher', to_format='sql')
-# Result: "SELECT u.name, c.name FROM users u JOIN companies c ON ..."
-
-# Universal intermediate representation
-any_query = XWQuery.parse(query_string)  # Parses to actions tree
-target_format = any_query.to_format('mongodb')  # Convert to any format
-```
-
-## 🔄 **Integration with exonware Stack**
-
-### **Query Nodes (xwnode)**
-```python
-from exonware.xwnode import XWNode
-from exonware.xwquery import XWQuery
-
-node = XWNode.from_native({'users': [...]})
-result = XWQuery.execute("SELECT * FROM users WHERE active = true", node)
-```
-
-### **Query Data (xwdata)**
-```python
-from exonware.xwdata import XWData
-from exonware.xwquery import XWQuery
-
-# Load, query, convert format
-data = XWData.load('users.json')
-filtered = XWQuery.execute("SELECT * WHERE age > 18", data)
-filtered.save('adults.xml')  # Save in different format!
-```
-
-### **Query Entities (xwentity)**
-```python
-from exonware.xwentity import XWEntity
-from exonware.xwquery import XWQuery
-
-class User(XWEntity):
-    name: str
-    age: int
-    email: str
-
-# Schema-validated queries
-users = XWQuery.execute("SELECT * FROM User WHERE age > 18")
-# ✅ Validates 'age' exists in schema
-# ✅ Ensures age is int type
-# ✅ Returns typed User entities
-```
-
-## 🎓 **Examples**
-
-### **Example 1: Simple Filtering**
-```python
-products = [
-    {'id': 1, 'name': 'Laptop', 'price': 999, 'category': 'Electronics'},
-    {'id': 2, 'name': 'Mouse', 'price': 29, 'category': 'Electronics'},
-    {'id': 3, 'name': 'Desk', 'price': 299, 'category': 'Furniture'},
-]
-
-result = XWQuery.execute("""
-    SELECT name, price 
-    FROM products 
-    WHERE category = 'Electronics' AND price < 500
-""", products)
-# [{'name': 'Mouse', 'price': 29}]
-```
-
-### **Example 2: Aggregation**
-```python
-orders = [
-    {'user_id': 1, 'amount': 100},
-    {'user_id': 1, 'amount': 200},
-    {'user_id': 2, 'amount': 150},
-    {'user_id': 2, 'amount': 300},
-]
-
-result = XWQuery.execute("""
-    SELECT 
-        user_id, 
-        COUNT(*) as order_count,
-        SUM(amount) as total_spent,
-        AVG(amount) as avg_order
-    FROM orders
-    GROUP BY user_id
-    HAVING total_spent > 200
-""", orders)
-# [
-#   {'user_id': 1, 'order_count': 2, 'total_spent': 300, 'avg_order': 150},
-#   {'user_id': 2, 'order_count': 2, 'total_spent': 450, 'avg_order': 225}
-# ]
-```
-
-### **Example 3: Graph Traversal**
-```python
-graph = {
-    'nodes': [
-        {'id': 1, 'type': 'User', 'name': 'Alice'},
-        {'id': 2, 'type': 'User', 'name': 'Bob'},
-        {'id': 3, 'type': 'Post', 'title': 'Hello World'}
-    ],
-    'edges': [
-        {'from': 1, 'to': 2, 'type': 'FRIENDS_WITH'},
-        {'from': 1, 'to': 3, 'type': 'AUTHORED'}
-    ]
-}
-
-result = XWQuery.execute("""
-    MATCH (u:User)-[:FRIENDS_WITH]->(friend:User)
-    WHERE u.name = 'Alice'
-    RETURN u.name, friend.name
-""", graph)
-# [{'u.name': 'Alice', 'friend.name': 'Bob'}]
-```
-
-### **Example 4: Format Conversion**
-```python
-# SQL to MongoDB
-sql = "SELECT name, email FROM users WHERE age > 25"
-mongo = XWQuery.convert(sql, to_format='mongodb')
-# db.users.find({age: {$gt: 25}}, {name: 1, email: 1})
-
-# GraphQL to SQL  
-graphql = "query { users(filter: {active: true}) { id name email } }"
-sql = XWQuery.convert(graphql, to_format='sql')
-# SELECT id, name, email FROM users WHERE active = true
-
-# Cypher to SPARQL
-cypher = "MATCH (a:Person)-[:KNOWS]->(b:Person) RETURN a.name, b.name"
-sparql = XWQuery.convert(cypher, to_format='sparql')
-# SELECT ?aName ?bName WHERE { ?a rdf:type :Person . ?a :KNOWS ?b . ... }
-```
-
-## 🏗️ **Architecture**
-
-### **Query Execution Flow**
-```
-User Query String
-       ↓
-  [Parser] - Parse to Actions Tree
-       ↓
-[Capability Checker] - Validate operation compatibility
-       ↓
- [Executor Registry] - Get appropriate executor
-       ↓
-[Type-Aware Execution] - Optimized for data structure type
-       ↓
-    Result
-```
-
-### **Supported Node Types**
-- **LINEAR**: Arrays, lists, queues, stacks
-- **TREE**: Hash maps, B-trees, AVL trees, tries
-- **GRAPH**: Adjacency lists, graph structures
-- **MATRIX**: Bitmaps, sparse matrices
-- **HYBRID**: Combined structures
-
-Each query operation automatically adapts to the node type for optimal performance.
-
-## 📖 **Documentation**
-
-- **[Complete Query Syntax](docs/XWQUERY_SCRIPT.md)** - All 50 operations detailed
-- **[Query Optimization Guide](docs/QUERY_OPTIMIZATION.md)** - 🆕 Database-grade optimization
-- **[Format Converters](docs/CONVERTERS.md)** - 35+ format conversion guide
-- **[API Reference](docs/API.md)** - Complete API documentation
-- **[Examples](examples/)** - Practical usage examples
-- **[Integration Guide](docs/INTEGRATION.md)** - Using with xwnode, xwdata, xwentity
-
-## 🚀 **Project Phases**
-
-xwquery follows a structured 5-phase development approach designed to deliver enterprise-grade functionality.
-
-### **Current Phase: 🧪 Version 0 - Experimental Stage**
-- **Focus:** Core query engine, format converters, execution optimization
-- **Status:** 🟢 **ACTIVE** - Foundation complete with 50 operations
-
-### **Development Roadmap:**
-- **Version 1 (Q1 2026):** Production Ready - Performance optimization
-- **Version 2 (Q2 2026):** Query Optimization - Smart query planning
-- **Version 3 (Q3 2026):** Distributed Queries - Parallel execution
-- **Version 4 (Q4 2026):** Mars Standard Implementation - Universal interoperability
-
-## 🔧 **Development**
-
-```bash
-# Install in development mode
-pip install -e .
-
-# Run tests
-python tests/runner.py
-
-# Run specific test types
-python tests/runner.py --core
-python tests/runner.py --unit
-python tests/runner.py --integration
-```
-
-## 🌟 **Why xwquery?**
-
-### **Before xwquery:**
-```python
-# Different syntax for different data structures
-list_result = [x for x in data if x['age'] > 25]  # List comprehension
-dict_result = {k: v for k, v in data.items() if v > 25}  # Dict comprehension
-df_result = df[df['age'] > 25]  # Pandas
-collection.find({'age': {'$gt': 25}})  # MongoDB
-# ... and so on
-```
-
-### **With xwquery:**
-```python
-# One syntax for everything
-result = XWQuery.execute("SELECT * WHERE age > 25", data)
-# Works with: lists, dicts, nodes, dataframes, graphs, entities, etc.
-```
-
-### **Key Benefits:**
-1. **Universal Interface** - One query language for all data structures
-2. **Format Agnostic** - Query JSON, save as XML, load CSV, export as YAML
-3. **Type-Aware** - Automatically optimizes for data structure type
-4. **Production-Grade** - Built on proven patterns and best practices
-5. **Extensible** - Easy to add custom operations and formats
-6. **Performance** - Optimized execution for each node type
-
-## 🤝 **Contributing**
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Run the test suite
-6. Submit a pull request
-
-## 📄 **License**
-
-MIT License - see LICENSE file for details.
+Convert between formats: `XWQuery.convert(sql_string, from_format='sql', to_format='graphql')`. Parse: `XWQuery.parse("SELECT * FROM users", source_format='sql')`. See [REF_14_DX](docs/REF_14_DX.md) and [REF_15_API](docs/REF_15_API.md).
 
 ---
 
-*Built with ❤️ by eXonware.com - Making universal data querying effortless*
+## What you get
+
+| Area | What's in it |
+|------|----------------|
+| **Execution** | Execute on any Python data structure; engine and capability checker; parse → plan → execute. |
+| **Grammars** | 35+ formats (SQL, GraphQL, Cypher, MQL, PromQL, Flux, JQ, JMESPath, …) via xwsyntax; parse, generate, validate. |
+| **Operations** | Core CRUD, filtering, aggregation, graph (MATCH, PATH, …), JOIN, UNION, WINDOW, PIPE, etc. |
+| **Integration** | Used by xwstorage, xwaction, xwbase; one universal script (XWQS) across backends. |
+
+Current phase: Alpha. Executor refactor and doc alignment in progress. Status: [REF_22_PROJECT](docs/REF_22_PROJECT.md#project-status-overview).
 
 ---
 
-## 🔗 **Part of the exonware Ecosystem**
+## Docs and tests
 
-- **[xwsystem](https://github.com/exonware/xwsystem)** - Core system utilities
-- **[xwnode](https://github.com/exonware/xwnode)** - Node-based data structures
-- **[xwquery](https://github.com/exonware/xwquery)** - Universal query language ⭐ You are here
-- **[xwdata](https://github.com/exonware/xwdata)** - Format-agnostic data manipulation
-- **[xwschema](https://github.com/exonware/xwschema)** - Schema validation
-- **[xwaction](https://github.com/exonware/xwaction)** - Action definitions
-- **[xwentity](https://github.com/exonware/xwentity)** - Entity management
-- **[xwstorage](https://github.com/exonware/xwstorage)** - Storage abstraction
-- **[xwbase](https://github.com/exonware/xwbase)** - Firebase-like backend
+Content in this README is aligned with the project REFs and [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md) (per [GUIDE_63_README](../docs/guides/GUIDE_63_README.md)).
 
+- **Start:** [docs/INDEX.md](docs/INDEX.md) — doc index and quick links.
+- **Use it:** [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md) — usage, key code, formats.
+- **Requirements and status:** [docs/REF_01_REQ.md](docs/REF_01_REQ.md), [docs/REF_22_PROJECT.md](docs/REF_22_PROJECT.md).
+- **API and design:** [docs/REF_15_API.md](docs/REF_15_API.md), [docs/REF_13_ARCH.md](docs/REF_13_ARCH.md), [docs/REF_14_DX.md](docs/REF_14_DX.md).
+- **Tests:** See [docs/REF_51_TEST.md](docs/REF_51_TEST.md). Run via project test runner or pytest from project root.
+
+---
+
+## License and links
+
+MIT — see [LICENSE](LICENSE).
+
+- **Homepage:** https://exonware.com  
+- **Repository:** https://github.com/exonware/xwquery  
+- **Version:** `from exonware.xwquery import __version__` or `import exonware.xwquery; print(exonware.xwquery.__version__)`  
+
+Contributing → CONTRIBUTING.md · Security → SECURITY.md (when present).
+
+*Built with ❤️ by eXonware.com - Revolutionizing Python Development Since 2025*

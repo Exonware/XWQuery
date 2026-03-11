@@ -1,0 +1,8 @@
+-- XWQuery Script - Easy Level
+-- Simple SELECT query with basic filtering
+
+SELECT name, email
+FROM users
+WHERE age > 18
+ORDER BY name ASC
+LIMIT 20;

@@ -1,3 +1,4 @@
+# Source size (src/*): ~1.56 MB
 [build-system]
 requires = [
     "hatchling",
@@ -22,21 +23,12 @@ keywords = [
     "conversion",
     "exonware",
 ]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Database :: Database Engines/Servers",
-]
+classifiers = []
 dependencies = [
     "exonware-xwquery",
 ]
 authors = [
-    { name = "Eng. Muhammad AlShehri", email = "connect@exonware.com" },
+    { name = "eXonware Backend Team", email = "connect@exonware.com" },
 ]
 
 [project.license]
@@ -61,7 +53,7 @@ Documentation = "https://github.com/exonware/xwquery#readme"
 [tool.black]
 line-length = 88
 target-version = [
-    "py312",
+    "py38",
 ]
 
 [tool.isort]
@@ -85,29 +77,6 @@ warn_unused_ignores = true
 warn_no_return = true
 warn_unreachable = true
 
-[tool.pytest.ini_options]
-testpaths = [
-    "tests",
-]
-python_files = [
-    "test_*.py",
-]
-python_classes = [
-    "Test*",
-]
-python_functions = [
-    "test_*",
-]
-addopts = "-v --tb=short"
-markers = [
-    "core: Core functionality tests",
-    "unit: Unit tests for individual components",
-    "integration: Integration tests between components",
-    "query: Query execution tests",
-    "parser: Parser tests",
-    "converter: Format converter tests",
-]
-
 [tool.hatch.version]
 path = "src/exonware/xwquery/version.py"
 
@@ -118,13 +87,4 @@ only-include = [
 ]
 
 [tool.hatch.build.targets.sdist]
-include = [
-    "/src",
-    "/tests",
-    "/docs",
-    "/examples",
-    "/README.md",
-    "/LICENSE",
-    "/requirements.txt",
-    "/pyproject.toml",
-]
+include = []

@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """
 Test Data Generation for XWQuery Console
-
 Generates 5 realistic collections for testing XWQuery operations.
 """
 
 import random
 from datetime import datetime, timedelta
-from typing import List, Dict, Any
+from typing import Any
 
 
 def set_seed(seed: int = 42):
@@ -15,10 +14,9 @@ def set_seed(seed: int = 42):
     random.seed(seed)
 
 
-def generate_users(count: int = 50) -> List[Dict[str, Any]]:
+def generate_users(count: int = 50) -> list[dict[str, Any]]:
     """
     Generate sample users.
-    
     Returns 50 users with varied demographics and roles.
     """
     first_names = [
@@ -27,22 +25,18 @@ def generate_users(count: int = 50) -> List[Dict[str, Any]]:
         "Quinn", "Rachel", "Sam", "Tara", "Uma", "Victor", "Wendy", "Xavier",
         "Yara", "Zack", "Anna", "Ben", "Chloe", "David"
     ]
-    
     last_names = [
         "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller",
         "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez",
         "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin"
     ]
-    
     cities = [
         "New York", "Los Angeles", "Chicago", "Houston", "Phoenix",
         "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose",
         "Austin", "Jacksonville", "San Francisco", "Columbus", "Indianapolis",
         "Seattle", "Denver", "Boston", "Portland", "Miami"
     ]
-    
     roles = ["admin", "user", "moderator", "viewer", "editor"]
-    
     users = []
     for i in range(count):
         user_id = i + 1
@@ -57,14 +51,12 @@ def generate_users(count: int = 50) -> List[Dict[str, Any]]:
             "joined_date": (datetime.now() - timedelta(days=random.randint(1, 730))).strftime("%Y-%m-%d"),
             "last_login": (datetime.now() - timedelta(days=random.randint(0, 30))).strftime("%Y-%m-%d")
         })
-    
     return users
 
 
-def generate_products(count: int = 100) -> List[Dict[str, Any]]:
+def generate_products(count: int = 100) -> list[dict[str, Any]]:
     """
     Generate sample products.
-    
     Returns 100 products across different categories.
     """
     categories = {
@@ -74,13 +66,10 @@ def generate_products(count: int = 100) -> List[Dict[str, Any]]:
         "Home": ["Lamp", "Chair", "Table", "Sofa", "Bed", "Cabinet", "Mirror"],
         "Sports": ["Ball", "Racket", "Gloves", "Shoes", "Bag", "Helmet"]
     }
-    
     products = []
     product_id = 1
-    
     for category, items in categories.items():
         items_to_generate = int(count * len(items) / sum(len(v) for v in categories.values()))
-        
         for _ in range(items_to_generate):
             item_name = random.choice(items)
             products.append({
@@ -94,7 +83,6 @@ def generate_products(count: int = 100) -> List[Dict[str, Any]]:
                 "available": random.choice([True, True, True, False])
             })
             product_id += 1
-    
     # Fill remaining to reach count
     while len(products) < count:
         category = random.choice(list(categories.keys()))
@@ -110,18 +98,15 @@ def generate_products(count: int = 100) -> List[Dict[str, Any]]:
             "available": random.choice([True, True, True, False])
         })
         product_id += 1
-    
     return products[:count]
 
 
-def generate_orders(count: int = 200, user_count: int = 50, product_count: int = 100) -> List[Dict[str, Any]]:
+def generate_orders(count: int = 200, user_count: int = 50, product_count: int = 100) -> list[dict[str, Any]]:
     """
     Generate sample orders.
-    
     Returns 200 orders linking users and products.
     """
     orders = []
-    
     for i in range(count):
         order_id = i + 1
         user_id = random.randint(1, user_count)
@@ -129,7 +114,6 @@ def generate_orders(count: int = 200, user_count: int = 50, product_count: int =
         quantity = random.randint(1, 5)
         unit_price = round(random.uniform(10, 1000), 2)
         total = round(unit_price * quantity, 2)
-        
         orders.append({
             "id": order_id,
             "user_id": user_id,
@@ -141,14 +125,12 @@ def generate_orders(count: int = 200, user_count: int = 50, product_count: int =
             "date": (datetime.now() - timedelta(days=random.randint(0, 365))).strftime("%Y-%m-%d"),
             "payment_method": random.choice(["credit_card", "paypal", "bank_transfer"])
         })
-    
     return orders
 
 
-def generate_posts(count: int = 30, user_count: int = 50) -> List[Dict[str, Any]]:
+def generate_posts(count: int = 30, user_count: int = 50) -> list[dict[str, Any]]:
     """
     Generate sample blog posts.
-    
     Returns 30 blog posts with tags and metrics.
     """
     titles = [
@@ -163,19 +145,15 @@ def generate_posts(count: int = 30, user_count: int = 50) -> List[Dict[str, Any]
         "Microservices Architecture",
         "API Design Patterns"
     ]
-    
     tags_pool = [
         "tech", "tutorial", "guide", "advanced", "beginner",
         "performance", "architecture", "design", "best-practices",
         "nodejs", "python", "database", "api", "cloud"
     ]
-    
     posts = []
-    
     for i in range(count):
         post_id = i + 1
         title = random.choice(titles)
-        
         posts.append({
             "id": post_id,
             "author_id": random.randint(1, user_count),
@@ -188,29 +166,24 @@ def generate_posts(count: int = 30, user_count: int = 50) -> List[Dict[str, Any]
             "published": (datetime.now() - timedelta(days=random.randint(1, 365))).strftime("%Y-%m-%d"),
             "status": random.choice(["draft", "published", "archived"])
         })
-    
     return posts
 
 
-def generate_events(count: int = 500, user_count: int = 50) -> List[Dict[str, Any]]:
+def generate_events(count: int = 500, user_count: int = 50) -> list[dict[str, Any]]:
     """
     Generate sample analytics events.
-    
     Returns 500 analytics events for tracking.
     """
     event_types = [
         "page_view", "click", "scroll", "form_submit",
         "button_click", "link_click", "video_play", "download"
     ]
-    
     pages = [
         "/home", "/products", "/about", "/contact", "/blog",
         "/pricing", "/features", "/docs", "/support", "/login"
     ]
-    
     events = []
     base_time = datetime.now() - timedelta(days=30)
-    
     for i in range(count):
         event_id = i + 1
         event_time = base_time + timedelta(
@@ -218,7 +191,6 @@ def generate_events(count: int = 500, user_count: int = 50) -> List[Dict[str, An
             hours=random.randint(0, 23),
             minutes=random.randint(0, 59)
         )
-        
         events.append({
             "id": event_id,
             "event_type": random.choice(event_types),
@@ -230,25 +202,20 @@ def generate_events(count: int = 500, user_count: int = 50) -> List[Dict[str, An
             "device": random.choice(["desktop", "mobile", "tablet"]),
             "browser": random.choice(["Chrome", "Firefox", "Safari", "Edge"])
         })
-    
     # Sort by timestamp
     events.sort(key=lambda x: x["timestamp"])
-    
     return events
 
 
-def load_all_collections(seed: int = 42) -> Dict[str, List[Dict[str, Any]]]:
+def load_all_collections(seed: int = 42) -> dict[str, list[dict[str, Any]]]:
     """
     Load all 5 collections with sample data.
-    
     Args:
         seed: Random seed for reproducible data
-    
     Returns:
         Dictionary with all collections
     """
     set_seed(seed)
-    
     return {
         "users": generate_users(50),
         "products": generate_products(100),
@@ -258,7 +225,6 @@ def load_all_collections(seed: int = 42) -> Dict[str, List[Dict[str, Any]]]:
     }
 
 
-def get_collection_stats(collections: Dict[str, List[Dict[str, Any]]]) -> Dict[str, int]:
+def get_collection_stats(collections: dict[str, list[dict[str, Any]]]) -> dict[str, int]:
     """Get statistics about loaded collections."""
     return {name: len(data) for name, data in collections.items()}
-

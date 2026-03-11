@@ -1,0 +1,1 @@
+SELECT ?name ?email WHERE { ?user :name ?name . ?user :email ?email . FILTER(?age > ?18) }

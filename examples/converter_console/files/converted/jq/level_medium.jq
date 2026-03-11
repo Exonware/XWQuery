@@ -1,0 +1,1 @@
+.name.email.id) as order_count.total) as total_spent.total) as avg_order_value | select(u.active = true)

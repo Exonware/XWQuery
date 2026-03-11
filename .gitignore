@@ -161,3 +161,10 @@ tests/runner_out.md
 tests/*/runner_out.md
 tests/*/*/runner_out.md
 
+# xwlazy generated files (should be in ~/.xwlazy/ but ignore in case of old behavior)
+xwlazy.lock.toml
+xwlazy_sbom.toml
+
+# Local secrets and archives
+.secrets
+.archieve/

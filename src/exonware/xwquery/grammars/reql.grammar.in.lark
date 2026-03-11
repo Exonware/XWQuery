@@ -1,0 +1,127 @@
+// ReQL Grammar for Lark
+// RethinkDB Query Language
+// Chainable functional query language
+
+start: query
+
+query: chain_expression
+     | table_expression
+     | literal_expression
+
+// Chain expressions
+chain_expression: table_expression chain_method*
+
+chain_method: filter_method
+            | map_method
+            | reduce_method
+            | get_method
+            | get_all_method
+            | insert_method
+            | update_method
+            | delete_method
+            | order_by_method
+            | limit_method
+            | skip_method
+            | group_method
+            | join_method
+
+// Table expression
+table_expression: "r" "." "table" "(" STRING ")"
+
+// Filter method
+filter_method: "." "filter" "(" expression ")"
+
+// Map method
+map_method: "." "map" "(" expression ")"
+
+// Reduce method
+reduce_method: "." "reduce" "(" expression ")"
+
+// Get method
+get_method: "." "get" "(" value ")"
+
+// Get all method
+get_all_method: "." "get_all" "(" value ("," value)* ")"
+
+// Insert method
+insert_method: "." "insert" "(" object_value ")"
+
+// Update method
+update_method: "." "update" "(" object_value ")"
+
+// Delete method
+delete_method: "." "delete" "(" ")"
+
+// Order by method
+order_by_method: "." "order_by" "(" order_spec ")"
+
+order_spec: field_path
+          | "r" "." "desc" "(" field_path ")"
+          | "r" "." "asc" "(" field_path ")"
+
+// Limit method
+limit_method: "." "limit" "(" NUMBER ")"
+
+// Skip method
+skip_method: "." "skip" "(" NUMBER ")"
+
+// Group method
+group_method: "." "group" "(" field_path ")"
+
+// Join method
+join_method: "." "join" "(" table_expression "," expression ")"
+
+// Expressions
+expression: comparison_expr
+          | logical_expr
+          | function_expr
+          | lambda_expr
+          | value
+
+comparison_expr: field_path comparison_op value
+
+comparison_op: "==" | "!=" | ">" | ">=" | "<" | "<="
+
+logical_expr: expression logical_op expression
+
+logical_op: "&" | "|" | "and" | "or"
+
+function_expr: function_name "(" [arguments] ")"
+
+function_name: IDENTIFIER
+
+arguments: argument ("," argument)*
+
+argument: expression | value
+
+lambda_expr: "r" "." "row" "[" STRING "]"
+           | "function" "(" IDENTIFIER ")" "{" expression "}"
+
+// Values
+value: STRING
+     | NUMBER
+     | BOOLEAN
+     | NULL
+     | object_value
+     | array_value
+
+object_value: "{" [field_assignment ("," field_assignment)*] "}"
+
+field_assignment: STRING ":" value
+
+array_value: "[" [value ("," value)*] "]"
+
+field_path: IDENTIFIER ("." IDENTIFIER)*
+
+literal_expression: value
+
+// Terminals
+STRING: /"[^"]*"|'[^']*'/
+NUMBER: /-?\d+(\.\d+)?/
+BOOLEAN: "true" | "false"
+NULL: "null"
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+
+%import common.WS
+%ignore WS
+

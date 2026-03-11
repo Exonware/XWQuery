@@ -1,0 +1,68 @@
+// ReQL Output Grammar for Lark
+// RethinkDB Query Language Output Format
+
+start: query
+
+query: chain_expression
+
+chain_expression: table_expression chain_method*
+
+table_expression: "r" "." "table" "(" STRING ")"
+
+chain_method: filter_method
+            | map_method
+            | reduce_method
+            | get_method
+            | get_all_method
+            | insert_method
+            | update_method
+            | delete_method
+            | order_by_method
+            | limit_method
+            | skip_method
+            | group_method
+            | join_method
+
+filter_method: "." "filter" "(" expression ")"
+map_method: "." "map" "(" expression ")"
+reduce_method: "." "reduce" "(" expression ")"
+get_method: "." "get" "(" value ")"
+get_all_method: "." "get_all" "(" value ("," value)* ")"
+insert_method: "." "insert" "(" object_value ")"
+update_method: "." "update" "(" object_value ")"
+delete_method: "." "delete" "(" ")"
+order_by_method: "." "order_by" "(" order_spec ")"
+limit_method: "." "limit" "(" NUMBER ")"
+skip_method: "." "skip" "(" NUMBER ")"
+group_method: "." "group" "(" field_path ")"
+join_method: "." "join" "(" table_expression "," expression ")"
+
+expression: comparison_expr | logical_expr | function_expr | lambda_expr | value
+comparison_expr: field_path comparison_op value
+logical_expr: expression logical_op expression
+function_expr: function_name "(" [arguments] ")"
+lambda_expr: "r" "." "row" "[" STRING "]"
+
+value: STRING | NUMBER | BOOLEAN | NULL | object_value | array_value
+object_value: "{" [field_assignment ("," field_assignment)*] "}"
+array_value: "[" [value ("," value)*] "]"
+
+field_path: IDENTIFIER ("." IDENTIFIER)*
+order_spec: field_path | "r" "." "desc" "(" field_path ")" | "r" "." "asc" "(" field_path ")"
+
+comparison_op: "==" | "!=" | ">" | ">=" | "<" | "<="
+logical_op: "&" | "|" | "and" | "or"
+function_name: IDENTIFIER
+arguments: argument ("," argument)*
+argument: expression | value
+field_assignment: STRING ":" value
+
+STRING: /"[^"]*"|'[^']*'/
+NUMBER: /-?\d+(\.\d+)?/
+BOOLEAN: "true" | "false"
+NULL: "null"
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+
+%import common.WS
+%ignore WS
+

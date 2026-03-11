@@ -1,0 +1,1 @@
+MATCH (u:User) WHERE age > 18 RETURN u.name, u.email

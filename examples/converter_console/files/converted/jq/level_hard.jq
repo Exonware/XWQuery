@@ -1,0 +1,1 @@
+.name.email.order_count.lifetime_value.last_order_date.lifetime_value > 500 THEN 'Premium' ELSE 'Standard' END as customer_tier | select(active = true and o.status IN ('completed', 'shipped') and us.order_count > 0)

@@ -1,19 +1,15 @@
 """
 Type definitions, enums, and constants for xwquery.
-
 This module defines all shared types and enums used across the xwquery library,
 following the same pattern as xwnode/defs.py.
-
 Company: eXonware.com
-Author: Eng. Muhammad AlShehri
+Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.0.1.8
+Version: 0.9.0.1
 Generation Date: October 26, 2025
 """
 
 from enum import Enum, Flag, auto
-
-
 # ============================================================================
 # QUERY EXECUTION MODES
 # ============================================================================
@@ -63,8 +59,6 @@ class QueryTrait(Flag):
     TEMPORAL = auto()       # Temporal query
     DOCUMENT = auto()       # Document query
     SEARCH = auto()         # Search query
-
-
 # ============================================================================
 # FORMAT TYPES
 # ============================================================================
@@ -74,36 +68,52 @@ class FormatType(Enum):
     # Core formats
     XWQUERY = "xwquery"
     SQL = "sql"
-    
     # Graph query languages
     GRAPHQL = "graphql"
     CYPHER = "cypher"
     GREMLIN = "gremlin"
     SPARQL = "sparql"
     GQL = "gql"
-    
     # Document databases
     MONGODB = "mongodb"
     MQL = "mql"
     COUCHDB = "couchdb"
     CQL = "cql"
-    
     # Search engines
     ELASTICSEARCH = "elasticsearch"
     EQL = "eql"
-    
     # Time series
     PROMQL = "promql"
     FLUX = "flux"
     LOGQL = "logql"
-    
     # Data query languages
     JMESPATH = "jmespath"
     JQ = "jq"
     JSONIQ = "jsoniq"
     XPATH = "xpath"
     XQUERY = "xquery"
-    
+    # Scripting / programming (xwsyntax grammars, same quality as SQL)
+    JAVASCRIPT = "javascript"
+    TYPESCRIPT = "typescript"
+    PYTHON = "python"
+    GO = "go"
+    RUBY = "ruby"
+    PHP = "php"
+    LUA = "lua"
+    BASH = "bash"
+    POWERSHELL = "powershell"
+    GROOVY = "groovy"
+    KOTLIN = "kotlin"
+    SWIFT = "swift"
+    DART = "dart"
+    ELIXIR = "elixir"
+    SCALA = "scala"
+    JULIA = "julia"
+    HCL = "hcl"
+    SOLIDITY = "solidity"
+    RUST = "rust"
+    WASM = "wasm"
+    WEBASSEMBLY = "wasm"
     # Others
     DATALOG = "datalog"
     LINQ = "linq"
@@ -113,8 +123,8 @@ class FormatType(Enum):
     HQL = "hql"
     PIG = "pig"
     KQL = "kql"
-
-
+    REQL = "reql"
+    RQL = "rql"
 # ============================================================================
 # OPERATION TYPES
 # ============================================================================
@@ -122,7 +132,6 @@ class FormatType(Enum):
 class OperationType(Enum):
     """
     Operation category classification.
-    
     Used to group the 50+ operations by their primary purpose.
     """
     CORE = auto()           # SELECT, INSERT, UPDATE, DELETE, CREATE, DROP
@@ -153,75 +162,68 @@ class ExecutionStatus(Enum):
 class OperationCapability(Flag):
     """
     Operation capability flags.
-    
     Defines what capabilities an operation requires to execute.
     """
     NONE = 0
-    
     # Node type requirements
     REQUIRES_LINEAR = auto()
     REQUIRES_TREE = auto()
     REQUIRES_GRAPH = auto()
     REQUIRES_MATRIX = auto()
-    
     # Trait requirements
     REQUIRES_ORDERED = auto()
     REQUIRES_INDEXED = auto()
     REQUIRES_HIERARCHICAL = auto()
     REQUIRES_WEIGHTED = auto()
     REQUIRES_SPATIAL = auto()
-    
     # Special requirements
     REQUIRES_MUTABLE = auto()
     REQUIRES_TRANSACTIONAL = auto()
-
-
 # ============================================================================
 # OPERATION LISTS
 # ============================================================================
-
 # Core CRUD operations
 CORE_OPERATIONS = [
     "SELECT", "INSERT", "UPDATE", "DELETE", "CREATE", "ALTER", "DROP"
 ]
-
 # Filtering operations
 FILTER_OPERATIONS = [
     "WHERE", "FILTER", "BETWEEN", "LIKE", "IN", "HAS", "TERM", "RANGE", "VALUES", "OPTIONAL"
 ]
-
 # Aggregation operations
 AGGREGATION_OPERATIONS = [
     "SUM", "COUNT", "AVG", "MIN", "MAX", "GROUP", "HAVING", "DISTINCT", "SUMMARIZE"
 ]
-
 # Graph operations
 GRAPH_OPERATIONS = [
-    "MATCH", "PATH", "OUT", "IN_TRAVERSE", "RETURN"
+    "MATCH", "PATH", "OUT", "IN_TRAVERSE", "RETURN",
+    # Additional graph operations
+    "ALL_PATHS", "ALL_SHORTEST_PATHS", "ALL_SIMPLE_PATHS",
+    "BOTH", "BOTHE", "BOTHV", "INE", "INV", "OUTE", "OUTV",
+    "CLONE", "CONNECTED_COMPONENTS", "CYCLE_DETECTION",
+    "CREATE_EDGE", "DELETE_EDGE", "DETACH_DELETE", "UPDATE_EDGE",
+    "DEGREE", "EXPAND", "EXTRACT_PATH", "NEIGHBORS",
+    "PATH_LENGTH", "PROPERTIES", "SET", "SHORTEST_PATH",
+    "SIMPLE_PATH", "SUBGRAPH", "TRAVERSAL", "VARIABLE_PATH"
 ]
-
 # Ordering operations
 ORDERING_OPERATIONS = [
     "ORDER", "BY", "LIMIT", "OFFSET"
 ]
-
 # Projection operations
 PROJECTION_OPERATIONS = [
     "PROJECT", "EXTEND"
 ]
-
 # Advanced operations
 ADVANCED_OPERATIONS = [
-    "JOIN", "UNION", "WITH", "MERGE", "WINDOW", "PIPE", "LET", "FOR", "FOREACH",
+    "JOIN", "INCLUDE", "UNION", "MINUS", "WITH", "MERGE", "WINDOW", "PIPE", "LET", "FOR", "FOREACH",
     "ASK", "SUBSCRIBE", "SUBSCRIPTION", "MUTATION", "OPTIONS", "CONSTRUCT", "DESCRIBE",
-    "AGGREGATE", "LOAD", "STORE"
+    "AGGREGATE", "LOAD", "STORE", "FILE_SOURCE"
 ]
-
 # Array operations
 ARRAY_OPERATIONS = [
     "SLICING", "INDEXING"
 ]
-
 # All operations combined
 ALL_OPERATIONS = (
     CORE_OPERATIONS + 
@@ -233,7 +235,6 @@ ALL_OPERATIONS = (
     ADVANCED_OPERATIONS +
     ARRAY_OPERATIONS
 )
-
 # Operation categories mapping
 OPERATION_CATEGORIES: dict[str, list[str]] = {
     "core": CORE_OPERATIONS,
@@ -245,8 +246,6 @@ OPERATION_CATEGORIES: dict[str, list[str]] = {
     "advanced": ADVANCED_OPERATIONS,
     "array": ARRAY_OPERATIONS,
 }
-
-
 __all__ = [
     # Enums
     'QueryMode',
@@ -256,7 +255,6 @@ __all__ = [
     'OperationType',
     'ExecutionStatus',
     'OperationCapability',
-    
     # Operation lists
     'CORE_OPERATIONS',
     'FILTER_OPERATIONS',
@@ -269,4 +267,3 @@ __all__ = [
     'ALL_OPERATIONS',
     'OPERATION_CATEGORIES',
 ]
-

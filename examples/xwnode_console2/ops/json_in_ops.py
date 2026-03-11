@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 #exonware/xwquery/examples/xwnode_console2/ops/json_in_ops.py
-
 """
 JSON operations engine (V1-style, non-indexed) for xwnode_console2.
-
 This engine operates directly on a large NDJSON file using Python's
 standard library json module and streaming patterns inspired by the
 json_utils V1 design, but implemented locally so that this example
@@ -11,15 +9,13 @@ remains self-contained.
 """
 
 from __future__ import annotations
-
 import asyncio
 import json
 import os
 import tempfile
 import weakref
 from asyncio import Lock
-from typing import Any, Iterable, List, Optional
-
+from typing import Any, Iterable, Optional
 from .data_ops_interface import (
     JsonPath,
     JsonValue,
@@ -36,12 +32,9 @@ class JsonRecordNotFound(Exception):
 
 class JsonStreamError(Exception):
     """Raised when a streaming JSON operation fails."""
-
-
 # ----------------------------------------------------------------------
 # Global write locks per event loop (for async atomic updates)
 # ----------------------------------------------------------------------
-
 _write_locks: "weakref.WeakKeyDictionary[asyncio.AbstractEventLoop, Lock]" = (
     weakref.WeakKeyDictionary()
 )
@@ -50,7 +43,6 @@ _write_locks: "weakref.WeakKeyDictionary[asyncio.AbstractEventLoop, Lock]" = (
 def _get_write_lock() -> Lock:
     """
     Get or create the write lock for the current event loop.
-
     Mirrors the root-cause fix pattern used in `json_utils` to ensure
     that locks are correctly bound to the active event loop and cleaned
     up when loops are destroyed.
@@ -60,12 +52,9 @@ def _get_write_lock() -> Lock:
     except RuntimeError:
         # No event loop running - fallback lock (edge cases only)
         return Lock()
-
     if loop not in _write_locks:
         _write_locks[loop] = Lock()
     return _write_locks[loop]
-
-
 # ----------------------------------------------------------------------
 # Low-level streaming helpers (parity with json_utils.py)
 # ----------------------------------------------------------------------
@@ -123,10 +112,7 @@ def stream_read(
         raise JsonStreamError(f"Permission denied: {file_path}") from e
     except OSError as e:
         raise JsonStreamError(f"OS error for {file_path}: {e}") from e
-
     raise JsonRecordNotFound("No matching JSON record found")
-
-
 async def async_stream_read(
     file_path: str,
     match: MatchFn,
@@ -136,14 +122,12 @@ async def async_stream_read(
     """
     Async version of stream_read - allows concurrent reads from the same file.
     """
-
     def _read_sync() -> JsonValue:
         with open(file_path, "r", encoding=encoding) as f:
             for _line_no, _raw, obj in _iter_json_lines(f):
                 if match(obj):
                     return _get_by_path(obj, path)
         raise JsonRecordNotFound("No matching JSON record found")
-
     try:
         return await asyncio.to_thread(_read_sync)
     except FileNotFoundError as e:
@@ -171,7 +155,6 @@ def stream_update(
     dir_name, base_name = os.path.split(os.path.abspath(file_path))
     temp_fd: Optional[int] = None
     temp_path: Optional[str] = None
-
     try:
         if atomic:
             temp_fd, temp_path = tempfile.mkstemp(
@@ -181,7 +164,6 @@ def stream_update(
         else:
             temp_path = os.path.join(dir_name, f".{base_name}.tmp")
             out_fp = open(temp_path, "w", encoding=encoding, newline=newline)
-
         with out_fp as out_f, open(file_path, "r", encoding=encoding) as in_f:
             for _line_no, raw_line, obj in _iter_json_lines(in_f):
                 try:
@@ -194,7 +176,6 @@ def stream_update(
                         f"Updater/match failed at line {_line_no}: {e}"
                     ) from e
                 out_f.write(raw_line)
-
         os.replace(temp_path, file_path)
     except FileNotFoundError as e:
         if temp_fd is not None:
@@ -213,10 +194,7 @@ def stream_update(
                 os.remove(temp_path)
             except Exception:  # noqa: BLE001
                 pass
-
     return updated_count
-
-
 async def async_stream_update(
     file_path: str,
     match: MatchFn,
@@ -230,9 +208,7 @@ async def async_stream_update(
     Async version of stream_update using an event-loop-scoped write lock.
     """
     write_lock = _get_write_lock()
-
     async with write_lock:
-
         def _update_sync() -> int:
             return stream_update(
                 file_path,
@@ -242,25 +218,21 @@ async def async_stream_update(
                 newline=newline,
                 atomic=atomic,
             )
-
         return await asyncio.to_thread(_update_sync)
 
 
 def match_by_id(field: str, value: Any) -> MatchFn:
     """Create a simple matcher: obj[field] == value."""
-
     def _match(obj: JsonValue) -> bool:
         try:
             return obj.get(field) == value  # type: ignore[union-attr]
         except AttributeError:
             return False
-
     return _match
 
 
 def update_path(path: JsonPath, new_value: Any) -> UpdateFn:
     """Create an updater that sets obj[path] = new_value."""
-
     def _update(obj: JsonValue) -> JsonValue:
         cur = obj
         if not path:
@@ -282,38 +254,34 @@ def update_path(path: JsonPath, new_value: Any) -> UpdateFn:
         else:
             cur[last] = new_value
         return obj
-
     return _update
 
 
 class JsonInternalOps(DataOperationsAbstract):
     """Streaming, non-indexed JSON engine using stdlib json."""
-
     ENGINE_NAME = "json_internal_v1"
 
     def __init__(self, file_path: str, id_field: str = "id") -> None:
         super().__init__(file_path=file_path, id_field=id_field)
-
     # ------------------------------------------------------------------
     # Engine metadata / config
     # ------------------------------------------------------------------
-
     @property
+
     def name(self) -> str:
         return self.ENGINE_NAME
-
     @property
+
     def description(self) -> str:
         return "Streaming JSON engine (V1-style, stdlib json, no index)"
-
     @property
+
     def file_path(self) -> str:
         return self._file_path
-
     @property
+
     def id_field(self) -> str:
         return self._id_field
-
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
@@ -323,11 +291,10 @@ class JsonInternalOps(DataOperationsAbstract):
         with open(self._file_path, "r", encoding="utf-8") as f:
             for _line_no, _raw, obj in _iter_json_lines(f):
                 yield obj
-
     @staticmethod
+
     def _get_by_path(obj: JsonValue, path: Optional[JsonPath]) -> JsonValue:
         return _get_by_path(obj, path)
-
     # ------------------------------------------------------------------
     # Indexed access (not supported for this engine)
     # ------------------------------------------------------------------
@@ -338,7 +305,6 @@ class JsonInternalOps(DataOperationsAbstract):
 
     async def async_ensure_index(self) -> None:
         return None
-
     # ------------------------------------------------------------------
     # Point lookups
     # ------------------------------------------------------------------
@@ -365,20 +331,18 @@ class JsonInternalOps(DataOperationsAbstract):
     async def async_get_by_line(self, line_number: int) -> JsonValue:
         loop = asyncio.get_running_loop()
         return await loop.run_in_executor(None, self.get_by_line, line_number)
-
     # ------------------------------------------------------------------
     # Paging
     # ------------------------------------------------------------------
 
-    def get_page(self, page_number: int, page_size: int) -> List[JsonValue]:
+    def get_page(self, page_number: int, page_size: int) -> list[JsonValue]:
         if page_number < 1:
             raise ValueError("page_number must be >= 1")
         if page_size <= 0:
             raise ValueError("page_size must be > 0")
-
         start = (page_number - 1) * page_size
         end = start + page_size
-        results: List[JsonValue] = []
+        results: list[JsonValue] = []
         for idx, obj in enumerate(self._iter_json_lines()):
             if idx < start:
                 continue
@@ -387,10 +351,9 @@ class JsonInternalOps(DataOperationsAbstract):
             results.append(obj)
         return results
 
-    async def async_get_page(self, page_number: int, page_size: int) -> List[JsonValue]:
+    async def async_get_page(self, page_number: int, page_size: int) -> list[JsonValue]:
         loop = asyncio.get_running_loop()
         return await loop.run_in_executor(None, self.get_page, page_number, page_size)
-
     # ------------------------------------------------------------------
     # Streaming search
     # ------------------------------------------------------------------
@@ -414,8 +377,8 @@ class JsonInternalOps(DataOperationsAbstract):
         match: SupportsJsonMatch,
         limit: Optional[int] = None,
         path: Optional[JsonPath] = None,
-    ) -> List[JsonValue]:
-        results: List[JsonValue] = []
+    ) -> list[JsonValue]:
+        results: list[JsonValue] = []
         for obj in self._iter_json_lines():
             if match(obj):
                 results.append(self._get_by_path(obj, path))
@@ -428,10 +391,9 @@ class JsonInternalOps(DataOperationsAbstract):
         match: SupportsJsonMatch,
         limit: Optional[int] = None,
         path: Optional[JsonPath] = None,
-    ) -> List[JsonValue]:
+    ) -> list[JsonValue]:
         loop = asyncio.get_running_loop()
         return await loop.run_in_executor(None, self.find_all, match, limit, path)
-
     # ------------------------------------------------------------------
     # Atomic update operations
     # ------------------------------------------------------------------
@@ -474,20 +436,17 @@ class JsonInternalOps(DataOperationsAbstract):
     ) -> int:
         loop = asyncio.get_running_loop()
         return await loop.run_in_executor(None, self.update_by_id, id_value, updater, atomic)
-
     # ------------------------------------------------------------------
     # Utility helpers
     # ------------------------------------------------------------------
-
     @staticmethod
+
     def match_by_id(field: str, value: Any) -> MatchFn:
         return match_by_id(field, value)
-
     @staticmethod
+
     def update_path(path: JsonPath, new_value: Any) -> UpdateFn:
         return update_path(path, new_value)
-
-
 __all__ = [
     "JsonRecordNotFound",
     "JsonStreamError",
@@ -499,6 +458,3 @@ __all__ = [
     "update_path",
     "JsonInternalOps",
 ]
-
-
-

@@ -1,0 +1,1 @@
+MATCH (u:User) WHERE u.active = true RETURN u.name, u.email, COUNT(o.id) AS order_count, SUM(o.total) AS total_spent, AVG(o.total) AS avg_order_value

@@ -1,0 +1,1 @@
+query { users(where: {age_gt: 18}) { name email } }

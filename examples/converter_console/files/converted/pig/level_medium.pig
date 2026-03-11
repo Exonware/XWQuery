@@ -1,0 +1,1 @@
+A = LOAD 'data' AS (field1, field2);

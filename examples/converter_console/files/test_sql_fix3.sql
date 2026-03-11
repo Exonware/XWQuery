@@ -1,0 +1,1 @@
+SELECT * FROM table INNER JOIN orders o ON u.id = o.user_id WHERE u.active = true GROUP BY u.id, u.name, u.email HAVING COUNT(o.id) > 5 ORDER BY TOTAL_SPENT DESC

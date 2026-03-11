@@ -1,0 +1,1 @@
+SELECT ?name ?email ?order_count ?total_spent ?avg_order_value WHERE { ?user :name ?name . ?user :email ?email . ?user :order_count ?order_count . ?user :total_spent ?total_spent . ?user :avg_order_value ?avg_order_value . FILTER(?u.?active = ?true) }

@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 """
 Example XWQuery Queries
-
 Examples for all 50 operations organized by category.
 """
-
-from typing import Dict, List
 
 EXAMPLES = {
     "core": {
@@ -21,7 +18,6 @@ EXAMPLES = {
             ("DROP collection", "DROP COLLECTION IF EXISTS old_collection"),
         ]
     },
-    
     "filtering": {
         "description": "Filtering Operations",
         "queries": [
@@ -37,7 +33,6 @@ EXAMPLES = {
             ("VALUES inline data", "VALUES {id: 1, name: 'Test'}, {id: 2, name: 'Test2'}"),
         ]
     },
-    
     "aggregation": {
         "description": "Aggregation Operations",
         "queries": [
@@ -53,7 +48,6 @@ EXAMPLES = {
             ("SUMMARIZE data", "SELECT SUMMARIZE users BY city"),
         ]
     },
-    
     "ordering": {
         "description": "Ordering Operations",
         "queries": [
@@ -63,7 +57,6 @@ EXAMPLES = {
             ("GROUP BY with ORDER", "SELECT category, COUNT(*) FROM products GROUP BY category ORDER BY COUNT(*) DESC"),
         ]
     },
-    
     "graph": {
         "description": "Graph Operations",
         "queries": [
@@ -74,7 +67,6 @@ EXAMPLES = {
             ("RETURN specific fields", "MATCH (u:User) RETURN u.name, u.email"),
         ]
     },
-    
     "projection": {
         "description": "Projection Operations",
         "queries": [
@@ -83,7 +75,6 @@ EXAMPLES = {
             ("PROJECT renamed", "SELECT * FROM users PROJECT fullname = name, years = age"),
         ]
     },
-    
     "array": {
         "description": "Array Operations",
         "queries": [
@@ -92,7 +83,6 @@ EXAMPLES = {
             ("INDEXING specific", "SELECT * FROM users INDEXING [0, 5, 10, 15]"),
         ]
     },
-    
     "data": {
         "description": "Data Operations",
         "queries": [
@@ -102,7 +92,6 @@ EXAMPLES = {
             ("ALTER structure", "ALTER COLLECTION users ADD COLUMN status STRING"),
         ]
     },
-    
     "advanced": {
         "description": "Advanced Operations",
         "queries": [
@@ -124,7 +113,6 @@ EXAMPLES = {
             ("OPTIONS metadata", "SELECT * FROM users OPTIONS {timeout: 5000, limit: 100}"),
         ]
     },
-    
     "mixed": {
         "description": "Complex Mixed Operations",
         "queries": [
@@ -141,13 +129,11 @@ EXAMPLES = {
 }
 
 
-def get_examples(category: str = "all") -> List[tuple]:
+def get_examples(category: str = "all") -> list[tuple]:
     """
     Get example queries by category.
-    
     Args:
         category: Category name or 'all' for all examples
-    
     Returns:
         List of (description, query) tuples
     """
@@ -156,14 +142,12 @@ def get_examples(category: str = "all") -> List[tuple]:
         for cat_data in EXAMPLES.values():
             all_examples.extend(cat_data["queries"])
         return all_examples
-    
     if category in EXAMPLES:
         return EXAMPLES[category]["queries"]
-    
     return []
 
 
-def get_categories() -> List[str]:
+def get_categories() -> list[str]:
     """Get list of available categories."""
     return list(EXAMPLES.keys())
 
@@ -174,7 +158,6 @@ def print_examples(category: str = "all"):
         print(f"Unknown category: {category}")
         print(f"Available categories: {', '.join(get_categories())}")
         return
-    
     if category == "all":
         for cat_name, cat_data in EXAMPLES.items():
             print(f"\n{cat_data['description']}:")
@@ -198,4 +181,3 @@ def get_random_example() -> tuple:
     import random
     category = random.choice(list(EXAMPLES.keys()))
     return random.choice(EXAMPLES[category]["queries"])
-

@@ -1,6 +1,6 @@
 # xwquery Requirements
 # Company: eXonware.com
-# Author: Eng. Muhammad AlShehri
+# Author: eXonware Backend Team
 # Email: connect@exonware.com
 # Version: 0.0.1.8
 # Generation Date: October 11, 2025
@@ -14,10 +14,11 @@
 # =============================================================================
 # CORE DEPENDENCIES
 # =============================================================================
-
-exonware-xwsystem>=0.0.1          # Core system utilities
-exonware-xwnode>=0.0.1          # Node-based data structures with query optimization strategies
-exonware-xwsyntax>=0.0.1           # Universal grammar engine with bidirectional parsing
+# Source size (src/*): ~1.56 MB
+pip                     # Package installer (CI and lazy install)
+exonware-xwsystem          # Core system utilities
+exonware-xwnode          # Node-based data structures with query optimization strategies
+exonware-xwsyntax           # Universal grammar engine with bidirectional parsing
 
 # =============================================================================
 # DEVELOPMENT AND TESTING DEPENDENCIES
@@ -60,3 +61,40 @@ mypy>=0.950                          # Static type checking
 # Or run comprehensive verification:
 #   python tests/verify_installation.py
 
+aiofiles
+cryptography
+bcrypt
+psutil
+opentelemetry-api
+cachebox
+cachetools
+pylru
+msgspec
+orjson
+hyperlight_hyperjson
+json5
+PyYAML
+tomli-w
+xmltodict
+dicttoxml
+msgpack
+cbor2
+pymongo
+httpx
+brotli
+zstandard
+rich
+attrs
+regex
+atomicwrites
+interegular
+cython
+charset-normalizer
+lz4
+uarray
+pandas
+pyarrow
+cloudpickle
+pytz
+numexpr
+bottleneck

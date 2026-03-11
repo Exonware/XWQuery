@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 """
 Basic XWQuery usage examples.
-
 Company: eXonware.com
-Author: Eng. Muhammad AlShehri
+Author: eXonware Backend Team
 Email: connect@exonware.com
 Version: 0.0.1
 Generation Date: October 11, 2025
 """
 
 from exonware.xwquery import XWQuery
-
 # Example data
 users = [
     {'id': 1, 'name': 'Alice', 'age': 30, 'city': 'NYC', 'active': True},
@@ -25,7 +23,6 @@ def example_1_basic_select():
     print("\n" + "="*60)
     print("Example 1: Basic SELECT")
     print("="*60)
-    
     query = "SELECT * FROM users WHERE age > 25"
     print(f"Query: {query}")
     print(f"Validation: {XWQuery.validate(query)}")
@@ -36,7 +33,6 @@ def example_2_projection():
     print("\n" + "="*60)
     print("Example 2: Projection")
     print("="*60)
-    
     query = "SELECT name, age FROM users WHERE city = 'NYC'"
     print(f"Query: {query}")
     print(f"Validation: {XWQuery.validate(query)}")
@@ -47,7 +43,6 @@ def example_3_aggregation():
     print("\n" + "="*60)
     print("Example 3: Aggregation")
     print("="*60)
-    
     query = """
     SELECT 
         city, 
@@ -65,10 +60,8 @@ def example_4_format_conversion():
     print("\n" + "="*60)
     print("Example 4: Format Conversion")
     print("="*60)
-    
     sql_query = "SELECT name, email FROM users WHERE age > 25"
     print(f"Original SQL: {sql_query}")
-    
     # Convert to GraphQL
     print("\nConverting to other formats...")
     print(f"Supported formats: {', '.join(XWQuery.get_supported_formats()[:10])}")
@@ -79,7 +72,6 @@ def example_5_supported_operations():
     print("\n" + "="*60)
     print("Example 5: Supported Operations")
     print("="*60)
-    
     operations = XWQuery.get_supported_operations()
     print(f"Total operations: {len(operations)}")
     print(f"\nCore operations:")
@@ -95,21 +87,16 @@ def main():
     print("\n" + "="*60)
     print(" XWQuery - Basic Usage Examples")
     print("="*60)
-    
     example_1_basic_select()
     example_2_projection()
     example_3_aggregation()
     example_4_format_conversion()
     example_5_supported_operations()
-    
     print("\n" + "="*60)
     print(" Examples Complete!")
     print("="*60)
     print("\nNote: These examples show query validation and structure.")
     print("For actual execution, queries need to be run on XWNode structures.")
     print("See advanced examples for execution demonstrations.")
-
-
 if __name__ == "__main__":
     main()
-

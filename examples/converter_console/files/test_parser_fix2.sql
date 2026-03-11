@@ -1,0 +1,1 @@
+SELECT u.name, u.email, COUNT(o.id) as order_count, SUM(o.total) as total_spent, AVG(o.total) as avg_order_value FROM users INNER JOIN orders o ON u.id = o.user_id WHERE u.active = true GROUP BY u.id, u.name, u.email HAVING COUNT(o.id) > 5 ORDER BY TOTAL_SPENT DESC

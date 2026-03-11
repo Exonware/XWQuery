@@ -1,0 +1,38 @@
+-- XWQuery Script - Hard Level
+-- Complex query with CTEs, window functions, and subqueries
+
+WITH active_users AS (
+    SELECT id, name, email, created_at
+    FROM users
+    WHERE active = true
+      AND deleted_at IS NULL
+),
+user_stats AS (
+    SELECT 
+        u.id,
+        u.name,
+        u.email,
+        COUNT(DISTINCT o.id) as order_count,
+        SUM(o.total) as lifetime_value,
+        MAX(o.created_date) as last_order_date,
+        ROW_NUMBER() OVER (PARTITION BY u.id ORDER BY o.created_date DESC) as order_rank
+    FROM active_users u
+    LEFT JOIN orders o ON u.id = o.user_id
+    WHERE o.status IN ('completed', 'shipped')
+    GROUP BY u.id, u.name, u.email
+)
+SELECT 
+    us.name,
+    us.email,
+    us.order_count,
+    us.lifetime_value,
+    us.last_order_date,
+    CASE 
+        WHEN us.lifetime_value > 1000 THEN 'VIP'
+        WHEN us.lifetime_value > 500 THEN 'Premium'
+        ELSE 'Standard'
+    END as customer_tier
+FROM user_stats us
+WHERE us.order_count > 0
+ORDER BY us.lifetime_value DESC, us.order_count DESC
+LIMIT 100;

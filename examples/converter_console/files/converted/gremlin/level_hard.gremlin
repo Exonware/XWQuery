@@ -1,0 +1,1 @@
+g.V().hasLabel('User_stat').has('active', 'true').has('order_count', gt('0')).values('name', 'email', 'order_count', 'lifetime_value', 'last_order_date', 'customer_tier')

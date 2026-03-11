@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
 Utility Functions for XWQuery Console
-
 Formatting, display, and UI helper functions.
 """
 
 import json
-from typing import Any, List, Dict, Optional
+from typing import Any, Optional
 
 
 def print_banner():
@@ -23,7 +22,7 @@ def print_banner():
     print(banner)
 
 
-def print_collections_info(stats: Dict[str, int]):
+def print_collections_info(stats: dict[str, int]):
     """Print information about loaded collections."""
     print("\nCollections loaded:")
     for name, count in stats.items():
@@ -43,12 +42,10 @@ Available Commands:
   .history           - Show recent query history
   .clear             - Clear the screen
   .exit              - Exit the console
-
 Quick Examples:
   SELECT * FROM users WHERE age > 30
   SELECT name, age FROM users
   SELECT category, COUNT(*) FROM products GROUP BY category
-  
 ★ Type .examples to see all 56 available operations! ★
 """
     print(help_text)
@@ -68,7 +65,6 @@ Example Categories (use .examples [category] to filter):
   .examples data         - Data I/O operations (35-38)
   .examples array        - Array operations (39-40)
   .examples advanced     - Advanced operations (41-56)
-
 TIP: Just type .examples (without category) to see all 56!
 """)
 
@@ -76,17 +72,14 @@ TIP: Just type .examples (without category) to see all 56!
 def format_results(data: Any, max_rows: int = 20) -> str:
     """
     Format query results for display.
-    
     Args:
         data: Result data to format
         max_rows: Maximum number of rows to display
-    
     Returns:
         Formatted string
     """
     if data is None:
         return "No results"
-    
     if isinstance(data, dict):
         # Check for common result structures
         if 'items' in data and isinstance(data['items'], list):
@@ -97,55 +90,45 @@ def format_results(data: Any, max_rows: int = 20) -> str:
             return f"Count: {data['count']}"
         else:
             return json.dumps(data, indent=2)
-    
     elif isinstance(data, list):
         return format_list_results(data, max_rows)
-    
     else:
         return str(data)
 
 
-def format_list_results(items: List[Any], max_rows: int = 20) -> str:
+def format_list_results(items: list[Any], max_rows: int = 20) -> str:
     """Format list of items as a table or JSON."""
     if not items:
         return "No results"
-    
     total_count = len(items)
     display_items = items[:max_rows]
-    
     # Try to format as table if items are dicts with same keys
     if all(isinstance(item, dict) for item in display_items):
         result = format_table(display_items)
     else:
         # Fallback to JSON
         result = json.dumps(display_items, indent=2)
-    
     # Add count info
     if total_count > max_rows:
         result += f"\n\n... showing {max_rows} of {total_count} results"
     else:
         result += f"\n\nTotal: {total_count} results"
-    
     return result
 
 
-def format_table(items: List[Dict[str, Any]], max_col_width: int = 30) -> str:
+def format_table(items: list[dict[str, Any]], max_col_width: int = 30) -> str:
     """
     Format list of dicts as an ASCII table.
-    
     Args:
         items: List of dictionaries to format
         max_col_width: Maximum column width
-    
     Returns:
         ASCII table string
     """
     if not items:
         return "No data"
-    
     # Get all keys
     keys = list(items[0].keys())
-    
     # Calculate column widths
     col_widths = {}
     for key in keys:
@@ -156,20 +139,16 @@ def format_table(items: List[Dict[str, Any]], max_col_width: int = 30) -> str:
             ),
             max_col_width
         )
-    
     # Build table
     lines = []
-    
     # Header
     header = "| " + " | ".join(
         str(key).ljust(col_widths[key]) for key in keys
     ) + " |"
     separator = "+-" + "-+-".join("-" * col_widths[key] for key in keys) + "-+"
-    
     lines.append(separator)
     lines.append(header)
     lines.append(separator)
-    
     # Rows
     for item in items:
         row = "| " + " | ".join(
@@ -177,9 +156,7 @@ def format_table(items: List[Dict[str, Any]], max_col_width: int = 30) -> str:
             for key in keys
         ) + " |"
         lines.append(row)
-    
     lines.append(separator)
-    
     return "\n".join(lines)
 
 
@@ -217,15 +194,12 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def print_collection_sample(collection_name: str, data: List[Dict], sample_size: int = 5):
+def print_collection_sample(collection_name: str, data: list[dict], sample_size: int = 5):
     """Print a sample of records from a collection."""
     if not data:
         print(f"Collection '{collection_name}' is empty")
         return
-    
     print(f"\nSample from '{collection_name}' ({len(data)} total records):")
     print(format_table(data[:sample_size]))
-    
     if len(data) > sample_size:
         print(f"\n... showing {sample_size} of {len(data)} records")
-

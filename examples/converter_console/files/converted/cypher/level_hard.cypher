@@ -1,0 +1,1 @@
+MATCH (u:User_stat) WHERE active = true AND o.status IN ('completed', 'shipped') AND us.order_count > 0 RETURN us.name, us.email, us.order_count, us.lifetime_value, us.last_order_date, CASE WHEN us.lifetime_value > 1000 THEN 'VIP' WHEN us.lifetime_value > 500 THEN 'Premium' ELSE 'Standard' END AS customer_tier

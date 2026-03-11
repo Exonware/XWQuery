@@ -1,23 +1,29 @@
-# xwsyntax - Universal Grammar Engine
+# xwsyntax
 
-Parse and generate code for 31+ formats with one unified API.
+**Bidirectional grammar engine.** 100+ grammars (328+ grammar files) for reading and writing syntaxes: parse to AST, generate back, and convert between languages and formats.
+
+**Company:** eXonware.com · **Author:** eXonware Backend Team · **Email:** connect@exonware.com  
+**Updated:** See [version.py](src/exonware/xwsyntax/version.py) (`__date__`)
+
+[![Status](https://img.shields.io/badge/status-beta-blue.svg)](https://exonware.com)
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+---
 
 ## Features
 
-- 🎯 **31 grammar formats** (queries, data, programming, specialized)
-- ↔️ **Bidirectional** (parse AND generate from grammars)
-- ⚡ **Automatic optimization** (xwnode-powered)
-- 🔧 **Binary format support** (BSON, MessagePack, CBOR, etc.)
-- 💻 **IDE integration** (LSP, Monaco, tree-sitter)
-- 🚀 **High performance** (<1ms for common cases)
+- **Grammar-based read/write** — Parse input to native objects or tree; generate from AST.
+- **Bidirectional** — Parse ↔ AST ↔ generate; convert between syntaxes (e.g. JSON → SQL).
+- **328+ grammars** — Query (SQL, Cypher, GraphQL, xwqueryscript, …), data, programming, markup.
+- **xwquery enablement** — Parsing and syntax for query languages (xwqueryscript ↔ DB/graph scripts).
+- **Monaco / IDE** — Export grammars for editors. Codec integration with xwsystem.
 
 ## Installation
 
 ```bash
-# Basic
 pip install exonware-xwsyntax
-
-# Full (recommended)
+# Full (optional)
 pip install exonware-xwsyntax[full]
 ```
 
@@ -26,46 +32,53 @@ pip install exonware-xwsyntax[full]
 ```python
 from exonware.xwsyntax import BidirectionalGrammar
 
-# Parse JSON
 grammar = BidirectionalGrammar.load('json')
 ast = grammar.parse('{"name": "Alice", "age": 30}')
-
-# Generate back to JSON
 json_str = grammar.generate(ast)
 
-# Convert to SQL!
+# Convert between syntaxes
 sql_grammar = BidirectionalGrammar.load('sql')
 sql = sql_grammar.generate(ast)
 ```
 
-## Supported Formats
-
-### Query Languages (8)
-GraphQL, Cypher, MongoDB, XPath, SPARQL, Gremlin, N1QL, PartiQL
-
-### Data Formats (6)
-JSON, YAML, TOML, XML, CSV, INI
-
-### Programming Languages (8)
-JavaScript, TypeScript, Python, Go, Rust, Java, C++, C#
-
-### Specialized (9)
-Protobuf, Markdown, HTML, CSS, Regex, and more
+See [REF_14_DX](docs/REF_14_DX.md) (key code) and [REF_15_API](docs/REF_15_API.md) (API).
 
 ## Documentation
 
-- [Architecture](docs/ARCHITECTURE.md)
-- [All Grammars](docs/GRAMMARS.md)
-- [Optimization Guide](docs/OPTIMIZATION.md)
-- [API Reference](docs/API_REFERENCE.md)
+- [Requirements](docs/REF_01_REQ.md) — REF_01_REQ
+- [Project](docs/REF_22_PROJECT.md) — Vision, scope, milestones
+- [Architecture](docs/REF_13_ARCH.md) — REF_13_ARCH
+- [API Reference](docs/REF_15_API.md) — REF_15_API
+- [Developer experience](docs/REF_14_DX.md) — REF_14_DX
 
-## Company
+## Docs and tests
 
-**eXonware.com**  
-Author: Eng. Muhammad AlShehri  
-Email: connect@exonware.com
+- **Start:** [docs/INDEX.md](docs/INDEX.md) or [REF_01_REQ](docs/REF_01_REQ.md), [REF_14_DX](docs/REF_14_DX.md), [REF_15_API](docs/REF_15_API.md).
+- **Tests:** Run from project root per project layout.
 
-## License
+---
 
-MIT
+## 🔬 Innovation: Where does this package fit?
+
+**Tier 1 — Genuinely novel (nothing like this exists)**
+
+**`xwsyntax` — Bidirectional Universal Grammar Engine**
+
+Parse AND generate across 31+ formats (JSON, SQL, GraphQL, Cypher, Python, Rust, Go...) using paired `.in.grammar` / `.out.grammar` files. No other tool does **bidirectional roundtripping** at this scale.
+
+- Lark, tree-sitter, ANTLR, Pygments only parse in ONE direction; `.out.grammar` templates enable **generation back from AST**
+- Zero-hardcoding: add a new format by dropping 2 grammar files, no code changes
+- Auto-optimizing AST (Trie + IntervalTree + LRU based on AST size)
+
+**Verdict:** 🟢 **Nothing like this exists.** Part of the eXonware story: xwsyntax powers xwquery → xwstorage → xwbase, all on xwnode with xwsystem — vertical integration across 20+ packages.
+
+---
+
+## License and links
+
+MIT — see [LICENSE](LICENSE). **Homepage:** https://exonware.com · **Repository:** https://github.com/exonware/xwsyntax  
+
+Contributing → CONTRIBUTING.md · Security → SECURITY.md (when present).
+
+*Built with ❤️ by eXonware.com - Revolutionizing Python Development Since 2025*
 

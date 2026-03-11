@@ -1,0 +1,107 @@
+// groovy.grammar.in.lark
+// Groovy - JVM scripting language (LALR)
+// Company: eXonware.com
+
+?start: program
+
+program: (package_decl)? (import_decl)* top_level*
+
+top_level: class_decl | statement
+
+package_decl: "package" qualified_name ";"
+
+import_decl: "import" ("static")? qualified_name (".*" | "." IDENTIFIER)? ";"
+
+class_decl: (annotation)* class_modifiers "class" IDENTIFIER (type_params)? ("extends" type_ref)? ("implements" type_ref ("," type_ref)*)? "{" class_member* "}"
+class_modifiers: ("public" | "protected" | "private" | "abstract" | "final" | "static")*
+
+type_params: "<" type_param ("," type_param)* ">"
+type_param: IDENTIFIER ("extends" type_ref)?
+
+class_member: field_decl | method_decl | constructor_decl | "static" block | class_decl
+
+field_decl: (annotation)* ("public" | "protected" | "private" | "static" | "final" | "def")* type_ref IDENTIFIER ("=" expression)? ";"
+
+method_decl: (annotation)* ("public" | "protected" | "private" | "static" | "final" | "abstract" | "def")* (type_ref | "void") IDENTIFIER "(" (formal_params)? ")" ("throws" qualified_name ("," qualified_name)*)? (block | ";")
+
+constructor_decl: (annotation)* ("public" | "protected" | "private")* IDENTIFIER "(" (formal_params)? ")" ("throws" qualified_name ("," qualified_name)*)? block
+
+formal_params: formal_param ("," formal_param)* ("," "..." IDENTIFIER)?
+formal_param: (annotation)* "final"? type_ref ("...")? IDENTIFIER ("=" expression)?
+
+statement: block | if_stmt | for_stmt | while_stmt | switch_stmt | try_stmt | return_stmt | throw_stmt | break_stmt | continue_stmt | expr_stmt | local_var_decl
+
+block: "{" statement* "}"
+
+if_stmt: "if" "(" expression ")" statement ("else" "if" "(" expression ")" statement)* ("else" statement)?
+
+for_stmt: "for" "(" (for_init)? ";" (expression)? ";" (for_update)? ")" statement
+         | "for" "(" type_ref IDENTIFIER ":" expression ")" statement
+
+while_stmt: "while" "(" expression ")" statement
+
+for_init: local_var_decl | expr_list
+for_update: expr_list
+expr_list: expression ("," expression)*
+
+switch_stmt: "switch" "(" expression ")" "{" case_clause* default_clause? "}"
+case_clause: "case" expression ":" statement*
+default_clause: "default" ":" statement*
+
+try_stmt: "try" block catch_clause+ finally_clause? | "try" block finally_clause
+catch_clause: "catch" "(" formal_param ")" block
+finally_clause: "finally" block
+
+return_stmt: "return" (expression)? ";"
+throw_stmt: "throw" expression ";"
+break_stmt: "break" ";"
+continue_stmt: "continue" ";"
+expr_stmt: expression ";"
+
+local_var_decl: (annotation)* ("final" | "def")* type_ref IDENTIFIER ("=" expression)? ";"
+
+expression: assignment | ternary
+assignment: postfix_expr ("=" | "+=" | "-=" | "*=" | "/=" | "%=") expression
+ternary: logical_or "?" expression ":" expression
+logical_or: logical_and ("||" logical_and)*
+logical_and: bit_or ("&&" bit_or)*
+bit_or: bit_xor ("|" bit_xor)*
+bit_xor: bit_and ("^" bit_and)*
+bit_and: equality ("&" equality)*
+equality: comparison (("==" | "!=" | "===" | "!==") comparison)*
+comparison: shift (("<" | ">" | "<=" | ">=" | "instanceof") shift)*
+shift: addition (("<<" | ">>" | ">>>") addition)*
+addition: multiplication (("+" | "-") multiplication)*
+multiplication: unary (("*" | "/" | "%") unary)*
+unary: ("+" | "-" | "!" | "~" | "++" | "--") unary | postfix_expr
+
+postfix_expr: primary ("++" | "--" | "." IDENTIFIER | "[" expression "]" | "(" (argument_list)? ")")*
+argument_list: expression ("," expression)*
+
+primary: literal | "this" | "super" | IDENTIFIER | "(" expression ")" | list_literal | map_literal | closure_def
+
+closure_def: "{" (formal_params)? "->" (statement)* "}"
+
+list_literal: "[" (argument_list)? "]"
+map_literal: "[" (map_entry ("," map_entry)*)? "]"
+map_entry: expression ":" expression
+
+literal: NUMBER | STRING | STRING_SQ | "true" | "false" | "null"
+
+type_ref: qualified_name (type_params)? ("[" "]")*
+qualified_name: IDENTIFIER ("." IDENTIFIER)*
+annotation: "@" qualified_name ("(" (element_value)? ")")?
+element_value: expression | annotation
+
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+NUMBER: /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?[fFdDlL]?/
+STRING: /"[^"\\]*(?:\\.[^"\\]*)*"/
+STRING_SQ: /'[^'\\]*(?:\\.[^'\\]*)*'/
+
+%import common.WS
+%import common.NEWLINE
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT

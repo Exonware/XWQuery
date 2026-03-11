@@ -1,0 +1,26 @@
+{
+  "format_id": "BATCH",
+  "format_name": "Batch",
+  "syntax_name": "batch",
+  "file_extensions": [
+    ".bat",
+    ".cmd"
+  ],
+  "mime_types": [
+    "text/x-batch",
+    "application/x-msdos-program"
+  ],
+  "primary_mime_type": "text/x-batch",
+  "aliases": [
+    "BATCH",
+    "Batch",
+    "CMD",
+    "batch"
+  ],
+  "category": "scripting",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Windows Batch script"
+}

@@ -1,0 +1,113 @@
+# python.out.grammar
+# Python Output Grammar - Template for generating Python from AST
+# Company: eXonware.com
+# Version: 2.0
+
+@file_input = {{#each children}}{{value}}{{#if !@last}}\n\n{{/if}}{{/each}}
+
+@stmt = {{value}}
+
+@simple_stmt = {{value}}
+
+@expr_stmt = {{child_0}}{{#if child_1}} = {{child_1}}{{/if}}
+
+@return_stmt = return{{#if child_0}} {{child_0}}{{/if}}
+
+@typedparam = {{child_0}}{{#if child_1}}: {{child_1}}{{/if}}
+
+@pass_stmt = pass
+
+@break_stmt = break
+
+@continue_stmt = continue
+
+@funcdef = def {{child_0}}({{child_1}}){{#if child_2}} -> {{child_2}}{{/if}}:
+{{#if child_3}}{{child_3}}{{/if}}
+
+@name = {{value}}
+
+@parameters = {{#each children}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@paramvalue = {{child_0}}{{#if child_1}}: {{child_1}}{{/if}}{{#if child_2}} = {{child_2}}{{/if}}
+
+@typedparam = {{child_0}}{{#if child_1}}: {{child_1}}{{/if}}
+
+@classdef = class {{child_0}}{{#if child_1}}({{child_1}}){{/if}}:
+{{#if child_2}}{{child_2}}{{/if}}
+
+@suite = {{#each children}}    {{value}}{{#if !@last}}\n{{/if}}{{/each}}
+
+@file_input = {{#each children}}{{value}}{{#if !@last}}\n\n{{/if}}{{/each}}
+
+@if_stmt = if {{child_0}}:
+{{child_1}}{{#if child_2}}
+else:
+{{child_2}}{{/if}}
+
+@elif_ = elif {{child_0}}:
+{{child_1}}
+
+@while_stmt = while {{child_0}}:
+{{child_1}}
+
+@for_stmt = for {{child_0}} in {{child_1}}:
+{{child_2}}
+
+@funccall = {{child_0}}({{#each children}}{{#if @index > 0}}{{value}}{{#if !@last}}, {{/if}}{{/if}}{{/each}})
+
+@getitem = {{child_0}}[{{child_1}}]
+
+@getattr = {{child_0}}.{{child_1}}
+
+@var = {{value}}
+
+@name = {{value}}
+
+@string = {{value}}
+
+@number = {{value}}
+
+@true = True
+
+@false = False
+
+@const_none = None
+
+@const_true = True
+
+@const_false = False
+
+@list = [{{#each children}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@dict = {{{#each children}}{{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@key_value = {{child_0}}: {{child_1}}
+
+@tuple = ({{#each children}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@paren_expr = ({{child_0}})
+
+@binary_expr = {{child_0}} {{child_1}} {{child_2}}
+
+@assign = {{child_0}} = {{child_1}}
+
+@augassign = {{child_0}} {{child_1}} {{child_2}}
+
+@raise_stmt = raise{{#if child_0}} {{child_0}}{{#if child_1}} from {{child_1}}{{/if}}{{/if}}
+
+@try_stmt = try:
+{{child_0}}{{#if child_1}}
+{{child_1}}{{/if}}{{#if child_2}}
+else:
+{{child_2}}{{/if}}{{#if child_3}}
+finally:
+{{child_3}}{{/if}}
+
+@except_clause = except{{#if child_0}} {{child_0}}{{#if child_1}} as {{child_1}}{{/if}}{{/if}}:
+{{child_2}}
+
+@with_stmt = with {{child_0}}:
+{{child_1}}
+
+@indent = 4
+@pretty = true

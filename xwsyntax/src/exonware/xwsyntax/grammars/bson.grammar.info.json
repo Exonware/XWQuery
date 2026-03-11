@@ -1,0 +1,22 @@
+{
+  "format_id": "BSON",
+  "format_name": "BSON",
+  "syntax_name": "bson",
+  "file_extensions": [
+    ".bson"
+  ],
+  "mime_types": [
+    "application/bson"
+  ],
+  "primary_mime_type": "application/bson",
+  "aliases": [
+    "BSON",
+    "bson"
+  ],
+  "category": "binary_serialization",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Binary JSON - MongoDB's binary format"
+}

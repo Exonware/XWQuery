@@ -1,0 +1,23 @@
+{
+  "format_id": "PROMQL",
+  "format_name": "PromQL",
+  "syntax_name": "promql",
+  "file_extensions": [
+    ".promql"
+  ],
+  "mime_types": [
+    "application/x-promql"
+  ],
+  "primary_mime_type": "application/x-promql",
+  "aliases": [
+    "PROMQL",
+    "PromQL",
+    "promql"
+  ],
+  "category": "query",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Prometheus Query Language"
+}

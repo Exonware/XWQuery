@@ -1,0 +1,24 @@
+{
+  "format_id": "NGINX",
+  "format_name": "Nginx",
+  "syntax_name": "nginx",
+  "file_extensions": [
+    ".nginx",
+    ".conf"
+  ],
+  "mime_types": [
+    "text/x-nginx-conf"
+  ],
+  "primary_mime_type": "text/x-nginx-conf",
+  "aliases": [
+    "NGINX",
+    "Nginx",
+    "nginx"
+  ],
+  "category": "configuration",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Nginx web server configuration"
+}

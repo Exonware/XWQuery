@@ -1,10 +1,7 @@
 #exonware/xwsyntax/tests/1.unit/bidirectional_tests/__init__.py
-
 """
 Bidirectional grammar unit tests.
-
 Company: eXonware.com
-Author: Eng. Muhammad AlShehri
+Author: eXonware Backend Team
 Email: connect@exonware.com
 """
-

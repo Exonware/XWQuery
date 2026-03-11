@@ -1,0 +1,20 @@
+# wasm.grammar.out.lark
+# WebAssembly (WAT) Output Grammar - Generate WAT from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@module = (module {{#if name}}{{name}} {{/if}}{{#each fields}}{{value}}
+{{/each}})
+
+@func_def = (func {{#if name}}{{name}} {{/if}}{{#each params}}{{value}}{{/each}}{{#each results}}{{value}}{{/each}}{{#each locals}}{{value}}{{/each}}{{#each body}}{{value}}{{/each}})
+
+@param = (param {{#if name}}{{name}} {{/if}}{{#each types}}{{value}}{{/each}})
+
+@result = (result {{#each types}}{{value}}{{/each}})
+
+@local = (local {{#if name}}{{name}} {{/if}}{{#each types}}{{value}}{{/each}})
+
+@instruction = {{value}}
+
+@indent = 2
+@pretty = true

@@ -1,0 +1,29 @@
+{
+  "format_id": "S-EXPRESSION",
+  "format_name": "S-Expression",
+  "syntax_name": "sexpr",
+  "file_extensions": [
+    ".sexpr",
+    ".lisp",
+    ".lsp",
+    ".cl"
+  ],
+  "mime_types": [
+    "text/x-s-expr",
+    "application/x-lisp"
+  ],
+  "primary_mime_type": "text/x-s-expr",
+  "aliases": [
+    "Lisp",
+    "S-EXPRESSION",
+    "S-Expr",
+    "SExpression",
+    "sexpr"
+  ],
+  "category": "data",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Lisp S-Expression Format"
+}

@@ -1,0 +1,25 @@
+{
+  "format_id": "PROPERTY LIST",
+  "format_name": "Property List",
+  "syntax_name": "plist",
+  "file_extensions": [
+    ".plist"
+  ],
+  "mime_types": [
+    "application/x-plist",
+    "application/xml"
+  ],
+  "primary_mime_type": "application/x-plist",
+  "aliases": [
+    "PROPERTY LIST",
+    "Plist",
+    "PropertyList",
+    "plist"
+  ],
+  "category": "binary_serialization",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Apple Property List format"
+}

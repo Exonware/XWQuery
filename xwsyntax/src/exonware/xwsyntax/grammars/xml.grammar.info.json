@@ -1,0 +1,28 @@
+{
+  "format_id": "XML",
+  "format_name": "XML",
+  "syntax_name": "xml",
+  "file_extensions": [
+    ".xml",
+    ".xsl",
+    ".xsd",
+    ".xslt"
+  ],
+  "mime_types": [
+    "application/xml",
+    "text/xml",
+    "application/xhtml+xml"
+  ],
+  "primary_mime_type": "application/xml",
+  "aliases": [
+    "XML",
+    "xml"
+  ],
+  "category": "markup",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Extensible Markup Language - Universal data format",
+  "specification": "XML 1.0 (W3C)"
+}

@@ -1,0 +1,23 @@
+{
+  "format_id": "JSON5",
+  "format_name": "JSON5",
+  "syntax_name": "json5",
+  "file_extensions": [
+    ".json5"
+  ],
+  "mime_types": [
+    "application/json5",
+    "text/json5"
+  ],
+  "primary_mime_type": "application/json5",
+  "aliases": [
+    "JSON5",
+    "json5"
+  ],
+  "category": "data",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "JSON with comments and trailing commas"
+}

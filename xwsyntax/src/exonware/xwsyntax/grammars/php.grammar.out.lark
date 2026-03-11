@@ -1,0 +1,14 @@
+# php.grammar.out.lark
+# PHP Output Grammar - Generate PHP from AST
+# Company: eXonware.com
+
+@program = {{#each children}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@stmt = {{value}}
+@expr_stmt = {{value}};
+@block = {
+{{#each children}}{{value}}
+{{/each}}}
+@func_decl = function {{name}}({{params}}) {{body}}
+@expr = {{value}}

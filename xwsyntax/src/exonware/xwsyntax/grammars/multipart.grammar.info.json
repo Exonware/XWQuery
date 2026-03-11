@@ -1,0 +1,23 @@
+{
+  "format_id": "MULTIPART",
+  "format_name": "Multipart",
+  "syntax_name": "multipart",
+  "file_extensions": [],
+  "mime_types": [
+    "multipart/form-data",
+    "multipart/mixed"
+  ],
+  "primary_mime_type": "multipart/form-data",
+  "aliases": [
+    "MULTIPART",
+    "Multipart",
+    "multipart"
+  ],
+  "category": "data",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "HTTP multipart/form-data - File upload format",
+  "specification": "RFC 2388"
+}

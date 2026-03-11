@@ -1,0 +1,32 @@
+// kotlin.grammar.in.lark
+// Kotlin - JVM/scripting (minimal stub for xwquery execution)
+// Company: eXonware.com
+
+?start: program
+
+program: stmt*
+
+stmt: expr_stmt | block | func_decl | class_decl
+expr_stmt: expr (";" | _NEWLINE)
+block: "{" stmt* "}"
+func_decl: "fun" IDENTIFIER "(" param_list? ")" (":" type_ref)? block
+class_decl: "class" IDENTIFIER ("(" param_list? ")")? "{" member* "}"
+param_list: param ("," param)*
+param: IDENTIFIER ":" type_ref ("=" expr)?
+member: func_decl | prop_decl
+prop_decl: "val" IDENTIFIER ":" type_ref ("=" expr)?
+type_ref: IDENTIFIER | "String" | "Int" | "Double" | "Boolean" | type_ref "?"
+
+expr: primary (binop primary)*
+primary: IDENTIFIER | NUMBER | STRING | "(" expr ")" | array_lit
+array_lit: "[" (expr ("," expr)*)? "]"
+array_of: "arrayOf" "(" (expr ("," expr)*)? ")"
+binop: "+" | "-" | "*" | "/" | "==" | "!=" | "<" | ">" | "&&" | "||"
+
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+NUMBER: /[0-9]+(\.[0-9]+)?/
+STRING: /"(?:[^"\\]|\\.)*"/
+_NEWLINE: /\r?\n/
+
+%import common.WS
+%ignore WS

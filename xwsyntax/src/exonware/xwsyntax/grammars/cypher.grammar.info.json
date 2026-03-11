@@ -1,0 +1,24 @@
+{
+  "format_id": "CYPHER",
+  "format_name": "Cypher",
+  "syntax_name": "cypher",
+  "file_extensions": [
+    ".cypher",
+    ".cql"
+  ],
+  "mime_types": [
+    "application/x-cypher"
+  ],
+  "primary_mime_type": "application/x-cypher",
+  "aliases": [
+    "CYPHER",
+    "Cypher",
+    "cypher"
+  ],
+  "category": "query",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Cypher - Neo4j graph query language"
+}

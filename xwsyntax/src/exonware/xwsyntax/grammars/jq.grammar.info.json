@@ -1,0 +1,22 @@
+{
+  "format_id": "JQ",
+  "format_name": "jq",
+  "syntax_name": "jq",
+  "file_extensions": [
+    ".jq"
+  ],
+  "mime_types": [
+    "application/x-jq"
+  ],
+  "primary_mime_type": "application/x-jq",
+  "aliases": [
+    "JQ",
+    "jq"
+  ],
+  "category": "query",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "jq - JSON processor language"
+}

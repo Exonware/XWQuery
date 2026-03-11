@@ -1,0 +1,26 @@
+{
+  "format_id": "SQL",
+  "format_name": "SQL",
+  "syntax_name": "sql",
+  "file_extensions": [
+    ".sql",
+    ".ddl",
+    ".dml",
+    ".dql"
+  ],
+  "mime_types": [
+    "application/sql",
+    "text/x-sql"
+  ],
+  "primary_mime_type": "application/sql",
+  "aliases": [
+    "SQL",
+    "sql"
+  ],
+  "category": "query",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Structured Query Language - Database query language"
+}

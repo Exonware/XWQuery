@@ -1,0 +1,22 @@
+{
+  "format_id": "FORM DATA",
+  "format_name": "Form Data",
+  "syntax_name": "formdata",
+  "file_extensions": [],
+  "mime_types": [
+    "application/x-www-form-urlencoded"
+  ],
+  "primary_mime_type": "application/x-www-form-urlencoded",
+  "aliases": [
+    "FORM DATA",
+    "FormData",
+    "URL-encoded",
+    "formdata"
+  ],
+  "category": "data",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "URL-encoded form data - application/x-www-form-urlencoded"
+}

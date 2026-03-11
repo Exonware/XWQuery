@@ -1,0 +1,46 @@
+# dart.grammar.out.lark
+# Dart Output Grammar - Generate Dart from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@program = {{#each children}}{{value}}{{#if !@last}}
+
+{{/if}}{{/each}}
+
+@library_decl = library {{value}};
+
+@import_directive = import {{value}}{{#if as}} as {{as}}{{/if}}{{#if show}} show {{show}}{{/if}}{{#if hide}} hide {{hide}}{{/if}};
+
+@class_decl = {{#each metadata}}{{value}}
+{{/each}}{{#if abstract}}abstract {{/if}}class {{name}}{{#if type_params}}{{type_params}}{{/if}}{{#if extends}} extends {{extends}}{{/if}}{{#if with}} with {{with}}{{/if}}{{#if implements}} implements {{implements}}{{/if}} {
+{{#each body}}{{value}}
+{{/each}}}
+
+@method_decl = {{#each metadata}}{{value}}
+{{/each}}{{#if static}}static {{/if}}{{return_type}} {{name}}({{params}}){{#if async}} {{async}}{{/if}}{{#if body}} {
+{{#each body}}{{value}}
+{{/each}}}{{else}};{{/if}}
+
+@block = {
+{{#each statements}}{{value}}
+{{/each}}}
+
+@if_stmt = if ({{condition}}) {{then_stmt}}{{#if else_stmt}} else {{else_stmt}}{{/if}}
+
+@for_stmt = for ({{init}}; {{condition}}; {{update}}) {{body}}
+
+@while_stmt = while ({{condition}}) {{body}}
+
+@switch_stmt = switch ({{expression}}) {
+{{#each cases}}{{value}}{{/each}}{{#if default}}{{default}}{{/if}}}
+
+@try_stmt = try {{try_block}}{{#each catch}} {{value}}{{/each}}{{#if finally}} {{finally}}{{/if}}
+
+@return_stmt = return{{#if value}} {{value}}{{/if}};
+
+@expr_stmt = {{value}};
+
+@expression = {{value}}
+
+@indent = 2
+@pretty = true

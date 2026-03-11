@@ -1,0 +1,23 @@
+{
+  "format_id": "GREMLIN",
+  "format_name": "Gremlin",
+  "syntax_name": "gremlin",
+  "file_extensions": [
+    ".gremlin"
+  ],
+  "mime_types": [
+    "application/x-gremlin"
+  ],
+  "primary_mime_type": "application/x-gremlin",
+  "aliases": [
+    "GREMLIN",
+    "Gremlin",
+    "gremlin"
+  ],
+  "category": "query",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Apache TinkerPop Gremlin - Graph traversal language"
+}

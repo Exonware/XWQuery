@@ -1,0 +1,27 @@
+{
+  "format_id": "HCL",
+  "format_name": "HCL",
+  "syntax_name": "hcl",
+  "file_extensions": [
+    ".hcl",
+    ".tf",
+    ".tfvars"
+  ],
+  "mime_types": [
+    "application/x-hcl",
+    "text/x-hcl"
+  ],
+  "primary_mime_type": "application/x-hcl",
+  "aliases": [
+    "HCL",
+    "Terraform",
+    "hcl"
+  ],
+  "category": "configuration",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "HashiCorp Configuration Language - Terraform, Packer, Consul",
+  "specification": "HCL 2.x"
+}

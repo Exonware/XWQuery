@@ -1,0 +1,26 @@
+{
+  "format_id": "POWERSHELL",
+  "format_name": "PowerShell",
+  "syntax_name": "powershell",
+  "file_extensions": [
+    ".ps1",
+    ".psm1",
+    ".psd1"
+  ],
+  "mime_types": [
+    "application/x-powershell"
+  ],
+  "primary_mime_type": "application/x-powershell",
+  "aliases": [
+    "POWERSHELL",
+    "PS",
+    "PowerShell",
+    "powershell"
+  ],
+  "category": "scripting",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "PowerShell scripting language"
+}

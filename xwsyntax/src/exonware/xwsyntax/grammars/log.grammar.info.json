@@ -1,0 +1,24 @@
+{
+  "format_id": "LOG",
+  "format_name": "Log",
+  "syntax_name": "log",
+  "file_extensions": [
+    ".log"
+  ],
+  "mime_types": [
+    "text/x-log",
+    "text/plain"
+  ],
+  "primary_mime_type": "text/x-log",
+  "aliases": [
+    "LOG",
+    "Log",
+    "log"
+  ],
+  "category": "other",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Log file format"
+}

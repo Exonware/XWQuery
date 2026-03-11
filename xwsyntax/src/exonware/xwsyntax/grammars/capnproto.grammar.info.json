@@ -1,0 +1,24 @@
+{
+  "format_id": "CAP'N PROTO",
+  "format_name": "Cap'n Proto",
+  "syntax_name": "capnproto",
+  "file_extensions": [
+    ".capnp"
+  ],
+  "mime_types": [
+    "application/x-capnp"
+  ],
+  "primary_mime_type": "application/x-capnp",
+  "aliases": [
+    "CAP'N PROTO",
+    "Cap'n Proto",
+    "CapnProto",
+    "capnproto"
+  ],
+  "category": "enterprise_schema",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Cap'n Proto - Zero-copy serialization"
+}

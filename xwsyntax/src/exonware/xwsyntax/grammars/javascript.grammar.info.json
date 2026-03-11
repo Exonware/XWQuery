@@ -1,0 +1,29 @@
+{
+  "format_id": "JAVASCRIPT",
+  "format_name": "JavaScript",
+  "syntax_name": "javascript",
+  "file_extensions": [
+    ".js",
+    ".jsx",
+    ".mjs"
+  ],
+  "mime_types": [
+    "text/javascript",
+    "application/javascript",
+    "application/x-javascript"
+  ],
+  "primary_mime_type": "text/javascript",
+  "aliases": [
+    "ECMAScript",
+    "JAVASCRIPT",
+    "JS",
+    "JavaScript",
+    "javascript"
+  ],
+  "category": "programming",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "JavaScript programming language"
+}

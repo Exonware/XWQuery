@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rust Type System Schema",
+  "description": "JSON Schema definition for Rust type system validation",
+  "type": "object",
+  "properties": {
+    "types": {
+      "type": "object",
+      "description": "Rust type definitions",
+      "properties": {
+        "primitive": {
+          "type": "object",
+          "properties": {
+            "i32": {"type": "object", "description": "32-bit signed integer"},
+            "i64": {"type": "object", "description": "64-bit signed integer"},
+            "f32": {"type": "object", "description": "32-bit floating point"},
+            "f64": {"type": "object", "description": "64-bit floating point"},
+            "bool": {"type": "object", "description": "Boolean type"},
+            "String": {"type": "object", "description": "Owned string"},
+            "&str": {"type": "object", "description": "String slice"},
+            "Vec": {"type": "object", "description": "Vector type"},
+            "HashMap": {"type": "object", "description": "HashMap type"},
+            "Option": {"type": "object", "description": "Option type"},
+            "Result": {"type": "object", "description": "Result type"}
+          }
+        },
+        "collection": {
+          "type": "object",
+          "properties": {
+            "Vec": {
+              "type": "object",
+              "properties": {
+                "item_type": {"type": "string", "description": "Type of vector items"}
+              }
+            },
+            "HashMap": {
+              "type": "object",
+              "properties": {
+                "key_type": {"type": "string", "description": "Type of map keys"},
+                "value_type": {"type": "string", "description": "Type of map values"}
+              }
+            },
+            "tuple": {
+              "type": "object",
+              "properties": {
+                "item_types": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Types of tuple items"
+                }
+              }
+            }
+          }
+        },
+        "generic": {
+          "type": "object",
+          "properties": {
+            "Option": {
+              "type": "object",
+              "properties": {
+                "inner_type": {"type": "string", "description": "Inner type of Option"}
+              }
+            },
+            "Result": {
+              "type": "object",
+              "properties": {
+                "ok_type": {"type": "string", "description": "OK variant type"},
+                "err_type": {"type": "string", "description": "Error variant type"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "functions": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "type": {"type": "string"},
+              "mut": {"type": "boolean"}
+            }
+          }
+        },
+        "return_type": {"type": "string"}
+      }
+    },
+    "structs": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "type": {"type": "string"},
+              "pub": {"type": "boolean"}
+            }
+          }
+        }
+      }
+    },
+    "impl_blocks": {
+      "type": "object",
+      "properties": {
+        "methods": {
+          "type": "array",
+          "items": {"type": "object"}
+        }
+      }
+    }
+  }
+}

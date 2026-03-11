@@ -1,0 +1,24 @@
+{
+  "format_id": "DELTA LAKE",
+  "format_name": "Delta Lake",
+  "syntax_name": "delta",
+  "file_extensions": [
+    ".delta"
+  ],
+  "mime_types": [
+    "application/x-delta-lake"
+  ],
+  "primary_mime_type": "application/x-delta-lake",
+  "aliases": [
+    "DELTA LAKE",
+    "Delta",
+    "Delta Lake",
+    "delta"
+  ],
+  "category": "enterprise_schema",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Delta Lake - Open table format for data lakes"
+}

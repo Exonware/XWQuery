@@ -1,0 +1,24 @@
+{
+  "format_id": "APACHE ICEBERG",
+  "format_name": "Apache Iceberg",
+  "syntax_name": "iceberg",
+  "file_extensions": [
+    ".iceberg"
+  ],
+  "mime_types": [
+    "application/x-apache-iceberg"
+  ],
+  "primary_mime_type": "application/x-apache-iceberg",
+  "aliases": [
+    "APACHE ICEBERG",
+    "Apache Iceberg",
+    "Iceberg",
+    "iceberg"
+  ],
+  "category": "enterprise_schema",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Apache Iceberg - Open table format for analytics"
+}

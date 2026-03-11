@@ -1,0 +1,23 @@
+{
+  "format_id": "TSV",
+  "format_name": "TSV",
+  "syntax_name": "tsv",
+  "file_extensions": [
+    ".tsv"
+  ],
+  "mime_types": [
+    "text/tab-separated-values",
+    "text/tsv"
+  ],
+  "primary_mime_type": "text/tab-separated-values",
+  "aliases": [
+    "TSV",
+    "tsv"
+  ],
+  "category": "data",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Tab-Separated Values - Tabular data format"
+}

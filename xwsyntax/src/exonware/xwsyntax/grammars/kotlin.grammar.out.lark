@@ -1,0 +1,17 @@
+# kotlin.grammar.out.lark
+# Kotlin Output Grammar - Generate Kotlin from AST
+# Company: eXonware.com
+
+@program = {{#each children}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@stmt = {{value}}
+@expr_stmt = {{value}}
+@block = {
+{{#each children}}{{value}}
+{{/each}}}
+@func_decl = fun {{name}}({{params}}){{#if return_type}}: {{return_type}}{{/if}} {{body}}
+@class_decl = class {{name}}{{#if params}}({{params}}){{/if}} {
+{{#each members}}{{value}}
+{{/each}}}
+@expr = {{value}}

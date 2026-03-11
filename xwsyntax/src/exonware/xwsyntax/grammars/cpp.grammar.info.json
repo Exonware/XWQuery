@@ -1,0 +1,29 @@
+{
+  "format_id": "C++",
+  "format_name": "C++",
+  "syntax_name": "cpp",
+  "file_extensions": [
+    ".cpp",
+    ".cxx",
+    ".cc",
+    ".hpp",
+    ".hxx"
+  ],
+  "mime_types": [
+    "text/x-c++src",
+    "text/x-c++"
+  ],
+  "primary_mime_type": "text/x-c++src",
+  "aliases": [
+    "C++",
+    "CPP",
+    "Cpp",
+    "cpp"
+  ],
+  "category": "programming",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "C++ programming language"
+}

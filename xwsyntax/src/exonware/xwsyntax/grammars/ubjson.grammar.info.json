@@ -1,0 +1,22 @@
+{
+  "format_id": "UBJSON",
+  "format_name": "UBJSON",
+  "syntax_name": "ubjson",
+  "file_extensions": [
+    ".ubjson"
+  ],
+  "mime_types": [
+    "application/ubjson"
+  ],
+  "primary_mime_type": "application/ubjson",
+  "aliases": [
+    "UBJSON",
+    "ubjson"
+  ],
+  "category": "binary_serialization",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Universal Binary JSON"
+}

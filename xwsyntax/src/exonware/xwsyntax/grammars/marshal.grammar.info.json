@@ -1,0 +1,23 @@
+{
+  "format_id": "MARSHAL",
+  "format_name": "Marshal",
+  "syntax_name": "marshal",
+  "file_extensions": [
+    ".marshal"
+  ],
+  "mime_types": [
+    "application/python-marshal"
+  ],
+  "primary_mime_type": "application/python-marshal",
+  "aliases": [
+    "MARSHAL",
+    "Marshal",
+    "marshal"
+  ],
+  "category": "binary_serialization",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Python internal serialization format"
+}

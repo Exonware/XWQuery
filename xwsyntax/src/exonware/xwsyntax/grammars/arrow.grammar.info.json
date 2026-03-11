@@ -1,0 +1,25 @@
+{
+  "format_id": "APACHE ARROW",
+  "format_name": "Apache Arrow",
+  "syntax_name": "arrow",
+  "file_extensions": [
+    ".arrow",
+    ".feather"
+  ],
+  "mime_types": [
+    "application/x-apache-arrow"
+  ],
+  "primary_mime_type": "application/x-apache-arrow",
+  "aliases": [
+    "APACHE ARROW",
+    "Apache Arrow",
+    "Arrow",
+    "arrow"
+  ],
+  "category": "scientific",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Columnar In-Memory Format - Fast columnar data"
+}

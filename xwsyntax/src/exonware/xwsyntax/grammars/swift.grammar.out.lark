@@ -1,0 +1,15 @@
+# swift.grammar.out.lark
+# Swift Output Grammar - Generate Swift from AST
+# Company: eXonware.com
+
+@program = {{#each children}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@stmt = {{value}}
+@expr_stmt = {{value}}
+@block = {
+{{#each children}}{{value}}
+{{/each}}}
+@func_decl = func {{name}}({{params}}){{#if return_type}} -> {{return_type}}{{/if}} {{body}}
+@var_decl = {{var_let}} {{name}}{{#if type}}: {{type}}{{/if}}{{#if value}} = {{value}}{{/if}}
+@expr = {{value}}

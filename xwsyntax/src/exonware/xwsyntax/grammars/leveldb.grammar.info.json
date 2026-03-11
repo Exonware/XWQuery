@@ -1,0 +1,24 @@
+{
+  "format_id": "LEVELDB",
+  "format_name": "LevelDB",
+  "syntax_name": "leveldb",
+  "file_extensions": [
+    ".ldb",
+    ".leveldb"
+  ],
+  "mime_types": [
+    "application/x-leveldb"
+  ],
+  "primary_mime_type": "application/x-leveldb",
+  "aliases": [
+    "LEVELDB",
+    "LevelDB",
+    "leveldb"
+  ],
+  "category": "database",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Key-value storage library"
+}

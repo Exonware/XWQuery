@@ -1,0 +1,25 @@
+{
+  "format_id": "LUA",
+  "format_name": "Lua",
+  "syntax_name": "lua",
+  "file_extensions": [
+    ".lua"
+  ],
+  "mime_types": [
+    "text/x-lua",
+    "application/x-lua"
+  ],
+  "primary_mime_type": "text/x-lua",
+  "aliases": [
+    "LUA",
+    "Lua",
+    "lua"
+  ],
+  "category": "programming",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Lua Programming Language",
+  "specification": "Lua 5.4"
+}

@@ -1,0 +1,23 @@
+{
+  "format_id": "SPARQL",
+  "format_name": "SPARQL",
+  "syntax_name": "sparql",
+  "file_extensions": [
+    ".sparql",
+    ".rq"
+  ],
+  "mime_types": [
+    "application/sparql-query"
+  ],
+  "primary_mime_type": "application/sparql-query",
+  "aliases": [
+    "SPARQL",
+    "sparql"
+  ],
+  "category": "query",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "SPARQL Protocol and RDF Query Language"
+}

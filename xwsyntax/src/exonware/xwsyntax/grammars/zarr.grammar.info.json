@@ -1,0 +1,23 @@
+{
+  "format_id": "ZARR",
+  "format_name": "Zarr",
+  "syntax_name": "zarr",
+  "file_extensions": [
+    ".zarr"
+  ],
+  "mime_types": [
+    "application/x-zarr"
+  ],
+  "primary_mime_type": "application/x-zarr",
+  "aliases": [
+    "ZARR",
+    "Zarr",
+    "zarr"
+  ],
+  "category": "scientific",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Chunked, compressed, N-dimensional arrays"
+}

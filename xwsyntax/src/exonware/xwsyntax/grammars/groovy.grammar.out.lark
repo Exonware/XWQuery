@@ -1,0 +1,62 @@
+# groovy.grammar.out.lark
+# Groovy Output Grammar - Generate Groovy from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@program = {{#each children}}{{value}}{{#if !@last}}
+
+{{/if}}{{/each}}
+
+@package_decl = package {{value}};
+
+@import_decl = import {{#if static}}static {{/if}}{{value}}{{#if wildcard}}.*{{/if}}{{#if alias}}.{{alias}}{{/if}};
+
+@class_decl = {{#each modifiers}}{{value}} {{/each}}class {{name}}{{#if type_params}}{{type_params}}{{/if}}{{#if extends}} extends {{extends}}{{/if}}{{#if implements}} implements {{implements}}{{/if}} {
+{{#each body}}{{value}}
+{{/each}}}
+
+@field_decl = {{#each modifiers}}{{value}} {{/each}}{{type}} {{name}}{{#if value}} = {{value}}{{/if}};
+
+@method_decl = {{#each modifiers}}{{value}} {{/each}}{{return_type}} {{name}}({{params}}){{#if throws}} throws {{throws}}{{/if}}{{#if body}} {
+{{#each body}}{{value}}
+{{/each}}}{{else}};{{/if}}
+
+@constructor_decl = {{#each modifiers}}{{value}} {{/each}}{{name}}({{params}}){{#if throws}} throws {{throws}}{{/if}} {
+{{#each body}}{{value}}
+{{/each}}}
+
+@block = {
+{{#each statements}}{{value}}
+{{/each}}}
+
+@if_stmt = if ({{condition}}) {{then_stmt}}{{#each elseif}} else if ({{condition}}) {{then_stmt}}{{/each}}{{#if else_stmt}} else {{else_stmt}}{{/if}}
+
+@for_stmt = for ({{init}}; {{condition}}; {{update}}) {{body}}
+
+@while_stmt = while ({{condition}}) {{body}}
+
+@switch_stmt = switch ({{expression}}) {
+{{#each cases}}{{value}}{{/each}}{{#if default}}{{default}}{{/if}}}
+
+@try_stmt = try {{try_block}}{{#each catch}} {{value}}{{/each}}{{#if finally}} {{finally}}{{/if}}
+
+@return_stmt = return{{#if value}} {{value}}{{/if}};
+
+@throw_stmt = throw {{value}};
+
+@expr_stmt = {{value}};
+
+@local_var_decl = {{#each modifiers}}{{value}} {{/each}}{{type}} {{name}}{{#if value}} = {{value}}{{/if}};
+
+@expression = {{value}}
+
+@closure_def = {{{#if params}}{{params}} ->{{/if}}
+{{#each statements}}{{value}}
+{{/each}}}
+
+@list_literal = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@map_literal = [{{#each entries}}{{key}}: {{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@indent = 2
+@pretty = true

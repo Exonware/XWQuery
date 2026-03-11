@@ -1,0 +1,18 @@
+# ruby.grammar.out.lark
+# Ruby Output Grammar - Generate Ruby from AST
+# Company: eXonware.com
+
+@program = {{#each children}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@stmt = {{value}}
+@expr_stmt = {{value}}
+@block = {{#if do_style}}do
+{{#each children}}{{value}}
+{{/each}}end{{else}}{
+{{#each children}}{{value}}
+{{/each}}}{{/if}}
+@def_decl = def {{name}}({{params}})
+{{#each body}}{{value}}
+{{/each}}end
+@expr = {{value}}

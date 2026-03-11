@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Python to Rust Pattern Mappings",
+  "description": "Syntax pattern transformations for converting Python constructs to Rust",
+  "type": "object",
+  "properties": {
+    "function_definition": {
+      "type": "object",
+      "description": "Function definition patterns",
+      "properties": {
+        "python": {
+          "type": "string",
+          "description": "Python function pattern",
+          "default": "def {name}({args}) -> {return_type}:"
+        },
+        "rust": {
+          "type": "string",
+          "description": "Rust function pattern",
+          "default": "fn {name}({args}) -> {return_type} {{"
+        }
+      }
+    },
+    "class_definition": {
+      "type": "object",
+      "description": "Class definition patterns",
+      "properties": {
+        "python": {
+          "type": "string",
+          "description": "Python class pattern",
+          "default": "class {name}:"
+        },
+        "rust": {
+          "type": "string",
+          "description": "Rust struct/impl pattern",
+          "default": "struct {name} {{ ... }} impl {name} {{ ... }}"
+        }
+      }
+    },
+    "variable_declaration": {
+      "type": "object",
+      "description": "Variable declaration patterns",
+      "properties": {
+        "python": {
+          "type": "string",
+          "description": "Python variable pattern",
+          "default": "{name}: {type} = {value}"
+        },
+        "rust": {
+          "type": "string",
+          "description": "Rust variable pattern",
+          "default": "let {name}: {type} = {value};"
+        }
+      }
+    },
+    "control_flow": {
+      "type": "object",
+      "description": "Control flow patterns",
+      "properties": {
+        "if_statement": {
+          "python": "if {condition}:",
+          "rust": "if {condition} {{"
+        },
+        "for_loop": {
+          "python": "for {item} in {iterable}:",
+          "rust": "for {item} in {iterable} {{"
+        },
+        "while_loop": {
+          "python": "while {condition}:",
+          "rust": "while {condition} {{"
+        }
+      }
+    },
+    "return_statement": {
+      "type": "object",
+      "properties": {
+        "python": "return {value}",
+        "rust": "{value}"
+      }
+    },
+    "import_statement": {
+      "type": "object",
+      "properties": {
+        "python": "import {module}",
+        "rust": "use {module};"
+      }
+    }
+  },
+  "required": ["function_definition", "class_definition", "variable_declaration"]
+}

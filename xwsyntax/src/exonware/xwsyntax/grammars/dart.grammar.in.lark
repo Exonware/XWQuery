@@ -1,0 +1,135 @@
+// dart.grammar.in.lark
+// Dart - Client-optimized language (LALR)
+// Company: eXonware.com
+
+?start: program
+
+program: (library_decl)? (import_directive)* (part_directive)* (metadata)* compilation_unit*
+
+compilation_unit: class_decl | mixin_decl | extension_decl | enum_decl | function_decl | getter_decl | setter_decl | variable_decl | statement
+
+library_decl: "library" identifier ";"
+
+import_directive: "import" string_lit ("as" identifier)? ("show" identifier_list)? ("hide" identifier_list)? ";"
+identifier_list: identifier ("," identifier)*
+
+part_directive: "part" string_lit ";"
+
+metadata: "@" identifier ("(" (argument_list)? ")")?
+
+class_decl: (metadata)* ("abstract")? "class" identifier (type_params)? ("extends" type_ref)? ("with" type_ref ("," type_ref)*)? ("implements" type_ref ("," type_ref)*)? "{" class_member* "}"
+
+mixin_decl: (metadata)* "mixin" identifier (type_params)? ("on" type_ref ("," type_ref)*)? "{" class_member* "}"
+
+extension_decl: (metadata)* "extension" (identifier)? ("on" type_ref)? "{" class_member* "}"
+
+enum_decl: (metadata)* "enum" identifier ("implements" type_ref ("," type_ref)*)? "{" enum_member_list "}"
+enum_member_list: enum_member ("," enum_member)*
+
+enum_member: (metadata)* identifier ("(" (argument_list)? ")")?
+
+class_member: field_decl | method_decl | constructor_decl | getter_decl | setter_decl
+
+field_decl: (metadata)* ("static" | "final" | "const" | "late" | "var" | "covariant")* type_ref? identifier ("=" expression)? ";"
+
+method_decl: (metadata)* ("static" | "abstract" | "override")* ("async" | "async*" | "sync*")? type_ref? identifier "(" (formal_params)? ")" (block | ";")
+
+constructor_decl: (metadata)* identifier ("." identifier)? "(" (formal_params)? ")" (":" super_call)? (":" initializer_list)? block
+
+super_call: "super" ("." identifier)? "(" (argument_list)? ")"
+initializer_list: initializer ("," initializer)*
+initializer: "super" ("." identifier)? "(" (argument_list)? ")" | "this" "." identifier "(" (argument_list)? ")" | field_id "=" expression
+
+getter_decl: (metadata)* type_ref? "get" identifier (block | ";")
+setter_decl: (metadata)* "set" identifier "(" formal_param ")" (block | ";")
+
+function_decl: (metadata)* ("external" | "static")? type_ref identifier "(" (formal_params)? ")" (block | ";")
+
+variable_decl: (metadata)* ("final" | "const" | "late" | "var")* type_ref? identifier ("=" expression)? ";"
+
+formal_params: formal_param ("," formal_param)* ("," "..." identifier)?
+formal_param: (metadata)* ("required" | "this" | "super")? ("final" | "const" | "covariant")? type_ref? identifier ("=" expression)?
+
+statement: block | if_stmt | for_stmt | while_stmt | do_stmt | switch_stmt | try_stmt | return_stmt | break_stmt | continue_stmt | yield_stmt | expr_stmt | assert_stmt | local_var_decl
+
+block: "{" statement* "}"
+
+if_stmt: "if" "(" expression ")" statement ("else" statement)?
+
+for_stmt: "for" "(" (for_init)? ";" (expression)? ";" (for_update)? ")" statement
+         | "for" "(" formal_param "in" expression ")" statement
+
+for_init: local_var_decl | expr_list
+for_update: expr_list
+expr_list: expression ("," expression)*
+
+while_stmt: "while" "(" expression ")" statement
+do_stmt: "do" statement "while" "(" expression ")" ";"
+
+switch_stmt: "switch" "(" expression ")" "{" switch_case* default_case? "}"
+switch_case: "case" expression ":" statement*
+default_case: "default" ":" statement*
+
+try_stmt: "try" block (catch_clause)+ finally_clause? | "try" block finally_clause
+catch_clause: "catch" "(" identifier ("," identifier)? ")" block
+finally_clause: "finally" block
+
+return_stmt: "return" (expression)? ";"
+break_stmt: "break" (identifier)? ";"
+continue_stmt: "continue" (identifier)? ";"
+yield_stmt: "yield" ("*")? expression ";"
+expr_stmt: expression ";"
+assert_stmt: "assert" "(" expression ("," expression)? ")" ";"
+
+local_var_decl: (metadata)* ("final" | "const" | "late" | "var")* type_ref? identifier ("=" expression)? ";"
+
+expression: assignment | conditional | logical_or
+assignment: postfix_expr ("=" | "+=" | "-=" | "*=" | "/=" | "%=" | "&=" | "|=" | "^=" | "<<=" | ">>=" | ">>>=") expression
+conditional: logical_or "?" expression ":" expression
+logical_or: logical_and ("||" logical_and)*
+logical_and: bit_or ("&&" bit_or)*
+bit_or: bit_xor ("|" bit_xor)*
+bit_xor: bit_and ("^" bit_and)*
+bit_and: equality ("&" equality)*
+equality: comparison (("==" | "!=") comparison)*
+comparison: shift (("<" | ">" | "<=" | ">=") shift)*
+shift: addition (("<<" | ">>" | ">>>") addition)*
+addition: multiplication (("+" | "-") multiplication)*
+multiplication: unary (("*" | "/" | "%" | "~/") unary)*
+unary: ("-" | "!" | "~" | "++" | "--" | "await") unary | postfix_expr
+
+postfix_expr: primary ("++" | "--" | "." identifier | "?." identifier | "[" expression "]" | "?[" expression "]" | "(" (argument_list)? ")")*
+argument_list: expression ("," expression)*
+
+primary: literal | identifier | "this" | "super" | "(" expression ")" | list_literal | set_literal | map_literal | function_literal
+
+function_literal: (formal_params)? "=>" (expression | block)
+list_literal: "const"? "[" (argument_list)? "]"
+set_literal: "const"? "{" (argument_list)? "}"
+map_literal: "const"? "{" (map_entry ("," map_entry)*)? "}"
+map_entry: expression ":" expression
+
+literal: NUMBER | string_lit | "true" | "false" | "null"
+
+type_ref: qualified_name (type_params)? ("?")? ("[" "]")*
+type_params: "<" type_param ("," type_param)* ">"
+type_param: identifier ("extends" type_ref)?
+qualified_name: identifier ("." identifier)*
+string_lit: STRING | STRING_SQ | STRING_TRIPLE
+identifier: IDENTIFIER | "async" | "hide" | "on" | "show" | "sync" | "await"
+
+field_id: identifier
+
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+NUMBER: /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
+STRING: /"[^"\\]*(?:\\.[^"\\]*)*"/
+STRING_SQ: /'[^'\\]*(?:\\.[^'\\]*)*'/
+STRING_TRIPLE: "\"\"\"" /[\s\S]*?/ "\"\"\""
+
+%import common.WS
+%import common.NEWLINE
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT

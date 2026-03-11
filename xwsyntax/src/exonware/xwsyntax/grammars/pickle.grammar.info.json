@@ -1,0 +1,25 @@
+{
+  "format_id": "PICKLE",
+  "format_name": "Pickle",
+  "syntax_name": "pickle",
+  "file_extensions": [
+    ".pkl",
+    ".pickle",
+    ".p"
+  ],
+  "mime_types": [
+    "application/python-pickle"
+  ],
+  "primary_mime_type": "application/python-pickle",
+  "aliases": [
+    "PICKLE",
+    "Pickle",
+    "pickle"
+  ],
+  "category": "binary_serialization",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Python object serialization"
+}

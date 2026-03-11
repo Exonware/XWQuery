@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Python to Rust Conversion Rules",
+  "description": "Configuration for conversion behavior and options",
+  "type": "object",
+  "properties": {
+    "naming_conventions": {
+      "type": "object",
+      "description": "Naming convention rules",
+      "properties": {
+        "python_style": {
+          "type": "string",
+          "enum": ["snake_case", "camelCase", "PascalCase"],
+          "default": "snake_case"
+        },
+        "rust_style": {
+          "type": "string",
+          "enum": ["snake_case", "camelCase", "PascalCase"],
+          "default": "snake_case"
+        },
+        "preserve_names": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "type_inference": {
+      "type": "object",
+      "description": "Type inference rules",
+      "properties": {
+        "enable_inference": {
+          "type": "boolean",
+          "default": true
+        },
+        "infer_from_usage": {
+          "type": "boolean",
+          "default": true
+        },
+        "default_types": {
+          "type": "object",
+          "properties": {
+            "untyped_int": "i32",
+            "untyped_float": "f64",
+            "untyped_string": "String",
+            "untyped_list": "Vec<()>",
+            "untyped_dict": "HashMap<String, ()>"
+          }
+        }
+      }
+    },
+    "error_handling": {
+      "type": "object",
+      "description": "Error handling strategies",
+      "properties": {
+        "python_exceptions": {
+          "type": "string",
+          "enum": ["Result", "Option", "panic"],
+          "default": "Result"
+        },
+        "convert_exceptions": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "memory_management": {
+      "type": "object",
+      "description": "Memory management hints",
+      "properties": {
+        "ownership_strategy": {
+          "type": "string",
+          "enum": ["owned", "borrowed", "reference"],
+          "default": "owned"
+        },
+        "string_type": {
+          "type": "string",
+          "enum": ["String", "&str", "Cow<str>"],
+          "default": "String"
+        }
+      }
+    },
+    "code_generation": {
+      "type": "object",
+      "properties": {
+        "format_code": {
+          "type": "boolean",
+          "default": true
+        },
+        "add_comments": {
+          "type": "boolean",
+          "default": true
+        },
+        "generate_tests": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  },
+  "required": ["naming_conventions", "type_inference"]
+}

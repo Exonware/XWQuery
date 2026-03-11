@@ -1,71 +1,89 @@
-#exonware/xwsyntax/pyproject.toml
+# project-src-size=727354 ; 0.69 MB
 
+# Source size (src/*): ~709.9 KB
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
 name = "exonware-xwsyntax"
-version = "0.0.1.2"
+version = "0.6.0.1"
 description = "Universal grammar engine with bidirectional parsing and generation for 31+ formats"
 readme = "README.md"
 requires-python = ">=3.12"
-license = {text = "MIT"}
-keywords = [
-    "parser", "grammar", "lark", "ast", "syntax",
-    "bidirectional", "code-generation", "format-conversion",
-    "ide", "lsp", "monaco", "tree-sitter",
-    "json", "sql", "python", "graphql", "cypher",
-    "exonware"
-]
-authors = [
-    {name = "Eng. Muhammad AlShehri", email = "connect@exonware.com"}
-]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Code Generators",
-    "Topic :: Software Development :: Compilers",
-    "Topic :: Software Development :: Interpreters",
-    "Topic :: Text Processing :: Linguistic",
+keywords = []
+classifiers = []
+dependencies = [
+  "lark>=1.1.0",  # file-size=843092 ; 0.80 MB
+  # total = src + deps ; 1.50 MB
 ]
 
-dependencies = [
-    "exonware-xwnode",
-    "exonware-xwsystem",
-    "lark>=1.1.0",
-]
+[[project.authors]]
+name = "eXonware Backend Team"
+email = "connect@exonware.com"
+
+[project.license]
+text = "MIT"
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=7.0.0",
-    "pytest-asyncio>=0.21.0",
-    "pytest-cov>=4.0.0",
-    "pytest-benchmark>=4.0.0",
-    "black>=23.0.0",
-    "isort>=5.12.0",
-    "mypy>=1.0.0",
+  "black>=23.0.0",  # file-size=3914855 ; 3.73 MB
+  "exonware-xwlazy",  # file-size=349706 ; 0.33 MB
+  "isort>=5.12.0",  # file-size=568232 ; 0.54 MB
+  "mypy>=1.0.0",  # file-size=29775254 ; 28.40 MB
+  "pytest>=7.0.0",  # file-size=3152415 ; 3.01 MB
+  "pytest-asyncio>=0.21.0",  # file-size=46752 ; 0.04 MB
+  "pytest-benchmark>=4.0.0",
+  "pytest-cov>=4.0.0",  # file-size=71639 ; 0.07 MB
+  # total = src + deps ; 36.82 MB
 ]
-
 lazy = [
-    "exonware-xwsystem[lazy]",
-    "exonware-xwnode[lazy]",
+  "exonware-xwlazy",  # file-size=349706 ; 0.33 MB
+  # total = src + deps ; 1.03 MB
 ]
-
 full = [
-    # xwsyntax leverages xwsystem and xwnode full capabilities
-    "exonware-xwsystem[full]",
-    "exonware-xwnode[full]",
-    
-    # xwsyntax-specific dependencies
-    "msgpack>=1.0.0",      # MessagePack binary format
-    "cbor2>=5.0.0",        # CBOR binary format
-    "pygls>=1.0.0",        # Language Server Protocol
-    "tree-sitter>=0.20.0", # High-performance parsing
+  "aiofiles",  # file-size=81991 ; 0.08 MB
+  "atomicwrites",  # file-size=25022 ; 0.02 MB
+  "attrs",  # file-size=440438 ; 0.42 MB
+  "bcrypt",  # file-size=329770 ; 0.31 MB
+  "bottleneck",  # file-size=460187 ; 0.44 MB
+  "brotli",  # file-size=868889 ; 0.83 MB
+  "cachebox",  # file-size=971831 ; 0.93 MB
+  "cachetools",  # file-size=105183 ; 0.10 MB
+  "cbor2>=5.0.0",  # file-size=406858 ; 0.39 MB
+  "charset-normalizer",  # file-size=580726 ; 0.55 MB
+  "cloudpickle",  # file-size=125961 ; 0.12 MB
+  "cryptography",  # file-size=10265860 ; 9.79 MB
+  "cython",  # file-size=13606517 ; 12.98 MB
+  "dicttoxml",  # file-size=96721 ; 0.09 MB
+  "httpx",  # file-size=765633 ; 0.73 MB
+  "hyperlight_hyperjson",  # file-size=261754 ; 0.25 MB
+  "interegular",  # file-size=196814 ; 0.19 MB
+  "json5",  # file-size=377396 ; 0.36 MB
+  "lz4",  # file-size=277804 ; 0.26 MB
+  "msgpack>=1.0.0",  # file-size=238387 ; 0.23 MB
+  "msgspec",  # file-size=525449 ; 0.50 MB
+  "numexpr",  # file-size=742653 ; 0.71 MB
+  "numpy",  # file-size=52803492 ; 50.36 MB
+  "opentelemetry-api",  # file-size=423339 ; 0.40 MB
+  "orjson",  # file-size=289443 ; 0.28 MB
+  "pandas",  # file-size=67223490 ; 64.11 MB
+  "psutil",  # file-size=2104166 ; 2.01 MB
+  "pyarrow",  # file-size=90047710 ; 85.88 MB
+  "pygls>=1.0.0",  # file-size=915645 ; 0.87 MB
+  "pylru",  # file-size=74244 ; 0.07 MB
+  "pymongo",  # file-size=6208897 ; 5.92 MB
+  "pytz",  # file-size=1081137 ; 1.03 MB
+  "PyYAML",  # file-size=730195 ; 0.70 MB
+  "regex",  # file-size=1765857 ; 1.68 MB
+  "rich",  # file-size=2130726 ; 2.03 MB
+  "scikit-learn",  # file-size=43016103 ; 41.02 MB
+  "tomli-w",  # file-size=25350 ; 0.02 MB
+  "tree-sitter>=0.20.0",  # file-size=266038 ; 0.25 MB
+  "uarray",  # file-size=225331 ; 0.21 MB
+  "xmltodict",  # file-size=65213 ; 0.06 MB
+  "zstandard",  # file-size=1384115 ; 1.32 MB
+  # total = src + deps ; 289.21 MB
 ]
 
 [project.urls]
@@ -73,17 +91,17 @@ Homepage = "https://exonware.com"
 Repository = "https://github.com/exonware/xwsyntax"
 Documentation = "https://github.com/exonware/xwsyntax#readme"
 
+[tool]
+  # Dependency sizes: run 'commands measure_dependency_sizes xwsyntax' to refresh # project-src-size and # file-size in this file.
+
+[tool.hatch]
 [tool.hatch.version]
 path = "src/exonware/xwsyntax/version.py"
 
+[tool.hatch.build]
+[tool.hatch.build.targets]
 [tool.hatch.build.targets.wheel]
 packages = ["src/exonware"]
 
 [tool.hatch.build.targets.sdist]
-include = [
-    "/src",
-    "/tests",
-    "/README.md",
-    "/LICENSE",
-]
-
+include = []

@@ -1,0 +1,24 @@
+{
+  "format_id": "R",
+  "format_name": "R",
+  "syntax_name": "r",
+  "file_extensions": [
+    ".r",
+    ".R"
+  ],
+  "mime_types": [
+    "text/x-r",
+    "application/x-r"
+  ],
+  "primary_mime_type": "text/x-r",
+  "aliases": [
+    "R",
+    "r"
+  ],
+  "category": "programming",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "R - Statistical Computing Language"
+}

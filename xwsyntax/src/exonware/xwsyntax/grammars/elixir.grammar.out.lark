@@ -1,0 +1,47 @@
+# elixir.grammar.out.lark
+# Elixir Output Grammar - Generate Elixir from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@program = {{#each children}}{{value}}{{#if !@last}}
+
+{{/if}}{{/each}}
+
+@module_decl = defmodule {{name}} do
+{{#each body}}{{value}}
+{{/each}}end
+
+@function_decl = def {{name}}{{#if guard}} when {{guard}}{{/if}} do
+{{#each body}}{{value}}
+{{/each}}end
+
+@body = {{#each children}}{{value}}{{#if !@last}}
+
+{{/if}}{{/each}}
+
+@if_expr = if {{condition}} do
+{{#each body}}{{value}}
+{{/each}}end
+
+@case_expr = case {{expression}} do
+{{#each clauses}}{{value}}
+{{/each}}end
+
+@try_expr = try do
+{{#each body}}{{value}}
+{{/each}}end
+
+@pipe_expr = {{#each parts}}{{value}}{{#if !@last}} |> {{/if}}{{/each}}
+
+@expression = {{value}}
+
+@list_literal = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@map_literal = %{{{#each entries}}{{key}} => {{value}}{{#if !@last}}, {{/if}}{{/each}}}
+
+@fn_expr = fn
+{{#each clauses}}{{value}}
+{{/each}}end
+
+@indent = 2
+@pretty = true

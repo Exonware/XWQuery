@@ -1,0 +1,24 @@
+{
+  "format_id": "MERMAID",
+  "format_name": "Mermaid",
+  "syntax_name": "mermaid",
+  "file_extensions": [
+    ".mmd",
+    ".mermaid"
+  ],
+  "mime_types": [
+    "text/x-mermaid"
+  ],
+  "primary_mime_type": "text/x-mermaid",
+  "aliases": [
+    "MERMAID",
+    "Mermaid",
+    "mermaid"
+  ],
+  "category": "markup",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Mermaid diagram and chart syntax"
+}

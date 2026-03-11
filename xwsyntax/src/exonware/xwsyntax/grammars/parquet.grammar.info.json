@@ -1,0 +1,23 @@
+{
+  "format_id": "PARQUET",
+  "format_name": "Parquet",
+  "syntax_name": "parquet",
+  "file_extensions": [
+    ".parquet"
+  ],
+  "mime_types": [
+    "application/x-parquet"
+  ],
+  "primary_mime_type": "application/x-parquet",
+  "aliases": [
+    "PARQUET",
+    "Parquet",
+    "parquet"
+  ],
+  "category": "enterprise_schema",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Apache Parquet - Columnar storage format"
+}

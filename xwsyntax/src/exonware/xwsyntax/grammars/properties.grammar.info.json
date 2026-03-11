@@ -1,0 +1,26 @@
+{
+  "format_id": "PROPERTIES",
+  "format_name": "Properties",
+  "syntax_name": "properties",
+  "file_extensions": [
+    ".properties",
+    ".props"
+  ],
+  "mime_types": [
+    "text/x-java-properties",
+    "application/x-java-properties"
+  ],
+  "primary_mime_type": "text/x-java-properties",
+  "aliases": [
+    "Java Properties",
+    "PROPERTIES",
+    "Properties",
+    "properties"
+  ],
+  "category": "configuration",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Java Properties File Format"
+}

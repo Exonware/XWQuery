@@ -1,0 +1,102 @@
+# rust.out.grammar
+# Rust Output Grammar - Template for generating Rust from AST
+# Company: eXonware.com
+# Version: 2.0
+
+@crate = {{#each children}}{{value}}{{#if !@last}}\n\n{{/if}}{{/each}}
+
+@fn_item = fn {{child_0}}({{child_1}}){{#if child_2}} -> {{child_2}}{{/if}} {{child_3}}
+
+@param_list = {{#each children}}{{value}}{{#if !@last}}, {{/if}}{{/each}}
+
+@param = {{child_0}}: {{child_1}}
+
+@return_type = {{child_0}}
+
+@block = {
+{{#each children}}    {{value}}
+{{/each}}}
+
+@struct_item = {{#if child_0}}pub {{/if}}struct {{value}}{{#if child_2}}<{{child_2}}>{{/if}} {
+{{#each children}}    {{value}}{{#if !@last}},{{/if}}
+{{/each}}}
+
+@struct_field = {{child_0}}: {{child_1}}
+
+@struct_field_list = {{#each children}}{{value}}{{#if !@last}},
+{{/if}}{{/each}}
+
+@expr_stmt = {{child_0}};
+
+@stmt = {{value}};
+
+@enum_item = {{#if child_0}}pub {{/if}}enum {{child_1}}{{#if child_2}}<{{child_2}}>{{/if}} {
+{{#each children}}    {{value}}{{#if !@last}},{{/if}}
+{{/each}}}
+
+@enum_variant = {{child_0}}{{#if child_1}} {{child_1}}{{/if}}
+
+@use_declaration = use {{child_0}};
+
+@stmt = {{value}}
+
+@let_stmt = let{{#if child_0}} mut{{/if}} {{child_1}}{{#if child_2}}: {{child_2}}{{/if}} = {{child_3}};
+
+@local = let {{child_0}} = {{child_1}};
+
+@if_expr = if {{child_0}} {{child_1}}{{#if child_2}} else {{child_2}}{{/if}}
+
+@call_expr = {{function}}({{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@funccall = {{function}}({{#each args}}{{value}}{{#if !@last}}, {{/if}}{{/each}})
+
+@for_expr = for {{child_0}} in {{child_1}} {{child_2}}
+
+@field_expr = {{child_0}}.{{child_1}}
+
+@path_expr = {{#if value}}{{value}}{{/if}}{{#each children}}{{value}}{{/each}}
+
+@binary_expr = {{child_0}} {{child_1}} {{child_2}}
+
+@return_expr = return{{#if child_0}} {{child_0}}{{/if}};
+
+@assign_expr = {{child_0}} = {{child_1}};
+
+@augassign_expr = {{child_0}} {{value}} {{child_1}}
+
+@stmt = {{value}}
+
+@paren_expr = ({{child_0}})
+
+@literal = {{value}}
+
+@string = {{value}}
+
+@number = {{value}}
+
+@true = true
+
+@false = false
+
+@const_none = None
+
+@none = None
+
+@var = {{value}}
+
+@name = {{value}}
+
+@IDENTIFIER = {{value}}
+
+@type_ = {{value}}
+
+@path = {{#each children}}{{value}}{{#if !@last}}::{{/if}}{{/each}}
+
+@array_type = [{{child_0}}{{#if child_1}}; {{child_1}}{{/if}}]
+
+@generic_params = <{{#each children}}{{value}}{{#if !@last}}, {{/if}}{{/each}}>
+
+@generic_args = <{{#each children}}{{value}}{{#if !@last}}, {{/if}}{{/each}}>
+
+@indent = 4
+@pretty = true

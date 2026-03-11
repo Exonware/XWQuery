@@ -1,0 +1,23 @@
+{
+  "format_id": "MATLAB",
+  "format_name": "MATLAB",
+  "syntax_name": "matlab",
+  "file_extensions": [
+    ".mat"
+  ],
+  "mime_types": [
+    "application/x-matlab-data"
+  ],
+  "primary_mime_type": "application/x-matlab-data",
+  "aliases": [
+    "MAT",
+    "MATLAB",
+    "matlab"
+  ],
+  "category": "scientific",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "MATLAB MAT file format"
+}

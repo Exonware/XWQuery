@@ -1,0 +1,23 @@
+{
+  "format_id": "FLUX",
+  "format_name": "Flux",
+  "syntax_name": "flux",
+  "file_extensions": [
+    ".flux"
+  ],
+  "mime_types": [
+    "application/x-flux"
+  ],
+  "primary_mime_type": "application/x-flux",
+  "aliases": [
+    "FLUX",
+    "Flux",
+    "flux"
+  ],
+  "category": "query",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "InfluxDB Flux query language"
+}

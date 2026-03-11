@@ -1,0 +1,23 @@
+{
+  "format_id": "XPATH",
+  "format_name": "XPath",
+  "syntax_name": "xpath",
+  "file_extensions": [
+    ".xpath"
+  ],
+  "mime_types": [
+    "application/x-xpath"
+  ],
+  "primary_mime_type": "application/x-xpath",
+  "aliases": [
+    "XPATH",
+    "XPath",
+    "xpath"
+  ],
+  "category": "query",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "XML Path Language - XML navigation queries"
+}

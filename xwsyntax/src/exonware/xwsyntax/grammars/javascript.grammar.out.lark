@@ -1,0 +1,16 @@
+# javascript.grammar.out.lark
+# JavaScript Output Grammar - Generate JS from AST
+# Company: eXonware.com
+
+@program = {{#each children}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@line = {{value}}
+@stmt = {{value}}
+@expr_stmt = {{value}};
+@block = {
+{{#each children}}{{value}}
+{{/each}}}
+@func_decl = function {{name}}({{params}}) {{body}}
+@expr = {{value}}
+@primary = {{value}}

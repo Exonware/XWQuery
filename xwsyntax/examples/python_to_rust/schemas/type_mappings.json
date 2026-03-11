@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Python to Rust Type Mappings",
+  "description": "Mappings between Python types and Rust types",
+  "type": "object",
+  "properties": {
+    "primitives": {
+      "type": "object",
+      "description": "Primitive type mappings",
+      "properties": {
+        "int": "i32",
+        "float": "f64",
+        "str": "String",
+        "bool": "bool",
+        "None": "()",
+        "bytes": "Vec<u8>"
+      },
+      "additionalProperties": false
+    },
+    "collections": {
+      "type": "object",
+      "description": "Collection type mappings",
+      "properties": {
+        "list": "Vec",
+        "dict": "HashMap",
+        "tuple": "tuple",
+        "set": "HashSet"
+      },
+      "additionalProperties": false
+    },
+    "optional": {
+      "type": "object",
+      "description": "Optional type mappings",
+      "properties": {
+        "Optional": "Option",
+        "Union[None, T]": "Option<T>"
+      },
+      "additionalProperties": false
+    },
+    "custom": {
+      "type": "object",
+      "description": "Custom type mappings",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": ["primitives", "collections", "optional"]
+}

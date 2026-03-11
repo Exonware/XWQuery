@@ -1,0 +1,23 @@
+{
+  "format_id": "HDF5",
+  "format_name": "HDF5",
+  "syntax_name": "hdf5",
+  "file_extensions": [
+    ".h5",
+    ".hdf5"
+  ],
+  "mime_types": [
+    "application/x-hdf5"
+  ],
+  "primary_mime_type": "application/x-hdf5",
+  "aliases": [
+    "HDF5",
+    "hdf5"
+  ],
+  "category": "scientific",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Hierarchical Data Format version 5"
+}

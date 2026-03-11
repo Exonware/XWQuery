@@ -1,16 +1,15 @@
 #exonware/xwsyntax/src/exonware/xwsyntax/handlers/__init__.py
 """
-Grammar Handlers Package
-
-Each handler declares its own metadata - NO HARDCODING!
-
+Syntax Handlers Package
+This package provides syntax handlers for different formats.
+Handlers load metadata from *.grammar.info.json files.
 Company: eXonware.com
-Author: Eng. Muhammad AlShehri
-Date: October 29, 2025
+Author: eXonware Backend Team
+Email: connect@exonware.com
+Version: 0.6.0.1
 """
 
-# Grammar handlers will be imported here as they are created
-# Each handler is self-describing with its own metadata
-
-__all__ = []
-
+from .generic import XWSyntaxHandler
+__all__ = [
+    'XWSyntaxHandler',
+]

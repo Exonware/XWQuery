@@ -1,0 +1,24 @@
+{
+  "format_id": "PIG",
+  "format_name": "Pig",
+  "syntax_name": "pig",
+  "file_extensions": [
+    ".pig"
+  ],
+  "mime_types": [
+    "application/x-pig"
+  ],
+  "primary_mime_type": "application/x-pig",
+  "aliases": [
+    "PIG",
+    "Pig",
+    "PigLatin",
+    "pig"
+  ],
+  "category": "query",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Apache Pig Latin"
+}

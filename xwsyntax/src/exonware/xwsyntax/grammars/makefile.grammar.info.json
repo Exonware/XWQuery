@@ -1,0 +1,26 @@
+{
+  "format_id": "MAKEFILE",
+  "format_name": "Makefile",
+  "syntax_name": "makefile",
+  "file_extensions": [
+    "Makefile",
+    ".mk",
+    ".make"
+  ],
+  "mime_types": [
+    "text/x-makefile"
+  ],
+  "primary_mime_type": "text/x-makefile",
+  "aliases": [
+    "MAKEFILE",
+    "Make",
+    "Makefile",
+    "makefile"
+  ],
+  "category": "configuration",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Make build system configuration"
+}

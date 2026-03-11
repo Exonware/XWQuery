@@ -1,0 +1,92 @@
+// elixir.grammar.in.lark
+// Elixir - Functional language (LALR)
+// Company: eXonware.com
+
+?start: program
+
+program: (module_decl | function_decl | expr)*
+
+module_decl: "defmodule" module_path "do" body "end"
+
+module_path: alias ("." alias)*
+alias: IDENTIFIER
+
+body: (module_decl | function_decl | macro_decl | expr)*
+
+function_decl: "def" def_name (when_clause)? "do" body "end"
+             | "defp" def_name (when_clause)? "do" body "end"
+def_name: identifier | "(" expr ")" ("," identifier)*
+
+macro_decl: "defmacro" def_name (when_clause)? "do" body "end"
+           | "defmacrop" def_name (when_clause)? "do" body "end"
+
+when_clause: "when" expr
+
+expr: assignment | block_expr | if_expr | unless_expr | case_expr | cond_expr | for_expr | with_expr | try_expr | receive_expr | def_expr | pipe_expr
+
+block_expr: "do" body "end"
+
+if_expr: "if" expr ("," "do" ":" expr)? ("," "else" ":" expr)? "do" body "end"
+unless_expr: "unless" expr "do" body "end"
+case_expr: "case" expr "do" clause_list "end"
+cond_expr: "cond" "do" clause_list "end"
+for_expr: "for" (identifier | "{" identifier ("," identifier)* "}") ("," "into" ":" expr)? "do" body "end"
+with_expr: "with" with_clause ("," with_clause)* ("," "do" ":" expr)? "do" body "end"
+with_clause: expr "<-" expr | expr
+
+clause_list: clause+
+clause: "->" body | expr "->" body
+
+try_expr: "try" "do" body "end" (rescue_clause)* (catch_clause)? (after_clause)? (else_clause)?
+rescue_clause: "rescue" (identifier "->" body)*
+catch_clause: "catch" (identifier "->" body)*
+after_clause: "after" body
+else_clause: "else" body
+
+receive_expr: "receive" "do" clause_list "end" (after_clause)?
+def_expr: "def" "(" expr ")" (when_clause)? "do" body "end"
+
+assignment: pipe_expr "=" expr
+
+pipe_expr: binary_op_expr ("|>" binary_op_expr)*
+
+binary_op_expr: unary_expr (binop unary_expr)*
+binop: "||" | "&&" | "==" | "!=" | "===" | "!==" | "<" | ">" | "<=" | ">=" | "and" | "or" | "in" | "|>" | "<>" | "++" | "--" | "+" | "-" | "*" | "/" | "++" | ".."
+
+unary_expr: ("!" | "not" | "-" | "+") unary_expr | call_expr
+
+call_expr: primary ("(" (argument_list)? ")" | "[" expr "]" | "." identifier | "." "(" expr ")" | "[" expr "]" "=" expr)*
+
+argument_list: expr ("," expr)*
+
+primary: literal | identifier | "self" | "__MODULE__" | "__DIR__" | "nil" | "(" expr ")" | list_literal | map_literal | tuple_literal | fn_expr | sigil
+
+fn_expr: "fn" clause_list "end"
+
+list_literal: "[" (argument_list)? "]"
+map_literal: "%{" (map_entry ("," map_entry)*)? "}" | "%" alias "{" (map_entry ("," map_entry)*)? "}"
+map_entry: expr "=>" expr | keyword_key ":" expr
+keyword_key: identifier ":" 
+tuple_literal: "{" (argument_list)? "}"
+
+sigil: "~" sigil_char "(" sigil_content ")" sigil_modifiers
+      | "~" sigil_char "[" sigil_content "]" sigil_modifiers
+      | "~" sigil_char "{" sigil_content "}" sigil_modifiers
+      | "~" sigil_char "<" sigil_content ">" sigil_modifiers
+sigil_char: /[a-zA-Z]/
+sigil_content: /[^\\)\\]}\\>]*/
+sigil_modifiers: /[a-z]*/
+
+literal: NUMBER | STRING | STRING_SQ | atom
+atom: ":" identifier | ":" STRING_SQ
+
+identifier: IDENTIFIER
+
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_?!]*/
+NUMBER: /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
+STRING: /"[^"\\]*(?:\\.[^"\\]*)*"/
+STRING_SQ: /'[^'\\]*(?:\\.[^'\\]*)*'/
+
+%import common.WS
+%import common.NEWLINE
+%ignore WS

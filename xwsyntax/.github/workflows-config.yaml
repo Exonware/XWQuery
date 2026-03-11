@@ -1,0 +1,9 @@
+projects:
+  xwsyntax:
+    repo: xwsyntax
+    package_main: exonware-xwsyntax
+    package_wrapper: xwsyntax
+    python_version: "3.12"
+    has_wrapper: true
+    uses_check_versions: true
+

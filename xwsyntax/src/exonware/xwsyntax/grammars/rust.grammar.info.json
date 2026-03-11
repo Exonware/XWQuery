@@ -1,0 +1,24 @@
+{
+  "format_id": "RUST",
+  "format_name": "Rust",
+  "syntax_name": "rust",
+  "file_extensions": [
+    ".rs"
+  ],
+  "mime_types": [
+    "text/rust",
+    "text/x-rust"
+  ],
+  "primary_mime_type": "text/rust",
+  "aliases": [
+    "RUST",
+    "Rust",
+    "rust"
+  ],
+  "category": "programming",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Rust programming language"
+}

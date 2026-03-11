@@ -1,0 +1,39 @@
+# julia.grammar.out.lark
+# Julia Output Grammar - Generate Julia from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@program = {{#each children}}{{value}}{{#if !@last}}
+
+{{/if}}{{/each}}
+
+@module_decl = module {{name}}
+{{#each body}}{{value}}
+{{/each}}end
+
+@function_decl = function {{name}}({{params}}){{#if return_type}}:: {{return_type}}{{/if}}
+{{#each body}}{{value}}
+{{/each}}end
+
+@struct_decl = struct {{name}}
+{{#each body}}{{value}}
+{{/each}}end
+
+@if_stmt = if {{condition}}
+{{#each body}}{{value}}
+{{/each}}end
+
+@for_stmt = for {{vars}} in {{expression}}
+{{#each body}}{{value}}
+{{/each}}end
+
+@while_stmt = while {{condition}}
+{{#each body}}{{value}}
+{{/each}}end
+
+@expression = {{value}}
+
+@vector_literal = [{{#each items}}{{value}}{{#if !@last}}, {{/if}}{{/each}}]
+
+@indent = 2
+@pretty = true

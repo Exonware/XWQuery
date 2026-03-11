@@ -1,0 +1,101 @@
+// solidity.grammar.in.lark
+// Solidity - Smart contract language / Web3 BaaS (LALR)
+// Company: eXonware.com
+
+?start: source_unit
+
+source_unit: (pragma_directive | import_directive | contract_decl | interface_decl | library_decl | enum_decl | struct_decl)*
+
+pragma_directive: "pragma" identifier ("^" | ">=" | "~" | ">")? version ";" | "pragma" "solidity" version ";"
+version: version_constraint (version_constraint)*
+version_constraint: NUMBER ("." NUMBER)* ("." "*")?
+import_directive: "import" (string_lit | identifier ("as" identifier)? | "*" "as" identifier "from" string_lit | "{" identifier ("as" identifier)? ("," identifier ("as" identifier)?)* "}" "from" string_lit) ";"
+string_lit: STRING
+
+contract_decl: (annotation)* "contract" identifier ("is" identifier ("," identifier)*)? "{" contract_member* "}"
+interface_decl: "interface" identifier ("is" identifier ("," identifier)*)? "{" contract_member* "}"
+library_decl: "library" identifier "{" contract_member* "}"
+
+contract_member: state_var_decl | function_decl | modifier_decl | event_decl | constructor_decl | struct_decl | enum_decl | modifier_invocation
+
+state_var_decl: type_name ("public" | "private" | "internal" | "constant" | "immutable")* identifier ("=" expression)? ";"
+
+function_decl: "function" identifier "(" param_list ")" visibility* ("pure" | "view" | "payable")* ("returns" "(" param_list ")")? block
+modifier_decl: "modifier" identifier "(" param_list ")" block
+visibility: "public" | "private" | "internal" | "external"
+event_decl: "event" identifier "(" (event_param ("," event_param)*)? ")" ";"
+event_param: type_name ("indexed")? identifier?
+constructor_decl: "constructor" "(" param_list ")" (visibility)? ("payable")? block
+modifier_invocation: identifier "(" argument_list ")" ";"
+
+param_list: (param ("," param)*)?
+param: type_name ("memory" | "storage" | "calldata")* identifier?
+argument_list: (expression ("," expression)*)?
+
+struct_decl: "struct" identifier "{" (type_name identifier ";")* "}"
+enum_decl: "enum" identifier "{" identifier ("," identifier)* "}"
+
+block: "{" statement* "}"
+
+statement: block | if_stmt | for_stmt | while_stmt | do_while_stmt | switch_stmt | try_stmt | return_stmt | emit_stmt | expr_stmt | variable_decl
+
+if_stmt: "if" "(" expression ")" statement ("else" statement)?
+for_stmt: "for" "(" (init)? ";" (condition)? ";" (update)? ")" statement
+init: variable_decl | expr_stmt
+condition: expression
+update: expression
+while_stmt: "while" "(" expression ")" statement
+do_while_stmt: "do" statement "while" "(" expression ")" ";"
+switch_stmt: "switch" expression "{" case_clause* default_clause? "}"
+case_clause: "case" expression ":" statement*
+default_clause: "default" ":" statement*
+try_stmt: "try" expression ("returns" "(" param_list ")")? block catch_clause+
+catch_clause: "catch" (identifier)? "(" param_list ")" block
+
+return_stmt: "return" (expression)? ";"
+emit_stmt: "emit" expression ";"
+expr_stmt: expression ";"
+variable_decl: type_name ("memory" | "storage")? identifier ("=" expression)? ";"
+
+expression: assignment | conditional | or_expr
+assignment: postfix_expr ("=" | "+=" | "-=" | "*=" | "/=" | "%=" | "&=" | "|=" | "^=") expression
+conditional: or_expr "?" expression ":" expression
+or_expr: and_expr ("||" and_expr)*
+and_expr: eq_expr ("&&" eq_expr)*
+eq_expr: comparison (("==" | "!=") comparison)*
+comparison: bit_or (("<" | ">" | "<=" | ">=") bit_or)*
+bit_or: bit_xor ("|" bit_xor)*
+bit_xor: bit_and ("^" bit_and)*
+bit_and: shift ("&" shift)*
+shift: addition (("<<" | ">>") addition)*
+addition: multiplication (("+" | "-") multiplication)*
+multiplication: unary (("*" | "/" | "%") unary)*
+unary: ("!" | "~" | "-" | "+" | "++" | "--" | "delete") unary | postfix_expr
+
+postfix_expr: primary postfix_tail*
+postfix_tail: "++" | "--" | "." identifier | "(" argument_list ")" | "[" expression "]"
+primary: literal | "this" | "(" expression ")" | qualified_primary | payable_call
+qualified_primary: qualified_name ("(" argument_list ")")?
+
+payable_call: identifier "." "call" "{" ("value" ":" expression)? "}" "(" argument_list ")"
+literal: NUMBER | STRING | "true" | "false" | hex_literal
+hex_literal: HEX
+
+type_name: type_ref ("[" "]")* | "mapping" "(" type_ref "=>" type_ref ")"
+type_ref: qualified_name
+qualified_name: identifier ("." identifier)*
+annotation: "///" /.*/ | "//" /.*/
+identifier: IDENTIFIER
+
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+NUMBER: /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
+HEX: /0x[0-9a-fA-F]+/
+STRING: /"[^"\\]*(?:\\.[^"\\]*)*"/
+
+%import common.WS
+%import common.NEWLINE
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT

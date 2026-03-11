@@ -1,0 +1,28 @@
+{
+  "format_id": "PYTHON",
+  "format_name": "Python",
+  "syntax_name": "python",
+  "file_extensions": [
+    ".py",
+    ".pyw",
+    ".pyi"
+  ],
+  "mime_types": [
+    "text/x-python",
+    "application/x-python",
+    "text/python"
+  ],
+  "primary_mime_type": "text/x-python",
+  "aliases": [
+    "PYTHON",
+    "Python",
+    "py",
+    "python"
+  ],
+  "category": "programming",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Python programming language"
+}

@@ -1,0 +1,23 @@
+{
+  "format_id": "XML QUERY",
+  "format_name": "XML Query",
+  "syntax_name": "xml_query",
+  "file_extensions": [
+    ".xmlq"
+  ],
+  "mime_types": [
+    "application/x-xml-query"
+  ],
+  "primary_mime_type": "application/x-xml-query",
+  "aliases": [
+    "XML QUERY",
+    "XMLQuery",
+    "xml_query"
+  ],
+  "category": "query",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "XML query format"
+}

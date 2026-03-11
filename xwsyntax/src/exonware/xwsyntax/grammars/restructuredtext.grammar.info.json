@@ -1,0 +1,26 @@
+{
+  "format_id": "RESTRUCTUREDTEXT",
+  "format_name": "reStructuredText",
+  "syntax_name": "restructuredtext",
+  "file_extensions": [
+    ".rst"
+  ],
+  "mime_types": [
+    "text/x-rst",
+    "text/prs.fallenstein.rst"
+  ],
+  "primary_mime_type": "text/x-rst",
+  "aliases": [
+    "RESTRUCTUREDTEXT",
+    "RST",
+    "reStructuredText",
+    "restructuredtext",
+    "rst"
+  ],
+  "category": "markup",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "reStructuredText - Documentation format"
+}

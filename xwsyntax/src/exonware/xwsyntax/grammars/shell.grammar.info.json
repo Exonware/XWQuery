@@ -1,0 +1,24 @@
+{
+  "format_id": "SHELL",
+  "format_name": "Shell",
+  "syntax_name": "shell",
+  "file_extensions": [
+    ".sh"
+  ],
+  "mime_types": [
+    "text/x-shellscript",
+    "application/x-sh"
+  ],
+  "primary_mime_type": "text/x-shellscript",
+  "aliases": [
+    "SHELL",
+    "Shell",
+    "shell"
+  ],
+  "category": "scripting",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Shell script"
+}

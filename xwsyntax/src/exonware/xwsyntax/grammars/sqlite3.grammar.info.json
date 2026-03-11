@@ -1,0 +1,27 @@
+{
+  "format_id": "SQLITE3",
+  "format_name": "SQLite3",
+  "syntax_name": "sqlite3",
+  "file_extensions": [
+    ".db",
+    ".sqlite",
+    ".sqlite3"
+  ],
+  "mime_types": [
+    "application/x-sqlite3",
+    "application/vnd.sqlite3"
+  ],
+  "primary_mime_type": "application/x-sqlite3",
+  "aliases": [
+    "SQLITE3",
+    "SQLite",
+    "SQLite3",
+    "sqlite3"
+  ],
+  "category": "binary_serialization",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "SQLite database format"
+}

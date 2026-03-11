@@ -1,0 +1,16 @@
+# go.grammar.out.lark
+# Go Output Grammar - Generate Go from AST
+# Company: eXonware.com
+
+@program = {{#each children}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@line = {{value}}
+@stmt = {{value}}
+@expr_stmt = {{value}}
+@block = {
+{{#each children}}{{value}}
+{{/each}}}
+@func_decl = func {{name}}({{params}}){{#if return_type}} {{return_type}}{{/if}} {{body}}
+@var_decl = var {{name}}{{#if type}} {{type}}{{/if}}{{#if value}} = {{value}}{{/if}}
+@expr = {{value}}

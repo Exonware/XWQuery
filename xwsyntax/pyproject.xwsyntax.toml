@@ -1,3 +1,4 @@
+# Source size (src/*): ~709.9 KB
 [build-system]
 requires = [
     "hatchling",
@@ -6,47 +7,17 @@ build-backend = "hatchling.build"
 
 [project]
 name = "xwsyntax"
-version = "0.0.1.1"
+version = "0.0.1.2"
 description = "Convenience wrapper for exonware-xwsyntax - provides 'import xwsyntax' alias"
 readme = "README.md"
 requires-python = ">=3.12"
-keywords = [
-    "parser",
-    "grammar",
-    "lark",
-    "ast",
-    "syntax",
-    "bidirectional",
-    "code-generation",
-    "format-conversion",
-    "ide",
-    "lsp",
-    "monaco",
-    "tree-sitter",
-    "json",
-    "sql",
-    "python",
-    "graphql",
-    "cypher",
-    "exonware",
-]
-authors = [
-    { name = "Eng. Muhammad AlShehri", email = "connect@exonware.com" },
-]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Code Generators",
-    "Topic :: Software Development :: Compilers",
-    "Topic :: Software Development :: Interpreters",
-    "Topic :: Text Processing :: Linguistic",
-]
+keywords = []
+classifiers = []
 dependencies = [
     "exonware-xwsyntax",
+]
+authors = [
+    { name = "eXonware Backend Team", email = "connect@exonware.com" },
 ]
 
 [project.license]
@@ -78,9 +49,4 @@ only-include = [
 ]
 
 [tool.hatch.build.targets.sdist]
-include = [
-    "/src",
-    "/tests",
-    "/README.md",
-    "/LICENSE",
-]
+include = []

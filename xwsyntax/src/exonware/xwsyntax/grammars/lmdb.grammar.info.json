@@ -1,0 +1,22 @@
+{
+  "format_id": "LMDB",
+  "format_name": "LMDB",
+  "syntax_name": "lmdb",
+  "file_extensions": [
+    ".lmdb"
+  ],
+  "mime_types": [
+    "application/x-lmdb"
+  ],
+  "primary_mime_type": "application/x-lmdb",
+  "aliases": [
+    "LMDB",
+    "lmdb"
+  ],
+  "category": "database",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Lightning Memory-Mapped Database"
+}

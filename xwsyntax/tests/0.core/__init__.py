@@ -1,10 +1,7 @@
 #exonware/xwsyntax/tests/0.core/__init__.py
-
 """
 Core tests for xwsyntax.
-
 Company: eXonware.com
-Author: Eng. Muhammad AlShehri
+Author: eXonware Backend Team
 Email: connect@exonware.com
 """
-

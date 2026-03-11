@@ -1,48 +1,42 @@
 #!/usr/bin/env python3
 """
 XWSyntax Facade - Main Public API
-
 This module provides the main public API for the xwsyntax library,
 implementing the facade pattern to hide complexity and provide
 a clean, intuitive interface.
-
+Public API per REF_15_API and REF_01_REQ sec. 6.
 Company: eXonware.com
-Author: Eng. Muhammad AlShehri
+Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.0.1.2
+Version: 0.6.0.1
 Generation Date: October 29, 2025
 """
 
 import logging
-from typing import Any, Optional, Union
+from typing import Any, Optional
 from pathlib import Path
-
 from .base import AGrammar, ASyntaxEngine
-from .engine import SyntaxEngine, Grammar
-from .syntax_tree import ASTNode
+from .engines import XWSyntaxEngine, LarkSyntaxEngine, Grammar
+from .syntax_tree import ParseNode
 from .errors import GrammarError, GrammarNotFoundError, ParseError
 from .defs import ParserMode, GrammarFormat
 from .grammar_loader import get_grammar_loader
 from .bidirectional import BidirectionalGrammar, get_bidirectional_registry
 from .grammar_metadata import get_grammar_metadata
-
 logger = logging.getLogger(__name__)
 
 
 class XWSyntax(ASyntaxEngine):
     """
     Main XWSyntax class providing a unified interface for all syntax operations.
-    
     This class implements the facade pattern, hiding the complexity of the
     underlying grammar engine while providing a clean, intuitive API.
-    
     Features:
     - Load grammars from 31+ formats
     - Parse text to AST
     - Generate text from AST (bidirectional)
     - Validate syntax
     - Export grammars to Monaco, tree-sitter, etc.
-    
     Example:
         >>> # Parse JSON
         >>> syntax = XWSyntax()
@@ -53,30 +47,40 @@ class XWSyntax(ASyntaxEngine):
         >>> ast = grammar.parse('SELECT * FROM users')
         >>> sql = grammar.generate(ast)
     """
-    
+
     def __init__(
         self,
-        grammar_dir: Optional[Union[str, Path]] = None,
+        grammar_dir: Optional[str | Path] = None,
         cache_size: int = 128,
         auto_load: bool = True,
+        engine_type: str = "auto",
     ):
         """
         Initialize XWSyntax with configuration.
-        
         Args:
             grammar_dir: Directory containing grammar files (None = default)
             cache_size: Maximum number of cached parsers
             auto_load: Automatically load commonly-used grammars
+            engine_type: Engine type ("native", "lark", or "auto" for automatic selection)
         """
-        self._engine = SyntaxEngine(grammar_dir=grammar_dir, cache_size=cache_size)
+        self._grammar_dir = grammar_dir
+        self._cache_size = cache_size
         self._grammar_loader = get_grammar_loader()
         self._bidirectional_registry = get_bidirectional_registry()
         self._auto_load = auto_load
-        
+        self._engine_type = engine_type
+        # Select engine based on type
+        if engine_type == "lark":
+            self._engine = LarkSyntaxEngine(grammar_dir=grammar_dir, cache_size=cache_size)
+        elif engine_type == "native":
+            self._engine = XWSyntaxEngine(grammar_dir=grammar_dir, cache_size=cache_size)
+        else:  # "auto" - use Lark engine for better compatibility
+            # Default to Lark engine as it supports more features
+            self._engine = LarkSyntaxEngine(grammar_dir=grammar_dir, cache_size=cache_size)
         # Preload common grammars if auto_load is enabled
         if self._auto_load:
             self._preload_common_grammars()
-    
+
     def _preload_common_grammars(self):
         """Preload commonly-used grammars for better performance."""
         common = ['json', 'sql', 'python', 'graphql']
@@ -86,70 +90,58 @@ class XWSyntax(ASyntaxEngine):
                 logger.debug(f"Preloaded grammar: {name}")
             except Exception as e:
                 logger.debug(f"Could not preload {name}: {e}")
-    
     # ============================================================================
     # CORE OPERATIONS (from ASyntaxEngine)
     # ============================================================================
-    
+
     def load_grammar(self, name: str) -> AGrammar:
         """
         Load grammar by name.
-        
         Args:
             name: Grammar name (e.g., 'sql', 'json', 'python')
-            
         Returns:
             Grammar instance
-            
         Raises:
             GrammarNotFoundError: If grammar not found
-            
         Example:
             >>> syntax = XWSyntax()
             >>> grammar = syntax.load_grammar('sql')
             >>> ast = grammar.parse('SELECT * FROM users')
         """
         return self._engine.load_grammar(name)
-    
+
     def parse(
         self,
         text: str,
         grammar: str,
         mode: ParserMode = ParserMode.STRICT,
-    ) -> ASTNode:
+    ) -> ParseNode:
         """
         Parse text using specified grammar.
-        
         Args:
             text: Text to parse
             grammar: Grammar name (e.g., 'sql', 'json')
             mode: Parser mode (STRICT, LENIENT, etc.)
-            
         Returns:
-            ASTNode: Root AST node
-            
+            ParseNode: Root AST node
         Raises:
             GrammarNotFoundError: If grammar not found
             ParseError: If parsing fails
-            
         Example:
             >>> syntax = XWSyntax()
             >>> ast = syntax.parse('{"name": "Alice"}', 'json')
             >>> print(ast.type)  # 'start'
         """
         return self._engine.parse(text, grammar, mode)
-    
+
     def validate(self, text: str, grammar: str) -> list[str]:
         """
         Validate text against grammar.
-        
         Args:
             text: Text to validate
             grammar: Grammar name
-            
         Returns:
             List of error messages (empty if valid)
-            
         Example:
             >>> syntax = XWSyntax()
             >>> errors = syntax.validate('SELECT * FORM users', 'sql')
@@ -157,35 +149,29 @@ class XWSyntax(ASyntaxEngine):
             ...     print(f"Validation failed: {errors}")
         """
         return self._engine.validate(text, grammar)
-    
+
     def list_grammars(self) -> list[str]:
         """
         List available grammars.
-        
         Returns:
             List of grammar names
-            
         Example:
             >>> syntax = XWSyntax()
             >>> grammars = syntax.list_grammars()
             >>> print(grammars)  # ['json', 'sql', 'python', ...]
         """
         return self._engine.list_grammars()
-    
     # ============================================================================
     # BIDIRECTIONAL OPERATIONS
     # ============================================================================
-    
+
     def load_bidirectional(self, name: str) -> BidirectionalGrammar:
         """
         Load bidirectional grammar (parse + generate).
-        
         Args:
             name: Grammar name
-            
         Returns:
             BidirectionalGrammar instance
-            
         Example:
             >>> syntax = XWSyntax()
             >>> grammar = syntax.load_bidirectional('sql')
@@ -193,18 +179,15 @@ class XWSyntax(ASyntaxEngine):
             >>> sql = grammar.generate(ast)
         """
         return self._bidirectional_registry.get(name)
-    
-    def generate(self, ast: ASTNode, grammar: str) -> str:
+
+    def generate(self, ast: ParseNode, grammar: str) -> str:
         """
         Generate text from AST using specified grammar.
-        
         Args:
             ast: AST node to generate from
             grammar: Grammar name
-            
         Returns:
             Generated text
-            
         Example:
             >>> syntax = XWSyntax()
             >>> ast = syntax.parse('SELECT * FROM users', 'sql')
@@ -212,19 +195,16 @@ class XWSyntax(ASyntaxEngine):
         """
         bidirectional = self.load_bidirectional(grammar)
         return bidirectional.generate(ast)
-    
+
     def convert(self, text: str, from_grammar: str, to_grammar: str) -> str:
         """
         Convert text from one format to another.
-        
         Args:
             text: Source text
             from_grammar: Source grammar name
             to_grammar: Target grammar name
-            
         Returns:
             Converted text
-            
         Example:
             >>> syntax = XWSyntax()
             >>> # Convert SQL to GraphQL (conceptually)
@@ -233,66 +213,55 @@ class XWSyntax(ASyntaxEngine):
         """
         # Parse with source grammar
         ast = self.parse(text, from_grammar)
-        
         # Generate with target grammar
         return self.generate(ast, to_grammar)
-    
     # ============================================================================
     # ADVANCED OPERATIONS
     # ============================================================================
-    
+
     def parse_file(
         self,
-        file_path: Union[str, Path],
+        file_path: str | Path,
         grammar: Optional[str] = None,
         mode: ParserMode = ParserMode.STRICT,
-    ) -> ASTNode:
+    ) -> ParseNode:
         """
         Parse file content using specified or auto-detected grammar.
-        
         Args:
             file_path: Path to file
             grammar: Grammar name (None = auto-detect from extension)
             mode: Parser mode
-            
         Returns:
-            ASTNode: Root AST node
-            
+            ParseNode: Root AST node
         Example:
             >>> syntax = XWSyntax()
             >>> ast = syntax.parse_file('query.sql')  # Auto-detects SQL
             >>> ast = syntax.parse_file('data.json', 'json')  # Explicit
         """
         file_path = Path(file_path)
-        
         # Read file content
         try:
             text = file_path.read_text(encoding='utf-8')
         except Exception as e:
             raise GrammarError(f"Failed to read file {file_path}: {e}")
-        
         # Auto-detect grammar from extension if not provided
         if grammar is None:
             ext = file_path.suffix.lower().lstrip('.')
             grammar = self._detect_grammar_from_extension(ext)
-        
         return self.parse(text, grammar, mode)
-    
+
     def validate_file(
         self,
-        file_path: Union[str, Path],
+        file_path: str | Path,
         grammar: Optional[str] = None,
     ) -> list[str]:
         """
         Validate file content.
-        
         Args:
             file_path: Path to file
             grammar: Grammar name (None = auto-detect)
-            
         Returns:
             List of validation errors
-            
         Example:
             >>> syntax = XWSyntax()
             >>> errors = syntax.validate_file('query.sql')
@@ -300,68 +269,55 @@ class XWSyntax(ASyntaxEngine):
             ...     print("File is valid!")
         """
         file_path = Path(file_path)
-        
         # Read file content
         try:
             text = file_path.read_text(encoding='utf-8')
         except Exception as e:
             return [f"Failed to read file: {e}"]
-        
         # Auto-detect grammar from extension if not provided
         if grammar is None:
             ext = file_path.suffix.lower().lstrip('.')
             grammar = self._detect_grammar_from_extension(ext)
-        
         return self.validate(text, grammar)
-    
+
     def _detect_grammar_from_extension(self, ext: str) -> str:
         """
         Detect grammar from file extension.
-        
-        Uses grammars_master.json for format detection.
-        
+        Uses merged metadata from all *.grammar.info.json files.
         Args:
             ext: File extension (without dot)
-            
         Returns:
             Grammar name
-            
         Raises:
             GrammarError: If extension not recognized
         """
-        # Use grammar metadata for detection
+        # Use grammar metadata for detection (loaded from *.grammar.info.json files)
         metadata = get_grammar_metadata()
-        
         # Try with dot
         format_id = metadata.detect_from_extension(f'.{ext}')
         if format_id:
             return format_id
-        
         # Try without dot (in case it was already included)
         format_id = metadata.detect_from_extension(ext)
         if format_id:
             return format_id
-        
         # Try direct match with available grammars
         available = self.list_grammars()
         if ext in available:
             return ext
-        
         # Try as alias
         format_id = metadata.detect_from_alias(ext)
         if format_id:
             return format_id
-        
         raise GrammarError(
             f"Could not detect grammar for extension '.{ext}'. "
             f"Please specify grammar explicitly. "
             f"Available extensions: {', '.join(sorted(metadata.list_extensions())[:20])}..."
         )
-    
     # ============================================================================
     # IDE INTEGRATION
     # ============================================================================
-    
+
     def export_to_monaco(
         self,
         grammar: str,
@@ -369,14 +325,11 @@ class XWSyntax(ASyntaxEngine):
     ) -> dict[str, Any]:
         """
         Export grammar to Monaco editor format.
-        
         Args:
             grammar: Grammar name
             case_insensitive: Whether language is case-insensitive
-            
         Returns:
             Monaco language definition
-            
         Example:
             >>> syntax = XWSyntax()
             >>> monaco_def = syntax.export_to_monaco('sql', case_insensitive=True)
@@ -384,26 +337,22 @@ class XWSyntax(ASyntaxEngine):
         """
         g = self.load_grammar(grammar)
         return g.export_to_monaco(case_insensitive)
-    
     # ============================================================================
     # UTILITY METHODS
     # ============================================================================
-    
+
     def clear_cache(self) -> None:
         """Clear parser cache."""
         self._engine.clear_cache()
         logger.info("Parser cache cleared")
-    
+
     def get_info(self, grammar: str) -> dict[str, Any]:
         """
         Get grammar information.
-        
         Args:
             grammar: Grammar name
-            
         Returns:
             Dictionary with grammar metadata
-            
         Example:
             >>> syntax = XWSyntax()
             >>> info = syntax.get_info('sql')
@@ -411,91 +360,79 @@ class XWSyntax(ASyntaxEngine):
         """
         g = self.load_grammar(grammar)
         return g.describe()
-    
+
     def is_grammar_available(self, name: str) -> bool:
         """
         Check if grammar is available.
-        
         Args:
             name: Grammar name
-            
         Returns:
             True if grammar exists
-            
         Example:
             >>> syntax = XWSyntax()
             >>> if syntax.is_grammar_available('sql'):
             ...     # Use SQL grammar
         """
         return name in self.list_grammars()
-
-
 # ============================================================================
 # FACTORY CLASS
 # ============================================================================
 
+
 class XWSyntaxFactory:
     """Factory for creating XWSyntax instances."""
-    
     @staticmethod
+
     def create(
-        grammar_dir: Optional[Union[str, Path]] = None,
+        grammar_dir: Optional[str | Path] = None,
         **options
     ) -> XWSyntax:
         """
         Create XWSyntax instance with options.
-        
         Args:
             grammar_dir: Custom grammar directory
             **options: Additional options
-            
         Returns:
             XWSyntax instance
         """
         return XWSyntax(grammar_dir=grammar_dir, **options)
-    
     @staticmethod
-    def with_custom_grammars(grammar_dir: Union[str, Path]) -> XWSyntax:
+
+    def with_custom_grammars(grammar_dir: str | Path) -> XWSyntax:
         """
         Create XWSyntax with custom grammar directory.
-        
         Args:
             grammar_dir: Directory containing custom grammars
-            
         Returns:
             XWSyntax instance
         """
         return XWSyntax(grammar_dir=grammar_dir, auto_load=False)
-    
     @staticmethod
+
     def lightweight() -> XWSyntax:
         """
         Create lightweight XWSyntax (no preloading, small cache).
-        
         Returns:
             XWSyntax instance with minimal footprint
         """
         return XWSyntax(cache_size=16, auto_load=False)
-    
     @staticmethod
+
     def performance() -> XWSyntax:
         """
         Create XWSyntax optimized for performance (large cache, preloading).
-        
         Returns:
             XWSyntax instance optimized for speed
         """
         return XWSyntax(cache_size=512, auto_load=True)
-
-
 # ============================================================================
 # CONVENIENCE FUNCTIONS
 # ============================================================================
 
-def parse(text: str, grammar: str, mode: ParserMode = ParserMode.STRICT) -> ASTNode:
+
+def parse(text: str, grammar: str, mode: ParserMode = ParserMode.STRICT) -> ParseNode:
     """
     Quick parse function.
-    
     Example:
         >>> from exonware.xwsyntax import parse
         >>> ast = parse('{"name": "Alice"}', 'json')
@@ -507,7 +444,6 @@ def parse(text: str, grammar: str, mode: ParserMode = ParserMode.STRICT) -> ASTN
 def validate(text: str, grammar: str) -> list[str]:
     """
     Quick validate function.
-    
     Example:
         >>> from exonware.xwsyntax import validate
         >>> errors = validate('SELECT * FROM users', 'sql')
@@ -519,7 +455,6 @@ def validate(text: str, grammar: str) -> list[str]:
 def load_grammar(name: str) -> AGrammar:
     """
     Quick load grammar function.
-    
     Example:
         >>> from exonware.xwsyntax import load_grammar
         >>> grammar = load_grammar('sql')
@@ -531,15 +466,12 @@ def load_grammar(name: str) -> AGrammar:
 def list_grammars() -> list[str]:
     """
     Quick list grammars function.
-    
     Example:
         >>> from exonware.xwsyntax import list_grammars
         >>> print(list_grammars())
     """
     syntax = XWSyntax()
     return syntax.list_grammars()
-
-
 # Export main classes and functions
 __all__ = [
     # Main classes
@@ -551,4 +483,3 @@ __all__ = [
     'load_grammar',
     'list_grammars',
 ]
-

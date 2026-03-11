@@ -1,0 +1,63 @@
+// wasm.grammar.in.lark
+// WebAssembly Text (WAT) - WASM runtime scripting (LALR)
+// Company: eXonware.com
+
+?start: module
+
+module: "(" "module" (identifier)? module_field* ")"
+     | "(" "module" (identifier)? "binary" hex_byte* ")"
+     | "(" "module" (identifier)? "quote" string_lit* ")"
+
+module_field: type_def | import_desc | func_def | table_def | memory_def | global_def | export_desc | start_desc | elem_segment | data_segment
+
+type_def: "(" "type" (identifier)? "(" "func" param* result* ")" ")"
+param: "(" "param" (identifier)? value_type+ ")"
+result: "(" "result" value_type+ ")"
+value_type: "i32" | "i64" | "f32" | "f64" | "v128" | "funcref" | "externref"
+
+import_desc: "(" "import" string_lit string_lit import_desc_inner ")"
+import_desc_inner: func_type_use | "(" "global" (identifier)? value_type ")" | "(" "table" (identifier)? table_type ")" | "(" "memory" (identifier)? memory_type ")"
+
+func_def: "(" "func" (identifier)? (func_type_use)? local* instr* ")"
+func_type_use: "(" "type" identifier ")"
+local: "(" "local" (identifier)? value_type+ ")"
+
+instr: "(" instr_name (instr_arg)* ")"
+instr_name: dotted_instr | "i32.const" | "i64.const" | "f32.const" | "f64.const"
+          | "call" | "call_indirect" | "block" | "loop" | "if" | "then" | "else" | "end"
+          | "br" | "br_if" | "br_table" | "return" | "unreachable" | "nop" | "drop" | "select"
+          | "i32.load" | "i64.load" | "f32.load" | "f64.load"
+          | "i32.store" | "i64.store" | "f32.store" | "f64.store"
+          | "i32.add" | "i32.sub" | "i32.mul" | "i32.div_s" | "i32.div_u" | "i32.rem_s" | "i32.rem_u"
+          | "i32.and" | "i32.or" | "i32.xor" | "i32.shl" | "i32.shr_s" | "i32.shr_u"
+          | "i32.eqz" | "i32.eq" | "i32.ne" | "i32.lt_s" | "i32.lt_u" | "i32.gt_s" | "i32.gt_u" | "i32.le_s" | "i32.le_u" | "i32.ge_s" | "i32.ge_u"
+          | "i64.add" | "i64.sub" | "i64.mul" | "f32.add" | "f32.sub" | "f64.add" | "f64.sub"
+          | IDENTIFIER
+dotted_instr: identifier "." identifier
+instr_arg: NUMBER | identifier | value_type | instr
+
+table_def: "(" "table" (identifier)? table_type ")"
+table_type: NATURAL NATURAL value_type
+memory_def: "(" "memory" (identifier)? memory_type ")"
+memory_type: NATURAL (" " NATURAL)?
+global_def: "(" "global" (identifier)? ("(" "mut" ")")? value_type instr* ")"
+export_desc: "(" "export" string_lit export_desc_inner ")"
+export_desc_inner: "(" "func" identifier ")" | "(" "table" identifier ")" | "(" "memory" identifier ")" | "(" "global" identifier ")"
+start_desc: "(" "start" identifier ")"
+elem_segment: "(" "elem" (identifier)? identifier (offset)? identifier* ")"
+data_segment: "(" "data" (identifier)? (offset)? string_lit+ ")"
+offset: "offset" "=" NUMBER
+
+identifier: IDENTIFIER
+string_lit: STRING
+hex_byte: HEX
+NATURAL: /[0-9]+/
+
+IDENTIFIER: /[\$a-zA-Z_][a-zA-Z0-9_]*/
+NUMBER: /[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
+HEX: /0x[0-9a-fA-F]+/
+STRING: /"[^"\\]*(?:\\.[^"\\]*)*"/
+
+%import common.WS
+%import common.NEWLINE
+%ignore WS

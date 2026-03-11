@@ -1,0 +1,25 @@
+{
+  "format_id": "APACHE",
+  "format_name": "Apache",
+  "syntax_name": "apache",
+  "file_extensions": [
+    ".htaccess",
+    ".conf"
+  ],
+  "mime_types": [
+    "text/x-apache-conf"
+  ],
+  "primary_mime_type": "text/x-apache-conf",
+  "aliases": [
+    "APACHE",
+    "Apache",
+    "apache",
+    "httpd"
+  ],
+  "category": "configuration",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Apache web server configuration"
+}

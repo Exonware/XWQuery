@@ -1,0 +1,16 @@
+# typescript.grammar.out.lark
+# TypeScript Output Grammar - Generate TS from AST
+# Company: eXonware.com
+
+@program = {{#each children}}{{value}}{{#if !@last}}
+{{/if}}{{/each}}
+
+@line = {{value}}
+@stmt = {{value}}
+@expr_stmt = {{value}};
+@block = {
+{{#each children}}{{value}}
+{{/each}}}
+@func_decl = function {{name}}({{params}}){{#if return_type}}: {{return_type}}{{/if}} {{body}}
+@type_decl = {{value}}
+@expr = {{value}}

@@ -1,0 +1,96 @@
+// rust.in.grammar
+// Rust Grammar - Enhanced for function and struct support
+// Company: eXonware.com
+// Version: 2.0
+
+?start: crate
+
+crate: item*
+
+item: use_declaration | fn_item | struct_item | enum_item | mod_item
+
+use_declaration: "use" use_tree ";"
+use_tree: path ["as" IDENTIFIER] | path "{" use_tree_list "}" | "*"
+use_tree_list: use_tree ("," use_tree)* [","]
+
+fn_item: ["pub"] "fn" IDENTIFIER generic_params? "(" param_list? ")" [return_type] block
+generic_params: "<" generic_param_list ">"
+generic_param_list: IDENTIFIER ("," IDENTIFIER)* [","]
+
+param_list: param ("," param)* [","]
+param: IDENTIFIER ":" type_
+return_type: "->" type_
+
+struct_item: ["pub"] "struct" IDENTIFIER generic_params? struct_body
+struct_body: "{" struct_field_list "}" | ";"
+struct_field_list: struct_field ("," struct_field)* [","]
+struct_field: ["pub"] IDENTIFIER ":" type_
+
+enum_item: ["pub"] "enum" IDENTIFIER generic_params? "{" enum_variant_list "}"
+enum_variant_list: enum_variant ("," enum_variant)* [","]
+enum_variant: IDENTIFIER [enum_variant_data]
+enum_variant_data: "(" type_list ")" | "{" struct_field_list "}"
+
+mod_item: ["pub"] "mod" IDENTIFIER ("{" item* "}" | ";")
+
+block: "{" stmt* [expr] "}"
+
+stmt: let_stmt | expr_stmt | item | ";"
+let_stmt: "let" ["mut"] IDENTIFIER [":" type_] "=" expr ";"
+expr_stmt: expr ";"
+
+?expr: assign_expr | block_expr | if_expr | call_expr | field_expr | path_expr | literal | paren_expr | return_expr | binary_expr
+
+assign_expr: expr "=" expr
+block_expr: block
+if_expr: "if" expr block ["else" (if_expr | block)]
+call_expr: expr "(" arg_list? ")"
+field_expr: expr "." IDENTIFIER
+path_expr: path
+literal: string | number | "true" | "false"
+paren_expr: "(" expr ")"
+return_expr: "return" [expr]
+binary_expr: expr binary_op expr
+
+binary_op: PLUS | MINUS | STAR | SLASH | PERCENT | EQEQ | NE | LESSTHAN | MORETHAN | LE | GE | ANDAND | OROR
+
+PLUS: "+"
+MINUS: "-"
+STAR: "*"
+SLASH: "/"
+PERCENT: "%"
+EQEQ: "=="
+NE: "!="
+LESSTHAN: "<"
+MORETHAN: ">"
+LE: "<="
+GE: ">="
+ANDAND: "&&"
+OROR: "||"
+
+arg_list: expr ("," expr)* [","]
+
+type_: path | "&" ["mut"]? type_ | "*" ("const" | "mut") type_ | array_type | "(" type_list ")"
+array_type: "[" type_ (";" expr)? "]"
+type_list: type_ ("," type_)* [","]
+
+path: path_segment ("::" path_segment)*
+path_segment: IDENTIFIER [generic_args]
+generic_args: "<" type_list ">"
+
+?string: STRING
+?number: INTEGER | FLOAT
+
+// Terminals
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+STRING: "\"" /([^"\\]|\\([\\"\/bfnrt]|u[0-9a-fA-F]{4}))*/ "\""
+INTEGER: /[0-9][0-9_]*/
+FLOAT: /[0-9][0-9_]*\.[0-9][0-9_]*([eE][+-]?[0-9][0-9_]*)?/
+
+%import common.WS
+%import common.C_COMMENT
+%import common.CPP_COMMENT
+
+%ignore WS
+%ignore C_COMMENT
+%ignore CPP_COMMENT

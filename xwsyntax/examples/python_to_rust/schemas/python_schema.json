@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Python Type System Schema",
+  "description": "JSON Schema definition for Python type system validation",
+  "type": "object",
+  "properties": {
+    "types": {
+      "type": "object",
+      "description": "Python type definitions",
+      "properties": {
+        "primitive": {
+          "type": "object",
+          "properties": {
+            "int": {"type": "object", "description": "Integer type"},
+            "float": {"type": "object", "description": "Floating point type"},
+            "str": {"type": "object", "description": "String type"},
+            "bool": {"type": "object", "description": "Boolean type"},
+            "None": {"type": "object", "description": "None type"},
+            "bytes": {"type": "object", "description": "Bytes type"}
+          }
+        },
+        "collection": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "object",
+              "properties": {
+                "item_type": {"type": "string", "description": "Type of list items"}
+              }
+            },
+            "dict": {
+              "type": "object",
+              "properties": {
+                "key_type": {"type": "string", "description": "Type of dict keys"},
+                "value_type": {"type": "string", "description": "Type of dict values"}
+              }
+            },
+            "tuple": {
+              "type": "object",
+              "properties": {
+                "item_types": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Types of tuple items"
+                }
+              }
+            }
+          }
+        },
+        "optional": {
+          "type": "object",
+          "properties": {
+            "Optional": {
+              "type": "object",
+              "properties": {
+                "inner_type": {"type": "string", "description": "Inner type of Optional"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "functions": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "type": {"type": "string"},
+              "default": {"type": "string"}
+            }
+          }
+        },
+        "return_type": {"type": "string"}
+      }
+    },
+    "classes": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "type": {"type": "string"}
+            }
+          }
+        },
+        "methods": {
+          "type": "array",
+          "items": {"type": "object"}
+        }
+      }
+    }
+  }
+}

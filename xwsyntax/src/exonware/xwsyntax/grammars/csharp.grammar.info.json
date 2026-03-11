@@ -1,0 +1,25 @@
+{
+  "format_id": "C#",
+  "format_name": "C#",
+  "syntax_name": "csharp",
+  "file_extensions": [
+    ".cs"
+  ],
+  "mime_types": [
+    "text/x-csharp",
+    "text/x-c#"
+  ],
+  "primary_mime_type": "text/x-csharp",
+  "aliases": [
+    "C#",
+    "CSharp",
+    "Csharp",
+    "csharp"
+  ],
+  "category": "programming",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "C# programming language"
+}

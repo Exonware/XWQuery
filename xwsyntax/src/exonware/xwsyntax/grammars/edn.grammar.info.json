@@ -1,0 +1,23 @@
+{
+  "format_id": "EDN",
+  "format_name": "EDN",
+  "syntax_name": "edn",
+  "file_extensions": [
+    ".edn"
+  ],
+  "mime_types": [
+    "application/edn",
+    "text/x-edn"
+  ],
+  "primary_mime_type": "application/edn",
+  "aliases": [
+    "EDN",
+    "edn"
+  ],
+  "category": "data",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Extensible Data Notation - Clojure data format"
+}

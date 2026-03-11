@@ -1,0 +1,25 @@
+{
+  "format_id": "RUBY",
+  "format_name": "Ruby",
+  "syntax_name": "ruby",
+  "file_extensions": [
+    ".rb",
+    ".rake"
+  ],
+  "mime_types": [
+    "text/x-ruby",
+    "application/x-ruby"
+  ],
+  "primary_mime_type": "text/x-ruby",
+  "aliases": [
+    "RUBY",
+    "Ruby",
+    "ruby"
+  ],
+  "category": "programming",
+  "supports_bidirectional": true,
+  "is_binary_format": false,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Ruby programming language"
+}

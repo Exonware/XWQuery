@@ -8,13 +8,13 @@ from typing import Optional
 
 class SyntaxError(Exception):
     """Base exception for syntax errors."""
-    
+
     def __init__(self, message: str, line: Optional[int] = None, column: Optional[int] = None):
         super().__init__(message)
         self.message = message
         self.line = line
         self.column = column
-    
+
     def __str__(self) -> str:
         if self.line is not None and self.column is not None:
             return f"{self.message} at line {self.line}, column {self.column}"
@@ -35,7 +35,7 @@ class GrammarNotFoundError(GrammarError):
 
 class ParseError(SyntaxError):
     """Error during parsing."""
-    
+
     def __init__(
         self,
         message: str,
@@ -55,4 +55,3 @@ class ValidationError(SyntaxError):
 class MaxDepthError(SyntaxError):
     """Maximum parse depth exceeded."""
     pass
-

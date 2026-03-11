@@ -1,21 +1,17 @@
 #!/usr/bin/env python3
 #exonware/xwsyntax/tests/verify_installation.py
-
 """
 Verify xwsyntax installation and basic functionality.
-
 Company: eXonware.com
-Author: Eng. Muhammad AlShehri
+Author: eXonware Backend Team
 Email: connect@exonware.com
 Version: 0.0.1
-
 Usage:
     python tests/verify_installation.py
 """
 
 import sys
 from pathlib import Path
-
 # Add src to path
 src_path = Path(__file__).parent.parent / "src"
 sys.path.insert(0, str(src_path))
@@ -52,13 +48,11 @@ def verify_dependencies():
     try:
         import lark
         print("✅ lark available")
-        
         try:
             import exonware.xwnode
             print("✅ exonware-xwnode available")
         except ImportError:
             print("⚠️  exonware-xwnode not available (optimization will use fallback)")
-        
         return True
     except ImportError as e:
         print(f"❌ Dependency check failed: {e}")
@@ -71,19 +65,16 @@ def main():
     print("🔍 Verifying xwsyntax installation...")
     print("="*80)
     print()
-    
     checks = [
         ("Import", verify_import),
         ("Basic Functionality", verify_basic_functionality),
         ("Dependencies", verify_dependencies),
     ]
-    
     results = []
     for name, check_func in checks:
         print(f"Testing {name}...")
         results.append(check_func())
         print()
-    
     print("="*80)
     if all(results):
         print("🎉 SUCCESS! xwsyntax is ready to use!")
@@ -93,8 +84,5 @@ def main():
         print("💥 FAILED! Some checks did not pass.")
         print("="*80)
         sys.exit(1)
-
-
 if __name__ == "__main__":
     main()
-

@@ -1,0 +1,26 @@
+{
+  "format_id": "MESSAGEPACK",
+  "format_name": "MessagePack",
+  "syntax_name": "msgpack",
+  "file_extensions": [
+    ".msgpack",
+    ".mp"
+  ],
+  "mime_types": [
+    "application/msgpack",
+    "application/x-msgpack"
+  ],
+  "primary_mime_type": "application/msgpack",
+  "aliases": [
+    "MESSAGEPACK",
+    "MessagePack",
+    "MsgPack",
+    "msgpack"
+  ],
+  "category": "binary_serialization",
+  "supports_bidirectional": true,
+  "is_binary_format": true,
+  "supports_streaming": false,
+  "version": "1.0.0",
+  "description": "Efficient binary serialization format"
+}

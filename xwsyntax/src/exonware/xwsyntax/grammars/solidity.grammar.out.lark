@@ -1,0 +1,41 @@
+# solidity.grammar.out.lark
+# Solidity Output Grammar - Generate Solidity from AST
+# Company: eXonware.com
+# Version: 1.0
+
+@source_unit = {{#each children}}{{value}}{{#if !@last}}
+
+{{/if}}{{/each}}
+
+@pragma_directive = pragma solidity {{version}};
+
+@contract_decl = contract {{name}}{{#if is}} is {{is}}{{/if}} {
+{{#each members}}{{value}}
+{{/each}}}
+
+@function_decl = function {{name}}({{params}}) {{visibility}} {{#if returns}}returns ({{returns}}) {{/if}}{
+{{#each body}}{{value}}
+{{/each}}}
+
+@modifier_decl = modifier {{name}}({{params}}) {
+{{#each body}}{{value}}
+{{/each}}}
+
+@event_decl = event {{name}}({{params}});
+
+@block = {
+{{#each statements}}{{value}}
+{{/each}}}
+
+@if_stmt = if ({{condition}}) {{then_stmt}}{{#if else_stmt}} else {{else_stmt}}{{/if}}
+
+@for_stmt = for ({{init}}; {{condition}}; {{update}}) {{body}}
+
+@return_stmt = return{{#if value}} {{value}}{{/if}};
+
+@emit_stmt = emit {{value}};
+
+@expression = {{value}}
+
+@indent = 4
+@pretty = true

@@ -3,15 +3,13 @@
 Check that the package version and date are defined only in the version.py
 specified by pyproject.toml [tool.hatch.version] path (no hardcoded versions
 or dates elsewhere). Used by .github/workflows/check-versions.yml.
-
 Exits 0 if OK, 2 if hardcoded versions or dates found.
 """
-from __future__ import annotations
 
+from __future__ import annotations
 import re
 import sys
 from pathlib import Path
-
 # Repo root (where this script lives)
 ROOT = Path(__file__).resolve().parent
 SKIP_DIRS = {"_old", ".venv", "__pycache__", ".git"}
@@ -86,8 +84,6 @@ def get_canonical_date(version_py: Path) -> str | None:
         return getattr(mod, "__date__", None)
     except Exception:
         return None
-
-
 # Patterns that mean "hardcoded version" when found outside version.py
 VERSION_ASSIGNMENT_RE = re.compile(r'__version__\s*=\s*["\'](\d+\.\d+(?:\.\d+)*(?:\.\d+)?)["\']')
 
@@ -157,9 +153,7 @@ def main() -> None:
     # Allow fallback in src/exonware/__init__.py when present
     init_py = ROOT / "src" / "exonware" / "__init__.py"
     init_fallback_ok = init_py if init_py.exists() else None
-
     all_errors: list[str] = []
-
     for py in ROOT.rglob("*.py"):
         if not py.is_file() or py in allowed:
             continue
@@ -173,12 +167,10 @@ def main() -> None:
             continue
         if "src" in rel.parts:
             all_errors.extend(check_py_file(py, version_py, canonical, init_fallback_ok))
-
     for name in ("README.md", "README.rst"):
         p = ROOT / name
         if p.exists():
             all_errors.extend(check_text_file(p, canonical))
-
     canonical_date = get_canonical_date(version_py)
     if canonical_date:
         for name in ("README.md", "README.rst"):
@@ -196,7 +188,6 @@ def main() -> None:
                             break
                 except Exception:
                     pass
-
     for toml in sorted(ROOT.glob("pyproject*.toml")):
         if not toml.exists():
             continue
@@ -209,7 +200,6 @@ def main() -> None:
                     break
         except Exception:
             pass
-
     if all_errors:
         print("Hardcoded version(s) or date(s) found (version.py is the only source of truth):", file=sys.stderr)
         for e in all_errors:
@@ -224,7 +214,5 @@ def main() -> None:
         msg += f", date {canonical_date!r} only in {rel}"
     print(msg)
     sys.exit(0)
-
-
 if __name__ == "__main__":
     main()

@@ -1,3 +1,5 @@
+# project-src-size=349706 ; 0.33 MB
+# Source size (src/*): ~340.8 KB
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
@@ -23,15 +25,8 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "pip",
-]
-
-[project.optional-dependencies]
-# Archive format support (Zpaq, WIM, Squashfs) - installed via xwlazy when formats are used
-archives = [
-    "python-wimlib",
-    "pyzpaq",
-    "PySquashfsImage",
+  "pip",  # file-size=11430259 ; 10.90 MB
+  # total = src + deps ; 11.23 MB
 ]
 
 [[project.authors]]
@@ -41,11 +36,30 @@ email = "connect@exonware.com"
 [project.license]
 text = "MIT"
 
+[project.optional-dependencies]
+lazy = [
+  # total = src + deps ; 0.33 MB
+]
+dev = [
+  "black>=23.0.0",  # file-size=3914855 ; 3.73 MB
+  "isort>=5.12.0",  # file-size=568232 ; 0.54 MB
+  "mypy>=1.0.0",  # file-size=29775254 ; 28.40 MB
+  "pytest>=7.0.0",  # file-size=3152415 ; 3.01 MB
+  "pytest-asyncio>=0.21.0",  # file-size=46752 ; 0.04 MB
+  "pytest-cov>=4.0.0",  # file-size=71639 ; 0.07 MB
+  # total = src + deps ; 36.12 MB
+]
+full = [
+  # total = src + deps ; 0.33 MB
+]
+
 [project.urls]
 Homepage = "https://exonware.com"
 Repository = "https://github.com/exonware/xwlazy"
 Documentation = "https://github.com/exonware/xwlazy#readme"
 Subtree = "https://github.com/Exonware/XWLazy.git"
+
+# Dependency sizes: run 'commands measure_dependency_sizes xwlazy' to refresh # project-src-size and # file-size in this file.
 
 [tool.hatch.version]
 path = "src/exonware/xwlazy/version.py"

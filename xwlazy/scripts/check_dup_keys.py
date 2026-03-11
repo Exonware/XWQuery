@@ -1,7 +1,6 @@
 import re
 from pathlib import Path
 from collections import Counter
-
 p = Path(__file__).resolve().parent.parent / "src" / "exonware" / "xwlazy_external_libs.toml"
 text = p.read_text(encoding="utf-8")
 in_m = False

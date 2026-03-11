@@ -1,20 +1,16 @@
 """
 Unit tests for mode and performance (public API).
-
 xwlazy is single-file; tests exercise auto_enable_lazy and cache/stats API.
 """
 
 import pytest
 import sys
 from pathlib import Path
-
 pytestmark = pytest.mark.xwlazy_unit
-
 project_root = Path(__file__).resolve().parents[2]
 src_root = project_root / "src"
 if str(src_root) not in sys.path:
     sys.path.insert(0, str(src_root))
-
 from exonware.xwlazy import (
     auto_enable_lazy,
     uninstall_global_import_hook,

@@ -1,22 +1,17 @@
 """
 Unit tests for lazy activation modes (smart, lite, pip, etc.).
-
 xwlazy is single-file; mode behavior is exercised via auto_enable_lazy(mode=...).
 """
 
 from __future__ import annotations
-
 import pytest
 import sys
 from pathlib import Path
-
 pytestmark = pytest.mark.xwlazy_unit
-
 project_root = Path(__file__).resolve().parents[2]
 src_root = project_root / "src"
 if str(src_root) not in sys.path:
     sys.path.insert(0, str(src_root))
-
 from exonware.xwlazy import (
     auto_enable_lazy,
     uninstall_global_import_hook,

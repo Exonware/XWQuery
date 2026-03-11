@@ -1,9 +1,7 @@
 """
 xwlazy v4.0 - Enterprise Features in Single File
-
 A comprehensive, single-file auto-installation system with enterprise-grade features.
 Covers all major xwlazy capabilities while maintaining single-file simplicity.
-
 FIX v3.0.3: Code Consolidation & Critical Fixes:
   - Unified TOML Loader: Single _load_toml_file() function reused across all TOML parsing (reduces ~50 lines)
   - Fixed Cache Collisions: Uses hashlib.sha256 instead of hash() for collision-resistant cache filenames
@@ -11,12 +9,10 @@ FIX v3.0.3: Code Consolidation & Critical Fixes:
   - Fixed Silent Exceptions: Proper error handling and logging throughout (no more silent failures)
   - Removed Duplicate Code: Eliminated duplicate SERIALIZATION_PREFIXES and consolidated TOML reading
   - Better Error Messages: All exceptions logged with ASCII-safe encoding for Windows compatibility
-
 FIX v4.0.2: Full Dependency Installation with Version Support:
   - Ensures all dependencies are installed along with the package (explicit --no-deps prevention)
   - Version constraints from requirements.txt/pyproject.toml are included in install commands
   - _run_pip_install now explicitly installs full dependency tree with version constraints
-
 Key Features:
   - ✅ PER-PACKAGE ISOLATION: Each package configured independently
   - ✅ KEYWORD-BASED AUTO-DETECTION: Zero-code integration via pyproject.toml keywords
@@ -36,7 +32,6 @@ Key Features:
   - ✅ Multiple Installation Strategies: PIP, Wheel, Smart, Cached
   - ✅ Thread-safe: RLock-based concurrency handling
   - ✅ Zero dependencies: Uses only standard library (TOML via xwlazy_mixins_toml)
-
 Fully TOML-only Implementation (v4.0):
   - External Library Mappings: xwlazy_external_libs.toml (no JSON fallback)
   - SBOM Output: xwlazy_sbom.toml (TOML format)
@@ -45,22 +40,20 @@ Fully TOML-only Implementation (v4.0):
   - Version Support: Uses versions from external_libs.toml if missing from requirements.txt/pyproject.toml
   - Backwards Compatibility: Can read legacy JSON files during migration
   - TOML: stdlib-only reader/writer in xwlazy_mixins_toml (zero dependencies)
-
 NEW v4.0 - Enterprise Features:
   - Multi-Tier Caching: L1 (memory LRU) + L2 (disk cache) for better performance
   - Watched Prefixes: Special handling for serialization modules (pickle, json, yaml, etc.)
   - Enhanced Performance Monitoring: Detailed metrics (load times, access counts, cache performance)
   - Serialization Module Detection: Automatic detection of serialization modules for special handling
-
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
 Date: 2025-01-27
 """
-
 # =============================================================================
 # STANDARD LIBRARY IMPORTS (Built-in, No pip installation needed)
 # =============================================================================
+
 import sys
 import os
 import re
@@ -85,7 +78,6 @@ from datetime import datetime
 from collections import defaultdict, deque, OrderedDict
 from importlib.abc import MetaPathFinder, Loader
 from importlib.util import spec_from_loader
-
 # Optional mixins (all features disabled by default; recommend against enabling)
 _mixins = None
 try:
@@ -96,23 +88,19 @@ try:
         _mixins_spec.loader.exec_module(_mixins)
 except Exception:
     _mixins = None
-
 # =============================================================================
 # TOML (stdlib only, no tomli/tomllib)
 # =============================================================================
 from .xwlazy_mixins_toml import load_toml as _toml_load, dump_toml as _toml_dump
-
 # =============================================================================
 # CONFIGURATION & CONSTANTS
 # =============================================================================
-
 # Centralized storage directory for xwlazy files (prevents pollution in project directories)
 XWLAZY_DATA_DIR = Path.home() / ".xwlazy"
 XWLAZY_CACHE_DIR = XWLAZY_DATA_DIR / "cache"
 AUDIT_LOG_FILE = "xwlazy_sbom.toml"  # Filename only (will be stored in XWLAZY_DATA_DIR)
 LOCKFILE_PATH = "xwlazy.lock.toml"  # Filename only (will be stored in XWLAZY_DATA_DIR)
 EXTERNAL_LIBS_TOML = "xwlazy_external_libs.toml"
-
 # =============================================================================
 # ASYNC I/O (robust, non-blocking file updates)
 # =============================================================================
@@ -186,6 +174,7 @@ class _AsyncIOWorker:
     Single background worker that serializes file I/O.
     Callers enqueue actions and continue immediately.
     """
+
     def __init__(self):
         self._q: queue.Queue = queue.Queue()
         self._unfinished = 0
@@ -256,8 +245,6 @@ class _AsyncIOWorker:
                         self._pending_keys.discard(dedupe_key)
                 with self._unfinished_lock:
                     self._unfinished = max(0, self._unfinished - 1)
-
-
 _ASYNC_IO = _AsyncIOWorker()
 
 
@@ -268,16 +255,12 @@ def _flush_async_io(timeout_s: float | None = None) -> bool:
 
 def _shutdown_async_io() -> None:
     _ASYNC_IO.shutdown(timeout_s=_get_async_flush_timeout_s())
-
-
 atexit.register(_shutdown_async_io)
-
 # Serialization module prefixes (watched for special handling)
 SERIALIZATION_PREFIXES = {
     "pickle", "json", "yaml", "toml", "xml", "msgpack", "cbor",
     "bson", "protobuf", "avro", "csv", "parquet", "feather"
 }
-
 # Fallback Hard Mappings (used if TOML file not found)
 _FALLBACK_HARD_MAPPINGS = {
     "google.protobuf": "protobuf", "cv2": "opencv-python", "PIL": "Pillow",
@@ -298,7 +281,6 @@ def _write_toml_simple(data, file_path):
         _atomic_write_toml(data, Path(file_path))
     except Exception as e:
         raise IOError(f"Failed to write TOML to {file_path}: {e}") from e
-
 # =============================================================================
 # UNIFIED TOML LOADER (Reused across all TOML operations)
 # =============================================================================
@@ -320,12 +302,10 @@ def _read_toml_simple(file_path):
     """
     Simple TOML reader with JSON fallback (for backwards compatibility).
     Reuses unified _load_toml_file() function.
-    
     Handles array of tables format ([[entry]]) and legacy JSON format.
     """
     if not Path(file_path).exists():
         return None
-    
     # Use unified TOML loader
     data = _load_toml_file(file_path, verbose_error=False)
     if data is not None:
@@ -335,7 +315,6 @@ def _read_toml_simple(file_path):
             if isinstance(entries, list):
                 return entries
         return data
-    
     # Fallback to JSON (for backwards compatibility with existing files)
     try:
         import json
@@ -360,14 +339,42 @@ def _redact_sensitive(text):
     return text
 
 
-def _find_project_root():
+def _get_import_trigger() -> str:
     """
-    Find project root by walking up from cwd until a directory containing
-    pyproject.toml or requirements.txt is found.
+    Walk the call stack to find the module that triggered the current import.
+    Returns the first module name that is not importlib/xwlazy internals, or '?' if not found.
+    Used to show which lib triggered an auto-install in xwlazy log messages.
+    """
+    _skip_prefixes = ("importlib.", "exonware.xwlazy", "xwlazy", "runpy")
+    try:
+        for frame_info in inspect.stack():
+            frame = frame_info.frame
+            name = frame.f_globals.get("__name__", "")
+            if not name:
+                continue
+            if name.startswith(_skip_prefixes) or name in ("importlib", "runpy"):
+                continue
+            # Skip internal/private modules (but allow __main__)
+            if name.startswith("_") and name != "__main__":
+                continue
+            return name
+    except Exception:
+        pass
+    return "?"
+
+
+def _find_project_root(start_path=None):
+    """
+    Find project root by walking up from a given directory (or cwd) until a
+    directory containing pyproject.toml or requirements.txt is found.
     Returns Path or None if not found.
+
+    When called from multiple threads, pass start_path explicitly to avoid
+    races with process-global os.getcwd().
     """
-    cwd = Path(os.getcwd()).resolve()
-    current = cwd
+    if start_path is None:
+        start_path = Path(os.getcwd())
+    current = Path(start_path).resolve()
     for _ in range(32):
         if (current / "pyproject.toml").exists():
             return current
@@ -400,10 +407,8 @@ def _add_to_requirements_txt(project_root, install_spec):
     install_spec = install_spec.strip() if isinstance(install_spec, str) else str(install_spec).strip()
     if not install_spec:
         return
-
     new_base = _normalize_spec_for_compare(install_spec)
     dedupe_key = ("requirements.txt", str(req_path.resolve()), new_base)
-
     def _op():
         try:
             text = req_path.read_text(encoding="utf-8") if req_path.exists() else ""
@@ -421,7 +426,6 @@ def _add_to_requirements_txt(project_root, install_spec):
         except (IOError, OSError, Exception) as e:
             if os.environ.get("XWLAZY_VERBOSE"):
                 sys.stderr.write(f"[xwlazy] Failed to update requirements.txt: {_redact_sensitive(str(e))}\n")
-
     if _is_async_io_enabled():
         _ASYNC_IO.submit(_op, dedupe_key=dedupe_key)
         return
@@ -431,11 +435,9 @@ def _add_to_requirements_txt(project_root, install_spec):
 def _add_to_pyproject(project_root, install_spec):
     """
     Add install_spec to project config.
-
     Default behavior (auto):
     - If `[project.optional-dependencies.full]` exists, add there
     - Else add to `[project.dependencies]`
-
     Override with `XWLAZY_PERSIST_EXTRAS`:
     - `XWLAZY_PERSIST_EXTRAS=dev` -> add to `[project.optional-dependencies.dev]` (creates if missing)
     - `XWLAZY_PERSIST_EXTRAS=none` (or `dependencies`/`default`) -> add to `[project.dependencies]`
@@ -447,13 +449,10 @@ def _add_to_pyproject(project_root, install_spec):
     install_spec = install_spec.strip() if isinstance(install_spec, str) else str(install_spec).strip()
     if not install_spec:
         return
-
     new_base = _normalize_spec_for_compare(install_spec)
-
     extras_override = os.environ.get("XWLAZY_PERSIST_EXTRAS")
     extras_override = extras_override.strip() if isinstance(extras_override, str) else None
     extras_override_l = extras_override.lower() if extras_override else None
-
     if extras_override:
         if extras_override_l in ("none", "dependency", "dependencies", "default", "project", "base"):
             opt_target = None
@@ -461,9 +460,7 @@ def _add_to_pyproject(project_root, install_spec):
             opt_target = extras_override
     else:
         opt_target = "auto"
-
     dedupe_key = ("pyproject.toml", str(pyproject_path.resolve()), opt_target, new_base)
-
     def _op():
         try:
             data = _load_toml_file(pyproject_path, verbose_error=False)
@@ -473,12 +470,10 @@ def _add_to_pyproject(project_root, install_spec):
             if not isinstance(project, dict):
                 return
             opt_deps = project.get("optional-dependencies")
-
             # Resolve auto target at execution time against latest file contents.
             resolved_opt_target = opt_target
             if resolved_opt_target == "auto":
                 resolved_opt_target = "full" if isinstance(opt_deps, dict) and "full" in opt_deps else None
-
             if resolved_opt_target is not None:
                 if not isinstance(opt_deps, dict):
                     opt_deps = {}
@@ -493,7 +488,6 @@ def _add_to_pyproject(project_root, install_spec):
                 group_list.append(install_spec)
                 _write_toml_simple(data, pyproject_path)
                 return
-
             deps = project.get("dependencies")
             if not isinstance(deps, list):
                 deps = []
@@ -506,7 +500,6 @@ def _add_to_pyproject(project_root, install_spec):
         except (IOError, OSError, Exception) as e:
             if os.environ.get("XWLAZY_VERBOSE"):
                 sys.stderr.write(f"[xwlazy] Failed to update pyproject.toml: {_redact_sensitive(str(e))}\n")
-
     if _is_async_io_enabled():
         _ASYNC_IO.submit(_op, dedupe_key=dedupe_key)
         return
@@ -519,14 +512,13 @@ def _persist_installed_to_project(install_str):
     requirements.txt and/or pyproject.toml so the install is recorded.
     Respects XWLAZY_NO_PERSIST=1 to disable. If no 'full' optional-dependencies
     section exists, adds to [project.dependencies].
-
     Override pyproject target with:
     - `XWLAZY_PERSIST_EXTRAS=<name>` to write to `[project.optional-dependencies.<name>]`
     - `XWLAZY_PERSIST_EXTRAS=none` to force `[project.dependencies]`
     """
     if os.environ.get("XWLAZY_NO_PERSIST") == "1":
         return
-    project_root = _find_project_root()
+    project_root = _find_project_root(Path(os.getcwd()).resolve())
     if project_root is None:
         return
     if not isinstance(install_str, str):
@@ -540,7 +532,6 @@ def _persist_installed_to_project(install_str):
 def _extract_package_name(value):
     """
     Extract package name from value that may contain version constraints.
-    
     Examples:
         "protobuf" -> "protobuf"
         "protobuf>=4.0" -> "protobuf"
@@ -548,7 +539,6 @@ def _extract_package_name(value):
     """
     if not isinstance(value, str):
         return str(value)
-    
     # Remove version constraints (>=, <=, ==, !=, ~=, <, >, and comma-separated)
     # Keep only the package name
     clean = re.split(r'[<>=!~,;]', value)[0].strip()
@@ -557,13 +547,11 @@ def _extract_package_name(value):
 def _generate_fallback_candidates(fullname):
     """
     Generate fallback package name candidates from import name.
-    
     If a package is not found in xwlazy_external_libs.toml, try importing
     using the same name with transformations:
     - Replace dots with dashes
     - Replace dots with underscores
     - Progressively shorten by removing segments from the end
-    
     Examples:
         "exonware.xwlazy.core_file" -> [
             "exonware-xwlazy-core_file",
@@ -572,7 +560,6 @@ def _generate_fallback_candidates(fullname):
             "exonware_xwlazy",
             "exonware"
         ]
-        
         "something.something.something.something.something.something" -> [
             "something-something-something-something-something-something",
             "something_something_something_something_something_something",
@@ -583,53 +570,42 @@ def _generate_fallback_candidates(fullname):
     """
     if not fullname or not isinstance(fullname, str):
         return []
-    
     parts = fullname.split('.')
     if not parts:
         return []
-    
     candidates = []
-    
     # Generate progressively shorter versions, starting from full name
     for length in range(len(parts), 0, -1):
         segment = '.'.join(parts[:length])
-        
         # Try dash variant first
         dash_version = segment.replace('.', '-')
         candidates.append(dash_version)
-        
         # Try underscore variant (only if different from dash)
         underscore_version = segment.replace('.', '_')
         if underscore_version != dash_version:
             candidates.append(underscore_version)
-    
     return candidates
 
 def _load_hard_mappings():
     """
     Load hard mappings from external TOML file.
     Reuses unified _load_toml_file() function to reduce code duplication.
-    
     Loads from xwlazy_external_libs.toml (supports version constraints).
     Falls back to hardcoded mappings if TOML file not found or invalid.
-    
     TOML file format (supports versions):
     [mappings]
     "google.protobuf" = "protobuf"  # Package name only
     "pandas" = "pandas>=2.0"        # Package name with version (used if missing from requirements.txt)
     "cv2" = "opencv-python"
     ...
-    
     Returns:
         dict: Mapping of import names to full package spec (name + version if present)
               Format: {"import_name": "package_name" or "package_name>=version"}
     """
     module_dir = Path(__file__).parent
     toml_path = module_dir / EXTERNAL_LIBS_TOML
-    
     # Use unified TOML loader (reused code)
     data = _load_toml_file(toml_path, verbose_error=True)
-    
     if data:
         # Extract [mappings] section
         mappings_section = data.get("mappings", {})
@@ -641,7 +617,6 @@ def _load_hard_mappings():
                     mappings[import_name] = package_value  # Keep version if present
                 else:
                     mappings[import_name] = str(package_value)
-            
             if os.environ.get('XWLAZY_VERBOSE'):
                 sys.stdout.write(f"[OK] [xwlazy] Loaded {len(mappings)} mappings from {EXTERNAL_LIBS_TOML}\n")
             return mappings
@@ -654,7 +629,6 @@ def _load_hard_mappings():
                 sys.stderr.write(f"[xwlazy] {EXTERNAL_LIBS_TOML} not found, using hardcoded fallback mappings\n")
             else:
                 sys.stderr.write(f"[xwlazy] Failed to parse {EXTERNAL_LIBS_TOML}, using hardcoded fallback\n")
-    
     # Fallback to hardcoded mappings (package names only, no versions)
     if os.environ.get('XWLAZY_VERBOSE'):
         sys.stdout.write(f"[xwlazy] Using fallback hardcoded mappings ({len(_FALLBACK_HARD_MAPPINGS)} entries)\n")
@@ -663,41 +637,32 @@ def _load_hard_mappings():
 def _load_deny_list():
     """
     Load deny list from external TOML file.
-    
     Loads from xwlazy_external_libs.toml [deny_list] section.
     Falls back to hardcoded deny list if TOML file not found or invalid.
-    
     TOML file format:
     [deny_list]
     "lxml" = "Blocked: Python 2 syntax incompatibility"
     "package_name" = "Reason for blocking"
-    
     Returns:
         set: Set of package names to deny
     """
     module_dir = Path(__file__).parent
     toml_path = module_dir / EXTERNAL_LIBS_TOML
-    
     # Use unified TOML loader
     data = _load_toml_file(toml_path, verbose_error=False)
-    
     if data:
         # Extract [deny_list] section
         deny_list_section = data.get("deny_list", {})
         if isinstance(deny_list_section, dict):
             # Extract package names (keys) from deny_list
             deny_list = set(deny_list_section.keys())
-            
             if os.environ.get('XWLAZY_VERBOSE'):
                 sys.stdout.write(f"[OK] [xwlazy] Loaded {len(deny_list)} packages from deny_list in {EXTERNAL_LIBS_TOML}\n")
             return deny_list
-    
     # Fallback to hardcoded deny list (lxml blocked due to Python 2 syntax issues)
     return {"lxml"}
-
 # Load hard mappings from external TOML file
 HARD_MAPPINGS = _load_hard_mappings()
-
 # =============================================================================
 # MULTI-TIER CACHE (L1 + L2) - Simplified Version
 # =============================================================================
@@ -705,12 +670,11 @@ HARD_MAPPINGS = _load_hard_mappings()
 class SimpleMultiTierCache:
     """
     Simplified multi-tier cache: L1 (memory LRU) + L2 (disk).
-    
     Multi-tier caching: L1 (memory LRU) + L2 (disk cache) for better performance.
     - L1: In-memory LRU cache (fastest)
     - L2: Disk cache (persistent across runs)
     """
-    
+
     def __init__(self, l1_size=1000, l2_dir=None):
         self._l1_size = l1_size
         self._l1_cache = OrderedDict()  # LRU cache (OrderedDict for O(1) operations)
@@ -718,7 +682,7 @@ class SimpleMultiTierCache:
         self._l2_dir.mkdir(parents=True, exist_ok=True)
         self._lock = threading.RLock()
         self._stats = {"l1_hits": 0, "l2_hits": 0, "misses": 0}
-    
+
     def _get_cache_filename(self, key):
         """
         Generate collision-resistant cache filename using hashlib.
@@ -728,7 +692,7 @@ class SimpleMultiTierCache:
         key_bytes = str(key).encode('utf-8')
         cache_hash = hashlib.sha256(key_bytes).hexdigest()[:16]  # 16 hex chars = 64 bits
         return f"{cache_hash}.cache"
-    
+
     def get(self, key):
         """Get value from cache (L1 -> L2)."""
         with self._lock:
@@ -738,7 +702,6 @@ class SimpleMultiTierCache:
                 self._l1_cache[key] = value  # Move to end (LRU)
                 self._stats["l1_hits"] += 1
                 return value
-            
             # Check L2 (disk) with collision-resistant filename (uses hashlib.sha256)
             cache_filename = self._get_cache_filename(key)
             l2_path = self._l2_dir / cache_filename
@@ -760,7 +723,6 @@ class SimpleMultiTierCache:
                     else:
                         # Legacy format (direct value) - trust it (very rare collision)
                         actual_value = value
-                    
                     # Promote to L1
                     self._set_l1(key, actual_value)
                     self._stats["l2_hits"] += 1
@@ -770,23 +732,19 @@ class SimpleMultiTierCache:
                     if os.environ.get('XWLAZY_VERBOSE'):
                         err_msg = str(e).encode('ascii', 'replace').decode('ascii')
                         sys.stderr.write(f"[xwlazy] Failed to load L2 cache for {key}: {err_msg}\n")
-            
             self._stats["misses"] += 1
             return None
-    
+
     def set(self, key, value):
         """Set value in cache (L1 + L2)."""
         with self._lock:
             self._set_l1(key, value)
-        
         # Write to L2 (disk) with collision-resistant filename and key verification
         try:
             cache_filename = self._get_cache_filename(key)
             l2_path = self._l2_dir / cache_filename
-            
             # Store with key for collision detection
             cache_data = {"_cache_key": key, "_cache_value": value}
-            
             with open(l2_path, 'wb') as f:
                 pickle.dump(cache_data, f)
         except Exception as e:
@@ -795,7 +753,7 @@ class SimpleMultiTierCache:
                 err_msg = str(e).encode('ascii', 'replace').decode('ascii')
                 sys.stderr.write(f"[xwlazy] Failed to write L2 cache for {key}: {err_msg}\n")
             # L2 failures are non-fatal, continue without disk cache
-    
+
     def _set_l1(self, key, value):
         """Set value in L1 cache (internal, called with lock held)."""
         if key in self._l1_cache:
@@ -803,12 +761,11 @@ class SimpleMultiTierCache:
         elif len(self._l1_cache) >= self._l1_size:
             self._l1_cache.popitem(last=False)  # Remove oldest (LRU)
         self._l1_cache[key] = value
-    
+
     def invalidate(self, key):
         """Invalidate cached value (L1 + L2)."""
         with self._lock:
             self._l1_cache.pop(key, None)
-        
         # Invalidate L2 with collision-resistant filename
         cache_filename = self._get_cache_filename(key)
         l2_path = self._l2_dir / cache_filename
@@ -832,13 +789,12 @@ class SimpleMultiTierCache:
             if os.environ.get('XWLAZY_VERBOSE'):
                 err_msg = str(e).encode('ascii', 'replace').decode('ascii')
                 sys.stderr.write(f"[xwlazy] Failed to invalidate L2 cache for {key}: {err_msg}\n")
-    
+
     def clear(self):
         """Clear all caches (L1 + L2)."""
         with self._lock:
             self._l1_cache.clear()
             self._stats = {"l1_hits": 0, "l2_hits": 0, "misses": 0}
-        
         # Clear L2 cache files
         try:
             for cache_file in self._l2_dir.glob("*.cache"):
@@ -848,7 +804,7 @@ class SimpleMultiTierCache:
             if os.environ.get('XWLAZY_VERBOSE'):
                 err_msg = str(e).encode('ascii', 'replace').decode('ascii')
                 sys.stderr.write(f"[xwlazy] Failed to clear L2 cache directory: {err_msg}\n")
-    
+
     def get_stats(self):
         """Get cache statistics."""
         with self._lock:
@@ -861,7 +817,6 @@ class SimpleMultiTierCache:
                 "misses": self._stats["misses"],
                 "hit_rate": (self._stats["l1_hits"] + self._stats["l2_hits"]) / total if total > 0 else 0.0
             }
-
 # =============================================================================
 # WATCHED PREFIXES REGISTRY (For Serialization Modules)
 # =============================================================================
@@ -869,26 +824,25 @@ class SimpleMultiTierCache:
 class WatchedPrefixRegistry:
     """
     Registry for watched module prefixes (for serialization modules).
-    
     Watched prefixes: Special handling for serialization modules.
     Used to detect serialization modules (pickle, json, yaml, etc.).
     """
-    
+
     def __init__(self, initial_prefixes=None):
         self._prefixes = set(initial_prefixes or SERIALIZATION_PREFIXES)
         self._lock = threading.RLock()
         self._custom_prefixes = set()  # User-defined prefixes
-    
+
     def add_prefix(self, prefix):
         """Add a watched prefix."""
         with self._lock:
             self._custom_prefixes.add(prefix)
-    
+
     def remove_prefix(self, prefix):
         """Remove a watched prefix."""
         with self._lock:
             self._custom_prefixes.discard(prefix)
-    
+
     def is_watched(self, module_name):
         """Check if module matches any watched prefix."""
         with self._lock:
@@ -897,12 +851,11 @@ class WatchedPrefixRegistry:
             return top_module in all_prefixes or any(
                 module_name.startswith(prefix + '.') for prefix in all_prefixes
             )
-    
+
     def get_watched_prefixes(self):
         """Get all watched prefixes."""
         with self._lock:
             return sorted(self._prefixes | self._custom_prefixes)
-
 # =============================================================================
 # ENHANCED PERFORMANCE MONITORING
 # =============================================================================
@@ -910,11 +863,10 @@ class WatchedPrefixRegistry:
 class EnhancedPerformanceMonitor:
     """
     Enhanced performance monitoring with detailed metrics.
-    
     NEW v3.0.2: More comprehensive metrics tracking like xwlazy.
     Tracks: load times, access counts, memory usage, cache performance.
     """
-    
+
     def __init__(self):
         self._load_times = defaultdict(list)
         self._access_counts = defaultdict(int)
@@ -922,7 +874,7 @@ class EnhancedPerformanceMonitor:
         self._cache_performance = {"hits": 0, "misses": 0}
         self._operation_history = deque(maxlen=1000)  # Last 1000 operations
         self._lock = threading.RLock()
-    
+
     def record_load_time(self, module, load_time):
         """Record module load time."""
         with self._lock:
@@ -933,27 +885,27 @@ class EnhancedPerformanceMonitor:
                 "duration": load_time,
                 "timestamp": time.time()
             })
-    
+
     def record_access(self, module):
         """Record module access."""
         with self._lock:
             self._access_counts[module] += 1
-    
+
     def record_cache_hit(self):
         """Record cache hit."""
         with self._lock:
             self._cache_performance["hits"] += 1
-    
+
     def record_cache_miss(self):
         """Record cache miss."""
         with self._lock:
             self._cache_performance["misses"] += 1
-    
+
     def record_module_size(self, module, size_bytes):
         """Record module size (in bytes)."""
         with self._lock:
             self._module_sizes[module] = size_bytes
-    
+
     def get_stats(self):
         """Get comprehensive performance statistics."""
         with self._lock:
@@ -961,13 +913,11 @@ class EnhancedPerformanceMonitor:
             avg_load_time = sum(
                 sum(times) for times in self._load_times.values()
             ) / total_loads if total_loads > 0 else 0.0
-            
             cache_total = self._cache_performance["hits"] + self._cache_performance["misses"]
             cache_hit_rate = (
                 self._cache_performance["hits"] / cache_total
                 if cache_total > 0 else 0.0
             )
-            
             return {
                 "modules_loaded": len(self._load_times),
                 "total_loads": total_loads,
@@ -984,7 +934,7 @@ class EnhancedPerformanceMonitor:
                 "total_module_size_bytes": sum(self._module_sizes.values()),
                 "recent_operations": list(self._operation_history)[-10:]
             }
-    
+
     def clear(self):
         """Clear all metrics."""
         with self._lock:
@@ -993,14 +943,13 @@ class EnhancedPerformanceMonitor:
             self._module_sizes.clear()
             self._cache_performance = {"hits": 0, "misses": 0}
             self._operation_history.clear()
-
 # =============================================================================
 # ADAPTIVE LEARNING (Simplified Version)
 # =============================================================================
 
 class AdaptiveLearner:
     """Lightweight adaptive learning for pattern-based optimization."""
-    
+
     def __init__(self, learning_window=100):
         self._learning_window = learning_window
         self._import_sequences = deque(maxlen=learning_window)
@@ -1008,63 +957,54 @@ class AdaptiveLearner:
         self._import_chains = defaultdict(lambda: defaultdict(int))
         self._module_scores = {}
         self._lock = threading.RLock()
-    
+
     def record_import(self, module_name, import_time):
         """Record an import event for learning."""
         current_time = time.time()
         with self._lock:
             self._import_sequences.append((module_name, current_time, import_time))
             self._access_times[module_name].append(current_time)
-            
             # Update import chains
             if len(self._import_sequences) > 1:
                 prev_name, _, _ = self._import_sequences[-2]
                 self._import_chains[prev_name][module_name] += 1
-            
             # Update scores periodically
             if len(self._access_times[module_name]) % 5 == 0:
                 self._update_module_score(module_name)
-    
+
     def _update_module_score(self, module_name):
         """Update module priority score."""
         with self._lock:
             accesses = self._access_times[module_name]
             if not accesses:
                 return
-            
             recent = [t for t in accesses if time.time() - t < 3600]
             frequency = len(recent)
-            
             if accesses:
                 recency = 1.0 / (time.time() - accesses[-1] + 1.0)
             else:
                 recency = 0.0
-            
             chain_weight = sum(
                 self._import_chains.get(prev, {}).get(module_name, 0)
                 for prev in self._access_times.keys()
             ) / max(len(self._import_sequences), 1)
-            
             self._module_scores[module_name] = frequency * 0.4 + recency * 1000 * 0.4 + chain_weight * 0.2
-    
+
     def predict_next_imports(self, current_module=None, limit=5):
         """Predict likely next imports."""
         with self._lock:
             if not self._import_sequences:
                 return []
-            
             candidates = {}
             if current_module:
                 chain_candidates = self._import_chains.get(current_module, {})
                 for module, count in chain_candidates.items():
                     candidates[module] = candidates.get(module, 0.0) + count * 2.0
-            
             for module, score in self._module_scores.items():
                 candidates[module] = candidates.get(module, 0.0) + score * 0.5
-            
             sorted_candidates = sorted(candidates.items(), key=lambda x: x[1], reverse=True)
             return [module for module, _ in sorted_candidates[:limit]]
-    
+
     def get_stats(self):
         """Get learning statistics."""
         with self._lock:
@@ -1074,16 +1014,14 @@ class AdaptiveLearner:
                 'chains_tracked': sum(len(chains) for chains in self._import_chains.values()),
                 'top_modules': self._get_priority_modules(5),
             }
-    
+
     def _get_priority_modules(self, limit=10):
         """Get priority modules based on scores."""
         sorted_modules = sorted(self._module_scores.items(), key=lambda x: x[1], reverse=True)
         return [module for module, _ in sorted_modules[:limit]]
-
 # =============================================================================
 # GLOBAL __import__ HOOK (Module-Level Interception)
 # =============================================================================
-
 # Capture original builtins.__import__ only once at module load (prevents state issues)
 _original_builtins_import = builtins.__import__
 _global_import_hook_installed = False
@@ -1099,14 +1037,30 @@ def _intercepting_import(name, globals=None, locals=None, fromlist=(), level=0):
     # Skip relative imports (level > 0) - use normal import
     if level > 0:
         return _original_builtins_import(name, globals, locals, fromlist, level)
-    
     # Use original import first
     try:
         module = _original_builtins_import(name, globals, locals, fromlist, level)
         return module
     except ImportError:
-        # Re-raise: never return None. Callers expect a module or an exception.
-        # xwlazy handling for missing packages runs via meta_path finder, not here.
+        # Give xwlazy meta_path finder a chance to install and load the module (GUIDE_53_FIX).
+        # If we re-raise here without trying, the finder is never used for this import.
+        with _global_import_hook_lock:
+            hook_manager = _global_hook_manager
+        if hook_manager and hasattr(hook_manager, 'find_spec'):
+            try:
+                spec = hook_manager.find_spec(name, None)
+                if spec is not None and spec.loader is not None:
+                    module = importlib.util.module_from_spec(spec)
+                    sys.modules[name] = module
+                    spec.loader.exec_module(module)
+                    if fromlist:
+                        # from x import a, b: return the module so caller can get attributes
+                        return module
+                    return module
+            except Exception as e:
+                if os.environ.get('XWLAZY_VERBOSE'):
+                    err_msg = str(e).encode('ascii', 'replace').decode('ascii')
+                    sys.stderr.write(f"[xwlazy] Error in global import hook for {name}: {err_msg}\n")
         raise
     except (OSError, TypeError, AttributeError) as e:
         # Handle exceptions during module initialization:
@@ -1125,7 +1079,6 @@ def _intercepting_import(name, globals=None, locals=None, fromlist=(), level=0):
         # FIX v3.0.3: Thread-safe access to _global_hook_manager (prevents race conditions)
         with _global_import_hook_lock:
             hook_manager = _global_hook_manager
-        
         # Let xwlazy handle it via meta_path finder (outside lock to avoid deadlock)
         if hook_manager and hasattr(hook_manager, 'find_spec'):
             try:
@@ -1142,18 +1095,15 @@ def _intercepting_import(name, globals=None, locals=None, fromlist=(), level=0):
                 if os.environ.get('XWLAZY_VERBOSE'):
                     err_msg = str(e).encode('ascii', 'replace').decode('ascii')
                     sys.stderr.write(f"[xwlazy] Error in global import hook for {name}: {err_msg}\n")
-        
         # Re-raise original ImportError
         raise
 
 def _install_global_import_hook(manager):
     """Install global builtins.__import__ hook."""
     global _original_builtins_import, _global_import_hook_installed, _global_hook_manager
-    
     with _global_import_hook_lock:
         if _global_import_hook_installed:
             return
-        
         # FIX v3.0.3: Use module-level _original_builtins_import (captured at module load)
         # Don't re-capture here to avoid issues if hook is installed after another module modifies builtins.__import__
         builtins.__import__ = _intercepting_import
@@ -1163,54 +1113,46 @@ def _install_global_import_hook(manager):
 def _uninstall_global_import_hook():
     """Uninstall global builtins.__import__ hook."""
     global _original_builtins_import, _global_import_hook_installed, _global_hook_manager
-    
     with _global_import_hook_lock:
         if not _global_import_hook_installed:
             return
-        
         builtins.__import__ = _original_builtins_import
         _global_hook_manager = None
         _global_import_hook_installed = False
-
 # =============================================================================
 # LAZY LOADING PROXY (Thread-Safe & Recursion-Free)
 # =============================================================================
 
 class LazyModuleProxy(types.ModuleType):
     """Proxy that poses as module while installing in background."""
-    
+
     def __init__(self, fullname, install_thread, manager):
         super().__init__(fullname)
         self.__file__ = f"<lazy_installing_{fullname}>"
         self._install_thread = install_thread
         self._manager = manager
         self._real_module = None
-    
+
     def _ensure_installed(self):
         """Blocks until install completes, then swaps itself out."""
         if self._real_module:
             return self._real_module
-        
         if self._install_thread.is_alive():
             self._install_thread.join()
-        
         with self._manager._lock:
             if self.__name__ in self._manager.failed_installs:
                 raise ImportError(f"xwlazy failed to install {self.__name__}")
-        
         manager = self._manager
         was_in_path = False
         try:
             if manager in sys.meta_path:
                 sys.meta_path.remove(manager)
                 was_in_path = True
-            
             self._real_module = importlib.import_module(self.__name__)
             sys.modules[self.__name__] = self._real_module
         finally:
             if was_in_path and manager not in sys.meta_path:
                 sys.meta_path.insert(0, manager)
-        
         return self._real_module
 
     def __getattr__(self, name):
@@ -1220,13 +1162,14 @@ class LazyModuleProxy(types.ModuleType):
 
     def __dir__(self):
         return dir(self._ensure_installed())
-        
+
     def __repr__(self):
         if self._real_module:
             return repr(self._real_module)
         return f"<LazyProxy for '{self.__name__}' (Installing...)>"
 
 class LazyLoader(Loader):
+
     def __init__(self, manager, fullname, install_target):
         self.manager = manager
         self.fullname = fullname
@@ -1243,55 +1186,45 @@ class LazyLoader(Loader):
 
     def exec_module(self, module):
         pass
-
 # =============================================================================
 # XWLAZY MANAGER (v4.0 - Enterprise Features)
 # =============================================================================
 
 class XWLazy(MetaPathFinder):
+
     def __init__(self, root_dir=".", default_enabled=True, enable_global_hook=True, enable_learning=False):
         self.root_dir = Path(root_dir)
-        
         # Thread Safety & State
         self._lock = threading.RLock()
         self.manifest_index = {}
-        
         # Caching: Thread-safe set for installed packages (backward compatibility)
         self.installed_cache = set()
         self.failed_installs = set()
         self.installing_now = set()
-        
         # NEW v3.0.2: Multi-tier cache (L1 + L2)
         self._multi_tier_cache = SimpleMultiTierCache(l1_size=1000, l2_dir=XWLAZY_CACHE_DIR / "l2_cache")
-        
         # NEW v3.0.2: Watched prefixes registry (for serialization modules)
         self._watched_prefixes = WatchedPrefixRegistry(initial_prefixes=SERIALIZATION_PREFIXES)
-        
         # NEW v3.0.2: Enhanced performance monitor
         self._perf_monitor = EnhancedPerformanceMonitor()
-        
         # Configuration: Per-Package Isolation
         # Load deny list from TOML file (blocks packages with compatibility issues)
         self.global_deny_list = _load_deny_list()
         self.package_policies = {}
-        
         # NEW v3.0: Adaptive Learning (optional)
         self._enable_learning = enable_learning
         self._learner = AdaptiveLearner() if enable_learning else None
-        
         # NEW v4.0: Audit controls (lockfile + audit log are opt-in)
         # Controlled via environment variable:
         #   XWLAZY_AUDIT_ENABLED=1 → enable persistent audit (lockfile + audit log)
         #   XWLAZY_AUDIT_ENABLED unset/0 → no audit files are written (default)
         env_audit = os.environ.get('XWLAZY_AUDIT_ENABLED')
         self._audit_enabled = (env_audit == '1')
-        
         # Lockfile / audit file paths under centralized ~/.xwlazy/ directory
         # (directory may still be used for caches even when audit is disabled)
         XWLAZY_DATA_DIR.mkdir(parents=True, exist_ok=True)
         self._lockfile_path = XWLAZY_DATA_DIR / LOCKFILE_PATH
         self._audit_log_path = XWLAZY_DATA_DIR / AUDIT_LOG_FILE
-        
         # Stats & Observability (Enhanced)
         self.stats = {
             "installs": 0,
@@ -1303,37 +1236,31 @@ class XWLazy(MetaPathFinder):
             "adaptive_predictions": 0,
             "history": []
         }
-        
         # NEW v3.0: Keyword detection configuration
         self._keyword_detection_enabled = True
         self._keyword_to_check = "xwlazy-enabled"
-        
         # Init: Check for auto-config BEFORE setting default_enabled
         auto_config_enabled = self._extract_auto_config(root_dir)
         if auto_config_enabled is not None:
             self.default_enabled = auto_config_enabled
         else:
             self.default_enabled = default_enabled
-        
         # Load manifests (requirements.txt, pyproject.toml - TOML-only, no JSON manifests)
         self._index_manifests()
-        
         # Load lockfile if exists
         self._load_lockfile()
-        
         # PEP 668 detection
-        self._is_externally_managed = (Path(sys.prefix) / "EXTERNALLY-MANAGED").exists()
-        
+        # Set XWLAZY_ALLOW_EXTERNALLY_MANAGED=1 to allow auto-install in dev/test venvs that have EXTERNALLY-MANAGED
+        _externally_managed_file = (Path(sys.prefix) / "EXTERNALLY-MANAGED").exists()
+        self._is_externally_managed = _externally_managed_file and (os.environ.get("XWLAZY_ALLOW_EXTERNALLY_MANAGED") != "1")
         # NEW v3.0: Install global __import__ hook if requested
         if enable_global_hook:
             _install_global_import_hook(self)
-
     # --- PUBLIC API (Enhanced v3.0) ---
 
     def configure(self, package_name, enabled=True, mode="blocking", install_strategy="pip", allow=True):
         """
         Configure per-package behavior (PER-PACKAGE ISOLATION).
-        
         Each package can have its own independent settings.
         """
         if not isinstance(package_name, str) or not package_name:
@@ -1342,7 +1269,6 @@ class XWLazy(MetaPathFinder):
             raise ValueError(f"mode must be 'blocking' or 'lazy', got: {mode!r}")
         if install_strategy not in ("pip", "wheel", "cached", "smart"):
             raise ValueError(f"Invalid strategy: {install_strategy}")
-        
         with self._lock:
             self.package_policies[package_name] = {
                 "enabled": enabled,
@@ -1371,7 +1297,6 @@ class XWLazy(MetaPathFinder):
                 stats['adaptive_learning'] = self._learner.get_stats()
             else:
                 stats['adaptive_learning'] = None
-            
             # Resolution cache stats (functools.lru_cache)
             cache_stats = self._resolve_target_cached.cache_info()
             stats['resolution_cache'] = {
@@ -1380,19 +1305,15 @@ class XWLazy(MetaPathFinder):
                 'size': cache_stats.currsize,
                 'maxsize': cache_stats.maxsize
             }
-            
             # NEW v3.0.2: Multi-tier cache stats (L1 + L2)
             stats['multi_tier_cache'] = self._multi_tier_cache.get_stats()
-            
             # NEW v3.0.2: Enhanced performance monitoring stats
             stats['performance'] = self._perf_monitor.get_stats()
-            
             # NEW v3.0.2: Watched prefixes info
             stats['watched_prefixes'] = {
                 'count': len(self._watched_prefixes.get_watched_prefixes()),
                 'prefixes': self._watched_prefixes.get_watched_prefixes()
             }
-            
             # NEW v3.0: Additional stats
             stats['lockfile_path'] = str(self._lockfile_path)
             stats['lockfile_exists'] = self._lockfile_path.exists()
@@ -1402,7 +1323,6 @@ class XWLazy(MetaPathFinder):
             stats['installed_packages_count'] = len(self.installed_cache)
             stats['failed_packages_count'] = len(self.failed_installs)
             stats['configured_packages_count'] = len(self.package_policies)
-            
             return stats
 
     def generate_sbom(self, output_path=None):
@@ -1435,31 +1355,29 @@ class XWLazy(MetaPathFinder):
     def save_lockfile(self):
         """Save current state to lockfile."""
         self._save_lockfile()
-    
     # --- NEW v3.0.2: Watched Prefixes API ---
-    
+
     def add_watched_prefix(self, prefix):
         """Add a watched prefix for special handling (e.g., serialization modules)."""
         self._watched_prefixes.add_prefix(prefix)
-    
+
     def remove_watched_prefix(self, prefix):
         """Remove a watched prefix."""
         self._watched_prefixes.remove_prefix(prefix)
-    
+
     def get_watched_prefixes(self):
         """Get all watched prefixes."""
         return self._watched_prefixes.get_watched_prefixes()
-    
+
     def is_watched(self, module_name):
         """Check if a module matches any watched prefix."""
         return self._watched_prefixes.is_watched(module_name)
-    
     # --- NEW v3.0.2: Cache Management API ---
-    
+
     def get_cache_stats(self):
         """Get multi-tier cache statistics."""
         return self._multi_tier_cache.get_stats()
-    
+
     def clear_cache(self):
         """Clear all caches (L1 + L2)."""
         self._multi_tier_cache.clear()
@@ -1468,24 +1386,22 @@ class XWLazy(MetaPathFinder):
         # Clear resolution cache
         if hasattr(self, '_resolve_target_cached') and hasattr(self._resolve_target_cached, 'cache_clear'):
             self._resolve_target_cached.cache_clear()
-    
+
     def invalidate_cache(self, module_name):
         """Invalidate cache for a specific module."""
         cache_key = f"installed:{module_name}"
         self._multi_tier_cache.invalidate(cache_key)
         with self._lock:
             self.installed_cache.discard(module_name)
-    
     # --- NEW v3.0.2: Performance Monitoring API ---
-    
+
     def get_performance_stats(self):
         """Get enhanced performance monitoring statistics."""
         return self._perf_monitor.get_stats()
-    
+
     def clear_performance_stats(self):
         """Clear all performance statistics."""
         self._perf_monitor.clear()
-
     # --- INTERNAL LOGIC (Enhanced v3.0) ---
 
     def _extract_auto_config(self, root_dir):
@@ -1495,10 +1411,8 @@ class XWLazy(MetaPathFinder):
         FIX v3.0.3: Reuses unified _load_toml_file() to reduce code duplication.
         """
         toml_file = Path(root_dir) / "pyproject.toml"
-        
         # Use unified TOML loader (reused code)
         data = _load_toml_file(toml_file, verbose_error=False)
-        
         if data:
             # Check [tool.xwlazy] or [tool.titanguardian] (backwards compatibility)
             tool_cfg = data.get("tool", {})
@@ -1512,7 +1426,6 @@ class XWLazy(MetaPathFinder):
             if "titanguardian" in tool_cfg:
                 if "default_enabled" in tool_cfg["titanguardian"]:
                     return tool_cfg["titanguardian"]["default_enabled"]
-            
             # NEW v3.0: Check [project] keywords for 'xwlazy-enabled'
             if self._keyword_detection_enabled:
                 keywords = data.get("project", {}).get("keywords", [])
@@ -1523,7 +1436,6 @@ class XWLazy(MetaPathFinder):
                 elif isinstance(keywords, str):
                     if self._keyword_to_check.lower() in keywords.lower():
                         return True
-        
         return None
 
     def _check_package_keywords(self, package_name=None):
@@ -1533,10 +1445,8 @@ class XWLazy(MetaPathFinder):
         """
         if not self._keyword_detection_enabled:
             return False
-        
         if sys.version_info < (3, 8):
             return False
-        
         try:
             if package_name:
                 try:
@@ -1578,7 +1488,6 @@ class XWLazy(MetaPathFinder):
                 err_msg = str(e).encode('ascii', 'replace').decode('ascii')
                 sys.stderr.write(f"[xwlazy] Error in keyword detection: {err_msg}\n")
             pass
-        
         return False
 
     def _index_manifests(self):
@@ -1598,12 +1507,10 @@ class XWLazy(MetaPathFinder):
             except (IOError, OSError, UnicodeDecodeError) as e:
                 if os.environ.get('XWLAZY_VERBOSE'):
                     sys.stderr.write(f"[xwlazy] Error reading requirements.txt: {e}\n")
-        
         # 2. pyproject.toml (TOML-only - no JSON manifests)
         # Uses unified _load_toml_file() to reduce code duplication
         toml_file = self.root_dir / "pyproject.toml"
         data = _load_toml_file(toml_file, verbose_error=True)
-
         if data:
             # Standard dependencies
             deps = data.get("project", {}).get("dependencies", [])
@@ -1615,7 +1522,6 @@ class XWLazy(MetaPathFinder):
                         # Get version from dep if available, otherwise use package name only
                         install_str = dep  # Keep full version constraint if present
                         self._add_index(clean, install_str)
-            
             # Optional dependencies
             opt_deps = data.get("project", {}).get("optional-dependencies", {})
             for group, group_deps in opt_deps.items():
@@ -1630,15 +1536,12 @@ class XWLazy(MetaPathFinder):
     def _add_index(self, pkg, install_str):
         """
         Add package to manifest index and clear resolution cache.
-        
         NEW v3.0.1: If install_str has no version, check external_libs.toml for version.
         This uses version from external_libs.toml if missing from requirements.txt/pyproject.toml.
         """
         pkg_key = pkg.lower().replace('-', '_')
-        
         # Check if install_str has version constraint
         has_version = bool(re.search(r'[<>=!~]', install_str))
-        
         # If no version in requirements.txt/pyproject.toml, check external_libs.toml
         if not has_version:
             # Try to find version in HARD_MAPPINGS (external_libs.toml)
@@ -1654,7 +1557,6 @@ class XWLazy(MetaPathFinder):
                     if re.search(r'[<>=!~]', package_spec):
                         install_str = package_spec  # Use version from external_libs.toml
                         break
-        
         self.manifest_index[pkg_key] = install_str
         if hasattr(self, '_resolve_target_cached') and hasattr(self._resolve_target_cached, 'cache_clear'):
             self._resolve_target_cached.cache_clear()
@@ -1663,16 +1565,14 @@ class XWLazy(MetaPathFinder):
         """Resolves target with Dot-Notation Walk-up (cached)."""
         manifest_key = frozenset(self.manifest_index.items())
         return self._resolve_target_cached(manifest_key, fullname)
-    
     @lru_cache(maxsize=512)
+
     def _resolve_target_cached(self, manifest_items, fullname):
         """
         Cached implementation of target resolution.
-        
         NEW v3.0.1: Prioritizes manifest_index (requirements.txt/pyproject.toml) over HARD_MAPPINGS.
         Falls back to HARD_MAPPINGS (external_libs.toml) only if not found in manifest.
         This ensures versions from requirements.txt/pyproject.toml are used first.
-        
         NEW v4.0.1: If not found in TOML mappings, generates fallback candidates from import name:
         - Replaces dots with dashes, then underscores
         - Progressively shortens by removing segments from the end
@@ -1682,29 +1582,23 @@ class XWLazy(MetaPathFinder):
         parts = fullname.split('.')
         for i in range(len(parts), 0, -1):
             prefix = '.'.join(parts[:i])
-            
-            # 1. First check manifest_index (requirements.txt/pyproject.toml) - has priority
+            # 1. Check HARD_MAPPINGS first so import-name -> pip-name (e.g. yaml -> PyYAML) always wins
+            if prefix in HARD_MAPPINGS:
+                mapped = HARD_MAPPINGS[prefix]
+                mapped_key = _extract_package_name(mapped).lower().replace('-', '_')
+                if mapped_key in manifest_dict:
+                    return manifest_dict[mapped_key]
+                return mapped
+            # 2. Then check manifest_index (requirements.txt/pyproject.toml)
             key = prefix.lower().replace('-', '_')
             if key in manifest_dict:
                 return manifest_dict[key]
-            
-            # 2. Check HARD_MAPPINGS (external_libs.toml) - fallback with version support
-            if prefix in HARD_MAPPINGS:
-                mapped = HARD_MAPPINGS[prefix]
-                # Check if mapped package is in manifest_index (with version from requirements)
-                mapped_key = _extract_package_name(mapped).lower().replace('-', '_')
-                if mapped_key in manifest_dict:
-                    return manifest_dict[mapped_key]  # Use version from requirements.txt/pyproject.toml
-                # Otherwise use version from external_libs.toml (or package name only)
-                return mapped
-            
         # 3. Fallback: Generate candidates from import name itself
         # Try progressively shorter versions with dots -> dashes/underscores
         candidates = _generate_fallback_candidates(fullname)
         if candidates:
             # Return list of candidates to try sequentially until one succeeds
             return candidates
-        
         return None
 
     def _get_policy(self, top_module):
@@ -1717,7 +1611,6 @@ class XWLazy(MetaPathFinder):
             "strategy": "pip",
             "allow": True
         }
-
     # --- NEW v3.0: Lockfile Support ---
 
     def _load_lockfile(self):
@@ -1727,7 +1620,6 @@ class XWLazy(MetaPathFinder):
             return
         if not self._lockfile_path.exists():
             return
-        
         try:
             lockfile_data = _read_toml_simple(self._lockfile_path)
             if lockfile_data:
@@ -1755,14 +1647,12 @@ class XWLazy(MetaPathFinder):
                         "total_failures": self.stats['failures'],
                     }
                 }
-
             def _op():
                 try:
                     _write_toml_simple(lockfile_data, self._lockfile_path)
                 except (IOError, OSError, Exception) as e:
                     if os.environ.get('XWLAZY_VERBOSE'):
                         sys.stderr.write(f"[xwlazy] Failed to write lockfile: {e}\n")
-
             if _is_async_io_enabled():
                 _ASYNC_IO.submit(_op, dedupe_key=("lockfile", str(Path(self._lockfile_path).resolve())))
                 return
@@ -1776,18 +1666,15 @@ class XWLazy(MetaPathFinder):
         if not getattr(self, "_audit_enabled", False):
             return None
         return _read_toml_simple(self._lockfile_path)
-
     # --- STRATEGY IMPLEMENTATIONS ---
 
     def _detect_venv(self):
         """
         Detect if Python is running in a virtual environment.
-        
         Checks multiple methods to detect venv:
         - hasattr(sys, 'real_prefix'): Old-style virtualenv
         - sys.prefix != sys.base_prefix: venv/virtualenv
         - VIRTUAL_ENV environment variable: Set by most venv activators
-        
         Returns:
             tuple: (in_venv: bool, venv_python: Path | None)
                 - in_venv: True if running in a venv
@@ -1799,7 +1686,6 @@ class XWLazy(MetaPathFinder):
         in_venv = (hasattr(sys, 'real_prefix') or 
                   (hasattr(sys, 'base_prefix') and sys.prefix != sys.base_prefix) or
                   os.environ.get('VIRTUAL_ENV') is not None)
-        
         venv_python = None
         if os.environ.get('VIRTUAL_ENV'):
             venv_path = Path(os.environ['VIRTUAL_ENV'])
@@ -1809,24 +1695,19 @@ class XWLazy(MetaPathFinder):
                 venv_python = venv_path / 'bin' / 'python'
             if not venv_python.exists():
                 venv_python = None
-        
         return in_venv, venv_python
 
     def _is_package_installed_in_venv(self, package_name: str) -> bool:
         """
         Check if a package is installed in the current venv (if in venv).
-        
         NEW v4.0.3: When in a venv, checks if package is installed specifically
         in the venv's site-packages, not in user site-packages or system-wide.
-        
         Args:
             package_name: Package name to check (e.g., "pandas", "exonware-xwdata")
-        
         Returns:
             bool: True if package is installed in venv (when in venv) or globally (when not in venv)
         """
         in_venv, venv_python = self._detect_venv()
-        
         # If not in venv, use standard check (will check system-wide and user site-packages)
         if not in_venv:
             try:
@@ -1834,14 +1715,12 @@ class XWLazy(MetaPathFinder):
                 return dist is not None
             except importlib.metadata.PackageNotFoundError:
                 return False
-        
         # In venv: check if package is installed specifically in venv's site-packages
         # We check by trying to find the distribution and verifying its location
         try:
             dist = importlib.metadata.distribution(package_name)
             if dist is None:
                 return False
-            
             # Get distribution location (install location)
             try:
                 # Use locate_file() to get a file path from the distribution
@@ -1859,16 +1738,12 @@ class XWLazy(MetaPathFinder):
                     except Exception:
                         # If we can't get file location, fall back to prefix check
                         dist_file = Path(sys.prefix)
-                
                 dist_path = Path(dist_file) if dist_file else Path(sys.prefix)
-                
                 # Normalize paths for comparison (handle Windows)
                 dist_path_str = str(dist_path.resolve()).replace('\\', '/')
                 venv_prefix_str = str(Path(sys.prefix).resolve()).replace('\\', '/')
-                
                 # Check if distribution is in venv's prefix (site-packages are under venv prefix)
                 return venv_prefix_str in dist_path_str
-                
             except Exception as e:
                 # If we can't determine location, assume it's in venv if distribution exists
                 # This is a safe fallback - better to reinstall than to miss an installed package
@@ -1876,20 +1751,16 @@ class XWLazy(MetaPathFinder):
                     err_msg = str(e).encode('ascii', 'replace').decode('ascii')
                     sys.stderr.write(f"[xwlazy] Could not verify venv location for {package_name}, assuming installed: {err_msg}\n")
                 return True  # Safe fallback: assume installed if we can't verify
-                
         except importlib.metadata.PackageNotFoundError:
             return False
 
     def _run_pip_install(self, install_str, extra_args=None):
         """
         Run pip install with full dependency installation and venv detection.
-        
         NEW v4.0.2: Ensures all dependencies are installed along with the package.
         Version constraints from requirements.txt/pyproject.toml are included in install_str.
-        
         NEW v4.0.3: Auto-detects virtual environment and ensures installations go into venv
         when detected (not user site-packages). Uses venv Python explicitly if available.
-        
         Args:
             install_str: Package specification with version constraints if available from
                         requirements.txt/pyproject.toml (e.g., "pandas>=2.0.0" or "pandas==2.0.1")
@@ -1897,17 +1768,12 @@ class XWLazy(MetaPathFinder):
                        Note: --no-deps is NEVER used to ensure full dependency installation
                        Note: --user flag is automatically avoided when in venv
         """
-        # Detect venv and get venv Python if available
-        in_venv, venv_python = self._detect_venv()
-        
-        # Use venv Python explicitly if available, otherwise use sys.executable
-        if venv_python:
-            python_exe = str(venv_python)
-        else:
-            python_exe = sys.executable
-        
+        # GUIDE_53_FIX: Always use the running interpreter for pip so the import that
+        # triggered this install resolves the module from the same environment (no
+        # mismatch when venv is not activated or VIRTUAL_ENV points elsewhere).
+        in_venv, _venv_python = self._detect_venv()
+        python_exe = sys.executable
         cmd = [python_exe, "-m", "pip", "install", install_str]
-        
         if extra_args:
             # Filter out --no-deps if accidentally passed (should never happen, but safety check)
             # Also filter out --user when in venv to ensure installation into venv site-packages
@@ -1923,7 +1789,6 @@ class XWLazy(MetaPathFinder):
             # In venv: explicitly avoid --user flag (pip will use venv site-packages by default)
             # The --user flag is a boolean flag - we simply don't include it when in venv
             pass
-        
         # Note: pip install by default installs all dependencies unless --no-deps is used
         # We explicitly ensure --no-deps is never used to install full dependency tree
         # When in venv, pip will automatically use venv site-packages (no --user flag needed)
@@ -1961,24 +1826,19 @@ class XWLazy(MetaPathFinder):
     def _is_stdlib_module(self, module_name: str) -> bool:
         """Check if module is part of Python standard library."""
         import importlib.util
-        
         # Get root module name (first part before dot)
         root_module = module_name.split('.')[0]
-        
         # Check built-in modules
         if root_module in sys.builtin_module_names:
             return True
-        
         # Check if module spec indicates it's standard library
         try:
             spec = importlib.util.find_spec(root_module)
             if spec is None:
                 return False
-            
             # Built-in modules have None origin
             if spec.origin is None:
                 return True
-            
             # Check if origin is in standard library (not site-packages)
             if spec.origin:
                 # Standard library is typically in Python's lib directory, not site-packages
@@ -1995,53 +1855,67 @@ class XWLazy(MetaPathFinder):
                             return True
         except Exception:
             pass
-        
         return False
-    
+
     def _perform_install(self, install_str, mod_name):
         """
         Worker function for installation with Strategy support and multi-tier caching.
-        
         NEW v4.0.1: Supports both single string and list of candidates.
         If install_str is a list, tries each candidate sequentially until one succeeds.
         """
         start = time.time()
         success = False
-        
         top_module = mod_name.split('.')[0]
         policy = self._get_policy(top_module)
         strategy_name = policy.get("strategy", "pip")
-        
         # NEW v3.0.2: Check multi-tier cache first
         cache_key = f"installed:{top_module}"
         cached_result = self._multi_tier_cache.get(cache_key)
         if cached_result is not None:
             if cached_result:
-                # Already installed (from L1/L2 cache)
-                with self._lock:
-                    self.installing_now.discard(top_module)
-                    self.installed_cache.add(top_module)
-                    self.stats['cache_hits'] += 1
-                self._perf_monitor.record_cache_hit()
-                self._perf_monitor.record_access(top_module)
-                return
+                # GUIDE_53_FIX: Verify module is actually importable before trusting cache
+                # (L2 disk cache can be stale if package was uninstalled or venv changed)
+                was_in_path = False
+                try:
+                    if self in sys.meta_path:
+                        try:
+                            sys.meta_path.remove(self)
+                            was_in_path = True
+                        except ValueError:
+                            pass
+                    try:
+                        if importlib.util.find_spec(top_module) is None:
+                            self._multi_tier_cache.invalidate(cache_key)
+                            cached_result = None  # Fall through to install
+                    except Exception:
+                        self._multi_tier_cache.invalidate(cache_key)
+                        cached_result = None
+                finally:
+                    if was_in_path and self not in sys.meta_path:
+                        sys.meta_path.insert(0, self)
+                if cached_result is not None:
+                    # Verified: cache was correct
+                    with self._lock:
+                        self.installing_now.discard(top_module)
+                        self.installed_cache.add(top_module)
+                        self.stats['cache_hits'] += 1
+                    self._perf_monitor.record_cache_hit()
+                    self._perf_monitor.record_access(top_module)
+                    return
             else:
                 # Known failure (from cache)
                 with self._lock:
                     self.installing_now.discard(top_module)
                     self.failed_installs.add(top_module)
                 return
-        
         # Additional check: verify package is actually installed before proceeding
         # This prevents unnecessary installation attempts for already-installed packages
         # Check both package name and module importability
         package_name = _extract_package_name(top_module)
         is_installed = False
-        
         if package_name:
             if self._is_package_installed_in_venv(package_name):
                 is_installed = True
-        
         # Also check if module is importable (might be installed but package name not resolved)
         if not is_installed:
             try:
@@ -2054,7 +1928,6 @@ class XWLazy(MetaPathFinder):
             except Exception:
                 # If check fails, proceed with installation
                 pass
-        
         if is_installed:
             # Package is already installed - update cache and return
             with self._lock:
@@ -2065,16 +1938,13 @@ class XWLazy(MetaPathFinder):
             self._perf_monitor.record_cache_hit()
             self._perf_monitor.record_access(top_module)
             return
-        
         # NEW v3.0.2: Cache miss - record it
         self._perf_monitor.record_cache_miss()
         with self._lock:
             self.stats['cache_misses'] += 1
-
         # NEW v4.0.1: Handle list of candidates (fallback mechanism)
         candidates = install_str if isinstance(install_str, list) else [install_str]
         last_error = None
-        
         for candidate in candidates:
             try:
                 if strategy_name == "wheel":
@@ -2085,32 +1955,24 @@ class XWLazy(MetaPathFinder):
                     self._strategy_smart(candidate)
                 else:
                     self._strategy_pip(candidate)
-                    
                 success = True
                 with self._lock:
                     self.installed_cache.add(top_module)
                     self.stats["strategies_used"][strategy_name] += 1
-                
                 # NEW v3.0.2: Store in multi-tier cache (L1 + L2)
                 self._multi_tier_cache.set(cache_key, True)
-                
                 # NEW v3.0.2: Record performance metrics
                 duration_so_far = time.time() - start
                 self._perf_monitor.record_load_time(top_module, duration_so_far)
                 self._perf_monitor.record_access(top_module)
-                
                 importlib.invalidate_caches()
-                
                 # NEW v3.0: Save to lockfile on successful install
                 self._save_lockfile()
-                
                 # Persist to project: add to requirements.txt and pyproject.toml when install succeeds
                 _persist_installed_to_project(candidate)
-                
                 # Success - break out of loop
                 install_str = candidate  # Use successful candidate for logging
                 break
-                
             except subprocess.CalledProcessError as e:
                 last_error = e
                 if os.environ.get('XWLAZY_VERBOSE'):
@@ -2130,7 +1992,6 @@ class XWLazy(MetaPathFinder):
                     sys.stderr.write(f"[xwlazy] Unexpected Error installing {candidate}: {type(e).__name__}: {_redact_sensitive(str(e))}\n")
                 # Continue to next candidate
                 continue
-        
         # If all candidates failed, mark as failed
         if not success:
             with self._lock:
@@ -2138,34 +1999,38 @@ class XWLazy(MetaPathFinder):
             # NEW v3.0.2: Cache failure result
             self._multi_tier_cache.set(cache_key, False)
             if last_error:
+                last_candidate = candidates[-1] if candidates else install_str
+                err_summary = ""
                 if isinstance(last_error, subprocess.CalledProcessError):
+                    err_summary = (last_error.stderr.decode('utf-8', errors='replace').strip().split('\n')[0] if last_error.stderr else str(last_error))[:200]
                     if os.environ.get('XWLAZY_VERBOSE'):
-                        last_candidate = candidates[-1]
                         err_text = last_error.stderr.decode('utf-8', errors='replace') if last_error.stderr else str(last_error)
                         sys.stderr.write(f"[xwlazy] All candidates failed. Last attempt ({last_candidate}): {_redact_sensitive(err_text)}\n")
                 elif isinstance(last_error, subprocess.TimeoutExpired):
+                    err_summary = "timeout"
                     if os.environ.get('XWLAZY_VERBOSE'):
-                        last_candidate = candidates[-1]
                         sys.stderr.write(f"[xwlazy] All candidates timed out. Last attempt: {last_candidate}\n")
                 else:
+                    err_summary = f"{type(last_error).__name__}: {str(last_error)[:150]}"
                     if os.environ.get('XWLAZY_VERBOSE'):
-                        last_candidate = candidates[-1]
                         sys.stderr.write(f"[xwlazy] All candidates failed. Last attempt ({last_candidate}): {type(last_error).__name__}: {_redact_sensitive(str(last_error))}\n")
+                # GUIDE_53_FIX: Always surface install failure so users see why auto-install didn't work
+                trigger = _get_import_trigger()
+                sys.stderr.write(f"[xwlazy] Auto-install failed for {top_module} ({last_candidate}) [triggered by {trigger}]: {_redact_sensitive(err_summary)}. Set XWLAZY_VERBOSE=1 for details.\n")
+                sys.stderr.flush()
             install_str = candidates[-1] if candidates else install_str  # Use last candidate for logging
-        
         # Cleanup: Always remove from installing_now
         with self._lock:
             self.installing_now.discard(top_module)
-
         duration = time.time() - start
         self._log_audit(install_str, success, duration, strategy_name)
-
         # NEW v3.0: Record in adaptive learner
         if self._learner:
             self._learner.record_import(top_module, duration)
-
         if success:
-            sys.stdout.write(f"\r[OK] [xwlazy] Installed: {install_str} via {strategy_name} ({round(duration,2)}s)\n")
+            trigger = _get_import_trigger()
+            sys.stdout.write(f"\r[OK] [xwlazy] Installed: {install_str} via {strategy_name} ({round(duration,2)}s) [triggered by {trigger}]\n")
+            sys.stdout.flush()
 
     def _log_audit(self, pkg, success, duration, strategy="unknown"):
         """Update in-memory stats and (optionally) write to audit log."""
@@ -2181,11 +2046,9 @@ class XWLazy(MetaPathFinder):
             self.stats['failures'] += 1 if not success else 0
             self.stats['total_time_ms'] += int(duration * 1000)
             self.stats['history'].append(entry)
-        
         # If audit is disabled, stop after updating in-memory stats
         if not getattr(self, "_audit_enabled", False):
             return
-
         def _op():
             try:
                 # Read existing data (TOML format, fallback to JSON for backwards compatibility)
@@ -2199,7 +2062,6 @@ class XWLazy(MetaPathFinder):
             except (IOError, OSError, Exception) as e:
                 if os.environ.get('XWLAZY_VERBOSE'):
                     sys.stderr.write(f"[xwlazy] Failed to write audit log: {e}\n")
-
         if _is_async_io_enabled():
             # No dedupe: each entry is unique.
             _ASYNC_IO.submit(_op)
@@ -2210,44 +2072,39 @@ class XWLazy(MetaPathFinder):
         # Check if xwlazy is disabled via environment variable
         if os.environ.get('XWLAZY_DISABLE') == '1':
             return None
-        
         top_module = fullname.split('.')[0]
         if top_module in sys.builtin_module_names:
             return None
-
         if top_module.startswith('_'):
             top_key = top_module.lower().replace('-', '_')
             if top_key not in self.manifest_index:
                 return None
-
         if hasattr(threading.current_thread(), '_xwlazy_active'):
             return None
         threading.current_thread()._xwlazy_active = True
-
         try:
             policy = self._get_policy(top_module)
-            
             if not policy['enabled']:
                 if os.environ.get('XWLAZY_VERBOSE'):
-                    print(f"[SKIP] [xwlazy] Skipped: {top_module} (disabled per-package policy)")
+                    trigger = _get_import_trigger()
+                    print(f"[SKIP] [xwlazy] Skipped: {top_module} (disabled per-package policy) [triggered by {trigger}]")
                 return None
-            
             if not policy['allow']:
                 if os.environ.get('XWLAZY_VERBOSE'):
-                    print(f"[DENY] [xwlazy] Denied: {top_module} (security policy)")
+                    trigger = _get_import_trigger()
+                    print(f"[DENY] [xwlazy] Denied: {top_module} (security policy) [triggered by {trigger}]")
                 return None
-            
             with self._lock:
                 if top_module in self.global_deny_list:
                     if os.environ.get('XWLAZY_VERBOSE'):
-                        print(f"[DENY] [xwlazy] Denied: {top_module} (global deny list)")
+                        trigger = _get_import_trigger()
+                        print(f"[DENY] [xwlazy] Denied: {top_module} (global deny list) [triggered by {trigger}]")
                     return None
-
             if self._is_externally_managed:
                 if os.environ.get('XWLAZY_VERBOSE'):
-                    print(f"[SKIP] [xwlazy] Skipped: {top_module} (PEP 668 externally-managed)")
+                    trigger = _get_import_trigger()
+                    print(f"[SKIP] [xwlazy] Skipped: {top_module} (PEP 668 externally-managed) [triggered by {trigger}]")
                 return None
-
             # FIX: Check cache FIRST before calling find_spec
             # This prevents unnecessary reinstalls when cache says package is already installed
             # Use walk-up pattern (like _resolve_target) to check cache at all hierarchy levels
@@ -2263,7 +2120,6 @@ class XWLazy(MetaPathFinder):
                     cached_result = result
                     cached_module = prefix
                     break  # Found a cache entry at this level
-            
             if cached_result is not None:
                 if cached_result:
                     # Cache says installed at some level - verify with find_spec using that level
@@ -2276,7 +2132,6 @@ class XWLazy(MetaPathFinder):
                                 sys.meta_path.remove(self)
                             except ValueError:
                                 was_in_path = False
-                        
                         try:
                             # Verify using the cached module level (not fullname, not just top_module)
                             if importlib.util.find_spec(cached_module):
@@ -2294,9 +2149,9 @@ class XWLazy(MetaPathFinder):
                 else:
                     # Known failure (from cache)
                     if os.environ.get('XWLAZY_VERBOSE'):
-                        print(f"[SKIP] [xwlazy] Skipped: {cached_module} (cached failure)")
+                        trigger = _get_import_trigger()
+                        print(f"[SKIP] [xwlazy] Skipped: {cached_module} (cached failure) [triggered by {trigger}]")
                     return None
-
             # If cache miss or cache was invalidated, check with find_spec and importlib.metadata
             if cached_result is None:
                 was_in_path = False
@@ -2307,7 +2162,6 @@ class XWLazy(MetaPathFinder):
                             sys.meta_path.remove(self)
                         except ValueError:
                             was_in_path = False
-                    
                     # Check 1: Try importlib.metadata first (most reliable for installed packages)
                     try:
                         package_name = _extract_package_name(top_module)
@@ -2335,7 +2189,6 @@ class XWLazy(MetaPathFinder):
                     except Exception:
                         # If metadata check fails, continue to find_spec check
                         pass
-                    
                     # Check 2: Try find_spec (module might be importable)
                     try:
                         if importlib.util.find_spec(fullname):
@@ -2363,7 +2216,6 @@ class XWLazy(MetaPathFinder):
                 finally:
                     if was_in_path and self not in sys.meta_path:
                         sys.meta_path.insert(0, self)
-
             # NEW v3.0.2: Check if this is a watched prefix (serialization module)
             # Serialization modules get special handling (e.g., pickle, json, yaml)
             is_serialization = self._watched_prefixes.is_watched(fullname)
@@ -2371,16 +2223,13 @@ class XWLazy(MetaPathFinder):
                 print(f"[OK] [xwlazy] Detected serialization module: {top_module} (watched prefix)")
                 # NEW v3.0.2: Serialization modules might need special handling
                 # For now, we just log it. Future enhancement: module wrapping for serialization.
-
             install_target = self._resolve_target(fullname)
             if not install_target:
                 return None
-
             # Cache miss - record it (only if we got here, meaning cache didn't say installed)
             self._perf_monitor.record_cache_miss()
             with self._lock:
                 self.stats["cache_misses"] += 1
-
             with self._lock:
                 if top_module in self.installing_now:
                     # Wait for concurrent installation (max 30s)
@@ -2398,13 +2247,10 @@ class XWLazy(MetaPathFinder):
                     if top_module in self.failed_installs:
                         return None
                     return None
-
                 if top_module in self.failed_installs:
                     return None
                 self.installing_now.add(top_module)
-
             mode = policy['mode']
-
             if mode == 'lazy':
                 return spec_from_loader(fullname, LazyLoader(self, fullname, install_target))
             else:
@@ -2417,7 +2263,6 @@ class XWLazy(MetaPathFinder):
                             self.installed_cache.add(top_module)
                             self._multi_tier_cache.set(f"installed:{top_module}", True)
                         return None
-                    
                     # Check if module is already importable and installed in venv (if in venv)
                     # NEW v4.0.3: When in venv, verify package is installed in venv, not just user site-packages
                     spec = importlib.util.find_spec(top_module)
@@ -2429,7 +2274,6 @@ class XWLazy(MetaPathFinder):
                                 self.installed_cache.add(top_module)
                                 self._multi_tier_cache.set(f"installed:{top_module}", True)
                             return None
-                        
                         # Not stdlib - try to resolve package name from module name for venv check
                         package_name = _extract_package_name(top_module)
                         if package_name:
@@ -2453,14 +2297,12 @@ class XWLazy(MetaPathFinder):
                 except Exception:
                     # If check fails, proceed with installation attempt
                     pass
-                
                 try:
                     # Final check: verify package is not already installed before printing message
                     # This prevents showing INSTALL messages for already-installed packages
                     # Check both by package name and module name
                     package_name = _extract_package_name(top_module)
                     is_installed = False
-                    
                     # Method 1: Check by package name using importlib.metadata
                     if package_name:
                         try:
@@ -2473,7 +2315,6 @@ class XWLazy(MetaPathFinder):
                                     is_installed = True
                         except Exception:
                             pass
-                    
                     # Method 2: Check if module is importable (might be installed but package name not resolved)
                     if not is_installed:
                         try:
@@ -2485,7 +2326,6 @@ class XWLazy(MetaPathFinder):
                                     is_installed = True
                         except Exception:
                             pass
-                    
                     # Method 3: Direct importlib.metadata check (most reliable)
                     if not is_installed:
                         try:
@@ -2498,38 +2338,57 @@ class XWLazy(MetaPathFinder):
                         except Exception:
                             # Other error - proceed with installation
                             pass
-                    
                     if is_installed:
                         # Package is already installed - mark as installed and skip (no message)
                         with self._lock:
                             self.installed_cache.add(top_module)
                             self._multi_tier_cache.set(f"installed:{top_module}", True)
                         return None
-                    
                     # Package is not installed - proceed with installation
                     # Only show INSTALL message if XWLAZY_VERBOSE is enabled (suppress by default)
                     if os.environ.get('XWLAZY_VERBOSE'):
-                        sys.stdout.write(f"[INSTALL] [xwlazy] Blocking Install: {top_module} (strategy: {policy['strategy']})...\n")
+                        trigger = _get_import_trigger()
+                        sys.stdout.write(f"[INSTALL] [xwlazy] Blocking Install: {top_module} (strategy: {policy['strategy']}) [triggered by {trigger}]...\n")
                     self._perform_install(install_target, top_module)
+                    # Root-cause fix (GUIDE_53_FIX): After blocking install, return a spec so the
+                    # import that triggered this find_spec succeeds. Otherwise the import fails with
+                    # ModuleNotFoundError because we return None and the import machinery does not retry.
+                    with self._lock:
+                        install_ok = top_module in self.installed_cache
+                    if install_ok:
+                        was_in_path = self in sys.meta_path
+                        if was_in_path:
+                            try:
+                                sys.meta_path.remove(self)
+                            except ValueError:
+                                was_in_path = False
+                        try:
+                            importlib.invalidate_caches()
+                            spec = importlib.util.find_spec(fullname)
+                            if (spec is None or spec.loader is None) and fullname == top_module:
+                                # Retry once: new package may not be visible to finder yet (GUIDE_53_FIX)
+                                importlib.invalidate_caches()
+                                spec = importlib.util.find_spec(top_module)
+                            if spec is not None and spec.loader is not None:
+                                return spec
+                        finally:
+                            if was_in_path and self not in sys.meta_path:
+                                sys.meta_path.insert(0, self)
                     return None
                 finally:
                     with self._lock:
                         self.installing_now.discard(top_module)
-
         finally:
             if hasattr(threading.current_thread(), '_xwlazy_active'):
                 del threading.current_thread()._xwlazy_active
-
 # =============================================================================
 # ACTIVATION (Enhanced v3.0)
 # =============================================================================
-
 _instance = None
 
 def hook(root=".", default_enabled=True, enable_global_hook=True, enable_learning=False):
     """
     Activate xwlazy auto-installation system.
-    
     Args:
         root: Root directory to search for manifests
         default_enabled: Opt-in vs Opt-out mode
@@ -2545,21 +2404,16 @@ def hook(root=".", default_enabled=True, enable_global_hook=True, enable_learnin
 def auto_enable_lazy(package_name=None, mode="smart", root="."):
     """
     ONE-LINE ACTIVATION! Auto-enable lazy installation for a package.
-    
     NEW v3.0: Zero-code integration - detects from pyproject.toml keywords.
-    
     Usage in any library's __init__.py:
         from exonware.xwlazy import auto_enable_lazy
         auto_enable_lazy(__package__)
-    
     Or just call it - it auto-detects:
         auto_enable_lazy()  # Auto-detects from caller's package
-    
     Args:
         package_name: Package name (auto-detected if None)
         mode: Installation mode ("smart", "pip", "wheel", "cached")
         root: Root directory for manifest files
-    
     Returns:
         XWLazy instance if enabled, None otherwise
     """
@@ -2575,43 +2429,35 @@ def auto_enable_lazy(package_name=None, mode="smart", root="."):
                 err_msg = str(e).encode('ascii', 'replace').decode('ascii')
                 sys.stderr.write(f"[xwlazy] Could not auto-detect package name from frame: {err_msg}\n")
             package_name = None
-    
     # Get or create instance
     guardian = hook(root=root, default_enabled=True, enable_global_hook=True)
-    
     # Check for keyword-based auto-detection
     if guardian._check_package_keywords(package_name) or guardian._check_package_keywords():
         guardian.default_enabled = True
         if os.environ.get('XWLAZY_VERBOSE'):
             print(f"[OK] [xwlazy] Auto-enabled via keyword detection for: {package_name or 'current package'}")
         return guardian
-    
     # Configure based on mode
     if package_name:
         if mode == "smart":
             guardian.configure(package_name, enabled=True, mode="lazy", install_strategy="smart")
         else:
             guardian.configure(package_name, enabled=True, install_strategy=mode)
-    
     return guardian
 
 def attach(package_name, submodules=None, submod_attrs=None):
     """
     Attach lazily loaded submodules (lazy-loader compatible API).
-    
     NEW v3.0: Compatibility with lazy-loader pattern.
-    
     Returns (__getattr__, __dir__, __all__) for lazy loading.
     """
     if submod_attrs is None:
         submod_attrs = {}
     if submodules is None:
         submodules = []
-    
     submodules_set = set(submodules)
     attr_to_modules = {attr: mod for mod, attrs in submod_attrs.items() for attr in attrs}
     __all__ = sorted(submodules_set | attr_to_modules.keys())
-    
     def __getattr__(name):
         if name in submodules_set:
             return importlib.import_module(f"{package_name}.{name}")
@@ -2625,12 +2471,9 @@ def attach(package_name, submodules=None, submod_attrs=None):
             return attr
         else:
             raise AttributeError(f"module {package_name!r} has no attribute {name!r}")
-    
     def __dir__():
         return __all__.copy()
-    
     return __getattr__, __dir__, __all__.copy()
-
 # =============================================================================
 # ADDITIONAL PUBLIC API FUNCTIONS (Rich API v3.0)
 # =============================================================================
@@ -2718,7 +2561,6 @@ def install_global_import_hook():
     global _instance
     if _instance:
         _install_global_import_hook(_instance)
-
 # --- NEW v3.0.2: Watched Prefixes API (Top-Level) ---
 
 def add_watched_prefix(prefix):
@@ -2746,7 +2588,6 @@ def is_module_watched(module_name):
     if _instance:
         return _instance.is_watched(module_name)
     return module_name.split('.')[0] in SERIALIZATION_PREFIXES
-
 # --- NEW v3.0.2: Cache Management API (Top-Level) ---
 
 def get_cache_stats():
@@ -2767,7 +2608,6 @@ def invalidate_cache(module_name):
     global _instance
     if _instance:
         _instance.invalidate_cache(module_name)
-
 # --- NEW v3.0.2: Performance Monitoring API (Top-Level) ---
 
 def get_performance_stats():
@@ -2793,8 +2633,6 @@ def uninstall_global_import_hook():
 def is_global_import_hook_installed():
     """Check if global __import__ hook is installed."""
     return _global_import_hook_installed
-
-
 # =============================================================================
 # OPTIONAL MIXIN APIs (all disabled by default; we recommend against enabling)
 # =============================================================================
@@ -2850,7 +2688,6 @@ def get_stub_registry():
     if _mixins and _mixins.typing_tools_enabled():
         return _mixins.get_stub_registry()
     return {}
-
 # Export public API
 __all__ = [
     # Core activation

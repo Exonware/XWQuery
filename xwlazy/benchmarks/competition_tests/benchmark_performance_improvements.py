@@ -2,6 +2,7 @@
 """
 Benchmark performance improvements - Compare optimized vs previous results.
 """
+
 import os
 import sys
 import json
@@ -9,13 +10,10 @@ import statistics
 import time
 from pathlib import Path
 from datetime import datetime
-
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
-
 from benchmark_competition import BenchmarkRunner
 from exonware.xwlazy.contracts import LazyLoadMode, LazyInstallMode
-
 # Previous benchmark results (from BENCH_20251119_0407_COMPETITION.md)
 PREVIOUS_RESULTS = {
     "light_load": 1.01,      # ms
@@ -23,7 +21,6 @@ PREVIOUS_RESULTS = {
     "heavy_load": 17.76,    # ms
     "enterprise_load": 33.89, # ms
 }
-
 ITERATIONS = 30  # 30 iterations for good statistical confidence
 
 def run_benchmark(runner, load_level: str, iterations: int):
@@ -33,33 +30,27 @@ def run_benchmark(runner, load_level: str, iterations: int):
         "load_mode": "intelligent",
         "install_mode": "smart",  # Will be overridden by intelligent mode
     }
-    
     from benchmark_competition import TEST_MODES
     TEST_MODES[test_mode_name] = {
         "description": "INTELLIGENT mode (optimized)",
         "xwlazy_config": config,
         "category": "Performance Test",
     }
-    
     test_func_map = {
         "light_load": runner.test_light_load,
         "medium_load": runner.test_medium_load,
         "heavy_load": runner.test_heavy_load,
         "enterprise_load": runner.test_enterprise_load,
     }
-    
     test_func = test_func_map.get(load_level)
     if not test_func:
         return None
-    
     times = []
     memories = []
     baseline_time = runner._get_baseline_time()
-    
     print(f"\n{'='*60}")
     print(f"Testing {load_level.upper()} - {iterations} iterations")
     print(f"{'='*60}")
-    
     for i in range(iterations):
         try:
             result = test_func(
@@ -78,19 +69,15 @@ def run_benchmark(runner, load_level: str, iterations: int):
         except Exception as e:
             print(f"  Iteration {i+1} failed: {e}")
             continue
-    
     if not times:
         return None
-    
     avg_time = statistics.mean(times)
     min_time = min(times)
     max_time = max(times)
     stddev_time = statistics.stdev(times) if len(times) > 1 else 0.0
     cv = (stddev_time / avg_time * 100) if avg_time > 0 else 0.0
-    
     previous_time = PREVIOUS_RESULTS.get(load_level, 0.0)
     improvement = ((previous_time - avg_time) / previous_time * 100) if previous_time > 0 else 0.0
-    
     return {
         "load_level": load_level,
         "iterations": len(times),
@@ -112,25 +99,19 @@ def main():
     print("PERFORMANCE IMPROVEMENT BENCHMARK")
     print("Testing optimized xwlazy vs previous results")
     print("="*60)
-    
     runner = BenchmarkRunner()
-    
     results = {}
     load_levels = ["light_load", "medium_load", "heavy_load", "enterprise_load"]
-    
     for load_level in load_levels:
         result = run_benchmark(runner, load_level, ITERATIONS)
         if result:
             results[load_level] = result
-    
     # Print summary
     print("\n" + "="*60)
     print("BENCHMARK RESULTS SUMMARY")
     print("="*60)
-    
     print(f"\n{'Load Level':<20} {'Previous':<12} {'Optimized':<12} {'Improvement':<15} {'CV%':<8}")
     print("-" * 70)
-    
     for load_level in load_levels:
         if load_level in results:
             r = results[load_level]
@@ -139,14 +120,11 @@ def main():
                 improvement_str = f"✅ {improvement_str}"
             else:
                 improvement_str = f"❌ {improvement_str}"
-            
             print(f"{load_level:<20} {r['previous_time']:>8.2f} ms  {r['avg_time']:>8.2f} ms  {improvement_str:<15} {r['cv_percent']:>6.1f}%")
-    
     # Detailed statistics
     print("\n" + "="*60)
     print("DETAILED STATISTICS")
     print("="*60)
-    
     for load_level in load_levels:
         if load_level in results:
             r = results[load_level]
@@ -159,11 +137,9 @@ def main():
             print(f"  CV:            {r['cv_percent']:.1f}%")
             print(f"  Improvement:   {r['improvement_percent']:+.1f}%")
             print(f"  Memory:        {r['avg_memory']:.2f} MB (avg)")
-    
     # Save results
     output_file = Path(__file__).parent / "output_log" / f"PERF_IMPROVEMENT_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     output_file.parent.mkdir(exist_ok=True)
-    
     with open(output_file, 'w') as f:
         json.dump({
             "timestamp": datetime.now().isoformat(),
@@ -171,14 +147,11 @@ def main():
             "previous_results": PREVIOUS_RESULTS,
             "optimized_results": results,
         }, f, indent=2)
-    
     print(f"\n✅ Results saved to: {output_file}")
-    
     # Overall summary
     total_improvement = sum(r['improvement_percent'] for r in results.values()) / len(results)
     print(f"\n{'='*60}")
     print(f"OVERALL AVERAGE IMPROVEMENT: {total_improvement:+.1f}%")
     print(f"{'='*60}")
-
 if __name__ == "__main__":
     main()

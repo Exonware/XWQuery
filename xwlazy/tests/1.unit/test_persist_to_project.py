@@ -1,26 +1,22 @@
 """
 #exonware/xwlazy/tests/1.unit/test_persist_to_project.py
-
 Unit tests for xwlazy persist-to-project: on successful install, add package
 to requirements.txt and/or pyproject.toml (full extras or dependencies).
-
 Comprehensive coverage: edge cases, sync vs async mode, normalization,
 comments, multiple extras, empty inputs, and 100% correctness assertions.
-
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
 """
+
 import os
 import pytest
 from pathlib import Path
 import sys
-
 pytestmark = pytest.mark.xwlazy_unit
 project_root = Path(__file__).resolve().parents[2]
 if str(project_root / "src") not in sys.path:
     sys.path.insert(0, str(project_root / "src"))
-
 # Access implementation module where _persist_installed_to_project lives
 import exonware.xwlazy  # noqa: F401 - ensure implementation module is loaded
 _xwlazy_module = sys.modules.get("exonware._xwlazy_module")
@@ -33,7 +29,6 @@ if _xwlazy_module is None:
     _xwlazy_module = importlib.util.module_from_spec(_spec)
     _spec.loader.exec_module(_xwlazy_module)
     sys.modules["exonware._xwlazy_module"] = _xwlazy_module
-
 _persist = _xwlazy_module._persist_installed_to_project
 _find_project_root = _xwlazy_module._find_project_root
 _add_to_requirements_txt = _xwlazy_module._add_to_requirements_txt
@@ -50,6 +45,7 @@ def _flush():
 
 
 class TestFindProjectRoot:
+
     def test_find_project_root_from_xwlazy_tests(self):
         # Running from xwlazy/tests/1.unit or xwlazy/tests, project root is xwlazy
         root = _find_project_root()
@@ -108,6 +104,7 @@ class TestFindProjectRoot:
 
 
 class TestNormalizeSpec:
+
     def test_normalize_spec(self):
         assert _normalize_spec_for_compare("protobuf") == "protobuf"
         assert _normalize_spec_for_compare("protobuf>=4.0") == "protobuf"
@@ -137,6 +134,7 @@ class TestNormalizeSpec:
 
 
 class TestAddToRequirementsTxt:
+
     def test_add_to_requirements_creates_line(self, tmp_path):
         req = tmp_path / "requirements.txt"
         req.write_text("existing\n")
@@ -208,6 +206,7 @@ class TestAddToRequirementsTxt:
 
 
 class TestAddToPyproject:
+
     def test_add_to_dependencies_when_no_full_extras(self, tmp_path):
         pyproject = tmp_path / "pyproject.toml"
         pyproject.write_text("""[project]
@@ -225,7 +224,6 @@ dependencies = ["pip"]
         pyproject.write_text("""[project]
 name = "test"
 dependencies = ["pip"]
-
 [project.optional-dependencies]
 full = ["existing-pkg"]
 lazy = ["other"]
@@ -264,7 +262,6 @@ dependencies = ["pip"]
         pyproject.write_text("""[project]
 name = "test"
 dependencies = ["pip"]
-
 [project.optional-dependencies]
 full = ["existing-pkg"]
 """)
@@ -363,7 +360,6 @@ dependencies = ["pip", "already"]
         pyproject.write_text("""[project]
 name = "m"
 dependencies = ["pip"]
-
 [project.optional-dependencies]
 full = ["a"]
 lazy = ["b"]
@@ -379,6 +375,7 @@ dev = ["c"]
 
 
 class TestPersistInstalledToProject:
+
     def test_persist_adds_to_both_files(self, tmp_path):
         (tmp_path / "requirements.txt").write_text("")
         (tmp_path / "pyproject.toml").write_text("""[project]

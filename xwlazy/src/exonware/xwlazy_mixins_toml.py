@@ -3,13 +3,11 @@ Fast TOML reader and writer — stdlib only, no tomli/tomllib.
 Used internally by xwlazy for pyproject.toml, xwlazy_external_libs.toml,
 lockfile, and SBOM. Line-oriented parsing for speed (inspired by JSONL).
 """
-from __future__ import annotations
 
+from __future__ import annotations
 import re
 from pathlib import Path
 from typing import Any, BinaryIO, TextIO, Union
-
-
 # -----------------------------------------------------------------------------
 # Reader: line-by-line, minimal allocations, no regex for key=value
 # -----------------------------------------------------------------------------
@@ -228,8 +226,6 @@ def _parse_key(key_part: str) -> str:
             (k.startswith("'") and k.endswith("'"))):
         return _parse_value(k)
     return k
-
-
 # Table header: [section] or [section.sub]
 _TABLE_RE = re.compile(r"^\[([^\]]+)\]$")
 # Array of tables: [[section]]
@@ -259,16 +255,13 @@ def load_toml(
             text = p.read_text(encoding="utf-8")
     except Exception:
         return None
-
     root = {}
     current_path: list[str] = []
     current_table = root
-
     for raw_line in text.splitlines():
         line = raw_line.strip()
         if not line or line.startswith("#"):
             continue
-
         # [[array of tables]]
         am = _ARRAY_TABLE_RE.match(line)
         if am:
@@ -279,7 +272,6 @@ def load_toml(
             current_path = path
             current_table = new_table
             continue
-
         # [table]
         tm = _TABLE_RE.match(line)
         if tm:
@@ -287,7 +279,6 @@ def load_toml(
             current_path = path
             current_table = _get_table(root, path)
             continue
-
         # key = value (or key.path = value; quoted key is single key)
         eq = line.find("=")
         if eq == -1:
@@ -296,13 +287,11 @@ def load_toml(
         val_part = line[eq + 1:].strip()
         if not key_part:
             continue
-
         # Quoted key (e.g. "google.protobuf") is one key; unquoted a.b is dotted
         if key_part.startswith('"') or key_part.startswith("'"):
             key = _parse_value(key_part)
             current_table[key] = _parse_value(val_part)
             continue
-
         keys = [x.strip().strip('"').strip("'") for x in key_part.split(".")]
         if len(keys) == 1:
             key = _parse_key(keys[0])
@@ -316,10 +305,7 @@ def load_toml(
                     d[k] = {}
                 d = d[k]
             d[_parse_key(keys[-1])] = _parse_value(val_part)
-
     return root
-
-
 # -----------------------------------------------------------------------------
 # Writer: minimal writer for dict/list (SBOM, lockfile, configs)
 # -----------------------------------------------------------------------------
@@ -412,7 +398,6 @@ def dump_toml(data: Any, path_or_file: Union[str, Path, TextIO]) -> None:
             f.write(content)
             if not content.endswith("\n"):
                 f.write("\n")
-
     if hasattr(path_or_file, "write"):
         do_write(path_or_file)
         return

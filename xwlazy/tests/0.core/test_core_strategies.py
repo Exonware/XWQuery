@@ -1,9 +1,7 @@
 """
 Core Tests: Public API behavior (modes and activation)
-
 xwlazy is single-file; strategy classes are internal. These tests exercise
 the public API (auto_enable_lazy modes, hook, attach) to ensure behavior is correct.
-
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
@@ -12,13 +10,11 @@ Email: connect@exonware.com
 import pytest
 import sys
 from pathlib import Path
-
 tests_dir = Path(__file__).resolve().parent.parent
 project_root = tests_dir.parent
 src_path = project_root / "src"
 if str(src_path) not in sys.path:
     sys.path.insert(0, str(src_path))
-
 from exonware.xwlazy import (
     auto_enable_lazy,
     hook,
@@ -26,9 +22,9 @@ from exonware.xwlazy import (
     uninstall_global_import_hook,
     is_global_import_hook_installed,
 )
-
-
 @pytest.mark.xwlazy_core
+
+
 class TestAutoEnableLazyModes:
     """Test auto_enable_lazy() with different modes."""
 
@@ -52,9 +48,9 @@ class TestAutoEnableLazyModes:
         uninstall_global_import_hook()
         result = auto_enable_lazy("test_pkg", mode="cached")
         assert result is not None
-
-
 @pytest.mark.xwlazy_core
+
+
 class TestAttachAPI:
     """Test attach() lazy-loader compatible API."""
 

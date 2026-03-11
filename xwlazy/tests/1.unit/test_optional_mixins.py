@@ -1,30 +1,24 @@
 """
 Unit tests for optional xwlazy mixins (per-call API, AST lazy, type-stub tooling).
-
 All three features are disabled by default; tests verify disabled behavior,
 env gates, and enabled behavior. Per GUIDE_51_TEST and REF_51_TEST.
 Fixes go in the mixin file only; main xwlazy code is not modified.
 """
 
 from __future__ import annotations
-
 import importlib.util
 import os
 import sys
 import warnings
 from pathlib import Path
 from unittest.mock import MagicMock
-
 import pytest
-
 pytestmark = pytest.mark.xwlazy_unit
-
 # Ensure src is on path
 _project_root = Path(__file__).resolve().parent.parent.parent
 _src_path = _project_root / "src"
 if str(_src_path) not in sys.path:
     sys.path.insert(0, str(_src_path))
-
 # Load mixin module the same way xwlazy.py does (no import of exonware.xwlazy_mixins package)
 _mixin_path = _project_root / "src" / "exonware" / "xwlazy_mixins.py"
 
@@ -37,15 +31,15 @@ def _load_mixins():
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
-
-
 @pytest.fixture
+
+
 def mixins():
     """Provide the loaded mixin module."""
     return _load_mixins()
-
-
 @pytest.fixture
+
+
 def save_restore_env():
     """Save and restore the three mixin env vars around a test."""
     keys = ("XWLAZY_PER_CALL_API", "XWLAZY_AST_LAZY", "XWLAZY_TYPING_TOOLS")
@@ -58,9 +52,9 @@ def save_restore_env():
                 os.environ[k] = v
             elif k in os.environ:
                 del os.environ[k]
-
-
 @pytest.fixture
+
+
 def clean_stub_registry(mixins):
     """Clear stub registry before and after test (if mixin has clear_stub_registry)."""
     if hasattr(mixins, "clear_stub_registry"):
@@ -70,8 +64,6 @@ def clean_stub_registry(mixins):
     finally:
         if hasattr(mixins, "clear_stub_registry"):
             mixins.clear_stub_registry()
-
-
 # -----------------------------------------------------------------------------
 # Mixin module: env gates and helpers
 # -----------------------------------------------------------------------------
@@ -135,8 +127,6 @@ class TestRecommendationWarning:
             mixins.recommendation_warning("X")
         with pytest.warns(UserWarning, match=r"recommend against"):
             mixins.recommendation_warning("Y")
-
-
 # -----------------------------------------------------------------------------
 # Mixin: per-call lazy_import_impl
 # -----------------------------------------------------------------------------
@@ -175,8 +165,6 @@ class TestLazyImportImpl:
         mixins.lazy_import_impl(guardian, "json", package="mypkg", mode="pip")
         call_kw = guardian.configure.call_args[1]
         assert call_kw.get("install_strategy") == "pip"
-
-
 # -----------------------------------------------------------------------------
 # Mixin: AST finder
 # -----------------------------------------------------------------------------
@@ -211,8 +199,6 @@ class TestASTLazyFinder:
             assert f1 is f2
         finally:
             mixins.unregister_ast_lazy_finder()
-
-
 # -----------------------------------------------------------------------------
 # Mixin: type-stub attach_stub_impl / get_stub_registry / clear_stub_registry
 # -----------------------------------------------------------------------------
@@ -245,8 +231,6 @@ class TestStubRegistry:
         assert mixins.get_stub_registry()
         mixins.clear_stub_registry()
         assert mixins.get_stub_registry() == {}
-
-
 # -----------------------------------------------------------------------------
 # Public API (exonware.xwlazy): disabled behavior
 # -----------------------------------------------------------------------------
@@ -258,7 +242,6 @@ class TestPublicAPIDisabled:
     def test_lazy_import_disabled_raises(self, save_restore_env):
         """lazy_import('json') raises RuntimeError when XWLAZY_PER_CALL_API not set."""
         from exonware.xwlazy import lazy_import
-
         with pytest.raises(RuntimeError, match="disabled"):
             lazy_import("json")
         with pytest.raises(RuntimeError, match="recommend"):
@@ -267,14 +250,12 @@ class TestPublicAPIDisabled:
     def test_enable_ast_lazy_disabled_returns_none(self, save_restore_env):
         """enable_ast_lazy() returns None when XWLAZY_AST_LAZY not set."""
         from exonware.xwlazy import enable_ast_lazy
-
         assert enable_ast_lazy() is None
         assert enable_ast_lazy(root="/any") is None
 
     def test_attach_stub_disabled_raises(self, save_restore_env):
         """attach_stub('pkg') raises RuntimeError when XWLAZY_TYPING_TOOLS not set."""
         from exonware.xwlazy import attach_stub
-
         with pytest.raises(RuntimeError, match="disabled"):
             attach_stub("somepkg")
         with pytest.raises(RuntimeError, match="recommend"):
@@ -283,10 +264,7 @@ class TestPublicAPIDisabled:
     def test_get_stub_registry_disabled_returns_empty(self, save_restore_env):
         """get_stub_registry() returns {} when typing tools disabled."""
         from exonware.xwlazy import get_stub_registry
-
         assert get_stub_registry() == {}
-
-
 # -----------------------------------------------------------------------------
 # Public API: enabled behavior (env set)
 # -----------------------------------------------------------------------------
@@ -299,7 +277,6 @@ class TestPublicAPIEnabled:
         """With XWLAZY_PER_CALL_API=1, lazy_import('json') returns module and warns."""
         os.environ["XWLAZY_PER_CALL_API"] = "1"
         from exonware.xwlazy import hook, lazy_import
-
         hook(root=".")  # ensure guardian exists
         with pytest.warns(UserWarning, match="Per-call wrapper API"):
             mod = lazy_import("json")
@@ -310,7 +287,6 @@ class TestPublicAPIEnabled:
         """With XWLAZY_AST_LAZY=1, enable_ast_lazy() returns finder and it's in meta_path."""
         os.environ["XWLAZY_AST_LAZY"] = "1"
         from exonware.xwlazy import enable_ast_lazy, disable_ast_lazy
-
         meta_before = list(sys.meta_path)
         with pytest.warns(UserWarning, match="recommend against"):
             finder = enable_ast_lazy(root=".")
@@ -327,7 +303,6 @@ class TestPublicAPIEnabled:
             mixins.clear_stub_registry()
         try:
             from exonware.xwlazy import attach_stub, get_stub_registry
-
             with pytest.warns(UserWarning, match="Type-stub"):
                 attach_stub("test_pkg_xyz", stub_path="/x.pyi")
             reg = get_stub_registry()
@@ -336,8 +311,6 @@ class TestPublicAPIEnabled:
         finally:
             if hasattr(mixins, "clear_stub_registry"):
                 mixins.clear_stub_registry()
-
-
 # -----------------------------------------------------------------------------
 # disable_ast_lazy when AST was enabled
 # -----------------------------------------------------------------------------
@@ -350,7 +323,6 @@ class TestDisableAstLazy:
         """enable_ast_lazy then disable_ast_lazy removes finder from meta_path."""
         os.environ["XWLAZY_AST_LAZY"] = "1"
         from exonware.xwlazy import enable_ast_lazy, disable_ast_lazy
-
         finder = None
         try:
             with pytest.warns(UserWarning, match="recommend against"):

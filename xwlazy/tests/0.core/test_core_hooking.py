@@ -1,9 +1,7 @@
 """
 Core Tests: Hooking and Configuration
-
 Tests the hooking mechanism and public API (hook, auto_enable_lazy, global import hook).
 xwlazy is single-file; no separate package/module strategy modules.
-
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
@@ -12,13 +10,11 @@ Email: connect@exonware.com
 import pytest
 import sys
 from pathlib import Path
-
 tests_dir = Path(__file__).resolve().parent.parent
 project_root = tests_dir.parent
 src_path = project_root / "src"
 if str(src_path) not in sys.path:
     sys.path.insert(0, str(src_path))
-
 from exonware.xwlazy import (
     hook,
     auto_enable_lazy,
@@ -31,9 +27,9 @@ from exonware.xwlazy import (
     add_watched_prefix,
     remove_watched_prefix,
 )
-
-
 @pytest.mark.xwlazy_core
+
+
 class TestHookAPI:
     """Test hook() and global import hook."""
 
@@ -64,9 +60,9 @@ class TestHookAPI:
         assert is_global_import_hook_installed()
         uninstall_global_import_hook()
         assert not is_global_import_hook_installed()
-
-
 @pytest.mark.xwlazy_core
+
+
 class TestCacheAndWatchedPrefixes:
     """Test cache and watched prefix API."""
 

@@ -1,21 +1,17 @@
 """
 Test Script: Demonstrates xwlazy v4.0 Auto-Installation from Scratch
-
 This script uninstalls demo packages first, then imports them to show
 xwlazy automatically installing missing dependencies.
-
 Libraries tested:
 - requests (HTTP library)
 - yaml (PyYAML - YAML parser)  
 - numpy (Numerical library)
-
 All are in requirements.txt and xwlazy_external_libs.toml
 """
 
 import sys
 import subprocess
 from pathlib import Path
-
 # Configure UTF-8 encoding for Windows console
 if sys.platform == "win32":
     try:
@@ -50,11 +46,9 @@ def main():
     print("xwlazy v4.0 Auto-Installation Test")
     print("=" * 70)
     print()
-    
     # Add examples directory to path
     examples_dir = Path(__file__).parent.parent
     sys.path.insert(0, str(examples_dir))
-    
     # Step 1: Check current installation status
     print("Step 1: Checking current installation status...")
     print("-" * 70)
@@ -63,7 +57,6 @@ def main():
         ("yaml", "PyYAML"),
         ("numpy", "numpy"),
     ]
-    
     installed_status = {}
     for import_name, package_name in packages_to_test:
         is_installed = check_if_installed(import_name)
@@ -71,7 +64,6 @@ def main():
         status = "✅ Installed" if is_installed else "❌ Not installed"
         print(f"  - {import_name} ({package_name}): {status}")
     print()
-    
     # Step 2: Uninstall packages to test auto-installation
     print("Step 2: Uninstalling packages to test auto-installation...")
     print("-" * 70)
@@ -85,7 +77,6 @@ def main():
         else:
             print(f"  - {package_name} already not installed (perfect for testing!)")
     print()
-    
     # Step 3: Import demo_app (this activates xwlazy)
     print("Step 3: Activating xwlazy by importing demo_app...")
     print("-" * 70)
@@ -106,12 +97,10 @@ def main():
         except Exception as e2:
             print(f"❌ Failed to activate xwlazy: {e2}")
             sys.exit(1)
-    
     # Step 4: Import packages - xwlazy should auto-install them!
     print("Step 4: Importing packages - xwlazy will auto-install if missing!")
     print("-" * 70)
     print()
-    
     # Test requests
     print("📦 Testing 'requests' import...")
     try:
@@ -122,7 +111,6 @@ def main():
     except ImportError as e:
         print(f"❌ Failed to import requests: {e}")
         print()
-    
     # Test yaml
     print("📦 Testing 'yaml' (PyYAML) import...")
     try:
@@ -136,7 +124,6 @@ def main():
     except ImportError as e:
         print(f"❌ Failed to import yaml: {e}")
         print()
-    
     # Test numpy
     print("📦 Testing 'numpy' import...")
     try:
@@ -151,7 +138,6 @@ def main():
     except ImportError as e:
         print(f"❌ Failed to import numpy: {e}")
         print()
-    
     # Step 5: Summary
     print("=" * 70)
     print("🎉 Auto-Installation Test Complete!")
@@ -167,6 +153,5 @@ def main():
     print("Check xwlazy_sbom.toml for the installation audit log.")
     print("Check xwlazy.lock.toml for the lockfile with installed versions.")
     print()
-
 if __name__ == "__main__":
     main()

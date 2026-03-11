@@ -1,3 +1,4 @@
+# Source size (src/*): ~340.8 KB
 [build-system]
 requires = [
     "hatchling",
@@ -40,13 +41,19 @@ authors = [
     { name = "eXonware Backend Team", email = "connect@exonware.com" },
 ]
 
-[project.optional-dependencies]
-archives = [
-    "exonware-xwlazy[archives]",
-]
-
 [project.license]
 text = "MIT"
+
+[project.optional-dependencies]
+lazy = [
+    "exonware-xwlazy[lazy]",
+]
+dev = [
+    "exonware-xwlazy[dev]",
+]
+full = [
+    "exonware-xwlazy[full]",
+]
 
 [project.urls]
 Homepage = "https://exonware.com"

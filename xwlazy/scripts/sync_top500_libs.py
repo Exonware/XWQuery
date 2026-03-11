@@ -1,37 +1,32 @@
 #!/usr/bin/env python3
 """
 Sync xwlazy_external_libs.toml with top 5000 PyPI packages + all xw* library dependencies.
-
 - Fetches top 5000 from hugovk/top-pypi-packages (30-day JSON).
 - Extracts all dependencies from xw* libraries (requirements.txt and pyproject.toml).
 - Ensures all are present (as import_name -> package_name).
 - Reports duplicate keys (same key in deny_list and mappings).
-
 Naming (important):
 - KEY  = import name (what you use in Python: "import key" or "from key import ...").
          Must be a valid Python identifier (underscores ok, hyphens not).
 - VALUE = PyPI distribution name (what you pass to "pip install <value>").
           PyPI allows hyphens (e.g. typing-extensions, scikit-learn).
-
 We derive the import name from the PyPI name by replacing "-" with "_". That matches
 the common convention (PEP 8: import names use underscores; PyPI names often use
 hyphens for the same word). It does NOT match when the project chose a different
 import name (e.g. scikit-learn -> sklearn, PyYAML -> yaml); those are already
 mapped manually in the TOML, so they are "covered" and we do not add a second mapping.
 """
-from __future__ import annotations
 
+from __future__ import annotations
 import json
 import re
 import sys
 from pathlib import Path
 from urllib.request import urlopen
-
 TOML_PATH = Path(__file__).resolve().parent.parent / "src" / "exonware" / "xwlazy_external_libs.toml"
 TOP500_URL = "https://raw.githubusercontent.com/hugovk/top-pypi-packages/main/top-pypi-packages-30-days.json"
 TOP_N = 5000
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-
 # PyPI package name -> import name(s). When the real import differs from pkg.replace("-", "_"),
 # list the actual import name(s). We will NOT auto-add these (they should be in the TOML already).
 # Only add here if we discover a top-500 package whose import name we know and isn't in the TOML.
@@ -65,7 +60,6 @@ def parse_toml_mappings(content: str) -> tuple[dict[str, str], dict[str, str], s
     in_deny = False
     in_mappings = False
     packages = set()
-
     for line in content.splitlines():
         line_stripped = line.strip()
         if line_stripped == "[deny_list]":
@@ -88,7 +82,6 @@ def parse_toml_mappings(content: str) -> tuple[dict[str, str], dict[str, str], s
         elif in_mappings:
             mappings[key] = val
             packages.add(normalize_pypi(val))
-
     return deny_list, mappings, packages
 
 
@@ -120,12 +113,9 @@ def find_xw_dependencies() -> set[str]:
     """Find all dependencies from xw* libraries (requirements.txt and pyproject.toml)."""
     deps = set()
     repo_root = REPO_ROOT
-    
     # Find all xw* directories
     xw_dirs = [d for d in repo_root.iterdir() if d.is_dir() and d.name.startswith("xw")]
-    
     print(f"\nScanning {len(xw_dirs)} xw* directories for dependencies...")
-    
     for xw_dir in xw_dirs:
         # Check requirements.txt
         req_file = xw_dir / "requirements.txt"
@@ -138,7 +128,6 @@ def find_xw_dependencies() -> set[str]:
                         deps.add(pkg)
             except Exception as e:
                 print(f"  Warning: Could not read {req_file}: {e}")
-        
         # Check pyproject.toml
         pyproject_file = xw_dir / "pyproject.toml"
         if pyproject_file.exists():
@@ -164,7 +153,6 @@ def find_xw_dependencies() -> set[str]:
                                 deps.add(pkg)
             except Exception as e:
                 print(f"  Warning: Could not parse {pyproject_file}: {e}")
-    
     print(f"Found {len(deps)} unique dependencies from xw* libraries")
     return deps
 
@@ -173,13 +161,10 @@ def main() -> None:
     print("Fetching top", TOP_N, "PyPI packages...")
     top_packages = fetch_top_packages(TOP_N)
     print("Got", len(top_packages), "packages.")
-
     # Get xw* library dependencies
     xw_deps = find_xw_dependencies()
-
     content = TOML_PATH.read_text(encoding="utf-8")
     deny_list, mappings, covered = parse_toml_mappings(content)
-
     # Duplicates: key in both deny_list and mappings
     dups = find_duplicate_keys(deny_list, mappings)
     if dups:
@@ -188,24 +173,20 @@ def main() -> None:
             print(f"  {key}: {reason}")
             print(f"    {detail}")
         print("You can: remove from [mappings] (keep blocked) or remove from [deny_list] (allow install).")
-
     # Missing: top-N packages not covered
     missing_top: list[str] = []
     for pkg in top_packages:
         norm = normalize_pypi(pkg)
         if norm not in covered:
             missing_top.append(pkg)
-
     # Missing: xw* dependencies not covered
     missing_xw: list[str] = []
     for pkg in xw_deps:
         norm = normalize_pypi(pkg)
         if norm not in covered:
             missing_xw.append(pkg)
-
     # Combine all missing packages
     all_missing = list(set(missing_top + missing_xw))
-    
     if all_missing:
         print(f"\n--- MISSING PACKAGES ---")
         print(f"Top {TOP_N} packages missing: {len(missing_top)}")
@@ -218,7 +199,6 @@ def main() -> None:
             for p in sorted(all_missing, key=str.lower)[:50]:
                 print(" ", p)
             print(" ... and", len(all_missing) - 50, "more.")
-        
         print("\nAdding missing packages as self-mappings (import name = package name)...")
         # Skip packages whose key already exists (e.g. toml -> tomli, psycopg2 -> psycopg2-binary)
         existing_keys = set(mappings.keys())
@@ -232,7 +212,6 @@ def main() -> None:
         if len(to_add) < len(all_missing):
             skipped = len(all_missing) - len(to_add)
             print("Skipped", skipped, "already have mapping key or in IMPORT_NAME_OVERRIDES (kept existing).")
-        
         add_block = f"\n# Top {TOP_N} PyPI + xw* dependencies (additions). Key=import name, value=PyPI package name (- -> _ convention).\n"
         for pkg in to_add:
             # Convention: Python import uses underscores; PyPI uses hyphens. Same word -> replace - with _.
@@ -250,7 +229,6 @@ def main() -> None:
             print("No new entries to add (all missing already have keys).")
     else:
         print(f"\nAll top {TOP_N} packages and xw* dependencies are already covered in mappings.")
-
     # Also ensure no duplicate keys in the file (same key twice under [mappings])
     mapping_keys = list(mappings.keys())
     if len(mapping_keys) != len(set(mapping_keys)):
@@ -259,9 +237,6 @@ def main() -> None:
             if k in seen:
                 print("Duplicate key in [mappings]:", k)
             seen.add(k)
-
     sys.exit(0 if not dups else 1)
-
-
 if __name__ == "__main__":
     main()

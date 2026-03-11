@@ -1,17 +1,14 @@
 """
 Optional mixins for xwlazy — all disabled by default.
-
 ⚠️ RECOMMENDATION: From a software engineering perspective we recommend AGAINST
 enabling these features. They increase complexity, reduce maintainability, and
 (in the case of AST/type-stub tooling) are fragile or address a different
 problem domain. Enable only for edge cases or compatibility; prefer the core
 hook/auto_enable_lazy/attach API.
-
 Features (each gated by an environment variable, default OFF):
   - Per-call wrapper API: XWLAZY_PER_CALL_API=1
   - AST rewrite / lazy transform: XWLAZY_AST_LAZY=1
   - Type-stub / internal API tooling: XWLAZY_TYPING_TOOLS=1
-
 Interoperability: When enabled, these features may or may not work well together.
 E.g. per-call imports use the normal meta_path; AST finder runs on import.
 Enabling both can lead to duplicate handling. We recommend enabling at most one
@@ -23,11 +20,9 @@ import sys
 import importlib
 import warnings
 from pathlib import Path
-
 # -----------------------------------------------------------------------------
 # Environment gates (all default OFF)
 # -----------------------------------------------------------------------------
-
 ENV_PER_CALL_API = "XWLAZY_PER_CALL_API"
 ENV_AST_LAZY = "XWLAZY_AST_LAZY"
 ENV_TYPING_TOOLS = "XWLAZY_TYPING_TOOLS"
@@ -57,8 +52,6 @@ def recommendation_warning(feature_name: str):
         UserWarning,
         stacklevel=3,
     )
-
-
 # -----------------------------------------------------------------------------
 # Per-call wrapper API mixin
 # -----------------------------------------------------------------------------
@@ -77,8 +70,6 @@ def lazy_import_impl(guardian, module_name: str, package=None, mode: str = "smar
         else:
             guardian.configure(package, enabled=True, install_strategy=mode)
     return importlib.import_module(module_name)
-
-
 # -----------------------------------------------------------------------------
 # AST rewrite mixin (placeholder finder; full AST transform is out of scope)
 # -----------------------------------------------------------------------------
@@ -98,8 +89,6 @@ class ASTLazyFinder:
     def find_spec(self, fullname, path, target=None):
         # Delegate to next finder (no AST rewrite in this placeholder).
         return None
-
-
 _ast_finder_instance = None
 
 
@@ -120,12 +109,9 @@ def unregister_ast_lazy_finder():
     if _ast_finder_instance is not None and _ast_finder_instance in sys.meta_path:
         sys.meta_path.remove(_ast_finder_instance)
     _ast_finder_instance = None
-
-
 # -----------------------------------------------------------------------------
 # Type-stub / internal API tooling mixin
 # -----------------------------------------------------------------------------
-
 # Minimal storage for stub paths/content (tooling can read; we don't generate .pyi here)
 _stub_registry = {}  # package_name -> {"path": path or None, "content": str or None}
 
@@ -148,8 +134,6 @@ def get_stub_registry():
 def clear_stub_registry():
     """Clear the stub registry (for testing/reset only)."""
     _stub_registry.clear()
-
-
 __all__ = [
     "ENV_PER_CALL_API",
     "ENV_AST_LAZY",

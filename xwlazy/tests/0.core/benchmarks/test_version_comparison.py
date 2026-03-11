@@ -1,13 +1,11 @@
 """Benchmark: version comparison. xwlazy is single-file; minimal public API benchmark."""
-from __future__ import annotations
 
+from __future__ import annotations
 import pytest
 import sys
 import time
 from pathlib import Path
-
 pytestmark = [pytest.mark.xwlazy_core, pytest.mark.xwlazy_performance]
-
 project_root = Path(__file__).resolve().parents[3]
 src_root = project_root / "src"
 if str(src_root) not in sys.path:

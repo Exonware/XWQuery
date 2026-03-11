@@ -1,9 +1,7 @@
 """
 Demo App - Demonstrates xwlazy v4.0 Auto-Installation
-
 This script imports packages that should be in requirements.txt but
 may not be installed. xwlazy will automatically install them!
-
 Libraries used (all should be in xwlazy_external_libs.toml):
 - requests (for HTTP requests)
 - yaml (PyYAML for YAML parsing)
@@ -12,7 +10,6 @@ Libraries used (all should be in xwlazy_external_libs.toml):
 
 import sys
 from pathlib import Path
-
 # Configure UTF-8 encoding for Windows console
 if sys.platform == "win32":
     try:
@@ -20,17 +17,14 @@ if sys.platform == "win32":
             sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     except (AttributeError, OSError):
         pass
-
 # Add the examples directory to the path so we can import demo_app
 examples_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(examples_dir))
-
 # Import the demo_app package (this activates xwlazy via __init__.py)
 print("=" * 70)
 print("xwlazy v4.0 Auto-Installation Demo")
 print("=" * 70)
 print()
-
 # Import the package - this will activate xwlazy automatically
 try:
     import demo_app
@@ -50,7 +44,6 @@ except ImportError as e:
     except Exception as e2:
         print(f"❌ Failed to activate xwlazy: {e2}")
         sys.exit(1)
-
 # ============================================================================
 # Example 1: Using requests (HTTP library)
 # ============================================================================
@@ -67,7 +60,6 @@ except ImportError as e:
     print(f"❌ Failed to import requests: {e}")
     print("   Note: xwlazy should have installed this automatically")
     print()
-
 # ============================================================================
 # Example 2: Using yaml (YAML parser)
 # ============================================================================
@@ -77,7 +69,6 @@ try:
     # This should also trigger auto-installation if PyYAML is not installed
     import yaml
     print(f"✅ yaml imported successfully!")
-    
     # Try a simple YAML operation
     data = {"name": "demo_app", "version": "1.0.0", "status": "active"}
     yaml_str = yaml.dump(data, default_flow_style=False)
@@ -87,7 +78,6 @@ except ImportError as e:
     print(f"❌ Failed to import yaml: {e}")
     print("   Note: xwlazy should have installed PyYAML automatically")
     print()
-
 # ============================================================================
 # Example 3: Using numpy (Numerical library)
 # ============================================================================
@@ -98,7 +88,6 @@ try:
     import numpy as np
     print(f"✅ numpy imported successfully!")
     print(f"   Version: {np.__version__}")
-    
     # Try a simple numpy operation
     arr = np.array([1, 2, 3, 4, 5])
     print(f"   Array created: {arr}")
@@ -108,7 +97,6 @@ except ImportError as e:
     print(f"❌ Failed to import numpy: {e}")
     print("   Note: xwlazy should have installed numpy automatically")
     print()
-
 # ============================================================================
 # Summary
 # ============================================================================

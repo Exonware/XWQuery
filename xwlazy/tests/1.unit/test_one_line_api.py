@@ -1,9 +1,7 @@
 """
 Unit Tests: One-Line Activation API
-
 Tests for auto_enable_lazy() and attach() APIs.
 Uses only public API from exonware.xwlazy (single-file design).
-
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
@@ -12,13 +10,11 @@ Email: connect@exonware.com
 import pytest
 import sys
 from pathlib import Path
-
 tests_dir = Path(__file__).resolve().parent.parent
 project_root = tests_dir.parent
 src_path = project_root / "src"
 if str(src_path) not in sys.path:
     sys.path.insert(0, str(src_path))
-
 from exonware.xwlazy import (
     auto_enable_lazy,
     attach,
@@ -26,9 +22,9 @@ from exonware.xwlazy import (
     is_global_import_hook_installed,
     install_global_import_hook,
 )
-
-
 @pytest.mark.xwlazy_unit
+
+
 class TestAutoEnableLazy:
     """Test auto_enable_lazy() one-line activation API."""
 
@@ -57,9 +53,9 @@ class TestAutoEnableLazy:
         uninstall_global_import_hook()
         with pytest.raises(ValueError, match="Invalid strategy"):
             auto_enable_lazy("test_package", mode="invalid_mode")
-
-
 @pytest.mark.xwlazy_unit
+
+
 class TestAttachAPI:
     """Test attach() lazy-loader compatible API."""
 

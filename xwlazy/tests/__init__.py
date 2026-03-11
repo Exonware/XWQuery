@@ -1,11 +1,1 @@
-"""
-#exonware/xwlazy/tests/__init__.py
-
-Test package for xwlazy library.
-
-Company: eXonware.com
-Author: eXonware Backend Team
-Email: connect@exonware.com
-
-Generation Date: 11-Oct-2025
-"""
+# Minimal tests for xwlazy (GUIDE_51_TEST, GUIDE_53_FIX).

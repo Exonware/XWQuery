@@ -1,21 +1,19 @@
 """Benchmark: new vs old comparison. xwlazy is single-file; minimal public API."""
-from __future__ import annotations
 
+from __future__ import annotations
 import pytest
 import sys
 from pathlib import Path
-
 pytestmark = [pytest.mark.xwlazy_core, pytest.mark.xwlazy_performance]
-
 project_root = Path(__file__).resolve().parents[3]
 src_root = project_root / "src"
 if str(src_root) not in sys.path:
     sys.path.insert(0, str(src_root))
-
 from exonware.xwlazy import hook, auto_enable_lazy, uninstall_global_import_hook
 
 
 class TestNewVsOldComparison:
+
     def teardown_method(self):
         uninstall_global_import_hook()
 

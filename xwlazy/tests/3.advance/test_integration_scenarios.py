@@ -1,16 +1,16 @@
 """Advance: integration scenarios via public API. xwlazy is single-file."""
+
 import pytest
 from pathlib import Path
 import sys
-
 pytestmark = pytest.mark.xwlazy_advance
 project_root = Path(__file__).resolve().parents[2]
 if str(project_root / "src") not in sys.path:
     sys.path.insert(0, str(project_root / "src"))
-
 from exonware.xwlazy import auto_enable_lazy, uninstall_global_import_hook, attach
 
 class TestIntegrationScenarios:
+
     def teardown_method(self):
         uninstall_global_import_hook()
 

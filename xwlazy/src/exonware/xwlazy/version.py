@@ -1,16 +1,13 @@
 """
 Centralized version management for eXonware projects.
-
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-
 This module provides centralized version management for the entire project.
 All version references should import from this module to ensure consistency.
 """
 
 from datetime import datetime
-
 # =============================================================================
 # VERSION CONFIGURATION
 # =============================================================================
@@ -18,23 +15,18 @@ from datetime import datetime
 def _today_release_date() -> str:
     """Return today's date in DD-MMM-YYYY."""
     return datetime.now().strftime("%d-%b-%Y")
-
 # Main version - update this to change version across entire project
 __version__ = "1.0.1.25"
-
 # Release/update date (DD-MMM-YYYY). Evaluated at import time.
 __date__ = _today_release_date()
-
 # Version components for programmatic access
 VERSION_MAJOR = 1
 VERSION_MINOR = 0
 VERSION_PATCH = 1
 VERSION_BUILD = 25  # Set to None for releases, or build number for dev builds
-
 # Version metadata
 VERSION_SUFFIX = ""  # e.g., "dev", "alpha", "beta", "rc1"
 VERSION_STRING = __version__ + VERSION_SUFFIX
-
 # =============================================================================
 # VERSION UTILITIES
 # =============================================================================
@@ -70,11 +62,9 @@ def is_dev_version() -> bool:
 def is_release_version() -> bool:
     """Check if this is a release version."""
     return not is_dev_version()
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
-
 __all__ = [
     "__version__",
     "__date__",

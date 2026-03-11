@@ -7,7 +7,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "exonware-xwsyntax"
-version = "0.6.0.1"
+version = "0.6.0.2"
 description = "Universal grammar engine with bidirectional parsing and generation for 31+ formats"
 readme = "README.md"
 requires-python = ">=3.12"

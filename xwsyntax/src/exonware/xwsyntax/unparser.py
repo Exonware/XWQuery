@@ -7,7 +7,7 @@ Implements the reverse of parsing: AST â†’ Text
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.6.0.1
+Version: 0.6.0.2
 Generation Date: 29-Oct-2025
 """
 import re

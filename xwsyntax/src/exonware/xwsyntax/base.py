@@ -4,7 +4,7 @@ Abstract base classes for the syntax module.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.6.0.1
+Version: 0.6.0.2
 """
 
 from __future__ import annotations

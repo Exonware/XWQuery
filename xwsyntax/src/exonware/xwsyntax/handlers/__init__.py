@@ -6,7 +6,7 @@ Handlers load metadata from *.grammar.info.json files.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.6.0.1
+Version: 0.6.0.2
 """
 
 from .generic import XWSyntaxHandler

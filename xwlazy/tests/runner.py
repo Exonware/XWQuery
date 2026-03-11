@@ -49,7 +49,17 @@ def main():
     # Setup output directory
     reports_dir = project_root / "docs" / "tests"
     reports_dir.mkdir(parents=True, exist_ok=True)
-    from exonware.xwsystem.utils.test_runner import timestamp_for_filename
+    # Prefer shared timestamp utility from xwsystem when available,
+    # but fall back to a local timestamp if exonware.xwsystem is not importable.
+    try:
+        from exonware.xwsystem.utils.test_runner import timestamp_for_filename
+    except ModuleNotFoundError:
+        from datetime import datetime as _dt
+
+        def timestamp_for_filename() -> str:
+            """Local fallback: YYYYMMDD_HHMM timestamp for filenames."""
+            return _dt.now().strftime("%Y%m%d_%H%M")
+
     timestamp = timestamp_for_filename()
     output_file = reports_dir / f"TEST_{timestamp}_SUMMARY.md"
     # Add src to Python path for testing

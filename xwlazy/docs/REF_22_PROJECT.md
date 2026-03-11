@@ -13,13 +13,13 @@ Requirements and project status (output of GUIDE_22_PROJECT). Align with REF_01_
 
 | In scope | Out of scope | Dependencies | Anti-goals |
 |----------|--------------|--------------|------------|
-| Full implementation for venv and normal (PC) environment; local TOML; requirements config; all existing features in project docs. | Complete Python rewrite; changing how Python runs; more than one file—keep simple, single file, ~3000 lines max. | Python 3.11+: stdlib only (tomllib). Python <3.11: optional tomli. Zero external deps by default. TOML: config/manifest; minimal writing for SBOM/lockfile. | No complex compiler; only critical/famous libs; no solving libs with similar names or not famous. |
+| Full implementation for venv and normal (PC) environment; local TOML; requirements config; all existing features in project docs. | Complete Python rewrite; changing how Python runs; more than one file - keep simple, single file, ~3000 lines max. | Python 3.11+: stdlib only (tomllib). Python <3.11: optional tomli. Zero external deps by default. TOML: config/manifest; minimal writing for SBOM/lockfile. | No complex compiler; only critical/famous libs; no solving libs with similar names or not famous. |
 
 ---
 
 ## Vision
 
-xwlazy makes development easier by **automatically installing missing libraries** and doing lazy loading—simple yet powerful. One file, one-line enable; no need to be an expert. Users add `[lazy]` when installing and xwlazy intervenes when imports are missing, installing in the background instead of throwing an error. Zero dependencies (stdlib only on Python 3.11+); only critical and famous libs supported (no complex compiler, no solving every custom lib). Per REF_01_REQ.
+xwlazy makes development easier by **automatically installing missing libraries** and doing lazy loading - simple and focused. One file, one-line enable; no need to be an expert. Users add `[lazy]` when installing and xwlazy intervenes when imports are missing, installing in the background instead of throwing an error. Zero dependencies (stdlib only on Python 3.11+); only critical and famous libs supported (no complex compiler, no solving every custom lib). Per REF_01_REQ.
 
 ---
 
@@ -82,10 +82,10 @@ xwlazy makes development easier by **automatically installing missing libraries*
 
 | Milestone | Target | Status |
 |-----------|--------|--------|
-| M1 — Per-package isolation, discovery, install modes | v0.1.x | Done |
-| M2 — Security (allow/deny, SBOM, lockfile, PEP 668) | v0.1.x | Done |
-| M3 — REF_* and review compliance | v0.1.x | Done (REF_22_PROJECT added) |
-| M4 — Extended production use → consider Stable | Future | Pending |
+| M1 - Per-package isolation, discovery, install modes | v0.1.x | Done |
+| M2 - Security (allow/deny, SBOM, lockfile, PEP 668) | v0.1.x | Done |
+| M3 - REF_* and review compliance | v0.1.x | Done (REF_22_PROJECT added) |
+| M4 - Extended production use -> consider Stable | Future | Pending |
 
 ---
 

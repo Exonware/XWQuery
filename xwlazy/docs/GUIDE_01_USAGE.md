@@ -1,11 +1,11 @@
-# Usage guide — xwlazy
+# Usage guide - xwlazy
 
 **Last Updated:** 07-Feb-2026  
 **Output:** Project-local guide (GUIDE_01_*)
 
 How to use xwlazy: setup, modes, integration with xw libraries, best practices, production, extension, and troubleshooting.
 
-**Related:** [REF_01_REQ.md](REF_01_REQ.md) — requirements; [REF_11_COMP.md](REF_11_COMP.md) — compliance; [REF_22_PROJECT.md](REF_22_PROJECT.md) — vision & milestones; [REF_13_ARCH.md](REF_13_ARCH.md) — architecture; [REF_14_DX.md](REF_14_DX.md) — key code; [REF_15_API.md](REF_15_API.md) — API; [REF_21_PLAN.md](REF_21_PLAN.md) — milestones; [REF_54_BENCH.md](REF_54_BENCH.md) — performance.
+**Related:** [REF_01_REQ.md](REF_01_REQ.md) - requirements; [REF_11_COMP.md](REF_11_COMP.md) - compliance; [REF_22_PROJECT.md](REF_22_PROJECT.md) - vision & milestones; [REF_13_ARCH.md](REF_13_ARCH.md) - architecture; [REF_14_DX.md](REF_14_DX.md) - key code; [REF_15_API.md](REF_15_API.md) - API; [REF_21_PLAN.md](REF_21_PLAN.md) - milestones; [REF_54_BENCH.md](REF_54_BENCH.md) - performance.
 
 ---
 
@@ -63,7 +63,7 @@ You can override where `pyproject.toml` is updated:
 
 Project root is found by walking up from the current working directory until a directory containing `pyproject.toml` or `requirements.txt` is found. To disable this behavior (e.g. in CI or read-only trees), set `XWLAZY_NO_PERSIST=1`.
 
-### Async I/O (robust + non-blocking)
+### Async I/O (non-blocking)
 
 To avoid slowing down your application, xwlazy performs file updates (persist-to-project, lockfile, audit log) using a **background I/O worker** by default. This makes file edits “pending actions” that do not block the main workflow, and it remains safe when multiple threads are installing/importing in parallel (writes are serialized and atomic).
 

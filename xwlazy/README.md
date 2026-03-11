@@ -1,14 +1,20 @@
 # xwlazy ⚡️
 
-**Missing import? Install it on first use.** One line to enable; standard imports, no try/except. Per-package isolation—xwsystem can be lazy while xwnode stays normal. 🚀
+**Install missing Python packages on first use, without changing your imports.**
 
 [![Status](https://img.shields.io/badge/status-beta-blue.svg)](https://exonware.com)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+- **Who it is for:** Python projects with optional or heavy dependencies (data, ML, plugins) where you do not want to pre-install everything.
+- **What it does:** Watches imports, installs missing packages the first time code actually uses them, and records them in your project.
+- **Why it is different:** Per-package scope (xwsystem lazy, xwnode normal), mapping-aware install (`bs4` -> `beautifulsoup4`), and PEP 668 and audit options built in.
+
 ---
 
-## Install 📦
+## Quick start 🚀
+
+### 1. Install
 
 ```bash
 pip install exonware-xwlazy
@@ -16,16 +22,12 @@ pip install exonware-xwlazy
 pip install xwlazy
 ```
 
-Works in both **local/system Python** and **virtual environments** (venv, virtualenv, conda, uv, etc.):
+Works in both local/system Python and virtual environments (venv, virtualenv, conda, uv, etc.):
 
 - On a system interpreter, xwlazy respects PEP 668 and will refuse to install into externally-managed environments.
-- Inside a venv, it simply uses the active environment’s `pip` — recommended for real projects.
+- Inside a venv, it uses the active environment `pip`.
 
----
-
-## Quick start 🚀
-
-**1. Enable for your package (one line in `__init__.py`):**
+### 2. Enable for your package (one line in `__init__.py`)
 
 ```python
 from xwlazy import auto_enable_lazy
@@ -33,39 +35,34 @@ from xwlazy import auto_enable_lazy
 auto_enable_lazy(__package__)  # or auto_enable_lazy()
 ```
 
-**2. Use normal imports.** First time a dependency is missing, xwlazy installs it; after that it’s a normal import. No changes elsewhere in your code.
+Then keep using normal imports. The first time a dependency is missing, xwlazy installs it; after that it behaves as a normal import.
 
-**Zero-code option:** add to `pyproject.toml`:
+### 3. Zero-code opt-in (optional)
+
+Add this to `pyproject.toml`:
 
 ```toml
 [project]
 keywords = ["xwlazy-enabled"]
 ```
 
-Then `pip install -e .` — xwlazy picks it up from metadata.
+After `pip install -e .`, lazy mode is enabled for that project based on metadata.
 
 ---
 
-## What you get ⭐
+## What you get in practice ⭐
 
-| Thing | What it means |
-|-------|----------------|
-| **On-demand install** | Missing package → pip install when code first touches it. No manual install for optional features. |
-| **Per-package** | Each package turns lazy on or off. xwsystem can be lazy, xwnode not—no cross-talk. |
-| **Keyword opt-in** | `"xwlazy-enabled"` in pyproject → lazy on. No code change. |
-| **Two-stage load** | Import time: missing imports logged, no crash. Use time: install then run. So you keep normal `import` style. |
-| **Control** | Allow/deny lists, lockfile, SBOM. PEP 668 respected (no install into system Python). |
-| **Persist to project** | On successful install, xwlazy can add the package to your `requirements.txt` and `pyproject.toml` (default: `[project.optional-dependencies.full]` if it exists, else `[project.dependencies]`). Set `XWLAZY_PERSIST_EXTRAS=<name>` to write into a specific extras group (e.g. `dev`) or `XWLAZY_PERSIST_EXTRAS=none` to force `[project.dependencies]`. Disable entirely with `XWLAZY_NO_PERSIST=1`. |
-
-## DX highlights for developers ✨
-
-- **Copy-paste setup:** `pip install xwlazy` + one `auto_enable_lazy(...)` call in your package `__init__` and you’re done.
-- **No import gymnastics:** Keep normal `import` statements; xwlazy installs missing deps behind the scenes, then gets out of your way.
-- **Works with how you already develop:** Local/system Python or venv/conda/uv — with PEP 668 checks so you don’t accidentally mutate system installs.
-- **Debuggable behavior:** `get_lazy_install_stats(...)`, lockfile/SBOM outputs, and clear logs when something is skipped or denied — so you always know *why* something happened.
+| Capability | What it does |
+|-----------|--------------|
+| **On-demand install** | Missing package triggers `pip install` when code first touches it. No manual install step for optional features. |
+| **Per-package scope** | Each package turns lazy on or off. xwsystem can be lazy, xwnode not - no cross-talk. |
+| **Keyword opt-in** | `"xwlazy-enabled"` in `pyproject.toml` turns lazy on with no code change. |
+| **Two-stage load** | Import time: missing imports logged, no crash. Use time: install then run. You keep normal `import` style. |
+| **Policy and audit** | Allow/deny lists, lockfile, SBOM, and PEP 668 checks (no install into externally-managed system Python). |
+| **Persist to project** | On successful install, xwlazy can add the package to `requirements.txt` and/or `pyproject.toml`. Control this with `XWLAZY_PERSIST_EXTRAS` and `XWLAZY_NO_PERSIST`. |
 
 Single implementation file: `src/exonware/xwlazy.py`; `src/xwlazy.py` re-exports.
-When browsing on GitHub, you may see `src/_old/` — this is legacy/reference code only, safe to ignore, and not shipped or imported.
+`src/_old/` contains legacy/reference code only and is not shipped or imported.
 
 ---
 
@@ -83,20 +80,18 @@ You can extend or override these mappings by editing that TOML file in your own 
 
 ---
 
-## Why xwlazy? Benchmarked, mapping-aware, and feature-rich 🏆
+## Why xwlazy? Benchmarked and mapping-aware 🏆
 
 We run xwlazy against other lazy-import libraries (pipimport, deferred-import, lazy-loader, lazy-imports, pylazyimports, lazi, lazy-imports-lite) in a dedicated [benchmark campaign](benchmarks/20260209-benchmark%20competition/README.md). Here’s what stands out.
 
 ### Performance (latest competition run)
 
-- **Medium load:** xwlazy is **fastest** (4.06 ms vs 4.54 ms next best).
-- **Heavy / enterprise:** xwlazy stays in the top tier (e.g. 14.46 ms heavy, 41.37 ms enterprise) while keeping auto-install, per-package isolation, and audit features on.
-
-So you get competitive or leading times **without** giving up mapping-aware installs or policy controls.
+- **Medium load:** 4.06 ms vs 4.54 ms next best in the benchmark campaign.
+- **Heavy / enterprise:** 14.46 ms heavy, 41.37 ms enterprise with auto-install, per-package isolation, and audit features on.
 
 ### Feature comparison
 
-Other tools are built for different trade-offs: many do **lazy import only** (no auto-install), or **auto-install but assume `import name == pip name`**. xwlazy is the only one in the comparison that has **all** of: auto-install, lazy import, global import hook, **mapping-aware install**, pyproject/build integration, import tracing, per-package isolation, lockfile/SBOM, PEP 668 awareness, and a one-liner API. See the [Library Feature Comparison table](benchmarks/20260209-benchmark%20competition/README.md#library-feature-comparison-vs-xwlazy-) in the campaign README.
+Other tools in the benchmark focus on different trade-offs: many do **lazy import only** (no auto-install), or **auto-install but assume `import name == pip name`**. In that comparison set, xwlazy combines: auto-install, lazy import, global import hook, **mapping-aware install**, pyproject/build integration, import tracing, per-package isolation, lockfile/SBOM, PEP 668 awareness, and a one-liner API. See the [Library Feature Comparison table](benchmarks/20260209-benchmark%20competition/README.md#library-feature-comparison-vs-xwlazy-) in the campaign README.
 
 ### Where other lazy installers break (no mapping)
 
@@ -206,17 +201,9 @@ See [docs/REF_51_TEST.md](docs/REF_51_TEST.md) for test layers and coverage.
 
 ---
 
-## 🔬 Innovation: Where does this package fit?
+## 🔬 Positioning in the ecosystem
 
-**Tier 1 — Genuinely novel (nothing like this exists)**
-
-**`xwlazy` — Adaptive Intelligent Package Manager**
-
-Not just lazy imports — an **adaptive import hook** that learns from usage patterns. Multi-tier caching (in-memory LRU + disk cache), manifest-based discovery, a deny list for problematic packages, and optional SBOM/lockfile support.
-
-- `functools.lru_cache` = one cache type; xwlazy layers caching, manifest indexing, and an adaptive installer with optional lockfile (`~/.xwlazy/xwlazy.lock.toml`) and SBOM (`~/.xwlazy/xwlazy_sbom.toml`) output for audit (off by default; enable with `XWLAZY_AUDIT_ENABLED=1`).
-
-**Verdict:** 🟢 **Nothing like this exists** as a unified system. Part of the eXonware story — vertical integration across 20+ packages.
+`xwlazy` combines lazy imports, on-demand installation, mapping-aware resolution, and optional audit features (lockfile, SBOM). It uses multi-tier caching (in-memory LRU + disk cache), manifest-based discovery, a deny list for problematic packages, and optional audit outputs (`~/.xwlazy/xwlazy.lock.toml`, `~/.xwlazy/xwlazy_sbom.toml`, enabled with `XWLAZY_AUDIT_ENABLED=1`).
 
 ---
 

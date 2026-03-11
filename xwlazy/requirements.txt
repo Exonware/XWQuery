@@ -5,7 +5,7 @@
 # =============================================================================
 # RUNTIME DEPENDENCIES
 # =============================================================================
-# Source size (src/*): ~340.8 KB
+# Source size (src/*): ~341.2 KB
 pip
 
 # Optional: psutil>=5.9.0 for INTELLIGENT mode (xwlazy works without it)

@@ -8,12 +8,11 @@
 **Requirements source:** [REF_01_REQ.md](REF_01_REQ.md) sec. 7, sec. 6, sec. 5  
 **Producing guide:** [GUIDE_13_ARCH.md](../../docs/guides/GUIDE_13_ARCH.md)
 
-## 🎯 AI-Friendly Document
+## 🎯 Document scope
 
-**This document is designed for both human developers and AI assistants.**  
 Describes the system architecture, design patterns, and structure of xwlazy.
 
-**Related Documents:**
+**Related documents:**
 - [GUIDE_01_USAGE.md](GUIDE_01_USAGE.md) - How to use and extend xwlazy
 - [GUIDE_41_DOCS.md](../../docs/guides/GUIDE_41_DOCS.md) - Documentation standards
 - [GUIDE_31_DEV.md](../../docs/guides/GUIDE_31_DEV.md) - Development standards
@@ -60,7 +59,7 @@ xwdata:   Missing imports → LOG + AUTO-INSTALL on usage ✅
 
 ## As-built architecture (single file)
 
-**Current implementation:** One main implementation file, facade-style API, simple yet powerful (per REF_01_REQ).
+**Current implementation:** One main implementation file, facade-style API, simple and focused (per REF_01_REQ).
 
 - **Single implementation file:** `src/exonware/xwlazy.py` (~2546 lines). All core behavior (discovery, install, hook, cache, stats) lives in this file. Cap at ~3000 lines per requirements.
 - **Entry points:** `exonware.xwlazy` is the main module; `xwlazy` (in `src/xwlazy.py`) is a convenience re-export so users can `import xwlazy` or `import exonware.xwlazy`.
@@ -882,20 +881,15 @@ Benchmark critical paths:
 - Docker-aware installation
 - Cloud package mirrors (S3, Azure Blob)
 
-## Conclusion
+## Summary
 
-The Lazy Package provides a production-grade, per-package lazy loading system that:
-- ✅ Follows DEV_GUIDELINES.md structure (contracts, errors, base, core)
-- ✅ Implements 8 design patterns (Facade, Strategy, Template Method, Singleton, Registry, Observer, Proxy, Factory)
-- ✅ Preserves ALL features (security, SBOM, lockfiles, interactive, caching, etc.)
-- ✅ Enables per-package isolation (no interference between packages)
-- ✅ Provides two-stage lazy loading (log on import, install on usage)
-- ✅ Maintains clean Python code (standard imports, no defensive programming)
-- ✅ Achieves zero overhead for successful imports
+The Lazy Package provides a per-package lazy loading system that:
+- Follows the DEV_GUIDELINES.md structure (contracts, errors, base, core).
+- Implements the documented design patterns (Facade, Strategy, Template Method, Singleton, Registry, Observer, Proxy, Factory).
+- Preserves features such as security options, SBOM, lockfiles, interactive prompts, and caching.
+- Enables per-package isolation (no interference between packages).
+- Provides two-stage lazy loading (log on import, install on usage).
+- Maintains standard Python imports (no try/except patterns in user code).
 
-**The result**: A simple, powerful, and transparent lazy loading system that "just works" while maintaining production-grade quality and security.
-
----
-
-*For questions or support, contact: connect@exonware.com*
+For questions or support, contact: connect@exonware.com.
 

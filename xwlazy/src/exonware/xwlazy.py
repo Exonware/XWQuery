@@ -2557,10 +2557,19 @@ def is_externally_managed():
     return (Path(sys.prefix) / "EXTERNALLY-MANAGED").exists()
 
 def install_global_import_hook():
-    """Install global __import__ hook manually."""
+    """Install global __import__ hook manually.
+
+    If a guardian instance already exists, its manager is used as the hook
+    owner. If no instance exists yet, this function will create one via
+    ``hook(enable_global_hook=True)`` to ensure the global hook is actually
+    installed instead of silently doing nothing.
+    """
     global _instance
-    if _instance:
+    if _instance is not None:
         _install_global_import_hook(_instance)
+    else:
+        # Create an instance and install the hook in one step.
+        hook(enable_global_hook=True)
 # --- NEW v3.0.2: Watched Prefixes API (Top-Level) ---
 
 def add_watched_prefix(prefix):

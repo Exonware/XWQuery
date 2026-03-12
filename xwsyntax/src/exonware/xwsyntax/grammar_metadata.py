@@ -6,7 +6,7 @@ Provides lookups by file extension, MIME type, alias, and format ID.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.6.0.2
+Version: 0.6.0.3
 Generation Date: 29-Oct-2025
 """
 

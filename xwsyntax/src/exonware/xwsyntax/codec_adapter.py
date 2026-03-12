@@ -2,7 +2,7 @@
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.6.0.2
+Version: 0.6.0.3
 Generation Date: November 4, 2025
 Codec Adapter - Bridge between xwsyntax handlers and ICodec interface.
 This adapter allows xwsyntax handlers to work seamlessly with UniversalCodecRegistry

@@ -1,33 +1,29 @@
 # xwsyntax
 
-**Bidirectional grammar engine.** 100+ grammars (328+ grammar files) for reading and writing syntaxes: parse to AST, generate back, and convert between languages and formats.
+**One bidirectional grammar engine.** Parse text to AST, generate back, or convert between syntaxes (e.g. JSON to SQL). 100+ grammars (328+ files) for query, data, and code. Powers xwquery and editors; use it to create new syntaxes or bridge formats.
 
 **Company:** eXonware.com · **Author:** eXonware Backend Team · **Email:** connect@exonware.com  
-**Updated:** See [version.py](src/exonware/xwsyntax/version.py) (`__date__`)
+**Version:** [version.py](src/exonware/xwsyntax/version.py) (`__version__`, `__date__`)
 
-[![Status](https://img.shields.io/badge/status-beta-blue.svg)](https://exonware.com)
+[![Status](https://img.shields.io/badge/status-alpha-orange.svg)](https://exonware.com)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
 
-## Features
-
-- **Grammar-based read/write** — Parse input to native objects or tree; generate from AST.
-- **Bidirectional** — Parse ↔ AST ↔ generate; convert between syntaxes (e.g. JSON → SQL).
-- **328+ grammars** — Query (SQL, Cypher, GraphQL, xwqueryscript, …), data, programming, markup.
-- **xwquery enablement** — Parsing and syntax for query languages (xwqueryscript ↔ DB/graph scripts).
-- **Monaco / IDE** — Export grammars for editors. Codec integration with xwsystem.
-
-## Installation
+## Install
 
 ```bash
 pip install exonware-xwsyntax
-# Full (optional)
+# Optional: full extras
 pip install exonware-xwsyntax[full]
 ```
 
-## Quick Start
+Depends on xwsystem. See [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md) for details.
+
+---
+
+## Quick start
 
 ```python
 from exonware.xwsyntax import BidirectionalGrammar
@@ -39,46 +35,75 @@ json_str = grammar.generate(ast)
 # Convert between syntaxes
 sql_grammar = BidirectionalGrammar.load('sql')
 sql = sql_grammar.generate(ast)
+# Same AST, different format
 ```
 
-See [REF_14_DX](docs/REF_14_DX.md) (key code) and [REF_15_API](docs/REF_15_API.md) (API).
-
-## Documentation
-
-- [Requirements](docs/REF_01_REQ.md) — REF_01_REQ
-- [Project](docs/REF_22_PROJECT.md) — Vision, scope, milestones
-- [Architecture](docs/REF_13_ARCH.md) — REF_13_ARCH
-- [API Reference](docs/REF_15_API.md) — REF_15_API
-- [Developer experience](docs/REF_14_DX.md) — REF_14_DX
-
-## Docs and tests
-
-- **Start:** [docs/INDEX.md](docs/INDEX.md) or [REF_01_REQ](docs/REF_01_REQ.md), [REF_14_DX](docs/REF_14_DX.md), [REF_15_API](docs/REF_15_API.md).
-- **Tests:** Run from project root per project layout.
+Facade: `XWSyntax().parse(text, format_name)` or `validate(text, format_name)`.  
+List grammars: `list_grammars_quick()`, `load_grammar_quick(name)`.  
+Key code: [REF_14_DX](docs/REF_14_DX.md) · API: [REF_15_API](docs/REF_15_API.md).
 
 ---
 
-## 🔬 Innovation: Where does this package fit?
+## Examples
 
-**Tier 1 — Genuinely novel (nothing like this exists)**
+### Parse and validate with the facade
 
-**`xwsyntax` — Bidirectional Universal Grammar Engine**
+```python
+from exonware.xwsyntax import XWSyntax
 
-Parse AND generate across 31+ formats (JSON, SQL, GraphQL, Cypher, Python, Rust, Go...) using paired `.in.grammar` / `.out.grammar` files. No other tool does **bidirectional roundtripping** at this scale.
+engine = XWSyntax()
+ast = engine.parse("a = 1 + 2", format_name="python")
+is_valid = engine.validate("a = 1 + 2", format_name="python")
+```
 
-- Lark, tree-sitter, ANTLR, Pygments only parse in ONE direction; `.out.grammar` templates enable **generation back from AST**
-- Zero-hardcoding: add a new format by dropping 2 grammar files, no code changes
-- Auto-optimizing AST (Trie + IntervalTree + LRU based on AST size)
+### List grammars and load by name
 
-**Verdict:** 🟢 **Nothing like this exists.** Part of the eXonware story: xwsyntax powers xwquery → xwstorage → xwbase, all on xwnode with xwsystem — vertical integration across 20+ packages.
+```python
+from exonware.xwsyntax import list_grammars_quick, load_grammar_quick
+
+names = list_grammars_quick()
+grammar = load_grammar_quick(names[0])
+```
+
+### Convert JSON to SQL by reusing the AST
+
+```python
+from exonware.xwsyntax import BidirectionalGrammar
+
+ast = BidirectionalGrammar.load("json").parse('{"name": "Alice", "age": 30}')
+sql = BidirectionalGrammar.load("sql").generate(ast)
+```
+
+---
+
+## What you get
+
+| Area | Description |
+|------|-------------|
+| **Grammar read/write** | Parse input to native objects or tree; generate from AST. Grammar-driven; no hardcoded format maps. |
+| **Bidirectional** | Parse to AST, generate back; convert between syntaxes (e.g. JSON to SQL) by swapping grammars. |
+| **100+ grammars** | Query (SQL, Cypher, GraphQL, xwqueryscript, …), data/config, programming, markup, storage. 328+ grammar files (.lark + .json). |
+| **xwquery and IDE** | Parsing and syntax for query languages; Monaco export and codec integration with xwsystem. |
+
+Current phase: **Alpha.** M1–M2 done; xwquery consumption next. Status: [REF_22_PROJECT](docs/REF_22_PROJECT.md#project-status-overview).
+
+---
+
+## Docs and tests
+
+- **Start:** [docs/INDEX.md](docs/INDEX.md)
+- **Usage:** [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md)
+- **Requirements and status:** [REF_01_REQ](docs/REF_01_REQ.md), [REF_22_PROJECT](docs/REF_22_PROJECT.md)
+- **API and design:** [REF_15_API](docs/REF_15_API.md), [REF_13_ARCH](docs/REF_13_ARCH.md), [REF_14_DX](docs/REF_14_DX.md)
+- **Tests:** [REF_51_TEST](docs/REF_51_TEST.md). Run from project root: `python tests/runner.py`.
 
 ---
 
 ## License and links
 
-MIT — see [LICENSE](LICENSE). **Homepage:** https://exonware.com · **Repository:** https://github.com/exonware/xwsyntax  
+MIT — [LICENSE](LICENSE).  
+**Homepage:** https://exonware.com · **Repository:** https://github.com/exonware/xwsyntax  
 
 Contributing → CONTRIBUTING.md · Security → SECURITY.md (when present).
 
 *Built with ❤️ by eXonware.com - Revolutionizing Python Development Since 2025*
-

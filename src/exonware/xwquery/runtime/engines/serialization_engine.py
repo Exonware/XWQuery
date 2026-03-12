@@ -6,7 +6,7 @@ Works with any format implementing ISerialization: JSON, BSON, NDJSON, XWJSON, e
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.1
+Version: 0.9.0.2
 Generation Date: 2025-01-20
 """
 

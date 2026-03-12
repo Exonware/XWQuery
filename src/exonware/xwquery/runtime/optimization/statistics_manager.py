@@ -5,7 +5,7 @@ Uses xwnode strategies for 2-3x faster statistics and 99% memory savings.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.1
+Version: 0.9.0.2
 Generation Date: 27-Oct-2025
 """
 

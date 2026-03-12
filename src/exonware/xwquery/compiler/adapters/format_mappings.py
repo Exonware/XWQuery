@@ -5,7 +5,7 @@ Defines AST→QueryAction mapping rules for all 31 query formats.
 This enables universal conversion from any query language to QueryAction trees.
 Company: eXonware.com
 Author: eXonware Backend Team
-Version: 0.9.0.1
+Version: 0.9.0.2
 Generation Date: 11-Oct-2025
 """
 

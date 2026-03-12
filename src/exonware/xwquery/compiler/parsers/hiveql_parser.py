@@ -6,7 +6,7 @@ Extends SQL parser with MapReduce functions and Hadoop features.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.1
+Version: 0.9.0.2
 Generation Date: 28-Oct-2025
 """
 

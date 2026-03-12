@@ -6,7 +6,7 @@ This module implements the JSON Patch query strategy for JSON Patch (RFC 6902) o
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.1
+Version: 0.9.0.2
 Generation Date: January 2, 2025
 """
 

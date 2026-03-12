@@ -2,7 +2,7 @@
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.1
+Version: 0.9.0.2
 Generation Date: November 4, 2025
 Codec Adapter - Bridge between xwquery parsers and ICodec interface.
 This adapter allows xwquery parsers to work seamlessly with UniversalCodecRegistry

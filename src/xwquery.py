@@ -5,7 +5,7 @@ Instead of the full path: `from exonware.xwquery import *`
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.1
+Version: 0.9.0.2
 Generation Date: October 11, 2025
 """
 # Import everything from the main package

@@ -5,7 +5,7 @@ WHERE Operation Executor
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.1
+Version: 0.9.0.2
 Generation Date: 08-Oct-2025
 """
 from typing import Any, Optional

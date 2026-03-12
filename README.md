@@ -1,9 +1,9 @@
 # xwquery
 
-**One universal query system.** 35+ query grammars (SQL, GraphQL, Cypher, MQL, PromQL, SPARQL, JQ, JMESPath, and more) with a single execution engine over node-based or table-based data.
+**One universal query language.** Execute on Python data or convert between SQL, GraphQL, Cypher, and 35+ formats with a single engine. One script (XWQS) for the zone; used by xwstorage, xwaction, xwbase.
 
 **Company:** eXonware.com · **Author:** eXonware Backend Team · **Email:** connect@exonware.com  
-**Version:** See [version.py](src/exonware/xwquery/version.py) or PyPI. · **Updated:** See [version.py](src/exonware/xwquery/version.py) (`__date__`)
+**Version:** [version.py](src/exonware/xwquery/version.py) (`__version__`, `__date__`)
 
 [![Status](https://img.shields.io/badge/status-alpha-orange.svg)](https://exonware.com)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org)
@@ -17,7 +17,7 @@
 pip install exonware-xwquery
 ```
 
-Requires xwsystem (and xwsyntax for grammars). See [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md) for variants.
+Requires xwsystem; xwsyntax for grammars. See [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md) for details.
 
 ---
 
@@ -29,53 +29,50 @@ from exonware.xwquery import XWQuery
 data = {'users': [
     {'name': 'Alice', 'age': 30, 'city': 'NYC'},
     {'name': 'Bob', 'age': 25, 'city': 'LA'},
-    {'name': 'Charlie', 'age': 35, 'city': 'NYC'}
+    {'name': 'Charlie', 'age': 35, 'city': 'NYC'},
 ]}
 
 result = XWQuery.execute("""
-    SELECT name, age 
-    FROM users 
+    SELECT name, age
+    FROM users
     WHERE age > 25 AND city = 'NYC'
 """, data)
-# [{'name': 'Alice', 'age': 30}, {'name': 'Charlie', 'age': 35}]
+# result.data → [{'name': 'Alice', 'age': 30}, {'name': 'Charlie', 'age': 35}]
 ```
 
-Convert between formats: `XWQuery.convert(sql_string, from_format='sql', to_format='graphql')`. Parse: `XWQuery.parse("SELECT * FROM users", source_format='sql')`. See [REF_14_DX](docs/REF_14_DX.md) and [REF_15_API](docs/REF_15_API.md).
+Convert between formats: `XWQuery.convert(sql_string, from_format='sql', to_format='graphql')`.  
+Parse only: `XWQuery.parse("SELECT * FROM users", source_format='sql')`.  
+Key code: [REF_14_DX](docs/REF_14_DX.md) · API: [REF_15_API](docs/REF_15_API.md).
 
 ---
 
 ## What you get
 
-| Area | What's in it |
-|------|----------------|
-| **Execution** | Execute on any Python data structure; engine and capability checker; parse → plan → execute. |
-| **Grammars** | 35+ formats (SQL, GraphQL, Cypher, MQL, PromQL, Flux, JQ, JMESPath, …) via xwsyntax; parse, generate, validate. |
-| **Operations** | Core CRUD, filtering, aggregation, graph (MATCH, PATH, …), JOIN, UNION, WINDOW, PIPE, etc. |
-| **Integration** | Used by xwstorage, xwaction, xwbase; one universal script (XWQS) across backends. |
+| Area | Description |
+|------|-------------|
+| **Execution** | Run queries on any Python data (node or table). Parse → plan → execute; one engine, one contract. |
+| **Grammars** | 35+ formats (SQL, GraphQL, Cypher, SPARQL, MQL, PromQL, JQ, JMESPath, …) via xwsyntax. Parse, generate, validate. |
+| **Operations** | CRUD, filtering, aggregation, graph (MATCH, PATH), JOIN, UNION, WINDOW, PIPE, and more. |
+| **Integration** | Consumed by xwstorage, xwaction, xwbase. One universal script (XWQS); zone execution (e.g. S3) converts to XWQS first. |
 
-Current phase: Alpha. Executor refactor and doc alignment in progress. Status: [REF_22_PROJECT](docs/REF_22_PROJECT.md#project-status-overview).
+Current phase: **Alpha.** Executor refactor and doc alignment in progress. Status: [REF_22_PROJECT](docs/REF_22_PROJECT.md#project-status-overview).
 
 ---
 
 ## Docs and tests
 
-Content in this README is aligned with the project REFs and [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md) (per [GUIDE_63_README](../docs/guides/GUIDE_63_README.md)).
-
-- **Start:** [docs/INDEX.md](docs/INDEX.md) — doc index and quick links.
-- **Use it:** [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md) — usage, key code, formats.
-- **Requirements and status:** [docs/REF_01_REQ.md](docs/REF_01_REQ.md), [docs/REF_22_PROJECT.md](docs/REF_22_PROJECT.md).
-- **API and design:** [docs/REF_15_API.md](docs/REF_15_API.md), [docs/REF_13_ARCH.md](docs/REF_13_ARCH.md), [docs/REF_14_DX.md](docs/REF_14_DX.md).
-- **Tests:** See [docs/REF_51_TEST.md](docs/REF_51_TEST.md). Run via project test runner or pytest from project root.
+- **Start:** [docs/INDEX.md](docs/INDEX.md)
+- **Usage:** [docs/GUIDE_01_USAGE.md](docs/GUIDE_01_USAGE.md)
+- **Requirements and status:** [REF_01_REQ](docs/REF_01_REQ.md), [REF_22_PROJECT](docs/REF_22_PROJECT.md)
+- **API and design:** [REF_15_API](docs/REF_15_API.md), [REF_13_ARCH](docs/REF_13_ARCH.md), [REF_14_DX](docs/REF_14_DX.md)
+- **Tests:** [REF_51_TEST](docs/REF_51_TEST.md). Run from project root (pytest or project test runner).
 
 ---
 
 ## License and links
 
-MIT — see [LICENSE](LICENSE).
-
-- **Homepage:** https://exonware.com  
-- **Repository:** https://github.com/exonware/xwquery  
-- **Version:** `from exonware.xwquery import __version__` or `import exonware.xwquery; print(exonware.xwquery.__version__)`  
+MIT — [LICENSE](LICENSE).  
+**Homepage:** https://exonware.com · **Repository:** https://github.com/exonware/xwquery  
 
 Contributing → CONTRIBUTING.md · Security → SECURITY.md (when present).
 

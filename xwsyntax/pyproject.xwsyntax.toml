@@ -7,7 +7,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "xwsyntax"
-version = "0.6.0.2"
+version = "0.6.0.3"
 description = "Convenience wrapper for exonware-xwsyntax - provides 'import xwsyntax' alias"
 readme = "README.md"
 requires-python = ">=3.12"

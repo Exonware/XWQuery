@@ -6,7 +6,7 @@ from *.grammar.info.json files instead of hardcoding it in Python classes.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.6.0.3
+Version: 0.6.0.4
 """
 import json
 from pathlib import Path

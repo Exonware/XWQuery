@@ -5,7 +5,7 @@ SPARQL Grammar Handler
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.6.0.3
+Version: 0.6.0.4
 Generation Date: 15-Nov-2025
 """
 

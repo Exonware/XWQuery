@@ -5,7 +5,7 @@ NO HARDCODING - All metadata comes from handler classes.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.6.0.3
+Version: 0.6.0.4
 Date: October 29, 2025
 """
 from __future__ import annotations

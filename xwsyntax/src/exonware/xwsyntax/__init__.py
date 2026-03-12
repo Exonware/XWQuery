@@ -7,7 +7,7 @@ universal format conversion; used by xwquery and IDE/tooling. REF_22_PROJECT.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.6.0.3
+Version: 0.6.0.4
 Features:
 - 31 grammar formats (queries, data, programming languages, specialized)
 - Bidirectional processing (text → AST → text)

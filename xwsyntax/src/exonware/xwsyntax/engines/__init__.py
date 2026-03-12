@@ -7,7 +7,7 @@ This package provides multiple syntax engine implementations:
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.6.0.3
+Version: 0.6.0.4
 """
 
 from .xw import XWSyntaxEngine, Grammar

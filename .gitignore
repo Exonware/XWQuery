@@ -168,3 +168,7 @@ xwlazy_sbom.toml
 # Local secrets and archives
 .secrets
 .archieve/
+
+# Example data (large files; GitHub limit 100 MB)
+examples/xwnode_console2/data/*.jsonl
+**/database_1gb.jsonl

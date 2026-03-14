@@ -6,7 +6,7 @@ Extends SQL parser with JSON path navigation and dynamic typing.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.4
+Version: 0.9.0.5
 Generation Date: 28-Oct-2025
 """
 

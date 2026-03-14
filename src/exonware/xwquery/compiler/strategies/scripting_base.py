@@ -8,7 +8,7 @@ in xwquery via FormatRegistry (same pattern as SQL).
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.4
+Version: 0.9.0.5
 """
 
 from __future__ import annotations

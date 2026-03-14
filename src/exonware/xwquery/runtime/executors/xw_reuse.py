@@ -7,7 +7,7 @@ following GUIDELINES_DEV.md "Never reinvent the wheel" principle.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.4
+Version: 0.9.0.5
 Generation Date: 28-Oct-2025
 """
 

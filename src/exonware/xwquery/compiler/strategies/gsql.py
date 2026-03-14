@@ -6,7 +6,7 @@ This module implements the GSQL query strategy for TigerGraph operations.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.4
+Version: 0.9.0.5
 Generation Date: January 2, 2025
 """
 

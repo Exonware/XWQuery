@@ -6,7 +6,7 @@ This enables grammar-based parsing to integrate with existing executors.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.4
+Version: 0.9.0.5
 Generation Date: January 2, 2025
 """
 

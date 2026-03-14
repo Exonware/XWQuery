@@ -7,7 +7,7 @@ from query string content using multi-stage detection pipeline.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.4
+Version: 0.9.0.5
 Generation Date: 26-Oct-2025
 """
 

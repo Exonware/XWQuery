@@ -8,7 +8,7 @@ into xwquery QueryAction trees.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.4
+Version: 0.9.0.5
 Generation Date: 29-Oct-2024
 Priority Alignment:
 - Security (#1): Safe AST traversal with depth limits

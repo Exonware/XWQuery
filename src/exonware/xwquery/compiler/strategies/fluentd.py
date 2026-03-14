@@ -6,7 +6,7 @@ This module implements the Fluentd query strategy for Fluentd filter DSL operati
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.4
+Version: 0.9.0.5
 Generation Date: January 2, 2025
 """
 

@@ -9,12 +9,12 @@ Since we have grammars in xwsyntax, we don't need separate Python files.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 20, 2025
 """
 
 from __future__ import annotations
-from typing import Any, Optional, Type
+from typing import Any
 from .grammar_based import GrammarBasedStrategy
 from .scripting_base import GrammarBasedDocumentStrategy
 from .base import AQueryStrategy, AStructuredQueryStrategy, AGraphQueryStrategy, ADocumentQueryStrategy
@@ -183,7 +183,7 @@ class FormatRegistry:
         return DynamicStrategy(**options)
     @staticmethod
 
-    def get_strategy_class(format_name: str) -> Type[AQueryStrategy]:
+    def get_strategy_class(format_name: str) -> type[AQueryStrategy]:
         """
         Get strategy class (not instance) for format name.
         Returns the class type that can be instantiated later.
@@ -219,7 +219,7 @@ class FormatRegistry:
 # Instead of storing strategy classes, store factory functions
 
 
-def create_format_strategy_map() -> dict[str, Type[AQueryStrategy]]:
+def create_format_strategy_map() -> dict[str, type[AQueryStrategy]]:
     """
     Create format strategy map using registry.
     Returns a dict that looks like the old FORMAT_STRATEGY_MAP,

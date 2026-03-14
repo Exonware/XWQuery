@@ -5,11 +5,11 @@ Uses xwnode strategies for 2-3x faster statistics and 99% memory savings.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 27-Oct-2025
 """
 
-from typing import Any, Optional
+from typing import Any
 import random
 from .base import AStatisticsManager
 from .contracts import TableStatistics, ColumnStatistics
@@ -131,7 +131,7 @@ class InMemoryStatisticsManager(AStatisticsManager):
             # Unknown predicate type
             return SelectivityConstants.DEFAULT_SELECTIVITY
 
-    async def collect_statistics(self, table: str, sample_size: Optional[int] = None) -> None:
+    async def collect_statistics(self, table: str, sample_size: int | None = None) -> None:
         """
         Collect statistics for a table
         In a real implementation, this would scan the table and compute statistics.
@@ -228,7 +228,7 @@ class InMemoryStatisticsManager(AStatisticsManager):
                 return 'or'
         return 'unknown'
 
-    def _extract_column(self, predicate: Any) -> Optional[str]:
+    def _extract_column(self, predicate: Any) -> str | None:
         """Extract column name from predicate"""
         # Simplified extraction
         if hasattr(predicate, 'column'):

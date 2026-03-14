@@ -1,6 +1,6 @@
 # project-src-size=1631984 ; 1.56 MB
 
-# Source size (src/*): ~1.56 MB
+# Source size (src/*): ~1.53 MB
 [build-system]
   requires = ["hatchling"]
   build-backend = "hatchling.build"
@@ -87,6 +87,7 @@
     Homepage = "https://exonware.com"
     Repository = "https://github.com/exonware/xwquery"
     Documentation = "https://github.com/exonware/xwquery#readme"
+    Subtree = "https://github.com/exonware/xwquery.git"
 
 [tool]
   # Dependency sizes: run 'commands measure_dependency_sizes xwquery' to refresh # project-src-size and # file-size in this file.
@@ -100,7 +101,7 @@
     line_length = 88
 
   [tool.mypy]
-    python_version = "0.9.0.2"
+    python_version = "0.9.0.3"
     strict = true
     warn_return_any = true
     warn_unused_configs = true

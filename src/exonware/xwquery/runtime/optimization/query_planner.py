@@ -8,7 +8,7 @@ Converts action trees to execution plans.
 """
 
 from __future__ import annotations
-from typing import Any, Optional
+from typing import Any
 import asyncio
 from .base import AQueryPlanner, ExecutionPlan, PlanNode
 from .contracts import IExecutionPlan, ICostModel, IStatisticsManager
@@ -23,8 +23,8 @@ class QueryPlanner(AQueryPlanner):
 
     def __init__(
         self,
-        cost_model: Optional[ICostModel] = None,
-        statistics_manager: Optional[IStatisticsManager] = None,
+        cost_model: ICostModel | None = None,
+        statistics_manager: IStatisticsManager | None = None,
         optimization_level: OptimizationLevel = OptimizationLevel.STANDARD
     ):
         super().__init__(cost_model, statistics_manager)
@@ -49,7 +49,7 @@ class QueryPlanner(AQueryPlanner):
     async def create_physical_plan(
         self,
         logical_plan: IExecutionPlan,
-        storage_connection: Optional[Any] = None
+        storage_connection: Any | None = None
     ) -> IExecutionPlan:
         """
         Convert logical plan to physical execution plan.
@@ -274,7 +274,7 @@ class QueryPlanner(AQueryPlanner):
     async def _build_physical_node(
         self,
         logical_node: PlanNode,
-        storage_connection: Optional[Any] = None
+        storage_connection: Any | None = None
     ) -> PlanNode:
         """
         Convert logical node to physical node.
@@ -326,7 +326,7 @@ class QueryPlanner(AQueryPlanner):
             physical_node.children.append(physical_child)
         return physical_node
 
-    def _get_storage_capabilities(self, storage_connection: Any) -> Optional[Any]:
+    def _get_storage_capabilities(self, storage_connection: Any) -> Any | None:
         """
         Get storage capabilities from XWStorage connection.
         Args:

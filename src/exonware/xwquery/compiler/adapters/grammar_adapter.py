@@ -6,14 +6,14 @@ Loads grammars from xwquery's grammars directory for all 31+ formats.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: October 29, 2025
 """
 
 from __future__ import annotations
 import os
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 from exonware.xwsyntax import BidirectionalGrammar, XWSyntax
 from exonware.xwquery.contracts import QueryAction
 from exonware.xwquery.defs import QueryMode, ConversionMode, FormatType

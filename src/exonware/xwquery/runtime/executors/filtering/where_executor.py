@@ -5,10 +5,10 @@ WHERE Operation Executor
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 08-Oct-2025
 """
-from typing import Any, Optional
+from typing import Any
 import operator
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult

@@ -2,14 +2,14 @@
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: November 4, 2025
 Codec Adapter - Bridge between xwquery parsers and ICodec interface.
 This adapter allows xwquery parsers to work seamlessly with UniversalCodecRegistry
 without breaking their existing API.
 """
 
-from typing import Any, Optional
+from typing import Any
 from pathlib import Path
 from exonware.xwsystem.io.codec.contracts import ICodec, ICodecMetadata
 from exonware.xwsystem.io.contracts import EncodeOptions, DecodeOptions
@@ -45,7 +45,7 @@ class QueryParserCodecAdapter(ICodec, ICodecMetadata):
         codec_id: str,
         file_extensions: list[str],
         media_types: list[str],
-        aliases: Optional[list[str]] = None,
+        aliases: list[str] | None = None,
         generator = None
     ):
         """
@@ -68,7 +68,7 @@ class QueryParserCodecAdapter(ICodec, ICodecMetadata):
     # ICodec INTERFACE (Bridge to parse/generate)
     # ========================================================================
 
-    def encode(self, value: list[QueryAction], *, options: Optional[EncodeOptions] = None) -> str:
+    def encode(self, value: list[QueryAction], *, options: EncodeOptions | None = None) -> str:
         """
         Encode QueryAction list to text (bridges to generator).
         Args:
@@ -91,7 +91,7 @@ class QueryParserCodecAdapter(ICodec, ICodecMetadata):
         opts = options or {}
         return self._generator.generate(value, **opts)
 
-    def decode(self, repr: bytes | str, *, options: Optional[DecodeOptions] = None) -> list[QueryAction]:
+    def decode(self, repr: bytes | str, *, options: DecodeOptions | None = None) -> list[QueryAction]:
         """
         Decode text to QueryAction list (bridges to parser.parse()).
         Args:

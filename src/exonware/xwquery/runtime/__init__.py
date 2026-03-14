@@ -9,7 +9,7 @@ responsibility of `exonware.xwquery.compiler`.
 """
 
 from __future__ import annotations
-from typing import Any, Optional
+from typing import Any
 from ..contracts import QueryAction, ExecutionContext, ExecutionResult
 # Base runtime abstractions
 from .base import AOperationExecutor, AOperationsExecutionEngine
@@ -79,7 +79,7 @@ __all__ = [
 def execute_actions(
     actions: QueryAction,
     data: Any,
-    engine: Optional[AOperationsExecutionEngine] = None,
+    engine: AOperationsExecutionEngine | None = None,
     **options: Any,
 ) -> ExecutionResult:
     """

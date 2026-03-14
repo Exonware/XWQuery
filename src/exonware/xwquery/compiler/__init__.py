@@ -9,7 +9,7 @@ It intentionally does NOT execute queries – execution lives in the
 """
 
 from __future__ import annotations
-from typing import Any, Optional
+from typing import Any
 from ..contracts import QueryAction, ExecutionContext, ExecutionResult
 from ..defs import QueryMode
 # Base compiler abstractions
@@ -21,9 +21,8 @@ from .strategies.sql import SQLStrategy
 from .strategies.graphql import GraphQLStrategy
 from .strategies.cypher import CypherStrategy
 from .strategies.sparql import SPARQLStrategy
-# XWQueryScriptStrategy - not found in strategies, may be in xwqs
-# Skip for now - will be added if needed
-XWQueryScriptStrategy = None
+# XWQueryScriptStrategy is the public alias for XWQSStrategy (script format)
+XWQueryScriptStrategy = XWQSStrategy
 # Parsers / detectors
 from .parsers.sql_param_extractor import SQLParamExtractor
 from .parsers.format_detector import QueryFormatDetector, detect_query_format
@@ -54,7 +53,7 @@ __all__ = [
     "GraphQLStrategy",
     "CypherStrategy",
     "SPARQLStrategy",
-    # "XWQueryScriptStrategy",  # Not available
+    "XWQueryScriptStrategy",
     # Parsers / detectors
     "SQLParamExtractor",
     "QueryFormatDetector",
@@ -75,7 +74,7 @@ __all__ = [
 def compile_to_actions(
     query: str,
     data: Any | None = None,
-    format: Optional[str] = None,
+    format: str | None = None,
     auto_detect: bool = True,
     mode: QueryMode = QueryMode.AUTO,
     **kwargs: Any,

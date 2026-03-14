@@ -15,7 +15,7 @@ from __future__ import annotations
 import os
 import json
 from abc import ABC
-from typing import Any, Optional
+from typing import Any
 from .data_ops_interface import (
     DataOpsInterface,
     JsonValue,

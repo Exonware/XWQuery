@@ -7,7 +7,7 @@ Defines interfaces for query optimization components.
 """
 
 from __future__ import annotations
-from typing import Any, Optional, Protocol, runtime_checkable
+from typing import Any, Protocol, runtime_checkable
 from dataclasses import dataclass
 @runtime_checkable
 
@@ -67,7 +67,7 @@ class IQueryPlanner(Protocol):
     async def create_physical_plan(
         self,
         logical_plan: IExecutionPlan,
-        storage_connection: Optional[Any] = None
+        storage_connection: Any | None = None
     ) -> IExecutionPlan:
         """
         Convert a logical plan to a physical execution plan.
@@ -160,7 +160,7 @@ class IStatisticsManager(Protocol):
         """
         ...
 
-    async def collect_statistics(self, table: str, sample_size: Optional[int] = None) -> None:
+    async def collect_statistics(self, table: str, sample_size: int | None = None) -> None:
         """
         Collect statistics for a table
         Args:
@@ -203,13 +203,13 @@ class IOptimizationRule(Protocol):
         """Get the name of this rule"""
         ...
 
-    async def apply(self, plan: IExecutionPlan) -> Optional[IExecutionPlan]:
+    async def apply(self, plan: IExecutionPlan) -> IExecutionPlan | None:
         """
         Apply this rule to a plan
         Args:
             plan: The execution plan
         Returns:
-            Optional[IExecutionPlan]: Optimized plan if rule applies, None otherwise
+            IExecutionPlan | None: Optimized plan if rule applies, None otherwise
         """
         ...
 
@@ -231,9 +231,9 @@ class ColumnStatistics:
     column_name: str
     cardinality: int  # Number of distinct values
     null_fraction: float  # Fraction of null values (0.0 to 1.0)
-    min_value: Optional[Any] = None
-    max_value: Optional[Any] = None
-    histogram: Optional[list[tuple[Any, int]]] = None  # Value -> frequency
+    min_value: Any | None = None
+    max_value: Any | None = None
+    histogram: list[tuple[Any, int]] | None = None  # Value -> frequency
 @dataclass
 
 class IndexInfo:

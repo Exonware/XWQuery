@@ -6,7 +6,6 @@ Applies optimization rules to execution plans.
 **Version:** 0.0.1.5
 """
 
-from typing import Optional
 import asyncio
 from .base import AOptimizer, AOptimizationRule
 from .contracts import (
@@ -31,8 +30,8 @@ class QueryOptimizer(AOptimizer):
 
     def __init__(
         self,
-        cost_model: Optional[ICostModel] = None,
-        statistics_manager: Optional[IStatisticsManager] = None,
+        cost_model: ICostModel | None = None,
+        statistics_manager: IStatisticsManager | None = None,
         optimization_level: OptimizationLevel = OptimizationLevel.STANDARD
     ):
         super().__init__(cost_model, statistics_manager)

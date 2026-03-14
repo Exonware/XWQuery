@@ -7,12 +7,12 @@ Maximum reuse of xwsyntax - all strategies inherit from this base class.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 20, 2025
 """
 
 from __future__ import annotations
-from typing import Any, Optional
+from typing import Any
 from .base import AQueryStrategy
 from ...defs import QueryMode, FormatType
 from ...errors import XWQueryParseError, XWQueryValueError
@@ -50,8 +50,8 @@ class GrammarBasedStrategy(AQueryStrategy):
         """
         super().__init__(**options)
         self._format_name = format_name.lower()
-        self._grammar_adapter: Optional[UniversalGrammarAdapter] = None
-        self._syntax_converter: Optional[SyntaxToQueryActionConverter] = None
+        self._grammar_adapter: UniversalGrammarAdapter | None = None
+        self._syntax_converter: SyntaxToQueryActionConverter | None = None
 
     def _ensure_grammar_adapter(self) -> UniversalGrammarAdapter:
         """Lazy load grammar adapter from xwsyntax."""

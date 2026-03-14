@@ -7,7 +7,7 @@ Abstract base classes for query optimization components.
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Optional
+from typing import Any
 from dataclasses import dataclass, field
 from .contracts import (
     IExecutionPlan,
@@ -91,8 +91,8 @@ class AQueryPlanner(IQueryPlanner, ABC):
 
     def __init__(
         self,
-        cost_model: Optional[ICostModel] = None,
-        statistics_manager: Optional[IStatisticsManager] = None
+        cost_model: ICostModel | None = None,
+        statistics_manager: IStatisticsManager | None = None
     ):
         self._cost_model = cost_model
         self._statistics_manager = statistics_manager
@@ -106,7 +106,7 @@ class AQueryPlanner(IQueryPlanner, ABC):
     async def create_physical_plan(
         self,
         logical_plan: IExecutionPlan,
-        storage_connection: Optional[Any] = None
+        storage_connection: Any | None = None
     ) -> IExecutionPlan:
         """
         Create physical plan from logical plan.
@@ -120,7 +120,7 @@ class AQueryPlanner(IQueryPlanner, ABC):
 class ACostModel(ICostModel, ABC):
     """Abstract base class for cost models"""
 
-    def __init__(self, statistics_manager: Optional[IStatisticsManager] = None):
+    def __init__(self, statistics_manager: IStatisticsManager | None = None):
         self._statistics_manager = statistics_manager
     @abstractmethod
 
@@ -179,7 +179,7 @@ class AStatisticsManager(IStatisticsManager, ABC):
         pass
     @abstractmethod
 
-    async def collect_statistics(self, table: str, sample_size: Optional[int] = None) -> None:
+    async def collect_statistics(self, table: str, sample_size: int | None = None) -> None:
         """Collect statistics"""
         pass
 
@@ -194,8 +194,8 @@ class AOptimizer(IOptimizer, ABC):
 
     def __init__(
         self,
-        cost_model: Optional[ICostModel] = None,
-        statistics_manager: Optional[IStatisticsManager] = None
+        cost_model: ICostModel | None = None,
+        statistics_manager: IStatisticsManager | None = None
     ):
         self._cost_model = cost_model
         self._statistics_manager = statistics_manager
@@ -229,7 +229,7 @@ class AOptimizationRule(IOptimizationRule, ABC):
         return self._name
     @abstractmethod
 
-    async def apply(self, plan: IExecutionPlan) -> Optional[IExecutionPlan]:
+    async def apply(self, plan: IExecutionPlan) -> IExecutionPlan | None:
         """Apply rule to plan"""
         pass
     @abstractmethod

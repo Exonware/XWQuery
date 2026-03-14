@@ -6,7 +6,7 @@
 **Version:** [version.py](src/exonware/xwquery/version.py) (`__version__`, `__date__`)
 
 [![Status](https://img.shields.io/badge/status-alpha-orange.svg)](https://exonware.com)
-[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org)
+[![Python](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---

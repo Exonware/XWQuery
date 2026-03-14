@@ -6,14 +6,14 @@ and provides conversion between different query formats using actions in tree fo
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
 
 from __future__ import annotations
 import re
 from abc import ABC, abstractmethod
-from typing import Any, Optional, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 from datetime import datetime
 from .base import AQueryStrategy
 from exonware.xwnode.base import ANode
@@ -72,7 +72,7 @@ class XWQSStrategy(AQueryStrategy):
         "DISTINCT", "PIPE", "OPTIONS"
     ]
 
-    def __init__(self, actions_tree: Optional[ANode] = None, **options):
+    def __init__(self, actions_tree: ANode | None = None, **options):
         super().__init__(**options)
         self._mode = QueryMode.AUTO
         # Removed QueryTrait - not currently defined in defs.py
@@ -354,7 +354,7 @@ class XWQSStrategy(AQueryStrategy):
                 i += 1
         return statements
 
-    def _parse_statement_line(self, line: str, action_type: str, line_num: int) -> Optional[dict[str, Any]]:
+    def _parse_statement_line(self, line: str, action_type: str, line_num: int) -> dict[str, Any] | None:
         """
         Parse a single statement line and extract structured parameters.
         This now extracts structured params for executors instead of just storing raw text.
@@ -423,12 +423,12 @@ class XWQSStrategy(AQueryStrategy):
             hints.append("Consider adding WHERE clause to limit results")
         return hints
 
-    def _get_strategy_class(self, format_name: str) -> Optional[type[AQueryStrategy]]:
+    def _get_strategy_class(self, format_name: str) -> type[AQueryStrategy] | None:
         """Get strategy class for format using explicit format-to-strategy mapping."""
         # Use fallback method with FORMAT_STRATEGY_MAP (registry module doesn't exist)
         return self._get_strategy_class_fallback(format_name)
 
-    def _get_strategy_class_fallback(self, format_name: str) -> Optional[type[AQueryStrategy]]:
+    def _get_strategy_class_fallback(self, format_name: str) -> type[AQueryStrategy] | None:
         """
         Strategy class lookup using FormatRegistry.
         Since we have grammars in xwsyntax, we use configuration-based registry
@@ -527,11 +527,11 @@ class XWQSStrategy(AQueryStrategy):
             parent.get('children', []).append(child_action)
         return self
 
-    def _find_action_by_id(self, action_id: str) -> Optional[dict[str, Any]]:
+    def _find_action_by_id(self, action_id: str) -> dict[str, Any] | None:
         """Find action by ID in the tree."""
         return self._search_tree(self._actions_tree, action_id)
 
-    def _search_tree(self, node: ANode, action_id: str) -> Optional[dict[str, Any]]:
+    def _search_tree(self, node: ANode, action_id: str) -> dict[str, Any] | None:
         """Recursively search for action in tree."""
         if isinstance(node, ANode):
             node_data = node.to_native()

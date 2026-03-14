@@ -6,13 +6,13 @@ Implements SELECT operation execution on all node types.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 08-Oct-2025
 """
 
 import re
 import logging
-from typing import Any, Optional
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationCapability
@@ -194,7 +194,7 @@ class SelectExecutor(AUniversalOperationExecutor):
             return node.STRATEGY_TYPE
         return NodeType.TREE  # Default
 
-    def _select_from_linear(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: Optional[dict] = None) -> list[dict]:
+    def _select_from_linear(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: dict | None = None) -> list[dict]:
         """Select from linear node (list-like)."""
         results = []
         # Iterate through linear structure
@@ -212,7 +212,7 @@ class SelectExecutor(AUniversalOperationExecutor):
                         results.append(row)
         return results
 
-    def _select_from_tree(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: Optional[dict] = None) -> list[dict]:
+    def _select_from_tree(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: dict | None = None) -> list[dict]:
         """Select from tree node (key-value map)."""
         results = []
         # Handle list of records (most common case)
@@ -242,7 +242,7 @@ class SelectExecutor(AUniversalOperationExecutor):
                         results.append(row)
         return results
 
-    def _select_from_graph(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: Optional[dict] = None) -> list[dict]:
+    def _select_from_graph(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: dict | None = None) -> list[dict]:
         """Select from graph node."""
         # For graphs, return nodes
         results = []
@@ -261,7 +261,7 @@ class SelectExecutor(AUniversalOperationExecutor):
                         results.append(row)
         return results
 
-    def _select_from_matrix(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: Optional[dict] = None) -> list[dict]:
+    def _select_from_matrix(self, source: Any, columns: list[str], context: ExecutionContext, where_condition: dict | None = None) -> list[dict]:
         """Select from matrix node."""
         results = []
         # Iterate through matrix
@@ -279,7 +279,7 @@ class SelectExecutor(AUniversalOperationExecutor):
                         results.append(row)
         return results
 
-    def _detect_aggregation(self, columns: list[str]) -> Optional[dict]:
+    def _detect_aggregation(self, columns: list[str]) -> dict | None:
         """
         Detect if SELECT query contains aggregation functions.
         Args:
@@ -379,7 +379,7 @@ class SelectExecutor(AUniversalOperationExecutor):
             affected_count=len(result_data)
         )
 
-    def _project_columns(self, value: Any, columns: list[str]) -> Optional[dict]:
+    def _project_columns(self, value: Any, columns: list[str]) -> dict | None:
         """
         Project specific columns from a value.
         Supports:

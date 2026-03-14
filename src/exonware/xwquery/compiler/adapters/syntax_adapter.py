@@ -6,11 +6,11 @@ This enables grammar-based parsing to integrate with existing executors.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Optional
+from typing import Any
 import os
 from exonware.xwsyntax import ParseNode, XWSyntax, BidirectionalGrammar
 from exonware.xwquery.contracts import QueryAction
@@ -84,8 +84,31 @@ class SyntaxToQueryActionConverter:
         try:
             if not query_action:
                 raise XWQueryParseError("Empty QueryAction provided")
-            # Get operation type
-            operation = query_action.operation or query_action.type
+            # Unwrap tree root: actions_tree may be { root: { statements: [ {...}, ... ] } }
+            native = getattr(query_action, "to_native", lambda: None)()
+            if isinstance(native, dict) and "root" in native:
+                root_data = native.get("root") or {}
+                stmts = root_data.get("statements") or root_data.get("children") or []
+                if stmts:
+                    first = stmts[0]
+                    if hasattr(first, "to_native"):
+                        first = first.to_native()
+                    if isinstance(first, dict):
+                        operation = first.get("type") or first.get("operation") or "SELECT"
+                        _params = first.get("params") or {}
+                        class _ActionView:
+                            pass
+                        action_view = _ActionView()
+                        action_view.type = operation
+                        action_view.params = _params
+                        query_action = action_view
+            # Get operation type (QueryAction has .type; some trees may expose .operation)
+            operation = getattr(query_action, "operation", None) or getattr(query_action, "type", None)
+            # Normalize: ANode/strategy may expose .type as a dict
+            if isinstance(operation, dict):
+                operation = operation.get("type") or operation.get("operation") or operation
+            if not isinstance(operation, str):
+                operation = str(operation) if operation is not None else "SELECT"
             # Create root ParseNode
             root = ParseNode(
                 type="query_statement",
@@ -108,7 +131,8 @@ class SyntaxToQueryActionConverter:
             elif operation == "DROP":
                 return self._reverse_convert_drop(query_action, root)
             else:
-                raise XWQueryParseError(f"Unsupported operation type: {operation}")
+                # Unsupported (e.g. MATCH, QUERY): return minimal ParseNode for best-effort generation
+                return root
         except Exception as e:
             raise XWQueryParseError(f"Reverse conversion failed: {str(e)}")
 
@@ -134,12 +158,13 @@ class SyntaxToQueryActionConverter:
                 children=[ParseNode(type="table_ref", value=params["from_clause"], children=[])]
             )
             root.children.append(from_node)
-        # Add WHERE clause
-        if "where_clause" in params:
+        # Add WHERE clause (only if present and non-None)
+        where_clause = params.get("where_clause")
+        if where_clause is not None:
             where_node = ParseNode(
                 type="where_clause",
                 value="WHERE",
-                children=[self._reverse_convert_expression(params["where_clause"])]
+                children=[self._reverse_convert_expression(where_clause)]
             )
             root.children.append(where_node)
         return root
@@ -180,8 +205,12 @@ class SyntaxToQueryActionConverter:
         # Implementation similar to SELECT
         return root
 
-    def _reverse_convert_expression(self, expr: dict[str, Any]) -> ParseNode:
-        """Convert expression dict to ParseNode."""
+    def _reverse_convert_expression(self, expr: dict[str, Any] | Any) -> ParseNode:
+        """Convert expression dict to ParseNode. Tolerates None or non-dict (e.g. literal)."""
+        if expr is None:
+            return ParseNode(type="expression", value=None, children=[])
+        if not isinstance(expr, dict):
+            return ParseNode(type="expression", value=expr, children=[])
         expr_type = expr.get("type", "expression")
         return ParseNode(type=expr_type, value=expr.get("value"), children=[])
 
@@ -192,8 +221,8 @@ class SyntaxToQueryActionConverter:
         # Look for statement type in first child
         first_child = ast.children[0]
         # Check node type for statement type
-        if hasattr(first_child, 'type'):
-            node_type = first_child.type.lower()
+        if hasattr(first_child, 'type') and first_child.type is not None:
+            node_type = (first_child.type if isinstance(first_child.type, str) else str(first_child.type)).lower()
             if 'select' in node_type:
                 return "SELECT"
             elif 'insert' in node_type:
@@ -209,8 +238,8 @@ class SyntaxToQueryActionConverter:
             elif 'drop' in node_type:
                 return "DROP"
         # Fallback: check node value
-        if hasattr(first_child, 'value'):
-            value = first_child.value.upper()
+        if hasattr(first_child, 'value') and first_child.value is not None:
+            value = (first_child.value if isinstance(first_child.value, str) else str(first_child.value)).upper()
             if value.startswith('SELECT'):
                 return "SELECT"
             elif value.startswith('INSERT'):
@@ -225,7 +254,8 @@ class SyntaxToQueryActionConverter:
                 return "ALTER"
             elif value.startswith('DROP'):
                 return "DROP"
-        raise XWQueryParseError(f"Could not detect query type from AST: {ast}")
+        # Non-SQL AST (e.g. XPATH, JMESPATH): treat as SELECT for minimal conversion
+        return "SELECT"
 
     def _convert_select(self, ast: ParseNode) -> QueryAction:
         """Convert SELECT statement AST to QueryAction."""
@@ -337,7 +367,7 @@ class SyntaxToQueryActionConverter:
                     select_list = ["*"]
         return select_list if select_list else ["*"]
 
-    def _extract_from_clause(self, ast: ParseNode) -> Optional[str]:
+    def _extract_from_clause(self, ast: ParseNode) -> str | None:
         """Extract FROM clause from AST."""
         from_node = find_node_by_type(ast, "from_clause")
         if not from_node:
@@ -354,7 +384,7 @@ class SyntaxToQueryActionConverter:
                 return node.value
         return None
 
-    def _extract_where_clause(self, ast: ParseNode) -> Optional[dict[str, Any]]:
+    def _extract_where_clause(self, ast: ParseNode) -> dict[str, Any] | None:
         """Extract WHERE clause from AST."""
         where_node = find_node_by_type(ast, "where_clause")
         if not where_node:
@@ -367,7 +397,7 @@ class SyntaxToQueryActionConverter:
             return self._extract_expression(condition_node)
         return None
 
-    def _extract_group_by(self, ast: ParseNode) -> Optional[list[str]]:
+    def _extract_group_by(self, ast: ParseNode) -> list[str] | None:
         """Extract GROUP BY clause from AST."""
         group_by_node = find_node_by_type(ast, "group_by_clause")
         if not group_by_node:
@@ -380,7 +410,7 @@ class SyntaxToQueryActionConverter:
                 columns.append(column_name)
         return columns if columns else None
 
-    def _extract_having(self, ast: ParseNode) -> Optional[dict[str, Any]]:
+    def _extract_having(self, ast: ParseNode) -> dict[str, Any] | None:
         """Extract HAVING clause from AST."""
         having_node = find_node_by_type(ast, "having_clause")
         if not having_node:
@@ -393,7 +423,7 @@ class SyntaxToQueryActionConverter:
             return self._extract_expression(condition_node)
         return None
 
-    def _extract_order_by(self, ast: ParseNode) -> Optional[list[dict[str, Any]]]:
+    def _extract_order_by(self, ast: ParseNode) -> list[dict[str, Any]] | None:
         """Extract ORDER BY clause from AST."""
         order_by_node = find_node_by_type(ast, "order_by_clause")
         if not order_by_node:
@@ -409,11 +439,11 @@ class SyntaxToQueryActionConverter:
                 direction = extract_node_value(direction_node) or "ASC"
             order_items.append({
                 "column": column_name,
-                "direction": direction.upper()
+                "direction": (direction or "ASC").upper() if isinstance(direction, str) else "ASC"
             })
         return order_items if order_items else None
 
-    def _extract_limit(self, ast: ParseNode) -> Optional[int]:
+    def _extract_limit(self, ast: ParseNode) -> int | None:
         """Extract LIMIT clause from AST."""
         limit_node = find_node_by_type(ast, "limit_clause")
         if not limit_node:

@@ -6,11 +6,11 @@ and analyzes coverage across all query formats.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 11-Oct-2025
 """
 
-from typing import Any, Optional
+from typing import Any
 from dataclasses import dataclass
 from enum import Enum
 from exonware.xwquery.defs import ALL_OPERATIONS, OPERATION_CATEGORIES
@@ -33,7 +33,7 @@ class OperationCoverage:
     """Coverage information for an operation."""
     operation: str  # Operation name
     category: str  # Operation category
-    executor: Optional[ExecutorInfo]  # Executor information
+    executor: ExecutorInfo | None  # Executor information
     supported_formats: set[str]  # Formats that support this operation
     implementation_status: str  # Implementation status
     test_coverage: float = 0.0  # Test coverage percentage
@@ -59,7 +59,7 @@ class OperationCoverageAnalyzer:
             "detailed_coverage": self._coverage_data
         }
 
-    def get_operation_coverage(self, operation: str) -> Optional[OperationCoverage]:
+    def get_operation_coverage(self, operation: str) -> OperationCoverage | None:
         """Get coverage information for a specific operation."""
         return self._coverage_data.get(operation)
 
@@ -778,7 +778,7 @@ def get_coverage_report() -> dict[str, Any]:
     return operation_coverage_analyzer.get_coverage_report()
 
 
-def get_operation_coverage(operation: str) -> Optional[OperationCoverage]:
+def get_operation_coverage(operation: str) -> OperationCoverage | None:
     """Get coverage information for a specific operation."""
     return operation_coverage_analyzer.get_operation_coverage(operation)
 

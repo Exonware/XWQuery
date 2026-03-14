@@ -6,10 +6,10 @@ Supports SQL:2016 standard with comprehensive error handling.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
-from typing import Any, Optional
+from typing import Any
 from .sql_tokenizer import SQLTokenizer, SQLToken, SQLTokenType, tokenize_sql
 from .base_parser import AStructuredQueryParser
 from .query_action_builder import QueryActionBuilder

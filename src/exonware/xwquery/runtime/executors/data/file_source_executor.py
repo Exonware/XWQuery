@@ -7,18 +7,19 @@ querying of JSONL/NDJSON files.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 20, 2026
 """
 
 from pathlib import Path
-from typing import Any, Optional, Callable
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
 from exonware.xwsystem.io.indexing import XWIndex
 
 
+from collections.abc import Callable
 class FileSourceExecutor(AUniversalOperationExecutor):
     """
     File-Based Data Source Executor using xwsystem's XWIndex.
@@ -126,7 +127,7 @@ class FileSourceExecutor(AUniversalOperationExecutor):
         # Fallback: try current working directory
         return str(path.resolve())
 
-    def _get_index(self, file_path: str, id_field: Optional[str] = None) -> XWIndex:
+    def _get_index(self, file_path: str, id_field: str | None = None) -> XWIndex:
         """Get or create XWIndex for file."""
         cache_key = f"{file_path}:{id_field or 'default'}"
         if cache_key not in self._index_cache:
@@ -139,7 +140,7 @@ class FileSourceExecutor(AUniversalOperationExecutor):
         self,
         index: XWIndex,
         id_value: Any,
-        id_field: Optional[str] = None
+        id_field: str | None = None
     ) -> Any:
         """Execute ID-based lookup."""
         record = index.get_by_id(id_value, id_field=id_field)
@@ -157,7 +158,7 @@ class FileSourceExecutor(AUniversalOperationExecutor):
     def _execute_stream(
         self,
         index: XWIndex,
-        match_predicate: Optional[Callable[[Any], bool]],
+        match_predicate: Callable[[Any], bool] | None,
         params: dict[str, Any]
     ) -> list[Any]:
         """Execute streaming operation with predicate."""
@@ -174,7 +175,7 @@ class FileSourceExecutor(AUniversalOperationExecutor):
                 break
         return results
 
-    def _build_match_predicate(self, params: dict[str, Any]) -> Optional[Callable[[Any], bool]]:
+    def _build_match_predicate(self, params: dict[str, Any]) -> Callable[[Any], bool] | None:
         """Build predicate function from query parameters."""
         where_clauses = params.get('where', [])
         if not where_clauses:
@@ -213,7 +214,7 @@ class FileSourceExecutor(AUniversalOperationExecutor):
             return True
         return match
 
-    def clear_cache(self, file_path: Optional[str] = None):
+    def clear_cache(self, file_path: str | None = None):
         """Clear index cache."""
         if file_path:
             # Clear specific file

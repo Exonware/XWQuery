@@ -6,12 +6,12 @@ Now uses GrammarBasedStrategy for maximum xwsyntax reuse.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 20, 2025
 """
 
 import re
-from typing import Any, Optional
+from typing import Any
 from .grammar_based import GrammarBasedStrategy
 from .base import AGraphQueryStrategy
 from ...errors import XWQueryTypeError, XWQueryValueError

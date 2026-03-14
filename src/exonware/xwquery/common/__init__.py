@@ -3,14 +3,14 @@ Common utilities and shared components for xwquery.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 """
 """
 Common utilities and shared components for xwquery.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 """
 # Use xwsystem directly - no wrappers needed
 

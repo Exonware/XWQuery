@@ -7,11 +7,11 @@ using the existing XWNode strategy system.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Optional
+from typing import Any
 from datetime import datetime
 from .base import AQueryActionExecutor
 from .xwqs import XWQSStrategy
@@ -116,7 +116,7 @@ class XWNodeQueryActionExecutor(AQueryActionExecutor):
         self._strategy_cache[query_type_upper] = strategy
         return strategy
 
-    def _get_strategy_class(self, query_type: str) -> Optional[type]:
+    def _get_strategy_class(self, query_type: str) -> type | None:
         """Get strategy class for query type."""
         strategy_map = {
             "SQL": "sql",

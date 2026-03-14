@@ -7,12 +7,12 @@ Simplifies parser implementation across all 31 strategies.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 
 from __future__ import annotations
-from typing import Any, Optional
+from typing import Any
 from ...contracts import QueryAction
 
 
@@ -50,7 +50,7 @@ class QueryActionBuilder:
             self._add_action(action)
         return self
 
-    def select(self, fields: Optional[list[str]] = None, table: Optional[str] = None, distinct: bool = False) -> QueryActionBuilder:
+    def select(self, fields: list[str] | None = None, table: str | None = None, distinct: bool = False) -> QueryActionBuilder:
         """Add SELECT operation."""
         action = QueryAction(
             type='SELECT',
@@ -113,7 +113,7 @@ class QueryActionBuilder:
         self._add_action(action)
         return self
 
-    def aggregate(self, agg_type: str, field: Optional[str] = None, alias: Optional[str] = None) -> QueryActionBuilder:
+    def aggregate(self, agg_type: str, field: str | None = None, alias: str | None = None) -> QueryActionBuilder:
         """Add aggregation operation (SUM, AVG, MIN, MAX, COUNT)."""
         action = QueryAction(
             type=agg_type.upper(),
@@ -122,7 +122,7 @@ class QueryActionBuilder:
         self._add_action(action)
         return self
 
-    def distinct(self, fields: Optional[list[str]] = None) -> QueryActionBuilder:
+    def distinct(self, fields: list[str] | None = None) -> QueryActionBuilder:
         """Add DISTINCT operation."""
         action = QueryAction(type='DISTINCT', params={'fields': fields})
         self._add_action(action)
@@ -144,7 +144,7 @@ class QueryActionBuilder:
         self._add_action(action)
         return self
 
-    def update(self, table: str, values: dict[str, Any], condition: Optional[dict | str] = None) -> QueryActionBuilder:
+    def update(self, table: str, values: dict[str, Any], condition: dict | str | None = None) -> QueryActionBuilder:
         """Add UPDATE operation."""
         action = QueryAction(
             type='UPDATE',
@@ -153,7 +153,7 @@ class QueryActionBuilder:
         self._add_action(action)
         return self
 
-    def delete(self, table: str, condition: Optional[dict | str] = None) -> QueryActionBuilder:
+    def delete(self, table: str, condition: dict | str | None = None) -> QueryActionBuilder:
         """Add DELETE operation."""
         action = QueryAction(type='DELETE', params={'table': table, 'condition': condition})
         self._add_action(action)
@@ -175,7 +175,7 @@ class QueryActionBuilder:
         self._add_action(action)
         return self
 
-    def traverse(self, direction: str = 'out', edge_type: Optional[str] = None) -> QueryActionBuilder:
+    def traverse(self, direction: str = 'out', edge_type: str | None = None) -> QueryActionBuilder:
         """Add traversal operation (OUT, IN, BOTH)."""
         action = QueryAction(
             type=direction.upper(),
@@ -229,9 +229,9 @@ class QueryActionBuilder:
 # ============================================================================
 
 
-def build_select(fields: list[str], table: str, where: Optional[dict | str] = None,
-                 group_by: Optional[list[str]] = None, order_by: Optional[list[str]] = None,
-                 limit: Optional[int] = None) -> QueryAction:
+def build_select(fields: list[str], table: str, where: dict | str | None = None,
+                 group_by: list[str] | None = None, order_by: list[str] | None = None,
+                 limit: int | None = None) -> QueryAction:
     """
     Quick helper to build SELECT QueryAction.
     Example:
@@ -255,8 +255,8 @@ def build_select(fields: list[str], table: str, where: Optional[dict | str] = No
     return builder.build()
 
 
-def build_match(pattern: dict | str, where: Optional[dict | str] = None,
-                return_fields: Optional[list[str]] = None) -> QueryAction:
+def build_match(pattern: dict | str, where: dict | str | None = None,
+                return_fields: list[str] | None = None) -> QueryAction:
     """
     Quick helper to build MATCH QueryAction (Cypher/graph).
     Example:

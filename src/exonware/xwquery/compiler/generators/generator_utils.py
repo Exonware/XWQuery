@@ -6,11 +6,11 @@ Formatting helpers for SQL-style and functional-style queries.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 
-from typing import Any, Optional
+from typing import Any
 import re
 # ==================== SQL-Style Formatting ====================
 
@@ -18,13 +18,13 @@ import re
 def format_sql_select(
     columns: list[str],
     table: str,
-    where: Optional[str] = None,
-    joins: Optional[list[str]] = None,
-    group_by: Optional[list[str]] = None,
-    having: Optional[str] = None,
-    order_by: Optional[list[str]] = None,
-    limit: Optional[int] = None,
-    offset: Optional[int] = None,
+    where: str | None = None,
+    joins: list[str] | None = None,
+    group_by: list[str] | None = None,
+    having: str | None = None,
+    order_by: list[str] | None = None,
+    limit: int | None = None,
+    offset: int | None = None,
     indent: str = "  ",
     pretty: bool = True
 ) -> str:
@@ -130,7 +130,7 @@ VALUES
 def format_sql_update(
     table: str,
     assignments: dict[str, Any],
-    where: Optional[str] = None,
+    where: str | None = None,
     indent: str = "  ",
     pretty: bool = True
 ) -> str:
@@ -162,7 +162,7 @@ def format_sql_update(
 
 def format_sql_delete(
     table: str,
-    where: Optional[str] = None,
+    where: str | None = None,
     indent: str = "  ",
     pretty: bool = True
 ) -> str:
@@ -271,7 +271,7 @@ def needs_quoting(name: str, keywords: set) -> bool:
 
 def format_expression(
     expr: dict[str, Any],
-    precedence: Optional[int] = None
+    precedence: int | None = None
 ) -> str:
     """
     Format expression from AST.

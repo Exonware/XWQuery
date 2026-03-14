@@ -8,7 +8,7 @@ into xwquery QueryAction trees.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 29-Oct-2024
 Priority Alignment:
 - Security (#1): Safe AST traversal with depth limits
@@ -18,13 +18,14 @@ Priority Alignment:
 - Extensibility (#5): Easy to extend for new grammar formats
 """
 
-from typing import Any, Optional, Iterator, Callable
+from typing import Any
 from exonware.xwsyntax import ParseNode
 # Maximum depth for AST traversal (prevent infinite recursion)
+from collections.abc import Callable, Iterator
 MAX_AST_DEPTH = 1000
 
 
-def find_node_by_type(ast: ParseNode, node_type: str) -> Optional[ParseNode]:
+def find_node_by_type(ast: ParseNode, node_type: str) -> ParseNode | None:
     """
     Find first node of specified type in AST tree (depth-first search).
     Args:
@@ -166,7 +167,7 @@ def traverse_breadth_first(ast: ParseNode) -> Iterator[ParseNode]:
             queue.extend(node.children)
 
 
-def find_parent(ast: ParseNode, target_node: ParseNode) -> Optional[ParseNode]:
+def find_parent(ast: ParseNode, target_node: ParseNode) -> ParseNode | None:
     """
     Find parent of target node in AST tree.
     Args:
@@ -259,7 +260,7 @@ def find_nodes_by_predicate(
     return results
 
 
-def extract_keyword_node(ast: ParseNode, keyword: str) -> Optional[ParseNode]:
+def extract_keyword_node(ast: ParseNode, keyword: str) -> ParseNode | None:
     """
     Find node following a specific keyword.
     Useful for extracting clauses like WHERE, FROM, ORDER BY, etc.
@@ -403,7 +404,7 @@ def has_child_of_type(ast: ParseNode, node_type: str) -> bool:
     return any(child.type == node_type for child in ast.children)
 
 
-def get_child_by_type(ast: ParseNode, node_type: str) -> Optional[ParseNode]:
+def get_child_by_type(ast: ParseNode, node_type: str) -> ParseNode | None:
     """Get first direct child of specified type."""
     if not ast or not hasattr(ast, 'children'):
         return None
@@ -425,7 +426,7 @@ def is_terminal(node: ParseNode) -> bool:
     return node.type == 'terminal' or not hasattr(node, 'children') or not node.children
 
 
-def get_node_at_path(ast: ParseNode, path: list[str]) -> Optional[ParseNode]:
+def get_node_at_path(ast: ParseNode, path: list[str]) -> ParseNode | None:
     """
     Navigate AST using a path of node types.
     Args:

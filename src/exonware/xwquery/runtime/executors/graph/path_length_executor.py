@@ -5,7 +5,7 @@ PATH_LENGTH Operation Executor - Get path length/weight
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 

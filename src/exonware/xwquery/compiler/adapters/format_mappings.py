@@ -5,12 +5,12 @@ Defines AST→QueryAction mapping rules for all 31 query formats.
 This enables universal conversion from any query language to QueryAction trees.
 Company: eXonware.com
 Author: eXonware Backend Team
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 11-Oct-2025
 """
 
 from enum import Enum, auto
-from typing import Any, Optional, Callable
+from typing import Any
 from dataclasses import dataclass, field
 # Assumed internal imports
 from exonware.xwsyntax import ParseNode
@@ -18,6 +18,7 @@ from exonware.xwquery.contracts import QueryAction
 from .ast_utils import find_node_by_type, find_all_nodes_by_type, extract_node_value
 
 
+from collections.abc import Callable
 class QueryOp(str, Enum):
     """Enumeration of supported query operations."""
     # Standard CRUD
@@ -78,7 +79,7 @@ class FormatMappingRegistry:
         self._mappings: dict[str, FormatMapping] = {}
         self._initialize_mappings()
 
-    def get_mapping(self, format_name: str) -> Optional[FormatMapping]:
+    def get_mapping(self, format_name: str) -> FormatMapping | None:
         """Get mapping for a specific format (case-insensitive)."""
         return self._mappings.get(format_name.lower())
 
@@ -467,22 +468,22 @@ class FormatMappingRegistry:
             return extract_node_value(table_node) or "unknown_table"
         return "unknown_table"
 
-    def _extract_where_clause(self, ast: ParseNode) -> Optional[dict[str, Any]]:
+    def _extract_where_clause(self, ast: ParseNode) -> dict[str, Any] | None:
         if where_node := find_node_by_type(ast, "where_clause"):
             return {"condition": extract_node_value(where_node)}
         return None
 
-    def _extract_group_by(self, ast: ParseNode) -> Optional[list[str]]:
+    def _extract_group_by(self, ast: ParseNode) -> list[str] | None:
         if group_by_node := find_node_by_type(ast, "group_by_clause"):
             return self._extract_column_list(group_by_node)
         return None
 
-    def _extract_having(self, ast: ParseNode) -> Optional[dict[str, Any]]:
+    def _extract_having(self, ast: ParseNode) -> dict[str, Any] | None:
         if having_node := find_node_by_type(ast, "having_clause"):
             return {"condition": extract_node_value(having_node)}
         return None
 
-    def _extract_order_by(self, ast: ParseNode) -> Optional[list[dict[str, Any]]]:
+    def _extract_order_by(self, ast: ParseNode) -> list[dict[str, Any]] | None:
         if order_by_node := find_node_by_type(ast, "order_by_clause"):
             return [{
                 "column": extract_node_value(item),
@@ -490,7 +491,7 @@ class FormatMappingRegistry:
             } for item in find_all_nodes_by_type(order_by_node, "order_item")]
         return None
 
-    def _extract_limit(self, ast: ParseNode) -> Optional[int]:
+    def _extract_limit(self, ast: ParseNode) -> int | None:
         if limit_node := find_node_by_type(ast, "limit_clause"):
             for node in limit_node.children:
                 if node.type == "NUMBER" and node.value:

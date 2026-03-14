@@ -15,7 +15,7 @@ from __future__ import annotations
 import json
 import sys
 import time
-from typing import Any, Optional
+from typing import Any
 # ⚠️ CRITICAL: Use xwsystem utility for UTF-8 configuration
 # MANDATORY per GUIDE_DEV.md line 54 - Never manually implement functionality that exists in xwsystem
 from exonware.xwsystem.console.cli import ensure_utf8_console
@@ -37,8 +37,8 @@ class JsonConsole:
         """
         self.engine = engine
         self._xwquery_sample_size = xwquery_sample_size
-        self._xw_node: Optional[Any] = None
-        self._xw_data: Optional[dict[str, Any]] = None
+        self._xw_node: Any | None = None
+        self._xw_data: dict[str, Any] | None = None
         self._xwquery_loaded = False
     # ------------------------------------------------------------------ #
     # UI helpers

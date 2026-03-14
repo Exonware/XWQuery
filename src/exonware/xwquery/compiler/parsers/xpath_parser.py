@@ -6,11 +6,11 @@ Supports XPath 1.0, 2.0, 3.0 with comprehensive error handling.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 
-from typing import Any, Optional
+from typing import Any
 from .base_parser import APathQueryParser
 from .query_action_builder import QueryActionBuilder
 from ...contracts import QueryAction
@@ -132,7 +132,7 @@ class XPathParser(APathQueryParser):
             'steps': steps
         }
 
-    def _parse_step(self) -> Optional[dict[str, Any]]:
+    def _parse_step(self) -> dict[str, Any] | None:
         """
         Parse location step.
         Returns:
@@ -157,7 +157,7 @@ class XPathParser(APathQueryParser):
             'predicates': predicates
         }
 
-    def _parse_axis(self) -> Optional[str]:
+    def _parse_axis(self) -> str | None:
         """Parse axis specifier (child::, parent::, etc.)."""
         # Look for ::
         double_colon_pos = self.path.find('::', self.position)

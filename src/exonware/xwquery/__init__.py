@@ -18,7 +18,6 @@ try:
 except ImportError:
     # xwlazy not installed - lazy mode simply stays disabled (normal behavior)
     pass
-from typing import Optional
 from exonware.xwsystem import get_logger
 from .version import __version__, get_version, get_version_info
 logger = get_logger(__name__)
@@ -112,7 +111,7 @@ class XWQuery:
     with SQL-like syntax and converting between multiple query formats.
     """
 
-    def __init__(self, engine: Optional[IOperationsExecutionEngine] = None):
+    def __init__(self, engine: IOperationsExecutionEngine | None = None):
         """
         Initialize XWQuery with execution engine.
         Args:
@@ -127,9 +126,9 @@ class XWQuery:
     def execute(
         query: str,
         data: any,
-        format: Optional[str] = None,
+        format: str | None = None,
         auto_detect: bool = True,
-        engine: Optional[IOperationsExecutionEngine] = None,
+        engine: IOperationsExecutionEngine | None = None,
         **kwargs
     ) -> ExecutionResult:
         """

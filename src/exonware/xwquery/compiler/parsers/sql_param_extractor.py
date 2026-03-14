@@ -7,7 +7,7 @@ Uses regex for simplicity - follows DEV_GUIDELINES.md.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 09-Oct-2025
 """
 import re

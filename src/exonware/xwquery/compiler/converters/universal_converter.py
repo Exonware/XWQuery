@@ -6,11 +6,10 @@ Enables SQL ↔ XPath ↔ Cypher ↔ ... (31 formats total).
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 
-from typing import Optional
 from ...contracts import QueryAction
 from ...errors import XWQueryValueError
 from ...defs import ConversionMode

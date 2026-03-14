@@ -7,11 +7,11 @@ This is equivalent to RavenDB's .Include() functionality.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 20-Dec-2025
 """
 
-from typing import Any, Optional, Callable
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -19,6 +19,7 @@ from ....defs import OperationType
 from ..utils import extract_items
 
 
+from collections.abc import Callable
 class IncludeExecutor(AUniversalOperationExecutor):
     """
     INCLUDE operation executor for eager loading related documents.

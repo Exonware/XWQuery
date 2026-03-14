@@ -6,11 +6,11 @@ This module implements the ArangoDB AQL query strategy for ArangoDB AQL operatio
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Optional
+from typing import Any
 from .base import AGraphQueryStrategy
 from .grammar_based import GrammarBasedStrategy
 from ...errors import XWQueryValueError

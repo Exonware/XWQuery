@@ -8,11 +8,11 @@ in xwquery via FormatRegistry (same pattern as SQL).
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 """
 
 from __future__ import annotations
-from typing import Any, Optional
+from typing import Any
 from .grammar_based import GrammarBasedStrategy
 from .base import ADocumentQueryStrategy
 from ...defs import QueryMode, QueryTrait
@@ -33,7 +33,7 @@ class GrammarBasedDocumentStrategy(GrammarBasedStrategy, ADocumentQueryStrategy)
     created strategies are instantiable.
     """
 
-    def __init__(self, format_name: Optional[str] = None, **options: Any) -> None:
+    def __init__(self, format_name: str | None = None, **options: Any) -> None:
         name = format_name or options.get("format_name") or options.get("grammar_format")
         if not name:
             raise ValueError("format_name or grammar_format required for GrammarBasedDocumentStrategy")

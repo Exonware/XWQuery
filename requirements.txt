@@ -14,7 +14,7 @@
 # =============================================================================
 # CORE DEPENDENCIES
 # =============================================================================
-# Source size (src/*): ~1.56 MB
+# Source size (src/*): ~1.53 MB
 pip                     # Package installer (CI and lazy install)
 exonware-xwsystem          # Core system utilities
 exonware-xwnode          # Node-based data structures with query optimization strategies

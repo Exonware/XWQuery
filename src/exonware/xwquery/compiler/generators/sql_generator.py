@@ -6,11 +6,11 @@ Supports SQL:2016 standard with pretty-printing.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 
-from typing import Any, Optional
+from typing import Any
 from .base_generator import AStructuredQueryGenerator
 from .generator_utils import (
     format_sql_select,

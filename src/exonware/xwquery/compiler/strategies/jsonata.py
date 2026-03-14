@@ -6,10 +6,10 @@ This module implements the JSONata query strategy for JSONata (JSON transform la
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
-from typing import Any, Optional
+from typing import Any
 from .base import ADocumentQueryStrategy
 from .grammar_based import GrammarBasedStrategy
 from ...errors import XWQueryValueError
@@ -58,55 +58,3 @@ class JSONataStrategy(GrammarBasedStrategy, ADocumentQueryStrategy):
         if offset > 0:
             return self.execute(f"$slice($, {offset}, {limit})")
         return self.execute(f"$slice($, {limit})")
-        # to_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-        # JSONata queries are path expressions - treat as field selection
-        fields = []
-        where_conditions = []
-        # Simple extraction - JSONata is complex, this is a basic approach
-        if '.' in query or '[' in query:
-            # Extract field paths
-            path_parts = query.split('.')
-            if path_parts:
-                fields = [query]
-        # Build actions tree
-        children = []
-        if where_conditions:
-            where_content = " AND ".join(where_conditions)
-            children.append({
-                "type": "WHERE",
-                "id": "jsonata_where_1",
-                "content": where_content,
-                "line_number": 1,
-                "timestamp": datetime.now().isoformat(),
-                "children": []
-            })
-        select_fields = ", ".join(fields) if fields else "*"
-        select_action = {
-            "type": "SELECT",
-            "id": "jsonata_select_1",
-            "content": f"SELECT {select_fields}",
-            "line_number": 1,
-            "timestamp": datetime.now().isoformat(),
-            "children": children
-        }
-        actions = {
-            "root": {
-                "type": "PROGRAM",
-                "statements": [select_action],
-                "comments": [],
-                "metadata": {
-                    "version": "1.0",
-                    "created": datetime.now().isoformat(),
-                    "source_format": "JSONATA"
-                }
-            }
-        }
-        return ANode.from_native(actions)
-        # from_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-            # Simple projection
-            if len(fields) == 1:
-                return fields[0]
-            else:
-                fields_obj = "{" + ", ".join([f'"{f}": {f}' for f in fields]) + "}"
-                return fields_obj
-        return "$"

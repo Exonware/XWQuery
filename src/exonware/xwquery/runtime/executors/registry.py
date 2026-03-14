@@ -6,12 +6,11 @@ This module provides registry for managing operation executors.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 08-Oct-2025
 """
 
 import threading
-from typing import Optional
 from ...contracts import IOperationExecutor
 from exonware.xwnode.nodes.strategies.contracts import NodeType
 from ...errors import XWQueryValueError
@@ -54,7 +53,7 @@ class OperationRegistry:
         with self._lock:
             self._executors[operation_name.upper()] = executor_class
 
-    def get(self, operation_name: str) -> Optional[IOperationExecutor]:
+    def get(self, operation_name: str) -> IOperationExecutor | None:
         """
         Get executor instance for an operation.
         Args:
@@ -113,7 +112,7 @@ class OperationRegistry:
             self._executors.clear()
             self._instances.clear()
 # Global registry instance
-_global_registry: Optional[OperationRegistry] = None
+_global_registry: OperationRegistry | None = None
 _global_lock = threading.Lock()
 
 

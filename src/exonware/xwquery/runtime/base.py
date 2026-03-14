@@ -10,7 +10,7 @@ Compilation / parsing concerns live in `exonware.xwquery.compiler.base`.
 
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import Any, Optional
+from typing import Any
 from ..contracts import (
     IOperationExecutor,
     IOperationsExecutionEngine,
@@ -112,7 +112,7 @@ class AOperationExecutor(IOperationExecutor):
             UnsupportedOperationError: If operation cannot execute on node type
         """
         # Get node's strategy type if available
-        node_type: Optional[str] = None
+        node_type: str | None = None
         if hasattr(context.node, "_strategy") and hasattr(context.node._strategy, "STRATEGY_TYPE"):
             node_type = context.node._strategy.STRATEGY_TYPE  # type: ignore[assignment]
         elif hasattr(context.node, "STRATEGY_TYPE"):
@@ -187,7 +187,7 @@ class AOperationsExecutionEngine(IOperationsExecutionEngine, ABC):
         self,
         action: QueryAction,
         context: ExecutionContext,
-        child_results: Optional[list[ExecutionResult]] = None,
+        child_results: list[ExecutionResult] | None = None,
     ) -> ExecutionResult:
         """
         Execute a single operation.

@@ -6,12 +6,12 @@ Provides common formatting, pretty-printing, and escaping.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Optional
+from typing import Any
 import time
 from ...contracts import QueryAction
 from ...errors import XWQueryValueError
@@ -122,7 +122,7 @@ class ABaseGenerator(ABC):
     def handle_incompatible_action(
         self,
         action: QueryAction,
-        error_message: Optional[str] = None
+        error_message: str | None = None
     ) -> str:
         """
         Handle incompatible actions based on conversion mode.

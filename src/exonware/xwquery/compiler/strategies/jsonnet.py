@@ -6,10 +6,10 @@ This module implements the Jsonnet query strategy for Jsonnet (data templating l
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
-from typing import Any, Optional
+from typing import Any
 from .base import ADocumentQueryStrategy
 from .grammar_based import GrammarBasedStrategy
 from ...errors import XWQueryValueError
@@ -56,53 +56,3 @@ class JsonnetStrategy(GrammarBasedStrategy, ADocumentQueryStrategy):
     def limit_query(self, limit: int, offset: int = 0) -> Any:
         """Execute limit query."""
         return self.execute(f"std.slice($, {offset}, {offset + limit})")
-        # to_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-        # Jsonnet queries are templating expressions - treat as transformation
-        fields = []
-        where_conditions = []
-        # Simple extraction - Jsonnet is complex, this is a basic approach
-        if '.' in query or '[' in query:
-            # Extract field references
-            fields = [query]
-        # Build actions tree
-        children = []
-        if where_conditions:
-            where_content = " AND ".join(where_conditions)
-            children.append({
-                "type": "WHERE",
-                "id": "jsonnet_where_1",
-                "content": where_content,
-                "line_number": 1,
-                "timestamp": datetime.now().isoformat(),
-                "children": []
-            })
-        select_fields = ", ".join(fields) if fields else "*"
-        select_action = {
-            "type": "SELECT",
-            "id": "jsonnet_select_1",
-            "content": f"SELECT {select_fields}",
-            "line_number": 1,
-            "timestamp": datetime.now().isoformat(),
-            "children": children
-        }
-        actions = {
-            "root": {
-                "type": "PROGRAM",
-                "statements": [select_action],
-                "comments": [],
-                "metadata": {
-                    "version": "1.0",
-                    "created": datetime.now().isoformat(),
-                    "source_format": "JSONNET"
-                }
-            }
-        }
-        return ANode.from_native(actions)
-        # from_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-            # Simple projection
-            if len(fields) == 1:
-                return f"$.{fields[0]}"
-            else:
-                fields_obj = "{" + ", ".join([f'"{f}": $.{f}' for f in fields]) + "}"
-                return fields_obj
-        return "$"

@@ -5,10 +5,10 @@ This module implements the Wavefront query strategy for Wavefront Query Language
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
-from typing import Any, Optional
+from typing import Any
 from .base import AStructuredQueryStrategy
 from .grammar_based import GrammarBasedStrategy
 from ...errors import XWQueryValueError
@@ -61,76 +61,3 @@ class WavefrontStrategy(GrammarBasedStrategy, AStructuredQueryStrategy):
         """Execute aggregate query."""
         tags = f"{{{', '.join([f'{g}.*' for g in group_by])}}}" if group_by else ""
         return self.execute(f"{functions[0]}(ts(\"{table}\"{tags}))")
-        # to_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-        # Parse Wavefront query (e.g., "ts(\"metric.name\", {env=\"prod\", host=\"*\"})")
-        entity_name = None
-        fields = []
-        where_conditions = []
-        # Extract metric name from ts("metric.name", ...)
-        ts_match = re.search(r'ts\s*\(\s*["\']([^"\']+)["\']', query)
-        if ts_match:
-            entity_name = ts_match.group(1)
-        # Extract tags from {...}
-        tags_match = re.search(r'\{([^}]+)\}', query)
-        if tags_match:
-            tags_str = tags_match.group(1)
-            # Parse key=value pairs
-            tag_pairs = re.findall(r'(\w+)\s*=\s*["\']?([^,}]+)["\']?', tags_str)
-            for key, value in tag_pairs:
-                where_conditions.append(f"{key} = {value}")
-        # Build actions tree
-        children = []
-        if entity_name:
-            children.append({
-                "type": "FROM",
-                "id": "wavefront_from_1",
-                "content": entity_name,
-                "line_number": 1,
-                "timestamp": datetime.now().isoformat(),
-                "children": []
-            })
-        if where_conditions:
-            where_content = " AND ".join(where_conditions)
-            children.append({
-                "type": "WHERE",
-                "id": "wavefront_where_1",
-                "content": where_content,
-                "line_number": 1,
-                "timestamp": datetime.now().isoformat(),
-                "children": []
-            })
-        select_action = {
-            "type": "SELECT",
-            "id": "wavefront_select_1",
-            "content": "SELECT *",
-            "line_number": 1,
-            "timestamp": datetime.now().isoformat(),
-            "children": children
-        }
-        actions = {
-            "root": {
-                "type": "PROGRAM",
-                "statements": [select_action],
-                "comments": [],
-                "metadata": {
-                    "version": "1.0",
-                    "created": datetime.now().isoformat(),
-                    "source_format": "WAVEFRONT"
-                }
-            }
-        }
-        return ANode.from_native(actions)
-        # from_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-            # Parse WHERE conditions into tags
-            tags = []
-            for cond in where_conditions:
-                if ' = ' in cond:
-                    key, value = cond.split(' = ', 1)
-                    tags.append(f'{key}="{value}"')
-            if tags:
-                wavefront_query = f'ts("{metric}", {{{", ".join(tags)}}})'
-            else:
-                wavefront_query = f'ts("{metric}")'
-        else:
-            wavefront_query = f'ts("{metric}")'
-        return wavefront_query

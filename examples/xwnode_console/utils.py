@@ -5,7 +5,7 @@ Formatting, display, and UI helper functions.
 """
 
 import json
-from typing import Any, Optional
+from typing import Any
 
 
 def print_banner():

@@ -6,14 +6,14 @@ Works with any format implementing ISerialization: JSON, BSON, NDJSON, XWJSON, e
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 2025-01-20
 """
 
 from __future__ import annotations
 import threading
 from pathlib import Path
-from typing import Any, Optional, TYPE_CHECKING, Union
+from typing import Any, TYPE_CHECKING
 from ...contracts import QueryAction, ExecutionContext, ExecutionResult
 from ..base import AOperationsExecutionEngine
 from ..executors.registry import get_operation_registry, OperationRegistry
@@ -41,10 +41,10 @@ class SerializationOperationsExecutionEngine(AOperationsExecutionEngine):
     - XWJSON (xwjson)
     - And any other format implementing ISerialization
     """
-    _instance: Optional['SerializationOperationsExecutionEngine'] = None
+    _instance: 'SerializationOperationsExecutionEngine' | None = None
     _lock = threading.Lock()
 
-    def __new__(cls, registry: Optional[OperationRegistry] = None):
+    def __new__(cls, registry: OperationRegistry | None = None):
         """
         Singleton pattern for SerializationOperationsExecutionEngine.
         Reuses the same engine instance to avoid recreating serializers.
@@ -57,7 +57,7 @@ class SerializationOperationsExecutionEngine(AOperationsExecutionEngine):
                     cls._instance = instance
         return cls._instance
 
-    def __init__(self, registry: Optional[OperationRegistry] = None):
+    def __init__(self, registry: OperationRegistry | None = None):
         """
         Initialize serialization operations execution engine.
         Args:
@@ -71,7 +71,7 @@ class SerializationOperationsExecutionEngine(AOperationsExecutionEngine):
         self._serializer_cache: dict[str, Any] = {}
         self._initialized = True
 
-    def _get_serializer(self, format_name: Optional[str] = None, file_path: Optional[str | Path] = None) -> ISerialization:
+    def _get_serializer(self, format_name: str | None = None, file_path: str | Path | None = None) -> ISerialization:
         """
         Get appropriate serializer for format.
         Args:
@@ -136,7 +136,7 @@ class SerializationOperationsExecutionEngine(AOperationsExecutionEngine):
         }
         return mapping.get(ext.lower(), ext.lower())
 
-    def _create_serializer_direct(self, format_name: str) -> Optional[ISerialization]:
+    def _create_serializer_direct(self, format_name: str) -> ISerialization | None:
         """
         Create serializer directly for common formats.
         Args:

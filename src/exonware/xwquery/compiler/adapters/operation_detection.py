@@ -6,11 +6,11 @@ Maps AST patterns to operation types for universal query processing.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 11-Oct-2025
 """
 
-from typing import Any, Optional
+from typing import Any
 from dataclasses import dataclass
 from enum import Enum
 from exonware.xwsyntax import ParseNode
@@ -64,7 +64,7 @@ class OperationPattern:
     ast_node_types: list[str]  # AST node types that indicate this operation
     keywords: list[str]  # Keywords that indicate this operation
     priority: int = 0  # Detection priority (higher = more specific)
-    format_specific: Optional[str] = None  # Format-specific patterns
+    format_specific: str | None = None  # Format-specific patterns
 
 
 class OperationDetector:
@@ -74,7 +74,7 @@ class OperationDetector:
         self._patterns = self._initialize_patterns()
         self._format_patterns = self._initialize_format_patterns()
 
-    def detect_operation(self, ast: ParseNode, format_name: Optional[str] = None) -> OperationType:
+    def detect_operation(self, ast: ParseNode, format_name: str | None = None) -> OperationType:
         """
         Detect operation type from AST node.
         Args:
@@ -97,7 +97,7 @@ class OperationDetector:
         # Default fallback
         return OperationType.SELECT
 
-    def _detect_format_specific(self, ast: ParseNode, format_name: str) -> Optional[OperationType]:
+    def _detect_format_specific(self, ast: ParseNode, format_name: str) -> OperationType | None:
         """Detect operation using format-specific patterns."""
         format_name = format_name.lower()
         if format_name not in self._format_patterns:
@@ -109,7 +109,7 @@ class OperationDetector:
                 return self._get_operation_type(pattern)
         return None
 
-    def _detect_generic(self, ast: ParseNode) -> Optional[OperationType]:
+    def _detect_generic(self, ast: ParseNode) -> OperationType | None:
         """Detect operation using generic patterns."""
         # Check patterns in priority order
         for pattern in sorted(self._patterns, key=lambda p: p.priority, reverse=True):
@@ -623,7 +623,7 @@ class OperationDetector:
             ],
         }
 
-    def get_supported_operations(self, format_name: Optional[str] = None) -> set[OperationType]:
+    def get_supported_operations(self, format_name: str | None = None) -> set[OperationType]:
         """Get supported operations for a format."""
         if format_name and format_name.lower() in self._format_patterns:
             patterns = self._format_patterns[format_name.lower()]
@@ -642,12 +642,12 @@ class OperationDetector:
 operation_detector = OperationDetector()
 # Convenience functions
 
-def detect_operation(ast: ParseNode, format_name: Optional[str] = None) -> OperationType:
+def detect_operation(ast: ParseNode, format_name: str | None = None) -> OperationType:
     """Detect operation type from AST node."""
     return operation_detector.detect_operation(ast, format_name)
 
 
-def get_supported_operations(format_name: Optional[str] = None) -> set[OperationType]:
+def get_supported_operations(format_name: str | None = None) -> set[OperationType]:
     """Get supported operations for a format."""
     return operation_detector.get_supported_operations(format_name)
 

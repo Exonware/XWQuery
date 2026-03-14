@@ -6,12 +6,12 @@ instead of hand-written parsers. Integrates with xwsystem.syntax engine.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
 
 import re
-from typing import Any, Optional
+from typing import Any
 from .base import AStructuredQueryStrategy
 from .grammar_based import GrammarBasedStrategy
 from ...errors import XWQueryTypeError, XWQueryValueError, XWQueryParseError
@@ -37,7 +37,7 @@ class SQLStrategy(GrammarBasedStrategy, AStructuredQueryStrategy):
 
     def __init__(self, **options):
         GrammarBasedStrategy.__init__(self, 'sql', **options)
-        super().__init__(**options)
+        AStructuredQueryStrategy.__init__(self, **options)
         self._mode = QueryMode.AUTO
         self._traits = QueryTrait.STRUCTURED | QueryTrait.ANALYTICAL | QueryTrait.BATCH
         # Initialize grammar-based parser

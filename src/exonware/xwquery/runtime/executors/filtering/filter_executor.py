@@ -5,11 +5,11 @@ FILTER Executor - General-purpose filtering using WHERE expression evaluation
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 08-Oct-2025
 """
 
-from typing import Any, Callable, Optional
+from typing import Any
 from ..base import AUniversalOperationExecutor
 from ....contracts import QueryAction, ExecutionContext, ExecutionResult
 from ....defs import OperationType
@@ -19,6 +19,7 @@ from .where_executor import WhereExecutor
 from ..utils import extract_items
 
 
+from collections.abc import Callable
 class FilterExecutor(AUniversalOperationExecutor):
     """
     FILTER operation executor - Universal filtering operation.
@@ -67,7 +68,7 @@ class FilterExecutor(AUniversalOperationExecutor):
             }
         )
 
-    def _execute_filter(self, node: Any, condition: Any, path: Optional[str], 
+    def _execute_filter(self, node: Any, condition: Any, path: str | None, 
                        context: ExecutionContext) -> dict:
         """
         Execute filter logic with path support.

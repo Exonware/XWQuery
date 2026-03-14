@@ -6,11 +6,11 @@ Supports XPath 1.0, 2.0, 3.0 with conversion modes.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 
-from typing import Any, Optional
+from typing import Any
 from .base_generator import APathQueryGenerator
 from ...contracts import QueryAction
 from ...errors import XWQueryValueError
@@ -87,7 +87,7 @@ class XPathGenerator(APathQueryGenerator):
 
     def _build_xpath(
         self,
-        table: Optional[str],
+        table: str | None,
         columns: list[str],
         predicates: list[str]
     ) -> str:
@@ -134,7 +134,7 @@ class XPathGenerator(APathQueryGenerator):
             xpath = ' | '.join(column_paths)
         return xpath
 
-    def _action_to_predicate(self, action: QueryAction) -> Optional[str]:
+    def _action_to_predicate(self, action: QueryAction) -> str | None:
         """Convert filter action to XPath predicate."""
         params = action.params
         # Get filter condition

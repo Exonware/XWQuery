@@ -6,7 +6,6 @@ Individual optimization rules that can be applied to execution plans.
 **Version:** 0.0.1.5
 """
 
-from typing import Optional
 from copy import deepcopy
 from .base import AOptimizationRule, ExecutionPlan, PlanNode
 from .contracts import IExecutionPlan, IPlanNode, IStatisticsManager
@@ -27,7 +26,7 @@ class PredicatePushdownRule(AOptimizationRule):
         """Check if plan has filters that can be pushed down"""
         return self._has_pushable_filter(plan.get_root_node())
 
-    async def apply(self, plan: IExecutionPlan) -> Optional[IExecutionPlan]:
+    async def apply(self, plan: IExecutionPlan) -> IExecutionPlan | None:
         """Apply predicate pushdown"""
         root = plan.get_root_node()
         optimized_root = self._pushdown_filters(root)
@@ -100,7 +99,7 @@ class ProjectionPushdownRule(AOptimizationRule):
         """Check if plan has projections that can be pushed down"""
         return self._has_pushable_projection(plan.get_root_node())
 
-    async def apply(self, plan: IExecutionPlan) -> Optional[IExecutionPlan]:
+    async def apply(self, plan: IExecutionPlan) -> IExecutionPlan | None:
         """Apply projection pushdown"""
         root = plan.get_root_node()
         optimized_root = self._pushdown_projections(root)
@@ -153,7 +152,7 @@ class IndexSelectionRule(AOptimizationRule):
         """Check if plan has scans that could use indexes"""
         return self._has_scannable_node(plan.get_root_node())
 
-    async def apply(self, plan: IExecutionPlan) -> Optional[IExecutionPlan]:
+    async def apply(self, plan: IExecutionPlan) -> IExecutionPlan | None:
         """Apply index selection"""
         root = plan.get_root_node()
         optimized_root = await self._select_indexes(root)
@@ -218,7 +217,7 @@ class IndexSelectionRule(AOptimizationRule):
             return new_node
         return node
 
-    def _extract_column_from_filter(self, filter_cond: any) -> Optional[str]:
+    def _extract_column_from_filter(self, filter_cond: any) -> str | None:
         """Extract column name from filter condition"""
         # Simplified extraction
         if hasattr(filter_cond, 'column'):
@@ -242,7 +241,7 @@ class JoinReorderingRule(AOptimizationRule):
         """Check if plan has multiple joins that can be reordered"""
         return self._count_joins(plan.get_root_node()) >= 2
 
-    async def apply(self, plan: IExecutionPlan) -> Optional[IExecutionPlan]:
+    async def apply(self, plan: IExecutionPlan) -> IExecutionPlan | None:
         """Apply join reordering"""
         # Simplified: In a full implementation, this would use dynamic programming
         # to find the optimal join order

@@ -7,12 +7,12 @@ Delegates to xwstorage's SqlOperationsExecutionEngine when available.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 20, 2026
 """
 
 from __future__ import annotations
-from typing import Any, Optional, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 from ...contracts import QueryAction, ExecutionContext, ExecutionResult
 from ..base import AOperationsExecutionEngine
 from ..executors.registry import get_operation_registry, OperationRegistry
@@ -36,7 +36,7 @@ class XWStorageOperationsExecutionEngine(AOperationsExecutionEngine):
     3. Delegates to xwstorage engine OR uses executors from runtime/executors/
     """
 
-    def __init__(self, storage_connection: Any, registry: Optional[OperationRegistry] = None):
+    def __init__(self, storage_connection: Any, registry: OperationRegistry | None = None):
         """
         Initialize XWStorage operations execution engine.
         Args:
@@ -46,8 +46,8 @@ class XWStorageOperationsExecutionEngine(AOperationsExecutionEngine):
         super().__init__()
         self._storage = storage_connection
         self._registry = registry or get_operation_registry()
-        self._storage_engine: Optional[Any] = None
-        self._capabilities: Optional[Any] = None  # Cached capabilities
+        self._storage_engine: Any | None = None
+        self._capabilities: Any | None = None  # Cached capabilities
         # Try to initialize xwstorage engine if available
         self._init_storage_engine()
         # Load capabilities from XWStorage

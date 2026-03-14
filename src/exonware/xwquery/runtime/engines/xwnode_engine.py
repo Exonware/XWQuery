@@ -11,12 +11,12 @@ Leverages XWNode features:
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 20, 2026
 """
 
 from __future__ import annotations
-from typing import Any, Optional
+from typing import Any
 from ...contracts import QueryAction, ExecutionContext, ExecutionResult
 from ..base import AOperationsExecutionEngine
 from ..executors.registry import get_operation_registry, OperationRegistry
@@ -38,7 +38,7 @@ class XWNodeOperationsExecutionEngine(AOperationsExecutionEngine):
     4. Executors work with XWNode (context.node is XWNode)
     """
 
-    def __init__(self, registry: Optional[OperationRegistry] = None):
+    def __init__(self, registry: OperationRegistry | None = None):
         """
         Initialize XWNode operations execution engine.
         Args:

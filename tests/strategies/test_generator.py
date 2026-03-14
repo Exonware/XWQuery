@@ -11,7 +11,6 @@ Generation Date: 28-Oct-2025
 """
 
 from pathlib import Path
-from typing import Optional
 from datetime import datetime
 # ==================== Strategy Definitions ====================
 STRATEGY_GROUPS = {

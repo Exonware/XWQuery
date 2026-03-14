@@ -6,11 +6,11 @@ Uses grammar adapter for parsing GraphQL queries to QueryAction tree.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 20-Dec-2025
 """
 
-from typing import Any, Optional
+from typing import Any
 from .base_parser import ABaseParser
 from ..adapters.grammar_adapter import GraphQLGrammarAdapter
 from ..adapters import SyntaxToQueryActionConverter

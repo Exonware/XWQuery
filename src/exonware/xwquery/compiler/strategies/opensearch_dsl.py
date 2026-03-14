@@ -6,11 +6,11 @@ This module implements the OpenSearch DSL query strategy for OpenSearch Query DS
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
 import re
-from typing import Any, Optional
+from typing import Any
 from .base import AStructuredQueryStrategy
 from .grammar_based import GrammarBasedStrategy
 from ...errors import XWQueryValueError
@@ -87,97 +87,3 @@ class OpenSearchDSLStrategy(GrammarBasedStrategy, AStructuredQueryStrategy):
         }
         serializer = _get_global_serializer('json')
         return self.execute(serializer.dumps(query_obj))
-        # to_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-        # Parse OpenSearch DSL query (JSON-based)
-        entity_name = None
-        fields = []
-        where_conditions = []
-        # Try to parse as JSON
-        dsl_obj = None
-        if query.startswith('{'):
-            try:
-                serializer = _get_global_serializer('json')
-                dsl_obj = serializer.loads(query)
-            except SerializationError:
-                pass
-        # Extract index from GET/POST path or JSON structure
-        index_match = re.search(r'(?:GET|POST)\s+/(\w+)/_search', query, re.IGNORECASE)
-        if index_match:
-            entity_name = index_match.group(1)
-        if dsl_obj:
-            # Extract query conditions
-            if 'query' in dsl_obj:
-                query_obj = dsl_obj['query']
-                if 'match' in query_obj:
-                    for field, value in query_obj['match'].items():
-                        fields.append(field)
-                        where_conditions.append(f"{field} = {value}")
-                elif 'term' in query_obj:
-                    for field, value in query_obj['term'].items():
-                        fields.append(field)
-                        where_conditions.append(f"{field} = {value}")
-                elif 'bool' in query_obj:
-                    bool_obj = query_obj['bool']
-                    if 'must' in bool_obj:
-                        for must_clause in bool_obj['must']:
-                            if 'match' in must_clause:
-                                for field, value in must_clause['match'].items():
-                                    fields.append(field)
-                                    where_conditions.append(f"{field} = {value}")
-        # Build actions tree
-        children = []
-        if entity_name:
-            children.append({
-                "type": "FROM",
-                "id": "opensearch_dsl_from_1",
-                "content": entity_name,
-                "line_number": 1,
-                "timestamp": datetime.now().isoformat(),
-                "children": []
-            })
-        if where_conditions:
-            where_content = " AND ".join(where_conditions)
-            children.append({
-                "type": "WHERE",
-                "id": "opensearch_dsl_where_1",
-                "content": where_content,
-                "line_number": 1,
-                "timestamp": datetime.now().isoformat(),
-                "children": []
-            })
-        select_fields = ", ".join(list(set(fields))) if fields else "*"
-        select_action = {
-            "type": "SELECT",
-            "id": "opensearch_dsl_select_1",
-            "content": f"SELECT {select_fields}",
-            "line_number": 1,
-            "timestamp": datetime.now().isoformat(),
-            "children": children
-        }
-        actions = {
-            "root": {
-                "type": "PROGRAM",
-                "statements": [select_action],
-                "comments": [],
-                "metadata": {
-                    "version": "1.0",
-                    "created": datetime.now().isoformat(),
-                    "source_format": "OpenSearch_DSL"
-                }
-            }
-        }
-        return ANode.from_native(actions)
-        # from_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-            # Build match query
-            query_obj = {"match": {}}
-            for cond in where_conditions:
-                if ' = ' in cond:
-                    field, value = cond.split(' = ', 1)
-                    field = field.strip()
-                    value = value.strip().strip("'\"")
-                    query_obj["match"][field] = value
-            serializer = _get_global_serializer('json')
-            dsl_query = serializer.dumps({"query": query_obj}, indent=2)
-        else:
-            dsl_query = '{"query": {"match_all": {}}}'
-        return dsl_query

@@ -7,12 +7,11 @@ from query string content using multi-stage detection pipeline.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 26-Oct-2025
 """
 
 import re
-from typing import Optional
 from collections import defaultdict
 
 
@@ -199,7 +198,7 @@ class QueryFormatDetector:
         confidence = combined_scores[best_format]
         return best_format, confidence
 
-    def _quick_keyword_check(self, query: str) -> Optional[tuple[str, float]]:
+    def _quick_keyword_check(self, query: str) -> tuple[str, float] | None:
         """
         Stage 1: Quick keyword check for common formats.
         Fast path that catches 80-90% of queries immediately.
@@ -320,7 +319,7 @@ class QueryFormatDetector:
         _, confidence = self.detect_format(query)
         return confidence >= self._threshold
 # Convenience function
-_global_detector: Optional[QueryFormatDetector] = None
+_global_detector: QueryFormatDetector | None = None
 
 
 def detect_query_format(query: str) -> tuple[str, float]:

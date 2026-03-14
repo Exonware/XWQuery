@@ -6,11 +6,11 @@ This module implements the CUE query strategy for CUE language (data constraints
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
 
-from typing import Any, Optional
+from typing import Any
 from .base import ADocumentQueryStrategy
 from .grammar_based import GrammarBasedStrategy
 from ...errors import XWQueryValueError

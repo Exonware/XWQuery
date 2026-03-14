@@ -6,16 +6,17 @@ conditionals, loops, and nested templates.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 29-Oct-2025
 """
 
 import os
 import re
-from typing import Any, Optional, Callable
+from typing import Any
 from pathlib import Path
 
 
+from collections.abc import Callable
 class TemplateEngine:
     """
     Powerful template engine for query generation.
@@ -35,7 +36,7 @@ class TemplateEngine:
     PARTIAL_PATTERN = r'\{\{>([^}]+)\}\}'
     COMMENT_PATTERN = r'\{\{!.*?\}\}'
 
-    def __init__(self, template_dir: Optional[str] = None):
+    def __init__(self, template_dir: str | None = None):
         """
         Initialize template engine.
         Args:
@@ -293,7 +294,7 @@ class QueryTemplateEngine(TemplateEngine):
     Adds query-specific features and filters.
     """
 
-    def __init__(self, template_dir: Optional[str] = None):
+    def __init__(self, template_dir: str | None = None):
         super().__init__(template_dir)
         self._add_query_filters()
 

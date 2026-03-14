@@ -6,11 +6,11 @@ Reusable functions for tokenization, normalization, expression parsing.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 import re
-from typing import Any, Optional
+from typing import Any
 from enum import Enum
 # ==================== Token Types ====================
 class TokenType(Enum):
@@ -102,7 +102,7 @@ class Tokenizer:
         '+', '-', '*', '/', '%',
         '||'  # String concatenation
     }
-    def __init__(self, query: str, keywords: Optional[set] = None):
+    def __init__(self, query: str, keywords: set | None = None):
         """
         Initialize tokenizer.
         Args:
@@ -248,7 +248,7 @@ class Tokenizer:
         # Check if keyword
         token_type = TokenType.KEYWORD if value.upper() in self.keywords else TokenType.IDENTIFIER
         return Token(token_type, value, start_pos, start_line, start_col)
-    def _read_operator_or_punctuation(self) -> Optional[Token]:
+    def _read_operator_or_punctuation(self) -> Token | None:
         """Read operator or punctuation."""
         start_pos = self.position
         start_line = self.line

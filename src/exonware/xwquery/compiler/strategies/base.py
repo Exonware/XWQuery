@@ -4,13 +4,13 @@ Query Strategy Base Classes
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: October 26, 2025
 """
 
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import Any, Optional
+from typing import Any
 from datetime import datetime
 # Import from root
 from ..base import AQueryStrategy
@@ -131,7 +131,7 @@ class AGraphQueryStrategy(AQueryStrategy):
         """Cycle detection query."""
         pass
 
-    def _build_actions_tree(self, entity_name: Optional[str], fields: list[str], 
+    def _build_actions_tree(self, entity_name: str | None, fields: list[str], 
                            where_conditions: list[str], source_format: str, 
                            action_id_prefix: str = "graphql") -> Any:
         """

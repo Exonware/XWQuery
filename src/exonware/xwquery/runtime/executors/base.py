@@ -4,13 +4,13 @@ Operation Executor Base Classes
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: October 26, 2025
 """
 
 import time
 from abc import ABC, abstractmethod
-from typing import Any, Optional
+from typing import Any
 # Import from runtime base (not root to avoid circular import)
 from ..base import AOperationExecutor
 from ...contracts import QueryAction, ExecutionContext, ExecutionResult

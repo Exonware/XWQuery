@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 """
 Native Operations Execution Engine - Executes QueryAction trees using operation registry
 This is the native XWQuery execution engine that uses the operation registry
@@ -8,12 +9,12 @@ No conversion needed - just walk the QueryAction tree and execute.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: October 26, 2025
 """
 
 import threading
-from typing import Any, Optional
+from typing import Any
 from ...contracts import QueryAction, ExecutionContext, ExecutionResult
 from ..base import AOperationsExecutionEngine
 from .registry import get_operation_registry, OperationRegistry
@@ -32,10 +33,10 @@ class NativeOperationsExecutionEngine(AOperationsExecutionEngine):
     3. Uses OperationRegistry to get executor for each operation
     4. Executor executes on context.node (native Python data)
     """
-    _instance: Optional['NativeOperationsExecutionEngine'] = None
+    _instance: "NativeOperationsExecutionEngine" | None = None
     _lock = threading.Lock()
 
-    def __new__(cls, registry: Optional[OperationRegistry] = None):
+    def __new__(cls, registry: OperationRegistry | None = None):
         """
         Singleton pattern for NativeOperationsExecutionEngine.
         Reuses the same engine instance to avoid recreating registries
@@ -49,7 +50,7 @@ class NativeOperationsExecutionEngine(AOperationsExecutionEngine):
                     cls._instance = instance
         return cls._instance
 
-    def __init__(self, registry: Optional[OperationRegistry] = None):
+    def __init__(self, registry: OperationRegistry | None = None):
         """
         Initialize native operations execution engine.
         Args:
@@ -129,3 +130,7 @@ class NativeOperationsExecutionEngine(AOperationsExecutionEngine):
             True if operation is registered, False otherwise
         """
         return self._registry.has(operation_name)
+
+
+# Public alias for tests and external callers
+ExecutionEngine = NativeOperationsExecutionEngine

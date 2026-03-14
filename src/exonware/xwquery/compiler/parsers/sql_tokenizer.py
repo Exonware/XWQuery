@@ -6,12 +6,11 @@ Handles all SQL:2016 standard tokens with excellent error reporting.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 
 from enum import Enum, auto
-from typing import Optional
 from dataclasses import dataclass
 from ...errors import XWQueryParseError
 # ==================== SQL Token Types ====================
@@ -539,7 +538,7 @@ class SQLTokenizer:
         )
     # ==================== Operators & Punctuation ====================
 
-    def _read_operator_or_punctuation(self) -> Optional[SQLToken]:
+    def _read_operator_or_punctuation(self) -> SQLToken | None:
         """Read operator or punctuation."""
         start_pos = self.position
         start_line = self.line

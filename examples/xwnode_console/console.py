@@ -8,7 +8,7 @@ import sys
 import os
 import time
 from pathlib import Path
-from typing import Optional, Any
+from typing import Any
 # Configure UTF-8 encoding for Windows console (fix Unicode emoji errors)
 # This follows GUIDELINES_DEV.md: Handle emojis gracefully on Windows
 if sys.platform == "win32":

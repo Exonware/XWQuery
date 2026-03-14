@@ -7,17 +7,18 @@ following GUIDELINES_DEV.md "Never reinvent the wheel" principle.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 
-from typing import Any, Optional, Callable
+from typing import Any
 import sys
 # ============================================================================
 # XWSYSTEM REUSE - Validation and Safety
 # ============================================================================
 # Per DEV_GUIDELINES.md Line 128: NO try/except for imports
 # xwsystem is a required dependency - import directly
+from collections.abc import Callable
 from exonware.xwsystem.validation import (
     validate_untrusted_data,
     ValidationError as XSystemValidationError
@@ -220,7 +221,7 @@ class SafeExtractor:
         return current
     @staticmethod
 
-    def extract_numeric_value(item: Any, field: Optional[str] = None, default: float = 0.0) -> Optional[float]:
+    def extract_numeric_value(item: Any, field: str | None = None, default: float = 0.0) -> float | None:
         """
         Safely extract numeric value with type conversion.
         Handles:
@@ -312,7 +313,7 @@ class SmartAggregator:
     """
     @staticmethod
 
-    def compute_aggregates(items: list[Any], field: Optional[str] = None) -> dict[str, Any]:
+    def compute_aggregates(items: list[Any], field: str | None = None) -> dict[str, Any]:
         """
         Compute all aggregates in a single pass with null handling.
         Returns:

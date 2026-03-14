@@ -9,13 +9,14 @@ remains self-contained.
 """
 
 from __future__ import annotations
+from collections.abc import Iterable
 import asyncio
 import json
 import os
 import tempfile
 import weakref
 from asyncio import Lock
-from typing import Any, Iterable, Optional
+from typing import Any
 from .data_ops_interface import (
     JsonPath,
     JsonValue,
@@ -76,7 +77,7 @@ def _iter_json_lines(fp: Iterable[str]) -> Iterable[tuple[int, str, JsonValue]]:
         yield line_no, line, obj
 
 
-def _get_by_path(obj: JsonValue, path: Optional[JsonPath]) -> JsonValue:
+def _get_by_path(obj: JsonValue, path: JsonPath | None) -> JsonValue:
     if path is None:
         return obj
     cur: JsonValue = obj
@@ -94,7 +95,7 @@ def _get_by_path(obj: JsonValue, path: Optional[JsonPath]) -> JsonValue:
 def stream_read(
     file_path: str,
     match: MatchFn,
-    path: Optional[JsonPath] = None,
+    path: JsonPath | None = None,
     encoding: str = "utf-8",
 ) -> JsonValue:
     """
@@ -116,7 +117,7 @@ def stream_read(
 async def async_stream_read(
     file_path: str,
     match: MatchFn,
-    path: Optional[JsonPath] = None,
+    path: JsonPath | None = None,
     encoding: str = "utf-8",
 ) -> JsonValue:
     """
@@ -153,8 +154,8 @@ def stream_update(
     """
     updated_count = 0
     dir_name, base_name = os.path.split(os.path.abspath(file_path))
-    temp_fd: Optional[int] = None
-    temp_path: Optional[str] = None
+    temp_fd: int | None = None
+    temp_path: str | None = None
     try:
         if atomic:
             temp_fd, temp_path = tempfile.mkstemp(
@@ -293,7 +294,7 @@ class JsonInternalOps(DataOperationsAbstract):
                 yield obj
     @staticmethod
 
-    def _get_by_path(obj: JsonValue, path: Optional[JsonPath]) -> JsonValue:
+    def _get_by_path(obj: JsonValue, path: JsonPath | None) -> JsonValue:
         return _get_by_path(obj, path)
     # ------------------------------------------------------------------
     # Indexed access (not supported for this engine)
@@ -358,7 +359,7 @@ class JsonInternalOps(DataOperationsAbstract):
     # Streaming search
     # ------------------------------------------------------------------
 
-    def find_first(self, match: SupportsJsonMatch, path: Optional[JsonPath] = None) -> JsonValue:
+    def find_first(self, match: SupportsJsonMatch, path: JsonPath | None = None) -> JsonValue:
         for obj in self._iter_json_lines():
             if match(obj):
                 return self._get_by_path(obj, path)
@@ -367,7 +368,7 @@ class JsonInternalOps(DataOperationsAbstract):
     async def async_find_first(
         self,
         match: SupportsJsonMatch,
-        path: Optional[JsonPath] = None,
+        path: JsonPath | None = None,
     ) -> JsonValue:
         loop = asyncio.get_running_loop()
         return await loop.run_in_executor(None, self.find_first, match, path)
@@ -375,8 +376,8 @@ class JsonInternalOps(DataOperationsAbstract):
     def find_all(
         self,
         match: SupportsJsonMatch,
-        limit: Optional[int] = None,
-        path: Optional[JsonPath] = None,
+        limit: int | None = None,
+        path: JsonPath | None = None,
     ) -> list[JsonValue]:
         results: list[JsonValue] = []
         for obj in self._iter_json_lines():
@@ -389,8 +390,8 @@ class JsonInternalOps(DataOperationsAbstract):
     async def async_find_all(
         self,
         match: SupportsJsonMatch,
-        limit: Optional[int] = None,
-        path: Optional[JsonPath] = None,
+        limit: int | None = None,
+        path: JsonPath | None = None,
     ) -> list[JsonValue]:
         loop = asyncio.get_running_loop()
         return await loop.run_in_executor(None, self.find_all, match, limit, path)

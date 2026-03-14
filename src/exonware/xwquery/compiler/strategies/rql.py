@@ -6,12 +6,12 @@ RQL is a query language for filtering and querying RESTful APIs.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 20-Dec-2025
 """
 
 import re
-from typing import Any, Optional
+from typing import Any
 from urllib.parse import parse_qs, urlparse
 from .base import AStructuredQueryStrategy
 from .grammar_based import GrammarBasedStrategy

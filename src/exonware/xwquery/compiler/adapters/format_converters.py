@@ -6,11 +6,11 @@ to convert ASTs to QueryAction trees.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 11-Oct-2025
 """
 
-from typing import Any, Optional
+from typing import Any
 from abc import ABC, abstractmethod
 from exonware.xwsyntax import ParseNode
 from exonware.xwquery.contracts import QueryAction
@@ -70,7 +70,7 @@ class SQLConverter(FormatConverter):
         params = self._extract_operation_params(statement_node, operation)
         return self._create_query_action(operation, params)
 
-    def _find_statement_node(self, ast: ParseNode) -> Optional[ParseNode]:
+    def _find_statement_node(self, ast: ParseNode) -> ParseNode | None:
         """Find the main statement node."""
         # Look for statement nodes
         statement_types = [
@@ -141,7 +141,7 @@ class CypherConverter(FormatConverter):
         params = self._extract_operation_params(statement_node, operation)
         return self._create_query_action(operation, params)
 
-    def _find_statement_node(self, ast: ParseNode) -> Optional[ParseNode]:
+    def _find_statement_node(self, ast: ParseNode) -> ParseNode | None:
         """Find the main statement node."""
         statement_types = [
             "match_statement", "create_statement", "merge_statement", "delete_statement"
@@ -198,7 +198,7 @@ class GraphQLConverter(FormatConverter):
         params = self._extract_operation_params(operation_node, operation)
         return self._create_query_action(operation, params)
 
-    def _find_operation_node(self, ast: ParseNode) -> Optional[ParseNode]:
+    def _find_operation_node(self, ast: ParseNode) -> ParseNode | None:
         """Find the main operation node."""
         operation_types = ["query", "mutation", "subscription"]
         for op_type in operation_types:
@@ -267,7 +267,7 @@ class MongoDBConverter(FormatConverter):
         params = self._extract_operation_params(operation_node, operation)
         return self._create_query_action(operation, params)
 
-    def _find_operation_node(self, ast: ParseNode) -> Optional[ParseNode]:
+    def _find_operation_node(self, ast: ParseNode) -> ParseNode | None:
         """Find the main operation node."""
         operation_types = ["find", "insert", "update", "delete"]
         for op_type in operation_types:
@@ -320,7 +320,7 @@ class GenericConverter(FormatConverter):
         params = best_rule.extraction_func(ast)
         return self._create_query_action(best_rule.query_action_type, params)
 
-    def _find_best_rule(self, ast: ParseNode) -> Optional[Any]:
+    def _find_best_rule(self, ast: ParseNode) -> Any | None:
         """Find the best matching rule for the AST."""
         best_rule = None
         best_priority = -1

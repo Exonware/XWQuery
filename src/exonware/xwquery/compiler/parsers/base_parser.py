@@ -6,12 +6,12 @@ Provides common tokenization, validation, and security.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Optional
+from typing import Any
 import re
 import time
 from ...contracts import QueryAction
@@ -152,10 +152,10 @@ class ABaseParser(ABC):
     def create_parse_error(
         self,
         message: str,
-        position: Optional[int] = None,
-        line: Optional[int] = None,
-        column: Optional[int] = None,
-        context: Optional[str] = None
+        position: int | None = None,
+        line: int | None = None,
+        column: int | None = None,
+        context: str | None = None
     ) -> XWQueryParseError:
         """
         Create helpful parse error with context.
@@ -218,7 +218,7 @@ class ABaseParser(ABC):
     def handle_incompatible_feature(
         self,
         feature_name: str,
-        error_message: Optional[str] = None
+        error_message: str | None = None
     ) -> None:
         """
         Handle incompatible features based on conversion mode.

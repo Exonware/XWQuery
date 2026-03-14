@@ -4,13 +4,12 @@ QueryAction extends ANode from xwnode - reusing tree functionality!
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: October 26, 2025
 """
 
 from __future__ import annotations
-from typing import Protocol, runtime_checkable
-from typing import Any, Optional
+from typing import Any, Protocol, runtime_checkable
 from dataclasses import dataclass, field
 # Import ANode from xwnode - QueryAction will extend it!
 from exonware.xwnode.base import ANode
@@ -39,11 +38,11 @@ class QueryAction(ANode):
     def __init__(
         self,
         type: str,
-        params: Optional[dict[str, Any]] = None,
+        params: dict[str, Any] | None = None,
         id: str = "",
         line_number: int = 0,
-        metadata: Optional[dict[str, Any]] = None,
-        children: Optional[list[QueryAction]] = None,
+        metadata: dict[str, Any] | None = None,
+        children: list[QueryAction] | None = None,
         strategy: Any = None
     ):
         """
@@ -170,7 +169,7 @@ class ExecutionContext:
     node: Any                        # Target data (native Python OR XWNode OR database connection)
     variables: dict[str, Any] = field(default_factory=dict)  # Query variables
     options: dict[str, Any] = field(default_factory=dict)    # Execution options
-    parent_context: Optional[ExecutionContext] = None      # Parent context for nested queries
+    parent_context: ExecutionContext | None = None      # Parent context for nested queries
     metadata: dict[str, Any] = field(default_factory=dict)   # Execution metadata
     engine_type: str = "native"  # Optional: "native", "xwnode", "xwstorage"
 
@@ -194,7 +193,7 @@ class ExecutionResult:
     """
     success: bool = True             # Whether execution succeeded
     data: Any = None                 # Result data
-    error: Optional[str] = None      # Error message if failed
+    error: str | None = None      # Error message if failed
     action_type: str = ""            # Type of action executed
     affected_count: int = 0          # Number of records affected
     execution_time: float = 0.0      # Execution time in seconds
@@ -274,7 +273,7 @@ class IOperationsExecutionEngine(Protocol):
         self,
         action: QueryAction,
         context: ExecutionContext,
-        child_results: Optional[list[ExecutionResult]] = None,
+        child_results: list[ExecutionResult] | None = None,
     ) -> ExecutionResult:
         """Execute a single operation (leaf or parent) and return its result."""
         ...

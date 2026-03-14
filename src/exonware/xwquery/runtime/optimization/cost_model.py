@@ -6,7 +6,6 @@ Estimates query execution costs.
 **Version:** 0.0.1.5
 """
 
-from typing import Optional
 import math
 from .base import ACostModel
 from .contracts import IStatisticsManager
@@ -22,7 +21,7 @@ class SimpleCostModel(ACostModel):
 
     def __init__(
         self,
-        statistics_manager: Optional[IStatisticsManager] = None,
+        statistics_manager: IStatisticsManager | None = None,
         page_size: int = 8192  # 8KB default page size
     ):
         super().__init__(statistics_manager)

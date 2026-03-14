@@ -5,10 +5,10 @@ This module implements the MetricsQL query strategy for VictoriaMetrics MetricsQ
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
-from typing import Any, Optional
+from typing import Any
 from .base import AStructuredQueryStrategy
 from .grammar_based import GrammarBasedStrategy
 from ...errors import XWQueryValueError
@@ -66,92 +66,3 @@ class MetricsQLStrategy(GrammarBasedStrategy, AStructuredQueryStrategy):
         """Execute aggregate query."""
         by_clause = f" by ({', '.join(group_by)})" if group_by else ""
         return self.execute(f"{functions[0]}({table}){by_clause}")
-        # to_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-        # Parse MetricsQL query (e.g., "up{job=\"prometheus\", instance=~\"server.*\"}")
-        entity_name = None
-        fields = []
-        where_conditions = []
-        # Extract metric name (first identifier before { or [)
-        metric_match = re.match(r'(\w+)', query)
-        if metric_match:
-            entity_name = metric_match.group(1)
-        # Extract label filters from { ... }
-        label_match = re.search(r'\{([^}]+)\}', query)
-        if label_match:
-            labels = label_match.group(1)
-            # Parse label=value pairs (supports =, !=, =~, !~)
-            label_pairs = re.findall(r'(\w+)\s*([=!~]+)\s*["\']?([^,}]+)["\']?', labels)
-            for key, op, value in label_pairs:
-                where_conditions.append(f"{key} {op} {value}")
-        # Build actions tree
-        children = []
-        if entity_name:
-            children.append({
-                "type": "FROM",
-                "id": "metricsql_from_1",
-                "content": entity_name,
-                "line_number": 1,
-                "timestamp": datetime.now().isoformat(),
-                "children": []
-            })
-        if where_conditions:
-            where_content = " AND ".join(where_conditions)
-            children.append({
-                "type": "WHERE",
-                "id": "metricsql_where_1",
-                "content": where_content,
-                "line_number": 1,
-                "timestamp": datetime.now().isoformat(),
-                "children": []
-            })
-        select_action = {
-            "type": "SELECT",
-            "id": "metricsql_select_1",
-            "content": f"SELECT {entity_name or '*'}"
-            if not fields else f"SELECT {', '.join(fields)}",
-            "line_number": 1,
-            "timestamp": datetime.now().isoformat(),
-            "children": children
-        }
-        actions = {
-            "root": {
-                "type": "PROGRAM",
-                "statements": [select_action],
-                "comments": [],
-                "metadata": {
-                    "version": "1.0",
-                    "created": datetime.now().isoformat(),
-                    "source_format": "METRICSQL"
-                }
-            }
-        }
-        return ANode.from_native(actions)
-        # from_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-            # Parse WHERE conditions into label filters
-            labels = []
-            for cond in where_conditions:
-                # Handle operators: =, !=, =~, !~
-                if ' = ' in cond:
-                    key, value = cond.split(' = ', 1)
-                    labels.append(f'{key}="{value}"')
-                elif ' != ' in cond:
-                    key, value = cond.split(' != ', 1)
-                    labels.append(f'{key}!="{value}"')
-                elif ' =~ ' in cond:
-                    key, value = cond.split(' =~ ', 1)
-                    labels.append(f'{key}=~"{value}"')
-                elif ' !~ ' in cond:
-                    key, value = cond.split(' !~ ', 1)
-                    labels.append(f'{key}!~"{value}"')
-                else:
-                    # Default to =
-                    if ' = ' in cond:
-                        key, value = cond.split(' = ', 1)
-                        labels.append(f'{key}="{value}"')
-            if labels:
-                metricsql_query = f"{metric}{{{', '.join(labels)}}}"
-            else:
-                metricsql_query = metric
-        else:
-            metricsql_query = metric
-        return metricsql_query

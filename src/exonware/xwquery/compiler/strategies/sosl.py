@@ -6,11 +6,11 @@ This module implements the SOSL query strategy for Salesforce Object Search Lang
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: January 2, 2025
 """
 import re
-from typing import Any, Optional
+from typing import Any
 from .base import AStructuredQueryStrategy
 from .grammar_based import GrammarBasedStrategy
 from ...errors import XWQueryValueError
@@ -62,86 +62,3 @@ class SOSLStrategy(GrammarBasedStrategy, AStructuredQueryStrategy):
     def aggregate_query(self, table: str, functions: list[str], group_by: list[str] = None) -> Any:
         """Execute aggregate query."""
         return self.execute(f"FIND '*' IN ALL FIELDS RETURNING {table}({', '.join(functions)})")
-        # to_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-        # Parse SOSL query (FIND ... IN ... RETURNING ...)
-        search_term = None
-        search_scope = None
-        returning_objects = []
-        fields = []
-        # Extract FIND search term
-        find_match = re.search(r"FIND\s+['\"](.+?)['\"]", query, re.IGNORECASE)
-        if find_match:
-            search_term = find_match.group(1)
-        # Extract IN scope
-        in_match = re.search(r"IN\s+(\w+\s+FIELDS)", query_upper, re.IGNORECASE)
-        if in_match:
-            search_scope = in_match.group(1)
-        # Extract RETURNING clause
-        returning_match = re.search(r"RETURNING\s+(.+?)(?:;|$)", query, re.IGNORECASE | re.DOTALL)
-        if returning_match:
-            returning_clause = returning_match.group(1).strip()
-            # Parse object(fields) patterns
-            obj_pattern = r"(\w+)\s*\(([^)]+)\)"
-            for obj_match in re.finditer(obj_pattern, returning_clause):
-                obj_name = obj_match.group(1)
-                obj_fields = [f.strip() for f in obj_match.group(2).split(',') if f.strip()]
-                returning_objects.append((obj_name, obj_fields))
-        # Build actions tree
-        children = []
-        # Add search term as WHERE condition
-        if search_term:
-            where_content = f"search_term = '{search_term}'"
-            if search_scope:
-                where_content += f" IN {search_scope}"
-            children.append({
-                "type": "WHERE",
-                "id": "sosl_where_1",
-                "content": where_content,
-                "line_number": 1,
-                "timestamp": datetime.now().isoformat(),
-                "children": []
-            })
-        # Use first object as entity (or default)
-        entity_name = returning_objects[0][0] if returning_objects else "Object"
-        fields = returning_objects[0][1] if returning_objects else []
-        if entity_name:
-            children.append({
-                "type": "FROM",
-                "id": "sosl_from_1",
-                "content": entity_name,
-                "line_number": 1,
-                "timestamp": datetime.now().isoformat(),
-                "children": []
-            })
-        select_fields = ", ".join(fields) if fields else "*"
-        select_action = {
-            "type": "SELECT",
-            "id": "sosl_select_1",
-            "content": f"SELECT {select_fields}",
-            "line_number": 1,
-            "timestamp": datetime.now().isoformat(),
-            "children": children
-        }
-        actions = {
-            "root": {
-                "type": "PROGRAM",
-                "statements": [select_action],
-                "comments": [],
-                "metadata": {
-                    "version": "1.0",
-                    "created": datetime.now().isoformat(),
-                    "source_format": "SOSL"
-                }
-            }
-        }
-        return ANode.from_native(actions)
-        # from_actions_tree() now inherited from GrammarBasedStrategy (uses xwsyntax grammar)
-                # Extract search term from WHERE condition
-                if "search_term = " in child_content:
-                    term_match = re.search(r"search_term\s*=\s*['\"](.+?)['\"]", child_content)
-                    if term_match:
-                        search_term = term_match.group(1)
-        entity = entity_name or 'Object'
-        fields_str = ', '.join(fields) if fields else 'Id, Name'
-        sosl_query = f"FIND '{search_term}' IN ALL FIELDS RETURNING {entity}({fields_str})"
-        return sosl_query

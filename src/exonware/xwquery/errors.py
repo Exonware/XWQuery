@@ -4,13 +4,13 @@ Rich error hierarchy with context and suggestions, following xwnode pattern.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: October 26, 2025
 """
 
 from __future__ import annotations
 import time
-from typing import Any, Optional
+from typing import Any
 from exonware.xwsystem import get_logger
 logger = get_logger(__name__)
 # ============================================================================

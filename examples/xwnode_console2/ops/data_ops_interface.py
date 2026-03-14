@@ -15,8 +15,9 @@ switch engines at runtime without changing its behaviour.
 """
 
 from __future__ import annotations
+from collections.abc import Callable, Iterable
 from abc import ABC, abstractmethod
-from typing import Any, Callable, Iterable, Optional, Protocol
+from typing import Any, Protocol
 JsonValue = Any
 JsonPath = list[str | int] | tuple
 MatchFn = Callable[[JsonValue], bool]
@@ -137,7 +138,7 @@ class DataOpsInterface(ABC):
     # ------------------------------------------------------------------
     @abstractmethod
 
-    def find_first(self, match: SupportsJsonMatch, path: Optional[JsonPath] = None) -> JsonValue:
+    def find_first(self, match: SupportsJsonMatch, path: JsonPath | None = None) -> JsonValue:
         """
         Stream the file and return the first record (or sub-path) matching the predicate.
         Implementations MUST avoid loading the whole file into memory.
@@ -148,7 +149,7 @@ class DataOpsInterface(ABC):
     async def async_find_first(
         self,
         match: SupportsJsonMatch,
-        path: Optional[JsonPath] = None,
+        path: JsonPath | None = None,
     ) -> JsonValue:
         """Async variant of find_first()."""
         raise NotImplementedError
@@ -157,8 +158,8 @@ class DataOpsInterface(ABC):
     def find_all(
         self,
         match: SupportsJsonMatch,
-        limit: Optional[int] = None,
-        path: Optional[JsonPath] = None,
+        limit: int | None = None,
+        path: JsonPath | None = None,
     ) -> list[JsonValue]:
         """
         Stream the file and return all matching records (or sub-paths), up to `limit`.
@@ -170,8 +171,8 @@ class DataOpsInterface(ABC):
     async def async_find_all(
         self,
         match: SupportsJsonMatch,
-        limit: Optional[int] = None,
-        path: Optional[JsonPath] = None,
+        limit: int | None = None,
+        path: JsonPath | None = None,
     ) -> list[JsonValue]:
         """Async variant of find_all()."""
         raise NotImplementedError

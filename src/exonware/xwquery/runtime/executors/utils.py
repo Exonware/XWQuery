@@ -7,16 +7,17 @@ Solution: Centralize common utilities following GUIDELINES_DEV.md "Never reinven
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.2
+Version: 0.9.0.3
 Generation Date: 28-Oct-2025
 """
 
-from typing import Any, Optional, Callable
+from typing import Any
 # ============================================================================
 # DATA EXTRACTION UTILITIES
 # ============================================================================
 
 
+from collections.abc import Callable
 def extract_items(node: Any) -> list[Any]:
     """
     Extract items from node regardless of type.
@@ -66,7 +67,7 @@ def extract_items(node: Any) -> list[Any]:
     return [node]
 
 
-def extract_numeric_value(item: Any, field: Optional[str] = None) -> Optional[float]:
+def extract_numeric_value(item: Any, field: str | None = None) -> float | None:
     """
     Extract numeric value from item with optional field specification.
     REUSE: Centralized numeric extraction used by SUM, AVG, MIN, MAX.
@@ -159,7 +160,7 @@ def extract_field_value(item: Any, field_path: str) -> Any:
 
 
 def matches_condition(item: Any, condition: Any, 
-                     evaluator: Optional[Callable] = None) -> bool:
+                     evaluator: Callable | None = None) -> bool:
     """
     Check if item matches condition.
     REUSE: Centralized condition matching used by UPDATE, DELETE, and others.
@@ -287,7 +288,7 @@ def items_equal(item1: Any, item2: Any) -> bool:
 # ============================================================================
 
 
-def compute_aggregates(items: list[Any], field: Optional[str] = None) -> dict[str, Any]:
+def compute_aggregates(items: list[Any], field: str | None = None) -> dict[str, Any]:
     """
     Compute all common aggregates in a single pass.
     REUSE: Single-pass computation for SUM, AVG, MIN, MAX, COUNT.

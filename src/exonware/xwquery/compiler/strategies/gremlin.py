@@ -5,7 +5,7 @@ This module implements the Gremlin query strategy for Apache TinkerPop graph que
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.3
+Version: 0.9.0.4
 Generation Date: January 2, 2025
 """
 

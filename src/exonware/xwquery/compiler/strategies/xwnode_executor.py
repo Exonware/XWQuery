@@ -7,12 +7,14 @@ using the existing XWNode strategy system.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.3
+Version: 0.9.0.4
 Generation Date: January 2, 2025
 """
 
 from typing import Any
 from datetime import datetime
+
+from exonware.xwquery.version import __version__
 from .base import AQueryActionExecutor
 from .xwqs import XWQSStrategy
 from exonware.xwnode.base import ANode
@@ -209,7 +211,7 @@ class XWNodeQueryActionExecutor(AQueryActionExecutor):
         """Get XWNode backend information."""
         return {
             "backend": "XWNODE",
-            "version": "0.0.1",
+            "version": __version__,
             "capabilities": [
                 "multi_language_queries",
                 "format_agnostic",

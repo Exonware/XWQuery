@@ -7,7 +7,7 @@ This is equivalent to RavenDB's .Include() functionality.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.3
+Version: 0.9.0.4
 Generation Date: 20-Dec-2025
 """
 

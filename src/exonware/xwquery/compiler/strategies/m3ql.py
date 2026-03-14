@@ -5,7 +5,7 @@ This module implements the M3QL query strategy for M3 Query Language operations.
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.3
+Version: 0.9.0.4
 Generation Date: January 2, 2025
 """
 from typing import Any

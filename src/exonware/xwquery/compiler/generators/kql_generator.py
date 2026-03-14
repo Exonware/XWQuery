@@ -5,7 +5,7 @@ KQL generator - Azure Kusto Query Language (log analytics).
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.3
+Version: 0.9.0.4
 Generation Date: 28-Oct-2025
 """
 

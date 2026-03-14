@@ -5,7 +5,7 @@ HAVING Executor - Filters grouped results using WHERE expression evaluation
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.3
+Version: 0.9.0.4
 Generation Date: 09-Oct-2025
 """
 

@@ -5,7 +5,7 @@ This module implements the GQL query strategy for ISO/IEC 39075:2024 Graph Query
 Company: eXonware.com
 Author: eXonware Backend Team
 Email: connect@exonware.com
-Version: 0.9.0.3
+Version: 0.9.0.4
 Generation Date: January 2, 2025
 """
 
